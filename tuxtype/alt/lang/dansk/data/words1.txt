@@ -1,0 +1,37 @@
+# Note: Maximum of 200 words per word file.
+# Lines beginning with "#" are comments.
+# Blank lines ignored.
+kat
+hat
+nat
+abe
+ile
+ane
+ser
+ler
+bad
+mad
+fra
+bar
+rim
+reb
+som
+der
+var
+kan
+han
+ham
+den
+det
+for
+lam
+ret
+tro
+bor
+mor
+far
+var
+nar
+rar
+
+

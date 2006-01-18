@@ -1,0 +1,43 @@
+# Note: Maximum of 200 words per word file.
+# Lines beginning with "#" are comments.
+# Blank lines ignored.
+slank
+trang
+vang
+pram
+sandt
+falsk
+vaske
+slange
+frakke
+sende
+isse
+salen
+maler
+edb
+bambus
+tast
+mast
+knast
+uret
+lovet
+smil
+poter
+bruser
+grene
+kilde
+klima
+vente
+gjort
+hold
+plask
+benet
+bonet
+gulv
+tappe
+rappe
+anden
+tand
+vinter
+sommer
+

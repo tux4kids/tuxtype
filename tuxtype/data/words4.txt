@@ -1,0 +1,39 @@
+# Note: Maximum of 200 words per word file.
+# Lines beginning with "#" are comments.
+# Blank lines ignored.
+should
+shant
+poorly
+great
+higher
+taller
+better
+hunter
+hunted
+smile
+ought
+taught
+wrought
+fought
+bought
+frill
+canvas
+ghost
+devour
+remove
+clasp
+glass
+hungry
+eating
+please
+sorry
+mourn
+scorn
+emplore
+restore
+resize
+relive
+lively
+plaid
+fun
+

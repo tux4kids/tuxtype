@@ -1,0 +1,176 @@
+This file contains any messages produced by compilers while
+running configure, to aid debugging if configure makes a mistake.
+
+configure:606: checking host system type
+configure:627: checking target system type
+configure:645: checking build system type
+configure:699: checking for a BSD compatible install
+configure:752: checking whether build environment is sane
+configure:790: checking whether make sets ${MAKE}
+configure:836: checking for working aclocal
+configure:849: checking for working autoconf
+configure:862: checking for working automake
+configure:875: checking for working autoheader
+configure:888: checking for working makeinfo
+configure:950: checking for a C-Compiler
+configure:956: checking for gcc
+configure:1062: checking whether the C compiler (gcc  ) works
+configure:1078: gcc -o conftest    conftest.c  1>&5
+configure:1104: checking whether the C compiler (gcc  ) is a cross-compiler
+configure:1109: checking whether we are using GNU C
+configure:1118: gcc -E conftest.c
+configure:1186: checking how to run the C preprocessor
+configure:1207: gcc -E  conftest.c >/dev/null 2>conftest.out
+configure:1248: checking for a C++-Compiler
+configure:1254: checking for g++
+configure:1370: checking whether the C++ compiler (g++  -s) works
+configure:1386: g++ -o conftest   -s conftest.C  1>&5
+configure:1412: checking whether the C++ compiler (g++  -s) is a cross-compiler
+configure:1417: checking whether we are using GNU C++
+configure:1426: g++ -E conftest.C
+configure:1472: checking whether g++ supports -fno-exceptions
+configure:1504: checking whether g++ supports -fno-rtti
+configure:1536: checking whether g++ supports -fno-check-new
+configure:1649: checking whether g++ supports -fexceptions
+configure:1683: checking whether g++ supports -frtti
+configure:1721: checking how to run the C++ preprocessor
+configure:1740: g++ -E  conftest.C >/dev/null 2>conftest.out
+configure:1820: checking whether g++ supports -frepo
+configure:1960: checking for Cygwin environment
+configure:1976: gcc -c -O2  conftest.c 1>&5
+configure: In function `main':
+configure:1972: `__CYGWIN32__' undeclared (first use in this function)
+configure:1972: (Each undeclared identifier is reported only once
+configure:1972: for each function it appears in.)
+configure: failed program was:
+#line 1965 "configure"
+#include "confdefs.h"
+
+int main() {
+
+#ifndef __CYGWIN__
+#define __CYGWIN__ __CYGWIN32__
+#endif
+return __CYGWIN__;
+; return 0; }
+configure:1993: checking for mingw32 environment
+configure:2005: gcc -c -O2  conftest.c 1>&5
+configure: In function `main':
+configure:2001: `__MINGW32__' undeclared (first use in this function)
+configure:2001: (Each undeclared identifier is reported only once
+configure:2001: for each function it appears in.)
+configure: failed program was:
+#line 1998 "configure"
+#include "confdefs.h"
+
+int main() {
+return __MINGW32__;
+; return 0; }
+configure:2056: checking for ld used by GCC
+configure:2124: checking if the linker (/usr/bin/ld) is GNU ld
+GNU ld version 2.12.90.0.1 20020307 Debian/GNU Linux
+configure:2141: checking for /usr/bin/ld option to reload object files
+configure:2153: checking for BSD-compatible nm
+configure:2189: checking whether ln -s works
+configure:2210: checking how to recognise dependant libraries
+configure:2320: checking for object suffix
+configure:2326: gcc -c -O2  conftest.c 1>&5
+configure:2346: checking for executable suffix
+configure:2356: gcc -o conftest -O2  -s conftest.c  1>&5
+configure:2526: checking for ranlib
+configure:2593: checking for strip
+ltconfig:563:checking for g++ option to produce PIC
+ltconfig:693:checking that g++ PIC flag -fPIC works.
+ltconfig:702: g++ -c -O2 -fno-exceptions -fno-rtti -fno-check-new -fPIC -DPIC  conftest.c 1>&5
+ltconfig:754: checking if g++ static flag -static works
+ltconfig:762: g++ -o conftest -O2 -fno-exceptions -fno-rtti -fno-check-new  -s -static conftest.c  1>&5
+ltconfig:799: checking if g++ supports -c -o file.o
+ltconfig:800: g++ -c -O2 -fno-exceptions -fno-rtti -fno-check-new -o out/conftest2.o  conftest.c 1>&5
+ltconfig:832: checking if g++ supports -c -o file.lo
+ltconfig:833: g++ -c -O2 -fno-exceptions -fno-rtti -fno-check-new -c -o conftest.lo  conftest.c 1>&5
+ltconfig:884: checking if g++ supports -fno-rtti -fno-exceptions
+ltconfig:885: g++ -c -O2 -fno-exceptions -fno-rtti -fno-check-new -fno-rtti -fno-exceptions -c conftest.c  conftest.c 1>&5
+ltconfig:1867: checking if global_symbol_pipe works
+ltconfig:1868: g++ -c -O2 -fno-exceptions -fno-rtti -fno-check-new  conftest.c 1>&5
+ltconfig:1871: eval "/usr/bin/nm -B conftest.o | sed -n -e 's/^.*[ 	]\([ABCDGISTW]\)[ 	][ 	]*\(\)\([_A-Za-z][_A-Za-z0-9]*\)$/\1 \2\3 \3/p' > conftest.nm"
+ltconfig:1923: g++ -o conftest -O2 -fno-exceptions -fno-rtti -fno-check-new -fno-builtin -fno-rtti -fno-exceptions  -s conftest.c conftstm.o 1>&5
+ltconfig:2032: checking for dlopen in -ldl
+ltconfig:2052: g++ -o conftest -O2 -fno-exceptions -fno-rtti -fno-check-new -fno-builtin -fno-rtti -fno-exceptions  -s conftest.c -ldl   1>&5
+ltconfig:2269: checking for dlfcn.h
+ltconfig:2279: g++ -c -O2 -fno-exceptions -fno-rtti -fno-check-new -fno-builtin -fno-rtti -fno-exceptions  conftest.c 1>&5 >/dev/null 2>conftest.out
+ltconfig:2307: checking whether a program can dlopen itself
+ltconfig:2361: g++ -o conftest -O2 -fno-exceptions -fno-rtti -fno-check-new -fno-builtin -fno-rtti -fno-exceptions  -DHAVE_DLFCN_H -s -Wl,--export-dynamic conftest.c -ldl  1>&5
+ltconfig:2354: ANSI C++ forbids declaration `fnord' with no type
+ltconfig: In function `int main()':
+ltconfig:2357: implicit declaration of function `int exit(...)'
+ltconfig: failed program was:
+#line 2315 "ltconfig"
+
+#if HAVE_DLFCN_H
+#include <dlfcn.h>
+#endif
+
+#include <stdio.h>
+
+#ifdef RTLD_GLOBAL
+# define LTDL_GLOBAL	RTLD_GLOBAL
+#else
+# ifdef DL_GLOBAL
+#  define LTDL_GLOBAL	DL_GLOBAL
+# else
+#  define LTDL_GLOBAL	0
+# endif
+#endif
+
+/* We may have to define LTDL_LAZY_OR_NOW in the command line if we
+   find out it does not work in some platform. */
+#ifndef LTDL_LAZY_OR_NOW
+# ifdef RTLD_LAZY
+#  define LTDL_LAZY_OR_NOW	RTLD_LAZY
+# else
+#  ifdef DL_LAZY
+#   define LTDL_LAZY_OR_NOW	DL_LAZY
+#  else
+#   ifdef RTLD_NOW
+#    define LTDL_LAZY_OR_NOW	RTLD_NOW
+#   else
+#    ifdef DL_NOW
+#     define LTDL_LAZY_OR_NOW	DL_NOW
+#    else
+#     define LTDL_LAZY_OR_NOW	0
+#    endif
+#   endif
+#  endif
+# endif
+#endif
+
+fnord() { int i=42;}
+main() { void *self, *ptr1, *ptr2; self=dlopen(0,LTDL_GLOBAL|LTDL_LAZY_OR_NOW);
+    if(self) { ptr1=dlsym(self,"fnord"); ptr2=dlsym(self,"_fnord");
+	       if(ptr1 || ptr2) { dlclose(self); exit(0); } } exit(1); }
+
+configure:2881: checking for dlopen in -ldl
+configure:2925: checking for shl_unload in -ldld
+configure:2944: gcc -o conftest -O2  -s conftest.c -ldld   1>&5
+/usr/bin/ld: cannot find -ldld
+collect2: ld returned 1 exit status
+configure: failed program was:
+#line 2933 "configure"
+#include "confdefs.h"
+/* Override any gcc2 internal prototype to avoid an error.  */
+/* We use char because int might match the return type of a gcc2
+    builtin and then its argument prototype would still apply.  */
+char shl_unload();
+
+int main() {
+shl_unload()
+; return 0; }
+configure:2984: checking for extra includes
+configure:3015: checking for extra libs
+configure:3087: checking for sdl-config
+configure:3122: checking for SDL - version >= 1.2.0
+configure:3207: gcc -o conftest -O2 -I/usr/include/SDL -D_REENTRANT  -s conftest.c  -L/usr/lib -lSDL -lpthread 1>&5
+configure:3291: checking for main in -lSDL_image
+configure:3306: gcc -o conftest -O2  -I/usr/include/SDL -D_REENTRANT -s conftest.c -lSDL_image   -L/usr/lib -lSDL -lpthread 1>&5
+configure:3330: checking for main in -lSDL_mixer
+configure:3345: gcc -o conftest -O2  -I/usr/include/SDL -D_REENTRANT -s conftest.c -lSDL_mixer   -L/usr/lib -lSDL -lpthread -lSDL_image 1>&5

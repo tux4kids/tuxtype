@@ -1,0 +1,40 @@
+# Note: Maximum of 200 words per word file.
+# Lines beginning with "#" are comments.
+# Blank lines ignored.
+stair
+stare
+stoop
+still
+stink
+blank
+plank
+quiet
+quote
+float
+moat
+goat
+stoke
+smell
+quell
+buoy
+store
+floor
+score
+ready
+stand
+drink
+dandy
+manly
+badly
+sadly
+fake
+dwell
+swell
+peel
+clean
+steam
+zero
+could
+would
+fun
+

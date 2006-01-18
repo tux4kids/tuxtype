@@ -1,0 +1,13 @@
+-Clean up code! (Someone beat it severely with the "oogly stick"!)
+
+-In playgame.c lines 1288-1339, 1353-1404, and 1418-1469 are almost exactly
+ the same. These need to be modularized and stuck in their own function.
+ (Did it this way because I was lazy when I wrote this part, and was just
+ trying to make game work.... not that it does, I have no excuse ;)
+
+-In playgame.c, kascade routines, still have occassional graphic remnants
+ after tux has finished moving which need to be resolved (presently, I
+ have only found continuing problems 1) at end animation [yipe and win],
+ and 2) after gulp [this happens very rarely]).
+
+-Update this TODO list ;-)

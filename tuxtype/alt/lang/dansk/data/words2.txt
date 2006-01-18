@@ -1,0 +1,30 @@
+# Note: Maximum of 200 words per word file.
+# Lines beginning with "#" are comments.
+# Blank lines ignored.
+mand
+land
+sand
+tang
+lang
+sang
+fred
+hane
+dame
+judo
+pram
+silo
+grim
+ost
+ymer
+mode
+vare
+tung
+let
+sump
+nabo
+line
+lim
+dase
+fusk
+
+

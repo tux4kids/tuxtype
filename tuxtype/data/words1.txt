@@ -1,0 +1,35 @@
+# Note: Maximum of 200 words per word file.
+# Lines beginning with "#" are comments.
+# Blank lines ignored.
+cat
+dog
+sky
+one
+two
+for
+red
+end
+ask
+say
+pop
+mop
+hat
+man
+can
+fan
+dry
+try
+fry
+sly
+buy
+bye
+pie
+sad
+mad
+bad
+fad
+had
+lap
+cap
+nap
+

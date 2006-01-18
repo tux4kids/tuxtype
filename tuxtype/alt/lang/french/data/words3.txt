@@ -1,0 +1,30 @@
+# Note: Maximum of 200 words per word file.
+# Lines beginning with "#" are comments.
+# Blank lines ignored.
+droit
+avoir
+place
+avion
+porte
+votre
+tasse
+fendu
+vieux
+mieux
+aussi
+place
+assis
+valet
+photo
+messe
+salon
+idole
+jouer
+odeur
+liste
+monde
+lunch
+passe
+comme
+bande
+

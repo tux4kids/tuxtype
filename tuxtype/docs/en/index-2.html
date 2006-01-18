@@ -1,0 +1,108 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+ <META NAME="GENERATOR" CONTENT="SGML-Tools 1.0.9">
+ <TITLE>The Tuxtype Handbook: Installation</TITLE>
+ <LINK HREF="index-3.html" REL=next>
+ <LINK HREF="index-1.html" REL=previous>
+ <LINK HREF="index.html#toc2" REL=contents>
+</HEAD>
+<BODY>
+<A HREF="index-3.html">Next</A>
+<A HREF="index-1.html">Previous</A>
+<A HREF="index.html#toc2">Contents</A>
+<HR>
+<H2><A NAME="s2">2. Installation</A></H2>
+
+<P>
+<H2><A NAME="ss2.1">2.1 How to obtain Tuxtype </A>
+</H2>
+Tux Typing can be obtained from the Tux Typing homepage at
+ <a href="http://www.geekcomix.com/dm/tuxtype/">http://www.geekcomix.com/dm/tuxtype/</a>.
+ There you can obtain source code and binary distributions of Tux Typing.
+<P>
+<P>
+<H2><A NAME="ss2.2">2.2 Requirements</A>
+</H2>
+
+<!---------- TO EDIT --------->
+<i>(The following is a rough estimate, anyone care to test this software
+out and give me better numbers?)</i>
+<br><br>
+<!---------- END TO EDIT ---------->
+
+Tux Typing requires a computer with the following hardware as a minimum:
+<ul>
+<li>200 Mhz Pentium class CPU</li>
+<li>32 Megs of RAM</li>
+<li>2 Megs Video RAM</li>
+<li>80 Megs of Hard Drive space (if downloading the entire source code as well as installing binaries)</li>
+<li>Keyboard and Mouse</li>
+</ul>
+However, it is recommended that you have at least:
+<ul>
+<li>300 Mhz Pentium II clase CPU</li>
+<li>64 Megs of RAM</li>
+<li>4 Megs Video RAM</li>
+<li>80 Megs of Hard Drive space</li>
+<li>Keyboard and Mouse</li>
+</ul>
+Tux Typing also requires the latest stable version of <a href="http://www.libsdl.org/">SDL: Simple Direct Media Layer</a>
+ library as well as SDL_Mixer and SDL_Image (also available from the SDL web-site).
+<P>
+<P>
+<H2><A NAME="ss2.3">2.3 Compilation and installation</A>
+</H2>
+
+<P>
+<P>In order to compile and install Tux Typing on your system, as root (superuser) type the following in
+the base directory of the Tuxtype distribution:
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+% ./configure
+% make
+% make install
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>
+<P>Since Tux Typing uses
+<PRE>
+autoconf
+</PRE>
+ you should have not trouble
+compiling it.
+Should you run into problems please report them to the the author at 
+<A HREF="mailto:hart@geekcomix.com">Sam Hart</A><P>
+If you obtained a binary distribution of Tux Typing (eg, in a format such as RPM or DEB)
+then please consult your documentation on how to install such packages on your system.
+<P>
+<P>
+<H2><A NAME="ss2.4">2.3 Installing Optional Themes</A>
+</H2>
+
+<p>As of version 1.0pre1, Tux Typing has support for optional themes. These themes can be anything from alternative language
+support to alternative graphic themes or word files. Over the 1.1-1.2 development cycle we plan on finalizing this theme
+support, however, for now you can utilize themes via the command line.</p>
+
+<p>To install a new theme, you first must obtain a theme from:
+<blockquote><a href="http://www.geekcomix.com/dm/tuxtype/themes/">http://www.geekcomix.com/dm/tuxtype/themes/</a></blockquote>
+This theme will come in the form of a ZIP file.</p>
+
+<p>Uncompress this ZIP file using whatever compression utility your OS supports, and place the directory contents inside your
+Tux Typing data directory. On Unix systems this is typically /usr/local/share/tuxtype/ or /usr/share/tuxtype/ whereas on Win32 and
+BeOS it is whereever you installed Tux Typing.</p>
+
+<p>Once you have installed the theme, you activate the theme by running Tux Typing with the "--theme" or "-t" options. For example,
+if I had installed the theme "french" on my system, I would activate this theme with the following command line:
+<blockquote><pre>tuxtype --theme french</pre></blockquote>
+</p>
+
+<P>
+<P>
+<HR>
+<A HREF="index-3.html">Next</A>
+<A HREF="index-1.html">Previous</A>
+<A HREF="index.html#toc2">Contents</A>
+</BODY>
+</HTML>

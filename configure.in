@@ -1,0 +1,57 @@
+dnl without this order in this file, autoconf will not work!
+dnl the argument is a source file out of your sources. But
+dnl acinclude.m4 makes the job for all programs ;-)
+AC_INIT(configure.in)
+
+dnl enable the following if you want to use autoconf/automake
+dnl framework from a certain directory (like kde-common)
+dnl AC_CONFIG_AUX_DIR(admin)
+
+AC_CANONICAL_SYSTEM
+AC_ARG_PROGRAM
+AC_PROG_CC
+
+AM_INIT_AUTOMAKE(tuxtype,1.0.3)
+
+AC_PREFIX_DEFAULT(/usr/local)
+if test "x$prefix" = "xNONE"; then
+  prefix=$ac_default_prefix
+  ac_configure_args="$ac_configure_args --prefix $prefix"
+fi
+
+dnl
+AM_CONFIG_HEADER(config.h)
+
+dnl checks for programs.
+
+dnl in this space add everything you want to check for
+dnl examples are specific headers, libraries, etc.
+
+dnl Check for SDL
+SDL_VERSION=1.2.0
+AM_PATH_SDL($SDL_VERSION,
+            :,
+            AC_MSG_ERROR([*** SDL version $SDL_VERSION not found!])
+)
+CPPFLAGS="$CPPFLAGS $SDL_CFLAGS"
+LIBS="$LIBS $SDL_LIBS"
+
+dnl Checks for libraries.
+dnl Replace `main' with a function in -lSDL_image:
+AC_CHECK_LIB(SDL_image, main,
+             LIBS="$LIBS -lSDL_image",
+             AC_MSG_ERROR([*** SDL_image library not found!])
+            )
+
+dnl Checks for libraries.
+dnl Replace `main' with a function in -lSDL_,mixer:
+AC_CHECK_LIB(SDL_mixer, main,
+             LIBS="$LIBS -lSDL_mixer",
+             AC_MSG_ERROR([*** SDL_mixer library not found!])
+            )
+
+dnl Sam's Install Kludge-work
+CPPFLAGS="$CPPFLAGS -DDATA_PREFIX=\\\"$datadir\\\""
+
+dnl add here all your Makefiles. These will be created by configure
+AC_OUTPUT(Makefile tuxtype/Makefile tuxtype/docs/Makefile tuxtype/docs/en/Makefile tuxtype/images/Makefile tuxtype/sounds/Makefile tuxtype/data/Makefile )

@@ -1,0 +1,34 @@
+# Note: Maximum of 200 words per word file.
+# Lines beginning with "#" are comments.
+# Blank lines ignored.
+mind
+land
+band
+sand
+help
+star
+exit
+send
+plot
+quit
+win
+lead
+mean
+seem
+keep
+gulp
+sell
+yell
+move
+zoom
+sign
+line
+pine
+time
+kind
+glad
+news
+view
+soon
+fun
+

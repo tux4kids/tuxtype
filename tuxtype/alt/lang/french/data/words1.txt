@@ -1,0 +1,35 @@
+# Note: Maximum of 200 words per word file.
+# Lines beginning with "#" are comments.
+# Blank lines ignored.
+pot
+rat
+bas
+sac
+sel
+sou
+cou
+sol
+fil
+feu
+las
+les
+arc
+sur
+que
+qui
+oui
+non
+peu
+une
+des
+les
+mou
+lui
+ils
+mer
+mes
+tes
+vos
+ses
+ail
+

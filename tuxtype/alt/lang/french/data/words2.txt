@@ -1,0 +1,39 @@
+# Note: Maximum of 200 words per word file.
+# Lines beginning with "#" are comments.
+# Blank lines ignored.
+quoi
+coup
+oeil
+prof
+sais
+arme
+chef
+dans
+seul
+film
+file
+ciel
+gars
+trop
+long
+gros
+fois
+peut
+faux
+vrai
+code
+peur
+voir
+vous
+nous
+elle
+jour
+nuit
+coup
+pire
+mort
+fait
+plus
+chez
+ange
+
