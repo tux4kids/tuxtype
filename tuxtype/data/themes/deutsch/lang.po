@@ -1,0 +1,124 @@
+msgid ""
+msgstr ""
+"Last-Translator: Andreas Ramm <ace1@gmx.net>\n"
+"PO-Revision-Date: 2003-06-14 19:00+0000\n"
+"Language-Team: German\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 0.9.6\n"
+
+msgid "Congratulations"
+msgstr "Herzlichen Glückwunsch!"
+
+msgid "Oh No!"
+msgstr "Oh Nein!"
+
+msgid "Sound & Music Disabled"
+msgstr "Musik & Klänge aus"
+
+msgid "Paused!"
+msgstr "Pause!"
+
+msgid "Press escape again to return to menu"
+msgstr "Drücke Escape um zum Menü zurückzukehren"
+
+msgid "Press space bar to return to game"
+msgstr "Drücke die Leertaste um weiterzuspielen"
+
+msgid "Sound Effects Volume"
+msgstr "Lautstärke Soundeffekte"
+
+msgid "Music Volume"
+msgstr "Lautstärke Musik"
+
+msgid "Edit Word Lists"
+msgstr "Wortlisten bearbeiten"
+
+msgid "Fish"
+msgstr "Fisch"
+
+msgid "Lives"
+msgstr "Leben"
+
+msgid "Level"
+msgstr "Runde"
+
+msgid "Setup"
+msgstr "Einrichten"
+
+msgid "Options"
+msgstr "Optionen"
+
+msgid "Alphabet"
+msgstr "Alphabet"
+
+# "Space Cadet" is level 1 in comet zap
+msgid "Space Cadet"
+msgstr "Anfänger"
+
+# "Pilot" is level 2 in comet zap
+msgid "Pilot"
+msgstr "Pilot"
+
+# "Ace" is level 3 in comet zap
+msgid "Ace"
+msgstr "As"
+
+# "Commander" is level 4 in comet zap
+msgid "Commander"
+msgstr "Unbesiegbar"
+
+#levels for Cascade game:
+msgid "Easy"
+msgstr "Einfach"
+
+msgid "Medium"
+msgstr "Mittel"
+
+msgid "Hard"
+msgstr "Schwer"
+
+#types of games
+msgid "Comet Zap"
+msgstr "Kometenabwehr"
+
+msgid "Fish Cascade"
+msgstr "Fischregen"
+
+#general stuff
+msgid "Practice"
+msgstr "Fingerübung"
+
+msgid "Lessons"
+msgstr "Lektionen"
+
+msgid "Instructions"
+msgstr "Anleitung"
+
+msgid "Main Menu"
+msgstr "Hauptmenü"
+
+msgid "Options"
+msgstr "Optionen"
+
+msgid "Quit"
+msgstr "Ende"
+
+msgid "Setup Keyboard"
+msgstr "Tastatur einrichten"
+
+msgid "Setup Language"
+msgstr "Sprache einstellen"
+
+msgid "Word Cascade"
+msgstr "Wortregen"
+
+#work in progress stuff
+msgid "Work In Progress!"
+msgstr "In Arbeit!"
+
+msgid "This feature is not ready yet"
+msgstr "Diese Option ist noch nicht fertig"
+
+msgid "Discuss the future of TuxTyping at"
+msgstr "Diskutiere die Zukunft von TuxTyping auf"

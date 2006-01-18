@@ -1,0 +1,100 @@
+v1.5.4 - Added Norwegian Bokmål translation. Improved Norwegian
+         Nynorsk translation.
+
+v1.5.3 - Initial lesson code started. Changed Set Keyboard to
+	 be a project info page. Fixed CometZap random segfaults on
+	 versions of NT. Added scripting for lessons. Used scripting
+	 mimic old instructions for Fish Cascade. Replaced
+	 SDL_WM_ToggleFullScreen() in favor of a more portable 
+	 routine to accomplish window size toggling. F10 in menu
+	 toggles screen size. Added saving sound volumes and windows
+	 state in the config file. Tuxtype2 now remembers both!
+	 Added translations Euskara, Italian and Jamaican. Added
+	 code for a map and photo for each theme/translation.
+
+v1.5.1 - Changed to get word list name from first line of file.
+         More language fixes. Added spanish translation. Fix 
+	 typos in source. Build system fixes. Added spanish
+	 translation. New word files for nynorsk translation.
+	 Danish translation bug fixes and cleanup. Changed format
+	 of keyboard.lst file. Added mouse click selection in language
+	 screen. And much more. Enjoy!
+
+v1.5.0 - First release in almost a year!!!
+
+v.0.2 - First elliminated need for SDL_Plus (which was useless
+        anyway.)
+
+v.0.3 - FIRST WORKING VERSION OF KEYCASCADE! Works at all
+        difficulty settings and levels.
+
+v.0.4pre1 - KEYCASCADE cleaned up and tweaked (works quite well
+        asside from a /few/ minor quirks). Also added soundFX
+        and music as well as tutorial for KeyCascade.
+
+v.0.4pre2 - Fixed WaitFrame() usage (more coherent now)
+        Also ensured that frame rate can stay constant over
+        different speed systems, and added --speed option.
+
+v.0.4 - Switched from UpdateRect to SDL_Flip() on title screen to
+	try to ensure constant frame-rate on title screen across
+	platforms. Various bug-fixes. Added surface based cursor
+	to titlescreen to prevent cursor-loss on certain systems
+	(such as my laptop >:/ )
+	
+v.0.5pre1 - Begin work on WORDCASCADE: All screens found and added-
+	Added word loading option and words- levels cycle- not
+	yet playable. Also fixed permissions on "missing" as well
+	as added the special hidden option (see readme in image dir).
+	
+v.0.5pre2 - WORDCASCADE now works. May need minor tweaking as time
+  goes by... but I will deal with that eventuality when it occurs.
+
+v.0.5 - Work on docs, small bugfixes for release.
+
+v.0.5-2 - Second 0.5 release. Fixed embarrasing word file location
+	problem!!!
+	
+v.0.6 - Many Mandrake 7.2 fixes. "Free Typing" added. Various code
+	clean-up and bugfixes.
+	
+v.0.7pre1 - Fixed sound bug:
+  (http://sourceforge.net/bugs/?func=detailbug&bug_id=131474&group_id=12715)
+  as well as first BeOS port.
+
+v.0.7 - Major code cleanup. /Probably/ fixed the clipping bug.
+
+v.0.8pre1 - Began work on the Word Cascade Tutorial. Patch to fix some
+        menu glitches.
+
+v.0.8 - Fixed SDL_Flip(..) related bugg in title screen:
+   (http://sourceforge.net/tracker/index.php?func=detail&aid=421508&group_id=12715&atid=112715)
+   as well as minor code clean-up and finish word cascade tutorial.
+
+v.0.9pre1 - Fixed GIF->PNG bug as well as "yellow outline" in gameplay
+   bug (thx to Rich Bellamy <bellamrm@clarkson.edu>)
+
+v.0.9pre2 - Fixed many of the troubles causing the tutorial screen
+   crashes:
+   (http://sourceforge.net/tracker/index.php?func=detail&aid=414339&group_id=12715&atid=112715)
+
+v.0.9pre3 - Added code from Olivier Dagenais <olivier_dagenais@canada.com>
+   which allows for compilation under Win32 using MS VisualC++. Also
+   fixed Kdevelop/SDL integration issues which prevents Tux Typing from
+   compiling on other OSes.
+
+v.0.9 - Fixed the tutorial screen crashing bug. Also removed double buffering
+   support temporarily to resolve the issue later.
+
+v.0.9-1 - Added keyboard support on main menu.
+
+v.1.0pre1 - Added Theming/Alt-Language support (preliminary). Fixed rect clipping
+    blit problem and added option for alpha blitting to emphasize slow falling words.
+    Other misc bugfixes and cleanup. Began transition to KDevelop 1.4 env and
+    future repair of build process.
+
+v.1.0 - Tweaked gameplay speed. Tweaked menu speed. Changed free typing from
+    hard defaults to easy defaults. Fixed word cascade bug:
+    http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=104456&repeatmerged=yes
+
+v1.0.1 - Build process bugfix.

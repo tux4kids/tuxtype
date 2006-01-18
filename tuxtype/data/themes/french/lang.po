@@ -1,0 +1,112 @@
+msgid ""
+msgstr "le "
+
+msgid "Congratulations"
+msgstr "Félicitations"
+
+msgid "Oh No!"
+msgstr "Oh Non!"
+
+msgid "Sound & Music Disabled"
+msgstr "Son & Musique éteints"
+
+msgid "Paused!"
+msgstr "Pause!"
+
+msgid "press escape again to return to menu"
+msgstr "appuyez encore sur escape pour retourner au menu"
+
+msgid "press space bar to return to game"
+msgstr "taper la touche espace pour jouer"
+
+msgid "Sound Effects Volume"
+msgstr "Volume des Effets de Son"
+
+msgid "Music Volume"
+msgstr "Volume de la Musique"
+
+msgid "Edit Word Lists"
+msgstr "Editer la Liste de Mots"
+
+msgid "Fish"
+msgstr "Poissons"
+
+msgid "Lives"
+msgstr "Vies"
+
+msgid "Level"
+msgstr "Niveau"
+
+msgid "Options"
+msgstr "Options"
+
+msgid "Alphabet"
+msgstr "Alphabet"
+
+# "Space Cadet" is level 1 in comet zap
+msgid "Space Cadet"
+msgstr "Cadet de l'espace"
+
+# "Pilot" is level 2 in comet zap
+msgid "Pilot"
+msgstr "Pilote"
+
+# "Ace" is level 3 in comet zap
+msgid "Ace"
+msgstr "As de l'espace"
+
+# "Commander" is level 4 in comet zap
+msgid "Commander"
+msgstr "Commandant"
+
+#levels for Cascade game:
+msgid "Easy"
+msgstr "Facile"
+
+msgid "Medium"
+msgstr "Moyen"
+
+msgid "Hard"
+msgstr "Fort"
+
+#types of games
+msgid "Comet Zap"
+msgstr "Destruction de Comètes"
+
+msgid "Fish Cascade"
+msgstr "Cascade de Poissons"
+
+#general stuff
+msgid "Practice"
+msgstr "Pratique"
+
+msgid "Lessons"
+msgstr "Leçons"
+
+msgid "Instructions"
+msgstr "Instructions"
+
+msgid "Main Menu"
+msgstr "Menu Principal"
+
+msgid "Options"
+msgstr "Options"
+
+msgid "Quit"
+msgstr "Quitter"
+
+msgid "Setup Keyboard"
+msgstr "Régler le clavier"
+
+msgid "Setup Language"
+msgstr "Régler la langue"
+
+#work in progress stuff
+msgid "Work In Progress!"
+msgstr "En cours de construction!"
+
+msgid "this feature is not ready yet"
+msgstr "Cette fonctionnalité n'est pas terminée"
+
+msgid "Discuss the future of TuxTyping at"
+msgstr "Parler du futur de TuxTyping a"

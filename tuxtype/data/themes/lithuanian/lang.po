@@ -1,0 +1,120 @@
+msgid ""
+msgstr ""
+"Last-Translator: Gintautas Grigas <grigas@ktl.mii.lt>\n"
+"PO-Revision-Date: 2004-10-20\n"
+"Language-Team: Lithuanian\n"
+"Content-Type: text/plain; charset=Windows-1257\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid ""
+msgstr ""
+
+msgid "Congratulations"
+msgstr "Sveikiname!"
+
+msgid "Oh No!"
+msgstr "Deja..."
+
+msgid "Sound & Music Disabled"
+msgstr "Garsas iðjungtas"
+
+msgid "Paused!"
+msgstr "Pertrauka!"
+
+msgid "Press escape again to return to menu"
+msgstr "Jei norite gráþti á meniu, paspauskite gráþimo klaviðà"
+
+msgid "Press space bar to return to game"
+msgstr "Jei norite gráþti á þaidimà, paspauskite tarpo klaviðà"
+
+msgid "Sound Effects Volume"
+msgstr "Signalø garsumas"
+
+msgid "Music Volume"
+msgstr "Muzikos garsumas"
+
+msgid "Edit Word Lists"
+msgstr "Modifikuoti þodþiø sàraðus"
+
+msgid "Fish"
+msgstr "Þuvø:"
+
+msgid "Lives"
+msgstr "Meðkeriø:"
+
+msgid "Level"
+msgstr "lygis"
+
+msgid "Alphabet"
+msgstr "Abëcëlë"
+
+# "Space Cadet" is level 1 in comet zap
+msgid "Space Cadet"
+msgstr "Naujokas"
+
+# "Pilot" is level 2 in comet zap
+msgid "Pilot"
+msgstr "Patyræs"
+
+# "Ace" is level 3 in comet zap
+msgid "Ace"
+msgstr "Asas"
+
+# "Commander" is level 4 in comet zap
+msgid "Commander"
+msgstr "Nenugalimas"
+
+#levels for Cascade game:
+msgid "Easy"
+msgstr "Lengvas"
+
+msgid "Medium"
+msgstr "Vidutinis"
+
+msgid "Hard"
+msgstr "Sunkus"
+
+#types of games
+msgid "Comet Zap"
+msgstr "Kometø lietus"
+
+msgid "Fish Cascade"
+msgstr "Þuvø lietus"
+
+#general stuff
+msgid "Practice"
+msgstr "Pirðtø pratimai"
+
+msgid "Lessons"
+msgstr "Pamokos (dar nëra)"
+
+msgid "Instructions"
+msgstr "Nurodymai (dar nëra)"
+
+msgid "Main Menu"
+msgstr "Pagrindinis meniu"
+
+msgid "Options"
+msgstr "Nuostatos"
+
+msgid "Quit"
+msgstr "Baigti"
+
+msgid "Setup Keyboard"
+msgstr "Klaviatûros nustatymas"
+
+msgid "Project Info"
+msgstr "Apie "Tuxtype" (anglø k.)"
+
+msgid "Setup Language"
+msgstr "Kalbos parinkimas"
+
+#work in progress stuff
+msgid "Work In Progress!"
+msgstr "Ði programos dalis dar daroma!"
+
+msgid "This feature is not ready yet"
+msgstr "Kol kas ji dar nebaigta"
+
+msgid "Discuss the future of TuxTyping at"
+msgstr "Diskusijos apie "Tux Typing" vyksta adresu:"

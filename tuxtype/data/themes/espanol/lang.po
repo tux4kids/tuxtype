@@ -1,0 +1,114 @@
+msgid ""
+msgstr ""
+
+msgid "Congratulations"
+msgstr "Congratulations"
+
+msgid "Oh No!"
+msgstr "Que Lastima!"
+
+msgid "Sound & Music Disabled"
+msgstr "Sound & Music Disabled"
+
+msgid "Paused!"
+msgstr "Paused!"
+
+msgid "Press escape again to return to menu"
+msgstr "Toca escapa a regresar atraz al menu"
+
+msgid "Press space bar to return to game"
+msgstr "Toca la llave del espacio a regresar al juego"
+
+msgid "Sound Effects Volume"
+msgstr "Volumen de los efectos de sonido"
+
+msgid "Music Volume"
+msgstr "Volumen de Musica"
+
+msgid "Edit Word Lists"
+msgstr "Revisa las listas de palabras"
+
+msgid "Fish"
+msgstr "Pescado"
+
+msgid "Lives"
+msgstr "Vidas"
+
+msgid "Level"
+msgstr "Nivel"
+
+msgid "Options"
+msgstr "Opciones"
+
+msgid "Alphabet"
+msgstr "Alphabeto"
+
+# "Cadete de espacio" es nivel 1 en zapea cometa
+msgid "Space Cadet"
+msgstr "Cadete de espacio"
+
+# "Piloto" es nivel 2 en zapea cometas
+msgid "Pilot"
+msgstr "Piloto"
+
+# "As" es nivel 3 en zapea cometas
+msgid "Ace"
+msgstr "As"
+
+# "Commandante" es nivel 4 en zapea cometas
+msgid "Commander"
+msgstr "Comandante"
+
+#niveles para juego de cascada:
+msgid "Easy"
+msgstr "Facil"
+
+msgid "Medium"
+msgstr "Mediano"
+
+msgid "Hard"
+msgstr "Dificil"
+
+#Tipos de juegos
+msgid "Comet Zap"
+msgstr "Zapea Cometas"
+
+msgid "Fish Cascade"
+msgstr "Cascada de pescado"
+
+#Cosas generales
+msgid "Practice"
+msgstr "Practicar"
+
+msgid "Lessons"
+msgstr "Lecciones"
+
+msgid "Instructions"
+msgstr "Instrucciones"
+
+msgid "Main Menu"
+msgstr "Menu principal"
+
+msgid "Options"
+msgstr "Opciones"
+
+msgid "Quit"
+msgstr "Salido"
+
+msgid "Setup Keyboard"
+msgstr "Arreglo de teclado"
+
+msgid "Setup Language"
+msgstr "Idioma arreglo"
+
+#work Cosas que estan abajo de construccion.
+msgid "Work In Progress!"
+msgstr "Trabojo abajo de Construccion!"
+
+msgid "this feature is not ready yet"
+msgstr "este funcion no esta listo todavia"
+
+msgid "Discuss the future of TuxTyping at"
+msgstr "A Charlar del futuro de TuxTyping"
+
+#אבגדהוזחטיךכלםמןנסעףפץצשתûü‎ÿ

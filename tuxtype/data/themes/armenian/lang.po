@@ -1,0 +1,109 @@
+msgid ""
+msgstr ""
+
+msgid "Congratulations"
+msgstr "Congratulations"
+
+msgid "Oh No!"
+msgstr "Oh No!"
+
+msgid "Sound & Music Disabled"
+msgstr "Sound & Music Disabled"
+
+msgid "Paused!"
+msgstr "Paused!"
+
+msgid "Press escape again to return to menu"
+msgstr "Press escape again to return to menu"
+
+msgid "Press space bar to return to game"
+msgstr "Press space bar to return to game"
+
+msgid "Sound Effects Volume"
+msgstr "Sound Effects Volume"
+
+msgid "Music Volume"
+msgstr "Music Volume"
+
+msgid "Edit Word Lists"
+msgstr "Edit Word Lists"
+
+msgid "Fish"
+msgstr "@ovg"
+
+msgid "Lives"
+msgstr "G3ank"
+
+msgid "Level"
+msgstr "A[qarh"
+
+msgid "Setup"
+msgstr "Setup"
+
+# "Space Cadet" is level 1 in comet zap
+msgid "Space Cadet"
+msgstr "Space Cadet"
+
+# "Pilot" is level 2 in comet zap
+msgid "Pilot"
+msgstr "Pilot"
+
+# "Ace" is level 3 in comet zap
+msgid "Ace"
+msgstr "Ace"
+
+# "Commander" is level 4 in comet zap
+msgid "Commander"
+msgstr "Commander"
+
+#levels for Cascade game:
+msgid "Easy"
+msgstr "Tanta."
+
+msgid "Medium"
+msgstr "Medium"
+
+msgid "Hard"
+msgstr "Hard"
+
+#types of games
+msgid "Comet Zap"
+msgstr "Comet Zap"
+
+msgid "Key Cascade"
+msgstr "Da-Yri dara'"
+
+msgid "Word Cascade"
+msgstr "Pa-yri dara'"
+
+#general stuff
+msgid "Practice"
+msgstr "Practice"
+
+msgid "Instructions"
+msgstr "Instructions"
+
+msgid "Main Menu"
+msgstr "Main Menu"
+
+msgid "Options"
+msgstr "Options"
+
+msgid "Quit"
+msgstr "qa.ix tovrs cal"
+
+msgid "Setup Keyboard"
+msgstr "Setup Keyboard"
+
+msgid "Setup Language"
+msgstr "Setup Language"
+
+#work in progress stuff
+msgid "Work in Progress!"
+msgstr "Work in Progress!"
+
+msgid "this feature is not ready yet"
+msgstr "this feature is not ready yet"
+
+msgid "Discuss the future of TuxTyping at"
+msgstr "Discuss the future of TuxTyping at"

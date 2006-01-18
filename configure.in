@@ -1,0 +1,131 @@
+# Process this file with autoconf to produce a configure script.
+AC_INIT(tuxtype2, 1.5.4, )
+AC_CANONICAL_HOST
+AC_CANONICAL_TARGET
+AM_CONFIG_HEADER([config.h])
+AM_INIT_AUTOMAKE(tuxtype2, 1.5.4)
+
+AC_CONFIG_SRCDIR([tuxtype/funcs.h])
+
+# Checks for programs.
+AC_PROG_CXX
+AC_PROG_CC
+AC_PROG_CPP
+AC_PROG_INSTALL
+AC_PROG_LN_S
+AC_PROG_MAKE_SET
+
+AC_PREFIX_DEFAULT(/usr/local)
+if test "x$prefix" = "xNONE"; then
+  prefix=$ac_default_prefix
+  ac_configure_args="$ac_configure_args --prefix $prefix"
+fi
+
+# Checks for libraries.
+# Check for SDL
+SDL_VERSION=1.2.5
+
+AM_PATH_SDL($SDL_VERSION,
+            :,
+            AC_MSG_ERROR([*** SDL version $SDL_VERSION not found!]))
+
+AC_CHECK_LIB([SDL_image], [IMG_Load], ,[AC_MSG_ERROR(SDL_image not found http://www.libsdl.org/projects/SDL_image, )])
+AC_CHECK_LIB([SDL_mixer], [Mix_PlayMusic], ,[AC_MSG_ERROR(SDL_mixer not found http://www.libsdl.org/projects/SDL_mixer, )])
+AC_CHECK_LIB([SDL_ttf], [TTF_Init], ,[AC_MSG_ERROR(SDL_ttf not found http://www.libsdl.org/projects/SDL_ttf, )])
+
+# Checks for header files.
+AC_HEADER_STDC
+AC_CHECK_HEADERS([stdlib.h string.h])
+
+# Checks for typedefs, structures, and compiler characteristics.
+AC_C_CONST
+AC_C_INLINE
+
+# Checks for library functions.
+AC_CHECK_FUNCS([atexit memset strchr strstr malloc])
+
+#
+SDL_CFLAGS=`sdl-config --cflags`
+CFLAGS="$CFLAGS $SDL_CFLAGS"
+
+SDL_LIBS=`sdl-config --libs`
+LIBS="$SDL_LIBS $LIBS"
+
+# Sam's Install Kludge-work
+CPPFLAGS="$CPPFLAGS -DDATA_PREFIX=\\\"\$(prefix)\\\""
+
+AC_CONFIG_FILES([Makefile
+tuxtype/Makefile
+tuxtype/data/Makefile
+tuxtype/data/fonts/Makefile
+tuxtype/data/images/Makefile
+tuxtype/data/images/backgrounds/Makefile
+tuxtype/data/images/cities/Makefile
+tuxtype/data/images/comets/Makefile
+tuxtype/data/images/hands/Makefile
+tuxtype/data/images/keyboard/Makefile
+tuxtype/data/images/menu/Makefile
+tuxtype/data/images/status/Makefile
+tuxtype/data/images/tux/Makefile
+tuxtype/data/scripts/Makefile
+tuxtype/data/sounds/Makefile
+tuxtype/data/themes/Makefile
+tuxtype/data/themes/armenian/Makefile
+tuxtype/data/themes/armenian/fonts/Makefile
+tuxtype/data/themes/armenian/images/Makefile
+tuxtype/data/themes/bokmal/Makefile
+tuxtype/data/themes/bokmal/words/Makefile
+tuxtype/data/themes/bokmal/images/Makefile
+tuxtype/data/themes/bokmal/images/status/Makefile
+tuxtype/data/themes/catalan/Makefile
+tuxtype/data/themes/catalan/words/Makefile
+tuxtype/data/themes/dansk/Makefile
+tuxtype/data/themes/dansk/sounds/Makefile
+tuxtype/data/themes/dansk/words/Makefile
+tuxtype/data/themes/deutsch/Makefile
+tuxtype/data/themes/deutsch/words/Makefile
+tuxtype/data/themes/espanol/Makefile
+tuxtype/data/themes/espanol/images/Makefile
+tuxtype/data/themes/espanol/words/Makefile
+tuxtype/data/themes/euskara/Makefile
+tuxtype/data/themes/euskara/images/Makefile
+tuxtype/data/themes/euskara/words/Makefile
+tuxtype/data/themes/french/Makefile
+tuxtype/data/themes/french/words/Makefile
+tuxtype/data/themes/greek/Makefile
+tuxtype/data/themes/greek/fonts/Makefile
+tuxtype/data/themes/greek/words/Makefile
+tuxtype/data/themes/italian/Makefile
+tuxtype/data/themes/italian/words/Makefile
+tuxtype/data/themes/jamaican/Makefile
+tuxtype/data/themes/jamaican/images/Makefile
+tuxtype/data/themes/jamaican/words/Makefile
+tuxtype/data/themes/lithuanian/Makefile
+tuxtype/data/themes/lithuanian/fonts/Makefile
+tuxtype/data/themes/lithuanian/images/Makefile
+tuxtype/data/themes/lithuanian/images/status/Makefile
+tuxtype/data/themes/lithuanian/sounds/Makefile
+tuxtype/data/themes/lithuanian/words/Makefile
+tuxtype/data/themes/nederlands/Makefile
+tuxtype/data/themes/nederlands/words/Makefile
+tuxtype/data/themes/nynorsk/Makefile
+tuxtype/data/themes/nynorsk/images/Makefile
+tuxtype/data/themes/nynorsk/images/status/Makefile
+tuxtype/data/themes/nynorsk/words/Makefile
+tuxtype/data/themes/russian/Makefile
+tuxtype/data/themes/russian/fonts/Makefile
+tuxtype/data/themes/russian/images/Makefile
+tuxtype/data/themes/russian/images/status/Makefile
+tuxtype/data/themes/russian/words/Makefile
+tuxtype/data/themes/spanish/Makefile
+tuxtype/data/themes/spanish/words/Makefile
+tuxtype/data/themes/svenska/Makefile
+tuxtype/data/themes/svenska/words/Makefile
+tuxtype/data/themes/swahili/Makefile
+tuxtype/data/themes/swahili/words/Makefile
+tuxtype/data/words/Makefile
+tuxtype/docs/Makefile
+tuxtype/docs/en/Makefile
+tuxtype.spec])
+
+AC_OUTPUT

@@ -1,0 +1,23 @@
+Coders:
+-------
+Jesse Andrews <jdandr2@uky.edu>
+Calvin Arndt <calarndt@tux4kids.org>
+Sam Hart <hart@geekcomix.com>  --- Sam started it all with TuxType 1!!!
+Jacob Greig <bombastic@firstlinux.net>
+
+Packaging & Ports:
+------------------
+David Marshman <marshy@silvan.demon.co.uk> - (BeOS port/packages)
+Calvin Arndt <calarndt@yahoo.com> - (Red Hat 7.1+ RPMs)
+Olivier Dagenais <olivier_dagenais@canada.com> - (Windows port/packages)
+Jesse Andrews <jdandr2@uky.edu> - (Mac OS port)
+
+Special thanks to:
+------------------
+Rich Bellamy <bellamrm@clarkson.edu> - (for several image patches)
+Frank Ellis <frank3000@usa.net> - (for many submitted bug items and feedback)
+Nicolai Beier <nbeier@tiscali.dk> - (for Danish work in TuxType 2)
+Martin Moeller <martin@liga.dk> - (for Danish word files in TuxType 1)
+Martin Rioux <riomar2000@hotmail.com> - (for French translation in TuxType 1)
+Karl Ove Hufthammer <karl@huftis.org> - (for Norwegian Nynorsk translation work for Tuxtype 2)
+Trond Mæhlum <trondm@skolelinux.no> - (for Norwegian Bokmål translation work for Tuxtype 2)
