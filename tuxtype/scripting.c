@@ -799,11 +799,11 @@ void testLesson( void ) {
 		lists++;
 
 		fclose(tempFile);*/
+	TTF_CloseFont(font);
 		
 	} while (1);
 
 	closedir( wordsDir );	
-	TTF_CloseFont(font);
 	SDL_Flip( screen );
 
 	left = LoadImage("left.png", IMG_ALPHA);       
