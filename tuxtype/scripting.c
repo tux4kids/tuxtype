@@ -768,7 +768,7 @@ void testLesson( void ) {
 	/* create a list of all the .txt files */
 
 	wordsDir = opendir( wordPath );	
-
+	font = LoadFont( ttf_font, 14 );
 	do {
 		wordsFile = readdir(wordsDir);
 		if (!wordsFile)
@@ -782,9 +782,10 @@ void testLesson( void ) {
 			continue;
 
 		sprintf( wordlistFile[c], "%s", wordsFile->d_name );
-		font = LoadFont( ttf_font, 14 );
+
 		filenames[c] = TTF_RenderText_Blended(  font, wordsFile->d_name, white);
 		SDL_BlitSurface( filenames[c], NULL, screen, &spot );
+                SDL_FreeSurface(filenames[c]);
 		c++;
 		spot.y+=18;
 
@@ -799,10 +800,10 @@ void testLesson( void ) {
 		lists++;
 
 		fclose(tempFile);*/
-	TTF_CloseFont(font);
 		
 	} while (1);
 
+	TTF_CloseFont(font);
 	closedir( wordsDir );	
 	SDL_Flip( screen );
 
@@ -892,7 +893,14 @@ void testLesson( void ) {
                                         }
                         }
 
-                if (old_loc != loc) {
+               if (stop == 2) {
+                        SDL_FreeSurface(pointer);
+                        SDL_FreeSurface(left);
+                        SDL_FreeSurface(right);
+                        SDL_FreeSurface(bkg);
+                        return;
+               }
+               if (old_loc != loc) {
                         int start;
 
                         SDL_BlitSurface( bkg, &arrow_area, screen, NULL);
@@ -912,6 +920,9 @@ void testLesson( void ) {
         }
 
 	SDL_FreeSurface(pointer);
+        SDL_FreeSurface(left);
+        SDL_FreeSurface(right);
+        SDL_FreeSurface(bkg);
 
     if (loadScript( fn ) != 0) return; // bail if any errors occur
     runScript();
