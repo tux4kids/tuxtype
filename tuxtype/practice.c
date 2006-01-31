@@ -138,7 +138,7 @@ int get_phrase(char *phr){
 			if (pw[c]<598){
 				if ( c==0 ){
 					wp=strlen(phrase[c]);
-					print_phrase( phrase[0], wp );
+					print_at( phrase[0], wp, 40, 10 );
 				}
 			}else{
 				z=0;
@@ -157,37 +157,11 @@ int get_phrase(char *phr){
 					}
 				}
 				if ( c==0 ){
-				print_phrase( phrase[0], wp );
+				print_at( phrase[0], wp, 40, 10 );
 				}
 			}
 	}
 	return(wp);
-}
-
-
-void print_phrase( char *pphrase, int wrap ) {
-	int z=0;
-	letter_loc.x = 40;
-	letter_loc.y = 10;
-	letter_loc.w = letters[65]->w;
-	letter_loc.h = letters[65]->h;
-	if ( wrap == strlen(pphrase) ){
-		for (z=0;z<strlen(pphrase);z++){
-			SDL_BlitSurface(letters[(int)pphrase[z]], NULL, screen, &letter_loc);
-			letter_loc.x = (letter_loc.x + letters[(int)pphrase[z]]->w)-5;
-		}
-	}else{
-		for (z=0;z<=wrap;z++){
-			SDL_BlitSurface(letters[(int)pphrase[z]], NULL, screen, &letter_loc);
-			letter_loc.x = (letter_loc.x + letters[(int)pphrase[z]]->w)-5;
-		}
-		letter_loc.x = 40;
-		letter_loc.y = 45;
-		for (z=wrap+2;z<strlen(pphrase);z++){
-			SDL_BlitSurface(letters[(int)pphrase[z]], NULL, screen, &letter_loc);
-			letter_loc.x = (letter_loc.x + letters[(int)pphrase[z]]->w)-5;
-		}
-	}
 }
 
 void print_at( char *pphrase, int wrap, int x, int y ) {
@@ -207,7 +181,8 @@ void print_at( char *pphrase, int wrap, int x, int y ) {
 			letter_loc.x = (letter_loc.x + letters[(int)pphrase[z]]->w)-5;
 		}
 		letter_loc.x = 40;
-		letter_loc.y = 45;
+                // - (letter_loc.h/4) to account for free space at top and bottom of rendered letters
+		letter_loc.y = letter_loc.y + letter_loc.h - (letter_loc.h/4);
 		for (z=wrap+2;z<strlen(pphrase);z++){
 			SDL_BlitSurface(letters[(int)pphrase[z]], NULL, screen, &letter_loc);
 			letter_loc.x = (letter_loc.x + letters[(int)pphrase[z]]->w)-5;
@@ -251,11 +226,10 @@ int Phrases( char *pphrase ) {
  	dst3.x = 50;				dst3.y = 400;	dst3.w = 160;			dst3.h = 50;
  	dst4.x = 480;				dst4.y = 400;	dst4.w = 240;			dst4.h = 50;
  	dst5.x = 480;				dst5.y = 400;	dst5.w = 240;			dst5.h = 50;
-
-/*	SDL_BlitSurface(bkg, &dst, screen, &dst);
-	SDL_Flip(screen);*/
 	dst.x = 40;
+
 	start = SDL_GetTicks();
+
 	do {
 		switch (state) {
 		case 0:
@@ -323,7 +297,7 @@ int Phrases( char *pphrase ) {
 						}
 						dst.x = (dst.x + letters[KEYMAP[event.key.keysym.unicode]]->w) - 5;
 						if (c==(strlen(pphrase)-1)){
-							print_at((char *)"Great!",6 ,275 ,200);
+							print_at("Great!",6 ,275 ,200);
 							SDL_Flip(screen);
 							SDL_Delay(2500);
 							quit=1;
