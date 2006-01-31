@@ -2,6 +2,10 @@ v1.5.5   development version, not yet released
 
 [ Calvin Arndt ]
        - closing all the mem leaks I know of 
+       - remove redundant print_phrase()
+       - remove hard coded xy positions in print_at() (calculate wrapped y position)
+       - remove uneeded cast in Phrases()
+       
        
 v1.5.4 - Added Norwegian Bokmål translation. Improved Norwegian
          Nynorsk translation.
