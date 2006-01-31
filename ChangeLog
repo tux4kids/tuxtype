@@ -1,3 +1,8 @@
+v1.5.5   development version, not yet released
+
+[ Calvin Arndt ]
+       - closing all the mem leaks I know of 
+       
 v1.5.4 - Added Norwegian Bokmål translation. Improved Norwegian
          Nynorsk translation.
 
