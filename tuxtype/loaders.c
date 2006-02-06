@@ -162,6 +162,18 @@ TTF_Font *LoadFont( char *fontfile, int fontsize ) {
 	int i;
 /* char themeName[FNLEN]; */
 
+
+	/* 
+	 *
+	 *
+	 * this will fail now, as those fonts have been removed
+	 * 
+	 *
+	 * this routine is only left here for reference
+	 * 
+	 *
+	 *
+	 */
 	/* try to find font first in theme dir, then in default */
 	for (i=useEnglish; i<2; i++) {
 		sprintf( fn, "%s/fonts/%s", realPath[i], fontfile );
@@ -175,6 +187,7 @@ TTF_Font *LoadFont( char *fontfile, int fontsize ) {
 		}
 	}
 
+	/* this doesnt work yet (and is a hack)*/
 	/* cyrillic hack  */
 	 DEBUGCODE { printf(" sssssnichwaaassssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssuch mich a%sa  \n", themeName); }
 	  
@@ -195,6 +208,8 @@ TTF_Font *LoadFont( char *fontfile, int fontsize ) {
 	} 
 	 DEBUGCODE { printf("warumbloss\n"); }
 		
+
+	/* this works (and is a hack */ 
 	/* "fallback" (the above _will_ fall): load the font from ttf-freefont */
 /*	sprintf( fn, "%s/%s", "/usr/share/fonts/truetype/freefont/", fontfile ); */
 	sprintf( fn, "%s/%s", "/usr/share/fonts/truetype/ttf-gentium/", fontfile );
