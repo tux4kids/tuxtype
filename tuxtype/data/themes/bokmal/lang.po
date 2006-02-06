@@ -14,140 +14,140 @@ msgstr ""
 "X-Generator: KBabel 1.11\n"
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
 
-#: tuxtype2/tuxtype/pause.c:79
+#: tuxtype/tuxtype/pause.c:79
 msgid "Sound Effects Volume"
 msgstr "Lydeffekter"
 
-#: tuxtype2/tuxtype/pause.c:85
+#: tuxtype/tuxtype/pause.c:85
 msgid "Music Volume"
 msgstr "Musikk"
 
-#: tuxtype2/tuxtype/pause.c:93
+#: tuxtype/tuxtype/pause.c:93
 msgid "Sound & Music Disabled"
 msgstr "Lyd og musikk avslått"
 
-#: tuxtype2/tuxtype/pause.c:100
+#: tuxtype/tuxtype/pause.c:100
 msgid "Paused!"
 msgstr "Pause!"
 
-#: tuxtype2/tuxtype/pause.c:106
+#: tuxtype/tuxtype/pause.c:106
 msgid "Press escape again to return to menu"
 msgstr "Trykk «Escape» for å gå tilbake til hovedmenyen."
 
-#: tuxtype2/tuxtype/pause.c:112
+#: tuxtype/tuxtype/pause.c:112
 msgid "Press space bar to return to game"
 msgstr "Trykk mellomrom for å gå tilbake til spillet."
 
-#: tuxtype2/tuxtype/playgame.c:295
+#: tuxtype/tuxtype/playgame.c:295
 msgid "Level"
 msgstr "Nivå"
 
-#: tuxtype2/tuxtype/playgame.c:296
+#: tuxtype/tuxtype/playgame.c:296
 msgid "Lives"
 msgstr "Liv"
 
-#: tuxtype2/tuxtype/playgame.c:297
+#: tuxtype/tuxtype/playgame.c:297
 msgid "Fish"
 msgstr "Fisk"
 
-#: tuxtype2/tuxtype/playgame.c:299
-#: tuxtype2/tuxtype/titlescreen.h:23
+#: tuxtype/tuxtype/playgame.c:299
+#: tuxtype/tuxtype/titlescreen.h:23
 msgid "Easy"
 msgstr "Lett"
 
-#: tuxtype2/tuxtype/playgame.c:300
-#: tuxtype2/tuxtype/titlescreen.h:24
+#: tuxtype/tuxtype/playgame.c:300
+#: tuxtype/tuxtype/titlescreen.h:24
 msgid "Medium"
 msgstr "Middels"
 
-#: tuxtype2/tuxtype/playgame.c:301
-#: tuxtype2/tuxtype/titlescreen.h:25
+#: tuxtype/tuxtype/playgame.c:301
+#: tuxtype/tuxtype/titlescreen.h:25
 msgid "Hard"
 msgstr "Vanskelig"
 
-#: tuxtype2/tuxtype/playgame.c:302
-#: tuxtype2/tuxtype/titlescreen.h:25
+#: tuxtype/tuxtype/playgame.c:302
+#: tuxtype/tuxtype/titlescreen.h:25
 msgid "Practice"
 msgstr "Øving"
 
-#: tuxtype2/tuxtype/playgame.c:313
+#: tuxtype/tuxtype/playgame.c:313
 msgid "Congratulations"
 msgstr "Gratulerer!"
 
-#: tuxtype2/tuxtype/playgame.c:317
+#: tuxtype/tuxtype/playgame.c:317
 msgid "Oh No!"
 msgstr "Uff!"
 
-#: tuxtype2/tuxtype/titlescreen.c:191
+#: tuxtype/tuxtype/titlescreen.c:191
 msgid "Work In Progress!"
 msgstr "Uferdig!"
 
-#: tuxtype2/tuxtype/titlescreen.c:192
+#: tuxtype/tuxtype/titlescreen.c:192
 msgid "This feature is not ready yet"
 msgstr "Denne funksjonen er ikke klar ennå."
 
-#: tuxtype2/tuxtype/titlescreen.c:193
+#: tuxtype/tuxtype/titlescreen.c:193
 msgid "Discuss the future of TuxTyping at"
 msgstr "Diskuter neste versjon av Tux Typing på"
 
-#: tuxtype2/tuxtype/titlescreen.c:735
-#: tuxtype2/tuxtype/titlescreen.c:736
+#: tuxtype/tuxtype/titlescreen.c:735
+#: tuxtype/tuxtype/titlescreen.c:736
 msgid "Alphabet"
 msgstr "Alfabetet"
 
-#: tuxtype2/tuxtype/titlescreen.h:23
+#: tuxtype/tuxtype/titlescreen.h:23
 msgid "Fish Cascade"
 msgstr "Fiskefall"
 
-#: tuxtype2/tuxtype/titlescreen.h:23
+#: tuxtype/tuxtype/titlescreen.h:23
 msgid "Space Cadet"
 msgstr "Nybegynner"
 
-#: tuxtype2/tuxtype/titlescreen.h:23
+#: tuxtype/tuxtype/titlescreen.h:23
 msgid "Edit Word Lists"
 msgstr "Rediger ordliste"
 
-#: tuxtype2/tuxtype/titlescreen.h:24
+#: tuxtype/tuxtype/titlescreen.h:24
 msgid "Comet Zap"
 msgstr "Kometknusing"
 
-#: tuxtype2/tuxtype/titlescreen.h:24
+#: tuxtype/tuxtype/titlescreen.h:24
 msgid "Pilot"
 msgstr "Erfaren"
 
-#: tuxtype2/tuxtype/titlescreen.h:24
+#: tuxtype/tuxtype/titlescreen.h:24
 msgid "Lessons"
 msgstr "Opplæring"
 
-#: tuxtype2/tuxtype/titlescreen.h:25
+#: tuxtype/tuxtype/titlescreen.h:25
 msgid "Ace"
 msgstr "Profesjonell"
 
-#: tuxtype2/tuxtype/titlescreen.h:25
+#: tuxtype/tuxtype/titlescreen.h:25
 msgid "Project Info"
 msgstr "Prosjektinfo"
 
-#: tuxtype2/tuxtype/titlescreen.h:26
+#: tuxtype/tuxtype/titlescreen.h:26
 msgid "Options"
 msgstr "Oppsett"
 
-#: tuxtype2/tuxtype/titlescreen.h:26
+#: tuxtype/tuxtype/titlescreen.h:26
 msgid "Instructions"
 msgstr "Hjelp"
 
-#: tuxtype2/tuxtype/titlescreen.h:26
+#: tuxtype/tuxtype/titlescreen.h:26
 msgid "Commander"
 msgstr "Ekspert"
 
-#: tuxtype2/tuxtype/titlescreen.h:26
+#: tuxtype/tuxtype/titlescreen.h:26
 msgid "Setup Language"
 msgstr "Språk"
 
-#: tuxtype2/tuxtype/titlescreen.h:27
+#: tuxtype/tuxtype/titlescreen.h:27
 msgid "Quit"
 msgstr "Avslutt"
 
-#: tuxtype2/tuxtype/titlescreen.h:27
+#: tuxtype/tuxtype/titlescreen.h:27
 msgid "Main Menu"
 msgstr "Hovedmeny"
 

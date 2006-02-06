@@ -5,13 +5,13 @@ COMP = -Wall -g
 Hs = globals.h funcs.h
 OBJs = laser.o loaders.o main.o playgame.o setup.o titlescreen.o alphabet.o theme.o audio.o pause.o practice.o gettext.o snow.o scripting.o
 
-all: tuxtype2
+all: tuxtype
 
-tuxtype2: $(OBJs)
-	gcc $(COMP) -o tuxtype2 $(OBJs) $(LINKS)
+tuxtype: $(OBJs)
+	gcc $(COMP) -o tuxtype $(OBJs) $(LINKS)
 
 clean:
-	rm $(OBJs) tuxtype2 tuxtype2.exe
+	rm $(OBJs) tuxtype tuxtype.exe
 
 scripting.o: scripting.c scripting.h $(Hs)
 	gcc -c $(COMP) $(INCLUDES) $(DEFINES) scripting.c

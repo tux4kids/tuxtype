@@ -1,5 +1,5 @@
 
-SUBDIRS = fonts images sounds words
+SUBDIRS = images sounds words
 
 EXTRA_DIST = \
 lang.po\

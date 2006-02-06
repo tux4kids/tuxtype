@@ -160,6 +160,7 @@ TTF_Font *LoadFont( char *fontfile, int fontsize ) {
 	TTF_Font *loadedFont;
 	char fn[FNLEN];
 	int i;
+/* char themeName[FNLEN]; */
 
 	/* try to find font first in theme dir, then in default */
 	for (i=useEnglish; i<2; i++) {
@@ -172,6 +173,38 @@ TTF_Font *LoadFont( char *fontfile, int fontsize ) {
 			if (loadedFont != NULL)
 				return loadedFont;
 		}
+	}
+
+	/* cyrillic hack  */
+	 DEBUGCODE { printf(" sssssnichwaaassssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssuch mich a%sa  \n", themeName); }
+	  
+	if ( themeName == "greek" ) {
+	 DEBUGCODE { printf("1"); }
+			
+		sprintf( fn, "%s", "/usr/share/fonts/truetype/ttf-dejavu/DejaVuSans-Bold.ttf" );
+		if ( checkFile(fn) ) {
+	 DEBUGCODE { printf("2"); }
+		
+			loadedFont = TTF_OpenFont( fn, 6 );
+	
+			if (loadedFont != NULL) {
+	 DEBUGCODE { printf(" jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjsssssssssssssssssuch mich %s  \n", themeName); }
+					return loadedFont;
+			}
+		}
+	} 
+	 DEBUGCODE { printf("warumbloss\n"); }
+		
+	/* "fallback" (the above _will_ fall): load the font from ttf-freefont */
+/*	sprintf( fn, "%s/%s", "/usr/share/fonts/truetype/freefont/", fontfile ); */
+	sprintf( fn, "%s/%s", "/usr/share/fonts/truetype/ttf-gentium/", fontfile );
+	if ( checkFile(fn) ) {
+		/* try to load the font, if successful, return font*/
+
+		loadedFont = TTF_OpenFont( fn, fontsize );
+
+		if (loadedFont != NULL)
+			return loadedFont;
 	}
 
 	fprintf(stderr, "FATAL ERROR: couldn't load font: %s\n", fontfile);

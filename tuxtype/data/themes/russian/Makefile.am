@@ -1,6 +1,5 @@
 
 SUBDIRS = \
-fonts\
 images\
 words
 

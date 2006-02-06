@@ -53,28 +53,28 @@
 #define HAVE_UNISTD_H 1
 
 /* Name of package */
-#define PACKAGE "tuxtype2"
+#define PACKAGE "tuxtype"
 
 /* Define to the address where bug reports for this package should be sent. */
 #define PACKAGE_BUGREPORT ""
 
 /* Define to the full name of this package. */
-#define PACKAGE_NAME "tuxtype2"
+#define PACKAGE_NAME "tuxtype"
 
 /* Define to the full name and version of this package. */
-#define PACKAGE_STRING "tuxtype2 1.5.4"
+#define PACKAGE_STRING "tuxtype 1.5.5"
 
 /* Define to the one symbol short name of this package. */
-#define PACKAGE_TARNAME "tuxtype2"
+#define PACKAGE_TARNAME "tuxtype"
 
 /* Define to the version of this package. */
-#define PACKAGE_VERSION "1.5.4"
+#define PACKAGE_VERSION "1.5.5"
 
 /* Define to 1 if you have the ANSI C header files. */
 #define STDC_HEADERS 1
 
 /* Version number of package */
-#define VERSION "1.5.4"
+#define VERSION "1.5.5"
 
 /* Define to empty if `const' does not conform to ANSI C. */
 /* #undef const */

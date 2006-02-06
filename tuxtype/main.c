@@ -42,7 +42,7 @@ int main(int argc, char *argv[])
 	speed_up = 0;       //run at normal speed
 	show_tux4kids = 1;  //show tux4kids logo the first time in main menu
 	useEnglish = 1;     //default to no theme
-	debugOn = 0;        //default to not in debug mode
+	debugOn = 1;        //default to not in debug mode
 	hidden = 0;         //default to no "hidden" background
 
 	setupTheme(NULL);

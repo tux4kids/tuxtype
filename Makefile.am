@@ -1,7 +1,7 @@
 
 SUBDIRS = tuxtype
 
-EXTRA_DIST = AUTHORS COPYING ChangeLog INSTALL README TODO tuxtype.lsm tuxtype.spec tuxtype.spec.in README.Win32 config.h autorun.inf tuxtype2.ico autogen.sh
+EXTRA_DIST = AUTHORS COPYING ChangeLog INSTALL README TODO tuxtype.lsm tuxtype.spec tuxtype.spec.in README.Win32 config.h autorun.inf tuxtype.ico autogen.sh
 
 install-data-local:
 	$(mkinstalldirs) $(DESTDIR)$(prefix)/doc/$(PACKAGE)
@@ -19,7 +19,7 @@ install-data-local:
 	$(mkinstalldirs) $(DESTDIR)$(prefix)/doc/$(PACKAGE)
 	$(INSTALL_DATA) $(srcdir)/tuxtype.lsm $(DESTDIR)$(prefix)/doc/$(PACKAGE)/tuxtype.lsm
 	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)
-	$(INSTALL_DATA) $(srcdir)/tuxtype2.ico $(DESTDIR)$(prefix)/share/$(PACKAGE)/tuxtype2.ico
+	$(INSTALL_DATA) $(srcdir)/tuxtype.ico $(DESTDIR)$(prefix)/share/$(PACKAGE)/tuxtype.ico
 	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)
 	$(INSTALL_DATA) $(srcdir)/autorun.inf $(DESTDIR)$(prefix)/share/$(PACKAGE)/autorun.inf
 
@@ -33,10 +33,12 @@ uninstall-local:
 	-rm -f $(DESTDIR)$(prefix)/doc/$(PACKAGE)/tuxtype.lsm
 	-rm -rf $(DESTDIR)$(prefix)/doc/$(PACKAGE)
 	-rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/autorun.inf
-	-rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/tuxtype2.ico
+	-rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/tuxtype.ico
 	-rm -rf $(DESTDIR)$(prefix)/share/$(PACKAGE)
 
-AUTOMAKE_OPTIONS = foreign dist-bzip2
+#AUTOMAKE_OPTIONS = foreign dist-bzip2
+AUTOMAKE_OPTIONS = foreign 
+
 
 # Rule to build tar-gzipped distribution package
 $(PACKAGE)-$(VERSION).tar.gz: distcheck

@@ -1,12 +1,21 @@
-v1.5.5   development version, not yet released
+<<<<<<< .mine
+v1.5.5   development version, not yet released (still font+sound issues)
 
 [ Calvin Arndt ]
        - closing all the mem leaks I know of 
        - remove redundant print_phrase()
        - remove hard coded xy positions in print_at() (calculate wrapped y position)
        - remove uneeded cast in Phrases()
-       
-       
+[ Holger Levsen ]
+       - renamed to tuxtype (from tuxtype2), also modified the logo :)
+       - Solving the sound file licence issues (removed one, updated
+         README_SOUNDS.TXT - this is not finished yet!!!!
+       - removed all fonts. The font-handling is still a hack,
+         see loaders.c - it only uses fonts from ttf-freefont
+         and not yet from ttf-dejavu (for non-latini fonts) - and it only
+         works on Debian probably (fixed path, not suitable for Windows,
+         MacOS and probably other linux distributions)
+
 v1.5.4 - Added Norwegian Bokmål translation. Improved Norwegian
          Nynorsk translation.
 

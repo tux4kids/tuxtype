@@ -8,11 +8,9 @@ root directory of this archive). These images were created
 either natively in the GIMP (http://www.gimp.org/) or were hand
 drawn, scanned, and manipulated via the GIMP.
 
-Tux was originally drawn by Larry Ewing
-<ltlewing@isc.tamu.edu>. Certain images used in this game were
-modified from his original Tux images found at
-
-http://www.isc.tamu.edu/~lewing/linux/
+Tux was originally drawn by Larry Ewing <ltlewing@isc.tamu.edu>. 
+Certain images used in this game were modified from his original 
+Tux images found at http://www.isc.tamu.edu/~lewing/linux/
 
 The remainder of the images, are from a number of public domain
 sources. Specifically, they are from the National Oceanic and
@@ -50,15 +48,6 @@ wcas3_1.gif
 wcas3_2.gif
 wcas3_3.gif
 wcas3_4.gif
-
-The fonts used in this game (and in GIMP) were either
-copyright-free public domain, Gnu GPL, or royalty free
-fonts. They were largely obtained from the following sites
-(truthfully, over the course of several years):
-
-http://www.gimp.org/fonts.html
-http://rufus.w3.org/linux/RPM/
-http://www.1001freefonts.com/
 
 I'm pretty sure that covers everything that may potentially
 cause problems... but just in case I left something out, I can

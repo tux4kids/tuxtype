@@ -1,7 +1,7 @@
 
-bin_PROGRAMS = tuxtype2
+bin_PROGRAMS = tuxtype
 
-tuxtype2_SOURCES = 	\
+tuxtype_SOURCES = 	\
 	playgame.c	\
 	main.c		\
 	titlescreen.c	\

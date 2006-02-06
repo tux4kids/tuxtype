@@ -1,6 +1,5 @@
 
 SUBDIRS = \
-fonts\
 images
 
 EXTRA_DIST = lang.po

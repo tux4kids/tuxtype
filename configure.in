@@ -1,9 +1,9 @@
 # Process this file with autoconf to produce a configure script.
-AC_INIT(tuxtype2, 1.5.4, )
+AC_INIT(tuxtype, 1.5.5, )
 AC_CANONICAL_HOST
 AC_CANONICAL_TARGET
-AM_CONFIG_HEADER([config.h])
-AM_INIT_AUTOMAKE(tuxtype2, 1.5.4)
+AM_CONFIG_HEADER(config.h)
+AM_INIT_AUTOMAKE(tuxtype, 1.5.5)
 
 AC_CONFIG_SRCDIR([tuxtype/funcs.h])
 
@@ -57,7 +57,6 @@ CPPFLAGS="$CPPFLAGS -DDATA_PREFIX=\\\"\$(prefix)\\\""
 AC_CONFIG_FILES([Makefile
 tuxtype/Makefile
 tuxtype/data/Makefile
-tuxtype/data/fonts/Makefile
 tuxtype/data/images/Makefile
 tuxtype/data/images/backgrounds/Makefile
 tuxtype/data/images/cities/Makefile
@@ -71,7 +70,6 @@ tuxtype/data/scripts/Makefile
 tuxtype/data/sounds/Makefile
 tuxtype/data/themes/Makefile
 tuxtype/data/themes/armenian/Makefile
-tuxtype/data/themes/armenian/fonts/Makefile
 tuxtype/data/themes/armenian/images/Makefile
 tuxtype/data/themes/bokmal/Makefile
 tuxtype/data/themes/bokmal/words/Makefile
@@ -93,7 +91,6 @@ tuxtype/data/themes/euskara/words/Makefile
 tuxtype/data/themes/french/Makefile
 tuxtype/data/themes/french/words/Makefile
 tuxtype/data/themes/greek/Makefile
-tuxtype/data/themes/greek/fonts/Makefile
 tuxtype/data/themes/greek/words/Makefile
 tuxtype/data/themes/italian/Makefile
 tuxtype/data/themes/italian/words/Makefile
@@ -101,7 +98,6 @@ tuxtype/data/themes/jamaican/Makefile
 tuxtype/data/themes/jamaican/images/Makefile
 tuxtype/data/themes/jamaican/words/Makefile
 tuxtype/data/themes/lithuanian/Makefile
-tuxtype/data/themes/lithuanian/fonts/Makefile
 tuxtype/data/themes/lithuanian/images/Makefile
 tuxtype/data/themes/lithuanian/images/status/Makefile
 tuxtype/data/themes/lithuanian/sounds/Makefile
@@ -113,7 +109,6 @@ tuxtype/data/themes/nynorsk/images/Makefile
 tuxtype/data/themes/nynorsk/images/status/Makefile
 tuxtype/data/themes/nynorsk/words/Makefile
 tuxtype/data/themes/russian/Makefile
-tuxtype/data/themes/russian/fonts/Makefile
 tuxtype/data/themes/russian/images/Makefile
 tuxtype/data/themes/russian/images/status/Makefile
 tuxtype/data/themes/russian/words/Makefile

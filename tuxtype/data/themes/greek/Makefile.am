@@ -1,6 +1,5 @@
 
 SUBDIRS = \
-fonts\
 words
 
 EXTRA_DIST = keyboard.lst lang.po

@@ -1,5 +1,5 @@
 
-SUBDIRS = fonts images scripts sounds themes words
+SUBDIRS = images scripts sounds themes words
 
 EXTRA_DIST = keyboard.lst
 

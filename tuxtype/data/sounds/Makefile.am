@@ -19,7 +19,6 @@ pop.wav\
 run.wav\
 shieldsdown.wav\
 splat.wav\
-tickle.wav\
 tock.wav\
 win.wav\
 winfinal.wav\
@@ -68,8 +67,6 @@ install-data-local:
 	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/sounds
 	$(INSTALL_DATA) $(srcdir)/splat.wav $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/sounds/splat.wav
 	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/sounds
-	$(INSTALL_DATA) $(srcdir)/tickle.wav $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/sounds/tickle.wav
-	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/sounds
 	$(INSTALL_DATA) $(srcdir)/tock.wav $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/sounds/tock.wav
 	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/sounds
 	$(INSTALL_DATA) $(srcdir)/win.wav $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/sounds/win.wav
@@ -104,7 +101,6 @@ uninstall-local:
 	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/sounds/run.wav
 	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/sounds/shieldsdown.wav
 	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/sounds/splat.wav
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/sounds/tickle.wav
 	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/sounds/tock.wav
 	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/sounds/win.wav
 	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/sounds/winfinal.wav
