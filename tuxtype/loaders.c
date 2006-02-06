@@ -187,31 +187,11 @@ TTF_Font *LoadFont( char *fontfile, int fontsize ) {
 		}
 	}
 
-	/* this doesnt work yet (and is a hack)*/
-	/* cyrillic hack  */
-	 DEBUGCODE { printf(" sssssnichwaaassssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssuch mich a%sa  \n", themeName); }
-	  
-	if ( themeName == "greek" ) {
-	 DEBUGCODE { printf("1"); }
-			
-		sprintf( fn, "%s", "/usr/share/fonts/truetype/ttf-dejavu/DejaVuSans-Bold.ttf" );
-		if ( checkFile(fn) ) {
-	 DEBUGCODE { printf("2"); }
-		
-			loadedFont = TTF_OpenFont( fn, 6 );
-	
-			if (loadedFont != NULL) {
-	 DEBUGCODE { printf(" jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjsssssssssssssssssuch mich %s  \n", themeName); }
-					return loadedFont;
-			}
-		}
-	} 
-	 DEBUGCODE { printf("warumbloss\n"); }
 		
 
-	/* this works (and is a hack */ 
-	/* "fallback" (the above _will_ fall): load the font from ttf-freefont */
-/*	sprintf( fn, "%s/%s", "/usr/share/fonts/truetype/freefont/", fontfile ); */
+	/* this works only on debian */ 
+	/* "fallback" (the above _will_ fall): load the font with fixed-path */
+	
 	sprintf( fn, "%s/%s", "/usr/share/fonts/truetype/ttf-gentium/", fontfile );
 	if ( checkFile(fn) ) {
 		/* try to load the font, if successful, return font*/
