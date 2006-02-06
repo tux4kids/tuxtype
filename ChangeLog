@@ -1,4 +1,3 @@
-<<<<<<< .mine
 v1.5.5   development version, not yet released (still font+sound issues)
 
 [ Calvin Arndt ]
@@ -8,8 +7,8 @@ v1.5.5   development version, not yet released (still font+sound issues)
        - remove uneeded cast in Phrases()
 [ Holger Levsen ]
        - renamed to tuxtype (from tuxtype2), also modified the logo :)
-       - Solving the sound file licence issues (removed one, updated
-         README_SOUNDS.TXT - this is not finished yet!!!!
+       - Solving the sound file licence issues (removed one (tickle.wav, was
+         unused), updated README_SOUNDS.TXT - this is not finished yet!!!!
        - removed all fonts. The font-handling is still a hack,
          see loaders.c - it only uses fonts from ttf-freefont
          and not yet from ttf-dejavu (for non-latini fonts) - and it only
