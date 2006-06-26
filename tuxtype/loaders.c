@@ -192,8 +192,8 @@ TTF_Font *LoadFont( char *fontfile, int fontsize ) {
 	/* this works only on debian */ 
 	/* "fallback" (the above _will_ fall): load the font with fixed-path */
 	
-	sprintf( fn, "%s/%s", "/usr/share/fonts/truetype/ttf-gentium/", fontfile );
-	if ( checkFile(fn) ) {
+	sprintf( fn, "%s/%s", "/usr/share/fonts/truetype/ttf-gentium/", fontfile ); 
+		if ( checkFile(fn) ) {
 		/* try to load the font, if successful, return font*/
 
 		loadedFont = TTF_OpenFont( fn, fontsize );

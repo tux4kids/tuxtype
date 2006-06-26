@@ -1,9 +1,12 @@
-v1.5.6	 utf-8 release
+v1.5.6	 utf-8 release 		- work in progress -
 [ Holger Levsen ]
        - switched to utf-8, first only to workaround debian bug #374062, but now
          "forever" :)
-       - removed some soundfiles with unclear licence
-
+       - so atm only greek and english work :-D
+       - removed some soundfiles with unclear licence 
+       - font-loading is still a ugly hack :-( but works on debian with
+         ttf-gentium, which requires a little code-change for a sarge backport
+	 :-( other plattform untested (und probably not working...)
 
 v1.5.5   development version, not yet released (still font+sound issues)
 
