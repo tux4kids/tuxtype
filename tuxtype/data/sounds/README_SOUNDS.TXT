@@ -10,6 +10,22 @@ bite.wav
 run.wav
 splat.wav
 
+The following files are taken from tuxmath and where made by Bill Kendrick
+<bill@newbreedsoftware.com> - the files are also place under the GPL:
+
+game.mod
+game2.mod
+game3.mod
+laser.wav
+pause.wav	
+tock.wav
+explosion.wav  	-> also used in tuxmath
+alarm.wav	-> also used in tuxmath
+buzz.wav	-> also used in tuxmath
+lose.wav	-> also used in tuxmath
+pop.wav		-> also used in tuxmath
+shieldsdown.wav	-> also used in tuxmath
+
 Sam got the following two files from a CD with copyright-free stuff ("they were
 sounds you could legally use to sample, remix, use elsewhere, without having to
 get permission or any acknowledgement back to the author"):
@@ -18,35 +34,16 @@ win.wav
 winfinal.wav
 
 
-The following files are taken from tuxmath and where made by Bill Kendrick
-<bill@newbreedsoftware.com> - the files are also place under the GPL:
-
-explosion.wav  	-> also used in tuxmath
-alarm.wav	-> also used in tuxmath
-buzz.wav	-> also used in tuxmath
-game.mod
-game2.mod
-game3.mod
-laser.wav
-lose.wav	-> also used in tuxmath
-pause.wav	
-pop.wav		-> also used in tuxmath
-shieldsdown.wav	-> also used in tuxmath
-tock.wav
-
-tuxi.ogg	Emmett Plant emmett@sonivius.com licence: public domain
+Emmett Plant (emmett@sonivius.com) is the author of tuxi.ogg and released it in the public domain.
 
 
-
-"Problematic" files:
-click.wav 		-> no clue, maybe from kde
+"Problematic" files (where we don't know the author):
 funkbrt.it 		-> from http://www.partnersinrhyme.com/ or http://www.musicloops.com/
- 
- 
 kmus1.wav		-> from http://wavplace.com or wavplace.2 (which is offline)
 kmus2.wav		-> ditto (which is offline)
 kmus3.wav		-> ditto (which is offline)
 kmus4.wav 		-> ditto (which is offline)
+click.wav 		-> no clue, maybe from kde
 
 Each file was either declared in the public domain, or was allowed to be used
 freely in non-comercial products. 
