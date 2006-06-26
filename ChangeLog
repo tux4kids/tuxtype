@@ -1,3 +1,10 @@
+v1.5.6	 utf-8 release
+[ Holger Levsen ]
+       - switched to utf-8, first only to workaround debian bug #374062, but now
+         "forever" :)
+       - removed some soundfiles with unclear licence
+
+
 v1.5.5   development version, not yet released (still font+sound issues)
 
 [ Calvin Arndt ]
