@@ -2,123 +2,123 @@ msgid ""
 msgstr ""
 
 msgid "Congratulations"
-msgstr "Поздравляем"
+msgstr "Б└√п╞п╨п╓п╡п║п╥п╛п╠п╔п╜"
 
 msgid "Oh No!"
-msgstr "О, нет!"
+msgstr "я▐, п╝п╔п╢!"
 
 msgid "Sound & Music Disabled"
-msgstr "Звуки & Музыка отключены"
+msgstr "я п╥п╣п╚п╘ & я█п╣п╨п╧п╚п║ п╞п╢п╚п╛п═п╬п╔п╝п╧"
 
 msgid "Paused!"
-msgstr "Пауза!"
+msgstr "Б└√п║п╣п╨п║!"
 
 msgid "Press escape again to return to menu"
-msgstr "Нажмите еще раз escape для возврата в меню"
+msgstr "я▌п║п╤п╜п╘п╢п╔ п╔п╫п╔ п╡п║п╨ escape п╓п╛п╠ п╥п╞п╨п╥п╡п║п╢п║ п╥ п╜п╔п╝п═"
 
 msgid "Press space bar to return to game"
-msgstr "Нажмите пробел для возврата к игре"
+msgstr "я▌п║п╤п╜п╘п╢п╔ п╟п╡п╞п╒п╔п╛ п╓п╛п╠ п╥п╞п╨п╥п╡п║п╢п║ п╚ п╘п╖п╡п╔"
 
 msgid "Sound Effects Volume"
-msgstr "Громкость звуковых эффектов"
+msgstr "я┤п╡п╞п╜п╚п╞пЁп╢п╦ п╨п╥п╣п╚п╞п╥п╧п╗ п╪п╕п╕п╔п╚п╢п╞п╥"
 
 msgid "Music Volume"
-msgstr "Громкость музыки"
+msgstr "я┤п╡п╞п╜п╚п╞пЁп╢п╦ п╜п╣п╨п╧п╚п╘"
 
 msgid "Edit Word Lists"
-msgstr "Редактирование списка слов"
+msgstr "я▓п╔п╓п║п╚п╢п╘п╡п╞п╥п║п╝п╘п╔ пЁп╟п╘пЁп╚п║ пЁп╛п╞п╥"
 
 msgid "Fish"
-msgstr "Рыб"
+msgstr "я▓п╧п╒"
 
 msgid "Lives"
-msgstr "Жизней"
+msgstr "я√п╘п╨п╝п╔п╙"
 
 msgid "Level"
-msgstr "Уровень"
+msgstr "я∙п╡п╞п╥п╔п╝п╦"
 
 msgid "Alphabet"
-msgstr "Алфавит"
+msgstr "я│п╛п╕п║п╥п╘п╢"
 
 msgid "Short Words"
-msgstr "Короткие слова"
+msgstr "я▀п╞п╡п╞п╢п╚п╘п╔ пЁп╛п╞п╥п║"
 
 msgid "Medium Words"
-msgstr "Средние слова"
+msgstr "я⌠п╡п╔п╓п╝п╘п╔ пЁп╛п╞п╥п║"
 
 msgid "Long Words"
-msgstr "Длинные слова"
+msgstr "я└п╛п╘п╝п╝п╧п╔ пЁп╛п╞п╥п║"
 
 # "Space Cadet" is level 1 in comet zap
 msgid "Space Cadet"
-msgstr "Космический кадет"
+msgstr "я▀п╞пЁп╜п╘п╬п╔пЁп╚п╘п╙ п╚п║п╓п╔п╢"
 
 # "Pilot" is level 2 in comet zap
 msgid "Pilot"
-msgstr "Пилот"
+msgstr "Б└√п╘п╛п╞п╢"
 
 # "Ace" is level 3 in comet zap
 msgid "Ace"
-msgstr "Ас"
+msgstr "я│пЁ"
 
 # "Commander" is level 4 in comet zap
 msgid "Commander"
-msgstr "Капитан"
+msgstr "я▀п║п╟п╘п╢п║п╝"
 
 #levels for Cascade game:
 msgid "Easy"
-msgstr "Легкий"
+msgstr "я▄п╔п╖п╚п╘п╙"
 
 msgid "Medium"
-msgstr "Средний"
+msgstr "я⌠п╡п╔п╓п╝п╘п╙"
 
 msgid "Hard"
-msgstr "Сложный"
+msgstr "я⌠п╛п╞п╤п╝п╧п╙"
 
 #types of games
 msgid "Comet Zap"
-msgstr "Падение комет"
+msgstr "Б└√п║п╓п╔п╝п╘п╔ п╚п╞п╜п╔п╢"
 
 msgid "Fish Cascade"
-msgstr "Каскад рыб"
+msgstr "я▀п║пЁп╚п║п╓ п╡п╧п╒"
 
 #general stuff
 msgid "Lessons"
-msgstr "Уроки"
+msgstr "я∙п╡п╞п╚п╘"
 
 msgid "Practice"
-msgstr "Практика"
+msgstr "Б└√п╡п║п╚п╢п╘п╚п║"
 
 msgid "Instructions"
-msgstr "Инструкции"
+msgstr "я┴п╝пЁп╢п╡п╣п╚пёп╘п╘"
 
 msgid "Main Menu"
-msgstr "Главное меню"
+msgstr "я┤п╛п║п╥п╝п╞п╔ п╜п╔п╝п═"
 
 msgid "Options"
-msgstr "Параметры"
+msgstr "Б└√п║п╡п║п╜п╔п╢п╡п╧"
 
 msgid "Quit"
-msgstr "Выход"
+msgstr "я≈п╧п╗п╞п╓"
 
 msgid "Setup Keyboard"
-msgstr "Настройка клавиатуры"
+msgstr "я▌п║пЁп╢п╡п╞п╙п╚п║ п╚п╛п║п╥п╘п║п╢п╣п╡п╧"
 
 msgid "Setup Screen"
-msgstr "Настройка экрана"
+msgstr "я▌п║пЁп╢п╡п╞п╙п╚п║ п╪п╚п╡п║п╝п║"
 
 msgid "Setup Language"
-msgstr "Выбор языка"
+msgstr "я≈п╧п╒п╞п╡ п╠п╨п╧п╚п║"
 
 msgid "Choose screen resolution"
-msgstr "Выберите разрешение экрана"
+msgstr "я≈п╧п╒п╔п╡п╘п╢п╔ п╡п║п╨п╡п╔п╩п╔п╝п╘п╔ п╪п╚п╡п║п╝п║"
 
 #work in progress stuff
 msgid "Work In Progress!"
-msgstr "Работа продолжается!"
+msgstr "я▓п║п╒п╞п╢п║ п╟п╡п╞п╓п╞п╛п╤п║п╔п╢пЁп╠!"
 
 msgid "This feature is not ready yet"
-msgstr "Эта функция еще не готова"
+msgstr "я°п╢п║ п╕п╣п╝п╚пёп╘п╠ п╔п╫п╔ п╝п╔ п╖п╞п╢п╞п╥п║"
 
 msgid "Discuss the future of TuxTyping at"
-msgstr "Обсудите будущее TuxTyping на"
+msgstr "я▐п╒пЁп╣п╓п╘п╢п╔ п╒п╣п╓п╣п╫п╔п╔ TuxTyping п╝п║"

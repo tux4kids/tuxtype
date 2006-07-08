@@ -41,7 +41,7 @@ msgid "Level"
 msgstr "Nivel"
 
 msgid "Options"
-msgstr "Opciones"
+msgstr "Maoni"
 
 msgid "Alphabet"
 msgstr "Alfabeto"
@@ -88,9 +88,6 @@ msgstr "Nammna ya kutumia"
 
 msgid "Main Menu"
 msgstr "Listi ya kwanza"
-
-msgid "Options"
-msgstr "Maoni"
 
 msgid "Quit"
 msgstr "Ondoka"

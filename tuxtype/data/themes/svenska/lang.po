@@ -1,22 +1,22 @@
-# Svenska strängar för TuxType 2
-# Copyright © 2003 Free Software Foundation, Inc.
-# Göran Uddeborg <goeran@uddeborg.se>, 2003.
+# Svenska strÃ¤ngar fÃ¶r TuxType 2
+# Copyright Â© 2003 Free Software Foundation, Inc.
+# GÃ¶ran Uddeborg <goeran@uddeborg.se>, 2003.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: tuxtype2 1.5.1\n"
 "PO-Revision-Date: 2003-07-23 17:44+0200\n"
-"Last-Translator: Göran Uddeborg <goeran@uddeborg.se>\n"
+"Last-Translator: GÃ¶ran Uddeborg <goeran@uddeborg.se>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 msgid "Congratulations"
 msgstr "Gratulerar"
 
 msgid "Oh No!"
-msgstr "Åh nej!"
+msgstr "Ã…h nej!"
 
 msgid "Sound & Music Disabled"
 msgstr "Ljud och musik avaktiverade"
@@ -25,10 +25,10 @@ msgid "Paused!"
 msgstr "Pausat!"
 
 msgid "Press escape again to return to menu"
-msgstr "Tryck escape igen för att komma tillbaka till menyn"
+msgstr "Tryck escape igen fÃ¶r att komma tillbaka till menyn"
 
 msgid "Press space bar to return to game"
-msgstr "Tryck mellanslag för att fortsätta spela"
+msgstr "Tryck mellanslag fÃ¶r att fortsÃ¤tta spela"
 
 msgid "Sound Effects Volume"
 msgstr "Ljudeffektvolym"
@@ -46,7 +46,7 @@ msgid "Lives"
 msgstr "Liv"
 
 msgid "Level"
-msgstr "Nivå"
+msgstr "NivÃ¥"
 
 msgid "Alphabet"
 msgstr "Alfabete"
@@ -65,28 +65,28 @@ msgstr "Flygaress"
 
 # "Commander" is level 4 in comet zap
 msgid "Commander"
-msgstr "Kommendör"
+msgstr "KommendÃ¶r"
 
-#levels for Cascade game:
+# levels for Cascade game:
 msgid "Easy"
-msgstr "Lätt"
+msgstr "LÃ¤tt"
 
 msgid "Medium"
 msgstr "Mellan"
 
 msgid "Hard"
-msgstr "Svårt"
+msgstr "SvÃ¥rt"
 
-#types of games
+# types of games
 msgid "Comet Zap"
 msgstr "Pricka kometer"
 
 msgid "Fish Cascade"
 msgstr "Fiskregn"
 
-#general stuff
+# general stuff
 msgid "Practice"
-msgstr "Övning"
+msgstr "Ã–vning"
 
 msgid "Lessons"
 msgstr "Lektioner"
@@ -98,23 +98,23 @@ msgid "Main Menu"
 msgstr "Huvudmeny"
 
 msgid "Options"
-msgstr "Inställningar"
+msgstr "InstÃ¤llningar"
 
 msgid "Quit"
 msgstr "Avsluta"
 
 msgid "Setup Keyboard"
-msgstr "Ställ in tangentbord"
+msgstr "StÃ¤ll in tangentbord"
 
 msgid "Setup Language"
-msgstr "Ställ in språk"
+msgstr "StÃ¤ll in sprÃ¥k"
 
-#work in progress stuff
+# work in progress stuff
 msgid "Work In Progress!"
-msgstr "Arbete pågår!"
+msgstr "Arbete pÃ¥gÃ¥r!"
 
 msgid "this feature is not ready yet"
-msgstr "Denna funktion är inte färdig än"
+msgstr "Denna funktion Ã¤r inte fÃ¤rdig Ã¤n"
 
 msgid "Discuss the future of TuxTyping at"
-msgstr "Diskutera TyxeTypes framtid på"
+msgstr "Diskutera TyxeTypes framtid pÃ¥"
