@@ -1,13 +1,13 @@
-Lange WÃ¶rter (gemischt)
-# Hier kannst du selber WÃ¶rter hinzufÃ¼gen.
+Lange Wörter (gemischt)
+# Hier kannst du selber Wörter hinzufügen.
 # Zeilen die mit '#' beginnen und Leerzeilen werden ignoriert.
-# Es sind HÃ¶chstens 200 Zeilen pro Datei erlaubt
+# Es sind Höchstens 200 Zeilen pro Datei erlaubt
 ACHTUNG
 ACHTZIG
 ANTWORT
 APPETIT
 BAHNHOF
-BÃ„UERIN
+BÄUERIN
 BESETZT
 COUSINE
 DAGEGEN
@@ -24,9 +24,9 @@ HUNDERT
 KELLNER
 KETCHUP
 KIRSCHE
-LÃ„CHELN
+LÄCHELN
 LANGSAM
-MÃ„DCHEN
+MÄDCHEN
 MILLION
 NACHBAR
 NASHORN
@@ -48,7 +48,7 @@ SCHNITT
 SCHRANK
 SCHRECK
 SCHRITT
-SCHÃœLER
+SCHÜLER
 SCHWACH
 SCHWARZ
 SCHWEIN
@@ -69,7 +69,7 @@ TELEFON
 TEPPICH
 TOCHTER
 TROCKEN
-ÃœBERALL
+ÜBERALL
 UNDICHT
 VERKEHR
 VIERZIG
@@ -89,7 +89,7 @@ DREISSIG
 ELEPHANT
 ERDBEERE
 FREUNDIN
-FRÃœHLING
+FRÜHLING
 GEWITTER
 LIMONADE
 LUTSCHER

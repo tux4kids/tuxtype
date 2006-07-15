@@ -6,6 +6,9 @@ msgstr ""
 "Content-Type: text/plain; charset=Windows-1257\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+msgid ""
+msgstr ""
+
 msgid "Congratulations"
 msgstr "Sveikiname!"
 
@@ -13,37 +16,37 @@ msgid "Oh No!"
 msgstr "Deja..."
 
 msgid "Sound & Music Disabled"
-msgstr "Garsas iÅ¡jungtas"
+msgstr "Garsas iğjungtas"
 
 msgid "Paused!"
 msgstr "Pertrauka!"
 
 msgid "Press escape again to return to menu"
-msgstr "Jei norite grÄ¯Å¾ti Ä¯ meniu, paspauskite grÄ¯Å¾imo klaviÅ¡Ä…"
+msgstr "Jei norite gráşti á meniu, paspauskite gráşimo klaviğà"
 
 msgid "Press space bar to return to game"
-msgstr "Jei norite grÄ¯Å¾ti Ä¯ Å¾aidimÄ…, paspauskite tarpo klaviÅ¡Ä…"
+msgstr "Jei norite gráşti á şaidimà, paspauskite tarpo klaviğà"
 
 msgid "Sound Effects Volume"
-msgstr "SignalÅ³ garsumas"
+msgstr "Signalø garsumas"
 
 msgid "Music Volume"
 msgstr "Muzikos garsumas"
 
 msgid "Edit Word Lists"
-msgstr "Modifikuoti Å¾odÅ¾iÅ³ sÄ…raÅ¡us"
+msgstr "Modifikuoti şodşiø sàrağus"
 
 msgid "Fish"
-msgstr "Å½uvÅ³:"
+msgstr "Şuvø:"
 
 msgid "Lives"
-msgstr "MeÅ¡keriÅ³:"
+msgstr "Meğkeriø:"
 
 msgid "Level"
 msgstr "lygis"
 
 msgid "Alphabet"
-msgstr "AbÄ—cÄ—lÄ—"
+msgstr "Abëcëlë"
 
 # "Space Cadet" is level 1 in comet zap
 msgid "Space Cadet"
@@ -51,7 +54,7 @@ msgstr "Naujokas"
 
 # "Pilot" is level 2 in comet zap
 msgid "Pilot"
-msgstr "PatyrÄ™s"
+msgstr "Patyræs"
 
 # "Ace" is level 3 in comet zap
 msgid "Ace"
@@ -73,20 +76,20 @@ msgstr "Sunkus"
 
 #types of games
 msgid "Comet Zap"
-msgstr "KometÅ³ lietus"
+msgstr "Kometø lietus"
 
 msgid "Fish Cascade"
-msgstr "Å½uvÅ³ lietus"
+msgstr "Şuvø lietus"
 
 #general stuff
 msgid "Practice"
-msgstr "PirÅ¡tÅ³ pratimai"
+msgstr "Pirğtø pratimai"
 
 msgid "Lessons"
-msgstr "Pamokos (dar nÄ—ra)"
+msgstr "Pamokos (dar nëra)"
 
 msgid "Instructions"
-msgstr "Nurodymai (dar nÄ—ra)"
+msgstr "Nurodymai (dar nëra)"
 
 msgid "Main Menu"
 msgstr "Pagrindinis meniu"
@@ -98,20 +101,20 @@ msgid "Quit"
 msgstr "Baigti"
 
 msgid "Setup Keyboard"
-msgstr "KlaviatÅ«ros nustatymas"
+msgstr "Klaviatûros nustatymas"
 
 msgid "Project Info"
-msgstr "Apie Tuxtype (anglÅ³ k.)"
+msgstr "Apie "Tuxtype" (anglø k.)"
 
 msgid "Setup Language"
 msgstr "Kalbos parinkimas"
 
 #work in progress stuff
 msgid "Work In Progress!"
-msgstr "Å i programos dalis dar daroma!"
+msgstr "Ği programos dalis dar daroma!"
 
 msgid "This feature is not ready yet"
 msgstr "Kol kas ji dar nebaigta"
 
 msgid "Discuss the future of TuxTyping at"
-msgstr "Diskusijos apie Tux Typing vyksta adresu"
+msgstr "Diskusijos apie "Tux Typing" vyksta adresu:"

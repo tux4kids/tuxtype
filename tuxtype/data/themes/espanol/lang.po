@@ -89,6 +89,9 @@ msgstr "Instrucciones"
 msgid "Main Menu"
 msgstr "Menu principal"
 
+msgid "Options"
+msgstr "Opciones"
+
 msgid "Quit"
 msgstr "Salido"
 
@@ -108,4 +111,4 @@ msgstr "este funcion no esta listo todavia"
 msgid "Discuss the future of TuxTyping at"
 msgstr "A Charlar del futuro de TuxTyping"
 
-#Γ Γ΅ΓΆΓ£Γ¤Γ¥Γ¦Γ§Γ¨Γ©ΓªΓ«Γ¬Γ­Γ®Γ―Γ°Γ±Γ²Γ³Γ΄ΓµΓ¶ΓΉΓΊΓ»ΓΌΓ½ΓΏ
+#ΰαβγδεζηθικλμνξοπρςστυφωϊϋόύÿ

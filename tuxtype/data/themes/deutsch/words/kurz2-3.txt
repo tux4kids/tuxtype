@@ -1,7 +1,7 @@
-Kurze WÃ¶rter (gemischt)
-# Hier kannst du selber WÃ¶rter hinzufÃ¼gen.
+Kurze Wörter (gemischt)
+# Hier kannst du selber Wörter hinzufügen.
 # Zeilen die mit '#' beginnen und Leerzeilen werden ignoriert.
-# Es sind HÃ¶chstens 200 Zeilen pro Datei erlaubt
+# Es sind Höchstens 200 Zeilen pro Datei erlaubt
 AB
 AM
 AN
@@ -15,7 +15,7 @@ IM
 IN
 JA
 OB
-Ã–L
+ÖL
 PO
 SO
 UM
@@ -29,7 +29,7 @@ ARM
 ART
 AUF
 BAD
-BÃ„R
+BÄR
 BAU
 BEI
 BIN
@@ -47,9 +47,9 @@ ELF
 ENG
 FEE
 FIX
-FÃ–N
-FÃœR
-FUÃŸ
+FÖN
+FÜR
+FUß
 GAR
 GAS
 GUT
@@ -62,12 +62,12 @@ IHM
 IHN
 IHR
 IST
-JÃ„H
+JÄH
 JUX
 KAP
 KUH
 KUR
-KÃœR
+KÜR
 LAS
 LAX
 LID
@@ -78,10 +78,10 @@ MAG
 MAI
 MAL
 MAN
-MAÃŸ
+MAß
 MET
 MIT
-MUÃŸ
+MUß
 NAH
 NEU
 NIE
@@ -90,11 +90,11 @@ NUN
 NUR
 OFT
 OHR
-Ã–HR
+ÖHR
 OMA
 OPA
 ORT
-Ã–SE
+ÖSE
 PER
 PIK
 POL
@@ -107,12 +107,12 @@ ROH
 ROM
 ROT
 RUF
-RUÃŸ
+RUß
 SAU
 SEE
 SIE
 SKI
-SÃœÃŸ
+SÜß
 TAG
 TAL
 TAT
@@ -121,7 +121,7 @@ TOD
 TON
 TOR
 TOT
-TÃœR
+TÜR
 TUX
 TYP
 UHR
@@ -140,7 +140,7 @@ WER
 WIE
 WIR
 WUT
-ZÃ„H
+ZÄH
 ZEH
 ZOO
 ZUG

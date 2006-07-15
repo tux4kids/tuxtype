@@ -2,13 +2,13 @@ msgid ""
 msgstr "le "
 
 msgid "Congratulations"
-msgstr "FÃ©licitations"
+msgstr "Félicitations"
 
 msgid "Oh No!"
 msgstr "Oh Non!"
 
 msgid "Sound & Music Disabled"
-msgstr "Son & Musique Ã©teints"
+msgstr "Son & Musique éteints"
 
 msgid "Paused!"
 msgstr "Pause!"
@@ -71,7 +71,7 @@ msgstr "Fort"
 
 #types of games
 msgid "Comet Zap"
-msgstr "Destruction de ComÃ¨tes"
+msgstr "Destruction de Comètes"
 
 msgid "Fish Cascade"
 msgstr "Cascade de Poissons"
@@ -81,7 +81,7 @@ msgid "Practice"
 msgstr "Pratique"
 
 msgid "Lessons"
-msgstr "LeÃ§ons"
+msgstr "Leçons"
 
 msgid "Instructions"
 msgstr "Instructions"
@@ -89,21 +89,24 @@ msgstr "Instructions"
 msgid "Main Menu"
 msgstr "Menu Principal"
 
+msgid "Options"
+msgstr "Options"
+
 msgid "Quit"
 msgstr "Quitter"
 
 msgid "Setup Keyboard"
-msgstr "RÃ©gler le clavier"
+msgstr "Régler le clavier"
 
 msgid "Setup Language"
-msgstr "RÃ©gler la langue"
+msgstr "Régler la langue"
 
 #work in progress stuff
 msgid "Work In Progress!"
 msgstr "En cours de construction!"
 
 msgid "this feature is not ready yet"
-msgstr "Cette fonctionnalitÃ© n'est pas terminÃ©e"
+msgstr "Cette fonctionnalité n'est pas terminée"
 
 msgid "Discuss the future of TuxTyping at"
 msgstr "Parler du futur de TuxTyping a"

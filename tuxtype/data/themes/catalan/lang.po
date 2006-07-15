@@ -8,22 +8,22 @@ msgid "Oh No!"
 msgstr "Oh No!"
 
 msgid "Sound & Music Disabled"
-msgstr "S'ha inhabilitat el sÃ³ i la mÃºsica"
+msgstr "S'ha inhabilitat el só i la música"
 
 msgid "Paused!"
 msgstr "En pausa!"
 
 msgid "press escape again to return to menu"
-msgstr "Torneu a prÃ¨mer escape per tornar al menÃº"
+msgstr "Torneu a prèmer escape per tornar al menú"
 
 msgid "press space bar to return to game"
 msgstr "Premeu 'espai' per tornar al joc"
 
 msgid "Sound Effects Volume"
-msgstr "Volum dels efectes de sÃ³"
+msgstr "Volum dels efectes de só"
 
 msgid "Music Volume"
-msgstr "Volum de la mÃºsica"
+msgstr "Volum de la música"
 
 msgid "Edit Word Lists"
 msgstr "Editar les llistes de paraules"
@@ -58,13 +58,13 @@ msgstr "Comandant"
 
 #levels for Cascade game:
 msgid "Easy"
-msgstr "FÃ cil"
+msgstr "Fàcil"
 
 msgid "Medium"
 msgstr "Mitg"
 
 msgid "Hard"
-msgstr "DifÃ­cil"
+msgstr "Difícil"
 
 #types of games
 msgid "Comet Zap"
@@ -93,10 +93,10 @@ msgid "Quit"
 msgstr "Sortir"
 
 msgid "Setup Keyboard"
-msgstr "ConfiguraciÃ³ del teclat"
+msgstr "Configuració del teclat"
 
 msgid "Setup Language"
-msgstr "ConfiguraciÃ³ de l'idioma"
+msgstr "Configuració de l'idioma"
 
 #work in progress stuff
 msgid "Work In Progress!"

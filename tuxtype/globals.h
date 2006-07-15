@@ -108,11 +108,10 @@ typedef struct {
 #define amask 0xff000000
 #endif
 
-#define menu_font	"GenAI102.ttf" /* "DejaVuSans-Bold.ttf"  or "FreeSansBold.ttf" */ 	/* was menu.ttf */
+#define menu_font	"GenAI101.ttf" /* or "DejaVuSans-Bold.ttf"  or "FreeSansBold.ttf" */ 	/* was menu.ttf */
 #define menu_font_size	20
 
-#define ttf_font	"GenAI102.ttf" /* "DejaVuSans-Bold.ttf" or "FreeSansBold.ttf" */  	/* was letters.ttf */
-
+#define ttf_font	"GenAI101.ttf" /* or "DejaVuSans-Bold.ttf" or "FreeSansBold.ttf" */  	/* was letters.ttf */
 #define ttf_font_size	20
 
 #define MAX_NUM_WORDS   500

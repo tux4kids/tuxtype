@@ -14,6 +14,7 @@ lithuanian\
 nederlands\
 nynorsk\
 russian\
+spanish\
 svenska\
 swahili
 

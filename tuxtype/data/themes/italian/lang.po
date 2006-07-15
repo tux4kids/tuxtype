@@ -14,7 +14,7 @@ msgid "Paused!"
 msgstr "In pausa"
 
 msgid "Press escape again to return to menu"
-msgstr "premi di nuovo ESC per ritornare al menÃ¹"
+msgstr "premi di nuovo ESC per ritornare al menù"
 
 msgid "Press space bar to return to game"
 msgstr "premi SPAZIO per ritornare al gioco"
@@ -84,7 +84,7 @@ msgid "Instructions"
 msgstr "Istruzioni"
 
 msgid "Main Menu"
-msgstr "MenÃ¹ principale"
+msgstr "Menù principale"
 
 msgid "Options"
 msgstr "Opzioni"
@@ -103,7 +103,7 @@ msgid "Work In Progress!"
 msgstr "Lavori in corso!"
 
 msgid "This feature is not ready yet"
-msgstr "Questa caratteristica non Ã¨ ancora supportata..."
+msgstr "Questa caratteristica non è ancora supportata..."
 
 msgid "Discuss the future of TuxTyping at"
 msgstr "Discuti del futuro di TuxTyping su:"

@@ -89,6 +89,9 @@ msgstr "Instructies"
 msgid "Main Menu"
 msgstr "Hoofdmenu"
 
+msgid "Options"
+msgstr "Opties"
+
 msgid "Quit"
 msgstr "Stoppen"
 

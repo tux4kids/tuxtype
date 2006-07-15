@@ -484,14 +484,14 @@ void runScript( void ) {
                         for ( toshow=strlen(&curItem->data[shown]); !ok; toshow--) {
                             if (toshow+1>FNLEN) continue;
                             tmp[toshow]=0;
-                            TTF_SizeUTF8( myFont, tmp, &w, &h);
+                            TTF_SizeText( myFont, tmp, &w, &h);
                             
                             if (w+20<screen->w) ok=1;
                         }
                         
                         shown += toshow + 1;
 			//printf("Rendering %s\n", tmp);
-                        img = TTF_RenderUTF8_Blended( myFont, tmp, *col );
+                        img = TTF_RenderText_Blended( myFont, tmp, *col );
 
                         if (img) {
                     
@@ -783,7 +783,7 @@ void testLesson( void ) {
 
 		sprintf( wordlistFile[c], "%s", wordsFile->d_name );
 
-		filenames[c] = TTF_RenderUTF8_Blended(  font, wordsFile->d_name, white);
+		filenames[c] = TTF_RenderText_Blended(  font, wordsFile->d_name, white);
 		SDL_BlitSurface( filenames[c], NULL, screen, &spot );
                 SDL_FreeSurface(filenames[c]);
 		c++;
