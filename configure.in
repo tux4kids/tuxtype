@@ -112,8 +112,6 @@ tuxtype/data/themes/russian/Makefile
 tuxtype/data/themes/russian/images/Makefile
 tuxtype/data/themes/russian/images/status/Makefile
 tuxtype/data/themes/russian/words/Makefile
-tuxtype/data/themes/spanish/Makefile
-tuxtype/data/themes/spanish/words/Makefile
 tuxtype/data/themes/svenska/Makefile
 tuxtype/data/themes/svenska/words/Makefile
 tuxtype/data/themes/swahili/Makefile
