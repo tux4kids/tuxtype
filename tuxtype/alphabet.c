@@ -119,7 +119,7 @@ SDL_Surface* black_outline(unsigned char *t, TTF_Font *font, SDL_Color *c) {
         
         DEBUGCODE { fprintf( stderr, "black_outline of \"%s\"\n", t ); }
 
-	tmp = TTF_RenderText_Solid(font, t, black);
+	tmp = TTF_RenderText_Shaded(font, t, black,black);
 	tmp2 = SDL_CreateRGBSurface(SDL_SWSURFACE, (tmp->w)+5, (tmp->h)+5, BPP, rmask, gmask, bmask, amask);
 	out = SDL_DisplayFormatAlpha(tmp2);
 	SDL_FreeSurface(tmp2);
