@@ -1,11 +1,14 @@
-v1.5.6	 utf-8 release
+v1.5.6	the "make it simply work, stupid" release (a pun on KISS)
 [ Holger Levsen ]
-       - switched to utf-8, first only to workaround debian bug #374062, but now
-         "forever" :)
-       - removed some soundfiles with unclear licence
+       - reverted utf8-changes from r16-20, as utf8 support needs more code
+         changes
+       - workaround debian bug #374062
+       - TODO: removed some soundfiles with unclear licence 
+       - font-loading is still a ugly hack :-( but works on debian with
+         ttf-gentium, which requires a little code-change for a sarge backport
+       - macosx and windows version untested...
 
-
-v1.5.5   development version, not yet released (still font+sound issues)
+v1.5.5   development version, not released (still font+sound issues)
 
 [ Calvin Arndt ]
        - closing all the mem leaks I know of 
