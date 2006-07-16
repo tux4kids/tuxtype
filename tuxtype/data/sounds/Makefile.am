@@ -1,6 +1,5 @@
 
 EXTRA_DIST = \
-funkbrk.it\
 tuxi.ogg\
 alarm.wav\
 bite.wav\
@@ -28,8 +27,6 @@ game3.mod\
 README_SOUNDS.TXT
 
 install-data-local:
-	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/sounds
-	$(INSTALL_DATA) $(srcdir)/funkbrk.it $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/sounds/funkbrk.it
 	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/sounds
 	$(INSTALL_DATA) $(srcdir)/tuxi.ogg $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/sounds/tuxi.ogg
 	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/sounds
@@ -82,7 +79,6 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/README_SOUNDS.TXT $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/sounds/README_SOUNDS.TXT
 
 uninstall-local:
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/sounds/funkbrk.it
 	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/sounds/tuxi.ogg
 	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/sounds/alarm.wav
 	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/sounds/bite.wav
