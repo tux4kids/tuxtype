@@ -4,6 +4,9 @@
  Debians Free Software Guidelines with free ones. click.wav and
  kmus(1-4).wav are only free for non-commercial use.
 
+-check that SVN is free of generated files. create release-script, 
+  keep release tarballs (after augen.sh is run) in SVN?
+
 -Test it under MacOSX and windows
 
 -make the code use UTF8 internally
