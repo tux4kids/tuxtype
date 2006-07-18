@@ -5,9 +5,10 @@ An Educational Typing Tutor Game Starring Tux, the Linux Penguin
 (To install the game on your system, please read the INSTALL file.)
 
     If you are interested in Translation/moving this game to another 
-    language, please go to http://tux4kids.net/~jdandr2/i18n/ for more
-    information.  Dansk is currently the only complete theme for TT2.
+    language, please send a mail to Holger Levsen <debian@layer-acht.org>
+    or submit a ticket in trac at http://trac.tux4kids.net/tuxtype/newticket
 
+This is version 2 of tuxtype.
 
 In Fish Cascade you control Tux as he searches for fish to eat. Fish fall
 from the top of the screen. These fish have letters on them.  Unforunate

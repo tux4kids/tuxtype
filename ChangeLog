@@ -1,9 +1,13 @@
 v1.5.6	the "make it simply work, stupid" release (a pun on KISS)
+
 [ Holger Levsen ]
+       - tagged as release in svn
+       - brought back the tuxtype2 logo
+       - updated TODO and README
        - reverted utf8-changes from r16-20, as utf8 support needs more code
          changes
        - workaround debian bug #374062
-       - TODO: removed some soundfiles with unclear licence 
+       - remove funkbrt.it as its not used
        - font-loading is still a ugly hack :-( but works on debian with
          ttf-gentium, which requires a little code-change for a sarge backport
        - macosx and windows version untested...
