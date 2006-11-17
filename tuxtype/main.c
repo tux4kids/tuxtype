@@ -58,7 +58,7 @@ int main(int argc, char *argv[])
 	}
         
 	lib_flags = SDL_INIT_VIDEO;
-
+	/* FIXME this could go into something like HandleCommandArgs() */
 	// check command line args
 	if (argc > 1) 
 		for (i = 1; i < argc; i++) {
@@ -133,8 +133,8 @@ int main(int argc, char *argv[])
 
 	lib_flags |= SDL_INIT_AUDIO;
 	
-	LibInit(lib_flags);
-	GraphicsInit(video_flags);
+	LibInit(lib_flags); /* calls SDL_Init(), TTF_Init(), some other settings */
+	GraphicsInit(video_flags); /* calls SDL_SetVideoMode(), a few others     */
 
 	if (sys_sound){
 	    Mix_VolumeMusic(localsettings.mus_volume);

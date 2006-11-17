@@ -32,7 +32,7 @@
 #define END_FRAME_DY 2	//rise speed of ending animation text
 #define WIN_GAME_XAMP 4	//the xamplitide of winning game text circular motion
 #define WIN_GAME_YAMP 4	//the yamplitude of winning game text circular motion
-#define WIN_GAME_ANGLE_MULT 4	//the angle multiplier for winning game te xt circ motion
+#define WIN_GAME_ANGLE_MULT 4	//the angle multiplier for winning game text circ motion
 
 //tux frame lengths (number of frames each cell of animation frames on-screen)
 #define WALK_ONSCREEN	10

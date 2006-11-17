@@ -16,8 +16,7 @@
  *                                                                         *
  ***************************************************************************/
 
-extern void SaveSettings( void );
-extern void LoadSettings( void );
+
 extern int int_rand( int min, int max );
 extern int max( int n1, int n2 );
 extern SDL_Surface* ttf_letter( unsigned char ch, SDL_Color c );
@@ -70,10 +69,14 @@ extern void         FreeSprite( sprite *gfx );
 extern Mix_Music   *LoadMusic( char *datafile );
 extern SDL_Surface *flip( SDL_Surface *in, int x, int y );
 
+
 /* in setup.c */
 extern void GraphicsInit( Uint32 video_flags );
 extern void LibInit( Uint32 lib_flags );
-extern void InitEngine( void );
+extern void LoadSettings( void );
+extern void SaveSettings( void );
+
+extern void InitEngine( void ); /* NOT in setup.c */
 
 /* in alphabet.c */
 extern void LoadKeyboard( void );
@@ -83,7 +86,7 @@ extern void custom_letter_setup( void );
 extern void show_letters( void );
 extern SDL_Surface* black_outline( unsigned char *t, TTF_Font* font, SDL_Color* c );
 
-/* ### WORD FUNCTIONS */
+/* WORD FUNCTIONS (also in alphabet.c) */
 extern void WORDS_init( void );
 extern void WORDS_use_alphabet( void );
 extern void WORDS_use( char *wordFn );

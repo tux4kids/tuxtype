@@ -27,6 +27,9 @@ char phrase[255][FNLEN];
 
 Mix_Chunk *wrong;
 
+/*local function prototypes: */
+void print_at( char *pphrase, int wrap, int x, int y );
+
 void practice_load_media(void) {
 	int i;	
 	unsigned char fn[FNLEN];

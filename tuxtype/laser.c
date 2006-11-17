@@ -197,7 +197,8 @@ int laser_game(int DIF_LEVEL)
 	tux_same_counter = 0;
 	ans_num = 0;
 
-	audioMusicPlay(musics[MUS_GAME + int_rand(0,3)], 0);
+	/* Next line changed to get rid of int_rand() which didn't work on win32: */
+	audioMusicPlay(musics[MUS_GAME + (rand() % NUM_MUSICS)], 0);
 
 	do {
 
@@ -288,10 +289,10 @@ int laser_game(int DIF_LEVEL)
 	    
 				/* 50% of the time.. */
 	    
-				if (int_rand(0,2) == 0) {
+				if (0 == (rand() % 2))  {
 
 					/* ... pick an animation to play: */ 
-					if (int_rand(0,2) == 0)
+					if (0 == (rand() % 2))
 						tux_anim = IMG_TUX_YES1;
 					else
 						tux_anim = IMG_TUX_YAY1;
@@ -309,7 +310,7 @@ int laser_game(int DIF_LEVEL)
 	    
 				playsound(sounds[SND_BUZZ]);
 	    
-				if (int_rand(0,2)==0)
+				if (0 == (rand() % 2))
 					tux_img = IMG_TUX_DRAT;
 				else
 					tux_img = IMG_TUX_YIPE;
@@ -341,7 +342,7 @@ int laser_game(int DIF_LEVEL)
 	  
 		if (tux_pressing) {
 			while (tux_img == old_tux_img)
-				tux_img = IMG_TUX_CONSOLE1 + int_rand(0,3);
+				tux_img = IMG_TUX_CONSOLE1 + (rand() % 3);
 
 			playsound(sounds[SND_CLICK]);
 		}
@@ -432,7 +433,7 @@ int laser_game(int DIF_LEVEL)
 
 				/* More comets to add during this wave! */
 		
-				if ((num_comets_alive < 2 || int_rand(0,4) == 0) && distanceMoved > 40) {
+				if ((num_comets_alive < 2 || ((rand() % 4) == 0)) && distanceMoved > 40) {
 					distanceMoved = 0;
 					laser_add_comet(DIF_LEVEL);
 					num_attackers--;
@@ -638,7 +639,7 @@ int laser_game(int DIF_LEVEL)
 		/* Keep playing music: */
       
 		if (sys_sound && !Mix_PlayingMusic())
-			audioMusicPlay(musics[MUS_GAME + int_rand(0,3)], 0);
+			audioMusicPlay(musics[MUS_GAME + (rand() % NUM_MUSICS)], 0);
       
 		/* Pause (keep frame-rate event) */
       
@@ -678,15 +679,22 @@ void laser_reset_level(int DIF_LEVEL)
     comets[i].alive = 0;
   
   /* Load diffrent random background image: */
+  LOG("Loading background in laser_reset_level()\n");
 
   do {
-    i = int_rand(0,NUM_BKGDS-1);
+    i = rand() % NUM_BKGDS;  /* int_rand() didn't work correctly on win32 */
+    DOUT(i);
   }
   while (i == last_bkgd);
 
   last_bkgd = i;
 
+  DOUT(i);
+
   sprintf(fname, "backgrounds/%d.jpg", i);
+
+  LOG("Will try to load file:");
+  LOG(fname);
 
   if (bkgd != NULL)
     SDL_FreeSurface(bkgd);
@@ -713,9 +721,11 @@ void laser_reset_level(int DIF_LEVEL)
     case 1 : speed = 1 + (wave/4); num_attackers=15; break;
     case 2 : speed = 1 + ((wave<<1)/3); num_attackers=(wave<<1); break;
     case 3 : speed = 1 + wave; num_attackers=(wave<<1); break;
+    default: LOG("DIF_LEVEL not recognized!\n");
   }
 
   distanceMoved = 100; // so that we don't have to wait to start the level
+  LOG("Leaving laser_reset_level()\n");
 }
 
 
@@ -726,71 +736,78 @@ void laser_add_comet(int DIF_LEVEL) {
 	int target, location = 0;
 	static int last = -1;
 	int targeted[NUM_CITIES] = { 0 };
-	int add = int_rand(1,DIF_LEVEL+2);
+	int add = (rand() % (DIF_LEVEL + 2));
 
-	DEBUGCODE { printf(" Adding %d comets \n", add); }
+	LOG ("Entering laser_add_comet()\n");
+	DEBUGCODE { fprintf(stderr, "Adding %d comets \n", add); }
 
-	if (NUM_CITIES%2 == 0) {
-	while ((add > 0) && (location != MAX_COMETS)) {
-  
-  		/* Look for a free comet slot: */
- 		while ((comets[location].alive == 1) && (location < MAX_COMETS))
-			location++; 
+	if (0 == NUM_CITIES % 2) /* Even number of cities */
+	{
+          LOG("NUM_CITIES is even\n");
+	  while ((add > 0) && (location != MAX_COMETS))
+	  {
+            /* Look for a free comet slot: */
+            while ((comets[location].alive == 1) && (location < MAX_COMETS))
+            {
+              location++; 
+            }
+            if (location < MAX_COMETS)
+            {
+              comets[location].alive = 1;
+              /* Pick a city to attack: */
+              do
+              { 
+                target = (rand() % NUM_CITIES);
+              } while (target == last || targeted[target] == 1);
 
-  		if (location < MAX_COMETS) {
+              last = target;
+              targeted[target] = 1;
 
-			comets[location].alive = 1;
+              /* Set comet to target that city: */
+              comets[location].city = target; 
 
-			/* Pick a city to attack: */
-    
-			do { 
-				target = int_rand( 0, NUM_CITIES );
-    			} while (target == last || targeted[target] == 1);
+              /* Start at the top, above the city in question: */
+              comets[location].x = cities[target].x;
+              comets[location].y = 0;
 
-			last = target;
-			targeted[target] = 1;
+              /* Pick a letter */
+              comets[location].ch = get_letter();
+              add--;
+            }
+            DEBUGCODE {if (location == MAX_COMETS) 
+			printf("Location == MAX_COMETS, we have max on screen\n");}
+	  } 
+	}
+	else /* Odd number of cities (is this a hack that means we are using words?) */
+        {
+          LOG("NUM_CITIES is odd\n");
+          unsigned char *word = WORDS_get();
+          int i=0;
 
-			/* Set in to attack that city: */
-      
-			comets[location].city = target; 
+          DEBUGCODE {fprintf(stderr, "word is: %s\n", word);}
+          do
+          { 
+  	    target = rand() % (NUM_CITIES - strlen(word) + 1);
+          } while (target == last);
+          last = target;
 
-			/* Start at the top, above the city in question: */
-      
-			comets[location].x = cities[target].x;
-			comets[location].y = 0;
-
-			/* Pick a letter */
-    
-			comets[location].ch = get_letter();
-			add--;
-		}
-		DEBUGCODE {
-  			if (location == MAX_COMETS) 
-				printf("Location == MAX_COMETS, we have max on screen\n"); 
-		}
-	} }
-	else {
-		unsigned char *word = WORDS_get();
-		int i=0;
-		do { 
-			target = int_rand( 0, NUM_CITIES-strlen(word)+1);
-    		} while (target == last);
-		last = target;
-
-		for (i=0; i<strlen(word); i++) {
+		for (i=0; i<strlen(word); i++)
+		{
  			while ((comets[location].alive == 1) && (location < MAX_COMETS))
 				location++; 
 
-  			if (location < MAX_COMETS) {
-
+  			if (location < MAX_COMETS)
+			{
 				comets[location].alive = 1;
 				comets[location].city = target+i; 
 				comets[location].x = cities[target+i].x;
 				comets[location].y = 0;
 				comets[location].ch = word[i];
+				DEBUGCODE {fprintf(stderr, "Assigning letter to comet: %c\n", word[i]);}
 			}
 		}
 	}
+	LOG ("Leaving laser_add_comet()\n");
 }
 
 

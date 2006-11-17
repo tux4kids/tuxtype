@@ -10,6 +10,7 @@
 #define ROOTMENU		        1
 
 /* --- define menu structure --- */
+/* (these values are all in the Game_Type enum in globals.h) */
 const int menu_item[][6]= {{0, 0,         0,         0,          0},
 			   {0, CASCADE,   LEVEL1,    LEVEL1,  NOT_CODED },
 			   {0, LASER,     LEVEL2,    LEVEL2,  FREETYPE   },

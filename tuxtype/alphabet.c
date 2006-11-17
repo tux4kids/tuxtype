@@ -28,6 +28,9 @@ SDL_Color red;
 SDL_Color white;
 SDL_Color yellow;
 
+/* Used for word list functions (see below): */
+static int WORD_qty;
+unsigned char WORDS[MAX_NUM_WORDS][MAX_WORD_SIZE+1];
 
 /* --- setup the alphabet --- */
 void set_letters(unsigned char *t) {
@@ -203,7 +206,7 @@ unsigned char get_letter(void) {
 	static int last = -1; // we don't want to return same letter twice in a row
 	int letter;
 	do {
-		letter = int_rand(0,255);
+		letter = rand() % 255;
 	} while ((letter == last && ALPHABET_SIZE > 1) || ALPHABET[letter] == 0);
 
 	last = letter;
@@ -215,8 +218,7 @@ unsigned char get_letter(void) {
 *                           WORD FILE & DATA STRUCTURE                        *
 ******************************************************************************/
 
-int WORD_qty = 0;
-unsigned char WORDS[MAX_NUM_WORDS][MAX_WORD_SIZE+1];
+
 
 /* WORDS_init: clears the number of words
  */
@@ -229,29 +231,73 @@ void WORDS_init( void ) {
  */
 void WORDS_use_alphabet( void ) {
 	int i;
-	WORD_qty=0;
-	/* This totlly mucks up i18n abilities :( */
+
+	LOG("Entering WORDS_use_alphabet()\n");
+
+	WORD_qty = 0;
+	/* This totally mucks up i18n abilities :( */
 	for (i=65; i<90; i++) 
+	{
 		if (ALPHABET[i]) {
 			WORDS[WORD_qty][0] = (unsigned char)i;
 			WORDS[WORD_qty][1] = '\0';
 			WORD_qty++;
+
+			DEBUGCODE { fprintf(stderr, "Adding %c\n", (unsigned char)i); }
 		}
+	}
+	/* Make sure list is terminated with null character */
+	WORDS[WORD_qty][0] = '\0';
+
+	DOUT(WORD_qty);
+	LOG("Leaving WORDS_use_alphabet()\n");
 }
 
 /* WORDS_get: returns a random word that wasn't returned
  * the previous time (unless there is only 1 word!!!)
  */
 unsigned char* WORDS_get( void ) {
-	static int last_choice=-1;
+	static int last_choice = -1;
 	int choice;
 
+	LOG("Entering WORDS_get()\n");
+	DEBUGCODE { fprintf(stderr, "WORD_qty is: %d\n", WORD_qty); }
+
+	/* Now count list to make sure WORD_qty is correct: */
+
+	WORD_qty = 0;
+	while (WORDS[WORD_qty][0] != '\0')
+	{
+	  WORD_qty++;
+	}
+
+	DEBUGCODE { fprintf(stderr, "After count, WORD_qty is: %d\n", WORD_qty); }
+
+        if (0 == WORD_qty)
+	{
+	  LOG("No words in list\n");
+          return NULL;
+	}
+
+        if (WORD_qty > MAX_NUM_WORDS)
+	{
+	  LOG("Error: WORD_qty greater than array size\n");
+          return NULL;
+	}
+
+        if (WORD_qty < 0)
+	{
+	  LOG("Error: WORD_qty negative\n");
+          return NULL;
+	}
+
 	do {
-		choice = int_rand( 0, WORD_qty );
-	} while ((choice == last_choice) || WORD_qty < 2);
+		choice = (rand() % WORD_qty);
+	} while ((choice == last_choice) || (WORD_qty < 2));
 
 	last_choice = choice;
 
+	DEBUGCODE { fprintf(stderr, "Selected word is: %s\n", WORDS[choice]); }
 	return WORDS[choice];
 }
 
@@ -265,6 +311,10 @@ void WORDS_use( char *wordFn ) {
 	int j;
 	unsigned char temp_word[FNLEN];
 	FILE *wordFile=NULL;
+
+	DEBUGCODE { fprintf(stderr, "Entering WORDS_use() for file: %s\n", wordFn); }
+
+	WORD_qty = 0;
 
 	/* --- open the file --- */
 
@@ -285,6 +335,7 @@ void WORDS_use( char *wordFn ) {
 
 	/* ignore the title */
 	fscanf( wordFile, "%[^\n]\n", temp_word);
+
 	while (!feof(wordFile) && (WORD_qty < MAX_NUM_WORDS)) {
 		fscanf( wordFile, "%[^\n]\n", temp_word);
 
@@ -298,12 +349,22 @@ void WORDS_use( char *wordFn ) {
 
 			/* --- add word --- */
 			if (WORD_qty < MAX_NUM_WORDS)
-				strcpy( WORDS[WORD_qty++], temp_word );
+			{
+				strcpy( WORDS[WORD_qty], temp_word );
+				WORD_qty++;
+			}
 		}
 	}
+        
+	/* Make sure list is terminated with null character */
+	WORDS[WORD_qty][0] = '\0';
+
+	DOUT(WORD_qty);
 
 	if (WORD_qty == 0)
 		WORDS_use_alphabet( );
 
 	fclose(wordFile);
+
+	LOG("Leaving WORDS_use()\n");
 }

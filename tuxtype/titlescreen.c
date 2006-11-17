@@ -22,13 +22,19 @@
 #include "titlescreen.h"
 
 /* --- media for menus --- */
+
+/* images of regular and selected text of menu items: */
 SDL_Surface *reg_text[TITLE_MENU_ITEMS + 1][TITLE_MENU_DEPTH + 1];
 SDL_Surface *sel_text[TITLE_MENU_ITEMS + 1][TITLE_MENU_DEPTH + 1];
 sprite *reg;
 sprite *sel;
+/* this will contain pointers to all of the menu 'icons' */
 sprite *menu_gfx[TITLE_MENU_ITEMS + 1][TITLE_MENU_DEPTH + 1];
+/* keep track of the width of each menu: */
 int     menu_width[TITLE_MENU_DEPTH + 1];
 
+/* NOTE for 'depth', think pages like a restaurant menu, */
+/* not heirarchical depth - choice of term is misleading */
 int menu_depth; // how deep we are in the menu
 int menu_sound; // status of menu sound effects
 int menu_music; // status of menu sound effects
@@ -44,6 +50,7 @@ Mix_Chunk *snd_move, *snd_select;
 /* --- locations we need --- */
 SDL_Rect text_dst[TITLE_MENU_ITEMS + 1];     // location of text for menu
 SDL_Rect menu_gfxdest[TITLE_MENU_ITEMS + 1]; // location of animated icon
+/* These are the rectangular mouse event "buttons" for each menu item */
 SDL_Rect menu_button[TITLE_MENU_ITEMS + 1];  // size of "button"
 
 int chooseWordlist( void );
@@ -71,9 +78,11 @@ void TitleScreen_load_menu( void ) {
 
 	LOG("loading & parsing menu\n");
 	
-	for (j = 1; j <= TITLE_MENU_DEPTH; j++) {
+	for (j = 1; j <= TITLE_MENU_DEPTH; j++)  /* Each 'depth' is a different menu */
+	{
 		max = 0;
-		for (i = 1; i <= TITLE_MENU_ITEMS; i++) {
+		for (i = 1; i <= TITLE_MENU_ITEMS; i++)
+		{
 
 			/* --- create text surfaces --- */
 
@@ -88,40 +97,45 @@ void TitleScreen_load_menu( void ) {
 			sprintf(fn, "menu/%s", menu_icon[i][j]);
 			menu_gfx[i][j] = LoadSprite(fn, IMG_ALPHA);
 		}
-		menu_width[j] = max + 20 + 40;
+		menu_width[j] = max + 20 + 40; // Not clear where '20' and '40' are coming from
 	}
 
 	LOG("done creating graphics, now setting positions\n");
 
+
 	/* --- setup menu item destinations --- */
 
-	menu_button[1].x = 240;
-	menu_button[1].w = menu_width[1];
-	menu_button[1].y = 100;
-	menu_button[1].h = sel->frame[1]->h;
 
-	menu_gfxdest[1].x = 246;
+	menu_button[1].x = 240;
+	menu_button[1].y = 100;
+	menu_button[1].w = menu_width[1];  //calc from width of widest menu item
+	menu_button[1].h = sel->frame[1]->h; //height of sprite image
+
+	menu_gfxdest[1].x = menu_button[1].x + 6; // inset graphic by (6, 4) */
 	menu_gfxdest[1].y = menu_button[1].y + 4;
 	menu_gfxdest[1].w = 40;
 	menu_gfxdest[1].h = 50;
 
 	text_dst[1].y = menu_button[1].y+15;
 
-	for (j=2; j<6; j++) {
+	/* FIXME each menu item drawn hardcoded 60 pixels below last - */
+	/* perhaps increment should be "menu_button[j-1].h + MENU_ITEM_GAP" */
+	for (j=2; j<6; j++) 
+	{
 		/* --- setup vertical location of button text --- */
 		text_dst[j].y = text_dst[j-1].y + 60;
 
+		/* --- setup location of button background --- */
+		menu_button[j].x = menu_button[j-1].x;
+		menu_button[j].y = menu_button[j-1].y + 60;
+		menu_button[j].w = menu_button[j-1].w;
+		menu_button[j].h = menu_button[j-1].h;
+
 		/* --- setup location of animated icon --- */
 		menu_gfxdest[j].x = menu_gfxdest[j-1].x;
-		menu_gfxdest[j].y = menu_gfxdest[j-1].y+60;
+		menu_gfxdest[j].y = menu_gfxdest[j-1].y + 60;
 		menu_gfxdest[j].w = menu_gfxdest[j-1].w;
 		menu_gfxdest[j].h = menu_gfxdest[j-1].h;
-
-		/* --- setup location of button bkg --- */
-		menu_button[j].x = 240;
-		menu_button[j].y = menu_button[j-1].y + 60;
-		menu_button[j].w = menu_width[1];
-		menu_button[j].h = sel->frame[1]->h;
 	}
 }
 
@@ -139,6 +153,12 @@ void TitleScreen_unload_menu( void ) {
 void TitleScreen_load_media( void ) {
 
 	/* --- load sounds --- */
+	DEBUGCODE
+	{
+		fprintf(stderr, "Entering TitleScreen_load_media():\n");
+		fprintf(stderr, "realPath[0] = %s\n", realPath[0]);
+		fprintf(stderr, "realPath[1] = %s\n", realPath[1]);
+	}
 
 	if (menu_sound){
 	    snd_move = LoadSound("tock.wav");
@@ -158,6 +178,7 @@ void TitleScreen_load_media( void ) {
 	Tux = LoadSprite("tux", IMG_ALPHA);
 
 	font = LoadFont( menu_font, menu_font_size );
+	/* Should probably call this directly from TitleScreen() */
 	TitleScreen_load_menu();
 }
 
@@ -186,13 +207,13 @@ void TitleScreen_unload_media( void ) {
 	TitleScreen_unload_menu();
 }
 
-void NotImplimented(void) {
+void NotImplemented(void) {
 	SDL_Surface *s1, *s2, *s3, *s4;
 	sprite *tux;
 	SDL_Rect loc;
 	int finished=0,i;
 
-        LOG( "NotImplimented() - creating text\n" );
+        LOG( "NotImplemented() - creating text\n" );
 
 	s1 = black_outline( _("Work In Progress!"), font, &white);
 	s2 = black_outline( _("This feature is not ready yet"), font, &white);
@@ -209,7 +230,7 @@ void NotImplimented(void) {
 	} else 
 		s4 = black_outline( "http://tuxtype.sf.net/forums", font, &white);
 
-        LOG( "NotImplimented() - drawing screen\n" );
+        LOG( "NotImplemented() - drawing screen\n" );
 
 	SDL_BlitSurface( bkg, NULL, screen, NULL );
 	loc.x = 320-(s1->w/2); loc.y = 10;
@@ -265,7 +286,8 @@ void NotImplimented(void) {
 *****************************************
 * display title screen, get input
 */
-void TitleScreen( void ) {
+void TitleScreen( void )
+{
 
 	SDL_Rect dest,
 		 Tuxdest,
@@ -290,11 +312,13 @@ void TitleScreen( void ) {
 		menu_music=localsettings.menu_music;
 	}
 
-	/*
-	 * StandbyScreen: Display the Standby screen.... 
-	 */
+	/* FIXME phrase(s) should come from file */
 	strncpy( phrase, "Now is the time for all good men to come to the aid of their country.", 128);
 	start = SDL_GetTicks();
+
+	/*
+	* StandbyScreen: Display the Standby screen.... 
+        */
 
 	if (show_tux4kids) {
 		SDL_Surface *standby;
@@ -312,6 +336,7 @@ void TitleScreen( void ) {
 		SDL_FreeSurface(standby);
 	}
 
+	/* Load media and menu data: */
 	TitleScreen_load_media();
 	SDL_WM_GrabInput(SDL_GRAB_ON);
 
@@ -319,7 +344,7 @@ void TitleScreen( void ) {
 	* Tux and Title animations *
 	***************************/
 
-	LOG( "->Now Animatiting Tux and Title on to the screen\n" );
+	LOG( "->Now Animating Tux and Title onto the screen\n" );
 
 	Tuxdest.x = 0;
 	Tuxdest.y = screen->h;
@@ -345,11 +370,13 @@ void TitleScreen( void ) {
 	}
 
 	SDL_ShowCursor(1);    
+	/* FIXME not sure the next line works in Windows: */
 	TransWipe(bkg, RANDOM_WIPE, 10, 20);
 
 	/* --- Pull tux & logo onscreen --- */
 
-	for (i = 0; i < (PRE_ANIM_FRAMES * PRE_FRAME_MULT); i++) {
+	for (i = 0; i < (PRE_ANIM_FRAMES * PRE_FRAME_MULT); i++)
+	{
 		start = SDL_GetTicks();
 		SDL_BlitSurface(bkg, &Tuxdest, screen, &Tuxdest);
 		SDL_BlitSurface(bkg, &Titledest, screen, &Titledest);
@@ -367,150 +394,232 @@ void TitleScreen( void ) {
 			SDL_Delay(2);
 	}
 
-		SDL_BlitSurface(title, NULL, screen, &Titledest);
+	SDL_BlitSurface(title, NULL, screen, &Titledest);
+
+	/* Pick speaker graphic according to whether music is on: */
 	if ( menu_music )
 		SDL_BlitSurface(speaker, NULL, screen, &spkrdest);
 	else
 		SDL_BlitSurface(speakeroff, NULL, screen, &spkrdest);
 
+	/* Start playing menu music if desired: */
+	if (menu_music)
+	    audioMusicLoad( "tuxi.ogg", -1 );
+
 	LOG( "Tux and Title are in place now\n" );
 
+	/* Move mouse to top button: */
 	cursor.x = menu_button[1].x + (menu_button[1].w / 2);
 	cursor.y = menu_button[1].y + (3 * menu_button[1].h / 4);
-
 	SDL_WarpMouse(cursor.x, cursor.y);
 	SDL_WM_GrabInput(SDL_GRAB_OFF);
 
-	if (menu_music)
-	    audioMusicLoad( "tuxi.ogg", -1 );
+
 
 	/****************************
 	* Main Loop Starts Here ... *
 	****************************/
 
+
 	menu_depth = 1;
 	int firstloop=1;
 	Tuxdest.y = screen->h - Tux->frame[0]->h;
 
-	while (!done) {
+	while (!done) 
+	{
 
-		start=SDL_GetTicks();
+	  start=SDL_GetTicks();
 
-		/* ---process input queue --- */
+	  /* ---process input queue --- */
 
-		menu_opt = NONE; // clear the option so we don't change twice!
+	  menu_opt = NONE; // clear the option so we don't change twice!
 
-		old_key_menu = key_menu;
+	  old_key_menu = key_menu;
 
-		while (SDL_PollEvent(&event)) {
-			switch (event.type) {
-				case SDL_MOUSEMOTION:
-					cursor.x = event.motion.x;
-					cursor.y = event.motion.y;
-					break;
-				
-				case SDL_MOUSEBUTTONDOWN:
-					cursor.x = event.motion.x;
-					cursor.y = event.motion.y;
-					for (j = 1; j <= TITLE_MENU_ITEMS; j++) 
-						if ((cursor.x >= menu_button[j].x && cursor.x <= (menu_button[j].x + menu_button[j].w)) && 
-						    (cursor.y >= menu_button[j].y && cursor.y <= (menu_button[j].y + menu_button[j].h))) {
-							menu_opt = menu_item[j][menu_depth];
-							if (menu_sound)
-								playsound(snd_select);
-							DEBUGCODE {
-								fprintf(stderr, "->>BUTTON CLICK menu_opt = %d\n", menu_opt);
-								fprintf(stderr, "->J = %d menu_depth=%d\n", j, menu_depth);
-							}
-						}
-					if ((cursor.x >= spkrdest.x && cursor.x <= (spkrdest.x + spkrdest.w)) && 
-					    (cursor.y >= spkrdest.y && cursor.y <= (spkrdest.y + spkrdest.h))) {
-						if (menu_music==1) {
-							audioMusicUnload( );
-							menu_music=0;
-						} else {
-							if (menu_music==0){
-								menu_music=1;
-								audioMusicLoad( "tuxi.ogg", -1 );
-							}
-						}
-						redraw=1;
-					}
-					break;
-				
-				case SDL_QUIT:
-					menu_opt = QUIT_GAME;
-					break;
-				
-				case SDL_KEYDOWN:
-					switch (event.key.keysym.sym) {
-						case SDLK_ESCAPE:
-							if (menu_sound)
-								playsound(snd_select);
-							if (menu_depth != 1) 
-								menu_opt = MAIN;
-							else
-								menu_opt = QUIT_GAME;
-							break;
-						case SDLK_F10:
-							switch_screen_mode();
-							redraw=1;
-							break;
-						case SDLK_F11:
-							if (menu_music==1) {
-								audioMusicUnload( );
-								menu_music=0;
-							} else {
-								if (menu_music==0){
-									menu_music=1;
-									audioMusicLoad( "tuxi.ogg", -1 );
-								}
-							}
-							redraw=1;
-							break;
-						case SDLK_F12:
-							/* --- reload translation/graphics/media: for themers/translaters --- */
-							TitleScreen_unload_media();
-							LoadLang();
-							TitleScreen_load_media();
-							redraw = 1;
-							break;
-						case SDLK_UP:
-							if (menu_sound)
-								playsound(snd_move);
-							key_menu--;
-							if (key_menu < 1)
-								key_menu = 5;
-							break;
-						case SDLK_DOWN:
-							key_menu++;
-							if (menu_sound)
-								playsound(snd_move);
-							if (key_menu > 5)
-								key_menu = 1;
-							break;
-						case SDLK_RETURN:
-							if (key_menu) {
-								menu_opt = menu_item[key_menu][menu_depth];
-								if (menu_sound)
-									playsound(snd_select);
-								break;
-							}
-						default:
-							break;
-					}
-					break;
-			}
-		}
+	  /* Retrieve any user interface events: */
+	  while (SDL_PollEvent(&event))
+	  {
+	    switch (event.type)
+	    {
 
 
-		/* --- warp mouse to follow keyboard input --- */
+	      case SDL_MOUSEMOTION:
+	      {
+	        cursor.x = event.motion.x;
+	        cursor.y = event.motion.y;
+	        break;
+	      }
 
-		if (old_key_menu != key_menu) {
-			cursor.x = menu_button[key_menu].x + (menu_button[key_menu].w / 2);
-			cursor.y = menu_button[key_menu].y + (3 * menu_button[key_menu].h / 4);
-			SDL_WarpMouse(cursor.x, cursor.y);
-		}
+
+	      /* Handle mouse clicks based on mouse location: */
+	      case SDL_MOUSEBUTTONDOWN:
+	      {
+	        cursor.x = event.motion.x;
+	        cursor.y = event.motion.y;
+
+	        for (j = 1; j <= TITLE_MENU_ITEMS; j++)
+	        { 
+	          if ((cursor.x >= menu_button[j].x && cursor.x <= (menu_button[j].x + menu_button[j].w)) && 
+	          (cursor.y >= menu_button[j].y && cursor.y <= (menu_button[j].y + menu_button[j].h)))
+	          {
+	            menu_opt = menu_item[j][menu_depth];
+	            if (menu_sound)
+	            {
+	              playsound(snd_select);
+	            }
+	            DEBUGCODE
+	            {
+	              fprintf(stderr, "->>BUTTON CLICK menu_opt = %d\n", menu_opt);
+	              fprintf(stderr, "->J = %d menu_depth=%d\n", j, menu_depth);
+	            }
+	          }
+	        }
+
+	        /* If mouse over speaker, toggle menu music off or on: */
+	        if ((cursor.x >= spkrdest.x && cursor.x <= (spkrdest.x + spkrdest.w)) && 
+	           (cursor.y >= spkrdest.y && cursor.y <= (spkrdest.y + spkrdest.h)))
+	        {
+	          if (menu_music)
+	          {
+	            audioMusicUnload();
+	            menu_music = 0;
+	          }
+	          else
+	          {
+	            menu_music = 1;
+	            audioMusicLoad("tuxi.ogg", -1);
+	          }
+	          redraw = 1;
+	        }
+	        break;
+	      }
+
+
+
+	      case SDL_QUIT:
+	      {
+	        menu_opt = QUIT_GAME;
+	        break;
+	      }
+
+
+	      /* Handle key press events based on key value: */
+	      case SDL_KEYDOWN:
+	      {
+	        switch (event.key.keysym.sym)
+	        {
+
+	          case SDLK_ESCAPE:
+	          {
+	            /* Go to main menu (if in submenu) or quit: */
+	            if (menu_depth != 1) 
+	              menu_opt = MAIN;
+	            else
+	              menu_opt = QUIT_GAME;
+
+	            if (menu_sound)
+	              playsound(snd_select);
+	            break;
+	          }
+
+	          /* Toggle screen mode: */
+	          case SDLK_F10: /* NOTE Cool! - should add this to TuxMath*/
+	          {
+	            switch_screen_mode();
+	            redraw = 1;
+	            break;
+	          }
+
+	          /* Toggle menu music: */
+	          case SDLK_F11:
+	          {
+	            if (menu_music)
+	            {
+	              audioMusicUnload( );
+	              menu_music=0;
+	            }
+	            else
+	            {
+	              menu_music=1;
+	              audioMusicLoad("tuxi.ogg", -1);
+	            }
+	            redraw = 1;
+	            break;
+	          }
+
+
+	          /* --- reload translation/graphics/media: for themers/translaters --- */
+	          case SDLK_F12:
+	          {
+	            TitleScreen_unload_media();
+	            LoadLang();
+	            TitleScreen_load_media();
+	            redraw = 1;
+	            break;
+	          }
+
+
+	          case SDLK_UP:
+	          {
+	            if (menu_sound)
+	              playsound(snd_move);
+	            key_menu--;
+	            if (key_menu < 1)
+	              key_menu = 5;
+	            break;
+	          }
+
+
+	          case SDLK_DOWN:
+	          {
+	            key_menu++;
+	            if (menu_sound)
+	              playsound(snd_move);
+	            if (key_menu > 5)
+	              key_menu = 1;
+	            break;
+	          }
+
+
+	          case SDLK_RETURN:
+	          {
+	            if (key_menu)
+	            {
+	              menu_opt = menu_item[key_menu][menu_depth];
+	              if (menu_sound)
+	                playsound(snd_select);
+	            }
+	            break;
+	          }
+
+
+	          default:     /* Some other key pressed - do nothing: */
+	          {
+	            break;
+	          }
+	        }             /* End of switch(event.key.keysym.sym) statement */
+	      }               /* End of case: SDL_KEYDOWN: */
+
+
+	      default:        /* Some other type of SDL event - do nothing;    */
+	      {
+	        break;
+	      }
+	    }                 /* End of switch(event.type) statement           */
+	  }	              /* End of while (SDL_PollEvent(&event)) loop     */
+
+
+
+	  /* --- warp mouse to follow keyboard input --- */
+
+	  if (old_key_menu != key_menu)
+	  {
+	    cursor.x = menu_button[key_menu].x + (menu_button[key_menu].w / 2);
+	    cursor.y = menu_button[key_menu].y + (3 * menu_button[key_menu].h / 4);
+	    SDL_WarpMouse(cursor.x, cursor.y);
+	  }
+
+
 
 		/* --- do menu processing --- */
 
@@ -545,7 +654,7 @@ void TitleScreen( void ) {
 		}
 
 		if (menu_opt == NOT_CODED) {
-			NotImplimented();
+			NotImplemented();
 			redraw=1;
 		}
 
@@ -656,6 +765,10 @@ void TitleScreen( void ) {
 			redraw = 1;
 		}
 
+
+
+
+
 		if (redraw) {
 			SDL_BlitSurface(bkg, NULL, screen, NULL); 
 			SDL_BlitSurface(title, NULL, screen, &Titledest);
@@ -668,6 +781,8 @@ void TitleScreen( void ) {
 			update_locs = 1;      // so we redraw menu
 			firstloop=1;
 		}
+
+
 
 		/* --- create new menu screen when needed --- */
 
@@ -690,6 +805,8 @@ void TitleScreen( void ) {
 				SDL_BlitSurface(menu_gfx[j][menu_depth]->default_img, NULL, screen, &menu_gfxdest[j]);
 			}
 		}
+
+
 
 		/* --- make tux blink --- */
 
@@ -800,6 +917,8 @@ int chooseWordlist( void ) {
 	struct stat fileStats;
 	FILE *tempFile;
 
+	LOG("Entering chooseWordlist():\n");
+
 	/* find the directory to load wordlists from */
 
 	for (i=useEnglish; i<2; i++) {
@@ -814,6 +933,8 @@ int chooseWordlist( void ) {
 		fprintf(stderr, "ERROR: Unable to find wordlist directory\n");
 		exit(1);
 	}
+
+	DEBUGCODE { fprintf(stderr, "wordPath is: %s\n", wordPath); }
 
 	/* create a list of all the .txt files */
 
@@ -992,6 +1113,9 @@ int chooseWordlist( void ) {
 
 	return 1;
 }
+
+
+
 void switch_screen_mode(void)
 {
   SDL_Surface *tmp;

@@ -1,3 +1,5 @@
+# Modified to include support for NSIS Windows installer - David Bruce <dbruce@tampabay.rr.com>
+MAKENSIS=@NSIS@
 
 SUBDIRS = tuxtype
 
@@ -47,3 +49,34 @@ $(PACKAGE)-$(VERSION).tar.gz: distcheck
 rpm: $(PACKAGE)-$(VERSION).tar.gz
 	rpm -ta $(PACKAGE)-$(VERSION).tar.gz
 
+# Rules needed to cross-build nsis Win32 installer under Linux
+# Taken from tuxmath's Makefile.am - David Bruce
+# This rule probably kludgy (hardcoded)- DSB
+install-nsi-local: all
+	$(INSTALL) -d $(top_srcdir)/$(NSI_INSTALL_DIR)/data;
+	$(INSTALL) -d $(top_srcdir)/$(NSI_INSTALL_DIR)/docs;
+
+	(cd $(top_srcdir)/tuxtype/data ; tar cf -  --exclude "Makefile.in" --exclude "*.in" --exclude "*~" --exclude \ "Makefile" --exclude "Makefile.am" --exclude CVS --exclude .xvpics --exclude "1[1-9].ogg"  --exclude "2?.ogg" --exclude "*.svn*" * ) \
+         | ( cd $(top_srcdir)/$(NSI_INSTALL_DIR)/data ; tar xf -) ; \
+	(cd $(top_srcdir)/tuxtype/docs ; tar cf -  --exclude "Makefile.in" --exclude "*.in" --exclude "*~" --exclude \ "Makefile" --exclude "Makefile.am" --exclude CVS --exclude .xvpics --exclude "1[1-9].ogg"  --exclude "2?.ogg" --exclude "*.svn*" * ) \
+         | ( cd $(top_srcdir)/$(NSI_INSTALL_DIR)/docs ; tar xf -) ; \
+	cp $(top_srcdir)/COPYING $(top_srcdir)/$(NSI_INSTALL_DIR)/docs/COPYING.txt ; \
+	cp $(top_srcdir)/AUTHORS $(top_srcdir)/$(NSI_INSTALL_DIR)/docs/AUTHORS.txt ; \
+	cp $(top_srcdir)/INSTALL $(top_srcdir)/$(NSI_INSTALL_DIR)/docs/INSTALL.txt ; \
+	cp $(top_srcdir)/README $(top_srcdir)/$(NSI_INSTALL_DIR)/docs/README.txt ; \
+	cp $(NSI_DLL_DIR)/*.dll $(top_srcdir)/$(NSI_INSTALL_DIR) ; \
+	cp $(NSI_DLL_DIR)/*.ttf $(top_srcdir)/$(NSI_INSTALL_DIR)/data/fonts ; \
+        cp $(SUBDIRS)/tuxtype.exe $(top_srcdir)/$(NSI_INSTALL_DIR)/TuxType2.exe ;
+
+
+install-nsi-am: install-nsi-local
+
+nsis: install-nsi-local
+	$(MAKENSIS) -NOCD nsis/tuxtype.nsi
+
+
+clean-local:
+	@$(NORMAL_CLEAN)
+	if test -d $(NSI_INSTALL_DIR); then \
+	  rm -fr $(NSI_INSTALL_DIR); \
+	fi

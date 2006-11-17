@@ -38,9 +38,10 @@ host_triplet = @host@
 target_triplet = @target@
 DIST_COMMON = README $(am__configure_deps) $(srcdir)/Makefile.am \
 	$(srcdir)/Makefile.in $(srcdir)/config.h.in \
-	$(srcdir)/tuxtype.spec.in $(top_srcdir)/configure AUTHORS \
-	COPYING ChangeLog INSTALL TODO config.guess config.sub depcomp \
-	install-sh missing mkinstalldirs
+	$(srcdir)/tuxtype.spec.in $(top_srcdir)/configure \
+	$(top_srcdir)/nsis/tuxtype.nsi.in AUTHORS COPYING ChangeLog \
+	INSTALL TODO config.guess config.sub depcomp install-sh \
+	missing mkinstalldirs
 subdir = .
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/acinclude.m4 \
@@ -51,7 +52,7 @@ am__CONFIG_DISTCLEAN_FILES = config.status config.cache config.log \
  configure.lineno configure.status.lineno
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
 CONFIG_HEADER = config.h
-CONFIG_CLEAN_FILES = tuxtype.spec
+CONFIG_CLEAN_FILES = tuxtype.spec nsis/tuxtype.nsi
 SOURCES =
 DIST_SOURCES =
 RECURSIVE_TARGETS = all-recursive check-recursive dvi-recursive \
@@ -82,6 +83,8 @@ AUTOCONF = @AUTOCONF@
 AUTOHEADER = @AUTOHEADER@
 AUTOMAKE = @AUTOMAKE@
 AWK = @AWK@
+BUILD_MINGW32_FALSE = @BUILD_MINGW32_FALSE@
+BUILD_MINGW32_TRUE = @BUILD_MINGW32_TRUE@
 CC = @CC@
 CCDEPMODE = @CCDEPMODE@
 CFLAGS = @CFLAGS@
@@ -109,6 +112,11 @@ LIBS = @LIBS@
 LN_S = @LN_S@
 LTLIBOBJS = @LTLIBOBJS@
 MAKEINFO = @MAKEINFO@
+NSIS = @NSIS@
+NSI_BUILD_FALSE = @NSI_BUILD_FALSE@
+NSI_BUILD_TRUE = @NSI_BUILD_TRUE@
+NSI_DLL_DIR = @NSI_DLL_DIR@
+NSI_INSTALL_DIR = @NSI_INSTALL_DIR@
 OBJEXT = @OBJEXT@
 PACKAGE = @PACKAGE@
 PACKAGE_BUGREPORT = @PACKAGE_BUGREPORT@
@@ -124,6 +132,7 @@ SET_MAKE = @SET_MAKE@
 SHELL = @SHELL@
 STRIP = @STRIP@
 VERSION = @VERSION@
+WINDRES = @WINDRES@
 ac_ct_CC = @ac_ct_CC@
 ac_ct_CXX = @ac_ct_CXX@
 am__fastdepCC_FALSE = @am__fastdepCC_FALSE@
@@ -174,6 +183,9 @@ target_alias = @target_alias@
 target_cpu = @target_cpu@
 target_os = @target_os@
 target_vendor = @target_vendor@
+
+# Modified to include support for NSIS Windows installer - David Bruce <dbruce@tampabay.rr.com>
+MAKENSIS = @NSIS@
 SUBDIRS = tuxtype
 EXTRA_DIST = AUTHORS COPYING ChangeLog INSTALL README TODO tuxtype.lsm tuxtype.spec tuxtype.spec.in README.Win32 config.h autorun.inf tuxtype.ico autogen.sh
 
@@ -234,6 +246,8 @@ $(srcdir)/config.h.in:  $(am__configure_deps)
 distclean-hdr:
 	-rm -f config.h stamp-h1
 tuxtype.spec: $(top_builddir)/config.status $(srcdir)/tuxtype.spec.in
+	cd $(top_builddir) && $(SHELL) ./config.status $@
+nsis/tuxtype.nsi: $(top_builddir)/config.status $(top_srcdir)/nsis/tuxtype.nsi.in
 	cd $(top_builddir) && $(SHELL) ./config.status $@
 uninstall-info-am:
 
@@ -372,7 +386,7 @@ distclean-tags:
 distdir: $(DISTFILES)
 	$(am__remove_distdir)
 	mkdir $(distdir)
-	$(mkdir_p) $(distdir)/.
+	$(mkdir_p) $(distdir)/. $(distdir)/nsis
 	@srcdirstrip=`echo "$(srcdir)" | sed 's|.|.|g'`; \
 	topsrcdirstrip=`echo "$(top_srcdir)" | sed 's|.|.|g'`; \
 	list='$(DISTFILES)'; for file in $$list; do \
@@ -542,7 +556,7 @@ maintainer-clean-generic:
 	@echo "it deletes files that may require special tools to rebuild."
 clean: clean-recursive
 
-clean-am: clean-generic mostlyclean-am
+clean-am: clean-generic clean-local mostlyclean-am
 
 distclean: distclean-recursive
 	-rm -f $(am__CONFIG_DISTCLEAN_FILES)
@@ -592,7 +606,7 @@ uninstall-am: uninstall-info-am uninstall-local
 uninstall-info: uninstall-info-recursive
 
 .PHONY: $(RECURSIVE_TARGETS) CTAGS GTAGS all all-am am--refresh check \
-	check-am clean clean-generic clean-recursive ctags \
+	check-am clean clean-generic clean-local clean-recursive ctags \
 	ctags-recursive dist dist-all dist-bzip2 dist-gzip dist-shar \
 	dist-tarZ dist-zip distcheck distclean distclean-generic \
 	distclean-hdr distclean-recursive distclean-tags \
@@ -646,6 +660,36 @@ $(PACKAGE)-$(VERSION).tar.gz: distcheck
 # Rule to build RPM distribution package
 rpm: $(PACKAGE)-$(VERSION).tar.gz
 	rpm -ta $(PACKAGE)-$(VERSION).tar.gz
+
+# Rules needed to cross-build nsis Win32 installer under Linux
+# Taken from tuxmath's Makefile.am - David Bruce
+# This rule probably kludgy (hardcoded)- DSB
+install-nsi-local: all
+	$(INSTALL) -d $(top_srcdir)/$(NSI_INSTALL_DIR)/data;
+	$(INSTALL) -d $(top_srcdir)/$(NSI_INSTALL_DIR)/docs;
+
+	(cd $(top_srcdir)/tuxtype/data ; tar cf -  --exclude "Makefile.in" --exclude "*.in" --exclude "*~" --exclude \ "Makefile" --exclude "Makefile.am" --exclude CVS --exclude .xvpics --exclude "1[1-9].ogg"  --exclude "2?.ogg" --exclude "*.svn*" * ) \
+         | ( cd $(top_srcdir)/$(NSI_INSTALL_DIR)/data ; tar xf -) ; \
+	(cd $(top_srcdir)/tuxtype/docs ; tar cf -  --exclude "Makefile.in" --exclude "*.in" --exclude "*~" --exclude \ "Makefile" --exclude "Makefile.am" --exclude CVS --exclude .xvpics --exclude "1[1-9].ogg"  --exclude "2?.ogg" --exclude "*.svn*" * ) \
+         | ( cd $(top_srcdir)/$(NSI_INSTALL_DIR)/docs ; tar xf -) ; \
+	cp $(top_srcdir)/COPYING $(top_srcdir)/$(NSI_INSTALL_DIR)/docs/COPYING.txt ; \
+	cp $(top_srcdir)/AUTHORS $(top_srcdir)/$(NSI_INSTALL_DIR)/docs/AUTHORS.txt ; \
+	cp $(top_srcdir)/INSTALL $(top_srcdir)/$(NSI_INSTALL_DIR)/docs/INSTALL.txt ; \
+	cp $(top_srcdir)/README $(top_srcdir)/$(NSI_INSTALL_DIR)/docs/README.txt ; \
+	cp $(NSI_DLL_DIR)/*.dll $(top_srcdir)/$(NSI_INSTALL_DIR) ; \
+	cp $(NSI_DLL_DIR)/*.ttf $(top_srcdir)/$(NSI_INSTALL_DIR)/data/fonts ; \
+        cp $(SUBDIRS)/tuxtype.exe $(top_srcdir)/$(NSI_INSTALL_DIR)/TuxType2.exe ;
+
+install-nsi-am: install-nsi-local
+
+nsis: install-nsi-local
+	$(MAKENSIS) -NOCD nsis/tuxtype.nsi
+
+clean-local:
+	@$(NORMAL_CLEAN)
+	if test -d $(NSI_INSTALL_DIR); then \
+	  rm -fr $(NSI_INSTALL_DIR); \
+	fi
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:

@@ -177,6 +177,7 @@ TTF_Font *LoadFont( char *fontfile, int fontsize ) {
 	/* try to find font first in theme dir, then in default */
 	for (i=useEnglish; i<2; i++) {
 		sprintf( fn, "%s/fonts/%s", realPath[i], fontfile );
+	DEBUGCODE { fprintf(stderr, "LoadFont(): looking for %s using data paths\n", fn ); }
 		if ( checkFile(fn) ) {
 			/* try to load the font, if successful, return font*/
 
@@ -193,6 +194,8 @@ TTF_Font *LoadFont( char *fontfile, int fontsize ) {
 	/* "fallback" (the above _will_ fall): load the font with fixed-path */
 	
 	sprintf( fn, "%s/%s", "/usr/share/fonts/truetype/ttf-gentium/", fontfile );
+	DEBUGCODE { fprintf(stderr, "LoadFont(): looking for %s\n in OS' font path\n", fn ); }
+
 	if ( checkFile(fn) ) {
 		/* try to load the font, if successful, return font*/
 
@@ -230,14 +233,17 @@ SDL_Surface *LoadImage( char *datafile, int mode )
 	for (i = (useEnglish || (mode & IMG_NO_THEME)); i<2; i++) {
 
 		sprintf( fn, "%s/images/%s", realPath[i], datafile );
+		DEBUGCODE { fprintf(stderr, "LoadImage: looking in %s\n", fn); }
 
 		if ( checkFile( fn ) ) {
+			LOG ("file found\n");
 			tmp_pic = IMG_Load( fn );
 			if (tmp_pic != NULL)
 				break; 
 			else
 				fprintf(stderr, "Warning: graphics file %s is corrupt\n", fn);
 		}
+		else LOG ("file NOT found\n");
 	}
 
 	if (tmp_pic == NULL) {
@@ -251,20 +257,30 @@ SDL_Surface *LoadImage( char *datafile, int mode )
 	/* finally setup the image to the proper format */
 
 	switch (mode & IMG_MODES) {
-		case IMG_REGULAR:
+
+		case IMG_REGULAR: { 
 			final_pic = SDL_DisplayFormat(tmp_pic);
 			SDL_FreeSurface(tmp_pic);
 			break;
-		case IMG_ALPHA:
+		}
+
+		case IMG_ALPHA: {
 			final_pic = SDL_DisplayFormatAlpha(tmp_pic);
 			SDL_FreeSurface(tmp_pic);
 			break;
-		case IMG_COLORKEY:
+		}
+
+		case IMG_COLORKEY: {
 			SDL_LockSurface(tmp_pic);
 			SDL_SetColorKey(tmp_pic, (SDL_SRCCOLORKEY | SDL_RLEACCEL), SDL_MapRGB(tmp_pic->format, 255, 255, 0));
 			final_pic = SDL_DisplayFormat(tmp_pic);
 			SDL_FreeSurface(tmp_pic);
 			break;
+		}
+
+		default: {
+			LOG ("Image mode not recognized\n");
+		}
 	}
 
 	LOG( "LOADIMAGE: Done\n" );

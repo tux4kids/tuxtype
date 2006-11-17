@@ -61,7 +61,9 @@ struct blit {
            such that - min <= x <= max
 ***************************************/
 int int_rand(int min, int max) {
-	return min + (int) (((double)(max-min))*(float)rand()/(RAND_MAX+1.0)); // JA - FIX this doesn't return MAX
+	int diff = max - min;
+	return min + (rand() % diff);  //NOTE I think this is what we want DSB
+//	return min + (int) (((double)(max-min))*(float)rand()/(RAND_MAX+1.0)); // JA - FIX this doesn't return MAX
 }
 
 int check_word( int f ) {
@@ -581,7 +583,7 @@ void SpawnFishies(int diflevel, int *fishies, int *frame ) {
 	fish_object[*fishies].word = WORDS_get();
 	fish_object[*fishies].len = strlen(fish_object[*fishies].word);
 	fish_object[*fishies].w = fishy->frame[0]->w * fish_object[*fishies].len;
-	fish_object[*fishies].x = int_rand(0, screen->w - fish_object[*fishies].w);
+	fish_object[*fishies].x = rand() % (screen->w - fish_object[*fishies].w);
 	fish_object[*fishies].y = 0;
 
 	/* set the percentage of the speed based on length */
@@ -589,7 +591,7 @@ void SpawnFishies(int diflevel, int *fishies, int *frame ) {
 	/* ex: a 9 letter word will be roughly twice as slow! 0.92^8 */
 
 	/* give it a random variance so the fish "crunch" isn't constant */
-	fish_object[*fishies].dy *= (int_rand(75,100)/100.0);
+	fish_object[*fishies].dy *= ((75 + rand() % 25)/100.0);
 	switch (diflevel) {
 		case INF_PRACT:
 			fish_object[*fishies].dy = DEFAULT_SPEED;

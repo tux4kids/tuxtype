@@ -42,6 +42,7 @@ void GraphicsInit(Uint32 video_flags)
 		fprintf(stderr, "-SDL Setting VidMode to %ix%ix%i\n", RES_X, RES_Y, BPP);
 	}
 
+	/* NOTE fullscreen vs. windowed is indicated by video_flags */
 	screen = SDL_SetVideoMode(RES_X, RES_Y, BPP, video_flags);
 
 	if (screen == NULL) {
@@ -139,8 +140,10 @@ void LoadSettings( void ) {
 
 	#ifdef WIN32
 		snprintf( fn, FNLEN-1, "userdata/settings.txt" );
+		LOG("WIN32 defined\n");
 	#else
 		snprintf( fn, FNLEN-1, (const char*)"%s/.tuxtype/settings.txt", getenv("HOME") );
+		LOG("WIN32 not defined\n");
 	#endif
 
 	DEBUGCODE { printf("LoadSettings: settings file is '%s'\n", fn ); }
@@ -149,7 +152,7 @@ void LoadSettings( void ) {
 	
 	settingsFile = fopen( fn, "r" );
 
-	
+	/* FIXME should set complete default profile if file not found */
 	if (settingsFile == NULL) {
 		printf("LoadSettings: Settings file does not exist! settings not loaded\n");
 		localsettings.mus_volume = 100;
