@@ -217,7 +217,7 @@ TTF_Font *LoadFont( char *fontfile, int fontsize ) {
 SDL_Surface *LoadImage( char *datafile, int mode )
 {
 	int i;
-	SDL_Surface  *tmp_pic=NULL, *final_pic=NULL;
+	SDL_Surface  *tmp_pic = NULL, *final_pic = NULL;
 	char         fn[FNLEN];
 
 	DEBUGCODE { fprintf(stderr, "LoadImage: loading %s\n", datafile ); }

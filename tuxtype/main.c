@@ -42,11 +42,14 @@ int main(int argc, char *argv[])
 	speed_up = 0;       //run at normal speed
 	show_tux4kids = 1;  //show tux4kids logo the first time in main menu
 	useEnglish = 1;     //default to no theme
-	debugOn = 0;        //default to not in debug mode
+	debugOn = 1;        //default to not in debug mode
 	hidden = 0;         //default to no "hidden" background
 
-	setupTheme(NULL);
+
 	srand(time(NULL));
+
+	// This sets realPath[] to the default theme file path:
+	setupTheme(NULL);
 
 	LoadSettings();
 	DEBUGCODE { printf("Window setting from config file is: %s\n", localsettings.window );}

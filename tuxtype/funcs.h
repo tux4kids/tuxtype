@@ -17,11 +17,10 @@
  ***************************************************************************/
 
 
-extern int int_rand( int min, int max );
+
 extern int max( int n1, int n2 );
 extern SDL_Surface* ttf_letter( unsigned char ch, SDL_Color c );
-extern void TitleScreen( void );
-extern void TransWipe(SDL_Surface * newbkg, int type, int var1, int var2);
+
 
 extern void WaitFrame( void );
 extern void FreeGraphics( void );
@@ -31,7 +30,7 @@ extern int PlayCascade( int level );
 extern int laser_game( int DIF_LEVEL );
 extern void AddRect(SDL_Rect * src, SDL_Rect * dst);
 
-/* -- scripting -- */
+/* in scripting.c */
 extern void testLesson( void );
 extern void projectInfo( void );
 extern void closeScript( void );
@@ -97,6 +96,11 @@ extern int Practice( void );
 extern void print_phrase( char *pphrase, int wrap );
 
 /* in titlescreen.c */
+extern void TitleScreen( void );
 extern void switch_screen_mode( void );
 extern int Phrases(char *practice_phrase);
 extern int chooseWordlist( void );
+
+/* In playgame.c: */
+extern int int_rand( int min, int max );
+extern void TransWipe(SDL_Surface * newbkg, int type, int var1, int var2);
