@@ -1,19 +1,21 @@
 # Process this file with autoconf to produce a configure script.
-AC_INIT(tuxtype, 1.5.6, )
+AC_INIT(tuxtype, 1.5.7, )
 AC_CANONICAL_HOST
 AC_CANONICAL_TARGET
 AM_CONFIG_HEADER(config.h)
-AM_INIT_AUTOMAKE(tuxtype, 1.5.6)
+AM_INIT_AUTOMAKE(tuxtype, 1.5.7)
 
 AC_CONFIG_SRCDIR([tuxtype/funcs.h])
 
 # Checks for programs.
-AC_PROG_CXX
 AC_PROG_CC
-AC_PROG_CPP
 AC_PROG_INSTALL
 AC_PROG_LN_S
 AC_PROG_MAKE_SET
+
+dnl Don't think we need C++:
+# AC_PROG_CPP
+# AC_PROG_CXX
 
 AC_PREFIX_DEFAULT(/usr/local)
 if test "x$prefix" = "xNONE"; then
@@ -87,6 +89,7 @@ CPPFLAGS="$CPPFLAGS -DDATA_PREFIX=\\\"\$(prefix)\\\""
 AC_CONFIG_FILES([Makefile
 tuxtype/Makefile
 tuxtype/data/Makefile
+tuxtype/data/fonts/Makefile
 tuxtype/data/images/Makefile
 tuxtype/data/images/backgrounds/Makefile
 tuxtype/data/images/cities/Makefile

@@ -115,43 +115,56 @@ void LoadKeyboard( void ) {
 }
 
 SDL_Surface* black_outline(unsigned char *t, TTF_Font *font, SDL_Color *c) {
-	SDL_Surface *out, *tmp, *tmp2;
-	SDL_Rect dstrect;
+  SDL_Surface* out = NULL;
+  SDL_Surface* black_letters = NULL;
+  SDL_Surface* white_letters = NULL;
+  SDL_Surface* bg = NULL;
+  SDL_Rect dstrect;
+  Uint32 color_key;
 
-	/* --- create the blocky black "outline" of the text --- */
-        
-        DEBUGCODE { fprintf( stderr, "black_outline of \"%s\"\n", t ); }
+  if (!t || !font || !c)
+  {
+    fprintf(stderr, "black_outline(): invalid ptr parameter, returning.");
+    return NULL;
+  }
 
-	tmp = TTF_RenderText_Shaded(font, t, black,black);
-	tmp2 = SDL_CreateRGBSurface(SDL_SWSURFACE, (tmp->w)+5, (tmp->h)+5, BPP, rmask, gmask, bmask, amask);
-	out = SDL_DisplayFormatAlpha(tmp2);
-	SDL_FreeSurface(tmp2);
 
-	dstrect.w = tmp->w;
-	dstrect.h = tmp->h;
+  black_letters = TTF_RenderUTF8_Blended(font, t, black);
 
-        for (dstrect.x = 1; dstrect.x < 4; dstrect.x++)
-            for (dstrect.y = 1; dstrect.y < 4; dstrect.y++)
-                SDL_BlitSurface( tmp, NULL, out, &dstrect );
+  bg = SDL_CreateRGBSurface(SDL_SWSURFACE,
+                            (black_letters->w) + 5,
+                            (black_letters->h) + 5,
+                             32,
+                             rmask, gmask, bmask, amask);
+  /* Use color key for eventual transparency: */
+  color_key = SDL_MapRGB(bg->format, 10, 10, 10);
+  SDL_FillRect(bg, NULL, color_key);
 
-	SDL_FreeSurface(tmp);
+  /* Now draw black outline/shadow 2 pixels on each side: */
+  dstrect.w = black_letters->w;
+  dstrect.h = black_letters->h;
 
-	/* --- Put the color version of the text on top! --- */
+  /* NOTE: can make the "shadow" more or less pronounced by */
+  /* changing the parameters of these loops.                */
+  for (dstrect.x = 1; dstrect.x < 4; dstrect.x++)
+    for (dstrect.y = 1; dstrect.y < 3; dstrect.y++)
+      SDL_BlitSurface(black_letters , NULL, bg, &dstrect );
 
-	tmp = TTF_RenderText_Blended(font, t, *c);
+  SDL_FreeSurface(black_letters);
 
-	dstrect.x = dstrect.y = 2;
+  /* --- Put the color version of the text on top! --- */
+  white_letters = TTF_RenderUTF8_Blended(font, t, *c);
+  dstrect.x = 1;
+  dstrect.y = 1;
+  SDL_BlitSurface(white_letters, NULL, bg, &dstrect);
+  SDL_FreeSurface(white_letters);
 
-	SDL_BlitSurface(tmp, NULL, out, &dstrect);
+  /* --- Convert to the screen format for quicker blits --- */
+  SDL_SetColorKey(bg, SDL_SRCCOLORKEY|SDL_RLEACCEL, color_key);
+  out = SDL_DisplayFormatAlpha(bg);
+  SDL_FreeSurface(bg);
 
-	SDL_FreeSurface(tmp);
-
-	/* --- Convert to the screen format for quicker blits --- */
-
-	tmp = SDL_DisplayFormatAlpha(out);
-	SDL_FreeSurface(out);
-
-	return tmp;
+  return out;
 }
 
 void show_letters( void ) {

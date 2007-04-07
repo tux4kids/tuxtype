@@ -1,3 +1,12 @@
+v.1.5.7
+
+[ David Bruce]
+       - Changed font to Andika (hopefully will have this in Debian
+         and other OS in future so we don't have to bundle it
+         indefinitely)
+       - Fixed black_outline() to make it work more or less as was
+         intended, from what I can tell.
+
 v1.5.6	the "make it simply work, stupid" release (a pun on KISS)
 
 [ Holger Levsen ]
