@@ -128,8 +128,13 @@ SDL_Surface* black_outline(unsigned char *t, TTF_Font *font, SDL_Color *c) {
     return NULL;
   }
 
-
   black_letters = TTF_RenderUTF8_Blended(font, t, black);
+
+  if (!black_letters)
+  {
+    fprintf (stderr, "Warning - black_outline() could not create image for %s\n", t);
+    return NULL;
+  }
 
   bg = SDL_CreateRGBSurface(SDL_SWSURFACE,
                             (black_letters->w) + 5,

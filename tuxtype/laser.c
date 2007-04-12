@@ -54,13 +54,11 @@ void laser_unload_data(void) {
 /* --- Load all media --- */
 void laser_load_data(void) {
 	int i;
-
 	font = LoadFont( ttf_font, 32);
 
 	/* Load images: */
 	for (i = 0; i < NUM_IMAGES; i++) 
 		images[i] = LoadImage(image_filenames[i], IMG_ALPHA);
-
 	shield = LoadSprite( "cities/shield", IMG_ALPHA );
 
 	if (sys_sound) {
@@ -74,9 +72,14 @@ void laser_load_data(void) {
 	pause_load_media();
 
 	for (i=1; i<255; i++) {
-			unsigned char t[2]=" ";
-			t[0]=i;
-			letters[i] = black_outline( t, font, &white );
+			unsigned char t[2] = " ";
+			t[0] = i;
+			letters[i] = black_outline(t, font, &white);
+                        if (!letters[i])
+                        {
+                          fprintf(stderr, "For i = %d, could not render "
+                                  "corresponding char = %s\n", i, t);
+                        }
 		}
 }
 
