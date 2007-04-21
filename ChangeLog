@@ -1,6 +1,11 @@
+[ David Bruce ] 21 Apr 2007
+       - (mostly) removed used of checkFile() as it doesn't work
+         reliably on Windows and isn't really necessary. 
+
+
 v.1.5.7
 
-[ David Bruce]
+[ David Bruce ]
        - Changed font to Andika (hopefully will have this in Debian
          and other OS in future so we don't have to bundle it
          indefinitely)

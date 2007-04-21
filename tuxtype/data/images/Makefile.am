@@ -32,7 +32,6 @@ kcas3_3.png\
 kcas3_4.png\
 left.png\
 line2.png\
-lessons_bkg.png\
 main_bkg.png\
 num_0.png\
 nosound.png\
@@ -61,18 +60,6 @@ tux1.png\
 tux2.png\
 tux3.png\
 up.png\
-wcas1_1.png\
-wcas1_2.png\
-wcas1_3.png\
-wcas1_4.png\
-wcas2_1.png\
-wcas2_2.png\
-wcas2_3.png\
-wcas2_4.png\
-wcas3_1.png\
-wcas3_2.png\
-wcas3_3.png\
-wcas3_4.png\
 world.png
 
 install-data-local:
@@ -122,8 +109,6 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/left.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/left.png
 	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images
 	$(INSTALL_DATA) $(srcdir)/line2.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/line2.png
-	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images
-	$(INSTALL_DATA) $(srcdir)/lessons_bkg.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/lessons_bkg.png
 	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images
 	$(INSTALL_DATA) $(srcdir)/main_bkg.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/main_bkg.png
 	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images
@@ -181,30 +166,6 @@ install-data-local:
 	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images
 	$(INSTALL_DATA) $(srcdir)/up.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/up.png
 	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images
-	$(INSTALL_DATA) $(srcdir)/wcas1_1.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/wcas1_1.png
-	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images
-	$(INSTALL_DATA) $(srcdir)/wcas1_2.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/wcas1_2.png
-	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images
-	$(INSTALL_DATA) $(srcdir)/wcas1_3.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/wcas1_3.png
-	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images
-	$(INSTALL_DATA) $(srcdir)/wcas1_4.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/wcas1_4.png
-	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images
-	$(INSTALL_DATA) $(srcdir)/wcas2_1.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/wcas2_1.png
-	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images
-	$(INSTALL_DATA) $(srcdir)/wcas2_2.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/wcas2_2.png
-	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images
-	$(INSTALL_DATA) $(srcdir)/wcas2_3.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/wcas2_3.png
-	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images
-	$(INSTALL_DATA) $(srcdir)/wcas2_4.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/wcas2_4.png
-	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images
-	$(INSTALL_DATA) $(srcdir)/wcas3_1.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/wcas3_1.png
-	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images
-	$(INSTALL_DATA) $(srcdir)/wcas3_2.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/wcas3_2.png
-	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images
-	$(INSTALL_DATA) $(srcdir)/wcas3_3.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/wcas3_3.png
-	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images
-	$(INSTALL_DATA) $(srcdir)/wcas3_4.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/wcas3_4.png
-	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images
 	$(INSTALL_DATA) $(srcdir)/world.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/world.png
 
 uninstall-local:
@@ -231,7 +192,6 @@ uninstall-local:
 	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/kcas3_4.png
 	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/left.png
 	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/line2.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/lessons_bkg.png
 	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/main_bkg.png
 	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/num_0.png
 	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/nosound.png
@@ -260,16 +220,4 @@ uninstall-local:
 	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux2.png
 	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux3.png
 	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/up.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/wcas1_1.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/wcas1_2.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/wcas1_3.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/wcas1_4.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/wcas2_1.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/wcas2_2.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/wcas2_3.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/wcas2_4.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/wcas3_1.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/wcas3_2.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/wcas3_3.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/wcas3_4.png
 	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/world.png

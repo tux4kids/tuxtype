@@ -20,14 +20,21 @@
 #include "globals.h"
 #include "funcs.h"
 
-/* check to see if file exists, if so return true */
+/* check to see if file exists, if so return true            */
+/* FIXME this sometimes erroneously returns false on some    */
+/* Windows versions - hence below hackware. We don't really  */
+/* need this function anyway - it is only an optimization to */
+/* keep from wasting time preparing to do things with files  */
+/* that don't exist.                                         */
 int checkFile( const char *file ) {
 	static struct stat fileStats;
 
-	fileStats.st_mode = 0;
+#ifdef WIN32
+        return 1; 
+#endif
 
+	fileStats.st_mode = 0;
 	stat( file, &fileStats );
-		
 	return (S_IFREG & fileStats.st_mode);
 }
 
@@ -157,28 +164,18 @@ SDL_Surface *flip( SDL_Surface *in, int x, int y ) {
 }
 
 TTF_Font *LoadFont( char *fontfile, int fontsize ) {
-	TTF_Font *loadedFont;
+	TTF_Font *loadedFont = NULL;
 	char fn[FNLEN];
 	int i;
 /* char themeName[FNLEN]; */
 
 
-	/* 
-	 *
-	 *
-	 * this will fail now, as those fonts have been removed
-	 * 
-	 *
-	 * this routine is only left here for reference
-	 * 
-	 *
-	 *
-	 */
+
 	/* try to find font first in theme dir, then in default */
 	for (i=useEnglish; i<2; i++) {
 		sprintf( fn, "%s/fonts/%s", realPath[i], fontfile );
 	DEBUGCODE { fprintf(stderr, "LoadFont(): looking for %s using data paths\n", fn ); }
-		if ( checkFile(fn) ) {
+		{
 			/* try to load the font, if successful, return font*/
 
 			loadedFont = TTF_OpenFont( fn, fontsize );
@@ -190,20 +187,16 @@ TTF_Font *LoadFont( char *fontfile, int fontsize ) {
 
 		
 
-	/* this works only on debian */ 
+	/* this will work only on debian once Andika is included: */ 
 	/* "fallback" (the above _will_ fall): load the font with fixed-path */
-	
-	sprintf( fn, "%s/%s", "/usr/share/fonts/truetype/ttf-gentium/", fontfile );
+	sprintf( fn, "%s/%s", "/usr/share/fonts/truetype/ttf-andika/", fontfile );
 	DEBUGCODE { fprintf(stderr, "LoadFont(): looking for %s\n in OS' font path\n", fn ); }
 
-	if ( checkFile(fn) ) {
-		/* try to load the font, if successful, return font*/
+	/* try to load the font, if successful, return font*/
+	loadedFont = TTF_OpenFont( fn, fontsize );
+	if (loadedFont != NULL)
+		return loadedFont;
 
-		loadedFont = TTF_OpenFont( fn, fontsize );
-
-		if (loadedFont != NULL)
-			return loadedFont;
-	}
 
 	fprintf(stderr, "FATAL ERROR: couldn't load font: %s\n", fontfile);
 	exit(1);
@@ -235,15 +228,13 @@ SDL_Surface *LoadImage( char *datafile, int mode )
 		sprintf( fn, "%s/images/%s", realPath[i], datafile );
 		DEBUGCODE { fprintf(stderr, "LoadImage: looking in %s\n", fn); }
 
-		if ( checkFile( fn ) ) {
-			LOG ("file found\n");
+		{
 			tmp_pic = IMG_Load( fn );
 			if (tmp_pic != NULL)
 				break; 
 			else
 				fprintf(stderr, "Warning: graphics file %s is corrupt\n", fn);
 		}
-		else LOG ("file NOT found\n");
 	}
 
 	if (tmp_pic == NULL) {
@@ -350,11 +341,9 @@ Mix_Chunk      *LoadSound( char *datafile )
 
 	for (i = useEnglish; i<2; i++) {
 		sprintf(fn , "%s/sounds/%s", realPath[i], datafile);
-		if ( checkFile(fn) ) {
-			tempChunk = Mix_LoadWAV(fn);
-			if (tempChunk)
-				return tempChunk;
-		}
+		tempChunk = Mix_LoadWAV(fn);
+		if (tempChunk)
+			return tempChunk;
 	}
 
 	/* didn't find anything... fail peacefully */
@@ -374,11 +363,9 @@ Mix_Music *LoadMusic(char *datafile )
 
 	for (i = useEnglish; i<2; i++) {
 		sprintf( fn , "%s/sounds/%s", realPath[i], datafile );
-		if ( checkFile(fn) ) {
-			tempMusic = Mix_LoadMUS(fn);
-			if (tempMusic)
-				return tempMusic;
-		}
+		tempMusic = Mix_LoadMUS(fn);
+		if (tempMusic)
+			return tempMusic;
 	}
 
 	/* didn't find anything... fail peacefully */
