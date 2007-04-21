@@ -47,7 +47,7 @@ void practice_load_media(void) {
 	hand_loc.w = (hand[0]->w);
 	hand_loc.h = (hand[0]->h);
 
-	bkg = LoadImage("main_bkg.png", IMG_ALPHA);
+	bkg = LoadImage("main_bkg.jpg", IMG_ALPHA);
 
 	font = LoadFont( ttf_font, 32 );
 

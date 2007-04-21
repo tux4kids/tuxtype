@@ -170,7 +170,7 @@ void TitleScreen_load_media( void ) {
 	title = LoadImage( "title1.png", IMG_ALPHA );
 	speaker = LoadImage( "sound.png", IMG_ALPHA );
 	speakeroff = LoadImage( "nosound.png", IMG_ALPHA );
-	bkg = LoadImage( "main_bkg.png", IMG_REGULAR );
+	bkg = LoadImage( "main_bkg.jpg", IMG_REGULAR );
 
 	sel = LoadSprite("menu/sel", IMG_ALPHA);
 	reg = LoadSprite("menu/reg", IMG_ALPHA);
@@ -1096,7 +1096,7 @@ int chooseWordlist( void ) {
 	}
 
 	SDL_FreeSurface(bkg);
-        bkg = LoadImage("main_bkg.png", IMG_REGULAR);
+        bkg = LoadImage("main_bkg.jpg", IMG_REGULAR);
 
         left = LoadImage("left.png", IMG_ALPHA);       
         leftRect.w = left->w; leftRect.h = left->h;

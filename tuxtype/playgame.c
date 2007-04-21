@@ -1131,14 +1131,14 @@ int PlayCascade( int diflevel ) {
 			}
 
 			if (diflevel == INF_PRACT)
-				sprintf(filename, "pract.png");
+				sprintf(filename, "pract.jpg");
 			else
-				sprintf(filename, "kcas%i_%i.png", diflevel+1, curlevel+1);
+				sprintf(filename, "kcas%i_%i.jpg", diflevel+1, curlevel+1);
 
 			/* ---  Special Hidden Code  --- */
 
 			if (hidden && curlevel == 3)
-				sprintf(filename, "hidden.png");
+				sprintf(filename, "hidden.jpg");
 
 			DEBUGCODE {
 				fprintf(stderr, "->>Loading background: %s\n", filename);

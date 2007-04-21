@@ -743,7 +743,7 @@ void testLesson( void ) {
 //	FILE *tempFile;
 
 	pointer = LoadImage( "right.png", IMG_ALPHA );
-	bkg = LoadImage( "main_bkg.png", IMG_REGULAR );
+	bkg = LoadImage( "main_bkg.jpg", IMG_REGULAR );
 
 	SDL_ShowCursor(0);
 
