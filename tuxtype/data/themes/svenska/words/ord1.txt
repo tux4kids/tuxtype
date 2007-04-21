@@ -2,10 +2,10 @@ Korta ord
 KATT
 HUND
 ETT
-TVÅ
+TVÃ…
 TRE
 FYRA
-RÖD
+RÃ–D
 SLUT
 PUFF
 MOPP
@@ -13,12 +13,12 @@ HATT
 MAN
 KAN
 TORR
-KÖPA
+KÃ–PA
 HEJ
 PAJ
 ARG
 HAR
-KNÄ
+KNÃ„
 KORK
 LAND
 BAND
@@ -38,5 +38,5 @@ BOJ
 BO
 LE
 DUK
-ÄTA
+Ã„TA
 KUL

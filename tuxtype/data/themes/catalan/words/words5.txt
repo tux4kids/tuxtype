@@ -1,13 +1,13 @@
 Paraules de lletres rares (test for non standard letters)
-#aquí     multikey --> acute accent followed by i  don't works
-#calçot   not standard letter --> c cedill  works
-#bòfia    multikey --> grave accent followed by o don't works
-#ànec     multikey --> grave accent followed by a don't works
-#iñaki    not standard letter --> n tilde works
-#col·legi not standard letter (shift+number3)--> middot works
-aquí
-calçot
-bòfia
-ànec
-iñaki
-col·legi
+#aquÃ­     multikey --> acute accent followed by i  don't works
+#calÃ§ot   not standard letter --> c cedill  works
+#bÃ²fia    multikey --> grave accent followed by o don't works
+#Ã nec     multikey --> grave accent followed by a don't works
+#iÃ±aki    not standard letter --> n tilde works
+#colÂ·legi not standard letter (shift+number3)--> middot works
+aquÃ­
+calÃ§ot
+bÃ²fia
+Ã nec
+iÃ±aki
+colÂ·legi

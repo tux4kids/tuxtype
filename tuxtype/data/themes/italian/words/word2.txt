@@ -11,8 +11,8 @@ cane
 caro
 casa
 ciao
-ciò
-cioè
+ciÃ²
+cioÃ¨
 cura
 due
 duro
@@ -41,7 +41,7 @@ orto
 otto
 pari
 sala
-sarà
+sarÃ 
 sei
 sole
 topo

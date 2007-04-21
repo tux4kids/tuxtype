@@ -4,12 +4,12 @@ anell
 bossa
 brusa
 caire
-#caçar
+#caÃ§ar
 calma
 capsa
 carta
 certa
-#coixí
+#coixÃ­
 color
 corda
 cotxe
@@ -38,7 +38,7 @@ ocell
 ossos
 paper
 perer
-#pinça
+#pinÃ§a
 pizza
 plata
 ploma

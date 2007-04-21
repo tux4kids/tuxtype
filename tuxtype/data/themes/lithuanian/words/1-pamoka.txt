@@ -1,123 +1,123 @@
-Pradþia - ASDÐ KLØË
-# Tik pagrindinës pirðtø padëties þodþiai po 2 - 4 raides
+PradÅ¾ia - ASDÅ  KLÅ²Ä–
+# Tik pagrindinÄ—s pirÅ¡tÅ³ padÄ—ties Å¾odÅ¾iai po 2 - 4 raides
 AK
 AL
-AØ
-AË
-AÐ
+AÅ²
+AÄ–
+AÅ 
 SK
 SL
-SØ
-SË
+SÅ²
+SÄ–
 DK
 DL
-DØ
-DË
-ÐK
-ÐL
-ÐØ
-ÐË
+DÅ²
+DÄ–
+Å K
+Å L
+Å Å²
+Å Ä–
 KA
 LA
-ØA
-ËA
+Å²A
+Ä–A
 KS
 LS
-ØS
-ËS
+Å²S
+Ä–S
 KD
 LD
-ØD
-ËD
-KÐ
-LÐ
-ØÐ
-ËÐ
+Å²D
+Ä–D
+KÅ 
+LÅ 
+Å²Å 
+Ä–Å 
 ADA
-ADË
-ADØ
+ADÄ–
+ADÅ²
 AKA
-AKË
+AKÄ–
 AKLA
-AKLË
-AKLØ
-AKØ
+AKLÄ–
+AKLÅ²
+AKÅ²
 ALA
-ALË
+ALÄ–
 ALKA
 ALSA
-ALØ
+ALÅ²
 ASAS
-ASË
+ASÄ–
 ASLA
-ASØ
+ASÅ²
 DAD
 DAK
 DAL
-DALË
+DALÄ–
 DAS
-DAÐ
-DËDË
-DËK
-DËKA
-DËL
-DËLË
-DËS
-ËDA
-ËDË
-ËKA
-ËLA
-ËLË
+DAÅ 
+DÄ–DÄ–
+DÄ–K
+DÄ–KA
+DÄ–L
+DÄ–LÄ–
+DÄ–S
+Ä–DA
+Ä–DÄ–
+Ä–KA
+Ä–LA
+Ä–LÄ–
 KAD
 KADA
 KAK
 KALA
 KALK
 KALS
-KALË
+KALÄ–
 KAS
 KASA
-KASË
+KASÄ–
 KASK
-KËDË
-KËLË
+KÄ–DÄ–
+KÄ–LÄ–
 KLA
 LAD
 LADA
 LAK
 LAKA
-LAKË
+LAKÄ–
 LAKS
-LAÐA
-LAÐØ
-LËK
-LËKË
-LËKS
-LËLË
+LAÅ A
+LAÅ Å²
+LÄ–K
+LÄ–KÄ–
+LÄ–KS
+LÄ–LÄ–
 SAD
-SAKË
-SAKØ
+SAKÄ–
+SAKÅ²
 SALA
-SALØ
-SALË
+SALÅ²
+SALÄ–
 SALS
 SAS
-SAÐ
-SËS
-SËD
-SËDA
-SËK
-SËLA
-SËS
-SËSK
-ÐAKA
-ÐAKË
-ÐAKØ
-ÐALK
-ÐALS
-ÐAÐA
-ÐAÐØ
-ÐËL
-ÐËLA
-ÐËLË
-ÐËLK
+SAÅ 
+SÄ–S
+SÄ–D
+SÄ–DA
+SÄ–K
+SÄ–LA
+SÄ–S
+SÄ–SK
+Å AKA
+Å AKÄ–
+Å AKÅ²
+Å ALK
+Å ALS
+Å AÅ A
+Å AÅ Å²
+Å Ä–L
+Å Ä–LA
+Å Ä–LÄ–
+Å Ä–LK

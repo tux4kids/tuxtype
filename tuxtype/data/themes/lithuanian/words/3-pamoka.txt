@@ -1,53 +1,53 @@
-Virðutinë eilë, trumpi (2-4 raidës)
+VirÅ¡utinÄ— eilÄ—, trumpi (2-4 raidÄ—s)
 AKIS
 ALGA
 APIE
 AR
 ARAS
-ARË
+ARÄ–
 ARKA
 ARS
-ÀSA
-AÐIS
+Ä„SA
+AÅ IS
 AUGA
 AUGS
-DALÁ
+DALÄ®
 DAR
 DAUG
 DIDI
-EGLË
-EIKÐ
-EILË
-ËJO
+EGLÄ–
+EIKÅ 
+EILÄ–
+Ä–JO
 EPAS
 ERA
-ERKË
+ERKÄ–
 GAJI
 GAL
 GALI
-GALØ
-GËLË
+GALÅ²
+GÄ–LÄ–
 GERA
 GERS
 GI
 GIJA
-HALË
-ÁËJO
+HALÄ–
+Ä®Ä–JO
 ILGA
 IR
-IÐ
+IÅ 
 YLA
 YRA
 JAS
 JAU
-JËGA
-JÁ
+JÄ–GA
+JÄ®
 JIS
 JO
-JØ
+JÅ²
 JUK
 JUS
-KÀ
+KÄ„
 KAI
 KAIP
 KILS
@@ -65,28 +65,28 @@ LYRA
 LOJA
 ORAI
 ORAS
-OÐIA
-OÞYS
-OÞKA
+OÅ IA
+OÅ½YS
+OÅ½KA
 PER
 PO
 PRIE
 RASA
-RAÐË
-RAÐO
-RËKS
+RAÅ Ä–
+RAÅ O
+RÄ–KS
 RODO
-SAGË
-SËJA
+SAGÄ–
+SÄ–JA
 SU
 SUKS
-ÐI
-ÐILE
-ÐIS
-ÐUO
-TÀ
+Å I
+Å ILE
+Å IS
+Å UO
+TÄ„
 TAIP
-TARË
+TARÄ–
 TARP
 TIES
 TIK
@@ -96,10 +96,10 @@ TOLI
 TRYS
 TU
 TURI
-UPËS
-UÞ
-ÞADA
-ÞËRI
-ÞODÁ
-ÞOLË
+UPÄ–S
+UÅ½
+Å½ADA
+Å½Ä–RI
+Å½ODÄ®
+Å½OLÄ–
 
