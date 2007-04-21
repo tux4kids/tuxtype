@@ -111,4 +111,4 @@ msgstr "este funcion no esta listo todavia"
 msgid "Discuss the future of TuxTyping at"
 msgstr "A Charlar del futuro de TuxTyping"
 
-#ΰαβγδεζηθικλμνξοπρςστυφωϊϋόύÿ
+#Γ Γ΅ΓΆΓ£Γ¤Γ¥Γ¦Γ§Γ¨Γ©ΓªΓ«Γ¬Γ­Γ®Γ―Γ°Γ±Γ²Γ³Γ΄ΓµΓ¶ΓΉΓΊΓ»ΓΌΓ½ΓΏ

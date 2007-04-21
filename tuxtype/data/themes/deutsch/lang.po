@@ -8,28 +8,28 @@ msgstr ""
 "X-Generator: KBabel 0.9.6\n"
 
 msgid "Congratulations"
-msgstr "Herzlichen Glückwunsch!"
+msgstr "Herzlichen GlÃ¼ckwunsch!"
 
 msgid "Oh No!"
 msgstr "Oh Nein!"
 
 msgid "Sound & Music Disabled"
-msgstr "Musik & Klänge aus"
+msgstr "Musik & KlÃ¤nge aus"
 
 msgid "Paused!"
 msgstr "Pause!"
 
 msgid "Press escape again to return to menu"
-msgstr "Drücke Escape um zum Menü zurückzukehren"
+msgstr "DrÃ¼cke Escape um zum MenÃ¼ zurÃ¼ckzukehren"
 
 msgid "Press space bar to return to game"
-msgstr "Drücke die Leertaste um weiterzuspielen"
+msgstr "DrÃ¼cke die Leertaste um weiterzuspielen"
 
 msgid "Sound Effects Volume"
-msgstr "Lautstärke Soundeffekte"
+msgstr "LautstÃ¤rke Soundeffekte"
 
 msgid "Music Volume"
-msgstr "Lautstärke Musik"
+msgstr "LautstÃ¤rke Musik"
 
 msgid "Edit Word Lists"
 msgstr "Wortlisten bearbeiten"
@@ -54,7 +54,7 @@ msgstr "Alphabet"
 
 # "Space Cadet" is level 1 in comet zap
 msgid "Space Cadet"
-msgstr "Anfänger"
+msgstr "AnfÃ¤nger"
 
 # "Pilot" is level 2 in comet zap
 msgid "Pilot"
@@ -87,7 +87,7 @@ msgstr "Fischregen"
 
 #general stuff
 msgid "Practice"
-msgstr "Fingerübung"
+msgstr "FingerÃ¼bung"
 
 msgid "Lessons"
 msgstr "Lektionen"
@@ -96,7 +96,7 @@ msgid "Instructions"
 msgstr "Anleitung"
 
 msgid "Main Menu"
-msgstr "Hauptmenü"
+msgstr "HauptmenÃ¼"
 
 msgid "Options"
 msgstr "Optionen"

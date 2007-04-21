@@ -12,10 +12,10 @@ msgid "Congratulations"
 msgstr "Tillykke!"
 
 msgid "Oh No!"
-msgstr "Åh nej!"
+msgstr "Ã…h nej!"
 
 msgid "Sound & Music Disabled"
-msgstr "Lyd og musik slået fra"
+msgstr "Lyd og musik slÃ¥et fra"
 
 msgid "Paused!"
 msgstr "Pause!"
@@ -24,7 +24,7 @@ msgid "Press escape again to return to menu"
 msgstr "Tryk escape igen for at komme tilbage til menuen"
 
 msgid "Press space bar to return to game"
-msgstr "Tryk på mellemrumstasten for at spille videre"
+msgstr "Tryk pÃ¥ mellemrumstasten for at spille videre"
 
 msgid "Sound Effects Volume"
 msgstr "Lydeffekternes styrke"
@@ -33,7 +33,7 @@ msgid "Music Volume"
 msgstr "Musikkens styrke"
 
 msgid "Edit Word Lists"
-msgstr "Redigér ordlister"
+msgstr "RedigÃ©r ordlister"
 
 msgid "Fish"
 msgstr "Fisk"
@@ -56,7 +56,7 @@ msgstr "Begynder"
 
 # "Pilot" is level 2 in comet zap
 msgid "Pilot"
-msgstr "Trænet"
+msgstr "TrÃ¦net"
 
 # "Ace" is level 3 in comet zap
 msgid "Ace"
@@ -74,7 +74,7 @@ msgid "Medium"
 msgstr "Mellem"
 
 msgid "Hard"
-msgstr "Hård"
+msgstr "HÃ¥rd"
 
 #types of games
 msgid "Comet Zap"
@@ -85,7 +85,7 @@ msgstr "Fiskeregn"
 
 #general stuff
 msgid "Practice"
-msgstr "Øv dig!"
+msgstr "Ã˜v dig!"
 
 msgid "Lessons"
 msgstr "Lektioner"
@@ -106,15 +106,15 @@ msgid "Setup Keyboard"
 msgstr "Indstil tastatur"
 
 msgid "Setup Language"
-msgstr "Vælg sprog"
+msgstr "VÃ¦lg sprog"
 
 #work in progress stuff
 msgid "Work In Progress!"
-msgstr "Der arbejdes på sagen!"
+msgstr "Der arbejdes pÃ¥ sagen!"
 
 msgid "This feature is not ready yet"
 msgstr "Denne feature er ikke klar endnu"
 
 msgid "Discuss the future of TuxTyping at"
-msgstr "Diskutér TuxTypings fremtid på"
+msgstr "DiskutÃ©r TuxTypings fremtid pÃ¥"
 

@@ -2,109 +2,109 @@ msgid ""
 msgstr ""
 
 msgid "Congratulations"
-msgstr "Συγχαρητήρια"
+msgstr "Ξ£Ο…Ξ³Ο‡Ξ±ΟΞ·Ο„Ξ®ΟΞΉΞ±"
 
 msgid "Oh No!"
-msgstr "Ωχ! Όχι"
+msgstr "Ξ©Ο‡! ΞΟ‡ΞΉ"
 
 msgid "Sound & Music Disabled"
-msgstr "Χωρίς Ήχο και Μουσική"
+msgstr "Ξ§Ο‰ΟΞ―Ο‚ Ξ‰Ο‡ΞΏ ΞΊΞ±ΞΉ ΞΞΏΟ…ΟƒΞΉΞΊΞ®"
 
 msgid "Paused!"
-msgstr "Πάυση"
+msgstr "Ξ Ξ¬Ο…ΟƒΞ·"
 
 msgid "Press escape again to return to menu"
-msgstr "Πάτα ξανά το Esc για να γυρίσεις στις επιλογές"
+msgstr "Ξ Ξ¬Ο„Ξ± ΞΎΞ±Ξ½Ξ¬ Ο„ΞΏ Esc Ξ³ΞΉΞ± Ξ½Ξ± Ξ³Ο…ΟΞ―ΟƒΞµΞΉΟ‚ ΟƒΟ„ΞΉΟ‚ ΞµΟ€ΞΉΞ»ΞΏΞ³Ξ­Ο‚"
 
 msgid "Press space bar to return to game"
-msgstr "Πάτα το κενό για να γυρίσεις στο παιχνίδι"
+msgstr "Ξ Ξ¬Ο„Ξ± Ο„ΞΏ ΞΊΞµΞ½Ο Ξ³ΞΉΞ± Ξ½Ξ± Ξ³Ο…ΟΞ―ΟƒΞµΞΉΟ‚ ΟƒΟ„ΞΏ Ο€Ξ±ΞΉΟ‡Ξ½Ξ―Ξ΄ΞΉ"
 
 msgid "Sound Effects Volume"
-msgstr "Ένταση Ηχητικών Εφφέ"
+msgstr "ΞΞ½Ο„Ξ±ΟƒΞ· Ξ—Ο‡Ξ·Ο„ΞΉΞΊΟΞ½ Ξ•Ο†Ο†Ξ­"
 
 msgid "Music Volume"
-msgstr "Ένταση Ήχου"
+msgstr "ΞΞ½Ο„Ξ±ΟƒΞ· Ξ‰Ο‡ΞΏΟ…"
 
 msgid "Edit Word Lists"
-msgstr "Διόρθωσε τις Λίστες Λέξεων"
+msgstr "Ξ”ΞΉΟΟΞΈΟ‰ΟƒΞµ Ο„ΞΉΟ‚ Ξ›Ξ―ΟƒΟ„ΞµΟ‚ Ξ›Ξ­ΞΎΞµΟ‰Ξ½"
 
 msgid "Fish"
-msgstr "Ψάρια"
+msgstr "Ξ¨Ξ¬ΟΞΉΞ±"
 
 msgid "Lives"
-msgstr "Ζωές"
+msgstr "Ξ–Ο‰Ξ­Ο‚"
 
 msgid "Level"
-msgstr "Επίπεδο"
+msgstr "Ξ•Ο€Ξ―Ο€ΞµΞ΄ΞΏ"
 
 msgid "Alphabet"
-msgstr "Αλφάβητο"
+msgstr "Ξ‘Ξ»Ο†Ξ¬Ξ²Ξ·Ο„ΞΏ"
 
 # "Space Cadet" is level 1 in comet zap
 msgid "Space Cadet"
-msgstr "1. Μαθητευόμενος"
+msgstr "1. ΞΞ±ΞΈΞ·Ο„ΞµΟ…ΟΞΌΞµΞ½ΞΏΟ‚"
 
 # "Pilot" is level 2 in comet zap
 msgid "Pilot"
-msgstr "2. Πιλότος"
+msgstr "2. Ξ ΞΉΞ»ΟΟ„ΞΏΟ‚"
 
 # "Ace" is level 3 in comet zap
 msgid "Ace"
-msgstr "3. Άσσος"
+msgstr "3. β€™ΟƒΟƒΞΏΟ‚"
 
 # "Commander" is level 4 in comet zap
 msgid "Commander"
-msgstr "4. Βετεράνος"
+msgstr "4. Ξ’ΞµΟ„ΞµΟΞ¬Ξ½ΞΏΟ‚"
 
 #levels for Cascade game:
 msgid "Easy"
-msgstr "1. Εύκολο"
+msgstr "1. Ξ•ΟΞΊΞΏΞ»ΞΏ"
 
 msgid "Medium"
-msgstr "2. Κανονικό"
+msgstr "2. ΞΞ±Ξ½ΞΏΞ½ΞΉΞΊΟ"
 
 msgid "Hard"
-msgstr "3. Δύσκολο"
+msgstr "3. Ξ”ΟΟƒΞΊΞΏΞ»ΞΏ"
 
 #types of games
 msgid "Comet Zap"
-msgstr "Κομήτες"
+msgstr "ΞΞΏΞΌΞ®Ο„ΞµΟ‚"
 
 msgid "Fish Cascade"
-msgstr "Φάε τα Ψαράκια"
+msgstr "Ξ¦Ξ¬Ξµ Ο„Ξ± Ξ¨Ξ±ΟΞ¬ΞΊΞΉΞ±"
 
 #general stuff
 msgid "Practice"
-msgstr "Εξάσκηση"
+msgstr "Ξ•ΞΎΞ¬ΟƒΞΊΞ·ΟƒΞ·"
 
 msgid "Lessons"
-msgstr "Μαθήματα"
+msgstr "ΞΞ±ΞΈΞ®ΞΌΞ±Ο„Ξ±"
 
 msgid "Instructions"
-msgstr "Οδηγίες"
+msgstr "ΞΞ΄Ξ·Ξ³Ξ―ΞµΟ‚"
 
 msgid "Main Menu"
-msgstr "Βασικό Μενού"
+msgstr "Ξ’Ξ±ΟƒΞΉΞΊΟ ΞΞµΞ½ΞΏΟ"
 
 msgid "Options"
-msgstr "Επιλογές"
+msgstr "Ξ•Ο€ΞΉΞ»ΞΏΞ³Ξ­Ο‚"
 
 msgid "Quit"
-msgstr "Τέλος"
+msgstr "Ξ¤Ξ­Ξ»ΞΏΟ‚"
 
 msgid "Setup Keyboard"
-msgstr "Ρύθμιση Πληκτρολογίου"
+msgstr "Ξ΅ΟΞΈΞΌΞΉΟƒΞ· Ξ Ξ»Ξ·ΞΊΟ„ΟΞΏΞ»ΞΏΞ³Ξ―ΞΏΟ…"
 
 msgid "Setup Language"
-msgstr "Ρύθμιση Γλώσσας"
+msgstr "Ξ΅ΟΞΈΞΌΞΉΟƒΞ· Ξ“Ξ»ΟΟƒΟƒΞ±Ο‚"
 
 #work in progress stuff
 msgid "Work In Progress!"
-msgstr "Εργασία σε εξέλιξη"
+msgstr "Ξ•ΟΞ³Ξ±ΟƒΞ―Ξ± ΟƒΞµ ΞµΞΎΞ­Ξ»ΞΉΞΎΞ·"
 
 msgid "This feature is not ready yet"
-msgstr "Αυτό το κομμάτι δεν είναι ακόμη έτοιμο"
+msgstr "Ξ‘Ο…Ο„Ο Ο„ΞΏ ΞΊΞΏΞΌΞΌΞ¬Ο„ΞΉ Ξ΄ΞµΞ½ ΞµΞ―Ξ½Ξ±ΞΉ Ξ±ΞΊΟΞΌΞ· Ξ­Ο„ΞΏΞΉΞΌΞΏ"
 
 msgid "Discuss the future of TuxTyping at"
-msgstr "Σχόλια για το TuxTyping"
+msgstr "Ξ£Ο‡ΟΞ»ΞΉΞ± Ξ³ΞΉΞ± Ο„ΞΏ TuxTyping"
 

@@ -16,37 +16,37 @@ msgid "Oh No!"
 msgstr "Deja..."
 
 msgid "Sound & Music Disabled"
-msgstr "Garsas iğjungtas"
+msgstr "Garsas iÅ¡jungtas"
 
 msgid "Paused!"
 msgstr "Pertrauka!"
 
 msgid "Press escape again to return to menu"
-msgstr "Jei norite gráşti á meniu, paspauskite gráşimo klaviğà"
+msgstr "Jei norite grÄ¯Å¾ti Ä¯ meniu, paspauskite grÄ¯Å¾imo klaviÅ¡Ä…"
 
 msgid "Press space bar to return to game"
-msgstr "Jei norite gráşti á şaidimà, paspauskite tarpo klaviğà"
+msgstr "Jei norite grÄ¯Å¾ti Ä¯ Å¾aidimÄ…, paspauskite tarpo klaviÅ¡Ä…"
 
 msgid "Sound Effects Volume"
-msgstr "Signalø garsumas"
+msgstr "SignalÅ³ garsumas"
 
 msgid "Music Volume"
 msgstr "Muzikos garsumas"
 
 msgid "Edit Word Lists"
-msgstr "Modifikuoti şodşiø sàrağus"
+msgstr "Modifikuoti Å¾odÅ¾iÅ³ sÄ…raÅ¡us"
 
 msgid "Fish"
-msgstr "Şuvø:"
+msgstr "Å½uvÅ³:"
 
 msgid "Lives"
-msgstr "Meğkeriø:"
+msgstr "MeÅ¡keriÅ³:"
 
 msgid "Level"
 msgstr "lygis"
 
 msgid "Alphabet"
-msgstr "Abëcëlë"
+msgstr "AbÄ—cÄ—lÄ—"
 
 # "Space Cadet" is level 1 in comet zap
 msgid "Space Cadet"
@@ -54,7 +54,7 @@ msgstr "Naujokas"
 
 # "Pilot" is level 2 in comet zap
 msgid "Pilot"
-msgstr "Patyræs"
+msgstr "PatyrÄ™s"
 
 # "Ace" is level 3 in comet zap
 msgid "Ace"
@@ -76,20 +76,20 @@ msgstr "Sunkus"
 
 #types of games
 msgid "Comet Zap"
-msgstr "Kometø lietus"
+msgstr "KometÅ³ lietus"
 
 msgid "Fish Cascade"
-msgstr "Şuvø lietus"
+msgstr "Å½uvÅ³ lietus"
 
 #general stuff
 msgid "Practice"
-msgstr "Pirğtø pratimai"
+msgstr "PirÅ¡tÅ³ pratimai"
 
 msgid "Lessons"
-msgstr "Pamokos (dar nëra)"
+msgstr "Pamokos (dar nÄ—ra)"
 
 msgid "Instructions"
-msgstr "Nurodymai (dar nëra)"
+msgstr "Nurodymai (dar nÄ—ra)"
 
 msgid "Main Menu"
 msgstr "Pagrindinis meniu"
@@ -101,17 +101,17 @@ msgid "Quit"
 msgstr "Baigti"
 
 msgid "Setup Keyboard"
-msgstr "Klaviatûros nustatymas"
+msgstr "KlaviatÅ«ros nustatymas"
 
 msgid "Project Info"
-msgstr "Apie "Tuxtype" (anglø k.)"
+msgstr "Apie "Tuxtype" (anglÅ³ k.)"
 
 msgid "Setup Language"
 msgstr "Kalbos parinkimas"
 
 #work in progress stuff
 msgid "Work In Progress!"
-msgstr "Ği programos dalis dar daroma!"
+msgstr "Å i programos dalis dar daroma!"
 
 msgid "This feature is not ready yet"
 msgstr "Kol kas ji dar nebaigta"
