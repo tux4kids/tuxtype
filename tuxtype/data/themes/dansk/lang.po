@@ -4,7 +4,7 @@ msgstr ""
 "Last-Translator: Nikolai Beier <beier@ofir.dk>\n"
 "PO-Revision-Date: 2003-05-08 17:58+0200\n"
 "Language-Team: Danish\n"
-"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 0.9.6\n"
 
