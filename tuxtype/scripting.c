@@ -491,7 +491,7 @@ void runScript( void ) {
                         
                         shown += toshow + 1;
 			//printf("Rendering %s\n", tmp);
-                        img = TTF_RenderText_Blended( myFont, tmp, *col );
+                        img = TTF_RenderUTF8_Blended( myFont, tmp, *col );
 
                         if (img) {
                     
@@ -783,7 +783,7 @@ void testLesson( void ) {
 
 		sprintf( wordlistFile[c], "%s", wordsFile->d_name );
 
-		filenames[c] = TTF_RenderText_Blended(  font, wordsFile->d_name, white);
+		filenames[c] = TTF_RenderUTF8_Blended(  font, wordsFile->d_name, white);
 		SDL_BlitSurface( filenames[c], NULL, screen, &spot );
                 SDL_FreeSurface(filenames[c]);
 		c++;
