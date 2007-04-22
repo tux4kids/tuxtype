@@ -19,7 +19,6 @@
 
 
 extern int max( int n1, int n2 );
-extern SDL_Surface* ttf_letter( unsigned char ch, SDL_Color c );
 
 
 extern void WaitFrame( void );

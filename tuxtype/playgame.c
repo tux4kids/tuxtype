@@ -79,13 +79,18 @@ int check_word( int f ) {
 	return 1;
 }
 
-void create_letters( void ) {
-	int i;
-	for (i = 1; i < 255; i++) {
-		letter[i] = ttf_letter(i, white);
-		red_letter[i] = ttf_letter(i, red);
-	}
+void create_letters( void )
+{
+  int i;
+  for (i = 1; i < 255; i++)
+  {
+    unsigned char t[2] = " ";
+    t[0] = i;
+    letter[i] = black_outline(t, font, &white);
+    red_letter[i] = black_outline(t, font, &red);;
+  }
 }
+
 
 void remove_letters( void ) {
 	int i;
@@ -151,6 +156,8 @@ void ResetObjects( void ) {
 }
 
 void DrawSprite(sprite *gfx, int x, int y) {
+        if (!gfx) return;
+
 	struct blit *update;
 	update = &blits[numupdates++];
 	update->src = gfx->frame[gfx->cur];
@@ -169,7 +176,9 @@ void DrawSprite(sprite *gfx, int x, int y) {
 DrawObject : Draw an object at the specified
 location. No respect to clipping!
 *************************/
-void DrawObject(SDL_Surface * sprite, int x, int y) {
+void DrawObject(SDL_Surface* sprite, int x, int y) {
+    if (!sprite) return;
+
     struct blit *update;
     update = &blits[numupdates++];
     update->src = sprite;
@@ -716,11 +725,20 @@ void AddSplat(int *splats, struct fishypoo *f, int *curlives, int *frame) {
 }
 
 void DrawFish( int which ) {
-	int j, red_letters;
+        LOG ("Entering DrawFish()\n");
+	int j, red_letters, x_offset, y_offset;
+
+        // To have letters more centered in fish:
+	x_offset = 10;
+        y_offset = 10;
 
 	for ( j=0; j < fish_object[which].len; j++ )
-		DrawSprite( fishy, fish_object[which].x + (fishy->frame[0]->w*j), fish_object[which].y );
-
+        {
+          if (fishy && fishy->frame[0])
+	  DrawSprite( fishy,
+                      fish_object[which].x + (fishy->frame[0]->w*j),
+                      fish_object[which].y );
+        }
 	/* we only draw the letter if tux cannot eat it yet */
 
 	if (!fish_object[which].can_eat) {
@@ -740,13 +758,17 @@ void DrawFish( int which ) {
 		}
 	
 		for (j = 0; j < strlen(fish_object[which].word); j++)
-			if (fish_object[which].word[j]!=32) {
-				if (j < red_letters)
-					DrawObject(red_letter[(int)fish_object[which].word[j]], (fish_object[which].x + (j * fishy->frame[0]->w)), fish_object[which].y);        
-				else
-					DrawObject(letter[(int)fish_object[which].word[j]], (fish_object[which].x + (j * fishy->frame[0]->w)), fish_object[which].y);
+			if (fish_object[which].word[j]!=32
+                            && fishy && fishy->frame[0]) //segfault protection
+
+                        {
+			  if (j < red_letters)
+			    DrawObject(red_letter[(int)fish_object[which].word[j]],   (fish_object[which].x + (j * fishy->frame[0]->w)) + x_offset, fish_object[which].y + y_offset);        
+			  else
+			    DrawObject(letter[(int)fish_object[which].word[j]], (fish_object[which].x + (j * fishy->frame[0]->w)) + x_offset, fish_object[which].y + y_offset);
 			}
 	}
+        LOG ("Leaving DrawFish()\n");
 }
 
 /****************************
@@ -985,80 +1007,8 @@ void draw_bar(int curlevel, int diflevel, int curlives, int oldlives, int fish_l
 	DrawNumbers(fish_left, (screen->w) - (1 + (MAX_FISHIES_DIGITS * number[4]->w)), 1, MAX_FISHIES_DIGITS);
 }
 
-// This creates our letters.  Black outlined white letters
-SDL_Surface *ttf_letter(unsigned char ch, SDL_Color c) {
-    SDL_Surface *out, *temp;
-    SDL_Rect dstrect;
-    unsigned char let[2] = " ";
-    out = SDL_CreateRGBSurface(screen->flags, 36, 50, 24, 0, 0, 0, 0);
-    SDL_FillRect(out, NULL, SDL_MapRGB(out->format, 255, 255, 0));
-
-    let[0] = ch;
-
-    //Why not just do this with black_outline()?
-    return black_outline(let, font, &c);
 
 
-    temp = TTF_RenderUTF8_Shaded(font, let, black, black);
-    dstrect.w = temp->w;
-    dstrect.h = temp->h;
-    dstrect.x = 17 - (temp->w) / 2;
-    dstrect.y = 24 - (temp->h) / 2;
-    SDL_BlitSurface(temp, NULL, out, &dstrect);
-    dstrect.x += 2;
-    SDL_BlitSurface(temp, NULL, out, &dstrect);
-    dstrect.y += 2;
-    SDL_BlitSurface(temp, NULL, out, &dstrect);
-    dstrect.x -= 2;
-    SDL_BlitSurface(temp, NULL, out, &dstrect);
-    SDL_FreeSurface(temp);
-    temp = TTF_RenderUTF8_Blended(font, let, c);
-    dstrect.x++;
-    dstrect.y--;
-    SDL_BlitSurface(temp, NULL, out, &dstrect);
-    SDL_FreeSurface(temp);
-
-// From here to the end is just to correct for the fact that the
-// letters aren't centered on the texture we create...  It 
-// is a horrible way to do it, but it works :)
-    {
-        int a, A;
-        int r, g, b;
-        int min = out->w, max = 0;
-        SDL_Rect tt;
-        Uint8 *t = out->pixels;
-        for (A = 0; A < out->h; A++) {
-            for (a = 0; a < out->w; a++) {
-                r = *t;
-                t++;
-                g = *t;
-                t++;
-                b = *t;
-                t++;
-                if ((r != 255) || (g != 255) || (b != 0)) {
-                    if (a < min)
-                        min = a;
-                    if (a > max)
-                        max = a;
-                }
-            }
-        }
-        temp = SDL_CreateRGBSurface(screen->flags, 36, 50, 24, 0, 0, 0, 0);
-        SDL_FillRect(temp, NULL, SDL_MapRGB(out->format, 255, 255, 0));
-        tt.x = min;
-        tt.y = 0;
-        dstrect.w = tt.w = max - min + 1;
-        dstrect.h = tt.h = 50;
-        dstrect.x = 18 - (tt.w / 2);
-        dstrect.y = 1;
-
-        SDL_BlitSurface(out, &tt, temp, &dstrect);
-        SDL_SetColorKey(temp, (SDL_SRCCOLORKEY | SDL_RLEACCEL),
-                        SDL_MapRGB(temp->format, 255, 255, 0));
-        SDL_FreeSurface(out);
-    }
-    return temp;
-}
 
 /*************************************************************************
 * PlayCascade : This is the main Cascade game loop               *

@@ -1,3 +1,18 @@
+v.1.5.8  22 Apr 2007
+
+[ Karl Ove Hufthammer ]
+       - Converted all the translation to use the UTF-8 characters.
+       - Changed word files to UTF-8. 
+
+[ David Bruce]
+       - Changed TTF_RenderText to TTF_RenderUTF8 everywhere in 
+         playgame.c, mainly by removing ttf_letter() and using
+         black_outline() instead.
+       - Added some checks for null pointers to prevent segfaults.
+       - Changed backgrounds from png to jpg to save space.
+       - Removed other unused backgrounds
+         (now in people/dbruce/unused_images)
+
 [ David Bruce ] 21 Apr 2007
        - (mostly) removed used of checkFile() as it doesn't work
          reliably on Windows and isn't really necessary. 
