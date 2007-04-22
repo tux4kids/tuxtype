@@ -356,7 +356,7 @@ void LoadOthers( void ) {
 
 void debugDISPLAY( unsigned char *msg, int x, int y ) {
 	SDL_Surface *m;
-	m = TTF_RenderText_Shaded( font, msg, white, white );
+	m = TTF_RenderUTF8_Shaded( font, msg, white, white );
 	EraseObject(m, x, y);
 	DrawObject(m, x, y);
 }
@@ -994,7 +994,12 @@ SDL_Surface *ttf_letter(unsigned char ch, SDL_Color c) {
     SDL_FillRect(out, NULL, SDL_MapRGB(out->format, 255, 255, 0));
 
     let[0] = ch;
-    temp = TTF_RenderText_Shaded(font, let, black, black);
+
+    //Why not just do this with black_outline()?
+    return black_outline(let, font, &c);
+
+
+    temp = TTF_RenderUTF8_Shaded(font, let, black, black);
     dstrect.w = temp->w;
     dstrect.h = temp->h;
     dstrect.x = 17 - (temp->w) / 2;
@@ -1007,7 +1012,7 @@ SDL_Surface *ttf_letter(unsigned char ch, SDL_Color c) {
     dstrect.x -= 2;
     SDL_BlitSurface(temp, NULL, out, &dstrect);
     SDL_FreeSurface(temp);
-    temp = TTF_RenderText_Blended(font, let, c);
+    temp = TTF_RenderUTF8_Blended(font, let, c);
     dstrect.x++;
     dstrect.y--;
     SDL_BlitSurface(temp, NULL, out, &dstrect);
@@ -1093,8 +1098,10 @@ int PlayCascade( int diflevel ) {
 	LoadTuxAnims(); 
 	LoadFishies();
 	LoadOthers();
+        LOG( " before create_letters()\n" );
 	create_letters();
-	
+        LOG( " after create_letters()\n" );
+
 	LOG( " starting game \n ");
 	while (still_playing) {
 
