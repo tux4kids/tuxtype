@@ -3,7 +3,7 @@ v.1.5.8  29 Apr 2007
 [ Karl Ove Hufthammer ]
        - Converted all the translation to use the UTF-8 characters.
        - Changed word files to UTF-8. 
-	   - Added improved French word files created by the French
+	   - Added improved French word files commited by the French
 	     Skolelinux/Debian-edu team during DevCamp in Soissons.
 	   - Added Brazilian Portuguese translation by
 	     Hudson Gonçalves Manieri Figueredo.
