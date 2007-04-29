@@ -1,0 +1,121 @@
+# translation of lang.po to
+# Hudson G M Figueredo <kynder@pquilinux.org>, 2007.
+msgid ""
+msgstr ""
+"Last-Translator: Hudson G M Figueredo <kynder@pquilinux.org>\n"
+"PO-Revision-Date: 2007-02-07 16:08+0000\n"
+"Project-Id-Version: lang\n"
+"Language-Team:  <pt@li.org>\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"MIME-Version: 1.0\n"
+"Language-Team:  <pt@li.org>\n"
+
+msgid "Congratulations"
+msgstr "Parabéns"
+
+msgid "Oh No!"
+msgstr "Ah não!"
+
+msgid "Sound & Music Disabled"
+msgstr "O som e a música foram desabilitados."
+
+msgid "Paused!"
+msgstr "Parado!"
+
+msgid "Press escape again to return to menu"
+msgstr "Tecle ESC novamente para voltar ao Menu"
+
+msgid "Press space bar to return to game"
+msgstr "Pressione a barra de espaço para voltar ao jogo"
+
+msgid "Sound Effects Volume"
+msgstr "Volume dos efeitos de som"
+
+msgid "Music Volume"
+msgstr "Volume da música"
+
+msgid "Edit Word Lists"
+msgstr "Editar as listas de palavras"
+
+msgid "Fish"
+msgstr "Peixes"
+
+msgid "Lives"
+msgstr "Vidas"
+
+msgid "Level"
+msgstr "Nível"
+
+msgid "Options"
+msgstr "Opções"
+
+msgid "Alphabet"
+msgstr "Alfabeto"
+
+# "Space Cadet" is level 1 in comet zap
+msgid "Space Cadet"
+msgstr "Cadete espacial"
+
+# "Pilot" is level 2 in comet zap
+msgid "Pilot"
+msgstr "Piloto"
+
+# "Ace" is level 3 in comet zap
+msgid "Ace"
+msgstr "Super piloto"
+
+# "Commander" is level 4 in comet zap
+msgid "Commander"
+msgstr "Comandante"
+
+#levels for Cascade game:
+msgid "Easy"
+msgstr "Fácil"
+
+msgid "Medium"
+msgstr "Médio"
+
+msgid "Hard"
+msgstr "Difícil"
+
+#types of games
+msgid "Comet Zap"
+msgstr "Destruidor de cometas"
+
+msgid "Fish Cascade"
+msgstr "Cascata de peixes"
+
+#general stuff
+msgid "Practice"
+msgstr "Praticar"
+
+msgid "Lessons"
+msgstr "Lições"
+
+msgid "Instructions"
+msgstr "Instruções"
+
+msgid "Main Menu"
+msgstr "Menu principal"
+
+msgid "Quit"
+msgstr "Sair"
+
+msgid "Setup Keyboard"
+msgstr "Configurar o teclado"
+
+msgid "Setup Language"
+msgstr "Configurar lingua"
+
+#work in progress stuff
+msgid "Work In Progress!"
+msgstr "Trabalho em progresso!"
+
+msgid "this feature is not ready yet"
+msgstr "essa caracteristica ainda não está pronta"
+
+msgid "Discuss the future of TuxTyping at"
+msgstr "Discuta o futuro do TuxType em"
+
