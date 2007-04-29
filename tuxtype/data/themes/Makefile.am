@@ -1,6 +1,7 @@
 
 SUBDIRS = armenian\
 bokmal\
+brazilian-portuguese\
 catalan\
 dansk\
 deutsch\

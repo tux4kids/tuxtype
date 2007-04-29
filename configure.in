@@ -108,6 +108,9 @@ tuxtype/data/themes/bokmal/Makefile
 tuxtype/data/themes/bokmal/words/Makefile
 tuxtype/data/themes/bokmal/images/Makefile
 tuxtype/data/themes/bokmal/images/status/Makefile
+tuxtype/data/themes/brazilian-portuguese/Makefile
+tuxtype/data/themes/brazilian-portuguese/images/Makefile
+tuxtype/data/themes/brazilian-portuguese/words/Makefile
 tuxtype/data/themes/catalan/Makefile
 tuxtype/data/themes/catalan/words/Makefile
 tuxtype/data/themes/dansk/Makefile
