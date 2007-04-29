@@ -1088,7 +1088,7 @@ int PlayCascade( int diflevel ) {
 			}
 
 			if (diflevel == INF_PRACT)
-				sprintf(filename, "pract.jpg");
+				sprintf(filename, "pract.png");
 			else
 				sprintf(filename, "kcas%i_%i.jpg", diflevel+1, curlevel+1);
 

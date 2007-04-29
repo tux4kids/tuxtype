@@ -183,7 +183,7 @@ void chooseTheme( void ) {
 
 	useEnglish = old_useEnglish;
 
-	bkg = LoadImage("main_bkg.jpg", IMG_REGULAR);
+	bkg = LoadImage("main_bkg.png", IMG_REGULAR);
 
 	left = LoadImage("left.png", IMG_ALPHA);
 	leftRect.w = left->w; leftRect.h = left->h;

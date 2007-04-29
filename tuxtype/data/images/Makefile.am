@@ -32,7 +32,7 @@ kcas3_3.jpg\
 kcas3_4.jpg\
 left.png\
 line2.png\
-main_bkg.jpg\
+main_bkg.png\
 num_0.png\
 nosound.png\
 num_1.png\
@@ -44,7 +44,7 @@ num_6.png\
 num_7.png\
 num_8.png\
 num_9.png\
-pract.jpg\
+pract.png\
 right.png\
 splat0.png\
 sound.png\
@@ -110,7 +110,7 @@ install-data-local:
 	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images
 	$(INSTALL_DATA) $(srcdir)/line2.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/line2.png
 	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images
-	$(INSTALL_DATA) $(srcdir)/main_bkg.jpg $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/main_bkg.jpg
+	$(INSTALL_DATA) $(srcdir)/main_bkg.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/main_bkg.png
 	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images
 	$(INSTALL_DATA) $(srcdir)/num_0.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/num_0.png
 	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images
@@ -134,7 +134,7 @@ install-data-local:
 	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images
 	$(INSTALL_DATA) $(srcdir)/num_9.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/num_9.png
 	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images
-	$(INSTALL_DATA) $(srcdir)/pract.jpg $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/pract.jpg
+	$(INSTALL_DATA) $(srcdir)/pract.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/pract.png
 	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images
 	$(INSTALL_DATA) $(srcdir)/right.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/right.png
 	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images
@@ -192,7 +192,7 @@ uninstall-local:
 	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/kcas3_4.jpg
 	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/left.png
 	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/line2.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/main_bkg.jpg
+	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/main_bkg.png
 	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/num_0.png
 	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/nosound.png
 	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/num_1.png
@@ -204,7 +204,7 @@ uninstall-local:
 	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/num_7.png
 	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/num_8.png
 	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/num_9.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/pract.jpg
+	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/pract.png
 	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/right.png
 	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/splat0.png
 	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/sound.png
