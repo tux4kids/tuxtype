@@ -328,6 +328,8 @@ unsigned char* WORDS_get( void ) {
 void WORDS_use( char *wordFn ) {
 	int j;
 	unsigned char temp_word[FNLEN];
+	size_t length;
+
 	FILE *wordFile=NULL;
 
 	DEBUGCODE { fprintf(stderr, "Entering WORDS_use() for file: %s\n", wordFn); }
@@ -361,17 +363,26 @@ void WORDS_use( char *wordFn ) {
 			if (temp_word[j] == '\n' || temp_word[j] == '\r')
 				temp_word[j] = '\0';
 
-		/* --- check its size, if too big, ignore it --- */
-
-		if (strlen(temp_word) >= 1 && strlen(temp_word) <= MAX_WORD_SIZE) {
-
-			/* --- add word --- */
-			if (WORD_qty < MAX_NUM_WORDS)
-			{
-				strcpy( WORDS[WORD_qty], temp_word );
-				WORD_qty++;
-			}
+		/* Make sure word is usable: */
+		/* NOTE we need to use mbstowcs() rather than just strlen() */
+		/* now that we use UTF-8 to get correct length - DSB */
+		length = mbstowcs(NULL, temp_word, 0);
+		if (length == -1)  /* Means invalid UTF-8 sequence */
+		{
+		  fprintf(stderr, "Word '%s' not added - invalid UTF-8 sequence!\n");
+		  continue;
 		}
+
+		if (length == 0)  
+			continue;
+		if (length > MAX_WORD_SIZE)
+			continue;
+		if (WORD_qty >= MAX_NUM_WORDS)
+			continue;
+
+		/* If we make it to here, OK to add word: */
+		strcpy( WORDS[WORD_qty], temp_word );
+		WORD_qty++;
 	}
         
 	/* Make sure list is terminated with null character */

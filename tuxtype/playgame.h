@@ -88,7 +88,7 @@ struct fishypoo {
     unsigned char *word;
     double x, y;
     int    w;
-    int    len;
+    size_t len;
     int    splat_time;
     double dy;
 } fish_object[MAX_FISHIES_HARD + 1];

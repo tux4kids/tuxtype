@@ -570,6 +570,8 @@ in the key cascade game
 *****************************/
 void SpawnFishies(int diflevel, int *fishies, int *frame ) {
 	int i, spacing;
+	char* new_word;
+	size_t new_word_len;
 
 	switch (diflevel) {
 		case INF_PRACT:
@@ -583,14 +585,28 @@ void SpawnFishies(int diflevel, int *fishies, int *frame ) {
 	for (i = 0; i < *fishies; i++)
 		if (fish_object[i].y < (fishy->frame[0]->h + spacing))
 			return;
-		
+
+	/* See if we get a valid UTF-8 word from WORDS_get before we move on: */
+	/* Now that we are using UTF-8, some characters may be more than one byte, */
+	/* so we can't just use strlen() anymore - DSB.*/		
 	LOG( "=>Spawning fishy\n" );
 
+	new_word = WORDS_get();
+        new_word_len = mbstowcs(NULL, new_word, 0);
+
+	if (new_word_len == -1)
+	{
+		fprintf(stderr, "Could not spawn fishy with word '%s'\n", new_word);
+		fprintf(stderr, "Byte length is: %d\n", strlen(new_word));
+		fprintf(stderr, "UTF-8 char length is: %d\n", new_word_len);
+		return;
+	}
+
+	/* If we get to here, it should be OK to actually spawn the fishy: */
+	fish_object[*fishies].word = new_word;
+        fish_object[*fishies].len = new_word_len;
 	fish_object[*fishies].alive = 1;
 	fish_object[*fishies].can_eat = 0;
-
-	fish_object[*fishies].word = WORDS_get();
-	fish_object[*fishies].len = strlen(fish_object[*fishies].word);
 	fish_object[*fishies].w = fishy->frame[0]->w * fish_object[*fishies].len;
 	fish_object[*fishies].x = rand() % (screen->w - fish_object[*fishies].w);
 	fish_object[*fishies].y = 0;
@@ -620,6 +636,8 @@ void SpawnFishies(int diflevel, int *fishies, int *frame ) {
 
 	DEBUGCODE {
 		fprintf(stderr, "Spawn fishy with word '%s'\n", fish_object[*fishies].word);
+		fprintf(stderr, "Byte length is: %d\n", strlen(fish_object[*fishies].word));
+		fprintf(stderr, "UTF-8 char length is: %d\n", fish_object[*fishies].len);
 	}
 
 	*fishies = *fishies + 1;
@@ -732,6 +750,7 @@ void DrawFish( int which ) {
 	x_offset = 10;
         y_offset = 10;
 
+	/* Draw the fishies: */
 	for ( j=0; j < fish_object[which].len; j++ )
         {
           if (fishy && fishy->frame[0])
@@ -739,12 +758,14 @@ void DrawFish( int which ) {
                       fish_object[which].x + (fishy->frame[0]->w*j),
                       fish_object[which].y );
         }
+
+	/* Now we draw the letters on top of the fish: */
 	/* we only draw the letter if tux cannot eat it yet */
-
-	if (!fish_object[which].can_eat) {
+	if (!fish_object[which].can_eat)
+	{
 		red_letters = -1;
+		j = 0;
 
-		j=0;
 		while ( j < tux_object.wordlen && red_letters == -1 ) {
 			int k;
 			for ( k=0; k<tux_object.wordlen - j; k++)
