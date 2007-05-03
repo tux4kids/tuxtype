@@ -367,6 +367,9 @@ void WORDS_use( char *wordFn ) {
 		/* NOTE we need to use mbstowcs() rather than just strlen() */
 		/* now that we use UTF-8 to get correct length - DSB */
 		length = mbstowcs(NULL, temp_word, 0);
+
+		DOUT(length);
+
 		if (length == -1)  /* Means invalid UTF-8 sequence */
 		{
 		  fprintf(stderr, "Word '%s' not added - invalid UTF-8 sequence!\n");
