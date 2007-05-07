@@ -69,25 +69,35 @@ int int_rand(int min, int max) {
 int check_word( int f ) {
 	int i;
 
-	if (strlen(fish_object[f].word) > tux_object.wordlen) 
+	if (wcslen(fish_object[f].word) > tux_object.wordlen) 
 		return 0;
 
-	for (i=0; i<strlen(fish_object[f].word); i++) 
-		if (KEYMAP[fish_object[f].word[i]] != KEYMAP[tux_object.word[tux_object.wordlen-strlen(fish_object[f].word)+i]])
+	for (i=0; i < wcslen(fish_object[f].word); i++) 
+		if (KEYMAP[fish_object[f].word[i]] != KEYMAP[tux_object.word[tux_object.wordlen - wcslen(fish_object[f].word)+i]])
 			return 0;
 
 	return 1;
 }
 
+
+/* Now that the words are stored internally as wchars, we use the */
+/* Unicode glyph version of black_outline():                      */
 void create_letters( void )
 {
+  wchar_t t;
   int i;
+
   for (i = 1; i < 255; i++)
   {
-    unsigned char t[2] = " ";
-    t[0] = i;
-    letter[i] = black_outline(t, font, &white);
-    red_letter[i] = black_outline(t, font, &red);;
+    t = (wchar_t)i;
+
+    DEBUGCODE
+    {
+      fprintf(stderr, "Creating SDL_Surface for int = %d, char = %lc\n", i, t);
+    }
+
+    letter[i] = black_outline_wchar(t, font, &white);
+    red_letter[i] = black_outline_wchar(t, font, &red);;
   }
 }
 
@@ -570,8 +580,7 @@ in the key cascade game
 *****************************/
 void SpawnFishies(int diflevel, int *fishies, int *frame ) {
 	int i, spacing;
-	char* new_word;
-	size_t new_word_len;
+	wchar_t* new_word;
 
 	switch (diflevel) {
 		case INF_PRACT:
@@ -592,19 +601,10 @@ void SpawnFishies(int diflevel, int *fishies, int *frame ) {
 	LOG( "=>Spawning fishy\n" );
 
 	new_word = WORDS_get();
-        new_word_len = mbstowcs(NULL, new_word, 0);
-
-	if (new_word_len == -1)
-	{
-		fprintf(stderr, "Could not spawn fishy with word '%s'\n", new_word);
-		fprintf(stderr, "Byte length is: %d\n", strlen(new_word));
-		fprintf(stderr, "UTF-8 char length is: %d\n", new_word_len);
-		return;
-	}
 
 	/* If we get to here, it should be OK to actually spawn the fishy: */
 	fish_object[*fishies].word = new_word;
-        fish_object[*fishies].len = new_word_len;
+        fish_object[*fishies].len = wcslen(new_word);
 	fish_object[*fishies].alive = 1;
 	fish_object[*fishies].can_eat = 0;
 	fish_object[*fishies].w = fishy->frame[0]->w * fish_object[*fishies].len;
@@ -636,7 +636,7 @@ void SpawnFishies(int diflevel, int *fishies, int *frame ) {
 
 	DEBUGCODE {
 		fprintf(stderr, "Spawn fishy with word '%s'\n", fish_object[*fishies].word);
-		fprintf(stderr, "Byte length is: %d\n", strlen(fish_object[*fishies].word));
+		fprintf(stderr, "Byte length is: %d\n", wcslen(fish_object[*fishies].word));
 		fprintf(stderr, "UTF-8 char length is: %d\n", fish_object[*fishies].len);
 	}
 
@@ -742,22 +742,39 @@ void AddSplat(int *splats, struct fishypoo *f, int *curlives, int *frame) {
 		Mix_PlayChannel(SPLAT_WAV, sound[SPLAT_WAV], 0);
 }
 
-void DrawFish( int which ) {
-        LOG ("Entering DrawFish()\n");
-	int j, red_letters, x_offset, y_offset;
 
+
+
+void DrawFish( int which )
+{
+        LOG ("Entering DrawFish()\n");
+	int j = 0;
+	int red_letters = 0;
+	int x_offset = 0;
+        int y_offset = 0;
+        int letter_x = 0;
+        int letter_y = 0;
+	int current_letter;
+
+	/* Make sure needed pointers are valid - if not, return: */
+        if (!fishy || !fishy->frame[0])
+	{
+          fprintf(stderr, "DrawFish() - returning, needed pointer invalid\n");
+          return;
+	}
+	    
         // To have letters more centered in fish:
 	x_offset = 10;
         y_offset = 10;
 
 	/* Draw the fishies: */
-	for ( j=0; j < fish_object[which].len; j++ )
+	for (j = 0; j < fish_object[which].len; j++)
         {
-          if (fishy && fishy->frame[0])
 	  DrawSprite( fishy,
                       fish_object[which].x + (fishy->frame[0]->w*j),
-                      fish_object[which].y );
+                      fish_object[which].y);
         }
+
 
 	/* Now we draw the letters on top of the fish: */
 	/* we only draw the letter if tux cannot eat it yet */
@@ -766,28 +783,54 @@ void DrawFish( int which ) {
 		red_letters = -1;
 		j = 0;
 
-		while ( j < tux_object.wordlen && red_letters == -1 ) {
-			int k;
-			for ( k=0; k<tux_object.wordlen - j; k++)
-				if ( KEYMAP[fish_object[which].word[k]] != KEYMAP[tux_object.word[j+k]] ) 
-					k=100000;
+		/* figure out how many letters are red: */
+		while (j < tux_object.wordlen && red_letters == -1)
+		{
+		  int k;
+		  for (k = 0; k < tux_object.wordlen - j; k++)
+                  {
+                    if (KEYMAP[fish_object[which].word[k]] != KEYMAP[tux_object.word[j+k]]) 
+                      k = 100000;
+                  }
 
-			if (k < 100000)
-				red_letters = tux_object.wordlen - j;	
-			else
-				j++;
+                  if (k < 100000)
+                    red_letters = tux_object.wordlen - j;	
+                  else
+                    j++;
 		}
 	
-		for (j = 0; j < strlen(fish_object[which].word); j++)
-			if (fish_object[which].word[j]!=32
-                            && fishy && fishy->frame[0]) //segfault protection
+		LOG ("Preparing to draw letters:\n");
 
-                        {
-			  if (j < red_letters)
-			    DrawObject(red_letter[(int)fish_object[which].word[j]],   (fish_object[which].x + (j * fishy->frame[0]->w)) + x_offset, fish_object[which].y + y_offset);        
-			  else
-			    DrawObject(letter[(int)fish_object[which].word[j]], (fish_object[which].x + (j * fishy->frame[0]->w)) + x_offset, fish_object[which].y + y_offset);
-			}
+		/* Now draw each letter: */
+		for (j = 0; j < wcslen(fish_object[which].word); j++)
+		{
+		  current_letter = (int)fish_object[which].word[j];
+
+		  /* For now, we don't support wchars outside of 0-255: */
+		  if (current_letter < 0 || current_letter > 255)
+		  {
+		    fprintf(stderr, "Character encountered with value '%d' - not supported",
+                                     current_letter);
+		    continue;
+		  }
+ 
+		  letter_x = fish_object[which].x + (j * fishy->frame[0]->w) + x_offset;
+		  letter_y = fish_object[which].y + y_offset;
+ 
+		  DEBUGCODE
+		  {
+		    fprintf(stderr, "wchar is: %lc\n(int)wchar is: %d\n",
+				     fish_object[which].word[j],
+                                     current_letter);
+		  }
+		  //if (fish_object[which].word[j] != 32) /* Don't understand this */
+		  if (j < red_letters)
+		    DrawObject(red_letter[current_letter],
+                               letter_x, letter_y);
+		  else
+		    DrawObject(letter[current_letter],
+                               letter_x, letter_y);
+		}
 	}
         LOG ("Leaving DrawFish()\n");
 }

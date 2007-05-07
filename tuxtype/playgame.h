@@ -85,7 +85,7 @@ typedef struct {
 struct fishypoo {
     int alive;
     int can_eat;
-    unsigned char *word;
+    wchar_t* word;
     double x, y;
     int    w;
     size_t len;
@@ -125,7 +125,7 @@ struct tuxguy {
     int endx, endy;
     int state;
     int wordlen;
-    unsigned char word[MAX_WORD_SIZE + 1];
+    wchar_t word[MAX_WORD_SIZE + 1];
 } tux_object;
 
 struct splatter {

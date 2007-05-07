@@ -36,6 +36,7 @@
 #define MAX_SPRITE_FRAMES 30
 
 #include <string.h>
+#include <wchar.h>
 #include <math.h>
 #include <time.h>
 #include <stdio.h>

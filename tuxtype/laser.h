@@ -13,7 +13,7 @@ typedef struct comet_type {
   int expl;
   int city;
   int x, y;
-  unsigned char ch;
+  wchar_t ch;
 } comet_type;
 
 typedef struct city_type {

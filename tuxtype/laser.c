@@ -71,16 +71,24 @@ void laser_load_data(void) {
 
 	pause_load_media();
 
-	for (i=1; i<255; i++) {
-			unsigned char t[2] = " ";
-			t[0] = i;
-			letters[i] = black_outline(t, font, &white);
-                        if (!letters[i])
-                        {
-                          fprintf(stderr, "For i = %d, could not render "
-                                  "corresponding char = %s\n", i, t);
-                        }
-		}
+        /* Now that the words are stored internally as wchars, we use the */
+        /* Unicode glyph version of black_outline():                      */
+        {
+          wchar_t t;
+          int i;
+
+          for (i = 1; i < 255; i++)
+          {
+            t = (wchar_t)i;
+
+            DEBUGCODE
+            {
+              fprintf(stderr, "Creating SDL_Surface for int = %d, char = %lc\n", i, t);
+            }
+
+            letters[i] = black_outline_wchar(t, font, &white);
+          }
+        }
 }
 
 
@@ -784,17 +792,17 @@ void laser_add_comet(int DIF_LEVEL) {
 	else /* Odd number of cities (is this a hack that means we are using words?) */
         {
           LOG("NUM_CITIES is odd\n");
-          unsigned char *word = WORDS_get();
+          wchar_t* word = WORDS_get();
           int i=0;
 
           DEBUGCODE {fprintf(stderr, "word is: %s\n", word);}
           do
           { 
-  	    target = rand() % (NUM_CITIES - strlen(word) + 1);
+  	    target = rand() % (NUM_CITIES - wcslen(word) + 1);
           } while (target == last);
           last = target;
 
-		for (i=0; i<strlen(word); i++)
+		for (i=0; i < wcslen(word); i++)
 		{
  			while ((comets[location].alive == 1) && (location < MAX_COMETS))
 				location++; 

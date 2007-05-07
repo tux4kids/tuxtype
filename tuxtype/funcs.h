@@ -83,12 +83,14 @@ extern unsigned char get_letter( void );
 extern void custom_letter_setup( void );
 extern void show_letters( void );
 extern SDL_Surface* black_outline( unsigned char *t, TTF_Font* font, SDL_Color* c );
+extern SDL_Surface* black_outline_wchar(wchar_t t, TTF_Font* font, SDL_Color* c);
+extern size_t UTF8_strlen(const char* s);
 
 /* WORD FUNCTIONS (also in alphabet.c) */
 extern void WORDS_init( void );
 extern void WORDS_use_alphabet( void );
 extern void WORDS_use( char *wordFn );
-extern unsigned char* WORDS_get( void );
+extern wchar_t* WORDS_get(void);
 
 /* in practice.c */
 extern int Practice( void );

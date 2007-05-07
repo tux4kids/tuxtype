@@ -213,6 +213,7 @@ SDL_Surface *LoadImage( char *datafile, int mode )
 	SDL_Surface  *tmp_pic = NULL, *final_pic = NULL;
 	char         fn[FNLEN];
 
+	debugOn = 0;
 	DEBUGCODE { fprintf(stderr, "LoadImage: loading %s\n", datafile ); }
 
 	/* truth table for start of loop, since we only use theme on those conditions!
@@ -233,7 +234,7 @@ SDL_Surface *LoadImage( char *datafile, int mode )
 			if (tmp_pic != NULL)
 				break; 
 			else
-				fprintf(stderr, "Warning: graphics file %s is corrupt\n", fn);
+			DEBUGCODE { fprintf(stderr, "Warning: graphics file %s is corrupt\n", fn);}
 		}
 	}
 
@@ -275,7 +276,7 @@ SDL_Surface *LoadImage( char *datafile, int mode )
 	}
 
 	LOG( "LOADIMAGE: Done\n" );
-
+	debugOn = 1;
 	return (final_pic);
 }
 

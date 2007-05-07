@@ -15,6 +15,7 @@
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
+#include <locale.h>
 
 #include "globals.h"
 #include "funcs.h"
@@ -30,7 +31,10 @@ SDL_Color yellow;
 
 /* Used for word list functions (see below): */
 static int WORD_qty;
-unsigned char WORDS[MAX_NUM_WORDS][MAX_WORD_SIZE+1];
+wchar_t WORDS[MAX_NUM_WORDS][MAX_WORD_SIZE + 1];
+
+/* Local function prototypes: */
+void WORDS_scan_chars(void);
 
 /* --- setup the alphabet --- */
 void set_letters(unsigned char *t) {
@@ -172,6 +176,66 @@ SDL_Surface* black_outline(unsigned char *t, TTF_Font *font, SDL_Color *c) {
   return out;
 }
 
+/* This version takes a single wide character and renders it with the */
+/* Unicode glyph versions of the SDL_ttf functions:                         */
+SDL_Surface* black_outline_wchar(wchar_t t, TTF_Font *font, SDL_Color *c) {
+  SDL_Surface* out = NULL;
+  SDL_Surface* black_letters = NULL;
+  SDL_Surface* white_letters = NULL;
+  SDL_Surface* bg = NULL;
+  SDL_Rect dstrect;
+  Uint32 color_key;
+
+  if (!font || !c)
+  {
+    fprintf(stderr, "black_outline_wchar(): invalid ptr parameter, returning.");
+    return NULL;
+  }
+
+  black_letters = TTF_RenderGlyph_Blended(font, t, black);
+
+  if (!black_letters)
+  {
+    fprintf (stderr, "Warning - black_outline_wchar() could not create image for %lc\n", t);
+    return NULL;
+  }
+
+  bg = SDL_CreateRGBSurface(SDL_SWSURFACE,
+                            (black_letters->w) + 5,
+                            (black_letters->h) + 5,
+                             32,
+                             rmask, gmask, bmask, amask);
+  /* Use color key for eventual transparency: */
+  color_key = SDL_MapRGB(bg->format, 10, 10, 10);
+  SDL_FillRect(bg, NULL, color_key);
+
+  /* Now draw black outline/shadow 2 pixels on each side: */
+  dstrect.w = black_letters->w;
+  dstrect.h = black_letters->h;
+
+  /* NOTE: can make the "shadow" more or less pronounced by */
+  /* changing the parameters of these loops.                */
+  for (dstrect.x = 1; dstrect.x < 4; dstrect.x++)
+    for (dstrect.y = 1; dstrect.y < 3; dstrect.y++)
+      SDL_BlitSurface(black_letters , NULL, bg, &dstrect );
+
+  SDL_FreeSurface(black_letters);
+
+  /* --- Put the color version of the text on top! --- */
+  white_letters = TTF_RenderGlyph_Blended(font, t, *c);
+  dstrect.x = 1;
+  dstrect.y = 1;
+  SDL_BlitSurface(white_letters, NULL, bg, &dstrect);
+  SDL_FreeSurface(white_letters);
+
+  /* --- Convert to the screen format for quicker blits --- */
+  SDL_SetColorKey(bg, SDL_SRCCOLORKEY|SDL_RLEACCEL, color_key);
+  out = SDL_DisplayFormatAlpha(bg);
+  SDL_FreeSurface(bg);
+
+  return out;
+}
+
 void show_letters( void ) {
 	int i, l=0;
 	SDL_Surface *abit;
@@ -274,7 +338,8 @@ void WORDS_use_alphabet( void ) {
 /* WORDS_get: returns a random word that wasn't returned
  * the previous time (unless there is only 1 word!!!)
  */
-unsigned char* WORDS_get( void ) {
+wchar_t* WORDS_get( void )
+{
 	static int last_choice = -1;
 	int choice;
 
@@ -325,68 +390,83 @@ unsigned char* WORDS_get( void ) {
  * it ignores any words too long or that has bad
  * character (such as #)
  */
-void WORDS_use( char *wordFn ) {
-	int j;
-	unsigned char temp_word[FNLEN];
-	size_t length;
+/* FIXME changing to wchar_t to accommodate i18n */
 
-	FILE *wordFile=NULL;
+void WORDS_use(char *wordFn)
+{
+  int j;
+  unsigned char temp_word[FNLEN];
+  size_t length;
 
-	DEBUGCODE { fprintf(stderr, "Entering WORDS_use() for file: %s\n", wordFn); }
+  FILE* wordFile=NULL;
 
-	WORD_qty = 0;
+  DEBUGCODE { fprintf(stderr, "Entering WORDS_use() for file: %s\n", wordFn); }
 
+  WORD_qty = 0;
+
+  /* We need to set the locale to something supporting UTF-8 - AFAIK, */
+  /* it can be any UTF-8 locale, not necessarily the specific one     */
+  /* for the language being used (but I could be wrong - DSB)         */
+  if (!setlocale(LC_CTYPE, "nn_NO.UTF-8")) /* temporary example */
+  {
+    fprintf(stderr, "Could not set requested UTF-8 locale, fallback to en_US.UTF-8\n");
+    if (!setlocale(LC_CTYPE, "en_US.UTF-8"))
+      fprintf(stderr, "Cannot support UTF-8, ASCII-only words will be used\n");
+  }
 	/* --- open the file --- */
 
-	wordFile = fopen( wordFn, "r" );
+  wordFile = fopen( wordFn, "r" );
 
-	if ( wordFile == NULL ) {
-		fprintf(stderr, "ERROR: could not load wordlist: %s\n", wordFn );
-		fprintf(stderr, "Using ALPHABET instead\n");
-		WORDS_use_alphabet( );
-		return;
-	}
-
-	
-	/* --- load words for this curlevel ---  */
+  if ( wordFile == NULL )
+  {
+    fprintf(stderr, "ERROR: could not load wordlist: %s\n", wordFn );
+    fprintf(stderr, "Using ALPHABET instead\n");
+    WORDS_use_alphabet( );
+    return;
+  }
 
 
-	DEBUGCODE { fprintf(stderr, "WORD FILE OPENNED @ %s\n", wordFn); }
+  /* --- load words from file named as argument: */
 
-	/* ignore the title */
-	fscanf( wordFile, "%[^\n]\n", temp_word);
+  DEBUGCODE { fprintf(stderr, "WORD FILE OPENNED @ %s\n", wordFn); }
 
-	while (!feof(wordFile) && (WORD_qty < MAX_NUM_WORDS)) {
-		fscanf( wordFile, "%[^\n]\n", temp_word);
+  /* ignore the title (i.e. first line) */
+  fscanf( wordFile, "%[^\n]\n", temp_word);
 
-		for (j = 0; j < strlen(temp_word); j++)
-			if (temp_word[j] == '\n' || temp_word[j] == '\r')
-				temp_word[j] = '\0';
+  while (!feof(wordFile) && (WORD_qty < MAX_NUM_WORDS))
+  {
+    fscanf( wordFile, "%[^\n]\n", temp_word);
 
-		/* Make sure word is usable: */
-		/* NOTE we need to use mbstowcs() rather than just strlen() */
-		/* now that we use UTF-8 to get correct length - DSB */
-		length = mbstowcs(NULL, temp_word, 0);
+    for (j = 0; j < strlen(temp_word); j++)
+    {
+      if (temp_word[j] == '\n' || temp_word[j] == '\r')
+        temp_word[j] = '\0';
+    }
 
-		DOUT(length);
+    /* Make sure word is usable: */
+    /* NOTE we need to use mbstowcs() rather than just strlen() */
+    /* now that we use UTF-8 to get correct length - DSB */
+    length = mbstowcs(NULL, temp_word, 0);
 
-		if (length == -1)  /* Means invalid UTF-8 sequence */
-		{
-		  fprintf(stderr, "Word '%s' not added - invalid UTF-8 sequence!\n");
-		  continue;
-		}
+    DOUT(length);
 
-		if (length == 0)  
-			continue;
-		if (length > MAX_WORD_SIZE)
-			continue;
-		if (WORD_qty >= MAX_NUM_WORDS)
-			continue;
+    if (length == -1)  /* Means invalid UTF-8 sequence */
+    {
+      fprintf(stderr, "Word '%s' not added - invalid UTF-8 sequence!\n", temp_word);
+      continue;
+    }
 
-		/* If we make it to here, OK to add word: */
-		strcpy( WORDS[WORD_qty], temp_word );
-		WORD_qty++;
-	}
+    if (length == 0)  
+      continue;
+    if (length > MAX_WORD_SIZE)
+      continue;
+    if (WORD_qty >= MAX_NUM_WORDS)
+      continue;
+
+    /* If we make it to here, OK to add word: */
+    mbstowcs(WORDS[WORD_qty], temp_word, strlen(temp_word));
+    WORD_qty++;
+  }
         
 	/* Make sure list is terminated with null character */
 	WORDS[WORD_qty][0] = '\0';
@@ -399,4 +479,41 @@ void WORDS_use( char *wordFn ) {
 	fclose(wordFile);
 
 	LOG("Leaving WORDS_use()\n");
+}
+
+
+/* Returns number of UTF-8 characters rather than just size in */
+/* bytes like strlen(). mbstowcs(NULL, s, 0) should do this    */
+/* but for some reason I haven't gotten it to work.            */
+/* Returns -1 if any invalid characters encountered.           */
+size_t UTF8_strlen(const char* s)
+{
+  size_t byte_length = 0;
+  size_t UTF8_length = 0;
+  int i = 0;
+  int char_width = 0;
+
+  byte_length = strlen(s);
+
+  DEBUGCODE{ fprintf(stderr, "String is: %s\nstrlen() = %d\n",
+                              s, byte_length); }
+  while (i < byte_length)
+  {
+    /* look at the length of each UTF-8 char and jump ahead accordingly: */
+    char_width = mblen(&s[i], byte_length - i);
+    if (char_width == -1)
+      return -1;
+    i += mblen(&s[i], byte_length - i);
+    UTF8_length++;
+  }
+
+  DEBUGCODE{ fprintf(stderr, "UTF8_strlen() = %d\n", UTF8_length); }
+
+  return UTF8_length;
+}
+
+
+
+void WORDS_scan_chars(void)
+{
 }
