@@ -71,13 +71,14 @@ void LoadKeyboard( void ) {
 
 	for (l=useEnglish; l<2; l++) {
 		sprintf( fn , "%s/keyboard.lst", realPath[l]);
-		if ( checkFile(fn) ) {
+		if (CheckFile(fn)) {
 			unsigned char str[255];
 			FILE *f;
 			int i,j;
 
 			f = fopen( fn, "r" );
 
+			/* Should never fail as we just did the same thing in CheckFile(): */
 			if (f == NULL)
 				continue;
 

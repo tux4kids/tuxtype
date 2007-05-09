@@ -1028,7 +1028,6 @@ int chooseWordlist( void ) {
 
 	DIR *wordsDir;
 	struct dirent *wordsFile;
-	struct stat fileStats;
 	FILE *tempFile;
 
 	LOG("Entering chooseWordlist():\n");
@@ -1036,10 +1035,8 @@ int chooseWordlist( void ) {
 	/* find the directory to load wordlists from */
 
 	for (i=useEnglish; i<2; i++) {
-		fileStats.st_mode = 0; // clear last use!
 		sprintf( wordPath, "%s/words", realPath[i] );
-		stat( wordPath, &fileStats );
-		if ( fileStats.st_mode & S_IFDIR )
+		if (CheckFile(wordPath))
 			break;
 	}
 

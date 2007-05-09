@@ -56,7 +56,7 @@ extern void pause_unload_media( void );
 extern int  inRect( SDL_Rect r, int x, int y);
 
 /* in loaders.c */
-extern int         checkFile( const char *file );
+extern int         CheckFile(const char *file);
 extern TTF_Font    *LoadFont( char *fontfile, int fontsize );
 extern void         LoadLang( void );
 extern Mix_Chunk   *LoadSound( char *datafile );

@@ -148,7 +148,6 @@ int main(int argc, char *argv[])
 
 	LoadLang();
 	LoadKeyboard();
-
 	TitleScreen();
 
 	SaveSettings();

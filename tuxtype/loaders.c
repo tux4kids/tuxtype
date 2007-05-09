@@ -21,21 +21,39 @@
 #include "funcs.h"
 
 /* check to see if file exists, if so return true            */
-/* FIXME this sometimes erroneously returns false on some    */
-/* Windows versions - hence below hackware. We don't really  */
-/* need this function anyway - it is only an optimization to */
-/* keep from wasting time preparing to do things with files  */
-/* that don't exist.                                         */
-int checkFile( const char *file ) {
-	static struct stat fileStats;
+/* Will work if "file" is a dir, also */
+int CheckFile(const char* file)
+{
+  FILE* fp = NULL;
+  DIR* dp = NULL;
 
-#ifdef WIN32
-        return 1; 
-#endif
+  if (!file)
+  {
+    fprintf(stderr, "CheckFile(): invalid char* argument!");
+    return;
+  }
 
-	fileStats.st_mode = 0;
-	stat( file, &fileStats );
-	return (S_IFREG & fileStats.st_mode);
+  DEBUGCODE {fprintf(stderr, "CheckFile() - checking: %s\n", file);} 
+
+  dp = opendir(file);
+  if (dp)
+  {
+    LOG("Opened successfully as DIR\n");
+
+    closedir(dp);
+    return 1;
+  }
+
+  fp = fopen(file, "r");
+  if (fp)
+  {
+    LOG("Opened successfully as FILE\n");
+    fclose(fp);
+    return 1;
+  }
+
+  LOG("Unable to open as either FILE or DIR\n");
+  return 0;
 }
 
 void LoadLang( void ) {

@@ -48,7 +48,6 @@ int useEnglish;
  * the default path
  */
 void setupTheme( char *dirName ) {
-	static struct stat dirStats;
 	int i;
 	int found = 0;
 	useEnglish=1; // default is to use English if we cannot find theme
@@ -59,9 +58,8 @@ void setupTheme( char *dirName ) {
 		fprintf(stderr, "setupTheme(): checking for: %s\n", PATHS[i]);
 		}
 
-		dirStats.st_mode = 0;
-		stat( PATHS[i], &dirStats );
-		if (S_IFDIR & dirStats.st_mode) {
+		if (CheckFile(PATHS[i]))
+                {
 			strncpy( realPath[1], PATHS[i], FNLEN-1);
 			strncpy( themeName, "", FNLEN-1 );
 			found = 1; /* so quit looking */
@@ -83,9 +81,9 @@ void setupTheme( char *dirName ) {
 
 		/* find the path to the theme */
 		sprintf( fullDir, "%s/themes/%s", realPath[1], dirName );
-		dirStats.st_mode = 0;
-		stat( fullDir, &dirStats );
-		if (S_IFDIR & dirStats.st_mode) {
+
+		if (CheckFile(fullDir))
+                {
 			useEnglish=0;
 			strncpy( realPath[0], fullDir, FNLEN-1 );
 			strncpy( themeName, dirName, FNLEN-1 );
