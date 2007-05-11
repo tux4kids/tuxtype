@@ -47,7 +47,7 @@ extern void setupTheme( char *dirname );
 
 /* in gettext.c */
 extern unsigned char *gettext( unsigned char *in );
-extern int  load_trans( char *file );
+extern int  load_trans(char* file);
 
 /* in pause.c */
 extern int  Pause( void );

@@ -23,6 +23,8 @@ email                : jdandr2@uky.edu
  * we don't expect too large of a list (famous last words!)
  */
 
+/* FIXME not sure if this file's code is UTF-8 compatible DSB */
+
 struct node {
 	unsigned char *in;          // the english
 	unsigned char *out;         // the translation
@@ -100,7 +102,7 @@ int load_trans(char *file) {
 		{
 			unsigned char mode='O';
 			int i;
-			for (i=0; i<strlen(str); i++) {
+			for (i = 0; i < strlen(str); i++) {
 				if (mode == 'O') {
 					switch (str[i]) {
 						case '"': mode = 'I'; break;

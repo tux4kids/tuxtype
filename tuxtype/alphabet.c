@@ -15,7 +15,6 @@
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
-#include <locale.h>
 
 #include "globals.h"
 #include "funcs.h"
@@ -405,16 +404,7 @@ void WORDS_use(char *wordFn)
 
   WORD_qty = 0;
 
-  /* We need to set the locale to something supporting UTF-8 - AFAIK, */
-  /* it can be any UTF-8 locale, not necessarily the specific one     */
-  /* for the language being used (but I could be wrong - DSB)         */
-  if (!setlocale(LC_CTYPE, "nn_NO.UTF-8")) /* temporary example */
-  {
-    fprintf(stderr, "Could not set requested UTF-8 locale, fallback to en_US.UTF-8\n");
-    if (!setlocale(LC_CTYPE, "en_US.UTF-8"))
-      fprintf(stderr, "Cannot support UTF-8, ASCII-only words will be used\n");
-  }
-	/* --- open the file --- */
+  /* --- open the file --- */
 
   wordFile = fopen( wordFn, "r" );
 

@@ -43,6 +43,7 @@
 #include <stdlib.h>
 #include <sys/stat.h>
 #include <dirent.h>
+#include <locale.h>
 
 #include "../config.h"
 
