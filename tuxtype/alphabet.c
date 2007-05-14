@@ -455,7 +455,9 @@ void WORDS_use(char *wordFn)
       continue;
 
     /* If we make it to here, OK to add word: */
-    mbstowcs(WORDS[WORD_qty], temp_word, strlen(temp_word));
+    /* NOTE we have to add one to the length argument to get */
+    /* mbstowcs() to reliably include the terminating null.  */
+    mbstowcs(WORDS[WORD_qty], temp_word, strlen(temp_word) + 1);
     WORD_qty++;
   }
         
