@@ -132,6 +132,8 @@ int laser_game(int DIF_LEVEL)
 	    num_comets_alive, paused, picked_comet, 
 	    gameover;
 
+	Uint16 key_unicode;
+
 	SDL_Event event;
 	Uint32    last_time, now_time;
 	SDLKey    key;
@@ -241,13 +243,42 @@ int laser_game(int DIF_LEVEL)
 				if (level_start_wait > 0) 
 					key = SDLK_UNKNOWN;
 				
-				if (((event.key.keysym.unicode & 0xff)>=97) & ((event.key.keysym.unicode & 0xff)<=122)) {
-					ans[ans_num++] = KEYMAP[(event.key.keysym.unicode & 0xff)-32];
-					tux_pressing ++;
-				}else{
-					ans[ans_num++] = KEYMAP[event.key.keysym.unicode & 0xff];
-					tux_pressing ++;
+// 				if (((event.key.keysym.unicode & 0xff)>=97) & ((event.key.keysym.unicode & 0xff)<=122)) {
+// 					ans[ans_num++] = KEYMAP[(event.key.keysym.unicode & 0xff)-32];
+// 					tux_pressing ++;
+// 				}else{
+// 					ans[ans_num++] = KEYMAP[event.key.keysym.unicode & 0xff];
+// 					tux_pressing ++;
+// 				}
+
+				key_unicode = event.key.keysym.unicode & 0xff;
+
+				DEBUGCODE
+				{
+				  fprintf(stderr,
+                                   "key_unicode = %d\tKEYMAP[key_unicode] = %c\n",
+				    key_unicode,
+                                    KEYMAP[key_unicode]);
 				}
+
+				/* For now, tuxtype is case-insensitive for input, */
+                                /* with only uppercase for answers:                */
+                                if (key_unicode >= 97 && key_unicode <= 122)
+                                  key_unicode -= 32;  //convert lowercase to uppercase
+                                if (key_unicode >= 224 && key_unicode <= 255)
+                                  key_unicode -= 32; //same for non-US chars
+
+				LOG ("After checking for lower case:\n");
+				DEBUGCODE
+				{
+				  fprintf(stderr,
+                                   "key_unicode = %d\tKEYMAP[key_unicode] = %c\n",
+				    key_unicode,
+                                    KEYMAP[key_unicode]);
+				}
+				/* Now update with case-folded value: */
+				ans[ans_num++] = KEYMAP[key_unicode];
+
 			}
 		}
       

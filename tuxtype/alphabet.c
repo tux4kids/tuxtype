@@ -380,7 +380,9 @@ wchar_t* WORDS_get( void )
 
 	last_choice = choice;
 
-	DEBUGCODE { fprintf(stderr, "Selected word is: %s\n", WORDS[choice]); }
+	/* NOTE need %S rather than %s because of wide characters */
+	DEBUGCODE { fprintf(stderr, "Selected word is: %S\n", WORDS[choice]); }
+
 	return WORDS[choice];
 }
 

@@ -121,7 +121,8 @@ void LibInit(Uint32 lib_flags)
 	atexit(TTF_Quit);
 
 	SDL_EnableKeyRepeat( 0, SDL_DEFAULT_REPEAT_INTERVAL );
-	SDL_EnableUNICODE( 1 );
+	/* Need this to get Unicode values from keysyms: */
+	SDL_EnableUNICODE(1);
 
 	LOG( "LibInit():END\n" );
 }

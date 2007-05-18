@@ -56,6 +56,12 @@ struct blit {
     unsigned char type;
 } blits[MAX_UPDATES];
 
+
+
+/* Local function prototypes: */
+void UpdateTux(wchar_t letter_pressed, int fishies, int frame);
+
+
 /***************************************
  int_rand: returns an integer x
            such that - min <= x <= max
@@ -635,7 +641,8 @@ void SpawnFishies(int diflevel, int *fishies, int *frame ) {
 	fish_object[*fishies].splat_time = *frame + (480 - fishy->frame[0]->h - tux_object.spr[TUX_STANDING][0]->frame[0]->h)/fish_object[*fishies].dy;
 
 	DEBUGCODE {
-		fprintf(stderr, "Spawn fishy with word '%s'\n", fish_object[*fishies].word);
+		/* NOTE need %S rather than %s because of wide characters */
+		fprintf(stderr, "Spawn fishy with word '%S'\n", fish_object[*fishies].word);
 		fprintf(stderr, "Byte length is: %d\n", wcslen(fish_object[*fishies].word));
 		fprintf(stderr, "UTF-8 char length is: %d\n", fish_object[*fishies].len);
 	}
@@ -652,7 +659,7 @@ void CheckFishies(int *fishies, int *splats) {
 	struct fishypoo fish_temp;
 	struct splatter splat_temp;
 
-	LOG( "CheckFishies\n" );
+//	LOG( "CheckFishies\n" );
 
 	/* move any fish from the rear to fill up gaps in the
 	 * front
@@ -747,7 +754,7 @@ void AddSplat(int *splats, struct fishypoo *f, int *curlives, int *frame) {
 
 void DrawFish( int which )
 {
-        LOG ("Entering DrawFish()\n");
+/*        LOG ("Entering DrawFish()\n");*/
 	int j = 0;
 	int red_letters = 0;
 	int x_offset = 0;
@@ -799,7 +806,7 @@ void DrawFish( int which )
                     j++;
 		}
 	
-		LOG ("Preparing to draw letters:\n");
+// 		LOG ("Preparing to draw letters:\n");
 
 		/* Now draw each letter: */
 		for (j = 0; j < wcslen(fish_object[which].word); j++)
@@ -809,7 +816,7 @@ void DrawFish( int which )
 		  /* For now, we don't support wchars outside of 0-255: */
 		  if (current_letter < 0 || current_letter > 255)
 		  {
-		    fprintf(stderr, "Character encountered with value '%d' - not supported",
+		    fprintf(stderr, "Character encountered with value '%d' - not supported\n",
                                      current_letter);
 		    continue;
 		  }
@@ -817,12 +824,12 @@ void DrawFish( int which )
 		  letter_x = fish_object[which].x + (j * fishy->frame[0]->w) + x_offset;
 		  letter_y = fish_object[which].y + y_offset;
  
-		  DEBUGCODE
-		  {
-		    fprintf(stderr, "wchar is: %lc\n(int)wchar is: %d\n",
-				     fish_object[which].word[j],
-                                     current_letter);
-		  }
+// 		  DEBUGCODE
+// 		  {
+// 		    fprintf(stderr, "wchar is: %lc\n(int)wchar is: %d\n",
+// 				     fish_object[which].word[j],
+//                                      current_letter);
+// 		  }
 		  //if (fish_object[which].word[j] != 32) /* Don't understand this */
 		  if (j < red_letters)
 		    DrawObject(red_letter[current_letter],
@@ -832,7 +839,7 @@ void DrawFish( int which )
                                letter_x, letter_y);
 		}
 	}
-        LOG ("Leaving DrawFish()\n");
+/*        LOG ("Leaving DrawFish()\n");*/
 }
 
 /****************************
@@ -843,7 +850,7 @@ to their settings
 void MoveFishies(int *fishies, int *splats, int *lifes, int *frame) {
 	int i, j;
 
-	LOG("start MoveFishies\n");
+//	LOG("start MoveFishies\n");
 
 	for (i = 0; i < *fishies; i++)
 		if (fish_object[i].alive) {
@@ -873,7 +880,7 @@ void MoveFishies(int *fishies, int *splats, int *lifes, int *frame) {
 					EraseSprite( splat, splat_object[i].x, splat_object[i].y);
 		}
 
-	LOG("end MoveFishies\n");
+//	LOG("end MoveFishies\n");
 }
 
 /* UpdateTux : anytime a key is pressed, we need check to
@@ -881,7 +888,7 @@ void MoveFishies(int *fishies, int *splats, int *lifes, int *frame) {
  * the bottom of the screen first should be choosen if 
  * two fishies match what is typed
  */
-void UpdateTux(unsigned char letter_pressed, int fishies, int frame) {
+void UpdateTux(wchar_t letter_pressed, int fishies, int frame) {
 	int i;
 	int time_it_splats=0;
 	int which=-1;
@@ -925,7 +932,7 @@ perform appropriate action
 void CheckCollision(int fishies, int *fish_left, int frame ) {
 	int i, j;
 
-	LOG( "start CheckCollision\n" );
+//	LOG( "start CheckCollision\n" );
 
 	for (i = 0; i < fishies; i++) {
 		if ((fish_object[i].y >= tux_object.y - fishy->frame[0]->h) &&
@@ -958,7 +965,7 @@ void CheckCollision(int fishies, int *fish_left, int frame ) {
 			}
 		}
 	}
-	LOG( "end CheckCollision\n" );
+//	LOG( "end CheckCollision\n" );
 }
 
 void next_tux_frame(void) {
@@ -979,7 +986,7 @@ void MoveTux( int frame, int fishies ) {
 	int i;
 	int which=-1, time_to_splat=0;
 
-	LOG( "MoveTux\n" );
+//	LOG( "MoveTux\n" );
 
 	EraseSprite( tux_object.spr[tux_object.state][tux_object.facing], tux_object.x, tux_object.y );
 
@@ -1099,6 +1106,7 @@ int PlayCascade( int diflevel ) {
 	int xamp, yamp, x_not, y_not;
 	int temp_text_frames;
 	int temp_text_count;
+	Uint16 key_unicode;
 
 	DEBUGCODE {
 		fprintf(stderr, "->PlayCascade: level=%i\n", diflevel );
@@ -1219,11 +1227,47 @@ int PlayCascade( int diflevel ) {
 						} 
 						DrawBackground();
 					}
-					if (((event.key.keysym.unicode & 0xff) >= 97) & ((event.key.keysym.unicode & 0xff) <= 122)){
-						UpdateTux(KEYMAP[(event.key.keysym.unicode & 0xff)-32], fishies, frame);
-					} else {
-						UpdateTux(KEYMAP[(event.key.keysym.unicode & 0xff)], fishies, frame);
+
+// 					/* ASCII lowercase is 97-122, whereas uppercase is */
+// 					/* 65-90 - this if() converts lowercase to corresponding */
+//                                         /* uppercase - not sure we always want this!    */
+// 					if (((event.key.keysym.unicode & 0xff) >= 97) & ((event.key.keysym.unicode & 0xff) <= 122)){
+// 						UpdateTux(KEYMAP[(event.key.keysym.unicode & 0xff)-32], fishies, frame);
+// 					} else {
+// 						UpdateTux(KEYMAP[(event.key.keysym.unicode & 0xff)], fishies, frame);
+//                                      }
+
+					key_unicode = event.key.keysym.unicode & 0xff;
+					/* For now, tuxtype is case-insensitive for input, */
+                                        /* with only uppercase for answers:                */
+					DEBUGCODE
+					{
+					  fprintf(stderr,
+					    "\nkey_unicode = %d\tKEYMAP[key_unicode] = %c\t",
+					     key_unicode, KEYMAP[key_unicode]);
+					  if (0 <= key_unicode && key_unicode <= 255)
+                                            fprintf(stderr, "(char)key_unicode = %c\n",
+                                                    key_unicode);
 					}
+
+                                        if (key_unicode >= 97 && key_unicode <= 122)
+                                          key_unicode -= 32;  //convert lowercase to uppercase
+                                        if (key_unicode >= 224 && key_unicode <= 255)
+                                          key_unicode -= 32; //same for non-US chars
+
+					LOG ("After checking for lower case:\n");
+					DEBUGCODE
+					{
+					  fprintf(stderr,
+					    "key_unicode = %d\tKEYMAP[key_unicode] = %c\t",
+					     key_unicode, KEYMAP[key_unicode]);
+					  if (0 <= key_unicode && key_unicode <= 255)
+                                            fprintf(stderr, "(char)key_unicode = %c\n",
+                                                    key_unicode);
+					}
+
+					/* Now update with case-folded value: */
+					UpdateTux(KEYMAP[key_unicode], fishies, frame);
 				}
 
 			/* --- fishy updates --- */
