@@ -239,10 +239,13 @@ TTF_Font *LoadFont( char *fontfile, int fontsize ) {
 SDL_Surface *LoadImage( char *datafile, int mode )
 {
 	int i;
+	int oldDebug;  //so we can turn off debug output for this func only
 	SDL_Surface  *tmp_pic = NULL, *final_pic = NULL;
 	char         fn[FNLEN];
 
+	oldDebug = debugOn;  // suppress output for now
 	debugOn = 0;
+
 	DEBUGCODE { fprintf(stderr, "LoadImage: loading %s\n", datafile ); }
 
 	/* truth table for start of loop, since we only use theme on those conditions!
@@ -305,7 +308,9 @@ SDL_Surface *LoadImage( char *datafile, int mode )
 	}
 
 	LOG( "LOADIMAGE: Done\n" );
-	debugOn = 1;
+
+	debugOn = oldDebug;
+
 	return (final_pic);
 }
 

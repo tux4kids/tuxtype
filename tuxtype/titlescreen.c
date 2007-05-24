@@ -83,9 +83,12 @@ void TitleScreen_load_menu( void ) {
 		max = 0;
 		for (i = 1; i <= TITLE_MENU_ITEMS; i++)
 		{
-
+			DEBUGCODE
+			{
+			  fprintf(stderr, "i = '%d'\tj = '%d'\ttext = '%s'\n",
+                                  i, j,  _((unsigned char*)menu_text[i][j]));
+			}
 			/* --- create text surfaces --- */
-
 			reg_text[i][j] = black_outline( _((unsigned char*)menu_text[i][j]), font, &white);
 			sel_text[i][j] = black_outline( _((unsigned char*)menu_text[i][j]), font, &yellow);
 
@@ -93,7 +96,6 @@ void TitleScreen_load_menu( void ) {
 				max = sel_text[i][j]->w;
 
 			/* --- load animated icon for menu item --- */
-
 			sprintf(fn, "menu/%s", menu_icon[i][j]);
 			menu_gfx[i][j] = LoadSprite(fn, IMG_ALPHA);
 		}
@@ -539,7 +541,7 @@ void TitleScreen( void )
 
 
             /* Toggle screen mode: */
-            case SDLK_F10: /* NOTE Cool! - should add this to TuxMath*/
+            case SDLK_F10:
             {
               switch_screen_mode();
               redraw = 1;

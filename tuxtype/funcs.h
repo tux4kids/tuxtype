@@ -84,8 +84,10 @@ extern void custom_letter_setup( void );
 extern void show_letters( void );
 extern SDL_Surface* black_outline( unsigned char *t, TTF_Font* font, SDL_Color* c );
 extern SDL_Surface* black_outline_wchar(wchar_t t, TTF_Font* font, SDL_Color* c);
-extern size_t UTF8_strlen(const char* s);
-
+extern SDL_Surface* GetWhiteGlyph(wchar_t t);
+extern SDL_Surface* GetRedGlyph(wchar_t t);
+extern int RenderLetters(TTF_Font* letter_font);
+extern void FreeLetters(void);
 /* WORD FUNCTIONS (also in alphabet.c) */
 extern void WORDS_init( void );
 extern void WORDS_use_alphabet( void );

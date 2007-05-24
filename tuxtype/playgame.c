@@ -39,8 +39,6 @@ SDL_Surface *fish;
 SDL_Surface *congrats[CONGRATS_FRAMES];
 SDL_Surface *ohno[OH_NO_FRAMES];
 
-SDL_Surface *letter[256];
-SDL_Surface *red_letter[256];
 sprite *fishy;
 sprite *splat;
 
@@ -55,6 +53,9 @@ struct blit {
     SDL_Rect *dstrect;
     unsigned char type;
 } blits[MAX_UPDATES];
+
+
+
 
 
 
@@ -86,35 +87,13 @@ int check_word( int f ) {
 }
 
 
-/* Now that the words are stored internally as wchars, we use the */
-/* Unicode glyph version of black_outline():                      */
-void create_letters( void )
-{
-  wchar_t t;
-  int i;
-
-  for (i = 1; i < 255; i++)
-  {
-    t = (wchar_t)i;
-
-    DEBUGCODE
-    {
-      fprintf(stderr, "Creating SDL_Surface for int = %d, char = %lc\n", i, t);
-    }
-
-    letter[i] = black_outline_wchar(t, font, &white);
-    red_letter[i] = black_outline_wchar(t, font, &red);;
-  }
-}
 
 
-void remove_letters( void ) {
-	int i;
-	for (i = 1; i < 255; i++) {
-			SDL_FreeSurface(letter[i]);
-			SDL_FreeSurface(red_letter[i]);
-		} 
-}
+
+
+
+
+
 
 /***************************************
 	WaitFrame: wait for the next frame
@@ -505,6 +484,8 @@ the game elements
 void FreeGame( void ) {
 	int i;
 
+	FreeLetters();
+
 	TTF_CloseFont(font);
 
 	LOG( "FreeGame():\n-Freeing Tux Animations\n" );
@@ -532,11 +513,6 @@ void FreeGame( void ) {
 	for (i = 0; i < NUM_NUMS; i++)
 		SDL_FreeSurface(number[i]);
 
-	for (i = 0; i < 256; i++) {
-		if (letter[i]) SDL_FreeSurface(letter[i]);
-		if (red_letter[i]) SDL_FreeSurface(red_letter[i]);
-	}
-
 	for (i = 0; i < CONGRATS_FRAMES; i++)
 		SDL_FreeSurface(congrats[i]);
 
@@ -551,6 +527,7 @@ void FreeGame( void ) {
 	}
 
 	pause_unload_media();
+
 
 	LOG( "FreeGame(): END\n" );
 }
@@ -762,6 +739,7 @@ void DrawFish( int which )
         int letter_x = 0;
         int letter_y = 0;
 	int current_letter;
+        SDL_Surface* letter_surface;
 
 	/* Make sure needed pointers are valid - if not, return: */
         if (!fishy || !fishy->frame[0])
@@ -813,14 +791,6 @@ void DrawFish( int which )
 		{
 		  current_letter = (int)fish_object[which].word[j];
 
-		  /* For now, we don't support wchars outside of 0-255: */
-		  if (current_letter < 0 || current_letter > 255)
-		  {
-		    fprintf(stderr, "Character encountered with value '%d' - not supported\n",
-                                     current_letter);
-		    continue;
-		  }
- 
 		  letter_x = fish_object[which].x + (j * fishy->frame[0]->w) + x_offset;
 		  letter_y = fish_object[which].y + y_offset;
  
@@ -832,11 +802,12 @@ void DrawFish( int which )
 // 		  }
 		  //if (fish_object[which].word[j] != 32) /* Don't understand this */
 		  if (j < red_letters)
-		    DrawObject(red_letter[current_letter],
-                               letter_x, letter_y);
-		  else
-		    DrawObject(letter[current_letter],
-                               letter_x, letter_y);
+                    letter_surface = GetRedGlyph(current_letter);
+                  else
+                    letter_surface = GetWhiteGlyph(current_letter);
+
+		  DrawObject(letter_surface, letter_x, letter_y);
+
 		}
 	}
 /*        LOG ("Leaving DrawFish()\n");*/
@@ -1120,9 +1091,9 @@ int PlayCascade( int diflevel ) {
 	LoadTuxAnims(); 
 	LoadFishies();
 	LoadOthers();
-        LOG( " before create_letters()\n" );
-	create_letters();
-        LOG( " after create_letters()\n" );
+        LOG( " before RenderLetters()\n" );
+	RenderLetters(font);
+        LOG( " after RenderLetters()\n" );
 
 	LOG( " starting game \n ");
 	while (still_playing) {
@@ -1243,11 +1214,8 @@ int PlayCascade( int diflevel ) {
 					DEBUGCODE
 					{
 					  fprintf(stderr,
-					    "\nkey_unicode = %d\tKEYMAP[key_unicode] = %c\t",
-					     key_unicode, KEYMAP[key_unicode]);
-					  if (0 <= key_unicode && key_unicode <= 255)
-                                            fprintf(stderr, "(char)key_unicode = %c\n",
-                                                    key_unicode);
+					    "\nkey_unicode = %d\twchar_t = %lc\tKEYMAP[key_unicode] = %c\n",
+					     key_unicode, key_unicode, KEYMAP[key_unicode]);
 					}
 
                                         if (key_unicode >= 97 && key_unicode <= 122)
@@ -1259,11 +1227,8 @@ int PlayCascade( int diflevel ) {
 					DEBUGCODE
 					{
 					  fprintf(stderr,
-					    "key_unicode = %d\tKEYMAP[key_unicode] = %c\t",
-					     key_unicode, KEYMAP[key_unicode]);
-					  if (0 <= key_unicode && key_unicode <= 255)
-                                            fprintf(stderr, "(char)key_unicode = %c\n",
-                                                    key_unicode);
+					    "key_unicode = %d\twchar_t = %lc\tKEYMAP[key_unicode] = %c\n\n",
+					     key_unicode, key_unicode, KEYMAP[key_unicode]);
 					}
 
 					/* Now update with case-folded value: */

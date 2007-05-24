@@ -1,3 +1,18 @@
+24 May 2007
+[ David Bruce]
+       - Additional work on UTF-8/Unicode issues - program now scans
+         word list to see what Unicode characters are needed instead
+         of automatically rendering everything from 0-255. It now
+         displays chars beyond this range (e.g. Russian/Cyrillic) as
+         long as the font contains the needed glyphs (which Andika 
+         does not, as of yet). Display "should" now work correctly
+         except for a cosmetic problem with vertical alignment, which
+         should be fixed soon. Files - alphabet.c, playgame.c, laser.c.
+       - Lowercase keystrokes for non-US characters converted to upper-
+         case, just like A-Z.  Not sure this addresses keyboard input
+         problems just yet.
+       - Changed font to Andika design review "G".
+
 v.1.5.9  07 May 2007
 
 [ David Bruce]

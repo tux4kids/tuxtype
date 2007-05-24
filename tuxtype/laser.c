@@ -31,6 +31,8 @@ SDL_Surface * bkgd;
 void laser_unload_data(void) {
 	int i;
 
+	FreeLetters();
+
 	for (i = 0; i < NUM_IMAGES; i++)
 		SDL_FreeSurface(images[i]);
 
@@ -45,16 +47,19 @@ void laser_unload_data(void) {
 
 	pause_unload_media();
 
-	for ( i=1; i<255; i++ )
-		SDL_FreeSurface( letters[i] );
 
 	TTF_CloseFont(font);
 }
 
 /* --- Load all media --- */
-void laser_load_data(void) {
+void laser_load_data(void)
+{
 	int i;
+
+	/* Create the SDL_Surfaces for all of the characters */
+        /* used in the word list: */
 	font = LoadFont( ttf_font, 32);
+	RenderLetters(font);
 
 	/* Load images: */
 	for (i = 0; i < NUM_IMAGES; i++) 
@@ -70,25 +75,6 @@ void laser_load_data(void) {
 	}
 
 	pause_load_media();
-
-        /* Now that the words are stored internally as wchars, we use the */
-        /* Unicode glyph version of black_outline():                      */
-        {
-          wchar_t t;
-          int i;
-
-          for (i = 1; i < 255; i++)
-          {
-            t = (wchar_t)i;
-
-            DEBUGCODE
-            {
-              fprintf(stderr, "Creating SDL_Surface for int = %d, char = %lc\n", i, t);
-            }
-
-            letters[i] = black_outline_wchar(t, font, &white);
-          }
-        }
 }
 
 
@@ -104,7 +90,7 @@ void laser_load_data(void) {
 /* Local (to game.c) 'globals': */
 
 int wave, speed, score, pre_wave_score, num_attackers, distanceMoved;
-unsigned char ans[NUM_ANS];
+wchar_t ans[NUM_ANS];
 int ans_num;
 
 comet_type comets[MAX_COMETS];
@@ -119,7 +105,7 @@ void laser_draw_numbers(unsigned char * str, int x);
 void laser_draw_line(int x1, int y1, int x2, int y2, int r, int g, int b);
 void laser_putpixel(SDL_Surface * surface, int x, int y, Uint32 pixel);
 void laser_draw_console_image(int i);
-void laser_draw_let(unsigned char c, int x, int y);
+void laser_draw_let(wchar_t c, int x, int y);
 void laser_add_score(int inc);
 
 /* --- MAIN GAME FUNCTION!!! --- */
@@ -138,7 +124,8 @@ int laser_game(int DIF_LEVEL)
 	Uint32    last_time, now_time;
 	SDLKey    key;
 	SDL_Rect  src, dest;
-	unsigned char      str[64];
+	/* str[] is a buffer to draw the scores, waves, etc. (don't need wchar_t) */
+	unsigned char str[64]; 
 
 	LOG( "starting Comet Zap game\n" );
 	DOUT( DIF_LEVEL );
@@ -855,12 +842,12 @@ void laser_add_comet(int DIF_LEVEL) {
 
 /* Draw numbers/symbols over the attacker: */
 
-void laser_draw_let(unsigned char c, int x, int y)
+void laser_draw_let(wchar_t c, int x, int y)
 {
 	SDL_Rect dst;
 	dst.y = y-35;
-	dst.x = x - (letters[(int)c]->w/2);
-	SDL_BlitSurface(letters[(int)c], NULL, screen, &dst); 
+	dst.x = x - (GetWhiteGlyph(c)->w/2);
+	SDL_BlitSurface(GetWhiteGlyph(c), NULL, screen, &dst); 
 }
 
 

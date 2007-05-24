@@ -31,9 +31,15 @@ SDL_Color yellow;
 /* Used for word list functions (see below): */
 static int WORD_qty;
 wchar_t WORDS[MAX_NUM_WORDS][MAX_WORD_SIZE + 1];
+wchar_t unicode_chars_used[MAX_UNICODES];  // List of distinct letters in list
+static int num_chars_used = 0;       // Number of different letters in word list
+
+/* These are the arrays for the red and white letters: */
+uni_glyph char_glyphs[MAX_UNICODES];
 
 /* Local function prototypes: */
 void WORDS_scan_chars(void);
+int add_unicode(wchar_t uc);
 
 /* --- setup the alphabet --- */
 void set_letters(unsigned char *t) {
@@ -176,6 +182,7 @@ SDL_Surface* black_outline(unsigned char *t, TTF_Font *font, SDL_Color *c) {
   return out;
 }
 
+
 /* This version takes a single wide character and renders it with the */
 /* Unicode glyph versions of the SDL_ttf functions:                         */
 SDL_Surface* black_outline_wchar(wchar_t t, TTF_Font *font, SDL_Color *c) {
@@ -235,6 +242,8 @@ SDL_Surface* black_outline_wchar(wchar_t t, TTF_Font *font, SDL_Color *c) {
 
   return out;
 }
+
+
 
 void show_letters( void ) {
 	int i, l=0;
@@ -331,6 +340,9 @@ void WORDS_use_alphabet( void ) {
 	/* Make sure list is terminated with null character */
 	WORDS[WORD_qty][0] = '\0';
 
+	/* Make list of all unicode characters used in word list: */
+	WORDS_scan_chars();
+
 	DOUT(WORD_qty);
 	LOG("Leaving WORDS_use_alphabet()\n");
 }
@@ -392,7 +404,6 @@ wchar_t* WORDS_get( void )
  * it ignores any words too long or that has bad
  * character (such as #)
  */
-/* FIXME changing to wchar_t to accommodate i18n */
 
 void WORDS_use(char *wordFn)
 {
@@ -463,52 +474,202 @@ void WORDS_use(char *wordFn)
     WORD_qty++;
   }
         
-	/* Make sure list is terminated with null character */
-	WORDS[WORD_qty][0] = '\0';
+  /* Make sure list is terminated with null character */
+  WORDS[WORD_qty][0] = '\0';
 
-	DOUT(WORD_qty);
+  DOUT(WORD_qty);
 
-	if (WORD_qty == 0)
-		WORDS_use_alphabet( );
+  if (WORD_qty == 0)
+    WORDS_use_alphabet( );
 
-	fclose(wordFile);
+  fclose(wordFile);
 
-	LOG("Leaving WORDS_use()\n");
+  /* Make list of all unicode characters used in word list: */
+  WORDS_scan_chars();
+
+  LOG("Leaving WORDS_use()\n");
 }
 
 
-/* Returns number of UTF-8 characters rather than just size in */
-/* bytes like strlen(). mbstowcs(NULL, s, 0) should do this    */
-/* but for some reason I haven't gotten it to work.            */
-/* Returns -1 if any invalid characters encountered.           */
-size_t UTF8_strlen(const char* s)
+
+
+
+
+
+/* Now that the words are stored internally as wchars, we use the */
+/* Unicode glyph version of black_outline():                      */
+int RenderLetters(TTF_Font* letter_font)
 {
-  size_t byte_length = 0;
-  size_t UTF8_length = 0;
-  int i = 0;
-  int char_width = 0;
+  wchar_t t;
+  int i;
+  int maxy;
 
-  byte_length = strlen(s);
-
-  DEBUGCODE{ fprintf(stderr, "String is: %s\nstrlen() = %d\n",
-                              s, byte_length); }
-  while (i < byte_length)
+  if (!letter_font)
   {
-    /* look at the length of each UTF-8 char and jump ahead accordingly: */
-    char_width = mblen(&s[i], byte_length - i);
-    if (char_width == -1)
-      return -1;
-    i += mblen(&s[i], byte_length - i);
-    UTF8_length++;
+    fprintf(stderr, "RenderLetters() - invalid TTF_Font* argument!\n");
+    return 0;
   }
 
-  DEBUGCODE{ fprintf(stderr, "UTF8_strlen() = %d\n", UTF8_length); }
+  /* The following will supercede the old code: */
+  i = num_chars_used = 0;
+  while (unicode_chars_used[i] != '\0')
+  {
+    t = unicode_chars_used[i];
 
-  return UTF8_length;
+    if(TTF_GlyphMetrics(font, t, NULL , NULL, NULL,
+                        &maxy, NULL) == -1)
+    {
+      fprintf(stderr, "Could not get glyph metrics for %lc", t);
+      i++;
+      continue;
+    }
+
+    DEBUGCODE
+    {
+      fprintf(stderr, "Creating SDL_Surface for list element %d, char = %lc\n", i, t);
+    }
+
+    char_glyphs[i].unicode_value = t;
+    char_glyphs[i].white_glyph = black_outline_wchar(t, font, &white);
+    char_glyphs[i].red_glyph = black_outline_wchar(t, font, &red);
+    char_glyphs[i].max_y = maxy;
+
+    i++;
+    num_chars_used++;
+  }
+  /* Remember how many letters we added: */
+  return num_chars_used;
+}
+
+
+void FreeLetters(void)
+{
+  int i;
+
+  for (i = 0; i < num_chars_used; i++)
+  {
+    SDL_FreeSurface(char_glyphs[i].white_glyph);
+    SDL_FreeSurface(char_glyphs[i].red_glyph);
+  } 
+}
+
+
+SDL_Surface* GetWhiteGlyph(wchar_t t)
+{
+  int i;
+
+  for (i = 0;
+       (char_glyphs[i].unicode_value != t) && (i <= num_chars_used);
+       i++)
+  {}
+
+  /* Now return appropriate pointer: */
+  if (i > num_chars_used)
+  {
+    /* Didn't find character: */
+    fprintf(stderr, "Could not find glyph for unicode character %lc\n", t);
+    return NULL;
+  }
+  
+  /* Return corresponding surface for blitting: */
+  return char_glyphs[i].white_glyph;
 }
 
 
 
+SDL_Surface* GetRedGlyph(wchar_t t)
+{
+  int i;
+
+  for (i = 0;
+       char_glyphs[i].unicode_value != t && i <= num_chars_used;
+       i++)
+  {}
+
+  /* Now return appropriate pointer: */
+  if (i > num_chars_used)
+  {
+    /* Didn't find character: */
+    fprintf(stderr, "Could not find glyph for unicode character %lc\n", t);
+    return NULL;
+  }
+  
+  /* Return corresponding surface for blitting: */
+  return char_glyphs[i].red_glyph;
+}
+
+
+
+/****************************************************/
+/*                                                  */
+/*       Local ("private") functions:               */
+/*                                                  */
+/****************************************************/
+
+
+/* Creates a list of distinct Unicode characters in */
+/* the WORDS[][] list (so the program knows what    */
+/* needs to be rendered for the games)              */
 void WORDS_scan_chars(void)
 {
+  int i, j;
+  i = j = 0;
+  unicode_chars_used[0] = '\0';
+
+  while (WORDS[i][0] != '\0' && i < MAX_NUM_WORDS) 
+  {
+    j = 0;
+
+    while (WORDS[i][j]!= '\0' && j < MAX_WORD_SIZE)
+    {
+      add_unicode(WORDS[i][j]);
+      j++;
+    }
+
+    i++;
+  }
+
+  DEBUGCODE
+  {
+    fprintf(stderr, "unicode_chars_used = %S\n", unicode_chars_used);
+  }
+}
+
+
+/* Checks to see if the argument is already in the list and adds    */
+/* it if necessary.  Returns 1 if char added, 0 if already in list, */
+/* -1 if list already up to maximum size:                           */
+
+int add_unicode(wchar_t uc)
+{
+  int i = 0;
+  while ((unicode_chars_used[i] != uc)
+      && (unicode_chars_used[i] != '\0')
+      && (i < MAX_UNICODES - 1))          //Because 1 need for null terminator
+  {
+    i++;
+  }
+
+  /* unicode already in list: */
+  if (unicode_chars_used[i] == uc)
+  {
+    DEBUGCODE{ fprintf(stderr,
+                       "Unicode value: %d\tcharacter %lc already in list\n",
+                        uc, uc);}
+    return 0;
+  }
+
+  if (unicode_chars_used[i] == '\0')
+  {
+    DEBUGCODE{ fprintf(stderr, "Adding unicode value: %d\tcharacter %lc\n", uc, uc);}
+    unicode_chars_used[i] = uc;
+    unicode_chars_used[i + 1] = '\0';
+    return 1;
+  }
+
+  if (i == MAX_UNICODES - 1)            //Because 1 need for null terminator
+  {
+    LOG ("Unable to add unicode - list at max capacity");
+    return -1;
+  }
 }

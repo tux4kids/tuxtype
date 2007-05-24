@@ -110,14 +110,17 @@ typedef struct {
 #define amask 0xff000000
 #endif
 
-#define menu_font	"AndikaDesRevA.ttf" /* GenAI102.ttf or "DejaVuSans-Bold.ttf"  or "FreeSansBold.ttf" */ 	/* was menu.ttf */
+#define menu_font	"AndikaDesRevG.ttf"    /*"AndikaDesRevA.ttf"  GenAI102.ttf or "DejaVuSans-Bold.ttf"  or "FreeSansBold.ttf" */ 	/* was menu.ttf */
 #define menu_font_size	20
 
-#define ttf_font	"AndikaDesRevA.ttf" /* GenAI102.ttf or "DejaVuSans-Bold.ttf" or "FreeSansBold.ttf" */  	/* was letters.ttf */
+#define ttf_font	"AndikaDesRevG.ttf" /*AndikaDesRevA.ttf"  GenAI102.ttf or "DejaVuSans-Bold.ttf" or "FreeSansBold.ttf" */  	/* was letters.ttf */
 #define ttf_font_size	20
 
+/* Limits on word list size, word length, and on the number of distinct characters */
+/* that can be present within a word list: */
 #define MAX_NUM_WORDS   500
 #define MAX_WORD_SIZE   8
+#define MAX_UNICODES 1024
 
 #define WAIT_MS				2500
 #define	FRAMES_PER_SEC	                50
@@ -168,6 +171,7 @@ extern unsigned char ALPHABET[256];
 extern unsigned char KEYMAP[256];
 extern unsigned char FINGER[256][10];
 extern int ALPHABET_SIZE;
+extern wchar_t unicode_chars_used[MAX_UNICODES];
 
 //global vars
 extern int speed_up;
@@ -208,3 +212,14 @@ enum {
 
     NUM_WIPES
 };
+
+
+/* An individual item in the list of cached unicode characters that are rendered at   */
+/* the start of each game. The 'max_y' is stored so that the characters can be lined  */
+/* up properly even if their heights are different.                                   */
+typedef struct uni_glyph {
+  wchar_t unicode_value;
+  SDL_Surface* white_glyph;
+  SDL_Surface* red_glyph;
+  int max_y;
+} uni_glyph;
