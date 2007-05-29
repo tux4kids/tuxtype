@@ -86,6 +86,7 @@ extern SDL_Surface* black_outline( unsigned char *t, TTF_Font* font, SDL_Color* 
 extern SDL_Surface* black_outline_wchar(wchar_t t, TTF_Font* font, SDL_Color* c);
 extern SDL_Surface* GetWhiteGlyph(wchar_t t);
 extern SDL_Surface* GetRedGlyph(wchar_t t);
+extern int GetGlyphCoords(wchar_t t, int* x, int* y);
 extern int RenderLetters(TTF_Font* letter_font);
 extern void FreeLetters(void);
 /* WORD FUNCTIONS (also in alphabet.c) */

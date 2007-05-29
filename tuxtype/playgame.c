@@ -734,11 +734,16 @@ void DrawFish( int which )
 /*        LOG ("Entering DrawFish()\n");*/
 	int j = 0;
 	int red_letters = 0;
-	int x_offset = 0;
-        int y_offset = 0;
+	int current_letter;
+	/* 'x_origin' and 'y_origin' are where the glyph origin should be          */
+	/* located relative to the fishy graphic (lower left corner of most chars) */
+	const int x_origin = 10;
+        const int y_origin = 30;
+	/* letter_x and letter_y are where the upper left corner of the glyph needs */
+        /* to be located - (e.g. how SDL blitting understands locations)           */
         int letter_x = 0;
         int letter_y = 0;
-	int current_letter;
+
         SDL_Surface* letter_surface;
 
 	/* Make sure needed pointers are valid - if not, return: */
@@ -748,9 +753,7 @@ void DrawFish( int which )
           return;
 	}
 	    
-        // To have letters more centered in fish:
-	x_offset = 10;
-        y_offset = 10;
+
 
 	/* Draw the fishies: */
 	for (j = 0; j < fish_object[which].len; j++)
@@ -791,20 +794,16 @@ void DrawFish( int which )
 		{
 		  current_letter = (int)fish_object[which].word[j];
 
-		  letter_x = fish_object[which].x + (j * fishy->frame[0]->w) + x_offset;
-		  letter_y = fish_object[which].y + y_offset;
- 
-// 		  DEBUGCODE
-// 		  {
-// 		    fprintf(stderr, "wchar is: %lc\n(int)wchar is: %d\n",
-// 				     fish_object[which].word[j],
-//                                      current_letter);
-// 		  }
-		  //if (fish_object[which].word[j] != 32) /* Don't understand this */
 		  if (j < red_letters)
                     letter_surface = GetRedGlyph(current_letter);
                   else
                     letter_surface = GetWhiteGlyph(current_letter);
+
+		  /* Set "letter_x" and "letter_y to where we want the *origin* drawn: */
+		  letter_x = fish_object[which].x + (j * fishy->frame[0]->w) + x_origin;
+		  letter_y = fish_object[which].y + y_origin;
+		  /* Now get correct upper-left coords for this particular glyph: */
+		  GetGlyphCoords(current_letter, &letter_x, &letter_y);
 
 		  DrawObject(letter_surface, letter_x, letter_y);
 

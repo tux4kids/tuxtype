@@ -1,3 +1,15 @@
+29 May 2007
+[ David Bruce]
+       - Fixed vertical alignment problem with certain non-US characters
+         such as "Å" by checking max_y of each glyph and adjusting
+         appropriately.
+       - Added Doulos font to svn to accomodate Russian, although no code
+         yet to use this font when it is needed.
+       - Added utility function to print keymap - it appears that the
+         existing keymap code is broken, as the KEYMAP[] array winds
+         up with KEYMAP[i] == i for all values no matter what the
+         keyboard.lst file says.
+
 24 May 2007
 [ David Bruce]
        - Additional work on UTF-8/Unicode issues - program now scans

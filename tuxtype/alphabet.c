@@ -40,6 +40,7 @@ uni_glyph char_glyphs[MAX_UNICODES];
 /* Local function prototypes: */
 void WORDS_scan_chars(void);
 int add_unicode(wchar_t uc);
+void print_keymap(void);
 
 /* --- setup the alphabet --- */
 void set_letters(unsigned char *t) {
@@ -78,6 +79,8 @@ void LoadKeyboard( void ) {
 		sprintf( fn , "%s/keyboard.lst", realPath[l]);
 		if (CheckFile(fn)) {
 			unsigned char str[255];
+			wchar_t wide_str[255];
+
 			FILE *f;
 			int i,j;
 
@@ -89,26 +92,29 @@ void LoadKeyboard( void ) {
 
 			do {
 				fscanf( f, "%[^\n]\n", str);
-				if (strlen(str) > 3) {
+                                /* Convert to wcs from UTF-8, if needed; */
+                                mbstowcs(wide_str, str, strlen(str) + 1);
+
+				if (wcslen(wide_str) > 3) {
 
 					/* format is: FINGER(s)|Char(s) Upper/Lower */
 
 					/* advance past the fingers */
 
-					for (i=0; i<strlen(str) && str[i] != '|'; i++);
+					for (i=0; i<wcslen(wide_str) && wide_str[i] != '|'; i++);
 
 					i++; // pass the '|'
 					j = i; 
-					ALPHABET[(int)str[j]] = 1;  // first character is default
+					ALPHABET[(int)wide_str[j]] = 1;  // first character is default
 
-					for (i++; i<strlen(str); i++)
-						KEYMAP[(int)str[i]] = str[j];
+					for (i++; i<wcslen(wide_str); i++)
+						KEYMAP[(int)wide_str[i]] = wide_str[j];
 
 					/* set the fingers for this letter */
 
 					for (i=0; i<j-1; i++)
-						if (str[i]>='0' && str[i]<='9')
-							FINGER[str[j]][(int)(str[i]-'0')]=1;
+						if (wide_str[i]>='0' && wide_str[i]<='9')
+							FINGER[wide_str[j]][(int)(wide_str[i]-'0')]=1;
 
 					ALPHABET_SIZE++;
 				}
@@ -117,10 +123,15 @@ void LoadKeyboard( void ) {
 
 			fclose(f);
 
+			DEBUGCODE
+			{
+			  fprintf(stderr, "printing keymap for %s\n", fn);
+        		  print_keymap();
+			}
+
 			return;
 		}
 	}
-
 	fprintf( stderr, "Error finding file for keyboard setup!\n" );
 }
 
@@ -599,6 +610,34 @@ SDL_Surface* GetRedGlyph(wchar_t t)
 }
 
 
+/* Since SDL drawing just uses the upper left corner, but text needs to be drawn relative to */
+/* the glyph origin (i.e. the lower left corner for a character that doesn't go below        */
+/* the baseline), we need to convert them - basically just subtracting the max_y, which is   */
+/* the glyph's height above the baseline.  So - 'x' and 'y' before the function should be    */
+/* the coords where the *origin* is supposed to be, and after the function they will contain */
+/* the coords where the upper left of this particular glyph needs to be to put the origin    */
+/* in the right place. OK?                                                                   */
+int GetGlyphCoords(wchar_t t, int* x, int* y)
+{
+  int i;
+
+  for (i = 0;
+       char_glyphs[i].unicode_value != t && i <= num_chars_used;
+       i++)
+  {}
+
+  if (i > num_chars_used)
+  {
+    /* Didn't find character: */
+    fprintf(stderr, "Could not find glyph for unicode character %lc\n", t);
+    return 1;
+  }
+  
+  /* Set "upper left" coordinates for blitting (currently, don't need to */
+  /* do anything to x):                                                  */
+  *y -= char_glyphs[i].max_y;
+  return 1;
+}
 
 /****************************************************/
 /*                                                  */
@@ -671,5 +710,17 @@ int add_unicode(wchar_t uc)
   {
     LOG ("Unable to add unicode - list at max capacity");
     return -1;
+  }
+}
+
+/* For debugging purposes: */
+void print_keymap(void)
+{
+  int i;
+
+  for(i = 0; i < 256; i++)
+  {
+    fprintf(stderr, "i = %d\t(int)KEYMAP[i] = %d\tKEYMAP[i] = %lc\n",
+            i, KEYMAP[i], KEYMAP[i]); 
   }
 }

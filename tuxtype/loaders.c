@@ -20,8 +20,7 @@
 #include "globals.h"
 #include "funcs.h"
 
-/* check to see if file exists, if so return true            */
-/* Will work if "file" is a dir, also */
+/* Returns 1 if valid file, 2 if valid dir, 0 if neither: */
 int CheckFile(const char* file)
 {
   FILE* fp = NULL;
@@ -41,7 +40,7 @@ int CheckFile(const char* file)
     LOG("Opened successfully as DIR\n");
 
     closedir(dp);
-    return 1;
+    return 2;
   }
 
   fp = fopen(file, "r");

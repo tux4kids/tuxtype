@@ -30,6 +30,8 @@ Mix_Chunk *wrong;
 /*local function prototypes: */
 void print_at( char *pphrase, int wrap, int x, int y );
 
+
+/* FIXME use RenderLetters(), etc */
 void practice_load_media(void) {
 	int i;	
 	unsigned char fn[FNLEN];

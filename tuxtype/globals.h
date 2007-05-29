@@ -167,8 +167,8 @@ extern SDL_Color yellow;
 extern SDL_Surface *bkg;
 extern SDL_Surface *letters[255];
 
-extern unsigned char ALPHABET[256];
-extern unsigned char KEYMAP[256];
+extern wchar_t ALPHABET[256];
+extern wchar_t KEYMAP[256];
 extern unsigned char FINGER[256][10];
 extern int ALPHABET_SIZE;
 extern wchar_t unicode_chars_used[MAX_UNICODES];

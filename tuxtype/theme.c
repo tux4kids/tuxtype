@@ -29,8 +29,8 @@ const char PATHS[NUM_PATHS][FNLEN] = {
 };
 
 SDL_Surface *letters[255] = { NULL };
-unsigned char ALPHABET[256];
-unsigned char KEYMAP[256];
+wchar_t ALPHABET[256];
+wchar_t KEYMAP[256];
 unsigned char FINGER[256][10];
 int ALPHABET_SIZE;
 unsigned char realPath[2][FNLEN];
@@ -122,7 +122,7 @@ void chooseTheme( void ) {
 
 	DIR *themesDir;
 	struct dirent *themesFile;
-	struct stat fileStats;
+//	struct stat fileStats;
 
 	old_useEnglish = useEnglish;
 	strncpy( old_realPath, realPath[0], FNLEN-1 );
@@ -146,12 +146,15 @@ void chooseTheme( void ) {
 		/* check to see if it is a directory */
 		sprintf( fn, "%s/themes/%s", realPath[1], themesFile->d_name);
 
-		fileStats.st_mode=0;
-		stat( fn, &fileStats );
+//		fileStats.st_mode=0;
+//		stat( fn, &fileStats );
 
-		if (S_IFDIR & fileStats.st_mode) {
+		/* CheckFile() returns 2 if dir, 1 if file, 0 if neither: */
+		if (CheckFile(fn) == 2) {
 		    /* HACK: we should get the names from file :) */
 		    strncpy( themeNames[themes], themesFile->d_name, FNLEN-1);
+		    /* Make sure theme name is capitalized: */
+                    themeNames[themes][0] = toupper(themeNames[themes][0]);
 		    strncpy( themePaths[themes++], themesFile->d_name, FNLEN-1 );
 		}
 	} while (1);
@@ -162,8 +165,8 @@ void chooseTheme( void ) {
         // HACK: is font empty now???
 	font = LoadFont( ttf_font, ttf_font_size );
 
-	titles[0] = black_outline( "english", font, &white );
-	select[0] = black_outline( "english", font, &yellow);
+	titles[0] = black_outline( "English", font, &white );
+	select[0] = black_outline( "English", font, &yellow);
 	for (i = 1; i<themes; i++) {
 		titles[i] = black_outline( themeNames[i], font, &white );
 		select[i] = black_outline( themeNames[i], font, &yellow);

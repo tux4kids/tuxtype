@@ -21,11 +21,11 @@
 #include "funcs.h"
 #include "laser.h"
 
-sprite * shield;
-SDL_Surface * images[NUM_IMAGES];
-Mix_Chunk * sounds[NUM_SOUNDS];
-Mix_Music * musics[NUM_MUSICS];
-SDL_Surface * bkgd;
+sprite* shield;
+SDL_Surface* images[NUM_IMAGES];
+Mix_Chunk* sounds[NUM_SOUNDS];
+Mix_Music* musics[NUM_MUSICS];
+SDL_Surface* bkgd;
 
 /* --- unload all media --- */
 void laser_unload_data(void) {
@@ -845,8 +845,10 @@ void laser_add_comet(int DIF_LEVEL) {
 void laser_draw_let(wchar_t c, int x, int y)
 {
 	SDL_Rect dst;
-	dst.y = y-35;
+	dst.y = y - 10;
 	dst.x = x - (GetWhiteGlyph(c)->w/2);
+        /* Correct for varying height of glyphs: */
+	GetGlyphCoords(c, &dst.x, &dst.y);
 	SDL_BlitSurface(GetWhiteGlyph(c), NULL, screen, &dst); 
 }
 
