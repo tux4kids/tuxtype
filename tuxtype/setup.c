@@ -172,7 +172,7 @@ void LoadSettings( void ) {
 			DEBUGCODE { printf("LoadSettings: Setting language to %s", value); }
 			strncpy( localsettings.lang, value, FNLEN-1 );
 			localsettings.lang[FNLEN-1]=0;
-			setupTheme( value );
+			SetupTheme(value);
 		}
 		if (strncmp( setting, "o_lives", FNLEN ) == 0 ) {
 			DEBUGCODE { printf("LoadSettings: Setting lives to %s", value); }

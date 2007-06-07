@@ -18,40 +18,40 @@
 
 #include "globals.h"
 #include "funcs.h"
+/* NOTE these two don't really belong here - not used in this file */
+Mix_Chunk* sound[NUM_WAVES];
+Mix_Music* music;
 
-Mix_Chunk      *sound[NUM_WAVES];
-Mix_Music      *music;
+Mix_Music* defaultMusic = NULL; // holds music for audioMusicLoad/unload
 
-void playsound(Mix_Chunk *snd) {
+void PlaySound(Mix_Chunk* snd) {
 	if (!sys_sound) return;
 
 	Mix_PlayChannel(-1, snd, 0);
 }
 
-Mix_Music *defaultMusic = NULL; // holds music for audioMusicLoad/unload
-
-/* audioMusicLoad attempts to load and play the music file 
+/* MusicLoad attempts to load and play the music file 
  * Note: loops == -1 means forever
  */
-void audioMusicLoad( char *musicFilename, int loops ) {
+void MusicLoad(const char *musicFilename, int loops ) {
 	if (!sys_sound) return;
 
-	audioMusicUnload(); // make sure defaultMusic is clear
+	MusicUnload(); // make sure defaultMusic is clear
 
 	defaultMusic = LoadMusic( musicFilename );
 	Mix_PlayMusic( defaultMusic, loops );
 }
 
-/* audioMusicUnload attempts to unload any music data that was
+/* MusicUnload attempts to unload any music data that was
  * loaded using the audioMusicLoad function
  */
-void audioMusicUnload( void ) {
+void MusicUnload( void ) {
 	if (!sys_sound) return;
 
 	if ( defaultMusic )
 		Mix_FreeMusic( defaultMusic );
 
-	defaultMusic=NULL;
+	defaultMusic = NULL;
 }
 
 /* audioMusicPlay attempts to play the passed music data. 
@@ -59,9 +59,10 @@ void audioMusicUnload( void ) {
  * it will be stopped and unloaded
  * Note: loops == -1 means forever
  */
-void audioMusicPlay( Mix_Music *musicData, int loops ) { 
-	if (!sys_sound) return;
-
-	audioMusicUnload();	
-	Mix_PlayMusic( musicData, loops );
+void MusicPlay(Mix_Music* musicData, int loops)
+{ 
+  if (!sys_sound) return;
+  /* Stop previous music before playing new one: */
+  MusicUnload();	
+  Mix_PlayMusic(musicData, loops);
 }

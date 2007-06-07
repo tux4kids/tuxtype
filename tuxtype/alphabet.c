@@ -30,44 +30,28 @@ SDL_Color yellow;
 
 /* Used for word list functions (see below): */
 static int WORD_qty;
-wchar_t WORDS[MAX_NUM_WORDS][MAX_WORD_SIZE + 1];
-wchar_t unicode_chars_used[MAX_UNICODES];  // List of distinct letters in list
+wchar_t word_list[MAX_NUM_WORDS][MAX_WORD_SIZE + 1];
+wchar_t char_list[MAX_UNICODES];  // List of distinct letters in list
 static int num_chars_used = 0;       // Number of different letters in word list
 
 /* These are the arrays for the red and white letters: */
 uni_glyph char_glyphs[MAX_UNICODES];
 
 /* Local function prototypes: */
-void WORDS_scan_chars(void);
-int add_unicode(wchar_t uc);
-void print_keymap(void);
+static void gen_char_list(void);
+static int add_char(wchar_t uc);
+static void print_keymap(void);
+static void set_letters(unsigned char* t);
+static void show_letters(void);
+static void clear_keyboard(void);
 
-/* --- setup the alphabet --- */
-void set_letters(unsigned char *t) {
-	int i;
+/*****************************************************/
+/*                                                   */
+/*          "Public" Functions                       */
+/*                                                   */
+/*****************************************************/
 
-	ALPHABET_SIZE = 0;
-	for (i=0; i<256; i++)
-		ALPHABET[i]=0;
 
-	for (i=0; i<strlen(t); i++)
-		if (t[i]!=' ') {
-			ALPHABET[(int)t[i]]=1;
-			ALPHABET_SIZE++;
-		}
-}
-
-void clear_keyboard( void ) {
-	int i,j;
-
-	ALPHABET_SIZE = 0;
-	for (i=0; i<256; i++) {
-		ALPHABET[i]=0;
-		for (j=0; j<10; j++)
-			FINGER[i][j]=0;
-		KEYMAP[i]=i;
-	}
-}
 
 void LoadKeyboard( void ) {
 	unsigned char fn[FNLEN];
@@ -135,7 +119,9 @@ void LoadKeyboard( void ) {
 	fprintf( stderr, "Error finding file for keyboard setup!\n" );
 }
 
-SDL_Surface* black_outline(unsigned char *t, TTF_Font *font, SDL_Color *c) {
+
+SDL_Surface* BlackOutline(const unsigned char *t, TTF_Font *font, const SDL_Color *c)
+{
   SDL_Surface* out = NULL;
   SDL_Surface* black_letters = NULL;
   SDL_Surface* white_letters = NULL;
@@ -145,7 +131,7 @@ SDL_Surface* black_outline(unsigned char *t, TTF_Font *font, SDL_Color *c) {
 
   if (!t || !font || !c)
   {
-    fprintf(stderr, "black_outline(): invalid ptr parameter, returning.");
+    fprintf(stderr, "BlackOutline(): invalid ptr parameter, returning.");
     return NULL;
   }
 
@@ -153,7 +139,7 @@ SDL_Surface* black_outline(unsigned char *t, TTF_Font *font, SDL_Color *c) {
 
   if (!black_letters)
   {
-    fprintf (stderr, "Warning - black_outline() could not create image for %s\n", t);
+    fprintf (stderr, "Warning - BlackOutline() could not create image for %s\n", t);
     return NULL;
   }
 
@@ -196,7 +182,8 @@ SDL_Surface* black_outline(unsigned char *t, TTF_Font *font, SDL_Color *c) {
 
 /* This version takes a single wide character and renders it with the */
 /* Unicode glyph versions of the SDL_ttf functions:                         */
-SDL_Surface* black_outline_wchar(wchar_t t, TTF_Font *font, SDL_Color *c) {
+SDL_Surface* BlackOutline_wchar(wchar_t t, TTF_Font *font, const SDL_Color *c)
+{
   SDL_Surface* out = NULL;
   SDL_Surface* black_letters = NULL;
   SDL_Surface* white_letters = NULL;
@@ -206,7 +193,7 @@ SDL_Surface* black_outline_wchar(wchar_t t, TTF_Font *font, SDL_Color *c) {
 
   if (!font || !c)
   {
-    fprintf(stderr, "black_outline_wchar(): invalid ptr parameter, returning.");
+    fprintf(stderr, "BlackOutline_wchar(): invalid ptr parameter, returning.");
     return NULL;
   }
 
@@ -214,7 +201,7 @@ SDL_Surface* black_outline_wchar(wchar_t t, TTF_Font *font, SDL_Color *c) {
 
   if (!black_letters)
   {
-    fprintf (stderr, "Warning - black_outline_wchar() could not create image for %lc\n", t);
+    fprintf (stderr, "Warning - BlackOutline_wchar() could not create image for %lc\n", t);
     return NULL;
   }
 
@@ -255,10 +242,11 @@ SDL_Surface* black_outline_wchar(wchar_t t, TTF_Font *font, SDL_Color *c) {
 }
 
 
-
-void show_letters( void ) {
-	int i, l=0;
-	SDL_Surface *abit;
+/* FIXME dead code but could be useful*/
+static void show_letters(void)
+{
+	int i, l = 0;
+	SDL_Surface* abit;
 	SDL_Rect dst;
 	int stop = 0;
 	unsigned char t[255];
@@ -269,7 +257,7 @@ void show_letters( void ) {
 
 	t[l] = 0;
 
-	abit = black_outline(t, font, &white);
+	abit = BlackOutline(t, font, &white);
 
 	dst.x = 320 - (abit->w / 2);
 	dst.y = 275;
@@ -280,7 +268,7 @@ void show_letters( void ) {
 
 	SDL_FreeSurface(abit);
 
-	abit = black_outline("Alphabet Set To:", font, &white);
+	abit = BlackOutline("Alphabet Set To:", font, &white);
 	dst.x = 320 - (abit->w / 2);
 	dst.y = 200;
 	dst.w = abit->w;
@@ -303,9 +291,12 @@ void show_letters( void ) {
 	SDL_FreeSurface(abit);
 }
 
+
+/* FIXME won't handle Unicode chars beyond 255
 /* --- get a letter --- */
-unsigned char get_letter(void) {
-	static int last = -1; // we don't want to return same letter twice in a row
+wchar_t GetLetter(void)
+{
+  static int last = -1; // we don't want to return same letter twice in a row
 	int letter;
 	do {
 		letter = rand() % 255;
@@ -322,57 +313,64 @@ unsigned char get_letter(void) {
 
 
 
-/* WORDS_init: clears the number of words
+/* ClearWordList: clears the number of words
  */
-void WORDS_init( void ) {
-	WORD_qty = 0;
+void ClearWordList(void)
+{
+  int i;
+  for (i = 0; i < WORD_qty; i++)
+  {
+    word_list[i][0] = '\0';
+  }
+  WORD_qty = 0;
 }
 
-/* WORDS_use_alphabet: setups the WORDS so that it really
- * returns a LETTER when WORDS_get() is called
+/* UseAlphabet(): setups the word_list so that it really
+ * returns a LETTER when GetWord() is called
  */
-void WORDS_use_alphabet( void ) {
+void UseAlphabet(void)
+{
 	int i;
 
-	LOG("Entering WORDS_use_alphabet()\n");
+	LOG("Entering UseAlphabet()\n");
 
 	WORD_qty = 0;
 	/* This totally mucks up i18n abilities :( */
 	for (i=65; i<90; i++) 
 	{
 		if (ALPHABET[i]) {
-			WORDS[WORD_qty][0] = (unsigned char)i;
-			WORDS[WORD_qty][1] = '\0';
+			word_list[WORD_qty][0] = (unsigned char)i;
+			word_list[WORD_qty][1] = '\0';
 			WORD_qty++;
 
 			DEBUGCODE { fprintf(stderr, "Adding %c\n", (unsigned char)i); }
 		}
 	}
 	/* Make sure list is terminated with null character */
-	WORDS[WORD_qty][0] = '\0';
+	word_list[WORD_qty][0] = '\0';
 
 	/* Make list of all unicode characters used in word list: */
-	WORDS_scan_chars();
+	gen_char_list();
 
 	DOUT(WORD_qty);
-	LOG("Leaving WORDS_use_alphabet()\n");
+	LOG("Leaving UseAlphabet()\n");
 }
 
-/* WORDS_get: returns a random word that wasn't returned
+/* GetWord: returns a random word that wasn't returned
  * the previous time (unless there is only 1 word!!!)
  */
-wchar_t* WORDS_get( void )
+wchar_t* GetWord(void)
 {
 	static int last_choice = -1;
 	int choice;
 
-	LOG("Entering WORDS_get()\n");
+	LOG("Entering GetWord()\n");
 	DEBUGCODE { fprintf(stderr, "WORD_qty is: %d\n", WORD_qty); }
 
 	/* Now count list to make sure WORD_qty is correct: */
 
 	WORD_qty = 0;
-	while (WORDS[WORD_qty][0] != '\0')
+	while (word_list[WORD_qty][0] != '\0')
 	{
 	  WORD_qty++;
 	}
@@ -404,19 +402,19 @@ wchar_t* WORDS_get( void )
 	last_choice = choice;
 
 	/* NOTE need %S rather than %s because of wide characters */
-	DEBUGCODE { fprintf(stderr, "Selected word is: %S\n", WORDS[choice]); }
+	DEBUGCODE { fprintf(stderr, "Selected word is: %S\n", word_list[choice]); }
 
-	return WORDS[choice];
+	return word_list[choice];
 }
 
 
 
-/* WORDS_use: adds the words from a given wordlist
+/* GenerateWordList(): adds the words from a given wordlist
  * it ignores any words too long or that has bad
  * character (such as #)
  */
 
-void WORDS_use(char *wordFn)
+void GenerateWordList(const char* wordFn)
 {
   int j;
   unsigned char temp_word[FNLEN];
@@ -424,7 +422,7 @@ void WORDS_use(char *wordFn)
 
   FILE* wordFile=NULL;
 
-  DEBUGCODE { fprintf(stderr, "Entering WORDS_use() for file: %s\n", wordFn); }
+  DEBUGCODE { fprintf(stderr, "Entering GenerateWordList() for file: %s\n", wordFn); }
 
   WORD_qty = 0;
 
@@ -436,7 +434,7 @@ void WORDS_use(char *wordFn)
   {
     fprintf(stderr, "ERROR: could not load wordlist: %s\n", wordFn );
     fprintf(stderr, "Using ALPHABET instead\n");
-    WORDS_use_alphabet( );
+    UseAlphabet( );
     return;
   }
 
@@ -481,24 +479,24 @@ void WORDS_use(char *wordFn)
     /* If we make it to here, OK to add word: */
     /* NOTE we have to add one to the length argument to get */
     /* mbstowcs() to reliably include the terminating null.  */
-    mbstowcs(WORDS[WORD_qty], temp_word, strlen(temp_word) + 1);
+    mbstowcs(word_list[WORD_qty], temp_word, strlen(temp_word) + 1);
     WORD_qty++;
   }
         
   /* Make sure list is terminated with null character */
-  WORDS[WORD_qty][0] = '\0';
+  word_list[WORD_qty][0] = '\0';
 
   DOUT(WORD_qty);
 
   if (WORD_qty == 0)
-    WORDS_use_alphabet( );
+    UseAlphabet( );
 
   fclose(wordFile);
 
   /* Make list of all unicode characters used in word list: */
-  WORDS_scan_chars();
+  gen_char_list();
 
-  LOG("Leaving WORDS_use()\n");
+  LOG("Leaving GenerateWordList()\n");
 }
 
 
@@ -509,7 +507,7 @@ void WORDS_use(char *wordFn)
 
 /* Now that the words are stored internally as wchars, we use the */
 /* Unicode glyph version of black_outline():                      */
-int RenderLetters(TTF_Font* letter_font)
+int RenderLetters(const TTF_Font* letter_font)
 {
   wchar_t t;
   int i;
@@ -523,9 +521,9 @@ int RenderLetters(TTF_Font* letter_font)
 
   /* The following will supercede the old code: */
   i = num_chars_used = 0;
-  while (unicode_chars_used[i] != '\0')
+  while (char_list[i] != '\0')
   {
-    t = unicode_chars_used[i];
+    t = char_list[i];
 
     if(TTF_GlyphMetrics(font, t, NULL , NULL, NULL,
                         &maxy, NULL) == -1)
@@ -541,8 +539,8 @@ int RenderLetters(TTF_Font* letter_font)
     }
 
     char_glyphs[i].unicode_value = t;
-    char_glyphs[i].white_glyph = black_outline_wchar(t, font, &white);
-    char_glyphs[i].red_glyph = black_outline_wchar(t, font, &red);
+    char_glyphs[i].white_glyph = BlackOutline_wchar(t, font, &white);
+    char_glyphs[i].red_glyph = BlackOutline_wchar(t, font, &red);
     char_glyphs[i].max_y = maxy;
 
     i++;
@@ -613,10 +611,10 @@ SDL_Surface* GetRedGlyph(wchar_t t)
 /* Since SDL drawing just uses the upper left corner, but text needs to be drawn relative to */
 /* the glyph origin (i.e. the lower left corner for a character that doesn't go below        */
 /* the baseline), we need to convert them - basically just subtracting the max_y, which is   */
-/* the glyph's height above the baseline.  So - 'x' and 'y' before the function should be    */
-/* the coords where the *origin* is supposed to be, and after the function they will contain */
-/* the coords where the upper left of this particular glyph needs to be to put the origin    */
-/* in the right place. OK?                                                                   */
+/* the glyph's height above the baseline.                                                    */
+/*  So - 'x' and 'y' before the function should be the coords where the *origin* is supposed */
+/* to be, and after the function they will contain the correct coords for blitting of the    */
+/* glypg. OK?                                                                                */
 int GetGlyphCoords(wchar_t t, int* x, int* y)
 {
   int i;
@@ -630,7 +628,7 @@ int GetGlyphCoords(wchar_t t, int* x, int* y)
   {
     /* Didn't find character: */
     fprintf(stderr, "Could not find glyph for unicode character %lc\n", t);
-    return 1;
+    return 0;
   }
   
   /* Set "upper left" coordinates for blitting (currently, don't need to */
@@ -647,21 +645,21 @@ int GetGlyphCoords(wchar_t t, int* x, int* y)
 
 
 /* Creates a list of distinct Unicode characters in */
-/* the WORDS[][] list (so the program knows what    */
+/* word_list[][] (so the program knows what         */
 /* needs to be rendered for the games)              */
-void WORDS_scan_chars(void)
+static void gen_char_list(void)
 {
   int i, j;
   i = j = 0;
-  unicode_chars_used[0] = '\0';
+  char_list[0] = '\0';
 
-  while (WORDS[i][0] != '\0' && i < MAX_NUM_WORDS) 
+  while (word_list[i][0] != '\0' && i < MAX_NUM_WORDS) 
   {
     j = 0;
 
-    while (WORDS[i][j]!= '\0' && j < MAX_WORD_SIZE)
+    while (word_list[i][j]!= '\0' && j < MAX_WORD_SIZE)
     {
-      add_unicode(WORDS[i][j]);
+      add_char(word_list[i][j]);
       j++;
     }
 
@@ -670,7 +668,46 @@ void WORDS_scan_chars(void)
 
   DEBUGCODE
   {
-    fprintf(stderr, "unicode_chars_used = %S\n", unicode_chars_used);
+    fprintf(stderr, "char_list = %S\n", char_list);
+  }
+}
+
+
+
+/* FIXME this function is currently dead code */
+/* --- setup the alphabet --- */
+static void set_letters(unsigned char *t) {
+	int i;
+
+	ALPHABET_SIZE = 0;
+	for (i=0; i<256; i++)
+		ALPHABET[i]=0;
+
+	for (i=0; i<strlen(t); i++)
+		if (t[i]!=' ') {
+			ALPHABET[(int)t[i]]=1;
+			ALPHABET_SIZE++;
+		}
+}
+
+
+/* For debugging purposes: */
+static void print_keymap(void)
+{
+  int i;
+
+  for(i = 0; i < 256; i++)
+  {
+    fprintf(stderr, "i = %d\t(int)KEYMAP[i] = %d\tKEYMAP[i] = %lc\t",
+            i, KEYMAP[i], KEYMAP[i]); 
+    if(isupper(i) && !islower(i))
+      fprintf(stderr, "Upper\n");
+    if(!isupper(i) && islower(i))
+      fprintf(stderr, "Lower\n");
+    if(isupper(i) && islower(i))
+      fprintf(stderr, "Both\n");
+    if(!isupper(i) && !islower(i))
+      fprintf(stderr, "Neither\n");
   }
 }
 
@@ -679,18 +716,18 @@ void WORDS_scan_chars(void)
 /* it if necessary.  Returns 1 if char added, 0 if already in list, */
 /* -1 if list already up to maximum size:                           */
 
-int add_unicode(wchar_t uc)
+static int add_char(wchar_t uc)
 {
   int i = 0;
-  while ((unicode_chars_used[i] != uc)
-      && (unicode_chars_used[i] != '\0')
+  while ((char_list[i] != uc)
+      && (char_list[i] != '\0')
       && (i < MAX_UNICODES - 1))          //Because 1 need for null terminator
   {
     i++;
   }
 
   /* unicode already in list: */
-  if (unicode_chars_used[i] == uc)
+  if (char_list[i] == uc)
   {
     DEBUGCODE{ fprintf(stderr,
                        "Unicode value: %d\tcharacter %lc already in list\n",
@@ -698,11 +735,11 @@ int add_unicode(wchar_t uc)
     return 0;
   }
 
-  if (unicode_chars_used[i] == '\0')
+  if (char_list[i] == '\0')
   {
     DEBUGCODE{ fprintf(stderr, "Adding unicode value: %d\tcharacter %lc\n", uc, uc);}
-    unicode_chars_used[i] = uc;
-    unicode_chars_used[i + 1] = '\0';
+    char_list[i] = uc;
+    char_list[i + 1] = '\0';
     return 1;
   }
 
@@ -713,14 +750,15 @@ int add_unicode(wchar_t uc)
   }
 }
 
-/* For debugging purposes: */
-void print_keymap(void)
-{
-  int i;
 
-  for(i = 0; i < 256; i++)
-  {
-    fprintf(stderr, "i = %d\t(int)KEYMAP[i] = %d\tKEYMAP[i] = %lc\n",
-            i, KEYMAP[i], KEYMAP[i]); 
-  }
+static void clear_keyboard( void ) {
+	int i,j;
+
+	ALPHABET_SIZE = 0;
+	for (i=0; i<256; i++) {
+		ALPHABET[i]=0;
+		for (j=0; j<10; j++)
+			FINGER[i][j]=0;
+		KEYMAP[i]=i;
+	}
 }

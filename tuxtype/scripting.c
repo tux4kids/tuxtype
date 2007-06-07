@@ -18,7 +18,271 @@
 
 #include "scripting.h"
 
-char *getQuote(const char *in) {
+/* Local function prototypes: */
+static void clear_items(itemType* i);
+static void clear_pages(pageType* p);
+static void close_script(void);
+static SDL_Color* get_color(const char* in);
+static int get_int(const char* in);
+static char* get_quote(const char* in);
+static char hex2int(char b, char s);
+static int load_script(const char* fn);
+static void run_script(void);
+
+/************************************************************************/
+/*                                                                      */ 
+/*         "Public" functions (callable throughout program)             */
+/*                                                                      */
+/************************************************************************/
+
+
+void InstructCascade(void)
+{
+    char fn[FNLEN];
+    sprintf( fn, "%s/scripts/cascade.xml", realPath[useEnglish] );
+    if (load_script( fn ) != 0) return; // bail if any errors occur
+    run_script();
+}
+
+
+void InstructLaser(void)
+{
+    char fn[FNLEN];
+    sprintf( fn, "%s/scripts/laser.xml", realPath[useEnglish] );
+    if (load_script( fn ) != 0) return; // bail if any errors occur
+    { int i; for (i=0; i<20; i++) {
+    run_script(); SDL_Delay(500); }}
+}
+
+
+void ProjectInfo(void)
+{
+    char fn[FNLEN]; 
+    sprintf( fn, "%s/scripts/projectInfo.xml", realPath[1]);
+    if (load_script( fn ) != 0) return; // bail if any errors occur
+    run_script();
+}
+
+
+void TestLesson( void ) {
+	SDL_Surface *left, *right, *pointer, *bkg;
+	SDL_Surface *filenames[200];
+	
+	SDL_Rect spot, arrow_area;
+	SDL_Rect leftRect, rightRect;
+	SDL_Rect titleRects[8];
+	
+	int stop = 0;
+	int loc = 0;
+	int old_loc = 1;
+	int i;
+	int c = 0;
+	
+	char fn[FNLEN]; 
+	unsigned char wordlistFile[200][200];
+	unsigned char wordPath[FNLEN];
+
+	DIR *wordsDir;
+	struct dirent *wordsFile;
+//	FILE *tempFile;
+
+	pointer = LoadImage( "right.png", IMG_ALPHA );
+	bkg = LoadImage( "main_bkg.png", IMG_REGULAR );
+
+	SDL_ShowCursor(0);
+
+	/* find the directory to load wordlists from */
+
+	for (i=useEnglish; i<2; i++) {
+		sprintf( wordPath, "%s/scripts", realPath[i] );
+		if (CheckFile(wordPath))
+			break;
+	}
+
+	if (i==2) {
+		fprintf(stderr, "ERROR: Unable to find wordlist directory\n");
+		exit(1);
+	}
+	spot.x=60;
+	spot.y=20;
+
+
+	/* create a list of all the .txt files */
+
+	wordsDir = opendir( wordPath );	
+	font = LoadFont( ttf_font, 14 );
+	do {
+		wordsFile = readdir(wordsDir);
+		if (!wordsFile)
+			break;
+
+		/* must have at least .txt at the end */
+		if (strlen(wordsFile->d_name) < 5)
+			continue;
+
+		if (strcmp(&wordsFile->d_name[strlen(wordsFile->d_name)-4],".xml"))
+			continue;
+
+		sprintf( wordlistFile[c], "%s", wordsFile->d_name );
+
+		filenames[c] = TTF_RenderUTF8_Blended(  font, wordsFile->d_name, white);
+		SDL_BlitSurface( filenames[c], NULL, screen, &spot );
+                SDL_FreeSurface(filenames[c]);
+		c++;
+		spot.y+=18;
+
+		/* load the name for the wordlist from the file ... (1st line) */
+/*		tempFile = fopen( wordlistFile[lists], "r" );
+		if (tempFile==NULL) continue;
+		fscanf( tempFile, "%[^\n]\n", wordlistName[lists] );
+*/
+		/* check to see if it has a \r at the end of it (dos format!) */
+/*		if (wordlistName[lists][ strlen(wordlistName[lists])-1 ] == '\r')
+			wordlistName[lists][ strlen(wordlistName[lists])-1 ] = '\0';
+		lists++;
+
+		fclose(tempFile);*/
+		
+	} while (1);
+
+	TTF_CloseFont(font);
+	closedir( wordsDir );	
+	SDL_Flip( screen );
+
+	left = LoadImage("left.png", IMG_ALPHA);       
+        leftRect.w = left->w; leftRect.h = left->h;
+        leftRect.x = 320 - 80 - (leftRect.w/2); leftRect.y = 430;
+
+        right = LoadImage("right.png", IMG_ALPHA);
+        rightRect.w = right->w; rightRect.h = right->h;
+        rightRect.x = 320 + 80 - (rightRect.w/2); rightRect.y = 430;
+
+        /* set initial rect sizes */
+        titleRects[0].y = 30;
+        titleRects[0].w = titleRects[0].h = titleRects[0].x = 0;
+        for (i = 1; i<8; i++) { 
+                titleRects[i].y = titleRects[i-1].y + 50;
+                titleRects[i].w = titleRects[i].h = titleRects[i].x = 0;
+        }
+	arrow_area.x = 0;
+	arrow_area.y = 0;
+	arrow_area.w = 59;
+	arrow_area.h = 479;
+
+	while (!stop) {
+                while (SDL_PollEvent(&event))
+                        switch (event.type) {
+                                case SDL_QUIT:
+                                        exit(0);
+                                        break;
+                                case SDL_MOUSEMOTION:
+                                        for (i=0; (i<8) && (loc-(loc%8)+i<c); i++)
+                                                if (inRect( titleRects[i], event.motion.x, event.motion.y )) {
+                                                        loc = loc-(loc%8)+i;
+                                                        break;
+                                                }
+
+                                        break;
+                                case SDL_MOUSEBUTTONDOWN:
+                                        if (inRect( leftRect, event.button.x, event.button.y ))
+                                                if (loc-(loc%8)-8 >= 0) {
+                                                        loc=loc-(loc%8)-8;
+                                                        break;
+                                                }
+                                        if (inRect( rightRect, event.button.x, event.button.y ))
+                                                if (loc-(loc%8)+8 < c) {
+                                                        loc=loc-(loc%8)+8;
+                                                        break;
+                                                }
+                                        for (i=0; (i<8) && (loc-(loc%8)+i<c); i++)
+                                                if (inRect(titleRects[i], event.button.x, event.button.y)) {
+                                                        loc = loc-(loc%8)+i;
+							ClearWordList(); /* clear old selection */
+							if (loc==0)
+							  UseAlphabet(); 
+							else
+							  GenerateWordList(wordlistFile[loc]);
+ 
+                                                        stop = 1;
+                                                        break;
+                                                }
+                                        break;
+                                case SDL_KEYDOWN:
+                                        if (event.key.keysym.sym == SDLK_ESCAPE) { stop = 2; break; }
+                                        if (event.key.keysym.sym == SDLK_RETURN) {
+						sprintf( fn, "%s/scripts/%s", realPath[1], wordlistFile[loc]);
+                                                stop = 1;
+                                                break;
+                                        }
+
+                                        if ((event.key.keysym.sym == SDLK_LEFT) || (event.key.keysym.sym == SDLK_PAGEUP)) {
+                                                if (loc-(loc%8)-8 >= 0)
+                                                        loc=loc-(loc%8)-8;
+                                        	SDL_ShowCursor(1);}
+
+                                        if ((event.key.keysym.sym == SDLK_RIGHT) || (event.key.keysym.sym == SDLK_PAGEDOWN)) {
+                                                if (loc-(loc%8)+8 < c)
+                                                        loc=(loc-(loc%8)+8);
+                                        }
+
+                                        if (event.key.keysym.sym == SDLK_UP) {
+                                                if (loc > 0)
+                                                        loc--;
+                                        }
+
+                                        if (event.key.keysym.sym == SDLK_DOWN) {
+                                                if (loc+1< c)
+                                                        loc++;
+                                        }
+                        }
+
+               if (stop == 2) {
+                        SDL_FreeSurface(pointer);
+                        SDL_FreeSurface(left);
+                        SDL_FreeSurface(right);
+                        SDL_FreeSurface(bkg);
+                        return;
+               }
+               if (old_loc != loc) {
+                        int start;
+
+                        SDL_BlitSurface( bkg, &arrow_area, screen, NULL);
+
+                        start = loc;
+                        for (i = start; i < c; i++) {
+                                spot.x = 5;
+                                spot.y = (i*18)+10;
+                                if (i == loc)
+                                        SDL_BlitSurface(pointer, NULL, screen, &spot);
+                        }
+
+                        SDL_Flip(screen);
+                }
+                SDL_Delay(40);
+                old_loc = loc;
+        }
+
+	SDL_FreeSurface(pointer);
+        SDL_FreeSurface(left);
+        SDL_FreeSurface(right);
+        SDL_FreeSurface(bkg);
+
+    if (load_script( fn ) != 0) return; // bail if any errors occur
+    run_script();
+    SDL_ShowCursor(1);
+}
+
+
+
+/************************************************************************/
+/*                                                                      */ 
+/*         "Private" functions (local to scripting.c)                   */
+/*                                                                      */
+/************************************************************************/
+
+
+static char* get_quote(const char* in)
+{
     int start, finish;
     char *out;
 
@@ -40,8 +304,10 @@ char *getQuote(const char *in) {
     return out;
 }
 
-int getInt(const char *in) {
-    char *t = getQuote(in);
+
+static int get_int(const char* in)
+{
+    char *t = get_quote(in);
     int ans=-1;
     if (t) {
         ans = atoi(t);
@@ -50,7 +316,9 @@ int getInt(const char *in) {
     return ans;
 }
 
-char hex2int(char b, char s) {
+
+static char hex2int(char b, char s)
+{
     char ans=0;
         
     if      ((b>='0') && (b<='9'))       ans=16*(b-'0');
@@ -64,10 +332,12 @@ char hex2int(char b, char s) {
     return ans;
 }
 
-SDL_Color *getColor(const char *in) {
-    char *col;
-    SDL_Color *out=malloc(sizeof(SDL_Color));
-    col = getQuote(in);
+
+static SDL_Color* get_color(const char* in)
+{
+    char* col;
+    SDL_Color* out=malloc(sizeof(SDL_Color));
+    col = get_quote(in);
     
     if ((strlen(col)==7) && (col[0] == '#')) {
         out->r = hex2int( col[1], col[2] );
@@ -84,7 +354,8 @@ scriptType *curScript=NULL;
 pageType *curPage=NULL;
 itemType *curItem=NULL;
 
-int loadScript( const char *fn ) {
+static int load_script(const char* fn)
+{
     int i;
     char str[FNLEN];
     FILE *f;
@@ -93,7 +364,7 @@ int loadScript( const char *fn ) {
     
     if (curScript) {
         LOG( "script already in memory, removing now!\n");
-        closeScript();
+        close_script();
     }
     
     f = fopen( fn, "r" );
@@ -108,16 +379,16 @@ int loadScript( const char *fn ) {
             curScript = (scriptType *)calloc(1,sizeof(scriptType));
             for (i=7; i<strlen(str) && str[i]!='>'; i++) {
                 if ((str[i]=='t') && strncmp("title", &str[i], 5)==0)
-                    curScript->title = getQuote(&str[i+5]);
+                    curScript->title = get_quote(&str[i+5]);
 
                 if ((str[i]=='b') && strncmp("bgcolor", &str[i], 7)==0)
-                    curScript->bgcolor = getColor(&str[i+7]);
+                    curScript->bgcolor = get_color(&str[i+7]);
 
                 if ((str[i]=='b') && strncmp("background", &str[i], 10)==0)
-                    curScript->background = getQuote(&str[i+10]);
+                    curScript->background = get_quote(&str[i+10]);
 
                 if ((str[i]=='f') && strncmp("fgcolor", &str[i], 7)==0) 
-                    curScript->fgcolor = getColor(&str[i+7]); 
+                    curScript->fgcolor = get_color(&str[i+7]); 
             }
         } else if (strncmp("<page",         str,  5)==0) {
             if (curScript==NULL) { fprintf(stderr, "CRITICAL XML ERROR: <page> should be in a <script> in file %s line (todo)", fn); exit(1); }
@@ -134,16 +405,16 @@ int loadScript( const char *fn ) {
 
             for (i=5; i<strlen(str) && str[i]!='>'; i++) {
                 if ((str[i]=='b') && strncmp("background", &str[i], 10)==0) 
-                    curPage->background = getQuote(&str[i+10]);
+                    curPage->background = get_quote(&str[i+10]);
 
                 if ((str[i]=='t') && strncmp("title", &str[i], 5)==0) 
-                    curPage->title = getQuote(&str[i+5]);
+                    curPage->title = get_quote(&str[i+5]);
 
                 if ((str[i]=='b') && strncmp("bgcolor", &str[i], 7)==0) 
-                    curPage->bgcolor = getColor(&str[i+7]);
+                    curPage->bgcolor = get_color(&str[i+7]);
 
                 if ((str[i]=='f') && strncmp("fgcolor", &str[i], 7)==0) 
-                    curPage->fgcolor = getColor(&str[i+7]);
+                    curPage->fgcolor = get_color(&str[i+7]);
             }
         } else if (strncmp("<text",         str,  5)==0) {
             if (curPage==NULL) { fprintf(stderr, "CRITICAL XML ERROR: <text> should be in a <page> in file %s line (todo)", fn); exit(1); }
@@ -161,10 +432,10 @@ int loadScript( const char *fn ) {
             for (i=5; i<strlen(str) && str[i]!='>'; i++) {
             
                 if ((str[i]=='s') && strncmp("size", &str[i], 4)==0) 
-		    curItem->size = (char)getInt( &str[i+4] );
+		    curItem->size = (char)get_int( &str[i+4] );
 
                 if ((str[i]=='a') && strncmp("align", &str[i], 5)==0) {
-                    char *t = getQuote(&str[i+5]);
+                    char *t = get_quote(&str[i+5]);
                     
                     if (strlen(t)>=1) {
                         if ((t[0] == 'l') || (t[0]=='L')) curItem->align='l';	// left
@@ -177,13 +448,13 @@ int loadScript( const char *fn ) {
                 }
 
                 if ((str[i]=='c') && strncmp("color", &str[i], 5)==0)
-                    curItem->color = getColor(&str[i+5]);
+                    curItem->color = get_color(&str[i+5]);
                 
 		if ((str[i]=='x') && strncmp(" x=", &str[i-1], 3)==0)
-                    curItem->x = getInt(&str[i+2]);
+                    curItem->x = get_int(&str[i+2]);
 
                 if ((str[i]=='y') && strncmp(" y=", &str[i-1], 3)==0)
-                    curItem->y = getInt(&str[i+2]);
+                    curItem->y = get_int(&str[i+2]);
 
             }
             
@@ -225,20 +496,20 @@ int loadScript( const char *fn ) {
 
             for (i=5; i<strlen(str); i++) {
                 if ((str[i]=='o') && strncmp("onclickplay", &str[i], 11)==0) {
-                    curItem->onclick = getQuote(&str[i+3]);
+                    curItem->onclick = get_quote(&str[i+3]);
 		}
 
                 if ((str[i]=='x') && strncmp(" x=", &str[i-1], 3)==0)
-                    curItem->x = getInt(&str[i+2]);
+                    curItem->x = get_int(&str[i+2]);
 
                 if ((str[i]=='y') && strncmp(" y=", &str[i-1], 3)==0)
-                    curItem->y = getInt(&str[i+2]);
+                    curItem->y = get_int(&str[i+2]);
 
                 if ((str[i]=='s') && strncmp("src", &str[i], 3)==0)
-                    curItem->data = getQuote(&str[i+3]);
+                    curItem->data = get_quote(&str[i+3]);
                     
                 if ((str[i]=='a') && strncmp("align", &str[i], 5)==0) {
-                    char *t = getQuote(&str[i+5]);
+                    char *t = get_quote(&str[i+5]);
                     
                     if (strlen(t)>=1) {
                         if ((t[0] == 'l') || (t[0]=='L')) curItem->align='l';	// left
@@ -266,10 +537,10 @@ int loadScript( const char *fn ) {
 
             for (i=5; i<strlen(str); i++) {
                 if ((str[i]=='s') && strncmp("src", &str[i], 3)==0)
-                    curItem->data = getQuote(&str[i+3]);
+                    curItem->data = get_quote(&str[i+3]);
 
                 if ((str[i]=='l') && strncmp("loop", &str[i], 4)==0) {
-                    char *t = getQuote(&str[i+4]);
+                    char *t = get_quote(&str[i+4]);
                     
                     if (strlen(t)>=1)
                         if ((t[0] == 't') || (t[0]=='T')) curItem->loop=1;
@@ -291,13 +562,13 @@ int loadScript( const char *fn ) {
             for (i=5; i<strlen(str) && str[i]!='>'; i++) {
             
               if ((str[i]=='s') && strncmp("size", &str[i], 4)==0) 
-			curItem->size = (char)getInt( &str[i+4] );
+			curItem->size = (char)get_int( &str[i+4] );
 
               if ((str[i]=='g') && strncmp("goal", &str[i], 4)==0) 
-			curItem->goal = (char)getInt( &str[i+4] );
+			curItem->goal = (char)get_int( &str[i+4] );
 
 	      if ((str[i]=='a') && strncmp("align", &str[i], 5)==0) {
-			char *t = getQuote(&str[i+5]);
+			char *t = get_quote(&str[i+5]);
                     
                     if (strlen(t)>=1) {
                         if ((t[0] == 'l') || (t[0]=='L')) curItem->align='l';	// left
@@ -309,7 +580,7 @@ int loadScript( const char *fn ) {
                 }
 
                 if ((str[i]=='c') && strncmp("color", &str[i], 5)==0)
-                    curItem->color = getColor(&str[i+5]);
+                    curItem->color = get_color(&str[i+5]);
             }
           
             { /* --- grab the text between <prac> and </prac> --- */
@@ -363,7 +634,8 @@ int loadScript( const char *fn ) {
     return 0;
 }
 
-void runScript( void ) {
+static void run_script(void)
+{
 
     Mix_Chunk *sounds[FNLEN];
 
@@ -644,22 +916,10 @@ void runScript( void ) {
     }
 }
 
-void InstructCascade(void) {
-    char fn[FNLEN];
-    sprintf( fn, "%s/scripts/cascade.xml", realPath[useEnglish] );
-    if (loadScript( fn ) != 0) return; // bail if any errors occur
-    runScript();
-}
 
-void InstructLaser(void) {
-    char fn[FNLEN];
-    sprintf( fn, "%s/scripts/laser.xml", realPath[useEnglish] );
-    if (loadScript( fn ) != 0) return; // bail if any errors occur
-    { int i; for (i=0; i<20; i++) {
-    runScript(); SDL_Delay(500); }}
-}
 
-void clearItems( itemType *i ) {
+static void clear_items(itemType* i)
+{
     itemType *n;
     while (i) {
         n = i->next;  // remember the next guy
@@ -677,13 +937,14 @@ void clearItems( itemType *i ) {
     }
 }
 
-void clearPages( pageType *p ) {
+static void clear_pages(pageType* p)
+{
     pageType *n;
     while (p) {
         n = p->next;  // remember the next guy
 
         /* -- remove all of our sub elements -- */
-        clearItems(p->items);
+        clear_items(p->items);
 
         /* -- free anything we are pointing to --- */
         free(p->background);
@@ -699,11 +960,13 @@ void clearPages( pageType *p ) {
     }
 }
 
-void closeScript( void ) {
+
+static void close_script(void)
+{
     if (curScript) {
 
         /* -- remove all the pages we have --*/
-        clearPages(curScript->pages);
+        clear_pages(curScript->pages);
 
         /* -- remove attributes we are pointing to -- */
         free(curScript->title);
@@ -719,220 +982,6 @@ void closeScript( void ) {
     }
 }
 
-void testLesson( void ) {
-	SDL_Surface *left, *right, *pointer, *bkg;
-	SDL_Surface *filenames[200];
-	
-	SDL_Rect spot, arrow_area;
-	SDL_Rect leftRect, rightRect;
-	SDL_Rect titleRects[8];
-	
-	int stop = 0;
-	int loc = 0;
-	int old_loc = 1;
-	int i;
-	int c = 0;
-	
-	char fn[FNLEN]; 
-	unsigned char wordlistFile[200][200];
-	unsigned char wordPath[FNLEN];
-
-	DIR *wordsDir;
-	struct dirent *wordsFile;
-	struct stat fileStats;
-//	FILE *tempFile;
-
-	pointer = LoadImage( "right.png", IMG_ALPHA );
-	bkg = LoadImage( "main_bkg.png", IMG_REGULAR );
-
-	SDL_ShowCursor(0);
-
-	/* find the directory to load wordlists from */
-
-	for (i=useEnglish; i<2; i++) {
-		fileStats.st_mode = 0; // clear last use!
-		sprintf( wordPath, "%s/scripts", realPath[i] );
-		stat( wordPath, &fileStats );
-		if ( fileStats.st_mode & S_IFDIR )
-			break;
-	}
-
-	if (i==2) {
-		fprintf(stderr, "ERROR: Unable to find wordlist directory\n");
-		exit(1);
-	}
-	spot.x=60;
-	spot.y=20;
 
 
-	/* create a list of all the .txt files */
-
-	wordsDir = opendir( wordPath );	
-	font = LoadFont( ttf_font, 14 );
-	do {
-		wordsFile = readdir(wordsDir);
-		if (!wordsFile)
-			break;
-
-		/* must have at least .txt at the end */
-		if (strlen(wordsFile->d_name) < 5)
-			continue;
-
-		if (strcmp(&wordsFile->d_name[strlen(wordsFile->d_name)-4],".xml"))
-			continue;
-
-		sprintf( wordlistFile[c], "%s", wordsFile->d_name );
-
-		filenames[c] = TTF_RenderUTF8_Blended(  font, wordsFile->d_name, white);
-		SDL_BlitSurface( filenames[c], NULL, screen, &spot );
-                SDL_FreeSurface(filenames[c]);
-		c++;
-		spot.y+=18;
-
-		/* load the name for the wordlist from the file ... (1st line) */
-/*		tempFile = fopen( wordlistFile[lists], "r" );
-		if (tempFile==NULL) continue;
-		fscanf( tempFile, "%[^\n]\n", wordlistName[lists] );
-*/
-		/* check to see if it has a \r at the end of it (dos format!) */
-/*		if (wordlistName[lists][ strlen(wordlistName[lists])-1 ] == '\r')
-			wordlistName[lists][ strlen(wordlistName[lists])-1 ] = '\0';
-		lists++;
-
-		fclose(tempFile);*/
-		
-	} while (1);
-
-	TTF_CloseFont(font);
-	closedir( wordsDir );	
-	SDL_Flip( screen );
-
-	left = LoadImage("left.png", IMG_ALPHA);       
-        leftRect.w = left->w; leftRect.h = left->h;
-        leftRect.x = 320 - 80 - (leftRect.w/2); leftRect.y = 430;
-
-        right = LoadImage("right.png", IMG_ALPHA);
-        rightRect.w = right->w; rightRect.h = right->h;
-        rightRect.x = 320 + 80 - (rightRect.w/2); rightRect.y = 430;
-
-        /* set initial rect sizes */
-        titleRects[0].y = 30;
-        titleRects[0].w = titleRects[0].h = titleRects[0].x = 0;
-        for (i = 1; i<8; i++) { 
-                titleRects[i].y = titleRects[i-1].y + 50;
-                titleRects[i].w = titleRects[i].h = titleRects[i].x = 0;
-        }
-	arrow_area.x = 0;
-	arrow_area.y = 0;
-	arrow_area.w = 59;
-	arrow_area.h = 479;
-
-	while (!stop) {
-                while (SDL_PollEvent(&event))
-                        switch (event.type) {
-                                case SDL_QUIT:
-                                        exit(0);
-                                        break;
-                                case SDL_MOUSEMOTION:
-                                        for (i=0; (i<8) && (loc-(loc%8)+i<c); i++)
-                                                if (inRect( titleRects[i], event.motion.x, event.motion.y )) {
-                                                        loc = loc-(loc%8)+i;
-                                                        break;
-                                                }
-
-                                        break;
-                                case SDL_MOUSEBUTTONDOWN:
-                                        if (inRect( leftRect, event.button.x, event.button.y ))
-                                                if (loc-(loc%8)-8 >= 0) {
-                                                        loc=loc-(loc%8)-8;
-                                                        break;
-                                                }
-                                        if (inRect( rightRect, event.button.x, event.button.y ))
-                                                if (loc-(loc%8)+8 < c) {
-                                                        loc=loc-(loc%8)+8;
-                                                        break;
-                                                }
-                                        for (i=0; (i<8) && (loc-(loc%8)+i<c); i++)
-                                                if (inRect(titleRects[i], event.button.x, event.button.y)) {
-                                                        loc = loc-(loc%8)+i;
-							WORDS_init(); /* clear old selection */
-							if (loc==0)
-								WORDS_use_alphabet(); 
-							else
-								WORDS_use( wordlistFile[loc] ); 
-                                                        stop = 1;
-                                                        break;
-                                                }
-                                        break;
-                                case SDL_KEYDOWN:
-                                        if (event.key.keysym.sym == SDLK_ESCAPE) { stop = 2; break; }
-                                        if (event.key.keysym.sym == SDLK_RETURN) {
-						sprintf( fn, "%s/scripts/%s", realPath[1], wordlistFile[loc]);
-                                                stop = 1;
-                                                break;
-                                        }
-
-                                        if ((event.key.keysym.sym == SDLK_LEFT) || (event.key.keysym.sym == SDLK_PAGEUP)) {
-                                                if (loc-(loc%8)-8 >= 0)
-                                                        loc=loc-(loc%8)-8;
-                                        	SDL_ShowCursor(1);}
-
-                                        if ((event.key.keysym.sym == SDLK_RIGHT) || (event.key.keysym.sym == SDLK_PAGEDOWN)) {
-                                                if (loc-(loc%8)+8 < c)
-                                                        loc=(loc-(loc%8)+8);
-                                        }
-
-                                        if (event.key.keysym.sym == SDLK_UP) {
-                                                if (loc > 0)
-                                                        loc--;
-                                        }
-
-                                        if (event.key.keysym.sym == SDLK_DOWN) {
-                                                if (loc+1< c)
-                                                        loc++;
-                                        }
-                        }
-
-               if (stop == 2) {
-                        SDL_FreeSurface(pointer);
-                        SDL_FreeSurface(left);
-                        SDL_FreeSurface(right);
-                        SDL_FreeSurface(bkg);
-                        return;
-               }
-               if (old_loc != loc) {
-                        int start;
-
-                        SDL_BlitSurface( bkg, &arrow_area, screen, NULL);
-
-                        start = loc;
-                        for (i = start; i < c; i++) {
-                                spot.x = 5;
-                                spot.y = (i*18)+10;
-                                if (i == loc)
-                                        SDL_BlitSurface(pointer, NULL, screen, &spot);
-                        }
-
-                        SDL_Flip(screen);
-                }
-                SDL_Delay(40);
-                old_loc = loc;
-        }
-
-	SDL_FreeSurface(pointer);
-        SDL_FreeSurface(left);
-        SDL_FreeSurface(right);
-        SDL_FreeSurface(bkg);
-
-    if (loadScript( fn ) != 0) return; // bail if any errors occur
-    runScript();
-    SDL_ShowCursor(1);
-}
-
-void projectInfo( void ) {
-    char fn[FNLEN]; 
-    sprintf( fn, "%s/scripts/projectInfo.xml", realPath[1]);
-    if (loadScript( fn ) != 0) return; // bail if any errors occur
-    runScript();
-}
 

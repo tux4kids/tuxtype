@@ -23,7 +23,7 @@ email                : jdandr2@uky.edu
  * we don't expect too large of a list (famous last words!)
  */
 
-/* FIXME not sure if this file's code is UTF-8 compatible DSB */
+/* FIXME don't think this file's code is UTF-8/Unicode compatible DSB */
 
 struct node {
 	unsigned char *in;          // the english
@@ -34,6 +34,9 @@ struct node {
 typedef struct node item; 
 
 item *HEAD=NULL;
+
+/* Local function prototypes: */
+void add_word(unsigned char* in, unsigned char* out);
 
 /* --- add a word to the linked list --- */
 
@@ -53,7 +56,7 @@ void add_word(unsigned char *in, unsigned char *out) {
 	HEAD = cur;
 }
 
-int load_trans(char *file) {
+int Load_PO_File(const char* file) {
 	/* this function will load the passed file (a .po file)
 	 * if need be, it should erase any previously loaded
 	 * translations.
@@ -159,7 +162,7 @@ int load_trans(char *file) {
 	return 0;
 }
 
-unsigned char * gettext( unsigned char *in ) {
+unsigned char* gettext(const unsigned char* in ) {
 	/* this function will attempt to translate the string
 	 * "in" to an "translation of in" if one exists.
 	 * if it doesn't exist in the translation set, it 
@@ -171,10 +174,12 @@ unsigned char * gettext( unsigned char *in ) {
 	 * we should move to a hash table.
 	 */
 
-	item *cur=HEAD;
+	item* cur = HEAD;
 
 	if (useEnglish)
-		return in;
+		// the cast is to keep the compiler from complaining
+                // about "discarded qualifiers"
+		return (unsigned char*)in;
 
 	while (cur != NULL) 
 		if (strcmp(cur->in, in) == 0)
@@ -183,5 +188,5 @@ unsigned char * gettext( unsigned char *in ) {
 			cur = cur->next;
 
 	/* if we didn't find anything return what we were asked */
-	return in;
+	return (unsigned char*)in;
 }

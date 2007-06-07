@@ -1,3 +1,17 @@
+07 Jun 2007
+[ David Bruce]
+       - Code cleanup - funcs.h revised, unneeded "extern" keywords for
+         function prototypes removed, prototypes rearranged into alpha-
+         betical order
+       - All functions now have function prototypes, either in funcs.h or
+         local function prototypes with explicit static scope.
+       - const keyword added to pointer function args when appropriate,
+         usually char* args.
+       - Renaming of some functions and variables to make capitalization 
+         more internally consistent (e.g. ALLCAPS means constant or other
+         preprocessor macro, CamelCase means globally visible, while 
+         local_functions() use lowercase connected by underscores).
+
 29 May 2007
 [ David Bruce]
        - Fixed vertical alignment problem with certain non-US characters

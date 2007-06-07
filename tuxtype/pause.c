@@ -25,148 +25,11 @@ SDL_Rect rectUp, rectDown, rectLeft, rectRight;
 TTF_Font *f1, *f2;
 extern settings localsettings;
 
-void pause_load_media(void) {
-	if (sys_sound) 
-		pause_sfx = LoadSound( "tock.wav" );
+/* Local function prototypes: */
+void darkenscreen(void);
+void draw_vols(int sfx, int mus);
+void pause_draw_info(void);
 
-	up = LoadImage("up.png", IMG_ALPHA);
-	rectUp.w = up->w; rectUp.h = up->h;
-
-	down = LoadImage("down.png", IMG_ALPHA);
-	rectDown.w = down->w; rectDown.h = down->h;
-
-	left = LoadImage("left.png", IMG_ALPHA);
-	rectLeft.w = left->w; rectLeft.h = left->h;
-
-	right = LoadImage("right.png", IMG_ALPHA);
-	rectRight.w = right->w; rectRight.h = right->h;
-
-	f1 = LoadFont( ttf_font, 24 );
-	f2 = LoadFont( ttf_font, 36 );
-}
-
-void pause_unload_media(void) {
-	if (sys_sound)
-		Mix_FreeChunk(pause_sfx);
-	SDL_FreeSurface(up);
-	SDL_FreeSurface(down);
-	SDL_FreeSurface(left);
-	SDL_FreeSurface(right);
-	TTF_CloseFont(f1);
-	TTF_CloseFont(f2);
-}
-
-void pause_draw_info(void) {
-	SDL_Rect s;
-	SDL_Surface *t;
-
-	rectLeft.y = rectRight.y = 200;
-	rectDown.y = rectUp.y = 300;
-
-	rectLeft.x = rectDown.x = 320 - (7*16) - rectLeft.w - 4;
-	rectRight.x = rectUp.x  = 320 + (7*16) + 4;
-
-	if (sys_sound) {
-
-		SDL_BlitSurface(left, NULL, screen, &rectLeft);
-		SDL_BlitSurface(right, NULL, screen, &rectRight);
-
-		SDL_BlitSurface(down, NULL, screen, &rectDown);
-		SDL_BlitSurface(up, NULL, screen, &rectUp);
-	}
-
-	if (sys_sound) {
-
-		t = black_outline(_("Sound Effects Volume"), f1, &white);
-		s.y = 160;
-		s.x = 320 - t->w/2;
-		SDL_BlitSurface(t, NULL, screen, &s);
-		SDL_FreeSurface(t);
-
-		t = black_outline(_("Music Volume"), f1, &white);
-		s.y = 260;
-		s.x = 320 - t->w/2;
-		SDL_BlitSurface(t, NULL, screen, &s);
-		SDL_FreeSurface(t);
-
-	} else {
-
-		t = black_outline(_("Sound & Music Disabled"), f1, &white);
-		s.y = 160;
-		s.x = 320 - t->w/2;
-		SDL_BlitSurface(t, NULL, screen, &s);
-		SDL_FreeSurface(t);
-	}
-
-	t = black_outline(_("Paused!"), f2, &white);
-	s.y = 60;
-	s.x = 320 - t->w/2;
-	SDL_BlitSurface(t, NULL, screen, &s);
-	SDL_FreeSurface(t);
-
-	t = black_outline(_("Press escape again to return to menu"), f1, &white);
-	s.y = 400;
-	s.x = 320 - t->w/2;
-	SDL_BlitSurface(t, NULL, screen, &s);
-	SDL_FreeSurface(t);
-
-	t = black_outline(_("Press space bar to return to game"), f1, &white);
-	s.y = 440;
-	s.x = 320 - t->w/2;
-	SDL_BlitSurface(t, NULL, screen, &s);
-	SDL_FreeSurface(t);
-}
-
-void draw_vols(int sfx, int mus) {
-	SDL_Rect s,m;
-	int i;
-
-	s.y = rectLeft.y; 
-	m.y = rectDown.y;
-	m.w = s.w = 5;
-	s.x = rectLeft.x + rectLeft.w + 5;
-	m.x = rectDown.x + rectDown.w + 5;
-	m.h = s.h = 40;
-
-	for (i = 1; i<=32; i++){
-		if (sfx >= i*4)
-			SDL_FillRect(screen, &s, SDL_MapRGB(screen->format, 0, 0, 127+sfx));
-		else
-			SDL_FillRect(screen, &s, SDL_MapRGB(screen->format, 0, 0, 0));
-
-		if (mus >= i*4)
-			SDL_FillRect(screen, &m, SDL_MapRGB(screen->format, 0, 0, 127+mus));
-		else
-			SDL_FillRect(screen, &m, SDL_MapRGB(screen->format, 0, 0, 0));
-
-		m.x = s.x += 7;
-	}
-}
-
-/* ==== fillscreen ====
- * RESULT: it will darken the screen by a factor of 4
- * WARNING: only works on 16bit screens right now!
- */
-void darkenscreen( void ){
-	Uint16 rm = screen->format->Rmask;
-	Uint16 gm = screen->format->Gmask;
-	Uint16 bm = screen->format->Bmask;
-	Uint16 *p; 
-	int x, y;
-
-	p = screen->pixels;
-
-	for (y = 0; y<480; y++) 
-		for (x = 0; x<640; x++) {
-			*p = (((*p&rm)>>2)&rm) | (((*p&gm)>>2)&gm) | (((*p&bm)>>2)&bm); p++;
-		}
-}
-
-int inRect( SDL_Rect r, int x, int y) {
-	if ((x < r.x) || (y < r.y) || (x > r.x + r.w) || (y > r.y + r.h))
-		return 0;
-	return 1;
-}
 
 // QUESTION: For usability sake, should escape return to the game
 //           and the user have to choose to quit the game, or ???
@@ -203,6 +66,7 @@ int Pause( void ) {
 	darkenscreen(); 
 
 	pause_draw_info();
+
 	if (sys_sound) {
 		draw_vols(sfx_volume, mus_volume);
 	}
@@ -334,4 +198,163 @@ int Pause( void ) {
 
 	return (quit);
 }
+
+
+void PauseLoadMedia(void) {
+	if (sys_sound) 
+		pause_sfx = LoadSound( "tock.wav" );
+
+	up = LoadImage("up.png", IMG_ALPHA);
+	rectUp.w = up->w; rectUp.h = up->h;
+
+	down = LoadImage("down.png", IMG_ALPHA);
+	rectDown.w = down->w; rectDown.h = down->h;
+
+	left = LoadImage("left.png", IMG_ALPHA);
+	rectLeft.w = left->w; rectLeft.h = left->h;
+
+	right = LoadImage("right.png", IMG_ALPHA);
+	rectRight.w = right->w; rectRight.h = right->h;
+
+	f1 = LoadFont( ttf_font, 24 );
+	f2 = LoadFont( ttf_font, 36 );
+}
+
+void PauseUnloadMedia(void) {
+	if (sys_sound)
+		Mix_FreeChunk(pause_sfx);
+	SDL_FreeSurface(up);
+	SDL_FreeSurface(down);
+	SDL_FreeSurface(left);
+	SDL_FreeSurface(right);
+	TTF_CloseFont(f1);
+	TTF_CloseFont(f2);
+}
+
+
+/* Slightly useful function but not sure this file is the right place for it.  */
+int inRect(SDL_Rect r, int x, int y)
+{
+	if ((x < r.x) || (y < r.y) || (x > r.x + r.w) || (y > r.y + r.h))
+		return 0;
+	return 1;
+}
+
+
+/******************************************/
+/*                                        */
+/*       Local ("private") functions      */
+/*                                        */
+/******************************************/
+
+
+
+void pause_draw_info(void) {
+	SDL_Rect s;
+	SDL_Surface *t;
+
+	rectLeft.y = rectRight.y = 200;
+	rectDown.y = rectUp.y = 300;
+
+	rectLeft.x = rectDown.x = 320 - (7*16) - rectLeft.w - 4;
+	rectRight.x = rectUp.x  = 320 + (7*16) + 4;
+
+	if (sys_sound) {
+
+		SDL_BlitSurface(left, NULL, screen, &rectLeft);
+		SDL_BlitSurface(right, NULL, screen, &rectRight);
+
+		SDL_BlitSurface(down, NULL, screen, &rectDown);
+		SDL_BlitSurface(up, NULL, screen, &rectUp);
+	}
+
+	if (sys_sound) {
+
+		t = BlackOutline(_("Sound Effects Volume"), f1, &white);
+		s.y = 160;
+		s.x = 320 - t->w/2;
+		SDL_BlitSurface(t, NULL, screen, &s);
+		SDL_FreeSurface(t);
+
+		t = BlackOutline(_("Music Volume"), f1, &white);
+		s.y = 260;
+		s.x = 320 - t->w/2;
+		SDL_BlitSurface(t, NULL, screen, &s);
+		SDL_FreeSurface(t);
+
+	} else {
+
+		t = BlackOutline(_("Sound & Music Disabled"), f1, &white);
+		s.y = 160;
+		s.x = 320 - t->w/2;
+		SDL_BlitSurface(t, NULL, screen, &s);
+		SDL_FreeSurface(t);
+	}
+
+	t = BlackOutline(_("Paused!"), f2, &white);
+	s.y = 60;
+	s.x = 320 - t->w/2;
+	SDL_BlitSurface(t, NULL, screen, &s);
+	SDL_FreeSurface(t);
+
+	t = BlackOutline(_("Press escape again to return to menu"), f1, &white);
+	s.y = 400;
+	s.x = 320 - t->w/2;
+	SDL_BlitSurface(t, NULL, screen, &s);
+	SDL_FreeSurface(t);
+
+	t = BlackOutline(_("Press space bar to return to game"), f1, &white);
+	s.y = 440;
+	s.x = 320 - t->w/2;
+	SDL_BlitSurface(t, NULL, screen, &s);
+	SDL_FreeSurface(t);
+}
+
+
+
+void draw_vols(int sfx, int mus) {
+	SDL_Rect s,m;
+	int i;
+
+	s.y = rectLeft.y; 
+	m.y = rectDown.y;
+	m.w = s.w = 5;
+	s.x = rectLeft.x + rectLeft.w + 5;
+	m.x = rectDown.x + rectDown.w + 5;
+	m.h = s.h = 40;
+
+	for (i = 1; i<=32; i++){
+		if (sfx >= i*4)
+			SDL_FillRect(screen, &s, SDL_MapRGB(screen->format, 0, 0, 127+sfx));
+		else
+			SDL_FillRect(screen, &s, SDL_MapRGB(screen->format, 0, 0, 0));
+
+		if (mus >= i*4)
+			SDL_FillRect(screen, &m, SDL_MapRGB(screen->format, 0, 0, 127+mus));
+		else
+			SDL_FillRect(screen, &m, SDL_MapRGB(screen->format, 0, 0, 0));
+
+		m.x = s.x += 7;
+	}
+}
+
+/* ==== fillscreen ====
+ * RESULT: it will darken the screen by a factor of 4
+ * WARNING: only works on 16bit screens right now!
+ */
+void darkenscreen( void ){
+	Uint16 rm = screen->format->Rmask;
+	Uint16 gm = screen->format->Gmask;
+	Uint16 bm = screen->format->Bmask;
+	Uint16 *p; 
+	int x, y;
+
+	p = screen->pixels;
+
+	for (y = 0; y<480; y++) 
+		for (x = 0; x<640; x++) {
+			*p = (((*p&rm)>>2)&rm) | (((*p&gm)>>2)&gm) | (((*p&bm)>>2)&bm); p++;
+		}
+}
+
 

@@ -47,7 +47,8 @@ int useEnglish;
  * Paths[].  It will always put the theme path first, then
  * the default path
  */
-void setupTheme( char *dirName ) {
+void SetupTheme(const char *dirName)
+{
 	int i;
 	int found = 0;
 	useEnglish=1; // default is to use English if we cannot find theme
@@ -99,7 +100,8 @@ void setupTheme( char *dirName ) {
 	
 }
 
-void chooseTheme( void ) {
+void ChooseTheme(void)
+{
 	SDL_Surface *titles[MAX_LANGUAGES];
 	SDL_Surface *select[MAX_LANGUAGES];
 	SDL_Surface *left, *right;
@@ -165,11 +167,11 @@ void chooseTheme( void ) {
         // HACK: is font empty now???
 	font = LoadFont( ttf_font, ttf_font_size );
 
-	titles[0] = black_outline( "English", font, &white );
-	select[0] = black_outline( "English", font, &yellow);
+	titles[0] = BlackOutline( "English", font, &white );
+	select[0] = BlackOutline( "English", font, &yellow);
 	for (i = 1; i<themes; i++) {
-		titles[i] = black_outline( themeNames[i], font, &white );
-		select[i] = black_outline( themeNames[i], font, &yellow);
+		titles[i] = BlackOutline( themeNames[i], font, &white );
+		select[i] = BlackOutline( themeNames[i], font, &yellow);
 	}
 
 	world = LoadImage("world.png", IMG_ALPHA);
@@ -233,10 +235,10 @@ void chooseTheme( void ) {
 							loc = loc-(loc%8)+i;
 							if (loc) {
 								/* --- set theme --- */
-								setupTheme(themePaths[loc]);
+								SetupTheme(themePaths[loc]);
 							} else {
 								/* --- english --- */
-								setupTheme(NULL);
+								SetupTheme(NULL);
 							}
 							stop = 1;
 							break;
@@ -252,10 +254,10 @@ void chooseTheme( void ) {
 					if (event.key.keysym.sym == SDLK_RETURN) { 
 						if (loc) {
 							/* --- set theme --- */
-							setupTheme(themePaths[loc]);
+							SetupTheme(themePaths[loc]);
 						} else {
 							/* --- english --- */
-							setupTheme(NULL);
+							SetupTheme(NULL);
 						}
 						stop = 1;
 						break;
@@ -290,7 +292,7 @@ void chooseTheme( void ) {
 
 			SDL_BlitSurface( world, NULL, screen, &worldRect );
 
-		        if (loc) setupTheme(themePaths[loc]); else setupTheme(NULL);
+		        if (loc) SetupTheme(themePaths[loc]); else SetupTheme(NULL);
 
 			map = LoadImage( "map.png", IMG_ALPHA|IMG_NOT_REQUIRED );
 			if (map) {

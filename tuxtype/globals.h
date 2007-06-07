@@ -171,7 +171,6 @@ extern wchar_t ALPHABET[256];
 extern wchar_t KEYMAP[256];
 extern unsigned char FINGER[256][10];
 extern int ALPHABET_SIZE;
-extern wchar_t unicode_chars_used[MAX_UNICODES];
 
 //global vars
 extern int speed_up;

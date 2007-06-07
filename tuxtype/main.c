@@ -49,7 +49,7 @@ int main(int argc, char *argv[])
 	srand(time(NULL));
 
 	// This sets realPath[] to the default theme file path:
-	setupTheme(NULL);
+	SetupTheme(NULL);
 
 	LoadSettings();
 	DEBUGCODE { printf("Window setting from config file is: %s\n", localsettings.window );}
@@ -127,7 +127,7 @@ int main(int argc, char *argv[])
 			
 			if ((strcmp(argv[i], "-t") == 0) |
 			    (strcmp(argv[i], "--theme") == 0)) 
-				setupTheme( argv[++i] );
+				SetupTheme( argv[++i] );
 		}
 
 	DEBUGCODE {

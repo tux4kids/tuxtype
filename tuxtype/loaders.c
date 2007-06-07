@@ -20,6 +20,10 @@
 #include "globals.h"
 #include "funcs.h"
 
+/* Local function prototypes: */
+int max(int n1, int n2);
+SDL_Surface* flip(SDL_Surface *in, int x, int y);
+
 /* Returns 1 if valid file, 2 if valid dir, 0 if neither: */
 int CheckFile(const char* file)
 {
@@ -55,7 +59,7 @@ int CheckFile(const char* file)
   return 0;
 }
 
-void LoadLang( void )
+void LoadLang(void)
 {
   char fn[FNLEN];
 
@@ -81,14 +85,15 @@ void LoadLang( void )
     fprintf(stderr, "Cannot support UTF-8, ASCII-only words will be used\n");
 
   /* This function confusingly returns 0 if successful! */
-  if (0 != load_trans( fn ))  /* Meaning it failed! */
+  if (0 != Load_PO_File( fn ))  /* Meaning it failed! */
   {
     /* failed to find a lang.po file, clear gettext & return */
     return;
   }
 }
 
-int max( int n1, int n2 ) {
+int max(int n1, int n2)
+{
 	return (n1 > n2 ? n1 : n2);
 }
 
@@ -102,7 +107,7 @@ int max( int n1, int n2 ) {
 
      note: you can have it flip both
 **********************/
-SDL_Surface *flip( SDL_Surface *in, int x, int y ) {
+SDL_Surface* flip(SDL_Surface* in, int x, int y ) {
 	SDL_Surface *out, *tmp;
 	SDL_Rect from_rect, to_rect;
 	Uint32	flags;
@@ -191,7 +196,7 @@ SDL_Surface *flip( SDL_Surface *in, int x, int y ) {
 	return out;
 }
 
-TTF_Font *LoadFont( char *fontfile, int fontsize ) {
+TTF_Font* LoadFont(const char* fontfile, int fontsize ) {
 	TTF_Font *loadedFont = NULL;
 	char fn[FNLEN];
 	int i;
@@ -235,7 +240,7 @@ TTF_Font *LoadFont( char *fontfile, int fontsize ) {
 /***********************
 	LoadImage : Load an image and set transparent if requested
 ************************/
-SDL_Surface *LoadImage( char *datafile, int mode )
+SDL_Surface* LoadImage(const char* datafile, int mode )
 {
 	int i;
 	int oldDebug;  //so we can turn off debug output for this func only
@@ -313,8 +318,8 @@ SDL_Surface *LoadImage( char *datafile, int mode )
 	return (final_pic);
 }
 
-sprite* FlipSprite( sprite *in, int X, int Y ) {
-	sprite *out;
+sprite* FlipSprite(sprite* in, int X, int Y ) {
+	sprite* out;
 
 	out = malloc(sizeof(sprite));
 	if (in->default_img != NULL)
@@ -327,7 +332,7 @@ sprite* FlipSprite( sprite *in, int X, int Y ) {
 	return out;
 }
 
-sprite* LoadSprite( char* name, int MODE ) {
+sprite* LoadSprite(const char* name, int MODE ) {
 	sprite *new_sprite;
 	char fn[FNLEN];
 	int x;
@@ -356,7 +361,7 @@ sprite* LoadSprite( char* name, int MODE ) {
 	return new_sprite;
 }
 
-void FreeSprite( sprite *gfx ) {
+void FreeSprite(sprite *gfx ) {
 	int x;
 	for (x = 0; x < gfx->num_frames; x++)
 		SDL_FreeSurface( gfx->frame[x] );
@@ -367,9 +372,9 @@ void FreeSprite( sprite *gfx ) {
 /***************************
 	LoadSound : Load a sound/music patch from a file.
 ****************************/
-Mix_Chunk      *LoadSound( char *datafile )
+Mix_Chunk* LoadSound(const char* datafile )
 { 
-	Mix_Chunk *tempChunk=NULL;
+	Mix_Chunk* tempChunk=NULL;
 	char fn[FNLEN];
 	int i;
 
@@ -389,7 +394,7 @@ Mix_Chunk      *LoadSound( char *datafile )
 	LoadMusic : Load
 	music from a datafile
 *************************/
-Mix_Music *LoadMusic(char *datafile )
+Mix_Music* LoadMusic(const char* datafile )
 { 
 	char            fn[FNLEN];
 	Mix_Music	*tempMusic;

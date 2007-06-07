@@ -59,7 +59,7 @@ void practice_load_media(void) {
 	for (i=1; i<255; i++)
 		if (ALPHABET[i]) {
 			let[0]=i;
-			letters[i] = black_outline(let, font, &white); 
+			letters[i] = BlackOutline(let, font, &white); 
 		}
 
 	LOG("DONE - Loading practice media\n");
@@ -315,7 +315,7 @@ int Phrases( char *pphrase ) {
 						c++;
 						} else {
 							if ( event.key.keysym.sym != SDLK_RSHIFT && event.key.keysym.sym != SDLK_LSHIFT )
-								playsound( wrong );
+								PlaySound(wrong);
 						}
 					}
 				}

@@ -27,55 +27,6 @@ Mix_Chunk* sounds[NUM_SOUNDS];
 Mix_Music* musics[NUM_MUSICS];
 SDL_Surface* bkgd;
 
-/* --- unload all media --- */
-void laser_unload_data(void) {
-	int i;
-
-	FreeLetters();
-
-	for (i = 0; i < NUM_IMAGES; i++)
-		SDL_FreeSurface(images[i]);
-
-	if (sys_sound) {
-		for (i = 0; i < NUM_SOUNDS; i++)
-			Mix_FreeChunk(sounds[i]);
-		for (i = 0; i < NUM_MUSICS; i++)
-			Mix_FreeMusic(musics[i]);
-	}
-
-	FreeSprite(shield);
-
-	pause_unload_media();
-
-
-	TTF_CloseFont(font);
-}
-
-/* --- Load all media --- */
-void laser_load_data(void)
-{
-	int i;
-
-	/* Create the SDL_Surfaces for all of the characters */
-        /* used in the word list: */
-	font = LoadFont( ttf_font, 32);
-	RenderLetters(font);
-
-	/* Load images: */
-	for (i = 0; i < NUM_IMAGES; i++) 
-		images[i] = LoadImage(image_filenames[i], IMG_ALPHA);
-	shield = LoadSprite( "cities/shield", IMG_ALPHA );
-
-	if (sys_sound) {
-		for (i = 0; i < NUM_SOUNDS; i++)
-			sounds[i] = LoadSound(sound_filenames[i]);
-
-		for (i = 0; i < NUM_MUSICS; i++)
-			musics[i] = LoadMusic(music_filenames[i]);
-	}
-
-	pause_load_media();
-}
 
 
 #define FPS (1000 / 15)   /* 15 fps max */
@@ -98,19 +49,20 @@ city_type cities[NUM_CITIES];
 laser_type laser;
 
 /* Local function prototypes: */
-
-void laser_reset_level(int DIF_LEVEL);
-void laser_add_comet(int DIF_LEVEL);
-void laser_draw_numbers(unsigned char * str, int x);
-void laser_draw_line(int x1, int y1, int x2, int y2, int r, int g, int b);
-void laser_putpixel(SDL_Surface * surface, int x, int y, Uint32 pixel);
+void laser_add_comet(int diff_level);
+void laser_add_score(int inc);
 void laser_draw_console_image(int i);
 void laser_draw_let(wchar_t c, int x, int y);
-void laser_add_score(int inc);
+void laser_draw_line(int x1, int y1, int x2, int y2, int r, int g, int b);
+void laser_draw_numbers(const unsigned char* str, int x);
+void laser_load_data(void);
+void laser_reset_level(int diff_level);
+void laser_putpixel(SDL_Surface* surface, int x, int y, Uint32 pixel);
+void laser_unload_data(void);
 
 /* --- MAIN GAME FUNCTION!!! --- */
 
-int laser_game(int DIF_LEVEL)
+int PlayLaserGame(int diff_level)
 {
 	int i, img, done, quit, frame, lowest, lowest_y, 
 	    tux_img, old_tux_img, tux_pressing, tux_anim, tux_anim_frame,
@@ -128,7 +80,7 @@ int laser_game(int DIF_LEVEL)
 	unsigned char str[64]; 
 
 	LOG( "starting Comet Zap game\n" );
-	DOUT( DIF_LEVEL );
+	DOUT( diff_level );
 
 	SDL_ShowCursor(0);
 	laser_load_data();
@@ -184,7 +136,7 @@ int laser_game(int DIF_LEVEL)
 	/* Reset remaining stuff: */
  
 	bkgd = NULL;
-	laser_reset_level(DIF_LEVEL);
+	laser_reset_level(diff_level);
   
 	/* --- MAIN GAME LOOP!!! --- */
   
@@ -197,8 +149,7 @@ int laser_game(int DIF_LEVEL)
 	tux_same_counter = 0;
 	ans_num = 0;
 
-	/* Next line changed to get rid of int_rand() which didn't work on win32: */
-	audioMusicPlay(musics[MUS_GAME + (rand() % NUM_MUSICS)], 0);
+	MusicPlay(musics[MUS_GAME + (rand() % NUM_MUSICS)], 0);
 
 	do {
 
@@ -219,7 +170,8 @@ int laser_game(int DIF_LEVEL)
 			} else if (event.type == SDL_KEYDOWN) {
 
 				key = event.key.keysym.sym;
-	      
+				if (key == SDLK_F10) 
+					SwitchScreenMode();	      
 				if (key == SDLK_F11)
 					SDL_SaveBMP( screen, "laser.bmp");
 
@@ -314,7 +266,7 @@ int laser_game(int DIF_LEVEL)
 					laser.y2 = comets[lowest].y;
 				}
 	    
-				playsound(sounds[SND_LASER]);
+				PlaySound(sounds[SND_LASER]);
 	    
 				/* 50% of the time.. */
 	    
@@ -331,13 +283,13 @@ int laser_game(int DIF_LEVEL)
 
 				/* Increment score: */
 
-				laser_add_score( (DIF_LEVEL+1) * 5 * ((screen->h - comets[lowest].y)/20 ));
+				laser_add_score( (diff_level+1) * 5 * ((screen->h - comets[lowest].y)/20 ));
 
 			} else {
 
 				/* Didn't hit anything! */
 	    
-				playsound(sounds[SND_BUZZ]);
+				PlaySound(sounds[SND_BUZZ]);
 	    
 				if (0 == (rand() % 2))
 					tux_img = IMG_TUX_DRAT;
@@ -363,7 +315,7 @@ int laser_game(int DIF_LEVEL)
 				tux_img = IMG_TUX_SIT;
 	  
 			if (level_start_wait == LEVEL_START_WAIT_START / 4)
-				playsound(sounds[SND_ALARM]);
+				PlaySound(sounds[SND_ALARM]);
 		}
 
       
@@ -422,12 +374,12 @@ int laser_game(int DIF_LEVEL)
 		      
 					if (cities[comets[i].city].shields) {
 						cities[comets[i].city].shields = 0;
-						playsound(sounds[SND_SHIELDSDOWN]);
-						laser_add_score(-500 * (DIF_LEVEL+1));
+						PlaySound(sounds[SND_SHIELDSDOWN]);
+						laser_add_score(-500 * (diff_level+1));
 					} else {
 						cities[comets[i].city].expl = CITY_EXPL_START;
-						playsound(sounds[SND_EXPLOSION]);
-						laser_add_score(-1000 * (DIF_LEVEL+1));
+						PlaySound(sounds[SND_EXPLOSION]);
+						laser_add_score(-1000 * (diff_level+1));
 					}
 
 					tux_anim = IMG_TUX_FIST1;
@@ -464,7 +416,7 @@ int laser_game(int DIF_LEVEL)
 		
 				if ((num_comets_alive < 2 || ((rand() % 4) == 0)) && distanceMoved > 40) {
 					distanceMoved = 0;
-					laser_add_comet(DIF_LEVEL);
+					laser_add_comet(diff_level);
 					num_attackers--;
 				}
 			} else {
@@ -478,7 +430,7 @@ int laser_game(int DIF_LEVEL)
 
 						/* Go on to the next wave: */
 						wave++;
-						laser_reset_level(DIF_LEVEL);
+						laser_reset_level(diff_level);
 
 					} else {
 
@@ -668,7 +620,7 @@ int laser_game(int DIF_LEVEL)
 		/* Keep playing music: */
       
 		if (sys_sound && !Mix_PlayingMusic())
-			audioMusicPlay(musics[MUS_GAME + (rand() % NUM_MUSICS)], 0);
+			MusicPlay(musics[MUS_GAME + (rand() % NUM_MUSICS)], 0);
       
 		/* Pause (keep frame-rate event) */
       
@@ -694,9 +646,70 @@ int laser_game(int DIF_LEVEL)
 }
 
 
+/*****************************************************/
+/*                                                   */
+/*          Local ("private") functions:             */
+/*                                                   */
+/*****************************************************/
+
+
+
+
+/* --- Load all media --- */
+void laser_load_data(void)
+{
+	int i;
+
+	/* Create the SDL_Surfaces for all of the characters */
+        /* used in the word list: */
+	font = LoadFont( ttf_font, 32);
+	RenderLetters(font);
+
+	/* Load images: */
+	for (i = 0; i < NUM_IMAGES; i++) 
+		images[i] = LoadImage(image_filenames[i], IMG_ALPHA);
+	shield = LoadSprite( "cities/shield", IMG_ALPHA );
+
+	if (sys_sound) {
+		for (i = 0; i < NUM_SOUNDS; i++)
+			sounds[i] = LoadSound(sound_filenames[i]);
+
+		for (i = 0; i < NUM_MUSICS; i++)
+			musics[i] = LoadMusic(music_filenames[i]);
+	}
+
+	PauseLoadMedia();
+}
+
+
+/* --- unload all media --- */
+void laser_unload_data(void) {
+	int i;
+
+	FreeLetters();
+
+	for (i = 0; i < NUM_IMAGES; i++)
+		SDL_FreeSurface(images[i]);
+
+	if (sys_sound) {
+		for (i = 0; i < NUM_SOUNDS; i++)
+			Mix_FreeChunk(sounds[i]);
+		for (i = 0; i < NUM_MUSICS; i++)
+			Mix_FreeMusic(musics[i]);
+	}
+
+	FreeSprite(shield);
+
+	PauseUnloadMedia();
+
+
+	TTF_CloseFont(font);
+}
+
+
 /* Reset stuff for the next level! */
 
-void laser_reset_level(int DIF_LEVEL)
+void laser_reset_level(int diff_level)
 {
   unsigned char fname[1024];
   static int last_bkgd = -1;
@@ -711,7 +724,7 @@ void laser_reset_level(int DIF_LEVEL)
   LOG("Loading background in laser_reset_level()\n");
 
   do {
-    i = rand() % NUM_BKGDS;  /* int_rand() didn't work correctly on win32 */
+    i = rand() % NUM_BKGDS;
     DOUT(i);
   }
   while (i == last_bkgd);
@@ -745,12 +758,12 @@ void laser_reset_level(int DIF_LEVEL)
 
   /* Set number of attackers & speed for this wave: */
 
-  switch (DIF_LEVEL) {
+  switch (diff_level) {
     case 0 : speed = 1 + (wave/5); num_attackers=15; break;
     case 1 : speed = 1 + (wave/4); num_attackers=15; break;
     case 2 : speed = 1 + ((wave<<1)/3); num_attackers=(wave<<1); break;
     case 3 : speed = 1 + wave; num_attackers=(wave<<1); break;
-    default: LOG("DIF_LEVEL not recognized!\n");
+    default: LOG("diff_level not recognized!\n");
   }
 
   distanceMoved = 100; // so that we don't have to wait to start the level
@@ -760,12 +773,12 @@ void laser_reset_level(int DIF_LEVEL)
 
 /* Add an comet to the game (if there's room): */
 
-void laser_add_comet(int DIF_LEVEL) {
+void laser_add_comet(int diff_level) {
 
 	int target, location = 0;
 	static int last = -1;
 	int targeted[NUM_CITIES] = { 0 };
-	int add = (rand() % (DIF_LEVEL + 2));
+	int add = (rand() % (diff_level + 2));
 
 	LOG ("Entering laser_add_comet()\n");
 	DEBUGCODE { fprintf(stderr, "Adding %d comets \n", add); }
@@ -800,7 +813,7 @@ void laser_add_comet(int DIF_LEVEL) {
               comets[location].y = 0;
 
               /* Pick a letter */
-              comets[location].ch = get_letter();
+              comets[location].ch = GetLetter();
               add--;
             }
             DEBUGCODE {if (location == MAX_COMETS) 
@@ -810,7 +823,7 @@ void laser_add_comet(int DIF_LEVEL) {
 	else /* Odd number of cities (is this a hack that means we are using words?) */
         {
           LOG("NUM_CITIES is odd\n");
-          wchar_t* word = WORDS_get();
+          wchar_t* word = GetWord();
           int i=0;
 
           DEBUGCODE {fprintf(stderr, "word is: %s\n", word);}
@@ -828,8 +841,8 @@ void laser_add_comet(int DIF_LEVEL) {
   			if (location < MAX_COMETS)
 			{
 				comets[location].alive = 1;
-				comets[location].city = target+i; 
-				comets[location].x = cities[target+i].x;
+				comets[location].city = target + i; 
+				comets[location].x = cities[target + i].x;
 				comets[location].y = 0;
 				comets[location].ch = word[i];
 				DEBUGCODE {fprintf(stderr, "Assigning letter to comet: %c\n", word[i]);}
@@ -844,18 +857,23 @@ void laser_add_comet(int DIF_LEVEL) {
 
 void laser_draw_let(wchar_t c, int x, int y)
 {
-	SDL_Rect dst;
-	dst.y = y - 10;
-	dst.x = x - (GetWhiteGlyph(c)->w/2);
-        /* Correct for varying height of glyphs: */
-	GetGlyphCoords(c, &dst.x, &dst.y);
-	SDL_BlitSurface(GetWhiteGlyph(c), NULL, screen, &dst); 
+  int top_x, top_y;
+  SDL_Rect dst;
+  /* Start with coords for where we want glyph origin to go: */
+  top_x = x - (GetWhiteGlyph(c)->w/2);
+  top_y = y - 10;
+  /* Correct for varying height of glyphs: */
+  GetGlyphCoords(c, &top_x, &top_y);
+  /* Plug into the SDL_Rect and blit: */
+  dst.x = top_x;
+  dst.y = top_y;
+  SDL_BlitSurface(GetWhiteGlyph(c), NULL, screen, &dst); 
 }
 
 
 /* Draw status numbers: */
 
-void laser_draw_numbers(unsigned char * str, int x)
+void laser_draw_numbers(const unsigned char* str, int x)
 {
   int i, cur_x, c;
   SDL_Rect src, dest;
