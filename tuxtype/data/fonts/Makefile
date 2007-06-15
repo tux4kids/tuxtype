@@ -72,7 +72,7 @@ INSTALL_SCRIPT = ${INSTALL}
 INSTALL_STRIP_PROGRAM = $(install_sh) -c -s
 LDFLAGS = -L/usr/local/cross-tools/i586-mingw32msvc/lib
 LIBOBJS = 
-LIBS = -lmingw32 -lSDLmain -L/usr/lib -lSDL -lSDL_ttf -lSDL_mixer -lSDL_image  -lgw32c -luuid -lole32 -lwsock32 -mwindows
+LIBS = -lmingw32 -lSDLmain -L/usr/lib -lSDL -lSDL_image -lSDL_ttf -lSDL_mixer  -lgw32c -luuid -lole32 -lwsock32 -mwindows
 LN_S = ln -s
 LTLIBOBJS = 
 MAKEINFO = ${SHELL} /home/dbruce/tux4kids/tuxtype/trunk/missing --run makeinfo
@@ -149,7 +149,7 @@ target_os = mingw32msvc
 target_vendor = pc
 top_builddir = ../../..
 top_srcdir = ../../..
-EXTRA_DIST = AndikaDesRevA.ttf
+EXTRA_DIST = AndikaDesRevG.ttf
 all: all-am
 
 .SUFFIXES:
@@ -313,10 +313,10 @@ uninstall-am: uninstall-local
 
 install-data-local:
 	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/fonts
-	$(INSTALL_DATA) $(srcdir)/AndikaDesRevA.ttf $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/fonts
+	$(INSTALL_DATA) $(srcdir)/AndikaDesRevG.ttf $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/fonts
 
 uninstall-local:
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/fonts/AndikaDesRevA.ttf
+	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/fonts/AndikaDesRevG.ttf
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:

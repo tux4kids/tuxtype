@@ -21,8 +21,8 @@ email                : tuxtype-dev@tux4kids.net
 
 /* while it looks like you can just
  * change the number of planes, flakes,
- * etc and it will work alright, it is not
- * true.  Do not fidle with number unless you
+ * etc and it will work all right, it is not
+ * true.  Do not fiddle with number unless you
  * change the rest of the code to be the same!
  */
 
@@ -33,7 +33,7 @@ extern SDL_Surface *bkg;
 
 Uint16 snow_color;
 
-int wind=0;
+int wind = 0;
 int SNOW_on = 0;
 
 int NUM_FLAKES = 300;

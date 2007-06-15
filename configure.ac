@@ -33,9 +33,9 @@ AM_PATH_SDL($SDL_VERSION,
             :,
             AC_MSG_ERROR([*** SDL version $SDL_VERSION not found!]))
 
-AC_CHECK_LIB([SDL_image], [IMG_Load], ,[AC_MSG_ERROR(SDL_image not found http://www.libsdl.org/projects/SDL_image, )])
 AC_CHECK_LIB([SDL_mixer], [Mix_PlayMusic], ,[AC_MSG_ERROR(SDL_mixer not found http://www.libsdl.org/projects/SDL_mixer, )])
 AC_CHECK_LIB([SDL_ttf], [TTF_Init], ,[AC_MSG_ERROR(SDL_ttf not found http://www.libsdl.org/projects/SDL_ttf, )])
+AC_CHECK_LIB([SDL_image], [IMG_Load], ,[AC_MSG_ERROR(SDL_image not found http://www.libsdl.org/projects/SDL_image, )])
 
 #
 SDL_CFLAGS=`sdl-config --cflags`

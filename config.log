@@ -125,16 +125,16 @@ configure:3668: found /usr/bin/sdl-config
 configure:3681: result: /usr/bin/sdl-config
 configure:3690: checking for SDL - version >= 1.2.5
 configure:3817: result: yes
-configure:3913: checking for IMG_Load in -lSDL_image
-configure:3948: i586-mingw32msvc-gcc -o conftest.exe -g -O2 -I/usr/local/cross-tools/i586-mingw32msvc/include -L/usr/local/cross-tools/i586-mingw32msvc/lib conftest.c -lSDL_image   >&5
+configure:3913: checking for Mix_PlayMusic in -lSDL_mixer
+configure:3948: i586-mingw32msvc-gcc -o conftest.exe -g -O2 -I/usr/local/cross-tools/i586-mingw32msvc/include -L/usr/local/cross-tools/i586-mingw32msvc/lib conftest.c -lSDL_mixer   >&5
 configure:3954: $? = 0
 configure:3972: result: yes
-configure:3988: checking for Mix_PlayMusic in -lSDL_mixer
-configure:4023: i586-mingw32msvc-gcc -o conftest.exe -g -O2 -I/usr/local/cross-tools/i586-mingw32msvc/include -L/usr/local/cross-tools/i586-mingw32msvc/lib conftest.c -lSDL_mixer  -lSDL_image  >&5
+configure:3988: checking for TTF_Init in -lSDL_ttf
+configure:4023: i586-mingw32msvc-gcc -o conftest.exe -g -O2 -I/usr/local/cross-tools/i586-mingw32msvc/include -L/usr/local/cross-tools/i586-mingw32msvc/lib conftest.c -lSDL_ttf  -lSDL_mixer  >&5
 configure:4029: $? = 0
 configure:4047: result: yes
-configure:4063: checking for TTF_Init in -lSDL_ttf
-configure:4098: i586-mingw32msvc-gcc -o conftest.exe -g -O2 -I/usr/local/cross-tools/i586-mingw32msvc/include -L/usr/local/cross-tools/i586-mingw32msvc/lib conftest.c -lSDL_ttf  -lSDL_mixer -lSDL_image  >&5
+configure:4063: checking for IMG_Load in -lSDL_image
+configure:4098: i586-mingw32msvc-gcc -o conftest.exe -g -O2 -I/usr/local/cross-tools/i586-mingw32msvc/include -L/usr/local/cross-tools/i586-mingw32msvc/lib conftest.c -lSDL_image  -lSDL_ttf -lSDL_mixer  >&5
 configure:4104: $? = 0
 configure:4122: result: yes
 configure:4146: checking for native Win32
@@ -157,9 +157,9 @@ configure: failed program was:
 | #define PACKAGE_BUGREPORT "tuxmath-devel@lists.sourceforge.net"
 | #define PACKAGE "tuxtype"
 | #define VERSION "1.5.9"
-| #define HAVE_LIBSDL_IMAGE 1
 | #define HAVE_LIBSDL_MIXER 1
 | #define HAVE_LIBSDL_TTF 1
+| #define HAVE_LIBSDL_IMAGE 1
 | #define BUILD_MINGW32 1
 | /* end confdefs.h.  */
 | #include <ac_nonexistent.h>
@@ -178,9 +178,9 @@ configure: failed program was:
 | #define PACKAGE_BUGREPORT "tuxmath-devel@lists.sourceforge.net"
 | #define PACKAGE "tuxtype"
 | #define VERSION "1.5.9"
-| #define HAVE_LIBSDL_IMAGE 1
 | #define HAVE_LIBSDL_MIXER 1
 | #define HAVE_LIBSDL_TTF 1
+| #define HAVE_LIBSDL_IMAGE 1
 | #define BUILD_MINGW32 1
 | /* end confdefs.h.  */
 | #include <ac_nonexistent.h>
@@ -241,26 +241,26 @@ configure:5139: i586-mingw32msvc-gcc -c -g -O2 -I/usr/include/SDL -D_GNU_SOURCE=
 configure:5145: $? = 0
 configure:5163: result: inline
 configure:5192: checking for atexit
-configure:5248: i586-mingw32msvc-gcc -o conftest.exe -g -O2 -I/usr/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT -D__GW32__ -I/usr/local/cross-tools/i586-mingw32msvc/include -idirafter /usr/local/cross-tools/i586-mingw32msvc/include/glibc -L/usr/local/cross-tools/i586-mingw32msvc/lib conftest.c -lmingw32 -lSDLmain -L/usr/lib -lSDL -lSDL_ttf -lSDL_mixer -lSDL_image  -lgw32c -luuid -lole32 -lwsock32 -mwindows >&5
+configure:5248: i586-mingw32msvc-gcc -o conftest.exe -g -O2 -I/usr/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT -D__GW32__ -I/usr/local/cross-tools/i586-mingw32msvc/include -idirafter /usr/local/cross-tools/i586-mingw32msvc/include/glibc -L/usr/local/cross-tools/i586-mingw32msvc/lib conftest.c -lmingw32 -lSDLmain -L/usr/lib -lSDL -lSDL_image -lSDL_ttf -lSDL_mixer  -lgw32c -luuid -lole32 -lwsock32 -mwindows >&5
 configure:5254: $? = 0
 configure:5272: result: yes
 configure:5192: checking for memset
-configure:5248: i586-mingw32msvc-gcc -o conftest.exe -g -O2 -I/usr/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT -D__GW32__ -I/usr/local/cross-tools/i586-mingw32msvc/include -idirafter /usr/local/cross-tools/i586-mingw32msvc/include/glibc -L/usr/local/cross-tools/i586-mingw32msvc/lib conftest.c -lmingw32 -lSDLmain -L/usr/lib -lSDL -lSDL_ttf -lSDL_mixer -lSDL_image  -lgw32c -luuid -lole32 -lwsock32 -mwindows >&5
+configure:5248: i586-mingw32msvc-gcc -o conftest.exe -g -O2 -I/usr/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT -D__GW32__ -I/usr/local/cross-tools/i586-mingw32msvc/include -idirafter /usr/local/cross-tools/i586-mingw32msvc/include/glibc -L/usr/local/cross-tools/i586-mingw32msvc/lib conftest.c -lmingw32 -lSDLmain -L/usr/lib -lSDL -lSDL_image -lSDL_ttf -lSDL_mixer  -lgw32c -luuid -lole32 -lwsock32 -mwindows >&5
 conftest.c:50: warning: conflicting types for built-in function 'memset'
 configure:5254: $? = 0
 configure:5272: result: yes
 configure:5192: checking for strchr
-configure:5248: i586-mingw32msvc-gcc -o conftest.exe -g -O2 -I/usr/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT -D__GW32__ -I/usr/local/cross-tools/i586-mingw32msvc/include -idirafter /usr/local/cross-tools/i586-mingw32msvc/include/glibc -L/usr/local/cross-tools/i586-mingw32msvc/lib conftest.c -lmingw32 -lSDLmain -L/usr/lib -lSDL -lSDL_ttf -lSDL_mixer -lSDL_image  -lgw32c -luuid -lole32 -lwsock32 -mwindows >&5
+configure:5248: i586-mingw32msvc-gcc -o conftest.exe -g -O2 -I/usr/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT -D__GW32__ -I/usr/local/cross-tools/i586-mingw32msvc/include -idirafter /usr/local/cross-tools/i586-mingw32msvc/include/glibc -L/usr/local/cross-tools/i586-mingw32msvc/lib conftest.c -lmingw32 -lSDLmain -L/usr/lib -lSDL -lSDL_image -lSDL_ttf -lSDL_mixer  -lgw32c -luuid -lole32 -lwsock32 -mwindows >&5
 conftest.c:51: warning: conflicting types for built-in function 'strchr'
 configure:5254: $? = 0
 configure:5272: result: yes
 configure:5192: checking for strstr
-configure:5248: i586-mingw32msvc-gcc -o conftest.exe -g -O2 -I/usr/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT -D__GW32__ -I/usr/local/cross-tools/i586-mingw32msvc/include -idirafter /usr/local/cross-tools/i586-mingw32msvc/include/glibc -L/usr/local/cross-tools/i586-mingw32msvc/lib conftest.c -lmingw32 -lSDLmain -L/usr/lib -lSDL -lSDL_ttf -lSDL_mixer -lSDL_image  -lgw32c -luuid -lole32 -lwsock32 -mwindows >&5
+configure:5248: i586-mingw32msvc-gcc -o conftest.exe -g -O2 -I/usr/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT -D__GW32__ -I/usr/local/cross-tools/i586-mingw32msvc/include -idirafter /usr/local/cross-tools/i586-mingw32msvc/include/glibc -L/usr/local/cross-tools/i586-mingw32msvc/lib conftest.c -lmingw32 -lSDLmain -L/usr/lib -lSDL -lSDL_image -lSDL_ttf -lSDL_mixer  -lgw32c -luuid -lole32 -lwsock32 -mwindows >&5
 conftest.c:52: warning: conflicting types for built-in function 'strstr'
 configure:5254: $? = 0
 configure:5272: result: yes
 configure:5192: checking for malloc
-configure:5248: i586-mingw32msvc-gcc -o conftest.exe -g -O2 -I/usr/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT -D__GW32__ -I/usr/local/cross-tools/i586-mingw32msvc/include -idirafter /usr/local/cross-tools/i586-mingw32msvc/include/glibc -L/usr/local/cross-tools/i586-mingw32msvc/lib conftest.c -lmingw32 -lSDLmain -L/usr/lib -lSDL -lSDL_ttf -lSDL_mixer -lSDL_image  -lgw32c -luuid -lole32 -lwsock32 -mwindows >&5
+configure:5248: i586-mingw32msvc-gcc -o conftest.exe -g -O2 -I/usr/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT -D__GW32__ -I/usr/local/cross-tools/i586-mingw32msvc/include -idirafter /usr/local/cross-tools/i586-mingw32msvc/include/glibc -L/usr/local/cross-tools/i586-mingw32msvc/lib conftest.c -lmingw32 -lSDLmain -L/usr/lib -lSDL -lSDL_image -lSDL_ttf -lSDL_mixer  -lgw32c -luuid -lole32 -lwsock32 -mwindows >&5
 conftest.c:53: warning: conflicting types for built-in function 'malloc'
 configure:5254: $? = 0
 configure:5272: result: yes
@@ -458,7 +458,7 @@ INSTALL_SCRIPT='${INSTALL}'
 INSTALL_STRIP_PROGRAM='$(install_sh) -c -s'
 LDFLAGS='-L/usr/local/cross-tools/i586-mingw32msvc/lib'
 LIBOBJS=''
-LIBS='-lmingw32 -lSDLmain -L/usr/lib -lSDL -lSDL_ttf -lSDL_mixer -lSDL_image  -lgw32c -luuid -lole32 -lwsock32 -mwindows'
+LIBS='-lmingw32 -lSDLmain -L/usr/lib -lSDL -lSDL_image -lSDL_ttf -lSDL_mixer  -lgw32c -luuid -lole32 -lwsock32 -mwindows'
 LN_S='ln -s'
 LTLIBOBJS=''
 MAKEINFO='${SHELL} /home/dbruce/tux4kids/tuxtype/trunk/missing --run makeinfo'
@@ -543,9 +543,9 @@ target_vendor='pc'
 #define PACKAGE_BUGREPORT "tuxmath-devel@lists.sourceforge.net"
 #define PACKAGE "tuxtype"
 #define VERSION "1.5.9"
-#define HAVE_LIBSDL_IMAGE 1
 #define HAVE_LIBSDL_MIXER 1
 #define HAVE_LIBSDL_TTF 1
+#define HAVE_LIBSDL_IMAGE 1
 #define BUILD_MINGW32 1
 #define STDC_HEADERS 1
 #define HAVE_SYS_TYPES_H 1

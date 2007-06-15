@@ -598,7 +598,7 @@ s,@DEFS@,|#_!!_#|-DHAVE_CONFIG_H,g
 s,@ECHO_C@,|#_!!_#|,g
 s,@ECHO_N@,|#_!!_#|-n,g
 s,@ECHO_T@,|#_!!_#|,g
-s,@LIBS@,|#_!!_#|-lmingw32 -lSDLmain -L/usr/lib -lSDL -lSDL_ttf -lSDL_mixer -lSDL_image  -lgw32c -luuid -lole32 -lwsock32 -mwindows,g
+s,@LIBS@,|#_!!_#|-lmingw32 -lSDLmain -L/usr/lib -lSDL -lSDL_image -lSDL_ttf -lSDL_mixer  -lgw32c -luuid -lole32 -lwsock32 -mwindows,g
 s,@build_alias@,|#_!!_#|i386-linux,g
 s,@host_alias@,|#_!!_#|i586-mingw32msvc,g
 s,@target_alias@,|#_!!_#|i586-mingw32msvc,g
@@ -936,9 +936,9 @@ s,^\([	 #]*\)[^	 ]*\([	 ]*PACKAGE_STRING\)[	 (].*,\1define\2 "tuxtype 1.5.9" ,
 s,^\([	 #]*\)[^	 ]*\([	 ]*PACKAGE_BUGREPORT\)[	 (].*,\1define\2 "tuxmath-devel@lists.sourceforge.net" ,
 s,^\([	 #]*\)[^	 ]*\([	 ]*PACKAGE\)[	 (].*,\1define\2 "tuxtype" ,
 s,^\([	 #]*\)[^	 ]*\([	 ]*VERSION\)[	 (].*,\1define\2 "1.5.9" ,
-s,^\([	 #]*\)[^	 ]*\([	 ]*HAVE_LIBSDL_IMAGE\)[	 (].*,\1define\2 1 ,
 s,^\([	 #]*\)[^	 ]*\([	 ]*HAVE_LIBSDL_MIXER\)[	 (].*,\1define\2 1 ,
 s,^\([	 #]*\)[^	 ]*\([	 ]*HAVE_LIBSDL_TTF\)[	 (].*,\1define\2 1 ,
+s,^\([	 #]*\)[^	 ]*\([	 ]*HAVE_LIBSDL_IMAGE\)[	 (].*,\1define\2 1 ,
 s,^\([	 #]*\)[^	 ]*\([	 ]*BUILD_MINGW32\)[	 (].*,\1define\2 1 ,
 s,^\([	 #]*\)[^	 ]*\([	 ]*STDC_HEADERS\)[	 (].*,\1define\2 1 ,
 s,^\([	 #]*\)[^	 ]*\([	 ]*HAVE_SYS_TYPES_H\)[	 (].*,\1define\2 1 ,

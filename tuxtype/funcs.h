@@ -74,11 +74,10 @@ int  inRect(SDL_Rect r, int x, int y);
 /* In playgame.c: */
 int PlayCascade(int level);
 void InitEngine(void);
-void TransWipe(SDL_Surface* newbkg, int type, int var1, int var2);
+int TransWipe(SDL_Surface* newbkg, int type, int var1, int var2);
 
 
 /* In practice.c: */
-int Practice( void );
 int Phrases(char* practice_phrase);
 
 

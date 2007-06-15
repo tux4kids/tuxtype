@@ -13,6 +13,8 @@ typedef struct comet_type {
   int expl;
   int city;
   int x, y;
+  int shootable;
+  struct comet_type* next;
   wchar_t ch;
 } comet_type;
 

@@ -29,7 +29,7 @@ SDL_Color white;
 SDL_Color yellow;
 
 /* Used for word list functions (see below): */
-static int WORD_qty;
+static int num_words;
 wchar_t word_list[MAX_NUM_WORDS][MAX_WORD_SIZE + 1];
 wchar_t char_list[MAX_UNICODES];  // List of distinct letters in list
 static int num_chars_used = 0;       // Number of different letters in word list
@@ -318,11 +318,11 @@ wchar_t GetLetter(void)
 void ClearWordList(void)
 {
   int i;
-  for (i = 0; i < WORD_qty; i++)
+  for (i = 0; i < num_words; i++)
   {
     word_list[i][0] = '\0';
   }
-  WORD_qty = 0;
+  num_words = 0;
 }
 
 /* UseAlphabet(): setups the word_list so that it really
@@ -334,25 +334,25 @@ void UseAlphabet(void)
 
 	LOG("Entering UseAlphabet()\n");
 
-	WORD_qty = 0;
+	num_words = 0;
 	/* This totally mucks up i18n abilities :( */
 	for (i=65; i<90; i++) 
 	{
 		if (ALPHABET[i]) {
-			word_list[WORD_qty][0] = (unsigned char)i;
-			word_list[WORD_qty][1] = '\0';
-			WORD_qty++;
+			word_list[num_words][0] = (unsigned char)i;
+			word_list[num_words][1] = '\0';
+			num_words++;
 
 			DEBUGCODE { fprintf(stderr, "Adding %c\n", (unsigned char)i); }
 		}
 	}
 	/* Make sure list is terminated with null character */
-	word_list[WORD_qty][0] = '\0';
+	word_list[num_words][0] = '\0';
 
 	/* Make list of all unicode characters used in word list: */
 	gen_char_list();
 
-	DOUT(WORD_qty);
+	DOUT(num_words);
 	LOG("Leaving UseAlphabet()\n");
 }
 
@@ -365,39 +365,39 @@ wchar_t* GetWord(void)
 	int choice;
 
 	LOG("Entering GetWord()\n");
-	DEBUGCODE { fprintf(stderr, "WORD_qty is: %d\n", WORD_qty); }
+	DEBUGCODE { fprintf(stderr, "num_words is: %d\n", num_words); }
 
-	/* Now count list to make sure WORD_qty is correct: */
+	/* Now count list to make sure num_words is correct: */
 
-	WORD_qty = 0;
-	while (word_list[WORD_qty][0] != '\0')
+	num_words = 0;
+	while (word_list[num_words][0] != '\0')
 	{
-	  WORD_qty++;
+	  num_words++;
 	}
 
-	DEBUGCODE { fprintf(stderr, "After count, WORD_qty is: %d\n", WORD_qty); }
+	DEBUGCODE { fprintf(stderr, "After count, num_words is: %d\n", num_words); }
 
-        if (0 == WORD_qty)
+        if (0 == num_words)
 	{
 	  LOG("No words in list\n");
           return NULL;
 	}
 
-        if (WORD_qty > MAX_NUM_WORDS)
+        if (num_words > MAX_NUM_WORDS)
 	{
-	  LOG("Error: WORD_qty greater than array size\n");
+	  LOG("Error: num_words greater than array size\n");
           return NULL;
 	}
 
-        if (WORD_qty < 0)
+        if (num_words < 0)
 	{
-	  LOG("Error: WORD_qty negative\n");
+	  LOG("Error: num_words negative\n");
           return NULL;
 	}
 
 	do {
-		choice = (rand() % WORD_qty);
-	} while ((choice == last_choice) || (WORD_qty < 2));
+		choice = (rand() % num_words);
+	} while ((choice == last_choice) || (num_words < 2));
 
 	last_choice = choice;
 
@@ -418,13 +418,14 @@ void GenerateWordList(const char* wordFn)
 {
   int j;
   unsigned char temp_word[FNLEN];
+  wchar_t temp_wide_word[FNLEN];
   size_t length;
 
   FILE* wordFile=NULL;
 
   DEBUGCODE { fprintf(stderr, "Entering GenerateWordList() for file: %s\n", wordFn); }
 
-  WORD_qty = 0;
+  num_words = 0;
 
   /* --- open the file --- */
 
@@ -446,7 +447,7 @@ void GenerateWordList(const char* wordFn)
   /* ignore the title (i.e. first line) */
   fscanf( wordFile, "%[^\n]\n", temp_word);
 
-  while (!feof(wordFile) && (WORD_qty < MAX_NUM_WORDS))
+  while (!feof(wordFile) && (num_words < MAX_NUM_WORDS))
   {
     fscanf( wordFile, "%[^\n]\n", temp_word);
 
@@ -456,39 +457,57 @@ void GenerateWordList(const char* wordFn)
         temp_word[j] = '\0';
     }
 
-    /* Make sure word is usable: */
-    /* NOTE we need to use mbstowcs() rather than just strlen() */
-    /* now that we use UTF-8 to get correct length - DSB */
-    length = mbstowcs(NULL, temp_word, 0);
+    /* Convert from UTF-8 to wcs and make sure word is usable: */
+    /* NOTE need to add one to length arg so terminating '\0' gets added: */
+    length = mbstowcs(temp_wide_word, temp_word, strlen(temp_word) + 1);
 
     DOUT(length);
 
-    if (length == -1)  /* Means invalid UTF-8 sequence */
+    if (length == -1)  /* Means invalid UTF-8 sequence or conversion failed */
     {
       fprintf(stderr, "Word '%s' not added - invalid UTF-8 sequence!\n", temp_word);
       continue;
     }
 
-    if (length == 0)  
+    if (length == 0)
+    {
+      fprintf(stderr, "Word '%s' not added - length is zero\n", temp_word);
       continue;
+    }
+
     if (length > MAX_WORD_SIZE)
+    {
+      fprintf(stderr, "Word '%s' not added - exceeds %d characters\n",
+              temp_word, MAX_WORD_SIZE);
       continue;
-    if (WORD_qty >= MAX_NUM_WORDS)
+    }
+;
+    if (num_words >= MAX_NUM_WORDS)
+    {
+      fprintf(stderr, "Word '%s' not added - list has reached max of %d characters\n",
+              temp_word, MAX_NUM_WORDS);
       continue;
+    }
 
     /* If we make it to here, OK to add word: */
-    /* NOTE we have to add one to the length argument to get */
-    /* mbstowcs() to reliably include the terminating null.  */
-    mbstowcs(word_list[WORD_qty], temp_word, strlen(temp_word) + 1);
-    WORD_qty++;
+    /* NOTE we have to add one to the length argument */
+    /* to include the terminating null.  */
+    //mbstowcs(word_list[num_words], temp_word, strlen(temp_word) + 1);
+    DEBUGCODE
+    {
+      fprintf(stderr, "Adding word: %ls\n", temp_wide_word);
+    }
+
+    wcsncpy(word_list[num_words], temp_wide_word, strlen(temp_word) + 1);
+    num_words++;
   }
         
   /* Make sure list is terminated with null character */
-  word_list[WORD_qty][0] = '\0';
+  word_list[num_words][0] = '\0';
 
-  DOUT(WORD_qty);
+  DOUT(num_words);
 
-  if (WORD_qty == 0)
+  if (num_words == 0)
     UseAlphabet( );
 
   fclose(wordFile);

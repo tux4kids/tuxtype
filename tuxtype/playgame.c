@@ -29,18 +29,18 @@ int number_max_w;                 // the max width of a number image
 int o_lives; // something cal is working on
 int sound_vol;
 
-SDL_Surface *background;
+SDL_Surface* background;
 
-SDL_Surface *level[NUM_LEVELS];
-SDL_Surface *number[NUM_NUMS];
-SDL_Surface *curlev;
-SDL_Surface *lives;
-SDL_Surface *fish;
-SDL_Surface *congrats[CONGRATS_FRAMES];
-SDL_Surface *ohno[OH_NO_FRAMES];
+SDL_Surface* level[NUM_LEVELS];
+SDL_Surface* number[NUM_NUMS];
+SDL_Surface* curlev;
+SDL_Surface* lives;
+SDL_Surface* fish;
+SDL_Surface* congrats[CONGRATS_FRAMES];
+SDL_Surface* ohno[OH_NO_FRAMES];
 
-sprite *fishy;
-sprite *splat;
+sprite* fishy;
+sprite* splat;
 
 /* --- Data Structure for Dirty Blitting --- */
 SDL_Rect srcupdate[MAX_UPDATES];
@@ -48,31 +48,31 @@ SDL_Rect dstupdate[MAX_UPDATES];
 int numupdates = 0; // tracks how many blits to be done
 
 struct blit {
-    SDL_Surface *src;
-    SDL_Rect *srcrect;
-    SDL_Rect *dstrect;
+    SDL_Surface* src;
+    SDL_Rect* srcrect;
+    SDL_Rect* dstrect;
     unsigned char type;
 } blits[MAX_UPDATES];
 
 
 
 /* Local function prototypes: */
-static void AddRect(SDL_Rect * src, SDL_Rect * dst);
-static void AddSplat(int *splats, struct fishypoo *f, int *curlives, int *frame);
-static void CheckCollision(int fishies, int *fish_left, int frame );
-static void CheckFishies(int *fishies, int *splats);
+static int AddRect(SDL_Rect* src, SDL_Rect* dst);
+static void AddSplat(int* splats, struct fishypoo* f, int* curlives, int* frame);
+static void CheckCollision(int fishies, int* fish_left, int frame );
+static void CheckFishies(int* fishies, int* splats);
 static int check_word(int f);
-static void display_msg(const unsigned char *msg, int x, int y);
+static void display_msg(const unsigned char* msg, int x, int y);
 static void DrawBackground(void);
 static void draw_bar(int curlevel, int diflevel, int curlives,
               int oldlives, int fish_left, int oldfish_left);
 static void DrawFish(int which);
 static void DrawNumbers(int num, int x, int y, int places);
-static void DrawObject(SDL_Surface* sprite, int x, int y);
-static void DrawSprite(sprite *gfx, int x, int y);
+static int DrawObject(SDL_Surface* sprite, int x, int y);
+static int DrawSprite(sprite* gfx, int x, int y);
 static void EraseNumbers(int num, int x, int y, int places);
-static void EraseObject(SDL_Surface* sprite, int x, int y);
-static void EraseSprite(sprite *img, int x, int y);
+static int EraseObject(SDL_Surface* sprite, int x, int y);
+static int EraseSprite(sprite* img, int x, int y);
 static float float_restrict(float a, float x, float b);
 static void FreeGame(void);
 static int int_restrict(int a, int x, int b);
@@ -461,7 +461,7 @@ void InitEngine(void) {
  * that wipe requires, will perform a wipe from
  * the current screen image to a new one.
  */
-void TransWipe(SDL_Surface * newbkg, int type, int var1, int var2)
+int TransWipe(SDL_Surface* newbkg, int type, int var1, int var2)
 {
     int i, j, x1, x2, y1, y2;
     int step1, step2, step3, step4;
@@ -470,6 +470,12 @@ void TransWipe(SDL_Surface * newbkg, int type, int var1, int var2)
     SDL_Rect dst;
 
     LOG("->TransWipe(): START\n");
+
+    if (!newbkg)
+    {
+      fprintf(stderr, "TransWipe() - 'newbkg' arg invalid!\n");
+      return 0;
+    }
 
     numupdates = 0;
     frame = 0;
@@ -610,6 +616,7 @@ void TransWipe(SDL_Surface * newbkg, int type, int var1, int var2)
                 break;
         }
     }
+    return 1;
 }
 
 
@@ -686,49 +693,79 @@ static void ResetObjects( void ) {
 	LOG( "OBJECTS RESET\n" );
 }
 
-static void DrawSprite(sprite *gfx, int x, int y) {
-        if (!gfx) return;
+static int DrawSprite(sprite* gfx, int x, int y)
+{
+  struct blit* update;
 
-	struct blit *update;
-	update = &blits[numupdates++];
-	update->src = gfx->frame[gfx->cur];
-	update->srcrect->x = 0;
-	update->srcrect->y = 0;
-	update->srcrect->w = gfx->frame[gfx->cur]->w;
-	update->srcrect->h = gfx->frame[gfx->cur]->h;
-	update->dstrect->x = x;
-	update->dstrect->y = y;
-	update->dstrect->w = gfx->frame[gfx->cur]->w;
-	update->dstrect->h = gfx->frame[gfx->cur]->h;
-	update->type = 'D';
+  if (!gfx)
+  {
+    fprintf(stderr, "DrawSprite() - 'gfx' arg invalid!\n");
+    return 0;
+  }
+
+  update = &blits[numupdates++];
+
+  if(!update || !update->srcrect || !update->dstrect)
+  {
+    fprintf(stderr, "DrawSprite() - 'update' ptr invalid!\n");
+    return 0;
+  }
+
+  update->src = gfx->frame[gfx->cur];
+  update->srcrect->x = 0;
+  update->srcrect->y = 0;
+  update->srcrect->w = gfx->frame[gfx->cur]->w;
+  update->srcrect->h = gfx->frame[gfx->cur]->h;
+  update->dstrect->x = x;
+  update->dstrect->y = y;
+  update->dstrect->w = gfx->frame[gfx->cur]->w;
+  update->dstrect->h = gfx->frame[gfx->cur]->h;
+  update->type = 'D';
+
+  return 1;
 }
 
 /**********************
 DrawObject : Draw an object at the specified
 location. No respect to clipping!
 *************************/
-static void DrawObject(SDL_Surface* sprite, int x, int y)
+static int DrawObject(SDL_Surface* surf, int x, int y)
 {
-    if (!sprite) return;
+  struct blit *update;
 
-    struct blit *update;
-    update = &blits[numupdates++];
-    update->src = sprite;
-    update->srcrect->x = 0;
-    update->srcrect->y = 0;
-    update->srcrect->w = sprite->w;
-    update->srcrect->h = sprite->h;
-    update->dstrect->x = x;
-    update->dstrect->y = y;
-    update->dstrect->w = sprite->w;
-    update->dstrect->h = sprite->h;
-    update->type = 'D';
+  if (!surf)
+  {
+    fprintf(stderr, "DrawObject() - invalid 'surf' arg!\n");
+    return 0;
+  }
+
+  update = &blits[numupdates++];
+
+  if(!update || !update->srcrect || !update->dstrect)
+  {
+    fprintf(stderr, "DrawObject() - 'update' ptr invalid!\n");
+    return 0;
+  }
+
+  update->src = surf;
+  update->srcrect->x = 0;
+  update->srcrect->y = 0;
+  update->srcrect->w = surf->w;
+  update->srcrect->h = surf->h;
+  update->dstrect->x = x;
+  update->dstrect->y = y;
+  update->dstrect->w = surf->w;
+  update->dstrect->h = surf->h;
+  update->type = 'D';
+
+  return 1;
 }
 
 /************************
 UpdateScreen : Update the screen and increment the frame num
 ***************************/
-static void UpdateScreen(int *frame) {
+static void UpdateScreen(int* frame)
+{
 	int i;
 
 	/* -- First erase everything we need to -- */
@@ -753,83 +790,139 @@ static void UpdateScreen(int *frame) {
 	*frame = *frame + 1;
 }
 
-static void EraseSprite(sprite *img, int x, int y) {
-    struct blit *update;
+static int EraseSprite(sprite* img, int x, int y)
+{
+  struct blit* update;
 
-    update = &blits[numupdates++];
-    update->src = background;
-    update->srcrect->x = x;
-    update->srcrect->y = y;
-    update->srcrect->w = img->frame[img->cur]->w;
-    update->srcrect->h = img->frame[img->cur]->h;
+  if(!img)
+  {
+    fprintf(stderr, "EraseSprite() - invalid 'img' arg!\n");
+    return 0;
+  }
 
-    /* check to see if we are trying blit data that doesn't exist!!! */
+  update = &blits[numupdates++];
 
-    if (update->srcrect->x + update->srcrect->w > background->w)
-	    update->srcrect->w = background->w - update->srcrect->x;
-    if (update->srcrect->y + update->srcrect->h > background->h)
-	    update->srcrect->h = background->h - update->srcrect->y;
+  if(!update || !update->srcrect || !update->dstrect)
+  {
+    fprintf(stderr, "EraseSprite() - 'update' ptr invalid!\n");
+    return 0;
+  }
 
-    update->dstrect->x = x;
-    update->dstrect->y = y;
-    update->dstrect->w = update->srcrect->w;
-    update->dstrect->h = update->srcrect->h;
-    update->type = 'E';
+  update->src = background;
+  update->srcrect->x = x;
+  update->srcrect->y = y;
+  update->srcrect->w = img->frame[img->cur]->w;
+  update->srcrect->h = img->frame[img->cur]->h;
+
+  /* check to see if we are trying blit data that doesn't exist!!! */
+
+  if (update->srcrect->x + update->srcrect->w > background->w)
+    update->srcrect->w = background->w - update->srcrect->x;
+  if (update->srcrect->y + update->srcrect->h > background->h)
+    update->srcrect->h = background->h - update->srcrect->y;
+
+  update->dstrect->x = x;
+  update->dstrect->y = y;
+  update->dstrect->w = update->srcrect->w;
+  update->dstrect->h = update->srcrect->h;
+  update->type = 'E';
+
+  return 1;
 }
 
 /*************************
 EraseObject : Erase an object from the screen
 **************************/
-static void EraseObject(SDL_Surface * sprite, int x, int y) {
-    struct blit *update;
+static int EraseObject(SDL_Surface* surf, int x, int y)
+{
+  struct blit *update;
 
-    update = &blits[numupdates++];
-    update->src = background;
-    update->srcrect->x = x;
-    update->srcrect->y = y;
-    update->srcrect->w = sprite->w;
-    update->srcrect->h = sprite->h;
+  if(!surf)
+  {
+    fprintf(stderr, "EraseObject() - invalid 'surf' arg!\n");
+    return 0;
+  }
 
-    /* check to see if we are trying blit data that doesn't exist!!! */
+  update = &blits[numupdates++];
 
-    if (update->srcrect->x + update->srcrect->w > background->w)
-	    update->srcrect->w = background->w - update->srcrect->x;
-    if (update->srcrect->y + update->srcrect->h > background->h)
-	    update->srcrect->h = background->h - update->srcrect->y;
+  if(!update || !update->srcrect || !update->dstrect)
+  {
+    fprintf(stderr, "EraseObject() - 'update' ptr invalid!\n");
+    return 0;
+  }
 
-    update->dstrect->x = x;
-    update->dstrect->y = y;
-    update->dstrect->w = update->srcrect->w;
-    update->dstrect->h = update->srcrect->h; 
-    update->type = 'E';
+  update->src = background;
+  update->srcrect->x = x;
+  update->srcrect->y = y;
+  update->srcrect->w = surf->w;
+  update->srcrect->h = surf->h;
+
+  /* check to see if we are trying blit data that doesn't exist!!! */
+
+  if (update->srcrect->x + update->srcrect->w > background->w)
+    update->srcrect->w = background->w - update->srcrect->x;
+  if (update->srcrect->y + update->srcrect->h > background->h)
+    update->srcrect->h = background->h - update->srcrect->y;
+
+  update->dstrect->x = x;
+  update->dstrect->y = y;
+  update->dstrect->w = update->srcrect->w;
+  update->dstrect->h = update->srcrect->h; 
+  update->type = 'E';
+
+  return 1;
 }
+
 
 /******************************
 AddRect : Dont actually blit a surface,
     but add a rect to be updated next
     update
 *******************************/
-static void AddRect(SDL_Rect * src, SDL_Rect * dst) {
-    /*borrowed from SL's alien (and modified)*/
-    struct blit    *update;
+static int AddRect(SDL_Rect* src, SDL_Rect* dst)
+{
 
-    update = &blits[numupdates++];
+  /*borrowed from SL's alien (and modified)*/
+  struct blit* update;
 
-    update->srcrect->x = src->x;
-    update->srcrect->y = src->y;
-    update->srcrect->w = src->w;
-    update->srcrect->h = src->h;
-    update->dstrect->x = dst->x;
-    update->dstrect->y = dst->y;
-    update->dstrect->w = dst->w;
-    update->dstrect->h = dst->h;
-    update->type = 'I';
+  if(!src)
+  {
+    fprintf(stderr, "AddRect() - invalid 'src' arg!\n");
+    return 0;
+  }
+
+  if(!dst)
+  {
+    fprintf(stderr, "AddRect() - invalid 'dst' arg!\n");
+    return 0;
+  }
+
+  update = &blits[numupdates++];
+
+  if(!update || !update->srcrect || !update->dstrect)
+  {
+    fprintf(stderr, "AddRect() - 'update' ptr invalid!\n");
+    return 0;
+  }
+
+  update->srcrect->x = src->x;
+  update->srcrect->y = src->y;
+  update->srcrect->w = src->w;
+  update->srcrect->h = src->h;
+  update->dstrect->x = dst->x;
+  update->dstrect->y = dst->y;
+  update->dstrect->w = dst->w;
+  update->dstrect->h = dst->h;
+  update->type = 'I';
+
+  return 1;
 }
 
 /*********************
 LoadOthers : Load all other graphics
 **********************/
-static void LoadOthers( void ) {
+static void LoadOthers(void)
+{
 	int i;
 	unsigned char filename[FNLEN];
 
@@ -895,7 +988,7 @@ static void LoadOthers( void ) {
 	LOG( "=LoadOthers() END\n" );
 }
 
-static void display_msg(const unsigned char *msg, int x, int y)
+static void display_msg(const unsigned char* msg, int x, int y)
 {
 	SDL_Surface* m;
 	m = TTF_RenderUTF8_Shaded(font, msg, white, white);
@@ -907,7 +1000,8 @@ static void display_msg(const unsigned char *msg, int x, int y)
 /***************************
 LoadFishies : Load the fish animations and graphics
 *****************************/
-static void LoadFishies( void ) {
+static void LoadFishies(void)
+{
 	int i;
 
 	LOG( "=LoadFishies()\n" );
@@ -927,7 +1021,8 @@ static void LoadFishies( void ) {
 /******************************
 LoadTuxAnims : Load the Tux graphics and animations
 *******************************/
-static void LoadTuxAnims( void ) {
+static void LoadTuxAnims(void)
+{
 	int i;
 	int height = 0;                //temp width/height varis to determine max's
 
@@ -949,7 +1044,8 @@ DrawNumbers : Draw numbers at
 a certain x,y. See "usage"
 below
 *******************************/
-static void DrawNumbers(int num, int x, int y, int places) {
+static void DrawNumbers(int num, int x, int y, int places)
+{
 //usage:
 //      num    = number to draw onscreen
 //      x, y   = coords to place number (starting upper left)
@@ -1021,7 +1117,8 @@ static void EraseNumbers(int num, int x, int y, int places)
 FreeGame : Free all
 the game elements
 ***********************/
-static void FreeGame( void ) {
+static void FreeGame(void)
+{
 	int i;
 
 	FreeLetters();
@@ -1083,7 +1180,7 @@ static void DrawBackground(void)
 {
     struct blit *update;
 
-    LOG( "-DrawBackground(): Updating entire background\n" );
+    LOG("-DrawBackground(): Updating entire background\n");
 
     numupdates=0;  // drawing entire background writes over all other stuff, so don't draw them
 
@@ -1102,7 +1199,8 @@ static void DrawBackground(void)
 SpawnFishies: Spawn the fishes
 in the key cascade game
 *****************************/
-static void SpawnFishies(int diflevel, int *fishies, int *frame ) {
+static void SpawnFishies(int diflevel, int* fishies, int* frame)
+{
 	int i, spacing;
 	wchar_t* new_word;
 
@@ -1172,7 +1270,7 @@ static void SpawnFishies(int diflevel, int *fishies, int *frame ) {
 CheckFishies : Check all the fishies and splats.
                sort the splats and fishies
 ****************************/
-static void CheckFishies(int *fishies, int *splats)
+static void CheckFishies(int* fishies, int* splats)
 {
 	int forward, backward;
 	struct fishypoo fish_temp;
@@ -1249,7 +1347,7 @@ static float float_restrict(float a, float x, float b)
 /***************************
 AddSplat: A fish has died, add a splat where he used to be
 ****************************/
-static void AddSplat(int *splats, struct fishypoo *f, int *curlives, int *frame) {
+static void AddSplat(int* splats, struct fishypoo* f, int* curlives, int* frame) {
 	int i;
 
 	for ( i = 0; i < f->len; i++ ) {
@@ -1272,7 +1370,7 @@ static void AddSplat(int *splats, struct fishypoo *f, int *curlives, int *frame)
 
 
 
-static void DrawFish( int which )
+static void DrawFish(int which)
 {
 /*        LOG ("Entering DrawFish()\n");*/
 	int j = 0;

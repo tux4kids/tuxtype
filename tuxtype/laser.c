@@ -226,14 +226,18 @@ int PlayLaserGame(int diff_level)
 
 		for (;ans_num>0;ans_num--) {
 
-			/*  Pick the lowest comet which has the right answer: */
+			/*  Pick the lowest shootable comet which has the right answer: */
 	
 			lowest_y = 0;
 			lowest = -1;
 	
 			for (i = 0; i < MAX_COMETS; i++)
-				if (comets[i].alive && comets[i].expl == 0 && 
-				    KEYMAP[comets[i].ch] == ans[ans_num-1] && comets[i].y > lowest_y) {
+				if (comets[i].alive
+				 && comets[i].shootable 
+				 && comets[i].expl == 0
+				 && KEYMAP[comets[i].ch] == ans[ans_num -1 ] 
+				 && comets[i].y > lowest_y)
+				{
 					lowest = i;
 					lowest_y = comets[i].y;
 				}
@@ -246,9 +250,12 @@ int PlayLaserGame(int diff_level)
 				/* Destroy comet: */
 		  
 				comets[lowest].expl = COMET_EXPL_START;
-	    
-				/* Fire laser: */
+				/* Make next letter in word shootable: */
+				comets[lowest].shootable = 0;
+                                if (comets[lowest].next)
+                                  comets[lowest].next->shootable = 1;
 
+				/* Fire laser: */
 				laser.alive = LASER_START;
 
 				/* this is a hack so drawing to the center of the screen works */
@@ -814,6 +821,10 @@ void laser_add_comet(int diff_level) {
 
               /* Pick a letter */
               comets[location].ch = GetLetter();
+              /* single letters always shootable: */
+              comets[location].shootable = 1;
+              comets[location].next = NULL;
+
               add--;
             }
             DEBUGCODE {if (location == MAX_COMETS) 
@@ -824,7 +835,8 @@ void laser_add_comet(int diff_level) {
         {
           LOG("NUM_CITIES is odd\n");
           wchar_t* word = GetWord();
-          int i=0;
+          int i = 0;
+          comet_type* prev_comet = NULL;
 
           DEBUGCODE {fprintf(stderr, "word is: %s\n", word);}
           do
@@ -840,11 +852,25 @@ void laser_add_comet(int diff_level) {
 
   			if (location < MAX_COMETS)
 			{
+				/* First comet in word is shootable: */
+				if (0 == i)
+				  comets[location].shootable = 1;
+				else
+				  comets[location].shootable = 0;
+
 				comets[location].alive = 1;
 				comets[location].city = target + i; 
 				comets[location].x = cities[target + i].x;
 				comets[location].y = 0;
 				comets[location].ch = word[i];
+				comets[location].next = NULL;
+
+				/* Take care of link from previous letter's comet: */
+				if (prev_comet)
+				  prev_comet->next = &comets[location];
+				/* Save pointer for next time through: */
+                                prev_comet = &comets[location];
+
 				DEBUGCODE {fprintf(stderr, "Assigning letter to comet: %c\n", word[i]);}
 			}
 		}

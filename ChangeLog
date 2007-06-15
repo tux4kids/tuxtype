@@ -1,3 +1,10 @@
+15 Jun 2007
+[ David Bruce]
+       - Comet Zap fixed to require player to type letters in proper
+         order - "shootable" flag added to comet type.
+       - More code cleanup - mostly adding checks to prevent dereferencing
+         of null or invalid pointers.
+
 07 Jun 2007
 [ David Bruce]
        - Code cleanup - funcs.h revised, unneeded "extern" keywords for

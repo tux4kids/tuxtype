@@ -240,7 +240,7 @@ TTF_Font* LoadFont(const char* fontfile, int fontsize ) {
 /***********************
 	LoadImage : Load an image and set transparent if requested
 ************************/
-SDL_Surface* LoadImage(const char* datafile, int mode )
+SDL_Surface* LoadImage(const char* datafile, int mode)
 {
 	int i;
 	int oldDebug;  //so we can turn off debug output for this func only
@@ -275,8 +275,11 @@ SDL_Surface* LoadImage(const char* datafile, int mode )
 	}
 
 	if (tmp_pic == NULL) {
-		if (mode & IMG_NOT_REQUIRED) 
+		if (mode & IMG_NOT_REQUIRED)
+		{ 
+			debugOn = oldDebug;
 			return NULL;
+		}
 
 		fprintf(stderr, "ERROR could not load required graphics file %s\n", datafile);
 		exit(1);
