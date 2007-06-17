@@ -4167,6 +4167,7 @@ fi
 
 if test "$native_win32" = yes; then
 
+
 cat >>confdefs.h <<\_ACEOF
 #define BUILD_MINGW32 1
 _ACEOF

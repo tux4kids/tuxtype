@@ -1,9 +1,9 @@
 # Process this file with autoconf to produce a configure script.
-AC_INIT(tuxtype, 1.5.9, tuxmath-devel@lists.sourceforge.net)
+AC_INIT(tuxtype, 1.5.10, tuxmath-devel@lists.sourceforge.net)
 AC_CANONICAL_HOST
 AC_CANONICAL_TARGET
 AM_CONFIG_HEADER(config.h)
-AM_INIT_AUTOMAKE(tuxtype, 1.5.9)
+AM_INIT_AUTOMAKE(tuxtype, 1.5.10)
 
 AC_CONFIG_SRCDIR([tuxtype/funcs.h])
 
@@ -59,6 +59,7 @@ AC_MSG_RESULT([$native_win32])
 AM_CONDITIONAL(BUILD_MINGW32, test "$native_win32" = yes)
 
 if test "$native_win32" = yes; then
+
    AC_DEFINE([BUILD_MINGW32], 1,[Native MinGW32 build])
    CFLAGS="$CFLAGS -D__GW32__"
    LIBS="-lmingw32 -lSDLmain $LIBS -lgw32c -luuid -lole32 -lwsock32 -mwindows"

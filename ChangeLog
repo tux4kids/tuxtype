@@ -1,12 +1,21 @@
+v 1.5.10 - 16 Jun 2007
+[ David Bruce ]
+       - Added ConvertUTF.c & .h from Unicode, Inc. to do UTF-8 to wcs
+         encoding conversion when glibc isn't present (i.e., in Windows
+         build). AFAICT, Windows build now handles UTF-8/Unicode properly,
+         or at least behaves the same as *nix build.
+       - Fixed Jamaican theme - words in list needed to be uppercase.
+       - Correct links in HowToTheme.html to current counterparts.
+
 15 Jun 2007
-[ David Bruce]
+[ David Bruce ]
        - Comet Zap fixed to require player to type letters in proper
          order - "shootable" flag added to comet type.
        - More code cleanup - mostly adding checks to prevent dereferencing
          of null or invalid pointers.
 
 07 Jun 2007
-[ David Bruce]
+[ David Bruce ]
        - Code cleanup - funcs.h revised, unneeded "extern" keywords for
          function prototypes removed, prototypes rearranged into alpha-
          betical order
@@ -20,7 +29,7 @@
          local_functions() use lowercase connected by underscores).
 
 29 May 2007
-[ David Bruce]
+[ David Bruce ]
        - Fixed vertical alignment problem with certain non-US characters
          such as "Å" by checking max_y of each glyph and adjusting
          appropriately.
@@ -32,7 +41,7 @@
          keyboard.lst file says.
 
 24 May 2007
-[ David Bruce]
+[ David Bruce ]
        - Additional work on UTF-8/Unicode issues - program now scans
          word list to see what Unicode characters are needed instead
          of automatically rendering everything from 0-255. It now
@@ -48,7 +57,7 @@
 
 v.1.5.9  07 May 2007
 
-[ David Bruce]
+[ David Bruce ]
        - Overhauled internal handling of word lists to handle UTF-8
          correctly. Now WORDS_use() converts the UTF-8 to wchar_t
          (i.e. Unicode) arrays for internal handling. The letters for
@@ -67,7 +76,7 @@ v.1.5.8  29 Apr 2007
 	   - Added Brazilian Portuguese translation by
 	     Hudson Gonçalves Manieri Figueredo.
 
-[ David Bruce]
+[ David Bruce ]
        - Changed TTF_RenderText to TTF_RenderUTF8 everywhere in 
          playgame.c, mainly by removing ttf_letter() and using
          black_outline() instead.

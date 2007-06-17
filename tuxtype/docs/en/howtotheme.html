@@ -6,14 +6,14 @@
 </head>
 <body bgcolor="#ffffff">
 <h2>Theming in Tuxtyping 1.5.1</h2>
-<p>A "Theme" is a method to change the data which Tuxtyping uses.  While this could be used to change the game about Tux and fish, to a game about a Cat and mice, more likely you are interested in making Tuxtyping work in another language. (if you are intersted in creating a new graphical theme like "Racecars" or ... that is cool too, but if things don't act right, please <a href="http://tux4kids.net/mailman/listinfo/tuxtype-dev">contact us</a>).
+<p>A "Theme" is a method to change the data which Tuxtyping uses.  While this could be used to change the game about Tux and fish, to a game about a Cat and mice, more likely you are interested in making Tuxtyping work in another language. (if you are intersted in creating a new graphical theme like "Racecars" or ... that is cool too, but if things don't act right, please <a href="http://tux4kids.alioth.debian.org">contact us</a>).
 <p>I will walk through how I created the "French" theme in boxes in this text.
 <h3>Difference to Tuxtyping 1.0</h3>
 <p>In Tuxtyping 1.0, to create a theme, you needed to recreate every image file that was used by the game.  This means you had to include every image even if you didn't change it.  Plus all the text in the game were actually pre-created graphics, and the game could only use A-Z.
 <p>In Tuxtyping 1.5, you can can include changes to the image files, but if you don't include one, we will just use the default image included with the default theme (English).  Also instead of all the text in the game being pre-created, it is all rendered, so you can change the font and/or the text very easily.  Plus, you can change it so you include numbers, or anything else you can type!
 
 <center><table bgcolor="#ffcccc" width="80%" border=1 cellspacing=2><tr><td>
-<b>Changes since <a href="howtotheme-1.5.0.html">1.5.0 Theming Howto</a>:</b>
+<b>Changes since 1.5.0 Theming Howto</a>:</b>
 <ul><li>Keyboard.lst format changed to eliminate redundant information
 <li>themes.txt is no longer used... we create the list dynamically
 <li>words.lst is no longer used.. we create the list dynamically
@@ -27,7 +27,7 @@ All these changes were done to make it even easier to theme...
 <ol>
 <li>Creating the directory and adding it to menu system
 
-<p>Themes are located in the data directory of Tuxtyping 2.  This will be different depending on which operating system you are using.  If you have trouble finding where the data directory is for your system, contact <a href="mailto:tuxtype-dev@tux4kids.net">us</a>.  I will refer to this directory containing themes as <b>data/themes/</b>
+<p>Themes are located in the data directory of Tuxtyping 2.  This will be different depending on which operating system you are using.  If you have trouble finding where the data directory is for your system, contact <a href="mailto:tuxmath-devel@lists.sourceforge.net">us</a>.  I will refer to this directory containing themes as <b>data/themes/</b>
 <p>Each theme has its own directory in the <b>data/themes/</b> directory.  For instance if you are creating a French theme, you would create a directory called <b>french</b> in the themes directory, so you have <b>data/themes/french</b>.  All of the data for your theme will be located in this directory.
 <p>Now if you go into the game, you should see a new entry in the "Setup Languages" menu for your theme.
 <center><table bgcolor="#ccccff" width="75%" border=1 cellpadding=4><tr><td> 
@@ -141,10 +141,10 @@ For instance <b>data/themes/french/words/words1.txt</b> is:
 <p><b>Q:</b> Why do I need both menu.ttf and letters.ttf?
 <p><b>A:</b> There are times when you may need a different font for the menus and for the text that the player will have to type.  For instance if you create an American Sign Language (ASL) theme, you will probably want the letters font to be a truetype font that has the hands/fingers in the proper positions.
 <hr>
-<center><a href="http://tuxtype.sf.net">TuxTyping Homepage</a> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
-<a href="http://tuxtype.sf.net/forums/">TuxTyping Forums</a> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
-<a href="mailto:jdandr2@uky.edu">jdandr2@uky.edu</a>
+<center><a href="http://tux4kids.alioth.debian.org">TuxTyping Homepage</a> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+<a href="http://alioth.debian.org/forum/?group_id=31080">TuxTyping Forums</a> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+<a href="mailto:dbruce@tampabay.rr.com">dbruce@tampabay.rr.com</a>
 <br><br>
-<font size="-2">Last edited May 16, 2003</font>
+<font size="-2">Last edited June 16, 2007 but by no means fully up-to-date!</font>
 </center>
 </body>

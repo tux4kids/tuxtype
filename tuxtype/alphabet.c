@@ -16,6 +16,9 @@
  *                                                                         *
  ***************************************************************************/
 
+/* Needed to convert UTF-8 under Windows because we don't have glibc: */
+#include "ConvertUTF.h"  
+
 #include "globals.h"
 #include "funcs.h"
 
@@ -44,6 +47,7 @@ static void print_keymap(void);
 static void set_letters(unsigned char* t);
 static void show_letters(void);
 static void clear_keyboard(void);
+static int convert_from_UTF8(wchar_t* wide_word, const char* UTF8_word);
 
 /*****************************************************/
 /*                                                   */
@@ -450,6 +454,7 @@ void GenerateWordList(const char* wordFn)
   while (!feof(wordFile) && (num_words < MAX_NUM_WORDS))
   {
     fscanf( wordFile, "%[^\n]\n", temp_word);
+    DEBUGCODE {fprintf(stderr, "temp_word = %s\n", temp_word);}
 
     for (j = 0; j < strlen(temp_word); j++)
     {
@@ -459,8 +464,9 @@ void GenerateWordList(const char* wordFn)
 
     /* Convert from UTF-8 to wcs and make sure word is usable: */
     /* NOTE need to add one to length arg so terminating '\0' gets added: */
-    length = mbstowcs(temp_wide_word, temp_word, strlen(temp_word) + 1);
+    //length = mbstowcs(temp_wide_word, temp_word, strlen(temp_word) + 1);
 
+    length = convert_from_UTF8(temp_wide_word, temp_word);
     DOUT(length);
 
     if (length == -1)  /* Means invalid UTF-8 sequence or conversion failed */
@@ -471,7 +477,7 @@ void GenerateWordList(const char* wordFn)
 
     if (length == 0)
     {
-      fprintf(stderr, "Word '%s' not added - length is zero\n", temp_word);
+      fprintf(stderr, "Word '%ls' not added - length is zero\n", temp_wide_word);
       continue;
     }
 
@@ -780,4 +786,48 @@ static void clear_keyboard( void ) {
 			FINGER[i][j]=0;
 		KEYMAP[i]=i;
 	}
+}
+/* This function just tidies up all the ptr args needed for      */
+/* ConvertUTF8toUTF32() from Unicode, Inc. into a neat wrapper.  */
+/* It returns -1 on error, otherwise returns the length of the   */
+/* converted, null-terminated wchar_t* string now stored in the  */
+/* location of the 'wide_word' pointer.                          */
+static int convert_from_UTF8(wchar_t* wide_word, const char* UTF8_word)
+{
+  int i = 0;
+  ConversionResult result;
+  UTF8 temp_UTF8[FNLEN];
+  UTF32 temp_UTF32[FNLEN];
+
+  const UTF8* UTF8_Start = temp_UTF8;
+  const UTF8* UTF8_End = &temp_UTF8[FNLEN-1];
+  UTF32* UTF32_Start = temp_UTF32;
+  UTF32* UTF32_End = &temp_UTF32[FNLEN-1];
+
+  strncpy(temp_UTF8, UTF8_word, FNLEN);
+
+  ConvertUTF8toUTF32(&UTF8_Start, UTF8_End,
+                     &UTF32_Start, UTF32_End, 0);
+
+  wide_word[0] = '\0';
+
+  while ((i < FNLEN) && (temp_UTF32[i] != '\0'))
+  {
+    wide_word[i] = temp_UTF32[i];
+    i++; 
+  }
+
+  if (i >= FNLEN)
+  {
+    fprintf(stderr, "convert_from_UTF8(): buffer overflow\n");
+    return -1;
+  }
+  else  //need terminating null:
+  {
+    wide_word[i] = '\0';
+  }
+
+  DEBUGCODE {fprintf(stderr, "wide_word = %ls\n", wide_word);}
+
+  return wcslen(wide_word);
 }
