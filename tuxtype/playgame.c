@@ -254,14 +254,14 @@ int PlayCascade( int diflevel ) {
 // 						UpdateTux(KEYMAP[(event.key.keysym.unicode & 0xff)], fishies, frame);
 //                                      }
 
-					key_unicode = event.key.keysym.unicode & 0xff;
+					key_unicode = event.key.keysym.unicode;
 					/* For now, tuxtype is case-insensitive for input, */
                                         /* with only uppercase for answers:                */
 					DEBUGCODE
 					{
 					  fprintf(stderr,
-					    "\nkey_unicode = %d\twchar_t = %lc\tKEYMAP[key_unicode] = %c\n",
-					     key_unicode, key_unicode, KEYMAP[key_unicode]);
+					    "\nkey_unicode = %d\twchar_t = %lc\tkey_unicode = %c\n",
+					     key_unicode, key_unicode, key_unicode);
 					}
 
                                         if (key_unicode >= 97 && key_unicode <= 122)
@@ -273,12 +273,12 @@ int PlayCascade( int diflevel ) {
 					DEBUGCODE
 					{
 					  fprintf(stderr,
-					    "key_unicode = %d\twchar_t = %lc\tKEYMAP[key_unicode] = %c\n\n",
-					     key_unicode, key_unicode, KEYMAP[key_unicode]);
+					    "key_unicode = %d\twchar_t = %lc\tkey_unicode = %c\n\n",
+					     key_unicode, key_unicode, key_unicode);
 					}
 
 					/* Now update with case-folded value: */
-					UpdateTux(KEYMAP[key_unicode], fishies, frame);
+					UpdateTux(key_unicode, fishies, frame);
 				}
 
 			/* --- fishy updates --- */
@@ -636,7 +636,7 @@ static int check_word( int f ) {
 		return 0;
 
 	for (i=0; i < wcslen(fish_object[f].word); i++) 
-		if (KEYMAP[fish_object[f].word[i]] != KEYMAP[tux_object.word[tux_object.wordlen - wcslen(fish_object[f].word)+i]])
+		if (fish_object[f].word[i] != tux_object.word[tux_object.wordlen - wcslen(fish_object[f].word)+i])
 			return 0;
 
 	return 1;
@@ -1418,7 +1418,7 @@ static void DrawFish(int which)
 		  int k;
 		  for (k = 0; k < tux_object.wordlen - j; k++)
                   {
-                    if (KEYMAP[fish_object[which].word[k]] != KEYMAP[tux_object.word[j+k]]) 
+                    if (fish_object[which].word[k] != tux_object.word[j+k]) 
                       k = 100000;
                   }
 

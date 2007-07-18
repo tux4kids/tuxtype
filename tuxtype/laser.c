@@ -190,14 +190,14 @@ int PlayLaserGame(int diff_level)
 // 					tux_pressing ++;
 // 				}
 
-				key_unicode = event.key.keysym.unicode & 0xff;
+				key_unicode = event.key.keysym.unicode;
 
 				DEBUGCODE
 				{
 				  fprintf(stderr,
-                                   "key_unicode = %d\tKEYMAP[key_unicode] = %c\n",
+                                   "key_unicode = %d\tkey_unicode = %c\n",
 				    key_unicode,
-                                    KEYMAP[key_unicode]);
+                                    key_unicode);
 				}
 
 				/* For now, tuxtype is case-insensitive for input, */
@@ -211,12 +211,12 @@ int PlayLaserGame(int diff_level)
 				DEBUGCODE
 				{
 				  fprintf(stderr,
-                                   "key_unicode = %d\tKEYMAP[key_unicode] = %c\n",
+                                   "key_unicode = %d\tkey_unicode = %c\n",
 				    key_unicode,
-                                    KEYMAP[key_unicode]);
+                                    key_unicode);
 				}
 				/* Now update with case-folded value: */
-				ans[ans_num++] = KEYMAP[key_unicode];
+				ans[ans_num++] = key_unicode;
 
 			}
 		}
@@ -235,7 +235,7 @@ int PlayLaserGame(int diff_level)
 				if (comets[i].alive
 				 && comets[i].shootable 
 				 && comets[i].expl == 0
-				 && KEYMAP[comets[i].ch] == ans[ans_num -1 ] 
+				 && comets[i].ch == ans[ans_num -1 ] 
 				 && comets[i].y > lowest_y)
 				{
 					lowest = i;

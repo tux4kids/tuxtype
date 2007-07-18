@@ -47,10 +47,10 @@
 
 #include "../config.h"
 
-#include "SDL.h"
-#include "SDL_image.h"
-#include "SDL_mixer.h"
-#include "SDL_ttf.h"
+#include <SDL/SDL.h>
+#include <SDL/SDL_image.h>
+#include <SDL/SDL_mixer.h>
+#include <SDL/SDL_ttf.h>
 
 #endif //  __GLOBALS_H__
 
@@ -110,10 +110,10 @@ typedef struct {
 #define amask 0xff000000
 #endif
 
-#define menu_font	"AndikaDesRevG.ttf"    /*"AndikaDesRevA.ttf"  GenAI102.ttf or "DejaVuSans-Bold.ttf"  or "FreeSansBold.ttf" */ 	/* was menu.ttf */
+#define menu_font   "Rachana_g01.ttf" /* "AndikaDesRevG.ttf"    "AndikaDesRevA.ttf"  GenAI102.ttf or "DejaVuSans-Bold.ttf"  or "FreeSansBold.ttf" */ 	/* was menu.ttf */
 #define menu_font_size	20
 
-#define ttf_font	"AndikaDesRevG.ttf" /*AndikaDesRevA.ttf"  GenAI102.ttf or "DejaVuSans-Bold.ttf" or "FreeSansBold.ttf" */  	/* was letters.ttf */
+#define ttf_font    "Rachana_g01.ttf" /* "AndikaDesRevG.ttf" AndikaDesRevA.ttf"  GenAI102.ttf or "DejaVuSans-Bold.ttf" or "FreeSansBold.ttf" */  	/* was letters.ttf */
 #define ttf_font_size	20
 
 /* Limits on word list size, word length, and on the number of distinct characters */
@@ -168,7 +168,7 @@ extern SDL_Surface *bkg;
 extern SDL_Surface *letters[255];
 
 extern wchar_t ALPHABET[256];
-extern wchar_t KEYMAP[256];
+
 extern unsigned char FINGER[256][10];
 extern int ALPHABET_SIZE;
 

@@ -120,6 +120,13 @@ void LibInit(Uint32 lib_flags)
 
 	atexit(TTF_Quit);
 
+	LOG( "-about to init SDLPango\n" );
+	
+	if (SDLPango_Init() < 0) {
+		fprintf( stderr, "Couldn't initialize SDLPango\n" );
+		exit(2);
+	}
+	
 	SDL_EnableKeyRepeat( 0, SDL_DEFAULT_REPEAT_INTERVAL );
 	/* Need this to get Unicode values from keysyms: */
 	SDL_EnableUNICODE(1);

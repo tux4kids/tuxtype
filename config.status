@@ -301,7 +301,7 @@ on `(hostname || uname -n) 2>/dev/null | sed 1q`
 "
 
 # Files that config.status was made for.
-config_files=" Makefile tuxtype/Makefile tuxtype/data/Makefile tuxtype/data/fonts/Makefile tuxtype/data/images/Makefile tuxtype/data/images/backgrounds/Makefile tuxtype/data/images/cities/Makefile tuxtype/data/images/comets/Makefile tuxtype/data/images/hands/Makefile tuxtype/data/images/keyboard/Makefile tuxtype/data/images/menu/Makefile tuxtype/data/images/status/Makefile tuxtype/data/images/tux/Makefile tuxtype/data/scripts/Makefile tuxtype/data/sounds/Makefile tuxtype/data/themes/Makefile tuxtype/data/themes/armenian/Makefile tuxtype/data/themes/armenian/images/Makefile tuxtype/data/themes/bokmal/Makefile tuxtype/data/themes/bokmal/words/Makefile tuxtype/data/themes/bokmal/images/Makefile tuxtype/data/themes/bokmal/images/status/Makefile tuxtype/data/themes/brazilian-portuguese/Makefile tuxtype/data/themes/brazilian-portuguese/images/Makefile tuxtype/data/themes/brazilian-portuguese/words/Makefile tuxtype/data/themes/catalan/Makefile tuxtype/data/themes/catalan/words/Makefile tuxtype/data/themes/dansk/Makefile tuxtype/data/themes/dansk/sounds/Makefile tuxtype/data/themes/dansk/words/Makefile tuxtype/data/themes/deutsch/Makefile tuxtype/data/themes/deutsch/words/Makefile tuxtype/data/themes/espanol/Makefile tuxtype/data/themes/espanol/images/Makefile tuxtype/data/themes/espanol/words/Makefile tuxtype/data/themes/euskara/Makefile tuxtype/data/themes/euskara/images/Makefile tuxtype/data/themes/euskara/words/Makefile tuxtype/data/themes/french/Makefile tuxtype/data/themes/french/words/Makefile tuxtype/data/themes/greek/Makefile tuxtype/data/themes/greek/words/Makefile tuxtype/data/themes/italian/Makefile tuxtype/data/themes/italian/words/Makefile tuxtype/data/themes/jamaican/Makefile tuxtype/data/themes/jamaican/images/Makefile tuxtype/data/themes/jamaican/words/Makefile tuxtype/data/themes/lithuanian/Makefile tuxtype/data/themes/lithuanian/images/Makefile tuxtype/data/themes/lithuanian/images/status/Makefile tuxtype/data/themes/lithuanian/sounds/Makefile tuxtype/data/themes/lithuanian/words/Makefile tuxtype/data/themes/nederlands/Makefile tuxtype/data/themes/nederlands/words/Makefile tuxtype/data/themes/nynorsk/Makefile tuxtype/data/themes/nynorsk/images/Makefile tuxtype/data/themes/nynorsk/images/status/Makefile tuxtype/data/themes/nynorsk/words/Makefile tuxtype/data/themes/russian/Makefile tuxtype/data/themes/russian/images/Makefile tuxtype/data/themes/russian/images/status/Makefile tuxtype/data/themes/russian/words/Makefile tuxtype/data/themes/svenska/Makefile tuxtype/data/themes/svenska/words/Makefile tuxtype/data/themes/swahili/Makefile tuxtype/data/themes/swahili/words/Makefile tuxtype/data/words/Makefile tuxtype/docs/Makefile tuxtype/docs/en/Makefile tuxtype.spec nsis/tuxtype.nsi"
+config_files=" Makefile tuxtype/Makefile tuxtype/data/Makefile tuxtype/data/fonts/Makefile tuxtype/data/images/Makefile tuxtype/data/images/backgrounds/Makefile tuxtype/data/images/cities/Makefile tuxtype/data/images/comets/Makefile tuxtype/data/images/hands/Makefile tuxtype/data/images/keyboard/Makefile tuxtype/data/images/menu/Makefile tuxtype/data/images/status/Makefile tuxtype/data/images/tux/Makefile tuxtype/data/scripts/Makefile tuxtype/data/sounds/Makefile tuxtype/data/themes/Makefile tuxtype/data/themes/armenian/Makefile tuxtype/data/themes/armenian/images/Makefile tuxtype/data/themes/bokmal/Makefile tuxtype/data/themes/bokmal/words/Makefile tuxtype/data/themes/bokmal/images/Makefile tuxtype/data/themes/bokmal/images/status/Makefile tuxtype/data/themes/brazilian-portuguese/Makefile tuxtype/data/themes/brazilian-portuguese/images/Makefile tuxtype/data/themes/brazilian-portuguese/words/Makefile tuxtype/data/themes/catalan/Makefile tuxtype/data/themes/catalan/words/Makefile tuxtype/data/themes/dansk/Makefile tuxtype/data/themes/dansk/sounds/Makefile tuxtype/data/themes/dansk/words/Makefile tuxtype/data/themes/deutsch/Makefile tuxtype/data/themes/deutsch/words/Makefile tuxtype/data/themes/espanol/Makefile tuxtype/data/themes/espanol/images/Makefile tuxtype/data/themes/espanol/words/Makefile tuxtype/data/themes/euskara/Makefile tuxtype/data/themes/euskara/images/Makefile tuxtype/data/themes/euskara/words/Makefile tuxtype/data/themes/french/Makefile tuxtype/data/themes/french/words/Makefile tuxtype/data/themes/greek/Makefile tuxtype/data/themes/greek/words/Makefile tuxtype/data/themes/italian/Makefile tuxtype/data/themes/italian/words/Makefile tuxtype/data/themes/jamaican/Makefile tuxtype/data/themes/jamaican/images/Makefile tuxtype/data/themes/jamaican/words/Makefile tuxtype/data/themes/lithuanian/Makefile tuxtype/data/themes/lithuanian/images/Makefile tuxtype/data/themes/lithuanian/images/status/Makefile tuxtype/data/themes/lithuanian/sounds/Makefile tuxtype/data/themes/lithuanian/words/Makefile tuxtype/data/themes/nederlands/Makefile tuxtype/data/themes/malayalam/Makefile tuxtype/data/themes/malayalam/images/Makefile tuxtype/data/themes/malayalam/images/status/Makefile tuxtype/data/themes/malayalam/words/Makefile tuxtype/data/themes/nederlands/words/Makefile tuxtype/data/themes/nynorsk/Makefile tuxtype/data/themes/nynorsk/images/Makefile tuxtype/data/themes/nynorsk/images/status/Makefile tuxtype/data/themes/nynorsk/words/Makefile tuxtype/data/themes/russian/Makefile tuxtype/data/themes/russian/images/Makefile tuxtype/data/themes/russian/images/status/Makefile tuxtype/data/themes/russian/words/Makefile tuxtype/data/themes/svenska/Makefile tuxtype/data/themes/svenska/words/Makefile tuxtype/data/themes/swahili/Makefile tuxtype/data/themes/swahili/words/Makefile tuxtype/data/words/Makefile tuxtype/docs/Makefile tuxtype/docs/en/Makefile tuxtype.spec nsis/tuxtype.nsi"
 config_headers=" config.h"
 config_commands=" depfiles"
 
@@ -334,14 +334,14 @@ Report bugs to <bug-autoconf@gnu.org>."
 
 ac_cs_version="\
 tuxtype config.status 1.5.9
-configured by configure, generated by GNU Autoconf 2.61,
-  with options \"'--cache-file=cross-config.cache' '--target=i586-mingw32msvc' '--host=i586-mingw32msvc' '--build=i386-linux' '--prefix=/usr/local/cross-tools/i586-mingw32msvc' '--with-sdl-prefix' 'build_alias=i386-linux' 'host_alias=i586-mingw32msvc' 'target_alias=i586-mingw32msvc' 'LDFLAGS=-L/usr/local/cross-tools/i586-mingw32msvc/lib' 'CPPFLAGS=-I/usr/local/cross-tools/i586-mingw32msvc/include'\"
+configured by ./configure, generated by GNU Autoconf 2.61,
+  with options \"--prefix /usr/local\"
 
 Copyright (C) 2006 Free Software Foundation, Inc.
 This config.status script is free software; the Free Software Foundation
 gives unlimited permission to copy, distribute and modify it."
 
-ac_pwd='/home/dbruce/tux4kids/tuxtype/trunk'
+ac_pwd='/root/Desktop/tuxtype-indic'
 srcdir='.'
 INSTALL='/usr/bin/install -c'
 MKDIR_P='/bin/mkdir -p'
@@ -410,10 +410,10 @@ if $ac_cs_silent; then
 fi
 
 if $ac_cs_recheck; then
-  echo "running CONFIG_SHELL=/bin/sh /bin/sh configure " '--cache-file=cross-config.cache' '--target=i586-mingw32msvc' '--host=i586-mingw32msvc' '--build=i386-linux' '--prefix=/usr/local/cross-tools/i586-mingw32msvc' '--with-sdl-prefix' 'build_alias=i386-linux' 'host_alias=i586-mingw32msvc' 'target_alias=i586-mingw32msvc' 'LDFLAGS=-L/usr/local/cross-tools/i586-mingw32msvc/lib' 'CPPFLAGS=-I/usr/local/cross-tools/i586-mingw32msvc/include' $ac_configure_extra_args " --no-create --no-recursion" >&6
+  echo "running CONFIG_SHELL=/bin/sh /bin/sh ./configure " --prefix /usr/local $ac_configure_extra_args " --no-create --no-recursion" >&6
   CONFIG_SHELL=/bin/sh
   export CONFIG_SHELL
-  exec /bin/sh "configure" '--cache-file=cross-config.cache' '--target=i586-mingw32msvc' '--host=i586-mingw32msvc' '--build=i386-linux' '--prefix=/usr/local/cross-tools/i586-mingw32msvc' '--with-sdl-prefix' 'build_alias=i386-linux' 'host_alias=i586-mingw32msvc' 'target_alias=i586-mingw32msvc' 'LDFLAGS=-L/usr/local/cross-tools/i586-mingw32msvc/lib' 'CPPFLAGS=-I/usr/local/cross-tools/i586-mingw32msvc/include' $ac_configure_extra_args --no-create --no-recursion
+  exec /bin/sh "./configure" --prefix /usr/local $ac_configure_extra_args --no-create --no-recursion
 fi
 
 exec 5>>config.log
@@ -489,6 +489,12 @@ do
     "tuxtype/data/themes/lithuanian/images/status/Makefile") CONFIG_FILES="$CONFIG_FILES tuxtype/data/themes/lithuanian/images/status/Makefile" ;;
     "tuxtype/data/themes/lithuanian/sounds/Makefile") CONFIG_FILES="$CONFIG_FILES tuxtype/data/themes/lithuanian/sounds/Makefile" ;;
     "tuxtype/data/themes/lithuanian/words/Makefile") CONFIG_FILES="$CONFIG_FILES tuxtype/data/themes/lithuanian/words/Makefile" ;;
+   
+    "tuxtype/data/themes/malayalam/Makefile") CONFIG_FILES="$CONFIG_FILES tuxtype/data/themes/malayalam/Makefile" ;;
+    "tuxtype/data/themes/malayalam/images/Makefile") CONFIG_FILES="$CONFIG_FILES tuxtype/data/themes/malayalam/images/Makefile" ;;
+    "tuxtype/data/themes/malayalam/images/status/Makefile") CONFIG_FILES="$CONFIG_FILES tuxtype/data/themes/malayalam/images/status/Makefile" ;;
+    "tuxtype/data/themes/malayalam/words/Makefile") CONFIG_FILES="$CONFIG_FILES tuxtype/data/themes/malayalam/words/Makefile" ;;
+    
     "tuxtype/data/themes/nederlands/Makefile") CONFIG_FILES="$CONFIG_FILES tuxtype/data/themes/nederlands/Makefile" ;;
     "tuxtype/data/themes/nederlands/words/Makefile") CONFIG_FILES="$CONFIG_FILES tuxtype/data/themes/nederlands/words/Makefile" ;;
     "tuxtype/data/themes/nynorsk/Makefile") CONFIG_FILES="$CONFIG_FILES tuxtype/data/themes/nynorsk/Makefile" ;;
@@ -573,8 +579,8 @@ s,@PACKAGE_VERSION@,|#_!!_#|1.5.9,g
 s,@PACKAGE_STRING@,|#_!!_#|tuxtype 1.5.9,g
 s,@PACKAGE_BUGREPORT@,|#_!!_#|tuxmath-devel@|#_!!_#|lists.sourceforge.net,g
 s,@exec_prefix@,|#_!!_#|${prefix},g
-s,@prefix@,|#_!!_#|/usr/local/cross-tools/i586-mingw32msvc,g
-s,@program_transform_name@,|#_!!_#|s\&^\&i586-mingw32msvc-\&,g
+s,@prefix@,|#_!!_#|/usr/local,g
+s,@program_transform_name@,|#_!!_#|s\,x\,x\,,g
 s,@bindir@,|#_!!_#|${exec_prefix}/bin,g
 s,@sbindir@,|#_!!_#|${exec_prefix}/sbin,g
 s,@libexecdir@,|#_!!_#|${exec_prefix}/libexec,g
@@ -598,22 +604,22 @@ s,@DEFS@,|#_!!_#|-DHAVE_CONFIG_H,g
 s,@ECHO_C@,|#_!!_#|,g
 s,@ECHO_N@,|#_!!_#|-n,g
 s,@ECHO_T@,|#_!!_#|,g
-s,@LIBS@,|#_!!_#|-lmingw32 -lSDLmain -L/usr/lib -lSDL -lSDL_image -lSDL_ttf -lSDL_mixer  -lgw32c -luuid -lole32 -lwsock32 -mwindows,g
-s,@build_alias@,|#_!!_#|i386-linux,g
-s,@host_alias@,|#_!!_#|i586-mingw32msvc,g
-s,@target_alias@,|#_!!_#|i586-mingw32msvc,g
-s,@build@,|#_!!_#|i386-pc-linux-gnu,g
-s,@build_cpu@,|#_!!_#|i386,g
-s,@build_vendor@,|#_!!_#|pc,g
+s,@LIBS@,|#_!!_#|-L/usr/lib -lSDL -lSDL_image -lSDL_ttf -lSDL_mixer ,g
+s,@build_alias@,|#_!!_#|,g
+s,@host_alias@,|#_!!_#|,g
+s,@target_alias@,|#_!!_#|,g
+s,@build@,|#_!!_#|x86_64-unknown-linux-gnu,g
+s,@build_cpu@,|#_!!_#|x86_64,g
+s,@build_vendor@,|#_!!_#|unknown,g
 s,@build_os@,|#_!!_#|linux-gnu,g
-s,@host@,|#_!!_#|i586-pc-mingw32msvc,g
-s,@host_cpu@,|#_!!_#|i586,g
-s,@host_vendor@,|#_!!_#|pc,g
-s,@host_os@,|#_!!_#|mingw32msvc,g
-s,@target@,|#_!!_#|i586-pc-mingw32msvc,g
-s,@target_cpu@,|#_!!_#|i586,g
-s,@target_vendor@,|#_!!_#|pc,g
-s,@target_os@,|#_!!_#|mingw32msvc,g
+s,@host@,|#_!!_#|x86_64-unknown-linux-gnu,g
+s,@host_cpu@,|#_!!_#|x86_64,g
+s,@host_vendor@,|#_!!_#|unknown,g
+s,@host_os@,|#_!!_#|linux-gnu,g
+s,@target@,|#_!!_#|x86_64-unknown-linux-gnu,g
+s,@target_cpu@,|#_!!_#|x86_64,g
+s,@target_vendor@,|#_!!_#|unknown,g
+s,@target_os@,|#_!!_#|linux-gnu,g
 s,@INSTALL_PROGRAM@,|#_!!_#|${INSTALL},g
 s,@INSTALL_SCRIPT@,|#_!!_#|${INSTALL},g
 s,@INSTALL_DATA@,|#_!!_#|${INSTALL} -m 644,g
@@ -621,27 +627,27 @@ s,@am__isrc@,|#_!!_#|,g
 s,@CYGPATH_W@,|#_!!_#|echo,g
 s,@PACKAGE@,|#_!!_#|tuxtype,g
 s,@VERSION@,|#_!!_#|1.5.9,g
-s,@ACLOCAL@,|#_!!_#|${SHELL} /home/dbruce/tux4kids/tuxtype/trunk/missing --run aclocal-1.10,g
-s,@AUTOCONF@,|#_!!_#|${SHELL} /home/dbruce/tux4kids/tuxtype/trunk/missing --run autoconf,g
-s,@AUTOMAKE@,|#_!!_#|${SHELL} /home/dbruce/tux4kids/tuxtype/trunk/missing --run automake-1.10,g
-s,@AUTOHEADER@,|#_!!_#|${SHELL} /home/dbruce/tux4kids/tuxtype/trunk/missing --run autoheader,g
-s,@MAKEINFO@,|#_!!_#|${SHELL} /home/dbruce/tux4kids/tuxtype/trunk/missing --run makeinfo,g
-s,@install_sh@,|#_!!_#|$(SHELL) /home/dbruce/tux4kids/tuxtype/trunk/install-sh,g
-s,@STRIP@,|#_!!_#|i586-mingw32msvc-strip,g
+s,@ACLOCAL@,|#_!!_#|${SHELL} /root/Desktop/tuxtype-indic/missing --run aclocal-1.10,g
+s,@AUTOCONF@,|#_!!_#|${SHELL} /root/Desktop/tuxtype-indic/missing --run autoconf,g
+s,@AUTOMAKE@,|#_!!_#|${SHELL} /root/Desktop/tuxtype-indic/missing --run automake-1.10,g
+s,@AUTOHEADER@,|#_!!_#|${SHELL} /root/Desktop/tuxtype-indic/missing --run autoheader,g
+s,@MAKEINFO@,|#_!!_#|${SHELL} /root/Desktop/tuxtype-indic/missing --run makeinfo,g
+s,@install_sh@,|#_!!_#|$(SHELL) /root/Desktop/tuxtype-indic/install-sh,g
+s,@STRIP@,|#_!!_#|,g
 s,@INSTALL_STRIP_PROGRAM@,|#_!!_#|$(install_sh) -c -s,g
 s,@mkdir_p@,|#_!!_#|/bin/mkdir -p,g
-s,@AWK@,|#_!!_#|mawk,g
+s,@AWK@,|#_!!_#|gawk,g
 s,@SET_MAKE@,|#_!!_#|,g
 s,@am__leading_dot@,|#_!!_#|.,g
-s,@AMTAR@,|#_!!_#|${SHELL} /home/dbruce/tux4kids/tuxtype/trunk/missing --run tar,g
+s,@AMTAR@,|#_!!_#|${SHELL} /root/Desktop/tuxtype-indic/missing --run tar,g
 s,@am__tar@,|#_!!_#|${AMTAR} chof - "$$tardir",g
 s,@am__untar@,|#_!!_#|${AMTAR} xf -,g
-s,@CC@,|#_!!_#|i586-mingw32msvc-gcc,g
-s,@CFLAGS@,|#_!!_#|-g -O2 -I/usr/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT -D__GW32__,g
-s,@LDFLAGS@,|#_!!_#|-L/usr/local/cross-tools/i586-mingw32msvc/lib,g
-s,@CPPFLAGS@,|#_!!_#|-I/usr/local/cross-tools/i586-mingw32msvc/include -idirafter /usr/local/cross-tools/i586-mingw32msvc/include/glibc -DDATA_PREFIX=\\"$(prefix)\\",g
-s,@ac_ct_CC@,|#_!!_#|,g
-s,@EXEEXT@,|#_!!_#|.exe,g
+s,@CC@,|#_!!_#|gcc,g
+s,@CFLAGS@,|#_!!_#|-g -O2 -I/usr/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT,g
+s,@LDFLAGS@,|#_!!_#|,g
+s,@CPPFLAGS@,|#_!!_#| -DDATA_PREFIX=\\"$(prefix)\\",g
+s,@ac_ct_CC@,|#_!!_#|gcc,g
+s,@EXEEXT@,|#_!!_#|,g
 s,@OBJEXT@,|#_!!_#|o,g
 s,@DEPDIR@,|#_!!_#|.deps,g
 s,@am__include@,|#_!!_#|include,g
@@ -656,10 +662,10 @@ s,@LN_S@,|#_!!_#|ln -s,g
 s,@SDL_CONFIG@,|#_!!_#|/usr/bin/sdl-config,g
 s,@SDL_CFLAGS@,|#_!!_#|-I/usr/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT,g
 s,@SDL_LIBS@,|#_!!_#|-L/usr/lib -lSDL,g
-s,@BUILD_MINGW32_TRUE@,|#_!!_#|,g
-s,@BUILD_MINGW32_FALSE@,|#_!!_#|#,g
-s,@WINDRES@,|#_!!_#|/usr/bin/i586-mingw32msvc-windres,g
-s,@CPP@,|#_!!_#|i586-mingw32msvc-gcc -E,g
+s,@BUILD_MINGW32_TRUE@,|#_!!_#|#,g
+s,@BUILD_MINGW32_FALSE@,|#_!!_#|,g
+s,@WINDRES@,|#_!!_#|,g
+s,@CPP@,|#_!!_#|gcc -E,g
 s,@GREP@,|#_!!_#|/bin/grep,g
 s,@EGREP@,|#_!!_#|/bin/grep -E,g
 CEOF
@@ -668,8 +674,8 @@ cat >"$tmp/subs-2.sed" <<\CEOF
 s,@NSI_INSTALL_DIR@,|#_!!_#|mingw32,g
 s,@NSI_BUILD_TRUE@,|#_!!_#|,g
 s,@NSI_BUILD_FALSE@,|#_!!_#|#,g
-s,@NSI_DLL_DIR@,|#_!!_#|/home/dbruce/tuxtype_dll,g
-s,@NSIS@,|#_!!_#|/usr/bin/makensis,g
+s,@NSI_DLL_DIR@,|#_!!_#|/root/tuxtype_dll,g
+s,@NSIS@,|#_!!_#|no,g
 s,@LIBOBJS@,|#_!!_#|,g
 s,@LTLIBOBJS@,|#_!!_#|,g
 :end
@@ -939,7 +945,6 @@ s,^\([	 #]*\)[^	 ]*\([	 ]*VERSION\)[	 (].*,\1define\2 "1.5.9" ,
 s,^\([	 #]*\)[^	 ]*\([	 ]*HAVE_LIBSDL_MIXER\)[	 (].*,\1define\2 1 ,
 s,^\([	 #]*\)[^	 ]*\([	 ]*HAVE_LIBSDL_TTF\)[	 (].*,\1define\2 1 ,
 s,^\([	 #]*\)[^	 ]*\([	 ]*HAVE_LIBSDL_IMAGE\)[	 (].*,\1define\2 1 ,
-s,^\([	 #]*\)[^	 ]*\([	 ]*BUILD_MINGW32\)[	 (].*,\1define\2 1 ,
 s,^\([	 #]*\)[^	 ]*\([	 ]*STDC_HEADERS\)[	 (].*,\1define\2 1 ,
 s,^\([	 #]*\)[^	 ]*\([	 ]*HAVE_SYS_TYPES_H\)[	 (].*,\1define\2 1 ,
 s,^\([	 #]*\)[^	 ]*\([	 ]*HAVE_SYS_STAT_H\)[	 (].*,\1define\2 1 ,

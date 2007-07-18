@@ -80,8 +80,8 @@ void LoadLang(void)
   sprintf( fn, "%s/lang.po", realPath[0]);
 
   /* FIXME should have program try to setlocale() to lang-specific locale -  */
-  /* for now, at least get a default UTF-8 encoding set: */
-  if (!setlocale(LC_CTYPE, "en_US.UTF-8"))
+  /* for now, at least get ALL UTF-8 encoding set: */
+  if (!setlocale(LC_ALL, ""))
     fprintf(stderr, "Cannot support UTF-8, ASCII-only words will be used\n");
 
   /* This function confusingly returns 0 if successful! */

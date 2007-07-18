@@ -149,7 +149,7 @@ target_os = @target_os@
 target_vendor = @target_vendor@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-EXTRA_DIST = AndikaDesRevG.ttf
+EXTRA_DIST = Rachana_g01.ttf
 all: all-am
 
 .SUFFIXES:
@@ -162,9 +162,9 @@ $(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
 	      exit 1;; \
 	  esac; \
 	done; \
-	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu  tuxtype/data/fonts/Makefile'; \
+	echo ' cd $(top_srcdir) && $(AUTOMAKE) --foreign  tuxtype/data/fonts/Makefile'; \
 	cd $(top_srcdir) && \
-	  $(AUTOMAKE) --gnu  tuxtype/data/fonts/Makefile
+	  $(AUTOMAKE) --foreign  tuxtype/data/fonts/Makefile
 .PRECIOUS: Makefile
 Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
 	@case '$?' in \
@@ -313,10 +313,10 @@ uninstall-am: uninstall-local
 
 install-data-local:
 	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/fonts
-	$(INSTALL_DATA) $(srcdir)/AndikaDesRevG.ttf $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/fonts
+	$(INSTALL_DATA) $(srcdir)/Rachana_g01.ttf $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/fonts
 
 uninstall-local:
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/fonts/AndikaDesRevG.ttf
+	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/fonts/Rachana_g01.ttf
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:

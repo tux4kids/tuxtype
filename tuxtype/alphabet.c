@@ -19,8 +19,16 @@
 /* Needed to convert UTF-8 under Windows because we don't have glibc: */
 #include "ConvertUTF.h"  
 
+/* Needed to handle rendering issues */
+#include <SDL/SDL_Pango.h>
+
 #include "globals.h"
 #include "funcs.h"
+
+
+/* Create a context which contains Pango objects.*/
+SDLPango_Context *context;
+
 
 /* the colors we use throughout the game */
 
@@ -96,7 +104,7 @@ void LoadKeyboard( void ) {
 					ALPHABET[(int)wide_str[j]] = 1;  // first character is default
 
 					for (i++; i<wcslen(wide_str); i++)
-						KEYMAP[(int)wide_str[i]] = wide_str[j];
+						wide_str[i] = wide_str[j];
 
 					/* set the fingers for this letter */
 
@@ -123,6 +131,26 @@ void LoadKeyboard( void ) {
 	fprintf( stderr, "Error finding file for keyboard setup!\n" );
 }
 
+/*Convert SDL_Colour to SDLPango_Matrix*/
+
+SDLPango_Matrix* SDL_Colour_to_SDLPango_Matrix(const SDL_Color *cl)
+{
+  SDLPango_Matrix *colour;
+  colour=malloc(sizeof(SDLPango_Matrix));
+  int k;
+  for(k=0;k<4;k++){
+  	(*colour).m[0][k]=(*cl).r;
+  	(*colour).m[1][k]=(*cl).g;
+  	(*colour).m[2][k]=(*cl).b;
+  }
+  (*colour).m[3][0]=0;
+  (*colour).m[3][1]=255;
+  (*colour).m[3][2]=0;
+  (*colour).m[3][3]=0;
+
+  return colour;
+}
+
 
 SDL_Surface* BlackOutline(const unsigned char *t, TTF_Font *font, const SDL_Color *c)
 {
@@ -133,13 +161,28 @@ SDL_Surface* BlackOutline(const unsigned char *t, TTF_Font *font, const SDL_Colo
   SDL_Rect dstrect;
   Uint32 color_key;
 
+  /* To covert SDL_Colour to SDLPango_Matrix */
+  SDLPango_Matrix *colour;
+
   if (!t || !font || !c)
   {
     fprintf(stderr, "BlackOutline(): invalid ptr parameter, returning.");
     return NULL;
   }
 
-  black_letters = TTF_RenderUTF8_Blended(font, t, black);
+  colour=SDL_Colour_to_SDLPango_Matrix(c);
+  
+  /* Create the context */
+  context = SDLPango_CreateContext();	
+  SDLPango_SetDpi(context, 125.0, 125.0);
+  /* Set the color */
+  SDLPango_SetDefaultColor(context, MATRIX_TRANSPARENT_BACK_BLACK_LETTER );
+  SDLPango_SetBaseDirection(context, SDLPANGO_DIRECTION_LTR);
+  /* Set text to context */ 
+  SDLPango_SetMarkup(context,t, -1);  
+
+
+  black_letters = SDLPango_CreateSurfaceDraw(context);
 
   if (!black_letters)
   {
@@ -152,6 +195,10 @@ SDL_Surface* BlackOutline(const unsigned char *t, TTF_Font *font, const SDL_Colo
                             (black_letters->h) + 5,
                              32,
                              rmask, gmask, bmask, amask);
+
+  /* Draw text on a existing surface */
+  SDLPango_Draw(context, bg, 0, 0);
+  
   /* Use color key for eventual transparency: */
   color_key = SDL_MapRGB(bg->format, 10, 10, 10);
   SDL_FillRect(bg, NULL, color_key);
@@ -169,7 +216,8 @@ SDL_Surface* BlackOutline(const unsigned char *t, TTF_Font *font, const SDL_Colo
   SDL_FreeSurface(black_letters);
 
   /* --- Put the color version of the text on top! --- */
-  white_letters = TTF_RenderUTF8_Blended(font, t, *c);
+  SDLPango_SetDefaultColor(context, colour);
+  white_letters = SDLPango_CreateSurfaceDraw(context);
   dstrect.x = 1;
   dstrect.y = 1;
   SDL_BlitSurface(white_letters, NULL, bg, &dstrect);
@@ -334,13 +382,15 @@ void ClearWordList(void)
  */
 void UseAlphabet(void)
 {
-	int i;
+	int i,l;
+	char fn[256];
+        wchar_t wide_str[255];
 
 	LOG("Entering UseAlphabet()\n");
 
 	num_words = 0;
 	/* This totally mucks up i18n abilities :( */
-	for (i=65; i<90; i++) 
+/*	for (i=65; i<90; i++) 
 	{
 		if (ALPHABET[i]) {
 			word_list[num_words][0] = (unsigned char)i;
@@ -348,6 +398,37 @@ void UseAlphabet(void)
 			num_words++;
 
 			DEBUGCODE { fprintf(stderr, "Adding %c\n", (unsigned char)i); }
+		}
+	}*/
+
+	/* Read the characters from Keyboard.lst file to get i18n abilities*/
+	for (l=useEnglish; l<2; l++) {
+			sprintf( fn , "%s/keyboard.lst", realPath[l]);
+			if ( CheckFile(fn) ) {
+				unsigned char str[255];
+				FILE *f;
+				int i,j;
+				f = fopen( fn, "r" );
+				if (f == NULL)
+					continue;
+				do {
+					fscanf( f, "%[^\n]\n", str);
+				 for (j = 0; j < strlen(str); j++)
+				{
+					if (str[j] == '\n' || str[j] == '\r')
+					str[j] = '\0';
+				}
+				if (strlen(str) > 3) {
+					/* format is: FINGER(s)|Char(s) Upper/Lower */
+					/* advance past the fingers */
+					for (i=0; i<strlen(str) && str[i] != '|'; i++);
+					i++; // pass the '|'
+					convert_from_UTF8(word_list[num_words], str+i);
+					word_list[num_words][1]='\0';
+					num_words++;
+					}
+				} while (!feof(f));
+			break;
 		}
 	}
 	/* Make sure list is terminated with null character */
@@ -723,8 +804,8 @@ static void print_keymap(void)
 
   for(i = 0; i < 256; i++)
   {
-    fprintf(stderr, "i = %d\t(int)KEYMAP[i] = %d\tKEYMAP[i] = %lc\t",
-            i, KEYMAP[i], KEYMAP[i]); 
+    fprintf(stderr, "i = %d\t(int)i = %d\ti = %lc\t",
+            i, i, i); 
     if(isupper(i) && !islower(i))
       fprintf(stderr, "Upper\n");
     if(!isupper(i) && islower(i))
@@ -784,8 +865,7 @@ static void clear_keyboard( void ) {
 		ALPHABET[i]=0;
 		for (j=0; j<10; j++)
 			FINGER[i][j]=0;
-		KEYMAP[i]=i;
-	}
+		}
 }
 /* This function just tidies up all the ptr args needed for      */
 /* ConvertUTF8toUTF32() from Unicode, Inc. into a neat wrapper.  */
