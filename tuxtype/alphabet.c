@@ -20,7 +20,7 @@
 #include "ConvertUTF.h"  
 
 /* Needed to handle rendering issues */
-#include <SDL/SDL_Pango.h>
+#include <SDL_Pango.h>
 
 #include "globals.h"
 #include "funcs.h"

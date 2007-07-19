@@ -2,7 +2,7 @@
 /* config.h.in.  Generated from configure.ac by autoheader.  */
 
 /* Native MinGW32 build */
-#define BUILD_MINGW32 1
+/* #undef BUILD_MINGW32 */
 
 /* Define to 1 if you have the `atexit' function. */
 #define HAVE_ATEXIT 1

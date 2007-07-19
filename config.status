@@ -341,7 +341,7 @@ Copyright (C) 2006 Free Software Foundation, Inc.
 This config.status script is free software; the Free Software Foundation
 gives unlimited permission to copy, distribute and modify it."
 
-ac_pwd='/root/Desktop/tuxtype-indic'
+ac_pwd='/home/mobin/Desktop/tuxtype-indic'
 srcdir='.'
 INSTALL='/usr/bin/install -c'
 MKDIR_P='/bin/mkdir -p'
@@ -604,7 +604,7 @@ s,@DEFS@,|#_!!_#|-DHAVE_CONFIG_H,g
 s,@ECHO_C@,|#_!!_#|,g
 s,@ECHO_N@,|#_!!_#|-n,g
 s,@ECHO_T@,|#_!!_#|,g
-s,@LIBS@,|#_!!_#|-L/usr/lib -lSDL -lSDL_image -lSDL_ttf -lSDL_mixer ,g
+s,@LIBS@,|#_!!_#|-L/usr/lib -lSDL -lSDL_image -lSDL_Pango -lSDL_ttf -lSDL_mixer ,g
 s,@build_alias@,|#_!!_#|,g
 s,@host_alias@,|#_!!_#|,g
 s,@target_alias@,|#_!!_#|,g
@@ -627,19 +627,19 @@ s,@am__isrc@,|#_!!_#|,g
 s,@CYGPATH_W@,|#_!!_#|echo,g
 s,@PACKAGE@,|#_!!_#|tuxtype,g
 s,@VERSION@,|#_!!_#|1.5.9,g
-s,@ACLOCAL@,|#_!!_#|${SHELL} /root/Desktop/tuxtype-indic/missing --run aclocal-1.10,g
-s,@AUTOCONF@,|#_!!_#|${SHELL} /root/Desktop/tuxtype-indic/missing --run autoconf,g
-s,@AUTOMAKE@,|#_!!_#|${SHELL} /root/Desktop/tuxtype-indic/missing --run automake-1.10,g
-s,@AUTOHEADER@,|#_!!_#|${SHELL} /root/Desktop/tuxtype-indic/missing --run autoheader,g
-s,@MAKEINFO@,|#_!!_#|${SHELL} /root/Desktop/tuxtype-indic/missing --run makeinfo,g
-s,@install_sh@,|#_!!_#|$(SHELL) /root/Desktop/tuxtype-indic/install-sh,g
+s,@ACLOCAL@,|#_!!_#|${SHELL} /home/mobin/Desktop/tuxtype-indic/missing --run aclocal-1.10,g
+s,@AUTOCONF@,|#_!!_#|${SHELL} /home/mobin/Desktop/tuxtype-indic/missing --run autoconf,g
+s,@AUTOMAKE@,|#_!!_#|${SHELL} /home/mobin/Desktop/tuxtype-indic/missing --run automake-1.10,g
+s,@AUTOHEADER@,|#_!!_#|${SHELL} /home/mobin/Desktop/tuxtype-indic/missing --run autoheader,g
+s,@MAKEINFO@,|#_!!_#|${SHELL} /home/mobin/Desktop/tuxtype-indic/missing --run makeinfo,g
+s,@install_sh@,|#_!!_#|$(SHELL) /home/mobin/Desktop/tuxtype-indic/install-sh,g
 s,@STRIP@,|#_!!_#|,g
 s,@INSTALL_STRIP_PROGRAM@,|#_!!_#|$(install_sh) -c -s,g
 s,@mkdir_p@,|#_!!_#|/bin/mkdir -p,g
 s,@AWK@,|#_!!_#|gawk,g
 s,@SET_MAKE@,|#_!!_#|,g
 s,@am__leading_dot@,|#_!!_#|.,g
-s,@AMTAR@,|#_!!_#|${SHELL} /root/Desktop/tuxtype-indic/missing --run tar,g
+s,@AMTAR@,|#_!!_#|${SHELL} /home/mobin/Desktop/tuxtype-indic/missing --run tar,g
 s,@am__tar@,|#_!!_#|${AMTAR} chof - "$$tardir",g
 s,@am__untar@,|#_!!_#|${AMTAR} xf -,g
 s,@CC@,|#_!!_#|gcc,g
@@ -674,7 +674,7 @@ cat >"$tmp/subs-2.sed" <<\CEOF
 s,@NSI_INSTALL_DIR@,|#_!!_#|mingw32,g
 s,@NSI_BUILD_TRUE@,|#_!!_#|,g
 s,@NSI_BUILD_FALSE@,|#_!!_#|#,g
-s,@NSI_DLL_DIR@,|#_!!_#|/root/tuxtype_dll,g
+s,@NSI_DLL_DIR@,|#_!!_#|/home/mobin/tuxtype_dll,g
 s,@NSIS@,|#_!!_#|no,g
 s,@LIBOBJS@,|#_!!_#|,g
 s,@LTLIBOBJS@,|#_!!_#|,g
@@ -944,6 +944,7 @@ s,^\([	 #]*\)[^	 ]*\([	 ]*PACKAGE\)[	 (].*,\1define\2 "tuxtype" ,
 s,^\([	 #]*\)[^	 ]*\([	 ]*VERSION\)[	 (].*,\1define\2 "1.5.9" ,
 s,^\([	 #]*\)[^	 ]*\([	 ]*HAVE_LIBSDL_MIXER\)[	 (].*,\1define\2 1 ,
 s,^\([	 #]*\)[^	 ]*\([	 ]*HAVE_LIBSDL_TTF\)[	 (].*,\1define\2 1 ,
+s,^\([	 #]*\)[^	 ]*\([	 ]*HAVE_LIBSDL_PANGO\)[	 (].*,\1define\2 1 ,
 s,^\([	 #]*\)[^	 ]*\([	 ]*HAVE_LIBSDL_IMAGE\)[	 (].*,\1define\2 1 ,
 s,^\([	 #]*\)[^	 ]*\([	 ]*STDC_HEADERS\)[	 (].*,\1define\2 1 ,
 s,^\([	 #]*\)[^	 ]*\([	 ]*HAVE_SYS_TYPES_H\)[	 (].*,\1define\2 1 ,
