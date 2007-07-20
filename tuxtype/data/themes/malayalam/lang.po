@@ -1,17 +1,17 @@
-# Malayalam Translation of Menu.
-# Copyright (C) 2007 THE Tuxtype'S COPYRIGHT HOLDER
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# vimal|വിമല്‍ <vimal_ravi@rediffmail.com>,Mobin|മോബിന്‍ M|എം <mobinmohan@gmail.com>,Prince|പ്രിന്‍സ് K|കെ Antony|ആന്റണി <princekantony@hotmail.com>,Sreyas K<sreyas_kmt@yahoo.co.in>,Sreerenj B<sree.net1@gmail.com>
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: tuxtype-1.5.9\n"
+"Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-05-30 13:12+0100\n"
+"POT-Creation-Date: 2005-02-12 13:12+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: vimal|വിമല്‍ <vimal_ravi@rediffmail.com>,Mobin|മോബിന്‍ M|എം <mobinmohan@gmail.com>,Prince|പ്രിന്‍സ് K|കെ Antony|ആന്റണി <princekantony@hotmail.com>,Sreyas K<sreyas_kmt@yahoo.co.in>,Sreerenj B<sree.net1@gmail.com>\n"
-"Language-Team:Swathanthra|സ്വതന്ത്ര Malayalam|മലയാളം Computing|കമ്പ്യൂട്ടിങ്ങ് <smc-discuss@googlegroups.com>\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -68,13 +68,13 @@ msgid "This feature is not ready yet"
 msgstr  "ഈ ഫീച്ചര്‍ ശരിയായിട്ടില്ല"
 #
 msgid "Discuss the future of TuxTyping at"
-msgstr "ടക്സ് ടൈപ്പീന്റെ  ഭാവി ചര്‍ച്ചചെയ്യുക"
+msgstr "ടക്സ് ടൈപ്പിന്റെ  ഭാവി ചര്‍ച്ചചെയ്യുക"
 #
 msgid "Alphabet"
 msgstr "അക്ഷരം"
 #
 msgid "Short Words"
-msgstr "െചറിയവാക്ക്"
+msgstr "ചെറിയവാക്ക്"
 #
 msgid "Medium Words"
 msgstr "മീഡിയംവാക്ക്"

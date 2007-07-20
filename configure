@@ -4122,14 +4122,14 @@ fi
 echo "${ECHO_T}$ac_cv_lib_SDLPango_Init" >&6; }
 if test $ac_cv_lib_SDLPango_Init = yes; then
   cat >>confdefs.h <<_ACEOF
-#define HAVE_LIBSDL_PANGO 1
+#define HAVE_LIBSDLPANGO 1
 _ACEOF
 
   LIBS="-lSDL_Pango $LIBS"
 
 else
-  { { echo "$as_me:$LINENO: error: SDL_Pango not found http://www.libsdl.org/projects/SDL_Pango" >&5
-echo "$as_me: error: SDL_Pango not found http://www.libsdl.org/projects/SDL_Pango" >&2;}
+  { { echo "$as_me:$LINENO: error: libsdl-pango1 not found http://packages.debian.org/stable/libs/libsdl-pango1" >&5
+echo "$as_me: error: libsdl-pango1 not found http://packages.debian.org/stable/libs/libsdl-pango1" >&2;}
    { (exit 1); exit 1; }; }
 fi
 
