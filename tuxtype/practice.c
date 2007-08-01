@@ -41,7 +41,7 @@ static void show(unsigned char t);
 /*                                                                      */
 /************************************************************************/
 
-
+/* FIXME this file is not Unicode-compliant */
 
 int Phrases(char* pphrase ) {
 
@@ -209,12 +209,21 @@ static void practice_load_media(void)
 	wrong = LoadSound("tock.wav");
 
 	let[1]=0;
+
 	for (i=1; i<255; i++)
-		if (ALPHABET[i]) {
+	{
+		if (ALPHABET[i])
+		{
+			LOG("letter in ALPHABET[]\n");
 			let[0]=i;
 			letters[i] = BlackOutline(let, font, &white); 
 		}
-
+		else
+		{
+			LOG("letter NOT in ALPHABET[]\n");
+			letters[i] = NULL;
+		}
+	}
 	LOG("DONE - Loading practice media\n");
 	TTF_CloseFont(font);
 
@@ -293,8 +302,9 @@ static int get_phrase(const char* phr)
 	//Calculate and record pixel width of phrases
  		for (c=0;c<=pc;c++){
  			for(i=0; i<strlen(phrase[c]); i++){
-				if (letters[(int)phrase[c][i]] == NULL)
-					printf("no letter defined in keyboard.lst\n");
+				if (letters[(int)phrase[c][i]] == NULL){
+					LOG("no letter defined in keyboard.lst\n");
+				}
 				else
  					pw[c]+= letters[(int)phrase[c][i]]->w-5;
  			}
@@ -310,7 +320,8 @@ static int get_phrase(const char* phr)
 			}else{
 				z=0;
 				wp=0;
-				for (i=0;i<strlen(phrase[c]);i++){
+				for (i=0;i<strlen(phrase[c]);i++)
+				{
 					z += letters[(int)phrase[c][i]]->w-5;
 					if (wp == 0 && z > 598){
 					wp = i-1;
@@ -328,6 +339,7 @@ static int get_phrase(const char* phr)
 				}
 			}
 	}
+	LOG("Leaving get_phrase()\n");
 	return(wp);
 }
 

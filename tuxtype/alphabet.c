@@ -382,63 +382,72 @@ void ClearWordList(void)
  */
 void UseAlphabet(void)
 {
-	int i,l;
-	char fn[256];
-        wchar_t wide_str[255];
+  int i, l;
+  char fn[256];
+  wchar_t wide_str[255];
 
-	LOG("Entering UseAlphabet()\n");
+  LOG("Entering UseAlphabet()\n");
 
-	num_words = 0;
-	/* This totally mucks up i18n abilities :( */
-/*	for (i=65; i<90; i++) 
-	{
-		if (ALPHABET[i]) {
-			word_list[num_words][0] = (unsigned char)i;
-			word_list[num_words][1] = '\0';
-			num_words++;
+  num_words = 0;
 
-			DEBUGCODE { fprintf(stderr, "Adding %c\n", (unsigned char)i); }
-		}
-	}*/
+  /* Read the characters from Keyboard.lst file to get i18n abilities*/
+  for (l = useEnglish; l < 2; l++)
+  {
+    sprintf(fn , "%s/keyboard.lst", realPath[l]);
 
-	/* Read the characters from Keyboard.lst file to get i18n abilities*/
-	for (l=useEnglish; l<2; l++) {
-			sprintf( fn , "%s/keyboard.lst", realPath[l]);
-			if ( CheckFile(fn) ) {
-				unsigned char str[255];
-				FILE *f;
-				int i,j;
-				f = fopen( fn, "r" );
-				if (f == NULL)
-					continue;
-				do {
-					fscanf( f, "%[^\n]\n", str);
-				 for (j = 0; j < strlen(str); j++)
-				{
-					if (str[j] == '\n' || str[j] == '\r')
-					str[j] = '\0';
-				}
-				if (strlen(str) > 3) {
-					/* format is: FINGER(s)|Char(s) Upper/Lower */
-					/* advance past the fingers */
-					for (i=0; i<strlen(str) && str[i] != '|'; i++);
-					i++; // pass the '|'
-					convert_from_UTF8(word_list[num_words], str+i);
-					word_list[num_words][1]='\0';
-					num_words++;
-					}
-				} while (!feof(f));
-			break;
-		}
-	}
-	/* Make sure list is terminated with null character */
-	word_list[num_words][0] = '\0';
+    if (CheckFile(fn))
+    {
+      unsigned char str[255];
+      FILE* f;
+      int i, j;
 
-	/* Make list of all unicode characters used in word list: */
-	gen_char_list();
+      f = fopen(fn, "r");
+				
+      if (f == NULL)
+      {
+        continue;
+      }
 
-	DOUT(num_words);
-	LOG("Leaving UseAlphabet()\n");
+      do
+      {
+        fscanf(f, "%[^\n]\n", str);
+
+        for (j = 0; j < strlen(str); j++)
+        {
+          if (str[j] == '\n' || str[j] == '\r')
+            str[j] = '\0';
+        }
+
+        if (strlen(str) > 3)
+        {
+          /* format is: FINGER(s)|Char(s) Upper/Lower */
+          /* advance past the fingers */
+          for (i=0; i<strlen(str) && str[i] != '|'; i++);
+            i++; // pass the '|'
+          convert_from_UTF8(word_list[num_words], str + i);
+          word_list[num_words][1]='\0';
+          num_words++;
+        }
+
+      } while (!feof(f));
+
+      break;
+    }
+    else /* Could not find Keyboard.lst file! */
+    {
+      LOG("Could not find Keyboard.lst file! - leaving UseAlphabet()\n");
+      return;
+    }
+  }
+
+  /* Make sure list is terminated with null character */
+  word_list[num_words][0] = '\0';
+
+  /* Make list of all unicode characters used in word list: */
+  gen_char_list();
+
+  DOUT(num_words);
+  LOG("Leaving UseAlphabet()\n");
 }
 
 /* GetWord: returns a random word that wasn't returned

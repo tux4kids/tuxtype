@@ -165,7 +165,7 @@ extern SDL_Color white;
 extern SDL_Color yellow;
 
 extern SDL_Surface *bkg;
-extern SDL_Surface *letters[255];
+extern SDL_Surface *letters[255]; //FIXME get rid of this - use GetWhiteGlyph(), etc instead
 
 extern wchar_t ALPHABET[256];
 
