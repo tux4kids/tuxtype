@@ -59,6 +59,9 @@ int CheckFile(const char* file)
   return 0;
 }
 
+
+/* FIXME need to read language's font name, if needed - e.g. Russian. */
+/* also should have return value reflect success or failure.     */
 void LoadLang(void)
 {
   char fn[FNLEN];
@@ -68,7 +71,7 @@ void LoadLang(void)
    * different than the other loaders 
    */ 
 
-  if (useEnglish)
+  if (settings.use_english)
   {
     /* We need to set the locale to something supporting UTF-8: */
     if (!setlocale(LC_CTYPE, "en_US.UTF-8"))
@@ -134,7 +137,7 @@ SDL_Surface* flip(SDL_Surface* in, int x, int y ) {
 
 	out = SDL_CreateRGBSurface(
 		SDL_SWSURFACE,
-		in->w, in->h, 32, rmask, gmask, bmask, amask);
+		in->w, in->h, 32, RMASK, GMASK, BMASK, AMASK);
 
 	/* --- flip horizontally if requested --- */
 
@@ -205,7 +208,7 @@ TTF_Font* LoadFont(const char* fontfile, int fontsize ) {
 
 
 	/* try to find font first in theme dir, then in default */
-	for (i=useEnglish; i<2; i++) {
+	for (i=settings.use_english; i<2; i++) {
 		sprintf( fn, "%s/fonts/%s", realPath[i], fontfile );
 	DEBUGCODE { fprintf(stderr, "LoadFont(): looking for %s using data paths\n", fn ); }
 		{
@@ -244,11 +247,11 @@ SDL_Surface* LoadImage(const char* datafile, int mode)
 {
 	int i;
 	int oldDebug;  //so we can turn off debug output for this func only
-	SDL_Surface  *tmp_pic = NULL, *final_pic = NULL;
+	SDL_Surface* tmp_pic = NULL, *final_pic = NULL;
 	char         fn[FNLEN];
 
-	oldDebug = debugOn;  // suppress output for now
-	debugOn = 0;
+	oldDebug = settings.debug_on;  // suppress output for now
+	settings.debug_on = 0;
 
 	DEBUGCODE { fprintf(stderr, "LoadImage: loading %s\n", datafile ); }
 
@@ -260,7 +263,7 @@ SDL_Surface* LoadImage(const char* datafile, int mode)
                  1           1          1
 	 */
 
-	for (i = (useEnglish || (mode & IMG_NO_THEME)); i<2; i++) {
+	for (i = (settings.use_english || (mode & IMG_NO_THEME)); i<2; i++) {
 
 		sprintf( fn, "%s/images/%s", realPath[i], datafile );
 		DEBUGCODE { fprintf(stderr, "LoadImage: looking in %s\n", fn); }
@@ -277,7 +280,7 @@ SDL_Surface* LoadImage(const char* datafile, int mode)
 	if (tmp_pic == NULL) {
 		if (mode & IMG_NOT_REQUIRED)
 		{ 
-			debugOn = oldDebug;
+			settings.debug_on = oldDebug;
 			return NULL;
 		}
 
@@ -316,7 +319,7 @@ SDL_Surface* LoadImage(const char* datafile, int mode)
 
 	LOG( "LOADIMAGE: Done\n" );
 
-	debugOn = oldDebug;
+	settings.debug_on = oldDebug;
 
 	return (final_pic);
 }
@@ -381,7 +384,7 @@ Mix_Chunk* LoadSound(const char* datafile )
 	char fn[FNLEN];
 	int i;
 
-	for (i = useEnglish; i<2; i++) {
+	for (i = settings.use_english; i<2; i++) {
 		sprintf(fn , "%s/sounds/%s", realPath[i], datafile);
 		tempChunk = Mix_LoadWAV(fn);
 		if (tempChunk)
@@ -403,7 +406,7 @@ Mix_Music* LoadMusic(const char* datafile )
 	Mix_Music	*tempMusic;
 	int i;
 
-	for (i = useEnglish; i<2; i++) {
+	for (i = settings.use_english; i<2; i++) {
 		sprintf( fn , "%s/sounds/%s", realPath[i], datafile );
 		tempMusic = Mix_LoadMUS(fn);
 		if (tempMusic)

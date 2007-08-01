@@ -54,24 +54,56 @@
 
 #endif //  __GLOBALS_H__
 
-#define next_frame(SPRITE) if ((SPRITE)->num_frames) (SPRITE)->cur = (((SPRITE)->cur)+1) % (SPRITE)->num_frames;
-#define rewind(SPRITE) (SPRITE)->cur = 0;
+#define NEXT_FRAME(SPRITE) if ((SPRITE)->num_frames) (SPRITE)->cur = (((SPRITE)->cur)+1) % (SPRITE)->num_frames;
+#define REWIND(SPRITE) (SPRITE)->cur = 0;
 
 #define MIN(x,y) ((x) < (y) ? (x) : (y))
 #define MAX(x,y) ((x) > (y) ? (x) : (y))
 
-typedef struct {
-    char lang[FNLEN];
-    char path[FNLEN];
-    char window[FNLEN];
-    int sfx_volume;
-    int mus_volume;
-    int menu_music;
-} settings;
+/* Goal is to have all global settings here */
+/* (renamed from 'settings' to match tuxmath) */
+typedef struct game_option_type{
+  char default_data_path[FNLEN];
+  char theme_data_path[FNLEN];
+  char theme_name[FNLEN];
+  char lang[FNLEN];
+  char theme_font_name[FNLEN];
+  int use_english;
+  int fullscreen;
+  int sys_sound;
+  int sfx_volume;
+  int mus_volume;
+  int menu_music;
+  int speed_up;
+  int show_tux4kids;
+  int debug_on;
+  int o_lives;
+  int sound_vol;
+  int hidden; // Read the README file in the image directory for info on this ;)
+} game_option_type;
+
+/* Default values for game_option_type struct */
+/* They can be changed in the struct to other values at run-time */
+#define DEFAULT_MENU_FONT       "AndikaDesRevG.ttf"
+#define DEFAULT_GAME_FONT       "AndikaDesRevG.ttf" 
+#define DEFAULT_USE_ENGLISH 1
+#define DEFAULT_FULLSCREEN 1
+#define DEFAULT_SYS_SOUND 1
+#define DEFAULT_SFX_VOLUME 100
+#define DEFAULT_MUS_VOLUME 100
+#define DEFAULT_MENU_MUSIC 1
+#define DEFAULT_SPEED_UP 0
+#define DEFAULT_SHOW_TUX4KIDS 1
+#define DEFAULT_DEBUG_ON 0
+#define DEFAULT_O_LIVES 0
+#define DEFAULT_SOUND_VOL 100
+#define DEFAULT_HIDDEN 0
+
+
 
 typedef struct {
-	SDL_Surface *frame[MAX_SPRITE_FRAMES];
-	SDL_Surface *default_img;
+	SDL_Surface* frame[MAX_SPRITE_FRAMES];
+	SDL_Surface* default_img;
 	int num_frames;
 	int cur;
 } sprite;
@@ -94,37 +126,36 @@ typedef struct {
  *   all over the place!
  */
 
-#define LOG( str ) if (debugOn) fprintf( stderr, str );
-#define DEBUGCODE if (debugOn) 
-#define DOUT(x) if (debugOn) fprintf(stderr, "%s = %d\n", #x, x);
+#define LOG( str ) if (settings.debug_on) fprintf( stderr, str );
+#define DEBUGCODE if (settings.debug_on) 
+#define DOUT(x) if (settings.debug_on) fprintf(stderr, "%s = %d\n", #x, x);
 
 #if SDL_BYTEORDER == SDL_BIG_ENDIAN
-#define rmask 0xff000000
-#define gmask 0x00ff0000
-#define bmask 0x0000ff00
-#define amask 0x000000ff
+#define RMASK 0xff000000
+#define GMASK 0x00ff0000
+#define BMASK 0x0000ff00
+#define AMASK 0x000000ff
 #else
-#define rmask 0x000000ff
-#define gmask 0x0000ff00
-#define bmask 0x00ff0000
-#define amask 0xff000000
+#define RMASK 0x000000ff
+#define GMASK 0x0000ff00
+#define BMASK 0x00ff0000
+#define AMASK 0xff000000
 #endif
 
-#define menu_font	"AndikaDesRevG.ttf"    /*"AndikaDesRevA.ttf"  GenAI102.ttf or "DejaVuSans-Bold.ttf"  or "FreeSansBold.ttf" */ 	/* was menu.ttf */
-#define menu_font_size	20
 
-#define ttf_font	"AndikaDesRevG.ttf" /*AndikaDesRevA.ttf"  GenAI102.ttf or "DejaVuSans-Bold.ttf" or "FreeSansBold.ttf" */  	/* was letters.ttf */
-#define ttf_font_size	20
+
+#define MENU_FONT_SIZE	20
+#define GAME_FONT_SIZE	20
 
 /* Limits on word list size, word length, and on the number of distinct characters */
 /* that can be present within a word list: */
 #define MAX_NUM_WORDS   500
 #define MAX_WORD_SIZE   8
-#define MAX_UNICODES 1024
+#define MAX_UNICODES    1024
 
-#define WAIT_MS				2500
-#define	FRAMES_PER_SEC	                50
-#define FULL_CIRCLE		        140
+#define WAIT_MS		2500
+#define	FRAMES_PER_SEC	50
+#define FULL_CIRCLE	140
 
 /* Menu Prototypes */
 enum Game_Type { 
@@ -135,9 +166,9 @@ enum Game_Type {
 	LEVEL1, LEVEL2, LEVEL3, LEVEL4, LASER, INSTRUCT, NOT_CODED, NONE};
 
 /* Title sequence constants */
-#define PRE_ANIM_FRAMES			10
-#define PRE_FRAME_MULT			3
-#define MENU_SEP			20
+#define PRE_ANIM_FRAMES	 10
+#define PRE_FRAME_MULT	 3
+#define MENU_SEP	 20
 
 /* paths */
 
@@ -151,10 +182,12 @@ enum Game_Type {
 
 //Game difficulty levels
 enum { EASY, MEDIUM, HARD, INSANE, INF_PRACT };
-#define NUM_LEVELS		        4
+#define NUM_LEVELS  4
 
-extern SDL_Surface *screen;
-extern TTF_Font  *font;
+extern game_option_type settings;
+
+extern SDL_Surface* screen;
+extern TTF_Font* font;
 extern SDL_Event  event;
 
 extern SDL_Color black;
@@ -164,26 +197,20 @@ extern SDL_Color red;
 extern SDL_Color white;
 extern SDL_Color yellow;
 
-extern SDL_Surface *bkg;
-extern SDL_Surface *letters[255];
+extern SDL_Surface* bkg;
+extern SDL_Surface* letters[255];
 
+/* These need some work to support Unicode & i18n: */
 extern wchar_t ALPHABET[256];
-extern wchar_t KEYMAP[256];
 extern unsigned char FINGER[256][10];
 extern int ALPHABET_SIZE;
 
-//global vars
-extern int speed_up;
-extern int show_tux4kids;
-extern int debugOn;
-extern int o_lives;
-extern int sound_vol;
-extern int hidden; // Read the README file in the image directory for info on this ;)
 
 /* Alternative language/word/image/sound theming */
 extern unsigned char realPath[2][FNLEN];
 extern char themeName[FNLEN];
-extern int useEnglish;
+extern char fontName[FNLEN];
+//extern int useEnglish;
 
 enum {
 	WIN_WAV,
@@ -197,9 +224,9 @@ enum {
 	NUM_WAVES
 };
 
-extern Mix_Chunk      *sound[NUM_WAVES];
-extern Mix_Music      *music;
-extern int sys_sound;
+extern Mix_Chunk* sound[NUM_WAVES];
+extern Mix_Music*  music;
+//extern int sys_sound;
 
 #define MUSIC_FADE_OUT_MS	80
 

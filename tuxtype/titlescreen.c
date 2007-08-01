@@ -38,7 +38,6 @@ int     menu_width[TITLE_MENU_DEPTH + 1];
 int menu_depth; // how deep we are in the menu
 int menu_sound; // status of menu sound effects
 int menu_music; // status of menu sound effects
-settings localsettings;
 
 /* --- other media --- */
 SDL_Surface *title;
@@ -100,10 +99,10 @@ void TitleScreen(void)
   char phrase[128];
 
 
-  if (sys_sound)
+  if (settings.sys_sound)
   {
-    menu_sound=1;
-    menu_music=localsettings.menu_music;
+    menu_sound = 1;
+    menu_music = settings.menu_music;
   }
 
 
@@ -116,7 +115,7 @@ void TitleScreen(void)
   * StandbyScreen: Display the Standby screen.... 
   */
 
-  if (show_tux4kids)
+  if (settings.show_tux4kids)
   {
     SDL_Surface *standby;
     standby = LoadImage("standby.png", IMG_REGULAR|IMG_NO_THEME);
@@ -161,13 +160,13 @@ void TitleScreen(void)
 
   /* --- wait if the first time in the game --- */
 
-  if (show_tux4kids)
+  if (settings.show_tux4kids)
   {
     while ((SDL_GetTicks() - start) < 2000)
     {
       SDL_Delay(50);
     }
-    show_tux4kids = 0;
+    settings.show_tux4kids = 0;
   }
 
   SDL_ShowCursor(1);    
@@ -740,7 +739,7 @@ void TitleScreen(void)
     {
       if (key_menu != old_key_menu)
       {
-        rewind(menu_gfx[key_menu][menu_depth]);
+        REWIND(menu_gfx[key_menu][menu_depth]);
         PlaySound(snd_move);
       }
 
@@ -749,7 +748,7 @@ void TitleScreen(void)
       SDL_BlitSurface(sel_text[key_menu][menu_depth], NULL, screen, &text_dst[key_menu]);
       SDL_BlitSurface(menu_gfx[key_menu][menu_depth]->frame[menu_gfx[key_menu][menu_depth]->cur], NULL, screen, &menu_gfxdest[key_menu]);
 
-      next_frame(menu_gfx[key_menu][menu_depth]);
+      NEXT_FRAME(menu_gfx[key_menu][menu_depth]);
     }
 
 
@@ -788,14 +787,14 @@ void TitleScreen(void)
 
   LOG( "->>Freeing title screen images\n" );
 
-  localsettings.menu_music=menu_music;
+  settings.menu_music = menu_music;
   unload_media();
 
   LOG( "->TitleScreen():END \n" );
 }
 
 
-
+/* FIXME this should update settings.fullscreen */
 void SwitchScreenMode(void)
 {
   SDL_Surface *tmp;
@@ -838,6 +837,7 @@ void SwitchScreenMode(void)
   SDL_UpdateRect(tmp,0,0,RES_X,RES_Y);
   SDL_FreeSurface(tmp);
 
+  settings.fullscreen = !settings.fullscreen;
 }
 
 
@@ -949,35 +949,34 @@ static void unload_menu(void)
 
 static void load_media(void)
 {
+  DEBUGCODE
+  {
+    fprintf(stderr, "Entering load_media():\n");
+    fprintf(stderr, "realPath[0] = %s\n", realPath[0]);
+    fprintf(stderr, "realPath[1] = %s\n", realPath[1]);
+  }
 
-	/* --- load sounds --- */
-	DEBUGCODE
-	{
-		fprintf(stderr, "Entering titlescreen_load_media():\n");
-		fprintf(stderr, "realPath[0] = %s\n", realPath[0]);
-		fprintf(stderr, "realPath[1] = %s\n", realPath[1]);
-	}
-
-	if (menu_sound){
-	    snd_move = LoadSound("tock.wav");
-	    snd_select = LoadSound("pop.wav");
-	}
+  /* --- load sounds --- */
+  if (menu_sound)
+  {
+    snd_move = LoadSound("tock.wav");
+    snd_select = LoadSound("pop.wav");
+  }
  
-	/* --- load graphics --- */
+  /* --- load graphics --- */
+  title = LoadImage( "title1.png", IMG_ALPHA );
+  speaker = LoadImage( "sound.png", IMG_ALPHA );
+  speakeroff = LoadImage( "nosound.png", IMG_ALPHA );
+  bkg = LoadImage( "main_bkg.png", IMG_REGULAR );
 
-	title = LoadImage( "title1.png", IMG_ALPHA );
-	speaker = LoadImage( "sound.png", IMG_ALPHA );
-	speakeroff = LoadImage( "nosound.png", IMG_ALPHA );
-	bkg = LoadImage( "main_bkg.png", IMG_REGULAR );
+  sel = LoadSprite("menu/sel", IMG_ALPHA);
+  reg = LoadSprite("menu/reg", IMG_ALPHA);
 
-	sel = LoadSprite("menu/sel", IMG_ALPHA);
-	reg = LoadSprite("menu/reg", IMG_ALPHA);
+  Tux = LoadSprite("tux", IMG_ALPHA);
 
-	Tux = LoadSprite("tux", IMG_ALPHA);
-
-	font = LoadFont( menu_font, menu_font_size );
-	/* Should probably call this directly from TitleScreen() */
-	load_menu();
+  font = LoadFont(settings.theme_font_name, MENU_FONT_SIZE);
+  /* Should probably call this directly from TitleScreen() */
+  load_menu();
 }
 
 static void unload_media(void)
@@ -1010,7 +1009,7 @@ static void not_implemented(void) {
 	SDL_Surface *s1, *s2, *s3, *s4;
 	sprite *tux;
 	SDL_Rect loc;
-	int finished=0,i;
+	int finished = 0, i;
 
         LOG( "NotImplemented() - creating text\n" );
 
@@ -1019,13 +1018,15 @@ static void not_implemented(void) {
 	s3 = BlackOutline( _("Discuss the future of TuxTyping at"), font, &white);
 
 	/* we always want the URL in english */
-	if (!useEnglish) {
+	/* NOTE: all fonts are almost certain to include glyphs for ASCII, */
+        /* so the following "english_font" hackery is probably unnecessary: */
+	if (!settings.use_english) {
 		TTF_Font *english_font;
-		useEnglish = 1;
-		english_font = LoadFont( menu_font, menu_font_size );
+		settings.use_english = 1;
+		english_font = LoadFont(DEFAULT_MENU_FONT, MENU_FONT_SIZE);
 		s4 = BlackOutline( "http://tuxtype.sf.net/forums", english_font, &white);
 		TTF_CloseFont(english_font);
-		useEnglish = 0;
+		settings.use_english = 0;
 	} else 
 		s4 = BlackOutline( "http://tuxtype.sf.net/forums", font, &white);
 
@@ -1063,7 +1064,7 @@ static void not_implemented(void) {
 			}
 		i++;
 		if (i%5==0) {
-			next_frame(tux);
+			NEXT_FRAME(tux);
 			SDL_BlitSurface( bkg, &loc, screen, &loc);
 			SDL_BlitSurface( tux->frame[tux->cur], NULL, screen, &loc);
 			SDL_UpdateRect(screen, loc.x, loc.y, loc.w, loc.h);
@@ -1112,8 +1113,8 @@ static int chooseWordlist(void)
 
 	/* find the directory to load wordlists from */
 
-	for (i=useEnglish; i<2; i++) {
-		sprintf( wordPath, "%s/words", realPath[i] );
+	for (i = settings.use_english; i < 2; i++) {
+		sprintf(wordPath, "%s/words", realPath[i]);
 		if (CheckFile(wordPath))
 			break;
 	}

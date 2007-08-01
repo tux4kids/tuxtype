@@ -23,7 +23,7 @@ Mix_Chunk *pause_sfx;
 SDL_Surface *up, *down, *left, *right;
 SDL_Rect rectUp, rectDown, rectLeft, rectRight;
 TTF_Font *f1, *f2;
-extern settings localsettings;
+extern game_option_type settings;
 
 /* Local function prototypes: */
 void darkenscreen(void);
@@ -36,7 +36,8 @@ void pause_draw_info(void);
 /**********************
 Pause : Pause the game
 ***********************/
-int Pause( void ) {
+int Pause(void)
+{
 	int paused = 1;
 	int sfx_volume=0;
 	int old_sfx_volume;
@@ -51,7 +52,7 @@ int Pause( void ) {
 
 	/* --- stop all sounds, play pause noise --- */
 
-	if (sys_sound) {
+	if (settings.sys_sound) {
  		Mix_Pause(-1);
 		Mix_PlayChannel(-1, pause_sfx, 0);
 		sfx_volume = Mix_Volume(-1, -1);  // get sfx volume w/o changing it
@@ -67,7 +68,7 @@ int Pause( void ) {
 
 	pause_draw_info();
 
-	if (sys_sound) {
+	if (settings.sys_sound) {
 		draw_vols(sfx_volume, mus_volume);
 	}
 
@@ -86,7 +87,7 @@ int Pause( void ) {
 					exit(0);
 					break;
 				case SDL_KEYUP:
-					if (sys_sound && 
+					if (settings.sys_sound && 
 					   ((event.key.keysym.sym == SDLK_RIGHT) ||
 					    (event.key.keysym.sym == SDLK_LEFT))) 
 					    	tocks = 0;
@@ -98,7 +99,7 @@ int Pause( void ) {
 						paused = 0;
 						quit = 1;
 					}
-					if (sys_sound) { 
+					if (settings.sys_sound) { 
 						if (event.key.keysym.sym == SDLK_RIGHT) 
 							sfx_volume += 4;
 						if (event.key.keysym.sym == SDLK_LEFT) 
@@ -119,7 +120,7 @@ int Pause( void ) {
 
 					break;
 			}
-		if (sys_sound && mousePressed) {
+		if (settings.sys_sound && mousePressed) {
 			int x, y;
 
 			SDL_GetMouseState(&x, &y);
@@ -149,7 +150,7 @@ int Pause( void ) {
 			}
 		}
 
-		if (sys_sound) {
+		if (settings.sys_sound) {
 
 			if (sfx_volume > MIX_MAX_VOLUME)
 				sfx_volume = MIX_MAX_VOLUME;
@@ -174,8 +175,8 @@ int Pause( void ) {
 			    }
 
 				draw_vols(sfx_volume, mus_volume);
-				localsettings.mus_volume=mus_volume;
-				localsettings.sfx_volume=sfx_volume;
+				settings.mus_volume=mus_volume;
+				settings.sfx_volume=sfx_volume;
 				SDL_Flip(screen);
 			}
 		}
@@ -189,7 +190,7 @@ int Pause( void ) {
 
 	SDL_ShowCursor(0);
 
-	if (sys_sound) {
+	if (settings.sys_sound) {
 		Mix_PlayChannel(-1, pause_sfx, 0);
 		Mix_Resume(-1);
 	}
@@ -201,7 +202,7 @@ int Pause( void ) {
 
 
 void PauseLoadMedia(void) {
-	if (sys_sound) 
+	if (settings.sys_sound) 
 		pause_sfx = LoadSound( "tock.wav" );
 
 	up = LoadImage("up.png", IMG_ALPHA);
@@ -216,12 +217,12 @@ void PauseLoadMedia(void) {
 	right = LoadImage("right.png", IMG_ALPHA);
 	rectRight.w = right->w; rectRight.h = right->h;
 
-	f1 = LoadFont( ttf_font, 24 );
-	f2 = LoadFont( ttf_font, 36 );
+	f1 = LoadFont(settings.theme_font_name, 24);
+	f2 = LoadFont(settings.theme_font_name, 36);
 }
 
 void PauseUnloadMedia(void) {
-	if (sys_sound)
+	if (settings.sys_sound)
 		Mix_FreeChunk(pause_sfx);
 	SDL_FreeSurface(up);
 	SDL_FreeSurface(down);
@@ -259,7 +260,7 @@ void pause_draw_info(void) {
 	rectLeft.x = rectDown.x = 320 - (7*16) - rectLeft.w - 4;
 	rectRight.x = rectUp.x  = 320 + (7*16) + 4;
 
-	if (sys_sound) {
+	if (settings.sys_sound) {
 
 		SDL_BlitSurface(left, NULL, screen, &rectLeft);
 		SDL_BlitSurface(right, NULL, screen, &rectRight);
@@ -268,7 +269,7 @@ void pause_draw_info(void) {
 		SDL_BlitSurface(up, NULL, screen, &rectUp);
 	}
 
-	if (sys_sound) {
+	if (settings.sys_sound) {
 
 		t = BlackOutline(_("Sound Effects Volume"), f1, &white);
 		s.y = 160;
@@ -342,19 +343,24 @@ void draw_vols(int sfx, int mus) {
  * RESULT: it will darken the screen by a factor of 4
  * WARNING: only works on 16bit screens right now!
  */
-void darkenscreen( void ){
-	Uint16 rm = screen->format->Rmask;
-	Uint16 gm = screen->format->Gmask;
-	Uint16 bm = screen->format->Bmask;
-	Uint16 *p; 
-	int x, y;
+void darkenscreen(void)
+{
+  Uint16 rm = screen->format->Rmask;
+  Uint16 gm = screen->format->Gmask;
+  Uint16 bm = screen->format->Bmask;
+  Uint16* p; 
+  int x, y;
 
-	p = screen->pixels;
+  p = screen->pixels;
 
-	for (y = 0; y<480; y++) 
-		for (x = 0; x<640; x++) {
-			*p = (((*p&rm)>>2)&rm) | (((*p&gm)>>2)&gm) | (((*p&bm)>>2)&bm); p++;
-		}
+  for (y = 0; y < 480; y++) 
+  {
+    for (x = 0; x < 640; x++)
+    {
+      *p = (((*p&rm)>>2)&rm) | (((*p&gm)>>2)&gm) | (((*p&bm)>>2)&bm);
+      p++;
+    }
+  }
 }
 
 

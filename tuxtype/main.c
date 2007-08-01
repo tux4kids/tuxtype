@@ -19,31 +19,32 @@
 #include "globals.h"
 #include "funcs.h"
 
-SDL_Surface *screen;
-SDL_Surface *bkg;
+SDL_Surface* screen;
+SDL_Surface* bkg;
 
-// HACK: add tux trudging off after losing laser game...
 
-int sys_sound;
 SDL_Event  event;
 
-extern settings localsettings;
+
 
 /********************
   main : init stuff
 *********************/
 int main(int argc, char *argv[])
 {
-	Uint32          video_flags = 0,
-	                lib_flags   = 0;
-	int i;
-   
-	sys_sound = 1;      //default using system sounds
-	speed_up = 0;       //run at normal speed
-	show_tux4kids = 1;  //show tux4kids logo the first time in main menu
-	useEnglish = 1;     //default to no theme
-	debugOn = 0;        //default to not in debug mode
-	hidden = 0;         //default to no "hidden" background
+  Uint32 video_flags = 0,
+         lib_flags   = 0;
+  int i;
+
+  /* Initialize settings with hard-coded defaults: */ 
+  Opts_Initialize();
+
+// 	settings.sys_sound = 1;      //default using system sounds
+// 	settings.speed_up = 0;       //run at normal speed
+// 	settings.show_tux4kids = 1;  //show tux4kids logo the first time in main menu
+// 	settings.use_english = 1;     //default to no theme
+// 	settings.debug_on = 0;        //default to not in debug mode
+// 	settings.hidden = 0;         //default to no "hidden" background
 
 
 	srand(time(NULL));
@@ -52,12 +53,15 @@ int main(int argc, char *argv[])
 	SetupTheme(NULL);
 
 	LoadSettings();
-	DEBUGCODE { printf("Window setting from config file is: %s\n", localsettings.window );}
+	DEBUGCODE { printf("Window setting from config file is: %d\n", settings.fullscreen);}
 
-	if (strncmp ( localsettings.window, "yes", FNLEN ) == 0 ){
-		video_flags = (SDL_SWSURFACE | SDL_HWPALETTE);
-	} else {
-		video_flags = (SDL_FULLSCREEN | SDL_SWSURFACE | SDL_HWPALETTE);
+	if (settings.fullscreen)
+        {
+	  video_flags = (SDL_FULLSCREEN | SDL_SWSURFACE | SDL_HWPALETTE);
+	} 
+        else
+        {
+	  video_flags = (SDL_SWSURFACE | SDL_HWPALETTE);
 	}
         
 	lib_flags = SDL_INIT_VIDEO;
@@ -107,27 +111,27 @@ int main(int argc, char *argv[])
 		
 			if ((strcmp(argv[i], "-sp") == 0) |
 			    (strcmp(argv[i], "--speed") == 0)) 
-				speed_up = 1;
+				settings.speed_up = 1;
 
 			if ((strcmp(argv[i], "-d") == 0) |
 			    (strcmp(argv[i], "--debug") == 0)) 
-				debugOn = 1;
+				settings.debug_on = 1;
 
 			if ((strcmp(argv[i], "-s") == 0) |
 				(strcmp(argv[i], "--sound") == 0)) 
-				sys_sound = 1;
+				settings.sys_sound = 1;
 			
 			if ((strcmp(argv[i], "-ns") == 0) |
 			    (strcmp(argv[i], "--nosound") == 0)) 
-				sys_sound = 0;
+				settings.sys_sound = 0;
 			
 			if ((strcmp(argv[i], "--hidden") == 0) |
 			    (strcmp(argv[i], "-hidden") == 0)) 
-				hidden = 1;
+				settings.hidden = 1;
 			
 			if ((strcmp(argv[i], "-t") == 0) |
 			    (strcmp(argv[i], "--theme") == 0)) 
-				SetupTheme( argv[++i] );
+				SetupTheme(argv[++i]);
 		}
 
 	DEBUGCODE {
@@ -139,9 +143,10 @@ int main(int argc, char *argv[])
 	LibInit(lib_flags); /* calls SDL_Init(), TTF_Init(), some other settings */
 	GraphicsInit(video_flags); /* calls SDL_SetVideoMode(), a few others     */
 
-	if (sys_sound){
-	    Mix_VolumeMusic(localsettings.mus_volume);
-	    Mix_Volume(-1,localsettings.sfx_volume);
+	if (settings.sys_sound)
+        {
+	    Mix_VolumeMusic(settings.mus_volume);
+	    Mix_Volume(-1, settings.sfx_volume);
 	}
 
 	/* Fix: we should check config files/environment variables like LANG! */

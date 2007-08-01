@@ -17,7 +17,8 @@ tuxtype_SOURCES = 	\
 	scripting.c	\
 	scripting.h	\
 	pause.c		\
-	ConvertUTF.c
+	ConvertUTF.c	\
+	options.c
 
 SUBDIRS = 		\
 	data		\
@@ -47,6 +48,8 @@ EXTRA_DIST = 		\
 	snow.h		\
 	pause.c		\
 	ConvertUTF.c	\
-	ConvertUTF.h
+	ConvertUTF.h	\
+	options.c
+
 
 

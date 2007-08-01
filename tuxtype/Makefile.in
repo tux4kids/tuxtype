@@ -52,7 +52,7 @@ am_tuxtype_OBJECTS = playgame.$(OBJEXT) main.$(OBJEXT) \
 	laser.$(OBJEXT) alphabet.$(OBJEXT) theme.$(OBJEXT) \
 	practice.$(OBJEXT) audio.$(OBJEXT) gettext.$(OBJEXT) \
 	snow.$(OBJEXT) scripting.$(OBJEXT) pause.$(OBJEXT) \
-	ConvertUTF.$(OBJEXT)
+	ConvertUTF.$(OBJEXT) options.$(OBJEXT)
 tuxtype_OBJECTS = $(am_tuxtype_OBJECTS)
 tuxtype_LDADD = $(LDADD)
 DEFAULT_INCLUDES = -I. -I$(top_builddir)@am__isrc@
@@ -197,7 +197,8 @@ tuxtype_SOURCES = \
 	scripting.c	\
 	scripting.h	\
 	pause.c		\
-	ConvertUTF.c
+	ConvertUTF.c	\
+	options.c
 
 SUBDIRS = \
 	data		\
@@ -227,7 +228,8 @@ EXTRA_DIST = \
 	snow.h		\
 	pause.c		\
 	ConvertUTF.c	\
-	ConvertUTF.h
+	ConvertUTF.h	\
+	options.c
 
 all: all-recursive
 
@@ -302,6 +304,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/laser.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/loaders.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/main.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/options.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pause.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/playgame.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/practice.Po@am__quote@

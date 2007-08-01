@@ -39,7 +39,7 @@ static void run_script(void);
 void InstructCascade(void)
 {
     char fn[FNLEN];
-    sprintf( fn, "%s/scripts/cascade.xml", realPath[useEnglish] );
+    sprintf( fn, "%s/scripts/cascade.xml", realPath[settings.use_english] );
     if (load_script( fn ) != 0) return; // bail if any errors occur
     run_script();
 }
@@ -48,7 +48,7 @@ void InstructCascade(void)
 void InstructLaser(void)
 {
     char fn[FNLEN];
-    sprintf( fn, "%s/scripts/laser.xml", realPath[useEnglish] );
+    sprintf( fn, "%s/scripts/laser.xml", realPath[settings.use_english] );
     if (load_script( fn ) != 0) return; // bail if any errors occur
     { int i; for (i=0; i<20; i++) {
     run_script(); SDL_Delay(500); }}
@@ -93,7 +93,7 @@ void TestLesson( void ) {
 
 	/* find the directory to load wordlists from */
 
-	for (i=useEnglish; i<2; i++) {
+	for (i=settings.use_english; i<2; i++) {
 		sprintf( wordPath, "%s/scripts", realPath[i] );
 		if (CheckFile(wordPath))
 			break;
@@ -110,7 +110,7 @@ void TestLesson( void ) {
 	/* create a list of all the .txt files */
 
 	wordsDir = opendir( wordPath );	
-	font = LoadFont( ttf_font, 14 );
+	font = LoadFont(settings.theme_font_name, MENU_FONT_SIZE);
 	do {
 		wordsFile = readdir(wordsDir);
 		if (!wordsFile)
@@ -129,7 +129,7 @@ void TestLesson( void ) {
 		SDL_BlitSurface( filenames[c], NULL, screen, &spot );
                 SDL_FreeSurface(filenames[c]);
 		c++;
-		spot.y+=18;
+		spot.y += MENU_FONT_SIZE;
 
 		/* load the name for the wordlist from the file ... (1st line) */
 /*		tempFile = fopen( wordlistFile[lists], "r" );
@@ -251,7 +251,7 @@ void TestLesson( void ) {
                         start = loc;
                         for (i = start; i < c; i++) {
                                 spot.x = 5;
-                                spot.y = (i*18)+10;
+                                spot.y = (i * MENU_FONT_SIZE) + 18;
                                 if (i == loc)
                                         SDL_BlitSurface(pointer, NULL, screen, &spot);
                         }
@@ -707,8 +707,8 @@ static void run_script(void)
 
 			/* --- does it do click and play --- */
 			if (curItem->onclick) {
-				if (sys_sound)
-				    clickWavs[numClicks] = LoadSound( curItem->onclick );
+				if (settings.sys_sound)
+				    clickWavs[numClicks] = LoadSound(curItem->onclick);
 				clickRects[numClicks].x = loc.x;
 				clickRects[numClicks].y = loc.y;
 				clickRects[numClicks].w = loc.w;
@@ -732,9 +732,9 @@ static void run_script(void)
                     /* --- create font & render text --- */
                     
                     if (curItem->size > 0)
-                        myFont = LoadFont( ttf_font, (int)curItem->size );
+                        myFont = LoadFont(settings.theme_font_name, (int)curItem->size );
                     else
-                        myFont = LoadFont( ttf_font, 24 ); // default size is 24
+                        myFont = LoadFont(settings.theme_font_name, 24 ); // default size is 24
                     
                     if      (curItem->color)     col = curItem->color;
                     else if (curPage->fgcolor)   col = curPage->fgcolor;
@@ -900,27 +900,35 @@ static void run_script(void)
         
         
 	/* --- cleanup memory --- changing pages --- */
-	{ 
-		int i;
-		if (sys_sound){
-		for (i=0; i<numWavs; i++) {
-			Mix_HaltChannel( i );
-			Mix_FreeChunk( sounds[i] );
-		}
-		for (i=0; i<numClicks; i++) {
-			Mix_HaltChannel( i + numWavs );
-			Mix_FreeChunk( clickWavs[i] );
-		}
-		}
-	}
+    { 
+      int i;
+
+      if (settings.sys_sound)
+      {
+        for (i=0; i<numWavs; i++)
+        {
+          Mix_HaltChannel(i);
+          Mix_FreeChunk(sounds[i]);
+        }
+
+        for (i = 0; i < numClicks; i++)
+        {
+          Mix_HaltChannel(i + numWavs);
+          Mix_FreeChunk(clickWavs[i]);
+        }
+      }
+
     }
+  }
 }
 
 
 
 static void clear_items(itemType* i)
 {
-    itemType *n;
+    itemType* n;
+
+    /* if i is null, will return harmlessly: */
     while (i) {
         n = i->next;  // remember the next guy
 
@@ -939,7 +947,9 @@ static void clear_items(itemType* i)
 
 static void clear_pages(pageType* p)
 {
-    pageType *n;
+    pageType* n;
+
+    /* if p is null, will return harmlessly: */
     while (p) {
         n = p->next;  // remember the next guy
 

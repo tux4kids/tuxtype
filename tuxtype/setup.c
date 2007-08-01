@@ -22,14 +22,7 @@
 
 //global vars
 
-
-int speed_up;
-int show_tux4kids;
-int debugOn;
-
-int hidden; // Read the README file in the image directory for info on this ;)
-
-settings localsettings;
+//int hidden; // Read the README file in the image directory for info on this ;)
 
 /***************************
 	GraphicsInit: Initializes the graphic system
@@ -89,14 +82,14 @@ void LibInit(Uint32 lib_flags)
 	LOG( "LibInit():\n-About to init SDL Library\n" );
 
 	if (SDL_Init(lib_flags) < 0) 
-		if (sys_sound) {
+		if (settings.sys_sound) {
 			if (SDL_Init(SDL_INIT_VIDEO) < 0) {
 				fprintf(stderr, "Couldn't initialize SDL: %s\n",
 				SDL_GetError());
 				exit(2);
 			} else {
 				LOG( "Couldn't initialize SDL Sound\n" );
-				sys_sound = 0;
+				settings.sys_sound = 0;
 			}
 		}
 
@@ -105,10 +98,10 @@ void LibInit(Uint32 lib_flags)
 
 	LOG( "-SDL Library init'd successfully\n" );
 
-	if (sys_sound) 
+	if (settings.sys_sound) 
 		if (Mix_OpenAudio( 22050, AUDIO_S16, 1, 2048) < 0) {
 			fprintf( stderr, "Warning: couldn't set 22050 Hz 8-bit audio\n - Reasons: %s\n", SDL_GetError());
-			sys_sound=0;
+			settings.sys_sound=0;
 		}
 
 	LOG( "-about to init SDL_ttf\n" );
@@ -156,8 +149,8 @@ void LoadSettings( void ) {
 	/* FIXME should set complete default profile if file not found */
 	if (settingsFile == NULL) {
 		printf("LoadSettings: Settings file does not exist! settings not loaded\n");
-		localsettings.mus_volume = 100;
-		localsettings.sfx_volume = 100;
+		settings.mus_volume = 100;
+		settings.sfx_volume = 100;
 		return;
 	}
 	
@@ -170,28 +163,28 @@ void LoadSettings( void ) {
 		
 		if (strncmp( setting, "lang", FNLEN ) == 0 ) {
 			DEBUGCODE { printf("LoadSettings: Setting language to %s", value); }
-			strncpy( localsettings.lang, value, FNLEN-1 );
-			localsettings.lang[FNLEN-1]=0;
+			strncpy(settings.lang, value, FNLEN-1 );
+			settings.lang[FNLEN-1]=0;
 			SetupTheme(value);
 		}
 		if (strncmp( setting, "o_lives", FNLEN ) == 0 ) {
 			DEBUGCODE { printf("LoadSettings: Setting lives to %s", value); }
-			o_lives = atoi(value);
+			settings.o_lives = atoi(value);
 		}
 		if (strncmp( setting, "mus_volume", FNLEN ) == 0 ) {
-			DEBUGCODE { printf("LoadSettings: Setting misic volume to %s", value); }
-			localsettings.mus_volume = atoi(value);
+			DEBUGCODE { printf("LoadSettings: Setting music volume to %s", value); }
+			settings.mus_volume = atoi(value);
 		}
 		if (strncmp( setting, "sfx_volume", FNLEN ) == 0 ) {
 			DEBUGCODE { printf("LoadSettings: Setting effects volume to %s", value); }
-			localsettings.sfx_volume = atoi(value);
+			settings.sfx_volume = atoi(value);
 		}
 		if (strncmp( setting, "menu_music", FNLEN ) == 0 ) {
 			DEBUGCODE { printf("LoadSettings: Setting menu music to %s", value); }
-			localsettings.menu_music = atoi(value);
+			settings.menu_music = atoi(value);
 		}
-		if (strncmp( setting, "window", FNLEN ) == 0 ) {
-				strncpy(localsettings.window, value, FNLEN-1 );
+		if (strncmp( setting, "fullscreen", FNLEN ) == 0 ) {
+			settings.fullscreen = atoi(value);
 		}
 	}
 	
@@ -202,9 +195,10 @@ void LoadSettings( void ) {
 /* Save the settings from a file... make sure to update LoadSettings if you change
  *  what can be saved/loaded 
  */
-void SaveSettings( void ) {
+void SaveSettings(void)
+{
 	char fn[FNLEN];
-	FILE *settingsFile;
+	FILE* settingsFile;
 	
 	/* set the settings directory/file */
 
@@ -232,17 +226,19 @@ void SaveSettings( void ) {
 	/* Save all the settings here! */
 	if (strncmp( themeName, "", FNLEN) != 0)
 		fprintf( settingsFile, "lang=%s\n", themeName );
-	if (o_lives > 9)
-		fprintf( settingsFile, "o_lives=%d\n", o_lives );
+	if (settings.o_lives > 9)
+		fprintf( settingsFile, "o_lives=%d\n", settings.o_lives );
 
-	fprintf( settingsFile, "mus_volume=%d\n", localsettings.mus_volume );
-	fprintf( settingsFile, "sfx_volume=%d\n", localsettings.sfx_volume );
-	fprintf( settingsFile, "menu_music=%d\n", localsettings.menu_music );
+	fprintf( settingsFile, "mus_volume=%d\n", settings.mus_volume );
+	fprintf( settingsFile, "sfx_volume=%d\n", settings.sfx_volume );
+	fprintf( settingsFile, "menu_music=%d\n", settings.menu_music );
+	fprintf( settingsFile, "fullscreen=%d\n", settings.fullscreen);
 
-	if (screen->flags & SDL_FULLSCREEN){
-		fprintf( settingsFile, "window=%s\n", "no" );
-	} else {
-		fprintf( settingsFile, "window=%s\n", "yes" );
-	}
+
+// 	if (screen->flags & SDL_FULLSCREEN){
+// 		fprintf( settingsFile, "fullscreen=%s\n", "1");
+// 	} else {
+// 		fprintf( settingsFile, "fullscreen=%s\n", "0");
+// 	}
 	fclose( settingsFile );
 }

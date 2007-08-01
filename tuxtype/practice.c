@@ -19,19 +19,19 @@ email                : jdandr2@uky.edu
 #include "globals.h"
 #include "funcs.h"
 
-SDL_Surface *hands;
-SDL_Surface *hand[11];
+SDL_Surface* hands;
+SDL_Surface* hand[11];
 SDL_Rect hand_loc, letter_loc;
-TTF_Font *font;
+TTF_Font* font;
 char phrase[255][FNLEN];
 
-Mix_Chunk *wrong;
+Mix_Chunk* wrong;
 
 /*local function prototypes: */
 static int get_phrase(const char* phr);
 static void practice_load_media(void);
 static void practice_unload_media(void);
-static void print_at(const char *pphrase, int wrap, int x, int y);
+static void print_at(const char* pphrase, int wrap, int x, int y);
 static void show(unsigned char t);
 
 
@@ -131,14 +131,14 @@ int Phrases(char* pphrase ) {
 						//practice next phase in list
 						//a=a;
 					} else {
-						if (ALPHABET[KEYMAP[event.key.keysym.unicode]] && pphrase[c]==(char)event.key.keysym.unicode){
+						if (ALPHABET[event.key.keysym.unicode] && pphrase[c]==(char)event.key.keysym.unicode){
 						state=0;
 						dst2.x=40;
 						dst4.x=480;
 						SDL_BlitSurface(bkg, &dst3, screen, &dst2);
 						SDL_BlitSurface(bkg, &dst5, screen, &dst4);
 						SDL_Flip(screen);
-						SDL_BlitSurface(letters[KEYMAP[event.key.keysym.unicode]], NULL, screen, &dst);
+						SDL_BlitSurface(letters[event.key.keysym.unicode], NULL, screen, &dst);
 						for (z=0;z<strlen(keytime);z++){
  							SDL_BlitSurface(letters[(int)keytime[z]], NULL, screen, &dst2);
 							dst2.x = dst2.x + letters[(int)keytime[z]]->w-2;
@@ -147,7 +147,7 @@ int Phrases(char* pphrase ) {
 							SDL_BlitSurface(letters[(int)totaltime[z]], NULL, screen, &dst4);
 							dst4.x = dst4.x + letters[(int)totaltime[z]]->w-2;
 						}
-						dst.x = (dst.x + letters[KEYMAP[event.key.keysym.unicode]]->w) - 5;
+						dst.x = (dst.x + letters[event.key.keysym.unicode]->w) - 5;
 						if (c==(strlen(pphrase)-1)){
 							print_at("Great!",6 ,275 ,200);
 							SDL_Flip(screen);
@@ -204,7 +204,7 @@ static void practice_load_media(void)
 
 	bkg = LoadImage("main_bkg.png", IMG_ALPHA);
 
-	font = LoadFont( ttf_font, 32 );
+	font = LoadFont(settings.theme_font_name, 32 );
 
 	wrong = LoadSound("tock.wav");
 

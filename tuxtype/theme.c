@@ -28,14 +28,14 @@ const char PATHS[NUM_PATHS][FNLEN] = {
 	DATA_PREFIX"/share/"PACKAGE"/data"
 };
 
-SDL_Surface *letters[255] = { NULL };
+SDL_Surface *letters[255] = {NULL};
 wchar_t ALPHABET[256];
-wchar_t KEYMAP[256];
 unsigned char FINGER[256][10];
 int ALPHABET_SIZE;
 unsigned char realPath[2][FNLEN];
 char themeName[FNLEN];
-int useEnglish;
+char fontName[FNLEN];
+//int useEnglish;
 
 
 #define MAX_LANGUAGES 100
@@ -44,25 +44,28 @@ int useEnglish;
  * the paths that the loaders use.  It will set a variable
  * numPaths = 1 or 2.  1 if we are just using the default,
  * 2 if there are two themes.  Then it will edit the varible
- * Paths[].  It will always put the theme path first, then
+ * realPaths[].  It will always put the theme path first, then
  * the default path
  */
-void SetupTheme(const char *dirName)
+
+/*FIXME should check for 'font_name' file, get name and change to requested font */
+
+void SetupTheme(const char* dirName)
 {
 	int i;
 	int found = 0;
-	useEnglish=1; // default is to use English if we cannot find theme
+	settings.use_english=1; // default is to use English if we cannot find theme
 
 	for (i=0; i<NUM_PATHS && !found; i++) {
 
 		DEBUGCODE{
-		fprintf(stderr, "setupTheme(): checking for: %s\n", PATHS[i]);
+		fprintf(stderr, "SetupTheme(): checking for: %s\n", PATHS[i]);
 		}
 
 		if (CheckFile(PATHS[i]))
                 {
-			strncpy( realPath[1], PATHS[i], FNLEN-1);
-			strncpy( themeName, "", FNLEN-1 );
+			strncpy(realPath[1], PATHS[i], FNLEN - 1);
+			strncpy(themeName, "", FNLEN - 1);
 			found = 1; /* so quit looking */
 
 			DEBUGCODE{
@@ -85,14 +88,14 @@ void SetupTheme(const char *dirName)
 
 		if (CheckFile(fullDir))
                 {
-			useEnglish=0;
+			settings.use_english=0;
 			strncpy( realPath[0], fullDir, FNLEN-1 );
 			strncpy( themeName, dirName, FNLEN-1 );
 		}
 	}
 	DEBUGCODE
 	{
-		fprintf(stderr, "Leaving setupTheme():\n");
+		fprintf(stderr, "Leaving SetupTheme():\n");
 		if (dirName != NULL)
 			fprintf(stderr, "realPath[0] = %s\n", realPath[0]);
 		fprintf(stderr, "realPath[1] = %s\n", realPath[1]);
@@ -119,14 +122,14 @@ void ChooseTheme(void)
 	unsigned char themeNames[MAX_LANGUAGES][FNLEN];
 	unsigned char themePaths[MAX_LANGUAGES][FNLEN];
 
-	int old_useEnglish;
+	int old_use_english;
 	char old_realPath[FNLEN];
 
 	DIR *themesDir;
 	struct dirent *themesFile;
 //	struct stat fileStats;
 
-	old_useEnglish = useEnglish;
+	old_use_english = settings.use_english;
 	strncpy( old_realPath, realPath[0], FNLEN-1 );
 
 	sprintf( fn, "%s/themes/", realPath[1]);
@@ -163,9 +166,9 @@ void ChooseTheme(void)
 
 	closedir(themesDir);
 
-	useEnglish = 1;
+	settings.use_english = 1;
         // HACK: is font empty now???
-	font = LoadFont( ttf_font, ttf_font_size );
+	font = LoadFont(settings.theme_font_name, MENU_FONT_SIZE);
 
 	titles[0] = BlackOutline( "English", font, &white );
 	select[0] = BlackOutline( "English", font, &yellow);
@@ -184,7 +187,7 @@ void ChooseTheme(void)
 
 	TTF_CloseFont(font);
 
-	useEnglish = old_useEnglish;
+	settings.use_english = old_use_english;
 
 	bkg = LoadImage("main_bkg.png", IMG_REGULAR);
 
@@ -246,7 +249,7 @@ void ChooseTheme(void)
 					break;
 				case SDL_KEYDOWN:
 					if (event.key.keysym.sym == SDLK_ESCAPE) { 
-						useEnglish = old_useEnglish;
+						settings.use_english = old_use_english;
 						strncpy( realPath[0], old_realPath, FNLEN-1 );
 						stop = 1; 
 						break; 

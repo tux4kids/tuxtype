@@ -23,7 +23,7 @@ email                : jdandr2@uky.edu
  * we don't expect too large of a list (famous last words!)
  */
 
-/* FIXME don't think this file's code is UTF-8/Unicode compatible DSB */
+/* FIXME not sure if this file's code is UTF-8/Unicode compatible DSB */
 
 struct node {
 	unsigned char *in;          // the english
@@ -40,8 +40,8 @@ void add_word(unsigned char* in, unsigned char* out);
 
 /* --- add a word to the linked list --- */
 
-void add_word(unsigned char *in, unsigned char *out) {
-	item *cur;
+void add_word(unsigned char* in, unsigned char* out) {
+	item* cur;
 	/* -- allocate space for the node in the list -- */
 	cur = (item *)malloc(sizeof(item));
 
@@ -68,8 +68,8 @@ int Load_PO_File(const char* file) {
 	 * 	-2 if file has errors in it
 	 */
 
-	item *ptr;
-	FILE *f;
+	item* ptr;
+	FILE* f;
 	unsigned char str[FNLEN];
 	unsigned char in[FNLEN];
 	unsigned char out[FNLEN];
@@ -176,7 +176,7 @@ unsigned char* gettext(const unsigned char* in ) {
 
 	item* cur = HEAD;
 
-	if (useEnglish)
+	if (settings.use_english)
 		// the cast is to keep the compiler from complaining
                 // about "discarded qualifiers"
 		return (unsigned char*)in;

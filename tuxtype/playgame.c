@@ -24,10 +24,12 @@ email                : tuxtype-dev@tux4kids.net
 
 //void add_words( int level );
 
+/* Should these be constants? */
 int tux_max_width;                // the max width of the images of tux
 int number_max_w;                 // the max width of a number image
-int o_lives; // something cal is working on
-int sound_vol;
+
+//int o_lives; // something cal is working on
+//int sound_vol;
 
 SDL_Surface* background;
 
@@ -135,9 +137,7 @@ int PlayCascade( int diflevel ) {
 	LoadTuxAnims(); 
 	LoadFishies();
 	LoadOthers();
-        LOG( " before RenderLetters()\n" );
 	RenderLetters(font);
-        LOG( " after RenderLetters()\n" );
 
 	LOG( " starting game \n ");
 	while (still_playing) {
@@ -147,22 +147,22 @@ int PlayCascade( int diflevel ) {
 			switch (diflevel) {
 				case EASY:
 				            fish_left = MAX_FISHIES_EASY;
-				            if (o_lives >  LIVES_INIT_EASY){
-    				    		curlives = o_lives;
+				            if (settings.o_lives >  LIVES_INIT_EASY){
+    				    		curlives = settings.o_lives;
 					    }else
 				    		curlives = LIVES_INIT_EASY;
 				            break;
 				case MEDIUM:
 				            fish_left = MAX_FISHIES_MEDIUM;
-				            if (o_lives >  LIVES_INIT_MEDIUM){
-    				    		curlives = o_lives;
+				            if (settings.o_lives >  LIVES_INIT_MEDIUM){
+    				    		curlives = settings.o_lives;
 					    }else
 				            curlives =  LIVES_INIT_MEDIUM;
 				            break;
 				case HARD:
 				            fish_left = MAX_FISHIES_HARD;
-				            if (o_lives >  LIVES_INIT_HARD){
-    				    		curlives = o_lives;
+				            if (settings.o_lives >  LIVES_INIT_HARD){
+    				    		curlives = settings.o_lives;
 					    }else
 				            curlives =  LIVES_INIT_HARD;
 				            break;
@@ -181,7 +181,7 @@ int PlayCascade( int diflevel ) {
 
 			/* ---  Special Hidden Code  --- */
 
-			if (hidden && curlevel == 3)
+			if (settings.hidden && curlevel == 3)
 				sprintf(filename, "hidden.jpg");
 
 			DEBUGCODE {
@@ -195,7 +195,7 @@ int PlayCascade( int diflevel ) {
 
 			ResetObjects();
 
-			if (sys_sound) {
+			if (settings.sys_sound) {
 				sprintf(filename, "kmus%i.wav", curlevel + 1);
 				MusicLoad( filename, -1 );
 			}
@@ -224,11 +224,11 @@ int PlayCascade( int diflevel ) {
 					if (event.key.keysym.sym == SDLK_F11) 
 						SDL_SaveBMP( screen, "screenshot.bmp" );
 					if (event.key.keysym.sym == SDLK_F6){
-						o_lives=o_lives-10;
+						settings.o_lives=settings.o_lives-10;
 						curlives=curlives-10;
 					}
 					if (event.key.keysym.sym == SDLK_F7) {
-						o_lives=o_lives+10;
+						settings.o_lives=settings.o_lives+10;
 						curlives=curlives+10;
 					}
 					if (event.key.keysym.sym == SDLK_F10) 
@@ -245,14 +245,6 @@ int PlayCascade( int diflevel ) {
 						DrawBackground();
 					}
 
-// 					/* ASCII lowercase is 97-122, whereas uppercase is */
-// 					/* 65-90 - this if() converts lowercase to corresponding */
-//                                         /* uppercase - not sure we always want this!    */
-// 					if (((event.key.keysym.unicode & 0xff) >= 97) & ((event.key.keysym.unicode & 0xff) <= 122)){
-// 						UpdateTux(KEYMAP[(event.key.keysym.unicode & 0xff)-32], fishies, frame);
-// 					} else {
-// 						UpdateTux(KEYMAP[(event.key.keysym.unicode & 0xff)], fishies, frame);
-//                                      }
 
 					key_unicode = event.key.keysym.unicode & 0xff;
 					/* For now, tuxtype is case-insensitive for input, */
@@ -260,8 +252,8 @@ int PlayCascade( int diflevel ) {
 					DEBUGCODE
 					{
 					  fprintf(stderr,
-					    "\nkey_unicode = %d\twchar_t = %lc\tKEYMAP[key_unicode] = %c\n",
-					     key_unicode, key_unicode, KEYMAP[key_unicode]);
+					    "\nkey_unicode = %d\twchar_t = %lc\t\n",
+					     key_unicode, key_unicode);
 					}
 
                                         if (key_unicode >= 97 && key_unicode <= 122)
@@ -273,17 +265,17 @@ int PlayCascade( int diflevel ) {
 					DEBUGCODE
 					{
 					  fprintf(stderr,
-					    "key_unicode = %d\twchar_t = %lc\tKEYMAP[key_unicode] = %c\n\n",
-					     key_unicode, key_unicode, KEYMAP[key_unicode]);
+					    "key_unicode = %d\twchar_t = %lc\\n\n",
+					     key_unicode, key_unicode);
 					}
 
 					/* Now update with case-folded value: */
-					UpdateTux(KEYMAP[key_unicode], fishies, frame);
+					UpdateTux(key_unicode, fishies, frame);
 				}
 
 			/* --- fishy updates --- */
 
-			if ((frame % 10) == 0) next_frame( fishy );
+			if ((frame % 10) == 0) NEXT_FRAME( fishy );
 			
 			if (fishies < local_max_fishies)
 				SpawnFishies( diflevel, &fishies, &frame );
@@ -318,12 +310,12 @@ int PlayCascade( int diflevel ) {
 			if (!quitting) {
 				UpdateScreen(&frame);
 
-				if (speed_up == 0)
+				if (!settings.speed_up)
 					WaitFrame();
 			}
 		}
 
-		if (sys_sound)
+		if (settings.sys_sound)
 			Mix_FadeOutMusic(MUSIC_FADE_OUT_MS);
 
 		DrawBackground();
@@ -351,11 +343,11 @@ int PlayCascade( int diflevel ) {
 					xamp = WIN_GAME_XAMP;
 					yamp = WIN_GAME_YAMP;
 
-					if (sys_sound) 
+					if (settings.sys_sound) 
 						Mix_PlayChannel(WINFINAL_WAV, sound[WINFINAL_WAV], 0);
 				}
 
-				if (sys_sound) 
+				if (settings.sys_sound) 
 					Mix_PlayChannel(WIN_WAV, sound[WIN_WAV], 0);
 
 				for (i = 0; i < CONGRATS_FRAMES; i++)
@@ -372,7 +364,7 @@ int PlayCascade( int diflevel ) {
 				xamp = 0;
 				yamp = 0;
 
-				if (sys_sound)
+				if (settings.sys_sound)
 					Mix_PlayChannel(LOSE_WAV, sound[LOSE_WAV], 0);
 
 				for (i = 0; i < OH_NO_FRAMES; i++)
@@ -417,7 +409,7 @@ int PlayCascade( int diflevel ) {
 				
 				EraseObject(temp_text[temp_text_count], text_rect.x, y_not);
 
-				if (speed_up == 0)
+				if (!settings.speed_up)
 					WaitFrame();
 			}
 		}
@@ -636,7 +628,7 @@ static int check_word( int f ) {
 		return 0;
 
 	for (i=0; i < wcslen(fish_object[f].word); i++) 
-		if (KEYMAP[fish_object[f].word[i]] != KEYMAP[tux_object.word[tux_object.wordlen - wcslen(fish_object[f].word)+i]])
+		if (fish_object[f].word[i] != tux_object.word[tux_object.wordlen -                                           wcslen(fish_object[f].word) + i])
 			return 0;
 
 	return 1;
@@ -928,7 +920,7 @@ static void LoadOthers(void)
 
 	LOG( "=LoadOthers()\n" );
 
-	font = LoadFont( ttf_font, ttf_font_size );
+	font = LoadFont(settings.theme_font_name, GAME_FONT_SIZE);
 
 	curlev = BlackOutline(_("Level"), font, &white);
 	lives  = BlackOutline(_("Lives"), font, &white);
@@ -955,7 +947,7 @@ static void LoadOthers(void)
 		ohno[i] = BlackOutline(_("Oh No!"), font, &white);
 	}
 	
-	if (sys_sound) {
+	if (settings.sys_sound) {
 		LOG( "=Loading Sound FX\n" );
 
 		sound[WIN_WAV] = LoadSound( "win.wav" );
@@ -1156,7 +1148,7 @@ static void FreeGame(void)
 	for (i = 0; i < OH_NO_FRAMES; i++)
 		SDL_FreeSurface(ohno[i]);
 
-	if (sys_sound) {
+	if (settings.sys_sound) {
 		LOG( "-Freeing sound\n" );
 
 		for (i = 0; i < NUM_WAVES; ++i) 
@@ -1363,7 +1355,7 @@ static void AddSplat(int* splats, struct fishypoo* f, int* curlives, int* frame)
 	if (*curlives <= 0)
 		*curlives = 0;
 
-	if ( sys_sound ) 
+	if ( settings.sys_sound ) 
 		Mix_PlayChannel(SPLAT_WAV, sound[SPLAT_WAV], 0);
 }
 
@@ -1418,7 +1410,7 @@ static void DrawFish(int which)
 		  int k;
 		  for (k = 0; k < tux_object.wordlen - j; k++)
                   {
-                    if (KEYMAP[fish_object[which].word[k]] != KEYMAP[tux_object.word[j+k]]) 
+                    if (fish_object[which].word[k] != tux_object.word[j + k]) 
                       k = 100000;
                   }
 
@@ -1562,16 +1554,16 @@ static void CheckCollision(int fishies, int *fish_left, int frame ) {
 				*fish_left = *fish_left - 1;
 
 				tux_object.state = TUX_GULPING;
-				rewind(tux_object.spr[TUX_GULPING][tux_object.facing]);
+				REWIND(tux_object.spr[TUX_GULPING][tux_object.facing]);
 				tux_object.dx = 0;
 				tux_object.endx = tux_object.x;
 
-				if (sys_sound) Mix_PlayChannel(BITE_WAV, sound[BITE_WAV], 0);
+				if (settings.sys_sound) Mix_PlayChannel(BITE_WAV, sound[BITE_WAV], 0);
 
 			} else if (tux_object.state == TUX_STANDING) {
 				LOG( "***EXCUSE ME!** - in CheckCollision()\n" );
 
-				if (sys_sound && !Mix_Playing(EXCUSEME_WAV))
+				if (settings.sys_sound && !Mix_Playing(EXCUSEME_WAV))
 					Mix_PlayChannel(EXCUSEME_WAV, sound[EXCUSEME_WAV], 0);
 			}
 		}
@@ -1582,9 +1574,9 @@ static void CheckCollision(int fishies, int *fish_left, int frame ) {
 static void next_tux_frame(void) {
 
 	if ( tux_object.state != TUX_GULPING ) {
-		next_frame(tux_object.spr[tux_object.state][tux_object.facing]);
+		NEXT_FRAME(tux_object.spr[tux_object.state][tux_object.facing]);
 	} else {
-		next_frame(tux_object.spr[TUX_GULPING][tux_object.facing]);
+		NEXT_FRAME(tux_object.spr[TUX_GULPING][tux_object.facing]);
 		if (tux_object.spr[TUX_GULPING][tux_object.facing]->cur==0) 
 			tux_object.state = TUX_STANDING;
 	}
@@ -1623,14 +1615,14 @@ static void MoveTux( int frame, int fishies ) {
 					tux_object.state = TUX_WALKING;
 
 					//stop running sound (if playing)                                               
-					if (sys_sound && Mix_Playing(RUN_WAV))
+					if (settings.sys_sound && Mix_Playing(RUN_WAV))
 						Mix_HaltChannel(RUN_WAV);
 				} else {
 					if (time_to_splat > frame) 
 						tux_object.dx = float_restrict( MIN_RUNNING_SPEED, abs(tux_object.endx - tux_object.x) / (time_to_splat-frame), MAX_RUNNING_SPEED );
 					else {
 						tux_object.dx = MAX_RUNNING_SPEED;
-						if (sys_sound && !Mix_Playing(RUN_WAV))
+						if (settings.sys_sound && !Mix_Playing(RUN_WAV))
 							if (abs(tux_object.endx - tux_object.x) > 50)
 								Mix_PlayChannel(RUN_WAV, sound[RUN_WAV], 0);
 					}

@@ -63,6 +63,8 @@ Mix_Music* LoadMusic(const char* datafile);
 Mix_Chunk* LoadSound(const char* datafile);
 sprite* LoadSprite(const char* name, int MODE);
 
+/* In options.c: */
+void Opts_Initialize(void);
 
 /* In pause.c: */
 int  Pause(void);

@@ -25,7 +25,7 @@ Mix_Music* music;
 Mix_Music* defaultMusic = NULL; // holds music for audioMusicLoad/unload
 
 void PlaySound(Mix_Chunk* snd) {
-	if (!sys_sound) return;
+	if (!settings.sys_sound) return;
 
 	Mix_PlayChannel(-1, snd, 0);
 }
@@ -34,7 +34,7 @@ void PlaySound(Mix_Chunk* snd) {
  * Note: loops == -1 means forever
  */
 void MusicLoad(const char *musicFilename, int loops ) {
-	if (!sys_sound) return;
+	if (!settings.sys_sound) return;
 
 	MusicUnload(); // make sure defaultMusic is clear
 
@@ -46,7 +46,7 @@ void MusicLoad(const char *musicFilename, int loops ) {
  * loaded using the audioMusicLoad function
  */
 void MusicUnload( void ) {
-	if (!sys_sound) return;
+	if (!settings.sys_sound) return;
 
 	if ( defaultMusic )
 		Mix_FreeMusic( defaultMusic );
@@ -61,7 +61,7 @@ void MusicUnload( void ) {
  */
 void MusicPlay(Mix_Music* musicData, int loops)
 { 
-  if (!sys_sound) return;
+  if (!settings.sys_sound) return;
   /* Stop previous music before playing new one: */
   MusicUnload();	
   Mix_PlayMusic(musicData, loops);

@@ -21,11 +21,11 @@
 #include "funcs.h"
 #include "laser.h"
 
-sprite* shield;
-SDL_Surface* images[NUM_IMAGES];
-Mix_Chunk* sounds[NUM_SOUNDS];
-Mix_Music* musics[NUM_MUSICS];
-SDL_Surface* bkgd;
+sprite* shield = NULL;
+SDL_Surface* images[NUM_IMAGES] = {NULL};
+Mix_Chunk* sounds[NUM_SOUNDS] = {NULL};
+Mix_Music* musics[NUM_MUSICS] = {NULL};
+SDL_Surface* bkgd = NULL;
 
 
 
@@ -37,8 +37,9 @@ SDL_Surface* bkgd;
 #define LEVEL_START_WAIT_START 20
 #define LASER_START 5
 #define NUM_ANS 8
+#define COMET_ZAP_FONT_SIZE 32
 
-/* Local (to game.c) 'globals': */
+/* Local (to laser.c) 'globals': */
 
 int wave, speed, score, pre_wave_score, num_attackers, distanceMoved;
 wchar_t ans[NUM_ANS];
@@ -182,22 +183,12 @@ int PlayLaserGame(int diff_level)
 				if (level_start_wait > 0) 
 					key = SDLK_UNKNOWN;
 				
-// 				if (((event.key.keysym.unicode & 0xff)>=97) & ((event.key.keysym.unicode & 0xff)<=122)) {
-// 					ans[ans_num++] = KEYMAP[(event.key.keysym.unicode & 0xff)-32];
-// 					tux_pressing ++;
-// 				}else{
-// 					ans[ans_num++] = KEYMAP[event.key.keysym.unicode & 0xff];
-// 					tux_pressing ++;
-// 				}
 
 				key_unicode = event.key.keysym.unicode & 0xff;
 
 				DEBUGCODE
 				{
-				  fprintf(stderr,
-                                   "key_unicode = %d\tKEYMAP[key_unicode] = %c\n",
-				    key_unicode,
-                                    KEYMAP[key_unicode]);
+				  fprintf(stderr, "key_unicode = %d\n", key_unicode);
 				}
 
 				/* For now, tuxtype is case-insensitive for input, */
@@ -211,12 +202,10 @@ int PlayLaserGame(int diff_level)
 				DEBUGCODE
 				{
 				  fprintf(stderr,
-                                   "key_unicode = %d\tKEYMAP[key_unicode] = %c\n",
-				    key_unicode,
-                                    KEYMAP[key_unicode]);
+                                   "key_unicode = %d\n", key_unicode);
 				}
 				/* Now update with case-folded value: */
-				ans[ans_num++] = KEYMAP[key_unicode];
+				ans[ans_num++] = key_unicode;
 
 			}
 		}
@@ -235,7 +224,7 @@ int PlayLaserGame(int diff_level)
 				if (comets[i].alive
 				 && comets[i].shootable 
 				 && comets[i].expl == 0
-				 && KEYMAP[comets[i].ch] == ans[ans_num -1 ] 
+				 && comets[i].ch == ans[ans_num -1 ] 
 				 && comets[i].y > lowest_y)
 				{
 					lowest = i;
@@ -542,7 +531,7 @@ int PlayLaserGame(int diff_level)
       
 		/* Draw cities: */
       
-		if (frame%2 == 0) next_frame( shield );
+		if (frame%2 == 0) NEXT_FRAME(shield);
 		for (i = 0; i < NUM_CITIES; i++) {
 
 			/* Decide which image to display: */
@@ -626,7 +615,7 @@ int PlayLaserGame(int diff_level)
       
 		/* Keep playing music: */
       
-		if (sys_sound && !Mix_PlayingMusic())
+		if (settings.sys_sound && !Mix_PlayingMusic())
 			MusicPlay(musics[MUS_GAME + (rand() % NUM_MUSICS)], 0);
       
 		/* Pause (keep frame-rate event) */
@@ -644,7 +633,7 @@ int PlayLaserGame(int diff_level)
 		SDL_FreeSurface(bkgd);
 
 	/* Stop music: */
-	if ((sys_sound) && (Mix_PlayingMusic()))
+	if ((settings.sys_sound) && (Mix_PlayingMusic()))
 		Mix_HaltMusic();
  
 	laser_unload_data();
@@ -669,7 +658,7 @@ void laser_load_data(void)
 
 	/* Create the SDL_Surfaces for all of the characters */
         /* used in the word list: */
-	font = LoadFont( ttf_font, 32);
+	font = LoadFont(settings.theme_font_name, COMET_ZAP_FONT_SIZE);
 	RenderLetters(font);
 
 	/* Load images: */
@@ -677,7 +666,7 @@ void laser_load_data(void)
 		images[i] = LoadImage(image_filenames[i], IMG_ALPHA);
 	shield = LoadSprite( "cities/shield", IMG_ALPHA );
 
-	if (sys_sound) {
+	if (settings.sys_sound) {
 		for (i = 0; i < NUM_SOUNDS; i++)
 			sounds[i] = LoadSound(sound_filenames[i]);
 
@@ -698,7 +687,7 @@ void laser_unload_data(void) {
 	for (i = 0; i < NUM_IMAGES; i++)
 		SDL_FreeSurface(images[i]);
 
-	if (sys_sound) {
+	if (settings.sys_sound) {
 		for (i = 0; i < NUM_SOUNDS; i++)
 			Mix_FreeChunk(sounds[i]);
 		for (i = 0; i < NUM_MUSICS; i++)

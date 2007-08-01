@@ -43,7 +43,6 @@ uni_glyph char_glyphs[MAX_UNICODES];
 /* Local function prototypes: */
 static void gen_char_list(void);
 static int add_char(wchar_t uc);
-static void print_keymap(void);
 static void set_letters(unsigned char* t);
 static void show_letters(void);
 static void clear_keyboard(void);
@@ -63,7 +62,7 @@ void LoadKeyboard( void ) {
 
 	clear_keyboard();
 
-	for (l=useEnglish; l<2; l++) {
+	for (l=settings.use_english; l<2; l++) {
 		sprintf( fn , "%s/keyboard.lst", realPath[l]);
 		if (CheckFile(fn)) {
 			unsigned char str[255];
@@ -95,8 +94,8 @@ void LoadKeyboard( void ) {
 					j = i; 
 					ALPHABET[(int)wide_str[j]] = 1;  // first character is default
 
-					for (i++; i<wcslen(wide_str); i++)
-						KEYMAP[(int)wide_str[i]] = wide_str[j];
+					//for (i++; i<wcslen(wide_str); i++)
+					//	KEYMAP[(int)wide_str[i]] = wide_str[j];
 
 					/* set the fingers for this letter */
 
@@ -110,12 +109,6 @@ void LoadKeyboard( void ) {
 			} while (!feof(f));
 
 			fclose(f);
-
-			DEBUGCODE
-			{
-			  fprintf(stderr, "printing keymap for %s\n", fn);
-        		  print_keymap();
-			}
 
 			return;
 		}
@@ -151,7 +144,7 @@ SDL_Surface* BlackOutline(const unsigned char *t, TTF_Font *font, const SDL_Colo
                             (black_letters->w) + 5,
                             (black_letters->h) + 5,
                              32,
-                             rmask, gmask, bmask, amask);
+                             RMASK, GMASK, BMASK, AMASK);
   /* Use color key for eventual transparency: */
   color_key = SDL_MapRGB(bg->format, 10, 10, 10);
   SDL_FillRect(bg, NULL, color_key);
@@ -213,7 +206,7 @@ SDL_Surface* BlackOutline_wchar(wchar_t t, TTF_Font *font, const SDL_Color *c)
                             (black_letters->w) + 5,
                             (black_letters->h) + 5,
                              32,
-                             rmask, gmask, bmask, amask);
+                             RMASK, GMASK, BMASK, AMASK);
   /* Use color key for eventual transparency: */
   color_key = SDL_MapRGB(bg->format, 10, 10, 10);
   SDL_FillRect(bg, NULL, color_key);
@@ -329,6 +322,7 @@ void ClearWordList(void)
   num_words = 0;
 }
 
+/* FIXME need a better i18n-compatible way to do this: */
 /* UseAlphabet(): setups the word_list so that it really
  * returns a LETTER when GetWord() is called
  */
@@ -716,26 +710,6 @@ static void set_letters(unsigned char *t) {
 }
 
 
-/* For debugging purposes: */
-static void print_keymap(void)
-{
-  int i;
-
-  for(i = 0; i < 256; i++)
-  {
-    fprintf(stderr, "i = %d\t(int)KEYMAP[i] = %d\tKEYMAP[i] = %lc\t",
-            i, KEYMAP[i], KEYMAP[i]); 
-    if(isupper(i) && !islower(i))
-      fprintf(stderr, "Upper\n");
-    if(!isupper(i) && islower(i))
-      fprintf(stderr, "Lower\n");
-    if(isupper(i) && islower(i))
-      fprintf(stderr, "Both\n");
-    if(!isupper(i) && !islower(i))
-      fprintf(stderr, "Neither\n");
-  }
-}
-
 
 /* Checks to see if the argument is already in the list and adds    */
 /* it if necessary.  Returns 1 if char added, 0 if already in list, */
@@ -784,7 +758,6 @@ static void clear_keyboard( void ) {
 		ALPHABET[i]=0;
 		for (j=0; j<10; j++)
 			FINGER[i][j]=0;
-		KEYMAP[i]=i;
 	}
 }
 /* This function just tidies up all the ptr args needed for      */
