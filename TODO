@@ -65,3 +65,45 @@
 
   o  Tux Recommend: add tux giving friendly reminders about proper
      hand location, erogomics, ...
+
+
+
+The following is a mail with a list of ideas, this is not really a todo (yet).
+
+From: Steve McCuen <smccuen.tux@gmail.com>
+To: tuxmath-devel@lists.sourceforge.net
+Date: Wed, 16 May 2007 20:25:15 -0700
+Message-Id: <1179372315.31920.15.camel@mccuen01.mccuenlabs.net>
+Subject: [Tuxmath-devel] tuxtype: feature request list, for comment
+
+This is the list of requests that came from students using tuxtype.  In
+looking at the list, some are very possible to do.
+
+* More kinds of games
+        * Some suggested maybe a racing game
+        * Some suggested pinball typing the right letters would make the
+flippers work
+        * Space wars, and battle games with space ships
+* Different background music
+* Different colors
+* Different backgrounds
+* Practice typing letter groups (finger exercises like Mavis)
+* In fish arcade, when you type the letter it highlights in Red, which
+is hard to see.
+* Too much repetition within the games there are
+* More short words, and generally more variety in words and letters
+* High score list
+* More diversity in difficulty, not just speeding up
+* Bonus points, and get more weapons, and rebuild cities
+* More then just comets that come down
+* Younger grades suggested the following:
+        * Fish Cascade to go slower
+        * Say the letter as they come down
+        * Not only saying the words, make the words tell a story
+        * Stops when you miss a letter and gives you a chance to get it right.
+* More levels in Fish Cascade and Comet Zap
+* Ability to choose whether one comet will destroy a city, or several
+* Levels to be longer and harder before switching
+* In Space Cadet, get points for hitting target, and takes away if you
+miss, and if a city is destroyed it doesn't take away points.
+* More shields
