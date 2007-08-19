@@ -88,7 +88,7 @@ void TitleScreen(void)
   Uint32 frame = 0;
   Uint32 start = 0;
 
-  int i, j, tux_frame = 0;
+  int i, j, l, tux_frame = 0;
   int done = 0;
   int firstloop = 1;
   int menu_opt = NONE;
@@ -97,7 +97,9 @@ void TitleScreen(void)
   int redraw = 0;
   int key_menu = 1;
   int old_key_menu = 5;
+  char fn[128];
   char phrase[128];
+  FILE *f;
 
 
   if (sys_sound)
@@ -108,13 +110,14 @@ void TitleScreen(void)
 
 
   /* FIXME phrase(s) should come from file */
-  strncpy( phrase, "Now is the time for all good men to come to the aid of their country.", 128);
-  start = SDL_GetTicks();
-
+//  strncpy( phrase, "Now is the time for all good men to come to the aid of their country.", 128);
+//  start = SDL_GetTicks();
 
   /*
   * StandbyScreen: Display the Standby screen.... 
   */
+
+
 
   if (show_tux4kids)
   {
@@ -631,11 +634,29 @@ void TitleScreen(void)
     if (menu_opt == FREETYPE)
     {
       unload_media();
-      Phrases( phrase );
+      for (l=useEnglish; l<2; l++) {
+		sprintf( fn , "%s/phrases.txt", realPath[l]);
+		if ( CheckFile(fn) ) {
+			unsigned char str[255];
+			f = fopen( fn, "r" );
+			if (f == NULL)
+				continue;
+			DEBUGCODE { printf("Opening file %s\n",fn); }
+			do {
+				fscanf( f, "%[^\n]\n", phrase);
+				Phrases( phrase );
+			} while (!feof(f));
+			break;
+		}
+
+  	}
       //Practice();
+      fclose(f);
       load_media();
       redraw = 1;
     }
+     	
+
 
     /* ------ End menu_opt processing ----------- */
 

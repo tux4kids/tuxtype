@@ -55,7 +55,7 @@ static void print_keymap(void);
 static void set_letters(unsigned char* t);
 static void show_letters(void);
 static void clear_keyboard(void);
-static int convert_from_UTF8(wchar_t* wide_word, const char* UTF8_word);
+int convert_from_UTF8(wchar_t* wide_word, const char* UTF8_word);
 
 /*****************************************************/
 /*                                                   */
@@ -881,7 +881,7 @@ static void clear_keyboard( void ) {
 /* It returns -1 on error, otherwise returns the length of the   */
 /* converted, null-terminated wchar_t* string now stored in the  */
 /* location of the 'wide_word' pointer.                          */
-static int convert_from_UTF8(wchar_t* wide_word, const char* UTF8_word)
+int convert_from_UTF8(wchar_t* wide_word, const char* UTF8_word)
 {
   int i = 0;
   ConversionResult result;
@@ -920,3 +920,120 @@ static int convert_from_UTF8(wchar_t* wide_word, const char* UTF8_word)
 
   return wcslen(wide_word);
 }
+
+
+int convert_from_UTF32( char* UTF8_word, wchar_t* wide_word)
+{
+  int i = 0;
+  ConversionResult result;
+  UTF8 temp_UTF8[FNLEN];
+  UTF32 temp_UTF32[FNLEN];
+
+  UTF8* UTF8_Start = temp_UTF8;
+  UTF8* UTF8_End = &temp_UTF8[FNLEN-1];
+  const UTF32* UTF32_Start = temp_UTF32;
+  const UTF32* UTF32_End = &temp_UTF32[FNLEN-1];
+
+  wcsncpy(temp_UTF32, wide_word, FNLEN);
+
+  ConvertUTF32toUTF8(&UTF32_Start, UTF32_End, &UTF8_Start, UTF8_End, 0);
+
+  UTF8_word[0] = 0;
+
+  while ((i < FNLEN) && (temp_UTF8[i] != 0))
+  {
+    UTF8_word[i] = temp_UTF8[i];
+    i++; 
+  }
+
+  if (i >= FNLEN)
+  {
+    fprintf(stderr, "convert_from_UTF8(): buffer overflow\n");
+    return -1;
+  }
+  else  //need terminating null:
+  {
+	for(i;i<FNLEN;i++)
+	    UTF8_word[i] = 0;
+  }
+
+  DEBUGCODE {fprintf(stderr, "UTF8_word = %s\n", UTF8_word);}
+
+  return strlen(UTF8_word);
+}
+
+SDL_Surface* create_surface_wchar(wchar_t *t, TTF_Font *font, const SDL_Color *c,int size)
+{
+  char tmp[512];
+  int i;
+  wchar_t wchar_tmp[512];
+  SDL_Surface* out = NULL;
+  SDL_Surface* black_letters = NULL;
+  SDL_Surface* white_letters = NULL;
+  SDL_Surface* bg = NULL;
+  SDL_Rect dstrect;
+  Uint32 color_key;
+
+  SDLPango_Matrix *colour;
+  colour=SDL_Colour_to_SDLPango_Matrix(c);
+
+  
+  if (!t || !font || !c)
+  {
+    fprintf(stderr, "BlackOutline(): invalid ptr parameter, returning.");
+    return NULL;
+  }
+
+  wcsncpy( wchar_tmp, t, size);
+  wchar_tmp[size]=0;
+  i=convert_from_UTF32( tmp, wchar_tmp);
+  tmp[i]=0;
+  DEBUGCODE { printf("wchar:%S to string: %s\n", wchar_tmp, tmp); }
+  DEBUGCODE { printf("Entering create_surface_wchar with: %s\n",tmp); }
+  DEBUGCODE { printf("string size:%d Wchar size:%d\n",i,wcslen(wchar_tmp)); }
+  //DEBUGCODE { exit(-1); }
+  context = SDLPango_CreateContext();	
+  SDLPango_SetDpi(context, 125.0, 125.0);
+  SDLPango_SetDefaultColor(context, MATRIX_TRANSPARENT_BACK_BLACK_LETTER );
+  SDLPango_SetBaseDirection(context, SDLPANGO_DIRECTION_LTR);
+  SDLPango_SetMarkup(context,tmp, -1);
+
+  black_letters = SDLPango_CreateSurfaceDraw(context);
+
+  bg = SDL_CreateRGBSurface(SDL_SWSURFACE,
+                            (black_letters->w) + 5,
+                            (black_letters->h) + 5,
+                             32,
+                             rmask, gmask, bmask, amask);
+  SDLPango_Draw(context, bg, 0, 0);
+  /* Use color key for eventual transparency: */
+  color_key = SDL_MapRGB(bg->format, 10, 10, 10);
+  SDL_FillRect(bg, NULL, color_key);
+  /* Now draw black outline/shadow 2 pixels on each side: */
+  dstrect.w = black_letters->w;
+  dstrect.h = black_letters->h;
+
+  /* NOTE: can make the "shadow" more or less pronounced by */
+  /* changing the parameters of these loops.                */
+  for (dstrect.x = 1; dstrect.x < 4; dstrect.x++)
+    for (dstrect.y = 1; dstrect.y < 3; dstrect.y++)
+      SDL_BlitSurface(black_letters , NULL, bg, &dstrect );
+
+  SDL_FreeSurface(black_letters);
+
+  /* --- Put the color version of the text on top! --- */
+  
+  
+  SDLPango_SetDefaultColor(context, colour);
+  white_letters = SDLPango_CreateSurfaceDraw(context);
+  dstrect.x = 1;
+  dstrect.y = 1;
+  SDL_BlitSurface(white_letters, NULL, bg, &dstrect);
+  SDL_FreeSurface(white_letters);
+  /* --- Convert to the screen format for quicker blits --- */
+  SDL_SetColorKey(bg, SDL_SRCCOLORKEY|SDL_RLEACCEL, color_key);
+  out = SDL_DisplayFormatAlpha(bg);
+  SDL_FreeSurface(bg);
+  return out;
+}
+

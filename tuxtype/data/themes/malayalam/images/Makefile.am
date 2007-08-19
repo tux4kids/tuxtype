@@ -1,5 +1,5 @@
 
-SUBDIRS = status
+SUBDIRS = status keyboard
 
 EXTRA_DIST = \
 splat0.png

@@ -25,19 +25,27 @@ SDL_Rect hand_loc, letter_loc;
 TTF_Font *font;
 char phrase[255][FNLEN];
 
+wchar_t wphrase[255][FNLEN];
+
 Mix_Chunk *wrong;
 
 /*local function prototypes: */
-static int get_phrase(const char* phr);
+static int get_phrase(wchar_t* phr);
 static void practice_load_media(void);
 static void practice_unload_media(void);
-static void print_at(const char *pphrase, int wrap, int x, int y);
+static void print_at(wchar_t *pphrase, int wrap, int x, int y);
 static void show(unsigned char t);
 
+void create_letters(wchar_t* widestr);
+static void print_string_at(const char *string,int x,int y);
+static void next_letter(wchar_t *wphrase, int c);
 
-/************************************************************************/
+
+//static int convert_from_UTF8(wchar_t*, const char*);
+
+//************************************************************************/
 /*                                                                      */ 
-/*         "Public" functions (callable throughout program)             */
+/*         "Public" functions (callable throughout program)   convert_from_UTF8(wphrase, pphrase);          */
 /*                                                                      */
 /************************************************************************/
 
@@ -50,6 +58,9 @@ int Phrases(char* pphrase ) {
 	 * 
 	 * 
 	 */
+	SDL_Surface *tmp;
+	SDL_Surface *clear_text;
+        wchar_t wphrase[128];	
 
 	Uint32 start=0,a=0;
 	int 	quit=0,
@@ -60,25 +71,47 @@ int Phrases(char* pphrase ) {
 		total=0,
 		state=0;
 	int key[100];
-	SDL_Rect dst, dst2, dst3, dst4,dst5;
+	SDL_Rect dst, dst2, dst3, dst4,dst5,clear_dst;
 	char keytime[FNLEN],
 	     totaltime[FNLEN];
 
 	practice_load_media();
+
+	clear_text = SDL_CreateRGBSurface(SDL_SWSURFACE, 700, 50, 32, rmask, gmask, bmask, amask);
+	
+	SDL_FillRect(clear_text, NULL, 0xff000000);
+
 	SDL_BlitSurface(bkg, NULL, screen, NULL);
 	SDL_BlitSurface(hands, NULL, screen, &hand_loc);
 	SDL_Flip(screen);
 
-	wp = get_phrase(pphrase);
+	convert_from_UTF8(wphrase, pphrase);
+
+	wp = get_phrase(wphrase);
 	if (!strncmp(phrase[0], "", 1))
 		strncpy(pphrase, phrase[0], 80);
 
- 	dst.x = 320 - (letters[65]->w/2);	dst.y = 100;	dst.w = letters[65]->w;	dst.h = letters[65]->h;
+/* 	dst.x = 320 - (letters[65]->w/2);	dst.y = 100;	dst.w = letters[65]->w;	dst.h = letters[65]->h;
  	dst2.x = 50;				dst2.y = 400;	dst2.w = letters[65]->w;	dst2.h = letters[65]->h;
  	dst3.x = 50;				dst3.y = 400;	dst3.w = 160;			dst3.h = 50;
  	dst4.x = 480;				dst4.y = 400;	dst4.w = 240;			dst4.h = 50;
  	dst5.x = 480;				dst5.y = 400;	dst5.w = 240;			dst5.h = 50;
 	dst.x = 40;
+*/
+
+
+ 	dst.x = 320 - 10;	dst.y = 100;	dst.w = 21;	dst.h = 21;
+ 	dst2.x = 50;				dst2.y = 400;	dst2.w = 21;	dst2.h = 21;
+ 	dst3.x = 50;				dst3.y = 400;	dst3.w = 160;			dst3.h = 50;
+ 	dst4.x = 480;				dst4.y = 400;	dst4.w = 240;			dst4.h = 50;
+ 	dst5.x = 480;				dst5.y = 400;	dst5.w = 240;			dst5.h = 50;
+	dst.x = 40;
+	clear_dst.x = dst.x-70;
+	clear_dst.y = dst.y;
+	clear_dst.w = 700;
+	clear_dst.h=40;
+	SDL_BlitSurface(clear_text, NULL, screen, &clear_dst);
+
 
 	start = SDL_GetTicks();
 
@@ -92,7 +125,8 @@ int Phrases(char* pphrase ) {
 		case 1:
 			if (SDL_GetTicks() - start > 500) {
 				for (i=0; i<10; i++)
-					if (FINGER[(int)pphrase[c]][i]){
+					if (FINGER[(int)wphrase[c]][i]){
+
 						SDL_BlitSurface(hand[i], NULL, screen, &hand_loc);
 					}
 				state = 2;
@@ -109,13 +143,16 @@ int Phrases(char* pphrase ) {
 			break;  
 		case 4:
 			for (i=0; i<10; i++)
-				if (FINGER[(int)pphrase[c]][i])
+				if (FINGER[(int)wphrase[c]][i])
+
 					SDL_BlitSurface(hand[i], NULL, screen, &hand_loc);
 			state = 11;
 			break;
 		default:
 			state -= 2; // this is to make the flashing slower
 		}
+
+		next_letter(wphrase, c);
 
 		while  (SDL_PollEvent(&event)) {
 				if (event.type == SDL_KEYDOWN) {
@@ -131,31 +168,41 @@ int Phrases(char* pphrase ) {
 						//practice next phase in list
 						//a=a;
 					} else {
-						if (ALPHABET[event.key.keysym.unicode] && pphrase[c]==(char)event.key.keysym.unicode){
+						if (wphrase[c]==event.key.keysym.unicode){
+
 						state=0;
 						dst2.x=40;
 						dst4.x=480;
 						SDL_BlitSurface(bkg, &dst3, screen, &dst2);
 						SDL_BlitSurface(bkg, &dst5, screen, &dst4);
 						SDL_Flip(screen);
-						SDL_BlitSurface(letters[event.key.keysym.unicode], NULL, screen, &dst);
-						for (z=0;z<strlen(keytime);z++){
- 							SDL_BlitSurface(letters[(int)keytime[z]], NULL, screen, &dst2);
-							dst2.x = dst2.x + letters[(int)keytime[z]]->w-2;
-						}
-						for (z=0;z<strlen(totaltime);z++){
-							SDL_BlitSurface(letters[(int)totaltime[z]], NULL, screen, &dst4);
-							dst4.x = dst4.x + letters[(int)totaltime[z]]->w-2;
-						}
-						dst.x = (dst.x + letters[event.key.keysym.unicode]->w) - 5;
-						if (c==(strlen(pphrase)-1)){
-							print_at("Great!",6 ,275 ,200);
+
+
+
+						if(c>wp)
+						{
+							
+							dst.y=142;
+							clear_dst.y = dst.y;							tmp = create_surface_wchar(wphrase+wp+2,font, &white, (c+2)%wp);
+													}
+						else
+							tmp = create_surface_wchar(wphrase,font, &white, c+1);
+						SDL_BlitSurface(clear_text, NULL, screen, &clear_dst);					SDL_BlitSurface(tmp, NULL, screen, &dst);
+						SDL_FreeSurface(tmp);
+						
+						print_string_at(keytime,dst2.x,dst2.y);			
+						print_string_at(keytime,dst4.x,dst4.y);					
+
+
+
+						if (c==(wcslen(wphrase)-1)){
+							print_string_at(_("Great!"),275 ,200);
 							SDL_Flip(screen);
 							SDL_Delay(2500);
 							quit=1;
 						}
 						if (c==wp){
-						c++;
+						//c++;
 						dst.x=40;
 						dst.y=142;
 						}
@@ -170,6 +217,7 @@ int Phrases(char* pphrase ) {
 	SDL_Flip(screen);
 	SDL_Delay(30);
 	}while (!quit);
+	SDL_FreeSurface(clear_text);
 	practice_unload_media();
 	return 1;
 }
@@ -188,7 +236,7 @@ static void practice_load_media(void)
 {
 	int i;	
 	unsigned char fn[FNLEN];
-	unsigned char let[5];
+	//unsigned char let[5];
 
 	LOG("Loading practice media\n");
 	for (i=0; i<10; i++) {
@@ -202,15 +250,15 @@ static void practice_load_media(void)
 	hand_loc.w = (hand[0]->w);
 	hand_loc.h = (hand[0]->h);
 
-	bkg = LoadImage("main_bkg.png", IMG_ALPHA);
+	bkg = LoadImage("keyboard/key.png", IMG_ALPHA);
 
 	font = LoadFont( ttf_font, 32 );
 
 	wrong = LoadSound("tock.wav");
 
-	let[1]=0;
+	//let[1]=0;
 
-	for (i=1; i<255; i++)
+	/*for (i=1; i<255; i++)
 	{
 		if (ALPHABET[i])
 		{
@@ -224,6 +272,7 @@ static void practice_load_media(void)
 			letters[i] = NULL;
 		}
 	}
+*/
 	LOG("DONE - Loading practice media\n");
 	TTF_CloseFont(font);
 
@@ -241,15 +290,15 @@ static void practice_unload_media(void)
 	for (i=0; i<10; i++) 
 		SDL_FreeSurface(hand[i]);
 
-	for (i=1; i<255; i++) 
+/*	for (i=1; i<255; i++) 
 		if (ALPHABET[i]) 
 			SDL_FreeSurface(letters[i]);
-	Mix_FreeChunk(wrong);
+*/	Mix_FreeChunk(wrong);
 }
 
 
 
-static void show(unsigned char t)
+/*static void show(unsigned char t)
 {
 	SDL_Rect dst;
 	dst.x = 320 - (letters[(int)t]->w/2);
@@ -258,25 +307,24 @@ static void show(unsigned char t)
 	dst.h = letters[(int)t]->h;
 	SDL_BlitSurface(letters[(int)t], NULL, screen, &dst);
 }
+*/
 
 
-
-static int get_phrase(const char* phr)
-{
-	int pc=0,
+static int get_phrase(wchar_t* wphrase)
+{	int pc=0,
 	    pw[256] = { 0 },
 	    wp=0,
 	    i=0,
-	    c=0,
+//	    c=0
 	    z=0;
-	char fn[FNLEN];
+//	char fn[FNLEN];
 
 	/* If we didn't receive a phrase get the first one from the file...*/
 	
-	if (strncmp("", phr, 40)==0){
-	FILE *pf;
-	/* set the phrases directory/file */
-	#ifdef WIN32
+//	if (strncmp("", phr, 40)==0){
+//	FILE *pf;
+//	/* set the phrases directory/file */
+/*	#ifdef WIN32
 		snprintf( fn, FNLEN-1, "userdata/phrases.txt" );
 	#else
 		snprintf( fn, FNLEN-1, (const char*)"%s/.tuxtype/phrases.txt", getenv("HOME") );
@@ -342,15 +390,54 @@ static int get_phrase(const char* phr)
 	LOG("Leaving get_phrase()\n");
 	return(wp);
 }
+*/
 
 
 
-static void print_at(const char *pphrase, int wrap, int x, int y)
+
+//Calculate and record pixel width of phrases
+	//Find wrapping point
+	if (wcslen(wphrase)<50)
+	{
+		wp=wcslen(wphrase);
+		print_at( wphrase, wp, 40, 10 );
+		
+	}
+	else
+	{
+		z=0;
+		wp=0;
+		for (i=0;i<wcslen(wphrase);i++)
+		{
+
+			z++;
+			if (wp == 0 && z > 50)
+			{
+				wp = i-1;
+				break;
+			}
+		}
+		for (i=wp;i>=0;i--){
+			if (wphrase[i] == ' ')
+			{
+				wp=i-1;
+				break;
+			}
+		}
+		print_at( wphrase, wp, 40, 10 );
+		
+	}
+	return(wp);
+}
+
+
+static void print_at(wchar_t *pphrase, int wrap, int x, int y)
 {
 	int z=0;
+	SDL_Surface *tmp;
 	letter_loc.x = x;
 	letter_loc.y = y;
-	letter_loc.w = letters[65]->w;
+/*	letter_loc.w = letters[65]->w;
 	letter_loc.h = letters[65]->h;
 	if ( wrap == strlen(pphrase) ){
 		for (z=0;z<strlen(pphrase);z++){
@@ -371,4 +458,73 @@ static void print_at(const char *pphrase, int wrap, int x, int y)
 		}
 	}
 }
+*/
 
+	font = LoadFont( ttf_font, 32 );
+	DEBUGCODE { printf("\n\n\nEntering print_at with : %S\n",pphrase); }
+	if ( wrap == wcslen(pphrase) ){
+		tmp = create_surface_wchar(pphrase,font, &white, wrap);
+		letter_loc.w = tmp->w+5;
+		letter_loc.h = tmp->h+5;
+		SDL_BlitSurface(tmp, NULL, screen, &letter_loc);
+		SDL_FreeSurface(tmp);
+	}else{
+		tmp = create_surface_wchar(pphrase,font, &white, wrap+1);
+		letter_loc.w = tmp->w+5;
+		letter_loc.h = tmp->h+5;
+		SDL_BlitSurface(tmp, NULL, screen, &letter_loc);
+		SDL_FreeSurface(tmp);
+		letter_loc.x = 40;
+                // - (letter_loc.h/4) to account for free space at top and bottom of rendered letters
+		letter_loc.y = letter_loc.y + letter_loc.h - (letter_loc.h/4);
+		tmp = create_surface_wchar(pphrase+wrap+2,font, &white, wcslen(pphrase));
+		letter_loc.w = tmp->w+5;
+		letter_loc.h = tmp->h+5;
+		SDL_BlitSurface(tmp, NULL, screen, &letter_loc);
+		SDL_FreeSurface(tmp);
+	}
+	TTF_CloseFont(font);
+	// DEBUGCODE { exit(-1); }
+	DEBUGCODE { printf("Leaving print_at \n\n\n"); }
+}
+
+
+
+static void print_string_at(const char *string,int x,int y)
+{
+	wchar_t t[512];
+	SDL_Surface *tmp;
+	SDL_Rect dst;
+	dst.x=x;
+	dst.y=y;
+	dst.h=21;
+	dst.w=21;
+	convert_from_UTF8(t, string);
+	tmp = create_surface_wchar( t, font, &white, wcslen(t));
+	SDL_BlitSurface(tmp, NULL, screen, &dst);
+	SDL_FreeSurface(tmp);
+	
+}
+
+
+static void next_letter(wchar_t *t, int c)
+{
+	//int i=21;
+	SDL_Surface *tmp;
+	SDL_Rect dst;
+	print_string_at(_("Next letter:"), 230, 400);
+	dst.x=320;
+	dst.y=350;
+	dst.h=100;
+	dst.w=100;
+	tmp = SDL_CreateRGBSurface(SDL_SWSURFACE, 100, 100, 32, rmask, gmask, bmask, amask);
+	SDL_BlitSurface(tmp, NULL, screen, &dst);
+	SDL_FreeSurface(tmp);
+	dst.x=390;	
+	dst.y=400;
+	dst.h=21;
+	dst.w=21;
+	tmp = create_surface_wchar( t+c, font, &white,1);
+	SDL_BlitSurface(tmp, NULL, screen, &dst);
+	SDL_FreeSurface(tmp);
+}

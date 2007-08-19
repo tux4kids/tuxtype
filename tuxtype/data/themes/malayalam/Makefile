@@ -57,11 +57,11 @@ ETAGS = etags
 CTAGS = ctags
 DIST_SUBDIRS = $(SUBDIRS)
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
-ACLOCAL = ${SHELL} /root/Desktop/tuxtype-indic/missing --run aclocal-1.10
-AMTAR = ${SHELL} /root/Desktop/tuxtype-indic/missing --run tar
-AUTOCONF = ${SHELL} /root/Desktop/tuxtype-indic/missing --run autoconf
-AUTOHEADER = ${SHELL} /root/Desktop/tuxtype-indic/missing --run autoheader
-AUTOMAKE = ${SHELL} /root/Desktop/tuxtype-indic/missing --run automake-1.10
+ACLOCAL = ${SHELL} /usr/local/src/tuxtype-indic/missing --run aclocal-1.10
+AMTAR = ${SHELL} /usr/local/src/tuxtype-indic/missing --run tar
+AUTOCONF = ${SHELL} /usr/local/src/tuxtype-indic/missing --run autoconf
+AUTOHEADER = ${SHELL} /usr/local/src/tuxtype-indic/missing --run autoheader
+AUTOMAKE = ${SHELL} /usr/local/src/tuxtype-indic/missing --run automake-1.10
 AWK = gawk
 CC = gcc
 CCDEPMODE = depmode=gcc3
@@ -84,13 +84,13 @@ INSTALL_SCRIPT = ${INSTALL}
 INSTALL_STRIP_PROGRAM = $(install_sh) -c -s
 LDFLAGS = 
 LIBOBJS = 
-LIBS = -L/usr/lib -lSDL -lSDL_image -lSDL_ttf -lSDL_mixer 
+LIBS = -L/usr/lib -lSDL -lSDL_Pango -lSDL_image -lSDL_ttf -lSDL_mixer 
 LN_S = ln -s
 LTLIBOBJS = 
-MAKEINFO = ${SHELL} /root/Desktop/tuxtype-indic/missing --run makeinfo
+MAKEINFO = ${SHELL} /usr/local/src/tuxtype-indic/missing --run makeinfo
 MKDIR_P = /bin/mkdir -p
 NSIS = no
-NSI_DLL_DIR = /root/tuxtype_dll
+NSI_DLL_DIR = /home/mobin/tuxtype_dll
 NSI_INSTALL_DIR = mingw32
 OBJEXT = o
 PACKAGE = tuxtype
@@ -108,10 +108,10 @@ SHELL = /bin/sh
 STRIP = 
 VERSION = 1.5.10
 WINDRES = 
-abs_builddir = /root/Desktop/tuxtype-indic/tuxtype/data/themes/malayalam
-abs_srcdir = /root/Desktop/tuxtype-indic/tuxtype/data/themes/malayalam
-abs_top_builddir = /root/Desktop/tuxtype-indic
-abs_top_srcdir = /root/Desktop/tuxtype-indic
+abs_builddir = /usr/local/src/tuxtype-indic/tuxtype/data/themes/malayalam
+abs_srcdir = /usr/local/src/tuxtype-indic/tuxtype/data/themes/malayalam
+abs_top_builddir = /usr/local/src/tuxtype-indic
+abs_top_srcdir = /usr/local/src/tuxtype-indic
 ac_ct_CC = gcc
 am__include = include
 am__leading_dot = .
@@ -138,7 +138,7 @@ host_vendor = unknown
 htmldir = ${docdir}
 includedir = ${prefix}/include
 infodir = ${datarootdir}/info
-install_sh = $(SHELL) /root/Desktop/tuxtype-indic/install-sh
+install_sh = $(SHELL) /usr/local/src/tuxtype-indic/install-sh
 libdir = ${exec_prefix}/lib
 libexecdir = ${exec_prefix}/libexec
 localedir = ${datarootdir}/locale
@@ -165,7 +165,7 @@ SUBDIRS = \
 images\
 words
 
-EXTRA_DIST = keyboard.lst lang.po
+EXTRA_DIST = keyboard.lst lang.po phrases.txt
 all: all-recursive
 
 .SUFFIXES:
@@ -479,10 +479,13 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/lang.po $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/malayalam/lang.po
 	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/malayalam
 	$(INSTALL_DATA) $(srcdir)/keyboard.lst $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/malayalam/keyboard.lst
+	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/malayalam
+	$(INSTALL_DATA) $(srcdir)/phrases.txt $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/malayalam/phrases.txt
 
 uninstall-local:
 	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/malayalam/keyboard.lst
 	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/malayalam/lang.po
+	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/malayalam/phrases.txt
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:

@@ -34,6 +34,7 @@ int GetGlyphCoords(wchar_t t, int* x, int* y);
 void LoadKeyboard(void);
 int RenderLetters(const TTF_Font* letter_font);
 void UseAlphabet(void);
+int convert_from_UTF8(wchar_t* wide_word, const char* UTF8_word);
 
 
 /* In audio.c:   */
