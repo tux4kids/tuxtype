@@ -151,7 +151,8 @@ SDLPango_Matrix* SDL_Colour_to_SDLPango_Matrix(const SDL_Color *cl)
   return colour;
 }
 
-
+/* This version basically uses the SDLPango lib instead of */
+/* TTF_RenderUTF*_Blended() to properly render Indic text. */
 SDL_Surface* BlackOutline(const unsigned char *t, TTF_Font *font, const SDL_Color *c)
 {
   SDL_Surface* out = NULL;

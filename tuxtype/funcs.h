@@ -21,12 +21,12 @@
 
 
 /* In alphabet.c */
-SDL_Surface* BlackOutline(const unsigned char *t, TTF_Font* font, const SDL_Color* c);
+SDL_Surface* BlackOutline(const unsigned char* t, TTF_Font* font, const SDL_Color* c);
 SDL_Surface* BlackOutline_wchar(wchar_t t, TTF_Font* font, const SDL_Color* c);
 void ClearWordList(void);
 void FreeLetters(void);
 void GenerateWordList(const char* wordFn);
-wchar_t GetLetter(void);
+wchar_t GetRandLetter(void);
 wchar_t* GetWord(void);
 SDL_Surface* GetWhiteGlyph(wchar_t t);
 SDL_Surface* GetRedGlyph(wchar_t t);
@@ -98,7 +98,7 @@ void SaveSettings(void);
 
 /* In theme.c: */
 void ChooseTheme(void);
-void SetupTheme(const char *dirname);
+void SetupTheme(const char* dirname);
 
 
 /* In titlescreen.c: */
