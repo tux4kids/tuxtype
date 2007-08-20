@@ -38,238 +38,310 @@ static void run_script(void);
 
 void InstructCascade(void)
 {
-    char fn[FNLEN];
-    sprintf( fn, "%s/scripts/cascade.xml", realPath[settings.use_english] );
-    if (load_script( fn ) != 0) return; // bail if any errors occur
-    run_script();
+  char fn[FNLEN];
+
+  if (settings.use_english)
+    sprintf( fn, "%s/scripts/cascade.xml", settings.default_data_path);
+  else
+    sprintf( fn, "%s/scripts/cascade.xml", settings.theme_data_path);
+
+  if (load_script( fn ) != 0)
+    return; // bail if any errors occur
+  run_script();
 }
 
 
 void InstructLaser(void)
 {
-    char fn[FNLEN];
-    sprintf( fn, "%s/scripts/laser.xml", realPath[settings.use_english] );
-    if (load_script( fn ) != 0) return; // bail if any errors occur
-    { int i; for (i=0; i<20; i++) {
-    run_script(); SDL_Delay(500); }}
+  int i;
+  char fn[FNLEN];
+
+  if (settings.use_english)
+    sprintf( fn, "%s/scripts/cascade.xml", settings.default_data_path);
+  else
+    sprintf( fn, "%s/scripts/cascade.xml", settings.theme_data_path);
+
+  if (load_script( fn ) != 0)
+    return; // bail if any errors occur
+
+  for (i = 0; i < 20; i++)
+  {
+    run_script();
+    SDL_Delay(500);
+  }
 }
 
 
 void ProjectInfo(void)
 {
-    char fn[FNLEN]; 
-    sprintf( fn, "%s/scripts/projectInfo.xml", realPath[1]);
-    if (load_script( fn ) != 0) return; // bail if any errors occur
-    run_script();
+  char fn[FNLEN]; 
+
+  if (settings.use_english)
+    sprintf( fn, "%s/scripts/cascade.xml", settings.default_data_path);
+  else
+    sprintf( fn, "%s/scripts/cascade.xml", settings.theme_data_path);
+
+  if (load_script( fn ) != 0)
+    return; // bail if any errors occur
+
+  run_script();
 }
 
 
-void TestLesson( void ) {
-	SDL_Surface *left, *right, *pointer, *bkg;
-	SDL_Surface *filenames[200];
+int TestLesson( void )
+{
+  SDL_Surface* left = NULL, *right = NULL, *pointer = NULL, *bkg = NULL;
+  SDL_Surface *filenames[200] = {NULL};
+
+  SDL_Rect spot, arrow_area;
+  SDL_Rect leftRect, rightRect;
+  SDL_Rect titleRects[8];
 	
-	SDL_Rect spot, arrow_area;
-	SDL_Rect leftRect, rightRect;
-	SDL_Rect titleRects[8];
+  int stop = 0;
+  int loc = 0;
+  int old_loc = 1;
+  int i;
+  int c = 0;
+  int found = 0;
 	
-	int stop = 0;
-	int loc = 0;
-	int old_loc = 1;
-	int i;
-	int c = 0;
-	
-	char fn[FNLEN]; 
-	unsigned char wordlistFile[200][200];
-	unsigned char wordPath[FNLEN];
+  char fn[FNLEN]; 
+  unsigned char wordlistFile[200][200];
+  unsigned char wordPath[FNLEN];
 
-	DIR *wordsDir;
-	struct dirent *wordsFile;
-//	FILE *tempFile;
+  DIR* wordsDir = NULL;
+  struct dirent* wordsFile = NULL;
 
-	pointer = LoadImage( "right.png", IMG_ALPHA );
-	bkg = LoadImage( "main_bkg.png", IMG_REGULAR );
+  pointer = LoadImage( "right.png", IMG_ALPHA );
+  bkg = LoadImage( "main_bkg.png", IMG_REGULAR );
+  left = LoadImage("left.png", IMG_ALPHA);       
+  right = LoadImage("right.png", IMG_ALPHA);
 
-	SDL_ShowCursor(0);
+  if (!pointer || !bkg || !left ||!right)
+  {
+    fprintf(stderr, "TestLesson() - needed image not found\n");
+    /* Free anything that got loaded: */
+    SDL_FreeSurface(pointer);
+    SDL_FreeSurface(left);
+    SDL_FreeSurface(right);
+    SDL_FreeSurface(bkg);
+    return 0;
+  }
 
-	/* find the directory to load wordlists from */
+  SDL_ShowCursor(0);
 
-	for (i=settings.use_english; i<2; i++) {
-		sprintf( wordPath, "%s/scripts", realPath[i] );
-		if (CheckFile(wordPath))
-			break;
-	}
+  /* find the directory to load wordlists from */
+  /* First look in theme path, if desired: */
+  if (!settings.use_english)
+  {
+    sprintf( wordPath, "%s/scripts", settings.theme_data_path);
+    if (CheckFile(wordPath))
+    {
+      found = 1;
+    }
+  }
 
-	if (i==2) {
-		fprintf(stderr, "ERROR: Unable to find wordlist directory\n");
-		exit(1);
-	}
-	spot.x=60;
-	spot.y=20;
+  /* Now look in default path if desired or needed: */
+  if (!found)
+  {
+    sprintf( wordPath, "%s/scripts", settings.default_data_path);
+    if (CheckFile(wordPath))
+    {
+      found = 1;
+    }
+  }
+
+  if (!found)
+  {
+    fprintf(stderr, "TestLesson(): Error finding script directory!\n");
+    return 0;
+  }
+
+  /* What is this location? */
+  spot.x=60;
+  spot.y=20;
 
 
-	/* create a list of all the .txt files */
+  /* create a list of all the .xml files */
 
-	wordsDir = opendir( wordPath );	
-	font = LoadFont(settings.theme_font_name, MENU_FONT_SIZE);
-	do {
-		wordsFile = readdir(wordsDir);
-		if (!wordsFile)
-			break;
+  wordsDir = opendir( wordPath );	
+  font = LoadFont(settings.theme_font_name, MENU_FONT_SIZE);
+  do
+  {
+    wordsFile = readdir(wordsDir);
+    if (!wordsFile)
+      break;
 
-		/* must have at least .txt at the end */
-		if (strlen(wordsFile->d_name) < 5)
-			continue;
+    /* must have at least '.xml' at the end */
+    if (strlen(wordsFile->d_name) < 5)
+      continue;
 
-		if (strcmp(&wordsFile->d_name[strlen(wordsFile->d_name)-4],".xml"))
-			continue;
+    if (strcmp(&wordsFile->d_name[strlen(wordsFile->d_name)-4],".xml"))
+      continue;
 
-		sprintf( wordlistFile[c], "%s", wordsFile->d_name );
+    sprintf( wordlistFile[c], "%s", wordsFile->d_name );
 
-		filenames[c] = TTF_RenderUTF8_Blended(  font, wordsFile->d_name, white);
-		SDL_BlitSurface( filenames[c], NULL, screen, &spot );
-                SDL_FreeSurface(filenames[c]);
-		c++;
-		spot.y += MENU_FONT_SIZE;
+    filenames[c] = TTF_RenderUTF8_Blended(  font, wordsFile->d_name, white);
+    SDL_BlitSurface( filenames[c], NULL, screen, &spot );
+    SDL_FreeSurface(filenames[c]);
+    c++;
+    spot.y += MENU_FONT_SIZE;
+  } while (1); /* Leave loop when readdir() returns NULL */
 
-		/* load the name for the wordlist from the file ... (1st line) */
-/*		tempFile = fopen( wordlistFile[lists], "r" );
-		if (tempFile==NULL) continue;
-		fscanf( tempFile, "%[^\n]\n", wordlistName[lists] );
-*/
-		/* check to see if it has a \r at the end of it (dos format!) */
-/*		if (wordlistName[lists][ strlen(wordlistName[lists])-1 ] == '\r')
-			wordlistName[lists][ strlen(wordlistName[lists])-1 ] = '\0';
-		lists++;
+  TTF_CloseFont(font);
+  closedir(wordsDir);	
+  SDL_Flip(screen);
 
-		fclose(tempFile);*/
-		
-	} while (1);
+  /* Should be safe - tested 'left' and 'right' above: */
+  leftRect.w = left->w; leftRect.h = left->h;
+  leftRect.x = 320 - 80 - (leftRect.w/2); leftRect.y = 430;
 
-	TTF_CloseFont(font);
-	closedir( wordsDir );	
-	SDL_Flip( screen );
+  rightRect.w = right->w; rightRect.h = right->h;
+  rightRect.x = 320 + 80 - (rightRect.w/2); rightRect.y = 430;
 
-	left = LoadImage("left.png", IMG_ALPHA);       
-        leftRect.w = left->w; leftRect.h = left->h;
-        leftRect.x = 320 - 80 - (leftRect.w/2); leftRect.y = 430;
+  /* set initial rect sizes */
+  titleRects[0].y = 30;
+  titleRects[0].w = titleRects[0].h = titleRects[0].x = 0;
 
-        right = LoadImage("right.png", IMG_ALPHA);
-        rightRect.w = right->w; rightRect.h = right->h;
-        rightRect.x = 320 + 80 - (rightRect.w/2); rightRect.y = 430;
+  for (i = 1; i<8; i++)
+  { 
+    titleRects[i].y = titleRects[i-1].y + 50;
+    titleRects[i].w = titleRects[i].h = titleRects[i].x = 0;
+  }
 
-        /* set initial rect sizes */
-        titleRects[0].y = 30;
-        titleRects[0].w = titleRects[0].h = titleRects[0].x = 0;
-        for (i = 1; i<8; i++) { 
-                titleRects[i].y = titleRects[i-1].y + 50;
-                titleRects[i].w = titleRects[i].h = titleRects[i].x = 0;
-        }
-	arrow_area.x = 0;
-	arrow_area.y = 0;
-	arrow_area.w = 59;
-	arrow_area.h = 479;
+  arrow_area.x = 0;
+  arrow_area.y = 0;
+  arrow_area.w = 59;
+  arrow_area.h = 479;
 
-	while (!stop) {
-                while (SDL_PollEvent(&event))
-                        switch (event.type) {
-                                case SDL_QUIT:
-                                        exit(0);
-                                        break;
-                                case SDL_MOUSEMOTION:
-                                        for (i=0; (i<8) && (loc-(loc%8)+i<c); i++)
-                                                if (inRect( titleRects[i], event.motion.x, event.motion.y )) {
-                                                        loc = loc-(loc%8)+i;
-                                                        break;
-                                                }
+  while (!stop)
+  {
+    while (SDL_PollEvent(&event))
 
-                                        break;
-                                case SDL_MOUSEBUTTONDOWN:
-                                        if (inRect( leftRect, event.button.x, event.button.y ))
-                                                if (loc-(loc%8)-8 >= 0) {
-                                                        loc=loc-(loc%8)-8;
-                                                        break;
-                                                }
-                                        if (inRect( rightRect, event.button.x, event.button.y ))
-                                                if (loc-(loc%8)+8 < c) {
-                                                        loc=loc-(loc%8)+8;
-                                                        break;
-                                                }
-                                        for (i=0; (i<8) && (loc-(loc%8)+i<c); i++)
-                                                if (inRect(titleRects[i], event.button.x, event.button.y)) {
-                                                        loc = loc-(loc%8)+i;
-							ClearWordList(); /* clear old selection */
-							if (loc==0)
-							  UseAlphabet(); 
-							else
-							  GenerateWordList(wordlistFile[loc]);
- 
-                                                        stop = 1;
-                                                        break;
-                                                }
-                                        break;
-                                case SDL_KEYDOWN:
-                                        if (event.key.keysym.sym == SDLK_ESCAPE) { stop = 2; break; }
-                                        if (event.key.keysym.sym == SDLK_RETURN) {
-						sprintf( fn, "%s/scripts/%s", realPath[1], wordlistFile[loc]);
-                                                stop = 1;
-                                                break;
-                                        }
+      switch (event.type)
+      {
+        case SDL_QUIT:
+          exit(0);
+          break;
 
-                                        if ((event.key.keysym.sym == SDLK_LEFT) || (event.key.keysym.sym == SDLK_PAGEUP)) {
-                                                if (loc-(loc%8)-8 >= 0)
-                                                        loc=loc-(loc%8)-8;
-                                        	SDL_ShowCursor(1);}
+        case SDL_MOUSEMOTION:
+          for (i=0; (i<8) && (loc-(loc%8)+i<c); i++)
+            if (inRect( titleRects[i], event.motion.x, event.motion.y ))
+            {
+              loc = loc-(loc%8)+i;
+              break;
+            }
+          break;
 
-                                        if ((event.key.keysym.sym == SDLK_RIGHT) || (event.key.keysym.sym == SDLK_PAGEDOWN)) {
-                                                if (loc-(loc%8)+8 < c)
-                                                        loc=(loc-(loc%8)+8);
-                                        }
+        case SDL_MOUSEBUTTONDOWN:
+          if (inRect( leftRect, event.button.x, event.button.y ))
+            if (loc-(loc%8)-8 >= 0)
+            {
+              loc=loc-(loc%8)-8;
+              break;
+            }
 
-                                        if (event.key.keysym.sym == SDLK_UP) {
-                                                if (loc > 0)
-                                                        loc--;
-                                        }
+          if (inRect( rightRect, event.button.x, event.button.y ))
+            if (loc-(loc%8)+8 < c)
+            {
+              loc=loc-(loc%8)+8;
+              break;
+            }
 
-                                        if (event.key.keysym.sym == SDLK_DOWN) {
-                                                if (loc+1< c)
-                                                        loc++;
-                                        }
-                        }
+          for (i=0; (i<8) && (loc-(loc%8)+i<c); i++)
+            if (inRect(titleRects[i], event.button.x, event.button.y))
+            {
+              loc = loc-(loc%8)+i;
+              ClearWordList(); /* clear old selection */
+              if (loc==0)
+                UseAlphabet(); 
+              else
+                GenerateWordList(wordlistFile[loc]);
 
-               if (stop == 2) {
-                        SDL_FreeSurface(pointer);
-                        SDL_FreeSurface(left);
-                        SDL_FreeSurface(right);
-                        SDL_FreeSurface(bkg);
-                        return;
-               }
-               if (old_loc != loc) {
-                        int start;
+              stop = 1;
+              break;
+            }
+          break;
 
-                        SDL_BlitSurface( bkg, &arrow_area, screen, NULL);
+        case SDL_KEYDOWN:
+          if (event.key.keysym.sym == SDLK_ESCAPE)
+          { 
+            stop = 2;
+            break;
+          }
 
-                        start = loc;
-                        for (i = start; i < c; i++) {
-                                spot.x = 5;
-                                spot.y = (i * MENU_FONT_SIZE) + 18;
-                                if (i == loc)
-                                        SDL_BlitSurface(pointer, NULL, screen, &spot);
-                        }
+          if (event.key.keysym.sym == SDLK_RETURN)
+          {
+            sprintf(fn, "%s/scripts/%s", settings.default_data_path, wordlistFile[loc]);
+            stop = 1;
+            break;
+          }
 
-                        SDL_Flip(screen);
-                }
-                SDL_Delay(40);
-                old_loc = loc;
-        }
+          if ((event.key.keysym.sym == SDLK_LEFT) || (event.key.keysym.sym == SDLK_PAGEUP))
+          {
+            if (loc-(loc%8)-8 >= 0)
+              loc=loc-(loc%8)-8;
+            SDL_ShowCursor(1);
+          }
 
-	SDL_FreeSurface(pointer);
+          if ((event.key.keysym.sym == SDLK_RIGHT) || (event.key.keysym.sym == SDLK_PAGEDOWN))
+          {
+            if (loc-(loc%8)+8 < c)
+              loc=(loc-(loc%8)+8);
+          }
+
+          if (event.key.keysym.sym == SDLK_UP)
+          {
+            if (loc > 0)
+              loc--;
+          }
+
+          if (event.key.keysym.sym == SDLK_DOWN)
+          {
+            if (loc+1< c)
+              loc++;
+          }
+      }
+
+      if (stop == 2)
+      {
+        SDL_FreeSurface(pointer);
         SDL_FreeSurface(left);
         SDL_FreeSurface(right);
         SDL_FreeSurface(bkg);
+        return;
+      }
 
-    if (load_script( fn ) != 0) return; // bail if any errors occur
+      if (old_loc != loc)
+      {
+        int start;
+        SDL_BlitSurface( bkg, &arrow_area, screen, NULL);
+
+        start = loc;
+        for (i = start; i < c; i++)
+        {
+          spot.x = 5;
+          spot.y = (i * MENU_FONT_SIZE) + 18;
+          if (i == loc)
+            SDL_BlitSurface(pointer, NULL, screen, &spot);
+        }
+
+        SDL_Flip(screen);
+      }
+
+      SDL_Delay(40);
+      old_loc = loc;
+    }
+
+    SDL_FreeSurface(pointer);
+    SDL_FreeSurface(left);
+    SDL_FreeSurface(right);
+    SDL_FreeSurface(bkg);
+
+    if (load_script( fn ) != 0)
+      return 0; // bail if any errors occur
     run_script();
     SDL_ShowCursor(1);
+  return 1; 
 }
 
 

@@ -19,23 +19,11 @@
 #include "globals.h"
 #include "funcs.h"
 
-#define NUM_PATHS 4
-
-const char PATHS[NUM_PATHS][FNLEN] = {
-	"./data",
-	"/usr/share/"PACKAGE"/data",
-	"/usr/local/share/"PACKAGE"/data",
-	DATA_PREFIX"/share/"PACKAGE"/data"
-};
 
 SDL_Surface *letters[255] = {NULL};
 wchar_t ALPHABET[256];
 unsigned char FINGER[256][10];
 int ALPHABET_SIZE;
-unsigned char realPath[2][FNLEN];
-char themeName[FNLEN];
-char fontName[FNLEN];
-//int useEnglish;
 
 
 #define MAX_LANGUAGES 100
@@ -48,68 +36,14 @@ char fontName[FNLEN];
  * the default path
  */
 
-/*FIXME should check for 'font_name' file, get name and change to requested font */
-
-void SetupTheme(const char* dirName)
-{
-	int i;
-	int found = 0;
-	settings.use_english=1; // default is to use English if we cannot find theme
-
-	for (i=0; i<NUM_PATHS && !found; i++) {
-
-		DEBUGCODE{
-		fprintf(stderr, "SetupTheme(): checking for: %s\n", PATHS[i]);
-		}
-
-		if (CheckFile(PATHS[i]))
-                {
-			strncpy(realPath[1], PATHS[i], FNLEN - 1);
-			strncpy(themeName, "", FNLEN - 1);
-			found = 1; /* so quit looking */
-
-			DEBUGCODE{
-			fprintf(stderr, "path '%s' found, copy to realPath[1]\n", PATHS[i]);
-			}
-		}
-		else {
-			DEBUGCODE{
-			fprintf(stderr, "path '%s' not found.\n", PATHS[i]);
-			}
-		}
-
-	}
-
-	if (dirName != NULL) {
-		char fullDir[FNLEN];
-
-		/* find the path to the theme */
-		sprintf( fullDir, "%s/themes/%s", realPath[1], dirName );
-
-		if (CheckFile(fullDir))
-                {
-			settings.use_english=0;
-			strncpy( realPath[0], fullDir, FNLEN-1 );
-			strncpy( themeName, dirName, FNLEN-1 );
-		}
-	}
-	DEBUGCODE
-	{
-		fprintf(stderr, "Leaving SetupTheme():\n");
-		if (dirName != NULL)
-			fprintf(stderr, "realPath[0] = %s\n", realPath[0]);
-		fprintf(stderr, "realPath[1] = %s\n", realPath[1]);
-	}
-	
-}
 
 void ChooseTheme(void)
 {
-	SDL_Surface *titles[MAX_LANGUAGES];
-	SDL_Surface *select[MAX_LANGUAGES];
-	SDL_Surface *left, *right;
+	SDL_Surface* titles[MAX_LANGUAGES] = {NULL};
+	SDL_Surface* select[MAX_LANGUAGES] = {NULL};
+	SDL_Surface* left = NULL, *right = NULL;
 	SDL_Rect leftRect, rightRect;
-	SDL_Surface *world, *map, *photo;
+	SDL_Surface* world = NULL, *map = NULL, *photo = NULL;
 	SDL_Rect worldRect, photoRect;
 	SDL_Rect titleRects[8];
 	int stop = 0;
@@ -123,16 +57,16 @@ void ChooseTheme(void)
 	unsigned char themePaths[MAX_LANGUAGES][FNLEN];
 
 	int old_use_english;
-	char old_realPath[FNLEN];
+	char old_theme_path[FNLEN];
 
 	DIR *themesDir;
 	struct dirent *themesFile;
 //	struct stat fileStats;
 
 	old_use_english = settings.use_english;
-	strncpy( old_realPath, realPath[0], FNLEN-1 );
+	strncpy(old_theme_path, settings.theme_data_path, FNLEN - 1);
 
-	sprintf( fn, "%s/themes/", realPath[1]);
+	sprintf(fn, "%s/themes/", settings.default_data_path);
 	themesDir = opendir(fn);
 
 	do {
@@ -149,10 +83,8 @@ void ChooseTheme(void)
 			continue;
 
 		/* check to see if it is a directory */
-		sprintf( fn, "%s/themes/%s", realPath[1], themesFile->d_name);
+		sprintf(fn, "%s/themes/%s", settings.default_data_path, themesFile->d_name);
 
-//		fileStats.st_mode=0;
-//		stat( fn, &fileStats );
 
 		/* CheckFile() returns 2 if dir, 1 if file, 0 if neither: */
 		if (CheckFile(fn) == 2) {
@@ -238,10 +170,10 @@ void ChooseTheme(void)
 							loc = loc-(loc%8)+i;
 							if (loc) {
 								/* --- set theme --- */
-								SetupTheme(themePaths[loc]);
+								SetupPaths(themePaths[loc]);
 							} else {
 								/* --- english --- */
-								SetupTheme(NULL);
+								SetupPaths(NULL);
 							}
 							stop = 1;
 							break;
@@ -250,17 +182,17 @@ void ChooseTheme(void)
 				case SDL_KEYDOWN:
 					if (event.key.keysym.sym == SDLK_ESCAPE) { 
 						settings.use_english = old_use_english;
-						strncpy( realPath[0], old_realPath, FNLEN-1 );
+						strncpy(settings.theme_data_path, old_theme_path, FNLEN - 1);
 						stop = 1; 
 						break; 
 					}
 					if (event.key.keysym.sym == SDLK_RETURN) { 
 						if (loc) {
 							/* --- set theme --- */
-							SetupTheme(themePaths[loc]);
+							SetupPaths(themePaths[loc]);
 						} else {
 							/* --- english --- */
-							SetupTheme(NULL);
+							SetupPaths(NULL);
 						}
 						stop = 1;
 						break;
@@ -295,7 +227,7 @@ void ChooseTheme(void)
 
 			SDL_BlitSurface( world, NULL, screen, &worldRect );
 
-		        if (loc) SetupTheme(themePaths[loc]); else SetupTheme(NULL);
+		        if (loc) SetupPaths(themePaths[loc]); else SetupPaths(NULL);
 
 			map = LoadImage( "map.png", IMG_ALPHA|IMG_NOT_REQUIRED );
 			if (map) {

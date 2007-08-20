@@ -12,6 +12,7 @@ greek\
 italian\
 jamaican\
 lithuanian\
+malayalam\
 nederlands\
 nynorsk\
 russian\

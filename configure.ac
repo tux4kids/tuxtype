@@ -1,9 +1,9 @@
 # Process this file with autoconf to produce a configure script.
-AC_INIT(tuxtype, 1.5.10, tuxmath-devel@lists.sourceforge.net)
+AC_INIT(tuxtype, 1.5.11, tuxmath-devel@lists.sourceforge.net)
 AC_CANONICAL_HOST
 AC_CANONICAL_TARGET
 AM_CONFIG_HEADER(config.h)
-AM_INIT_AUTOMAKE(tuxtype, 1.5.10)
+AM_INIT_AUTOMAKE(tuxtype, 1.5.11)
 
 AC_CONFIG_SRCDIR([tuxtype/funcs.h])
 
@@ -36,6 +36,14 @@ AM_PATH_SDL($SDL_VERSION,
 AC_CHECK_LIB([SDL_mixer], [Mix_PlayMusic], ,[AC_MSG_ERROR(SDL_mixer not found http://www.libsdl.org/projects/SDL_mixer, )])
 AC_CHECK_LIB([SDL_ttf], [TTF_Init], ,[AC_MSG_ERROR(SDL_ttf not found http://www.libsdl.org/projects/SDL_ttf, )])
 AC_CHECK_LIB([SDL_image], [IMG_Load], ,[AC_MSG_ERROR(SDL_image not found http://www.libsdl.org/projects/SDL_image, )])
+
+
+# FIXME this check still runs even for Win cross-build - must be commented out to do cross-build!
+# Only check for SDL_Pango if NOT building for Windows (for now):
+AM_CONDITIONAL(BUILD_MINGW32, test "$native_win32" = yes)
+if test "$native_win32" != yes; then
+  AC_CHECK_LIB([SDL_Pango], [SDLPango_Init], ,[AC_MSG_ERROR(SDL_Pango not found http://sdlpango.sourceforge.net/, )])
+fi
 
 #
 SDL_CFLAGS=`sdl-config --cflags`
@@ -139,6 +147,10 @@ tuxtype/data/themes/lithuanian/images/Makefile
 tuxtype/data/themes/lithuanian/images/status/Makefile
 tuxtype/data/themes/lithuanian/sounds/Makefile
 tuxtype/data/themes/lithuanian/words/Makefile
+tuxtype/data/themes/malayalam/Makefile
+tuxtype/data/themes/malayalam/images/Makefile
+tuxtype/data/themes/malayalam/images/status/Makefile
+tuxtype/data/themes/malayalam/words/Makefile
 tuxtype/data/themes/nederlands/Makefile
 tuxtype/data/themes/nederlands/words/Makefile
 tuxtype/data/themes/nynorsk/Makefile

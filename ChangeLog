@@ -1,3 +1,16 @@
+v 1.5.11
+19 Aug 2007
+[ David Bruce ]
+       - Further development of settings struct.
+       - Got rid of realPath[] - paths now part of settings struct.
+       - program now looks for a settings file under the theme dir
+         when a theme is selected, allowing themes to specify a 
+         preferred font (or other settings).
+       - Incorporated most of changes from tuxtype-Indic branch.
+         Program will now require SDLPango (as well as pango itself
+         and glib) - for now, pango-related code #ifndef-ed out for
+         win32 until I figure out how to get Windows build to work.
+
 01 Aug 2007
 [ David Bruce ]
        - Removed KEYMAP array - wasn't being used correctly anyway.

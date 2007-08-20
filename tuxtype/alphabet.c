@@ -16,6 +16,12 @@
  *                                                                         *
  ***************************************************************************/
 
+
+/* Needed to handle rendering issues for Indic languages*/
+#ifndef WIN32
+#include <SDL_Pango.h>
+#endif
+
 /* Needed to convert UTF-8 under Windows because we don't have glibc: */
 #include "ConvertUTF.h"  
 
@@ -48,6 +54,13 @@ static void show_letters(void);
 static void clear_keyboard(void);
 static int convert_from_UTF8(wchar_t* wide_word, const char* UTF8_word);
 
+
+#ifndef WIN32
+SDLPango_Matrix* SDL_Colour_to_SDLPango_Matrix(const SDL_Color* cl);
+#endif
+
+
+
 /*****************************************************/
 /*                                                   */
 /*          "Public" Functions                       */
@@ -56,64 +69,108 @@ static int convert_from_UTF8(wchar_t* wide_word, const char* UTF8_word);
 
 
 
-void LoadKeyboard( void ) {
-	unsigned char fn[FNLEN];
-	int l;
+/* FIXME would be better to get keymap from system somehow (SDL? X11?) - */
+/* all this does now is fiddle with the ALPHABET and FINGER arrays */
+int LoadKeyboard(void)
+{
+  unsigned char fn[FNLEN];
+  int found = 0;
 
-	clear_keyboard();
+  clear_keyboard();
 
-	for (l=settings.use_english; l<2; l++) {
-		sprintf( fn , "%s/keyboard.lst", realPath[l]);
-		if (CheckFile(fn)) {
-			unsigned char str[255];
-			wchar_t wide_str[255];
+  /* First look for keyboard.lst in theme path, if desired: */
+  if (!settings.use_english)
+  {
+    sprintf(fn , "%s/keyboard.lst", settings.theme_data_path);
+    if (CheckFile(fn))
+    {
+      found = 1;
+    }
+  }
 
-			FILE *f;
-			int i,j;
+  /* Now look in default path if desired or needed: */
+  if (!found)
+  {
+    sprintf(fn , "%s/keyboard.lst", settings.default_data_path);
+    if (CheckFile(fn))
+    {
+      found = 1;
+    }
+  }
 
-			f = fopen( fn, "r" );
+  if (!found)
+  {
+    fprintf(stderr, "LoadKeyboard(): Error finding file for keyboard setup!\n");
+    return 0;
+  }
+  
+  /* fn should now contain valid path to keyboard.lst: */
+  DEBUGCODE{fprintf(stderr, "fn = %s\n", fn);}
 
-			/* Should never fail as we just did the same thing in CheckFile(): */
-			if (f == NULL)
-				continue;
+  {
+    unsigned char str[255];
+    wchar_t wide_str[255];
 
-			do {
-				fscanf( f, "%[^\n]\n", str);
-                                /* Convert to wcs from UTF-8, if needed; */
-                                mbstowcs(wide_str, str, strlen(str) + 1);
+    FILE* f;
+    int i, j;
 
-				if (wcslen(wide_str) > 3) {
+    f = fopen( fn, "r" );
 
-					/* format is: FINGER(s)|Char(s) Upper/Lower */
+    if (f == NULL)
+    {
+      LOG("LoadKeyboard() - could not open keyboard.lst\n");
+      return 0;
+    }
 
-					/* advance past the fingers */
+    do
+    {
+      fscanf( f, "%[^\n]\n", str);
+      /* Convert to wcs from UTF-8, if needed; */
+      //mbstowcs(wide_str, str, strlen(str) + 1);
+      convert_from_UTF8(wide_str, str);
 
-					for (i=0; i<wcslen(wide_str) && wide_str[i] != '|'; i++);
+      if (wcslen(wide_str) > 3)
+      {
+        /* format is: FINGER(s)|Char(s) Upper/Lower */
 
-					i++; // pass the '|'
-					j = i; 
-					ALPHABET[(int)wide_str[j]] = 1;  // first character is default
+        /* advance past the fingers */
+        for (i = 0; i < wcslen(wide_str) && wide_str[i] != '|'; i++);
 
-					//for (i++; i<wcslen(wide_str); i++)
-					//	KEYMAP[(int)wide_str[i]] = wide_str[j];
+        i++; // pass the '|'
+        j = i; 
+        if ( ((int)wide_str[j] >= 0) 
+          && ((int)wide_str[j] < 256) )
+        {
+          ALPHABET[(int)wide_str[j]] = 1;  // first character is default
+        }
+        else
+          fprintf(stderr, "LoadKeyboard() - Unicode char outside supported range\n");
+        //for (i++; i<wcslen(wide_str); i++)
+        //KEYMAP[(int)wide_str[i]] = wide_str[j];
 
-					/* set the fingers for this letter */
+        /* set the fingers for this letter */
+        for (i=0; i<j-1; i++)
+        {
+          if (wide_str[i] >= '0' && wide_str[i] <= '9')
+          {
+            if ( ((int)wide_str[j] >= 0) 
+              && ((int)wide_str[j] < 256) )
+            {
+              FINGER[wide_str[j]][(int)(wide_str[i] - '0')] = 1;
+            }
+            else
+              fprintf(stderr, "LoadKeyboard() - Unicode char outside supported range\n");
+          }
+        }
+        ALPHABET_SIZE++;
+      }
+    } while (!feof(f));
 
-					for (i=0; i<j-1; i++)
-						if (wide_str[i]>='0' && wide_str[i]<='9')
-							FINGER[wide_str[j]][(int)(wide_str[i]-'0')]=1;
+    fclose(f);
 
-					ALPHABET_SIZE++;
-				}
-
-			} while (!feof(f));
-
-			fclose(f);
-
-			return;
-		}
-	}
-	fprintf( stderr, "Error finding file for keyboard setup!\n" );
+    LOG("Leaving LoadKeyboard()\n");
+    return 1;
+  }
 }
 
 
@@ -125,6 +182,12 @@ SDL_Surface* BlackOutline(const unsigned char *t, TTF_Font *font, const SDL_Colo
   SDL_Surface* bg = NULL;
   SDL_Rect dstrect;
   Uint32 color_key;
+
+/* Simply passthrough to SDLPango version if available (i.e. not under Windows):*/
+#ifndef WIN32
+return BlackOutline_SDLPango(t, font, c);
+#endif
+
 
   if (!t || !font || !c)
   {
@@ -177,9 +240,121 @@ SDL_Surface* BlackOutline(const unsigned char *t, TTF_Font *font, const SDL_Colo
 }
 
 
+
+#ifndef WIN32
+/*Convert SDL_Colour to SDLPango_Matrix*/
+
+SDLPango_Matrix* SDL_Colour_to_SDLPango_Matrix(const SDL_Color *cl)
+{
+  SDLPango_Matrix *colour;
+  colour=malloc(sizeof(SDLPango_Matrix));
+  int k;
+  for(k=0;k<4;k++){
+  	(*colour).m[0][k]=(*cl).r;
+  	(*colour).m[1][k]=(*cl).g;
+  	(*colour).m[2][k]=(*cl).b;
+  }
+  (*colour).m[3][0]=0;
+  (*colour).m[3][1]=255;
+  (*colour).m[3][2]=0;
+  (*colour).m[3][3]=0;
+
+  return colour;
+}
+
+
+
+/* This version basically uses the SDLPango lib instead of */
+/* TTF_RenderUTF*_Blended() to properly render Indic text. */
+SDL_Surface* BlackOutline_SDLPango(const unsigned char *t, TTF_Font *font, const SDL_Color *c)
+{
+  SDL_Surface* out = NULL;
+  SDL_Surface* black_letters = NULL;
+  SDL_Surface* white_letters = NULL;
+  SDL_Surface* bg = NULL;
+  SDL_Rect dstrect;
+  Uint32 color_key;
+
+  /* To covert SDL_Colour to SDLPango_Matrix */
+  SDLPango_Matrix* colour;
+  /* Create a context which contains Pango objects.*/
+  SDLPango_Context* context;
+
+
+  if (!t || !font || !c)
+  {
+    fprintf(stderr, "BlackOutline(): invalid ptr parameter, returning.");
+    return NULL;
+  }
+
+  colour=SDL_Colour_to_SDLPango_Matrix(c);
+  
+  /* Create the context */
+  context = SDLPango_CreateContext();	
+  SDLPango_SetDpi(context, 125.0, 125.0);
+  /* Set the color */
+  SDLPango_SetDefaultColor(context, MATRIX_TRANSPARENT_BACK_BLACK_LETTER );
+  SDLPango_SetBaseDirection(context, SDLPANGO_DIRECTION_LTR);
+  /* Set text to context */ 
+  SDLPango_SetMarkup(context,t, -1);  
+
+
+  black_letters = SDLPango_CreateSurfaceDraw(context);
+
+  if (!black_letters)
+  {
+    fprintf (stderr, "Warning - BlackOutline() could not create image for %s\n", t);
+    return NULL;
+  }
+
+  bg = SDL_CreateRGBSurface(SDL_SWSURFACE,
+                            (black_letters->w) + 5,
+                            (black_letters->h) + 5,
+                             32,
+                             RMASK, GMASK, BMASK, AMASK);
+
+  /* Draw text on a existing surface */
+  SDLPango_Draw(context, bg, 0, 0);
+  
+  /* Use color key for eventual transparency: */
+  color_key = SDL_MapRGB(bg->format, 10, 10, 10);
+  SDL_FillRect(bg, NULL, color_key);
+
+  /* Now draw black outline/shadow 2 pixels on each side: */
+  dstrect.w = black_letters->w;
+  dstrect.h = black_letters->h;
+
+  /* NOTE: can make the "shadow" more or less pronounced by */
+  /* changing the parameters of these loops.                */
+  for (dstrect.x = 1; dstrect.x < 4; dstrect.x++)
+    for (dstrect.y = 1; dstrect.y < 3; dstrect.y++)
+      SDL_BlitSurface(black_letters , NULL, bg, &dstrect );
+
+  SDL_FreeSurface(black_letters);
+
+  /* --- Put the color version of the text on top! --- */
+  SDLPango_SetDefaultColor(context, colour);
+  white_letters = SDLPango_CreateSurfaceDraw(context);
+  dstrect.x = 1;
+  dstrect.y = 1;
+  SDL_BlitSurface(white_letters, NULL, bg, &dstrect);
+  SDL_FreeSurface(white_letters);
+
+  /* --- Convert to the screen format for quicker blits --- */
+  SDL_SetColorKey(bg, SDL_SRCCOLORKEY|SDL_RLEACCEL, color_key);
+  out = SDL_DisplayFormatAlpha(bg);
+  SDL_FreeSurface(bg);
+
+  return out;
+}
+
+#endif
+/* End of win32-excluded coded */
+
+
 /* This version takes a single wide character and renders it with the */
 /* Unicode glyph versions of the SDL_ttf functions:                         */
-SDL_Surface* BlackOutline_wchar(wchar_t t, TTF_Font *font, const SDL_Color *c)
+SDL_Surface* BlackOutline_wchar(wchar_t t, TTF_Font* font, const SDL_Color* c)
 {
   SDL_Surface* out = NULL;
   SDL_Surface* black_letters = NULL;
@@ -289,19 +464,30 @@ static void show_letters(void)
 }
 
 
-/* FIXME won't handle Unicode chars beyond 255
+/* Returns a random Unicode char from the char_glyphs list: */
 /* --- get a letter --- */
-wchar_t GetLetter(void)
+wchar_t GetRandLetter(void)
 {
-  static int last = -1; // we don't want to return same letter twice in a row
-	int letter;
-	do {
-		letter = rand() % 255;
-	} while ((letter == last && ALPHABET_SIZE > 1) || ALPHABET[letter] == 0);
+  static wchar_t last = -1; // we don't want to return same letter twice in a row
+  wchar_t letter;
+  int i = 0;
 
-	last = letter;
+  if (!num_chars_used)
+  {
+    fprintf(stderr, "GetRandLetter() - no letters in list!\n");
+    last = -1;
+    return -1;
+  }
 
-	return letter;
+  do
+  {
+    i = rand() % num_chars_used;
+    letter = char_glyphs[i].unicode_value;
+  } while (letter == last);
+
+  last = letter;
+
+  return letter;
 }
 
 /******************************************************************************
@@ -579,6 +765,8 @@ void FreeLetters(void)
     SDL_FreeSurface(char_glyphs[i].white_glyph);
     SDL_FreeSurface(char_glyphs[i].red_glyph);
   } 
+  /* List now empty: */
+  num_chars_used = 0;
 }
 
 
@@ -633,7 +821,7 @@ SDL_Surface* GetRedGlyph(wchar_t t)
 /* the glyph's height above the baseline.                                                    */
 /*  So - 'x' and 'y' before the function should be the coords where the *origin* is supposed */
 /* to be, and after the function they will contain the correct coords for blitting of the    */
-/* glypg. OK?                                                                                */
+/* glyph. OK?                                                                                */
 int GetGlyphCoords(wchar_t t, int* x, int* y)
 {
   int i;
@@ -804,3 +992,5 @@ static int convert_from_UTF8(wchar_t* wide_word, const char* UTF8_word)
 
   return wcslen(wide_word);
 }
+
+

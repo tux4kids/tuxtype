@@ -65,6 +65,8 @@
 typedef struct game_option_type{
   char default_data_path[FNLEN];
   char theme_data_path[FNLEN];
+  char user_settings_path[FNLEN];
+  char global_settings_path[FNLEN];
   char theme_name[FNLEN];
   char lang[FNLEN];
   char theme_font_name[FNLEN];
@@ -74,6 +76,7 @@ typedef struct game_option_type{
   int sfx_volume;
   int mus_volume;
   int menu_music;
+  int menu_sound;
   int speed_up;
   int show_tux4kids;
   int debug_on;
@@ -92,6 +95,7 @@ typedef struct game_option_type{
 #define DEFAULT_SFX_VOLUME 100
 #define DEFAULT_MUS_VOLUME 100
 #define DEFAULT_MENU_MUSIC 1
+#define DEFAULT_MENU_SOUND 1
 #define DEFAULT_SPEED_UP 0
 #define DEFAULT_SHOW_TUX4KIDS 1
 #define DEFAULT_DEBUG_ON 0
@@ -102,10 +106,10 @@ typedef struct game_option_type{
 
 
 typedef struct {
-	SDL_Surface* frame[MAX_SPRITE_FRAMES];
-	SDL_Surface* default_img;
-	int num_frames;
-	int cur;
+  SDL_Surface* frame[MAX_SPRITE_FRAMES];
+  SDL_Surface* default_img;
+  int num_frames;
+  int cur;
 } sprite;
 
 #define _(str) gettext (str)
@@ -159,18 +163,17 @@ typedef struct {
 
 /* Menu Prototypes */
 enum Game_Type { 
-	QUIT_GAME, CASCADE, OPTIONS, LESSONS,
-	INSTRUCT_CASCADE, CASCADE1, CASCADE2, CASCADE3, CASCADE4,
-	INSTRUCT_LASER,    LASER1,    LASER2,    LASER3,    LASER4,
-	FREETYPE, ASDF, ALL, MAIN, SET_LANGUAGE, PROJECT_INFO, EDIT_WORDLIST,
-	LEVEL1, LEVEL2, LEVEL3, LEVEL4, LASER, INSTRUCT, NOT_CODED, NONE};
+  QUIT_GAME, CASCADE, OPTIONS, LESSONS,
+  INSTRUCT_CASCADE, CASCADE1, CASCADE2, CASCADE3, CASCADE4,
+  INSTRUCT_LASER, LASER1, LASER2, LASER3, LASER4,
+  FREETYPE, ASDF, ALL, MAIN, SET_LANGUAGE, PROJECT_INFO, EDIT_WORDLIST,
+  LEVEL1, LEVEL2, LEVEL3, LEVEL4, LASER, INSTRUCT, NOT_CODED, NONE};
 
 /* Title sequence constants */
 #define PRE_ANIM_FRAMES	 10
 #define PRE_FRAME_MULT	 3
 #define MENU_SEP	 20
 
-/* paths */
 
 #define IMG_REGULAR  0x01
 #define IMG_COLORKEY 0x02
@@ -198,19 +201,13 @@ extern SDL_Color white;
 extern SDL_Color yellow;
 
 extern SDL_Surface* bkg;
-extern SDL_Surface* letters[255];
+extern SDL_Surface* letters[255]; /* Will be going away */
 
 /* These need some work to support Unicode & i18n: */
 extern wchar_t ALPHABET[256];
 extern unsigned char FINGER[256][10];
 extern int ALPHABET_SIZE;
 
-
-/* Alternative language/word/image/sound theming */
-extern unsigned char realPath[2][FNLEN];
-extern char themeName[FNLEN];
-extern char fontName[FNLEN];
-//extern int useEnglish;
 
 enum {
 	WIN_WAV,
@@ -226,7 +223,6 @@ enum {
 
 extern Mix_Chunk* sound[NUM_WAVES];
 extern Mix_Music*  music;
-//extern int sys_sound;
 
 #define MUSIC_FADE_OUT_MS	80
 

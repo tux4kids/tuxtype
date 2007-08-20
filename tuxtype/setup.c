@@ -20,9 +20,20 @@
 #include "globals.h"
 #include "funcs.h"
 
-//global vars
+#define NUM_PATHS 4
 
-//int hidden; // Read the README file in the image directory for info on this ;)
+const char PATHS[NUM_PATHS][FNLEN] = 
+{
+  "./data",
+  "/usr/share/"PACKAGE"/data",
+  "/usr/local/share/"PACKAGE"/data",
+  DATA_PREFIX"/share/"PACKAGE"/data"
+};
+
+
+/* Local function prototypes: */
+int load_settings_fp(FILE* fp);
+int load_settings_filename(const char* fn);
 
 /***************************
 	GraphicsInit: Initializes the graphic system
@@ -94,7 +105,7 @@ void LibInit(Uint32 lib_flags)
 		}
 
 
-	atexit(SDL_Quit); // fire and forget... 
+//	atexit(SDL_Quit); // fire and forget... 
 
 	LOG( "-SDL Library init'd successfully\n" );
 
@@ -111,7 +122,7 @@ void LibInit(Uint32 lib_flags)
 		exit(2);
 	}
 
-	atexit(TTF_Quit);
+//	atexit(TTF_Quit);
 
 	SDL_EnableKeyRepeat( 0, SDL_DEFAULT_REPEAT_INTERVAL );
 	/* Need this to get Unicode values from keysyms: */
@@ -123,74 +134,138 @@ void LibInit(Uint32 lib_flags)
 /* Load the settings from a file... make sure to update SaveSettings if you change
  *  what can be saved/loaded 
  */
-void LoadSettings( void ) {
+void LoadSettings(void)
+{
+  char fn[FNLEN];
+// 	char setting[FNLEN];
+// 	char value[FNLEN];
+//	FILE *settingsFile;
 	
-	char fn[FNLEN];
-	char setting[FNLEN];
-	char value[FNLEN];
-	FILE *settingsFile;
-	
-	/* set the settings directory/file */
+  /* set the settings directory/file */
 
-	#ifdef WIN32
-		snprintf( fn, FNLEN-1, "userdata/settings.txt" );
-		LOG("WIN32 defined\n");
-	#else
-		snprintf( fn, FNLEN-1, (const char*)"%s/.tuxtype/settings.txt", getenv("HOME") );
-		LOG("WIN32 not defined\n");
-	#endif
+#ifdef WIN32
+  snprintf(fn, FNLEN - 1, "userdata/settings.txt");
+  LOG("WIN32 defined\n");
+#else
+  snprintf(fn, FNLEN - 1, (const char*)"%s/.tuxtype/settings.txt", getenv("HOME"));
+  LOG("WIN32 not defined\n");
+#endif
 
-	DEBUGCODE { printf("LoadSettings: settings file is '%s'\n", fn ); }
-	
-	LOG("LoadSettings: trying to open settings file\n");
-	
-	settingsFile = fopen( fn, "r" );
+  DEBUGCODE { printf("LoadSettings: settings file is '%s'\n", fn ); }
 
-	/* FIXME should set complete default profile if file not found */
-	if (settingsFile == NULL) {
-		printf("LoadSettings: Settings file does not exist! settings not loaded\n");
-		settings.mus_volume = 100;
-		settings.sfx_volume = 100;
-		return;
-	}
-	
-	/* we load all the settings here */
-	
-	while (!feof(settingsFile)) {
-		fscanf( settingsFile, "%[^=]=%[^\n]\n", setting, value );
-	
-		DEBUGCODE { printf( "%s = %s", setting, value ); }
-		
-		if (strncmp( setting, "lang", FNLEN ) == 0 ) {
-			DEBUGCODE { printf("LoadSettings: Setting language to %s", value); }
-			strncpy(settings.lang, value, FNLEN-1 );
-			settings.lang[FNLEN-1]=0;
-			SetupTheme(value);
-		}
-		if (strncmp( setting, "o_lives", FNLEN ) == 0 ) {
-			DEBUGCODE { printf("LoadSettings: Setting lives to %s", value); }
-			settings.o_lives = atoi(value);
-		}
-		if (strncmp( setting, "mus_volume", FNLEN ) == 0 ) {
-			DEBUGCODE { printf("LoadSettings: Setting music volume to %s", value); }
-			settings.mus_volume = atoi(value);
-		}
-		if (strncmp( setting, "sfx_volume", FNLEN ) == 0 ) {
-			DEBUGCODE { printf("LoadSettings: Setting effects volume to %s", value); }
-			settings.sfx_volume = atoi(value);
-		}
-		if (strncmp( setting, "menu_music", FNLEN ) == 0 ) {
-			DEBUGCODE { printf("LoadSettings: Setting menu music to %s", value); }
-			settings.menu_music = atoi(value);
-		}
-		if (strncmp( setting, "fullscreen", FNLEN ) == 0 ) {
-			settings.fullscreen = atoi(value);
-		}
-	}
-	
-	fclose( settingsFile );
+  LOG("LoadSettings: trying to open settings file\n");
 
+  load_settings_filename(fn);
 }
+
+
+
+/* Load the settings if given the complete pathname to the settings file.  Returns 1 if
+   able to call load_settings_fp() successfully on named file.
+ */
+int load_settings_filename(const char* fn)
+{
+  FILE* fp = fopen(fn, "r");
+
+  if (!fp)
+  {
+    fprintf(stderr, "load_settings_filename(): Settings file could not be opened! settings not loaded\n");
+    return;
+  }
+	
+  if (!load_settings_fp(fp))
+  {
+    fprintf(stderr, "No settings in settings file.\n");
+    fclose(fp); /* still need to close fp */
+    return 0;
+  }
+
+  /* Success! */
+  fclose(fp);
+  return 1;
+}
+
+
+/* Load the settings if given an open FILE* pointer to the settings file.  Returns 1 if
+   at least one setting value found, 0 otherwise. It does not close the FILE*.
+ */
+int load_settings_fp(FILE* fp)
+{
+  char setting[FNLEN]; /* these don't really need to be 'FNLEN' long */
+  char value[FNLEN];
+  int setting_found = 0;
+
+  if (!fp)
+  {
+    fprintf(stderr, "load_settings_fp() - FILE* parameter NULL\n");
+    return 0;
+  }
+
+  /* we load all the settings here */
+  while (!feof(fp))
+  {
+    fscanf(fp, "%[^=]=%[^\n]\n", setting, value );
+
+    DEBUGCODE {fprintf(stderr, "%s = %s", setting, value );}
+
+    if (strncmp( setting, "lang", FNLEN ) == 0 )
+    {
+      DEBUGCODE {fprintf(stderr, "LoadSettings: Setting language to %s", value);}
+      strncpy(settings.lang, value, FNLEN - 1);
+      setting_found = 1;
+      SetupPaths(value); /* Does this really belong here? */ 
+    }
+    else if (strncmp( setting, "o_lives", FNLEN ) == 0 )
+    {
+      DEBUGCODE {fprintf(stderr, "LoadSettings: Setting lives to %s", value);}
+      settings.o_lives = atoi(value);
+      setting_found = 1;
+   }
+    else if (strncmp( setting, "mus_volume", FNLEN ) == 0 )
+    {
+      DEBUGCODE {fprintf(stderr, "LoadSettings: Setting music volume to %s", value);}
+      settings.mus_volume = atoi(value);
+      setting_found = 1;
+    }
+    else if (strncmp(setting, "sfx_volume", FNLEN) == 0)
+    {
+      DEBUGCODE {fprintf(stderr, "LoadSettings: Setting effects volume to %s", value);}
+      settings.sfx_volume = atoi(value);
+      setting_found = 1;
+    }
+    else if (strncmp(setting, "menu_music", FNLEN) == 0)
+    {
+      DEBUGCODE {fprintf(stderr, "LoadSettings: Setting menu music to %s", value);}
+      settings.menu_music = atoi(value);
+      setting_found = 1;
+    }
+    else if (strncmp( setting, "fullscreen", FNLEN ) == 0 )
+    {
+      settings.fullscreen = atoi(value);
+      setting_found = 1;
+    }
+    else if (strncmp( setting, "theme_font_name", FNLEN ) == 0 )
+    {
+      DEBUGCODE {fprintf(stderr, "load_settings_fp(): Setting theme font to %s", value);}
+      strncpy(settings.theme_font_name, value, FNLEN - 1);
+      setting_found = 1;
+    }
+    else
+      DEBUGCODE {fprintf(stderr, "load_settings_fp(): unrecognized string: %s", value);}
+
+  }
+
+
+  if (setting_found)
+    return 1;
+  else
+  {
+    fprintf(stderr, "load_settings_fp() - no settings in file - empty or corrupt?\n");
+    return 0;
+  }
+}
+
+
 
 /* Save the settings from a file... make sure to update LoadSettings if you change
  *  what can be saved/loaded 
@@ -224,8 +299,8 @@ void SaveSettings(void)
 	}
 	
 	/* Save all the settings here! */
-	if (strncmp( themeName, "", FNLEN) != 0)
-		fprintf( settingsFile, "lang=%s\n", themeName );
+	if (strncmp(settings.theme_name, "", FNLEN) != 0)
+		fprintf( settingsFile, "lang=%s\n", settings.theme_name );
 	if (settings.o_lives > 9)
 		fprintf( settingsFile, "o_lives=%d\n", settings.o_lives );
 
@@ -240,5 +315,125 @@ void SaveSettings(void)
 // 	} else {
 // 		fprintf( settingsFile, "fullscreen=%s\n", "0");
 // 	}
-	fclose( settingsFile );
+	fclose(settingsFile);
+}
+
+
+/* Check for default (English) and theme data paths and update settings struct. */
+/* Returns 0 if default data path not found, 1 if successfully located.         */
+/* If theme not found, still returns 1 but settings changed to use English.     */
+/* TODO should have this function set up the user and global settings paths.    */
+/* TODO settings should be re-loaded when theme changes.                        */
+
+int SetupPaths(const char* theme_dir)
+{
+  int i;
+  settings.use_english = 1; // default is to use English if we cannot find theme
+
+  /* First find default data path: */
+  for (i = 0; i < NUM_PATHS; i++)
+  {
+
+    DEBUGCODE
+    {
+      fprintf(stderr, "SetupPaths(): checking for '%s' as default data path\n", PATHS[i]);
+    }
+
+    if (CheckFile(PATHS[i]))
+    {
+      strncpy(settings.default_data_path, PATHS[i], FNLEN - 1);
+
+      DEBUGCODE
+      {
+        fprintf(stderr, "path '%s' found, copy to settings.default_data_path\n", PATHS[i]);
+      }
+      break;
+    }
+    else
+    {
+      DEBUGCODE
+      {
+        fprintf(stderr, "path '%s' not found.\n", PATHS[i]);
+      }
+    }
+  }
+
+  /* If we didn't find a data path, print error msg and get out: */
+  if (i >= NUM_PATHS) /* (shouldn't actually ever be > NUM_PATHS) */
+  {
+    fprintf(stderr, "SetupPaths(): Error - could not find data path.\n");
+    return 0;
+  }
+
+
+  /* Now look for theme directory: */
+  if (theme_dir != NULL)
+  {
+    char full_theme_path[FNLEN];
+    char theme_settings_path[FNLEN];
+
+    sprintf(full_theme_path, "%s/themes/%s", settings.default_data_path, theme_dir);
+
+    DEBUGCODE
+    {
+      fprintf(stderr, "SetupPaths(): checking for '%s' as theme path\n", full_theme_path);
+    }
+
+    if (CheckFile(full_theme_path)) /* Theme found - set it up! */
+    {
+      settings.use_english = 0;
+      strncpy(settings.theme_data_path, full_theme_path, FNLEN - 1);
+      DEBUGCODE
+      {
+        fprintf(stderr, "settings.theme_data_path is: %s\n", settings.theme_data_path);
+      }
+ 
+      strncpy(settings.theme_name, theme_dir, FNLEN - 1);
+      /* (Need to do this in case we are changing from a theme with */
+      /* a special font to a theme that uses the default, but lacks */
+      /* an explicit statement to use the default(                  */
+      strncpy(settings.theme_font_name, DEFAULT_MENU_FONT, FNLEN);
+
+      /* Load fontname or any other theme-specific settings: */
+      sprintf(theme_settings_path, "%s/settings.txt", full_theme_path);
+
+      DEBUGCODE
+      {
+        fprintf(stderr, "theme_settings_path is: %s\n", theme_settings_path);
+      }
+
+      load_settings_filename(theme_settings_path);
+    }
+    else /* Theme not found! */
+    {
+      settings.use_english = 1; // default is to use English if we cannot find theme
+      strcpy(settings.theme_name, "");
+      strncpy(settings.theme_font_name, DEFAULT_MENU_FONT, FNLEN);
+      fprintf(stderr, "SetupPaths(): could not find '%s'\n", full_theme_path);
+    }
+  }
+  else /* No theme name passed as arg so just use English: */
+  {
+    settings.use_english = 1; // default is to use English if we cannot find theme
+    strcpy(settings.theme_name, "");
+  }
+
+
+  DEBUGCODE
+  {
+    fprintf(stderr, "Leaving SetupPaths():\n");
+    fprintf(stderr, "default_data_path: '%s'\n", settings.default_data_path);
+    fprintf(stderr, "theme_data_path: '%s'\n\n", settings.theme_data_path);
+  }
+  return 1;	
+}
+
+
+void Cleanup(void)
+{
+  SDL_FreeSurface(screen);
+  screen = NULL;
+
+  SDL_Quit();
+  TTF_Quit();
 }

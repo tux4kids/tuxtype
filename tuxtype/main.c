@@ -49,8 +49,8 @@ int main(int argc, char *argv[])
 
 	srand(time(NULL));
 
-	// This sets realPath[] to the default theme file path:
-	SetupTheme(NULL);
+	// This sets settings.default_data_path to the default theme file path:
+	SetupPaths(NULL);
 
 	LoadSettings();
 	DEBUGCODE { printf("Window setting from config file is: %d\n", settings.fullscreen);}
@@ -131,7 +131,7 @@ int main(int argc, char *argv[])
 			
 			if ((strcmp(argv[i], "-t") == 0) |
 			    (strcmp(argv[i], "--theme") == 0)) 
-				SetupTheme(argv[++i]);
+				SetupPaths(argv[++i]);
 		}
 
 	DEBUGCODE {
@@ -153,9 +153,16 @@ int main(int argc, char *argv[])
 
 	LoadLang();
 	LoadKeyboard();
+
+	/* Now actually play the game: */
 	TitleScreen();
 
+
 	SaveSettings();
+
+	/* Release heap: */
+	Cleanup();
+
 
 	LOG( "---GAME DONE, EXIT---- Thank you.\n" );
 

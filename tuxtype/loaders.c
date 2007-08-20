@@ -80,7 +80,7 @@ void LoadLang(void)
   }
 
   /* --- create full path to the lang.po file --- */
-  sprintf( fn, "%s/lang.po", realPath[0]);
+  sprintf( fn, "%s/lang.po", settings.theme_data_path);
 
   /* FIXME should have program try to setlocale() to lang-specific locale -  */
   /* for now, at least get a default UTF-8 encoding set: */
@@ -199,45 +199,36 @@ SDL_Surface* flip(SDL_Surface* in, int x, int y ) {
 	return out;
 }
 
-TTF_Font* LoadFont(const char* fontfile, int fontsize ) {
-	TTF_Font *loadedFont = NULL;
-	char fn[FNLEN];
-	int i;
-/* char themeName[FNLEN]; */
 
+/* FIXME need code to search for font paths on different platforms */
+TTF_Font* LoadFont(const char* font_name, int font_size )
+{
+  TTF_Font* loaded_font = NULL;
+  char fn[FNLEN];
+  int i;
 
+  /* try to find font in default data dir: */
+  sprintf(fn, "%s/fonts/%s", settings.default_data_path, font_name );
 
-	/* try to find font first in theme dir, then in default */
-	for (i=settings.use_english; i<2; i++) {
-		sprintf( fn, "%s/fonts/%s", realPath[i], fontfile );
-	DEBUGCODE { fprintf(stderr, "LoadFont(): looking for %s using data paths\n", fn ); }
-		{
-			/* try to load the font, if successful, return font*/
+  DEBUGCODE { fprintf(stderr, "LoadFont(): looking for %s using data paths\n", fn); }
 
-			loadedFont = TTF_OpenFont( fn, fontsize );
-
-			if (loadedFont != NULL)
-				return loadedFont;
-		}
-	}
-
+  /* try to load the font, if successful, return font*/
+ loaded_font = TTF_OpenFont(fn, font_size);
+ if (loaded_font != NULL)
+   return loaded_font;
 		
 
-	/* this will work only on debian once Andika is included: */ 
-	/* "fallback" (the above _will_ fall): load the font with fixed-path */
-	sprintf( fn, "%s/%s", "/usr/share/fonts/truetype/ttf-andika/", fontfile );
-	DEBUGCODE { fprintf(stderr, "LoadFont(): looking for %s\n in OS' font path\n", fn ); }
+  /* HACK hard-coded for Debian once Andika is included: */ 
+  sprintf(fn, "%s/%s", "/usr/share/fonts/truetype/ttf-andika/", font_name);
+  DEBUGCODE { fprintf(stderr, "LoadFont(): looking for %s\n in OS' font path\n", fn); }
 
-	/* try to load the font, if successful, return font*/
-	loadedFont = TTF_OpenFont( fn, fontsize );
-	if (loadedFont != NULL)
-		return loadedFont;
+  /* try to load the font, if successful, return font*/
+  loaded_font = TTF_OpenFont(fn, font_size);
+  if (loaded_font != NULL)
+    return loaded_font;
 
-
-	fprintf(stderr, "FATAL ERROR: couldn't load font: %s\n", fontfile);
-	exit(1);
-
-	return NULL;
+  fprintf(stderr, "LoadFont(): Error - couldn't load font: %s\n", font_name);
+  return NULL;
 }
 
 /***********************
@@ -245,83 +236,95 @@ TTF_Font* LoadFont(const char* fontfile, int fontsize ) {
 ************************/
 SDL_Surface* LoadImage(const char* datafile, int mode)
 {
-	int i;
-	int oldDebug;  //so we can turn off debug output for this func only
-	SDL_Surface* tmp_pic = NULL, *final_pic = NULL;
-	char         fn[FNLEN];
+  int oldDebug;  //so we can turn off debug output for this func only
+  SDL_Surface* tmp_pic = NULL, *final_pic = NULL;
+  char fn[FNLEN];
 
-	oldDebug = settings.debug_on;  // suppress output for now
-	settings.debug_on = 0;
+  oldDebug = settings.debug_on;  // suppress output for now
+  settings.debug_on = 0;
 
-	DEBUGCODE { fprintf(stderr, "LoadImage: loading %s\n", datafile ); }
+  DEBUGCODE { fprintf(stderr, "LoadImage: loading %s\n", datafile ); }
 
-	/* truth table for start of loop, since we only use theme on those conditions!
-              useEng    IMG_NO_THEME    i
-                 0           0          0
-                 0           1          1
-                 1           0          1
-                 1           1          1
-	 */
+  /* Look for image under theme path if desired: */
+  if (!settings.use_english && !(mode & IMG_NO_THEME))
+  {
+    sprintf(fn, "%s/images/%s", settings.theme_data_path, datafile);
+    DEBUGCODE { fprintf(stderr, "LoadImage: looking in %s\n", fn); }
 
-	for (i = (settings.use_english || (mode & IMG_NO_THEME)); i<2; i++) {
+    tmp_pic = IMG_Load(fn);
+    if (tmp_pic != NULL)
+      DEBUGCODE { fprintf(stderr, "Graphics file %s successfully loaded\n", fn);}
+    else
+      DEBUGCODE { fprintf(stderr, "Warning: graphics file %s could not be loaded\n", fn);}
+  }
 
-		sprintf( fn, "%s/images/%s", realPath[i], datafile );
-		DEBUGCODE { fprintf(stderr, "LoadImage: looking in %s\n", fn); }
+  /* If we don't have a valid image yet, try the default path: */
+  if (!tmp_pic)
+  {
+    sprintf(fn, "%s/images/%s", settings.default_data_path, datafile);
+    DEBUGCODE { fprintf(stderr, "LoadImage: looking in %s\n", fn); }
 
-		{
-			tmp_pic = IMG_Load( fn );
-			if (tmp_pic != NULL)
-				break; 
-			else
-			DEBUGCODE { fprintf(stderr, "Warning: graphics file %s is corrupt\n", fn);}
-		}
-	}
+    tmp_pic = IMG_Load(fn);
+    if (tmp_pic != NULL)
+      DEBUGCODE { fprintf(stderr, "Graphics file %s successfully loaded\n", fn);}
+    else
+      DEBUGCODE { fprintf(stderr, "Warning: graphics file %s could not be loaded\n", fn);}
+  }
 
-	if (tmp_pic == NULL) {
-		if (mode & IMG_NOT_REQUIRED)
-		{ 
-			settings.debug_on = oldDebug;
-			return NULL;
-		}
+  /* Couldn't load image - action depends on whether image is essential: */
+  if (!tmp_pic)
+  {
+    if (mode & IMG_NOT_REQUIRED)
+    { 
+      settings.debug_on = oldDebug;
+      return NULL;
+    }
 
-		fprintf(stderr, "ERROR could not load required graphics file %s\n", datafile);
-		exit(1);
-	}
+    fprintf(stderr, "ERROR could not load required graphics file %s\n", datafile);
+    exit(1);
+  }
 
-	/* finally setup the image to the proper format */
 
-	switch (mode & IMG_MODES) {
+  /* If we get to here, success - setup the image in the proper format: */
 
-		case IMG_REGULAR: { 
-			final_pic = SDL_DisplayFormat(tmp_pic);
-			SDL_FreeSurface(tmp_pic);
-			break;
-		}
+  switch (mode & IMG_MODES)
+  {
+    case IMG_REGULAR:
+    { 
+      final_pic = SDL_DisplayFormat(tmp_pic);
+      SDL_FreeSurface(tmp_pic);
+      break;
+    }
 
-		case IMG_ALPHA: {
-			final_pic = SDL_DisplayFormatAlpha(tmp_pic);
-			SDL_FreeSurface(tmp_pic);
-			break;
-		}
+    case IMG_ALPHA:
+    {
+      final_pic = SDL_DisplayFormatAlpha(tmp_pic);
+      SDL_FreeSurface(tmp_pic);
+      break;
+    }
 
-		case IMG_COLORKEY: {
-			SDL_LockSurface(tmp_pic);
-			SDL_SetColorKey(tmp_pic, (SDL_SRCCOLORKEY | SDL_RLEACCEL), SDL_MapRGB(tmp_pic->format, 255, 255, 0));
-			final_pic = SDL_DisplayFormat(tmp_pic);
-			SDL_FreeSurface(tmp_pic);
-			break;
-		}
+    case IMG_COLORKEY:
+    {
+      SDL_LockSurface(tmp_pic);
+      SDL_SetColorKey(tmp_pic,
+                      (SDL_SRCCOLORKEY | SDL_RLEACCEL),
+                      SDL_MapRGB(tmp_pic->format, 255, 255, 0));
+      final_pic = SDL_DisplayFormat(tmp_pic);
+      SDL_FreeSurface(tmp_pic);
+      break;
+    }
 
-		default: {
-			LOG ("Image mode not recognized\n");
-		}
-	}
+    default:
+    {
+      LOG ("Image mode not recognized\n");
+    }
+  }
 
-	LOG( "LOADIMAGE: Done\n" );
+  LOG( "LoadImage(): Done\n" );
 
-	settings.debug_on = oldDebug;
+  settings.debug_on = oldDebug;
 
-	return (final_pic);
+  return (final_pic);
 }
 
 sprite* FlipSprite(sprite* in, int X, int Y ) {
@@ -380,21 +383,27 @@ void FreeSprite(sprite *gfx ) {
 ****************************/
 Mix_Chunk* LoadSound(const char* datafile )
 { 
-	Mix_Chunk* tempChunk=NULL;
-	char fn[FNLEN];
-	int i;
+  Mix_Chunk* tempChunk = NULL;
+  char fn[FNLEN];
 
-	for (i = settings.use_english; i<2; i++) {
-		sprintf(fn , "%s/sounds/%s", realPath[i], datafile);
-		tempChunk = Mix_LoadWAV(fn);
-		if (tempChunk)
-			return tempChunk;
-	}
+  /* First look under theme path if desired: */
+  if (!settings.use_english)
+  {
+    sprintf(fn , "%s/sounds/%s", settings.theme_data_path, datafile);
+    tempChunk = Mix_LoadWAV(fn);
+    if (tempChunk)
+      return tempChunk;
+  }
 
-	/* didn't find anything... fail peacefully */
-
-	return NULL;
+  /* If nothing loaded yet, try default path: */
+  if (!tempChunk)
+  {
+    sprintf(fn , "%s/sounds/%s", settings.default_data_path, datafile);
+    tempChunk = Mix_LoadWAV(fn);
+    return tempChunk;
+  }
 }
+
 
 /************************
 	LoadMusic : Load
@@ -402,18 +411,23 @@ Mix_Chunk* LoadSound(const char* datafile )
 *************************/
 Mix_Music* LoadMusic(const char* datafile )
 { 
-	char            fn[FNLEN];
-	Mix_Music	*tempMusic;
-	int i;
+  Mix_Music* temp_music = NULL;
+  char fn[FNLEN];
 
-	for (i = settings.use_english; i<2; i++) {
-		sprintf( fn , "%s/sounds/%s", realPath[i], datafile );
-		tempMusic = Mix_LoadMUS(fn);
-		if (tempMusic)
-			return tempMusic;
-	}
+  /* First look under theme path if desired: */
+  if (!settings.use_english)
+  {
+    sprintf(fn , "%s/sounds/%s", settings.theme_data_path, datafile);
+    temp_music = Mix_LoadMUS(fn);
+    if (temp_music)
+      return temp_music;
+  }
 
-	/* didn't find anything... fail peacefully */
-
-	return NULL;
+  /* If nothing loaded yet, try default path: */
+  if (!temp_music)
+  {
+    sprintf(fn , "%s/sounds/%s", settings.default_data_path, datafile);
+    temp_music = Mix_LoadMUS(fn);
+    return temp_music;
+  }
 }
