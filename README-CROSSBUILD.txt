@@ -42,7 +42,7 @@ Before the crossbuild can be done, you need to get the environment prepared.
         - mkdir /usr/local/cross-tools/i586-mingw32msvc/include
 
       3. Install precompiled win32�dev files (lib and includes) for SDL, SDL-image
-         and SDL-mixer in the lib and include directories you just created.
+         SDL-ttf, and SDL-mixer in the lib and include directories you just created.
          You can get all of these from www.libsdl.org. I had some trouble with
          this step as the SDL libs have varieties intended for both mingw32 and MSVC -
          I was able to build successfully using the mingw32 ones. I also had to put
@@ -50,10 +50,14 @@ Before the crossbuild can be done, you need to get the environment prepared.
          to get it to work.  My /usr/local/cross-tools/i586-mingw32msvc/lib contains:
 
          dbruce@debian:/usr/local/cross-tools/i586-mingw32msvc/lib$ ls
-         SDL_image.dll  jpeg.dll      libgw32c.a    smpeg.dll
-         SDL_image.lib  libSDL.dll.a  libpng12.dll  vorbis.dll
-         SDL_mixer.dll  libSDL.la     libtiff.dll   vorbisfile.dll
-         SDL_mixer.lib  libSDLmain.a  ogg.dll       zlib1.dll
+         asprintf.lib  jpeg.dll      libSDL.la     SDL_image.dll  SDL_ttf.dll     zlib1.dll
+         charset.lib   libgw32c.a    libSDLmain.a  SDL_image.lib  smpeg.dll
+         iconv.lib     libpng12.dll  libtiff.dll   SDL_mixer.dll  vorbis.dll
+         intl.lib      libSDL.dll.a  ogg.dll       SDL_mixer.lib  vorbisfile.dll
+
+         (asprintf.lib, charset.lib, iconv.lib, and intl.lib are definitely not needed.
+         Some of the others may not be needed, either, but I guarantee that everything
+         that *is* needed is on this list - DSB).
 
          The header files can be in their own folders as long as they are under
          /usr/local/cross-tools/i586-mingw32msvc/include
@@ -84,6 +88,6 @@ Before the crossbuild can be done, you need to get the environment prepared.
          ./cross-make.sh
          ./cross-make.sh nsis
 
-      You should now have the installer (something like "tuxtype-1.5.9-win32-installer.exe")
+      You should now have the installer (something like "tuxtype-1.5.11-win32-installer.exe")
       in the trunk directory.  Execute the installer on the target Windows machine to install
       the program.

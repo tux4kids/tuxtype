@@ -15,6 +15,9 @@
 /* Define to 1 if you have the `SDL_mixer' library (-lSDL_mixer). */
 #undef HAVE_LIBSDL_MIXER
 
+/* Define to 1 if you have the `SDL_Pango' library (-lSDL_Pango). */
+#undef HAVE_LIBSDL_PANGO
+
 /* Define to 1 if you have the `SDL_ttf' library (-lSDL_ttf). */
 #undef HAVE_LIBSDL_TTF
 

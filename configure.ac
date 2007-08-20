@@ -37,13 +37,9 @@ AC_CHECK_LIB([SDL_mixer], [Mix_PlayMusic], ,[AC_MSG_ERROR(SDL_mixer not found ht
 AC_CHECK_LIB([SDL_ttf], [TTF_Init], ,[AC_MSG_ERROR(SDL_ttf not found http://www.libsdl.org/projects/SDL_ttf, )])
 AC_CHECK_LIB([SDL_image], [IMG_Load], ,[AC_MSG_ERROR(SDL_image not found http://www.libsdl.org/projects/SDL_image, )])
 
+# FIXME would be better to skip check for win32 build
+AC_CHECK_LIB([SDL_Pango], [SDLPango_Init], ,[AC_MSG_WARN(SDL_Pango not found http://sdlpango.sourceforge.net/)])
 
-# FIXME this check still runs even for Win cross-build - must be commented out to do cross-build!
-# Only check for SDL_Pango if NOT building for Windows (for now):
-AM_CONDITIONAL(BUILD_MINGW32, test "$native_win32" = yes)
-if test "$native_win32" != yes; then
-  AC_CHECK_LIB([SDL_Pango], [SDLPango_Init], ,[AC_MSG_ERROR(SDL_Pango not found http://sdlpango.sourceforge.net/, )])
-fi
 
 #
 SDL_CFLAGS=`sdl-config --cflags`

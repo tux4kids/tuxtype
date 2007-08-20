@@ -65,8 +65,9 @@ install-nsi-local: all
 	cp $(top_srcdir)/INSTALL $(top_srcdir)/$(NSI_INSTALL_DIR)/docs/INSTALL.txt ; \
 	cp $(top_srcdir)/README $(top_srcdir)/$(NSI_INSTALL_DIR)/docs/README.txt ; \
 	cp $(NSI_DLL_DIR)/*.dll $(top_srcdir)/$(NSI_INSTALL_DIR) ; \
-	cp $(NSI_DLL_DIR)/*.ttf $(top_srcdir)/$(NSI_INSTALL_DIR)/data/fonts ; \
-        cp $(SUBDIRS)/tuxtype.exe $(top_srcdir)/$(NSI_INSTALL_DIR)/TuxType2.exe ;
+	cp $(SUBDIRS)/tuxtype.exe $(top_srcdir)/$(NSI_INSTALL_DIR)/TuxType2.exe ;
+
+#	cp $(NSI_DLL_DIR)/*.ttf $(top_srcdir)/$(NSI_INSTALL_DIR)/data/fonts ;
 
 
 install-nsi-am: install-nsi-local
