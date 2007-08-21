@@ -153,6 +153,7 @@ EXTRA_DIST = keyboard.png\
 keyboard-us.png\
 keyboard.eps\
 keyboard-us.eps\
+key.png\
 esc.png\
 larrow.png\
 space.png\
@@ -329,6 +330,8 @@ install-data-local:
 	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/keyboard
 	$(INSTALL_DATA) $(srcdir)/keyboard-us.eps $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/keyboard/keyboard-us.eps
 	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/keyboard
+	$(INSTALL_DATA) $(srcdir)/key.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/keyboard/key.png
+	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/keyboard
 	$(INSTALL_DATA) $(srcdir)/esc.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/keyboard/esc.png
 	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/keyboard
 	$(INSTALL_DATA) $(srcdir)/larrow.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/keyboard/larrow.png
@@ -342,6 +345,7 @@ uninstall-local:
 	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/keyboard/keyboard-us.png
 	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/keyboard/keyboard.eps
 	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/keyboard/keyboard-us.eps
+	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/keyboard/key.png
 	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/keyboard/esc.png
 	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/keyboard/larrow.png
 	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/keyboard/space.png
