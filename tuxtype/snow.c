@@ -29,7 +29,7 @@ email                : tuxtype-dev@tux4kids.net
 #define NUM_PLANES 3
 
 extern SDL_Surface *screen;
-extern SDL_Surface *bkg;
+SDL_Surface* bkg;
 
 Uint16 snow_color;
 

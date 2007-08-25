@@ -20,7 +20,7 @@
 #include "funcs.h"
 
 
-SDL_Surface *letters[255] = {NULL};
+SDL_Surface* letters[255] = {NULL}; //get rid of this
 wchar_t ALPHABET[256];
 unsigned char FINGER[256][10];
 int ALPHABET_SIZE;
@@ -28,50 +28,52 @@ int ALPHABET_SIZE;
 
 #define MAX_LANGUAGES 100
 
-/* setup_theme: this function is in charge of setting up
- * the paths that the loaders use.  It will set a variable
- * numPaths = 1 or 2.  1 if we are just using the default,
- * 2 if there are two themes.  Then it will edit the varible
- * realPaths[].  It will always put the theme path first, then
- * the default path
- */
 
 
 void ChooseTheme(void)
 {
-	SDL_Surface* titles[MAX_LANGUAGES] = {NULL};
-	SDL_Surface* select[MAX_LANGUAGES] = {NULL};
-	SDL_Surface* left = NULL, *right = NULL;
-	SDL_Rect leftRect, rightRect;
-	SDL_Surface* world = NULL, *map = NULL, *photo = NULL;
-	SDL_Rect worldRect, photoRect;
-	SDL_Rect titleRects[8];
-	int stop = 0;
-	int loc = 0;
-	int old_loc = 1;
+  SDL_Surface* titles[MAX_LANGUAGES] = {NULL};
+  SDL_Surface* select[MAX_LANGUAGES] = {NULL};
+  SDL_Surface* left = NULL, *right = NULL;
+  SDL_Rect leftRect, rightRect;
+  SDL_Surface* world = NULL, *map = NULL, *photo = NULL;
+  SDL_Surface* bkg = NULL;
+  TTF_Font* font = NULL;
+  SDL_Rect worldRect, photoRect;
+  SDL_Rect titleRects[8];
+  int stop = 0;
+  int loc = 0;
+  int old_loc = 1;
 
-	int themes = 1;
-	int i;
-	unsigned char fn[FNLEN];
-	unsigned char themeNames[MAX_LANGUAGES][FNLEN];
-	unsigned char themePaths[MAX_LANGUAGES][FNLEN];
+  int themes = 1;
+  int i;
+  unsigned char fn[FNLEN];
+  unsigned char themeNames[MAX_LANGUAGES][FNLEN];
+  unsigned char themePaths[MAX_LANGUAGES][FNLEN];
 
-	int old_use_english;
-	char old_theme_path[FNLEN];
+  int old_use_english;
+  char old_theme_path[FNLEN];
 
-	DIR *themesDir;
-	struct dirent *themesFile;
-//	struct stat fileStats;
+  DIR* themesDir = NULL;
+  struct dirent* themesFile = NULL;
 
-	old_use_english = settings.use_english;
-	strncpy(old_theme_path, settings.theme_data_path, FNLEN - 1);
+  /* save previous settings in case we back out: */
+  old_use_english = settings.use_english;
+  strncpy(old_theme_path, settings.theme_data_path, FNLEN - 1);
 
-	sprintf(fn, "%s/themes/", settings.default_data_path);
-	themesDir = opendir(fn);
+  sprintf(fn, "%s/themes/", settings.default_data_path);
+  themesDir = opendir(fn);
 
-	do {
-		themesFile = readdir(themesDir);
-		if (!themesFile)
+  if (!themesDir)
+  {
+    fprintf(stderr, "ChooseTheme() - cannot open themes directory!");
+    return;
+  }
+
+  do
+  {
+    themesFile = readdir(themesDir);
+    if (!themesFile)
 			break;
 
 		/* we ignore any hidden file and CVS */
@@ -118,6 +120,7 @@ void ChooseTheme(void)
 	
 
 	TTF_CloseFont(font);
+        font = NULL;
 
 	settings.use_english = old_use_english;
 
@@ -266,17 +269,20 @@ void ChooseTheme(void)
 		}
 		SDL_Delay(40);
 		old_loc = loc;
-	}
+  }
 
-	/* --- clear graphics before quiting --- */ 
+  /* --- clear graphics before quitting --- */ 
 
-	for (i = 0; i<themes; i++) {
-		SDL_FreeSurface(titles[i]);
-		SDL_FreeSurface(select[i]);
-	}
+  for (i = 0; i<themes; i++)
+  {
+    SDL_FreeSurface(titles[i]);
+    SDL_FreeSurface(select[i]);
+  }
 
-	SDL_FreeSurface(world);
-	SDL_FreeSurface(bkg);
-	SDL_FreeSurface(left);
-	SDL_FreeSurface(right);
+  SDL_FreeSurface(world);
+  SDL_FreeSurface(bkg);
+  SDL_FreeSurface(left);
+  SDL_FreeSurface(right);
+  bkg = NULL;  /* the other pointers are going out of scope so we don't */
+               /* have to worry about setting them to NULL              */
 }

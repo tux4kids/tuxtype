@@ -19,16 +19,15 @@ email                : jdandr2@uky.edu
 #include "globals.h"
 #include "funcs.h"
 
-Mix_Chunk *pause_sfx;
-SDL_Surface *up, *down, *left, *right;
-SDL_Rect rectUp, rectDown, rectLeft, rectRight;
-TTF_Font *f1, *f2;
-extern game_option_type settings;
+static Mix_Chunk *pause_sfx;
+static SDL_Surface *up, *down, *left, *right;
+static SDL_Rect rectUp, rectDown, rectLeft, rectRight;
+static TTF_Font *f1, *f2;
 
 /* Local function prototypes: */
-void darkenscreen(void);
-void draw_vols(int sfx, int mus);
-void pause_draw_info(void);
+static void darkenscreen(void);
+static void draw_vols(int sfx, int mus);
+static void pause_draw_info(void);
 
 
 // QUESTION: For usability sake, should escape return to the game
@@ -223,22 +222,27 @@ void PauseLoadMedia(void) {
 
 void PauseUnloadMedia(void) {
 	if (settings.sys_sound)
-		Mix_FreeChunk(pause_sfx);
+        {
+	  Mix_FreeChunk(pause_sfx);
+	  pause_sfx = NULL;
+        }
 	SDL_FreeSurface(up);
 	SDL_FreeSurface(down);
 	SDL_FreeSurface(left);
 	SDL_FreeSurface(right);
+        up = down = left = right = NULL;
 	TTF_CloseFont(f1);
 	TTF_CloseFont(f2);
+	f1 = f2 = NULL;
 }
 
 
 /* Slightly useful function but not sure this file is the right place for it.  */
 int inRect(SDL_Rect r, int x, int y)
 {
-	if ((x < r.x) || (y < r.y) || (x > r.x + r.w) || (y > r.y + r.h))
-		return 0;
-	return 1;
+  if ((x < r.x) || (y < r.y) || (x > r.x + r.w) || (y > r.y + r.h))
+   return 0;
+  return 1;
 }
 
 
@@ -250,7 +254,7 @@ int inRect(SDL_Rect r, int x, int y)
 
 
 
-void pause_draw_info(void) {
+static void pause_draw_info(void) {
 	SDL_Rect s;
 	SDL_Surface *t;
 
@@ -313,7 +317,7 @@ void pause_draw_info(void) {
 
 
 
-void draw_vols(int sfx, int mus) {
+static void draw_vols(int sfx, int mus) {
 	SDL_Rect s,m;
 	int i;
 
@@ -343,7 +347,7 @@ void draw_vols(int sfx, int mus) {
  * RESULT: it will darken the screen by a factor of 4
  * WARNING: only works on 16bit screens right now!
  */
-void darkenscreen(void)
+static void darkenscreen(void)
 {
   Uint16 rm = screen->format->Rmask;
   Uint16 gm = screen->format->Gmask;

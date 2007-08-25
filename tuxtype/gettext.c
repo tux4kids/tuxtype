@@ -33,10 +33,10 @@ struct node {
 
 typedef struct node item; 
 
-item *HEAD=NULL;
+static item* HEAD = NULL;
 
 /* Local function prototypes: */
-void add_word(unsigned char* in, unsigned char* out);
+static void add_word(unsigned char* in, unsigned char* out);
 
 /* --- add a word to the linked list --- */
 
@@ -94,8 +94,14 @@ int Load_PO_File(const char* file) {
 	LOG( "Loading translation file\n" );
 	f = fopen( file, "r" );
 
-	if (f == NULL) return -1;
-	
+	if (f == NULL)
+        {
+          DEBUGCODE
+          {
+            fprintf(stderr, "Load_PO_File() - could not open %s\n", file);
+          }
+          return -1;
+	}
 	/* ### ADD ERROR CHECKING ### */
 
 	do {

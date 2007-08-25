@@ -25,29 +25,29 @@ email                : tuxtype-dev@tux4kids.net
 //void add_words( int level );
 
 /* Should these be constants? */
-int tux_max_width;                // the max width of the images of tux
-int number_max_w;                 // the max width of a number image
+static int tux_max_width;                // the max width of the images of tux
+static int number_max_w;                 // the max width of a number image
 
 //int o_lives; // something cal is working on
 //int sound_vol;
+static TTF_Font* font = NULL;
+static SDL_Surface* background = NULL;
+static SDL_Surface* level[NUM_LEVELS] = {NULL};
+static SDL_Surface* number[NUM_NUMS] = {NULL};
+static SDL_Surface* curlev = NULL;
+static SDL_Surface* lives = NULL;
+static SDL_Surface* fish = NULL;
+static SDL_Surface* congrats[CONGRATS_FRAMES] = {NULL};
+static SDL_Surface* ohno[OH_NO_FRAMES] = {NULL};
+static Mix_Chunk* sound[NUM_WAVES];
 
-SDL_Surface* background;
-
-SDL_Surface* level[NUM_LEVELS];
-SDL_Surface* number[NUM_NUMS];
-SDL_Surface* curlev;
-SDL_Surface* lives;
-SDL_Surface* fish;
-SDL_Surface* congrats[CONGRATS_FRAMES];
-SDL_Surface* ohno[OH_NO_FRAMES];
-
-sprite* fishy;
-sprite* splat;
+static sprite* fishy = NULL;
+static sprite* splat = NULL;
 
 /* --- Data Structure for Dirty Blitting --- */
-SDL_Rect srcupdate[MAX_UPDATES];
-SDL_Rect dstupdate[MAX_UPDATES];
-int numupdates = 0; // tracks how many blits to be done
+static SDL_Rect srcupdate[MAX_UPDATES];
+static SDL_Rect dstupdate[MAX_UPDATES];
+static int numupdates = 0; // tracks how many blits to be done
 
 struct blit {
     SDL_Surface* src;
@@ -137,7 +137,9 @@ int PlayCascade( int diflevel ) {
 	LoadTuxAnims(); 
 	LoadFishies();
 	LoadOthers();
+printf("before RenderLetters\n");
 	RenderLetters(font);
+printf("after RenderLetters\n");
 
 	LOG( " starting game \n ");
 	while (still_playing) {
@@ -474,7 +476,7 @@ int TransWipe(SDL_Surface* newbkg, int type, int var1, int var2)
 
     if(newbkg->w == screen->w && newbkg->h == screen->h) {
         if( type == RANDOM_WIPE )
-            type = (RANDOM_WIPE* ((float) rand()) / (RAND_MAX+1.0));
+            type = (RANDOM_WIPE * ((float) rand()) / (RAND_MAX+1.0));
 
         switch( type ) {
             case WIPE_BLINDS_VERT: {
@@ -1116,18 +1118,22 @@ static void FreeGame(void)
 	FreeLetters();
 
 	TTF_CloseFont(font);
+        font = NULL;
 
 	LOG( "FreeGame():\n-Freeing Tux Animations\n" );
 
 	for ( i=0; i < TUX_NUM_STATES; i++ ) {
 		FreeSprite(tux_object.spr[i][RIGHT]);
 		FreeSprite(tux_object.spr[i][LEFT]);
+		tux_object.spr[i][RIGHT] = NULL;
+		tux_object.spr[i][LEFT] = NULL;
 	}
 
 	LOG( "-Freeing fishies\n" );
 
 	FreeSprite( fishy );
 	FreeSprite( splat );
+        fishy = splat = NULL;
 
 	LOG( "-Freeing other game graphics\n" );
 
@@ -1135,24 +1141,35 @@ static void FreeGame(void)
 	SDL_FreeSurface(curlev);
 	SDL_FreeSurface(fish);
 	SDL_FreeSurface(lives);
+        background = curlev = fish = lives = NULL;
 
 	for (i = 0; i < NUM_LEVELS; i++)
-		SDL_FreeSurface(level[i]);
-
+	{
+          SDL_FreeSurface(level[i]);
+	  level[i] = NULL;
+        }
 	for (i = 0; i < NUM_NUMS; i++)
-		SDL_FreeSurface(number[i]);
-
+	{
+	  SDL_FreeSurface(number[i]);
+	  number[i] = NULL;
+	}
 	for (i = 0; i < CONGRATS_FRAMES; i++)
-		SDL_FreeSurface(congrats[i]);
-
+	{
+	  SDL_FreeSurface(congrats[i]);
+	  congrats[i] = NULL;
+	}
 	for (i = 0; i < OH_NO_FRAMES; i++)
-		SDL_FreeSurface(ohno[i]);
-
+	{
+	  SDL_FreeSurface(ohno[i]);
+	  ohno[i] = NULL;
+	}
 	if (settings.sys_sound) {
-		LOG( "-Freeing sound\n" );
-
-		for (i = 0; i < NUM_WAVES; ++i) 
-			Mix_FreeChunk(sound[i]);
+	  LOG( "-Freeing sound\n" );
+	  for (i = 0; i < NUM_WAVES; ++i)
+          {
+	    Mix_FreeChunk(sound[i]);
+            sound[i] = NULL;
+	  }
 	}
 
 	PauseUnloadMedia();

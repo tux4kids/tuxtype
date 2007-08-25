@@ -28,8 +28,8 @@
 #include "globals.h"
 #include "funcs.h"
 
+/* NOTE these are externed in globals.h so not static */
 /* the colors we use throughout the game */
-
 SDL_Color black;
 SDL_Color gray;
 SDL_Color dark_blue;
@@ -37,14 +37,17 @@ SDL_Color red;
 SDL_Color white;
 SDL_Color yellow;
 
+
+static TTF_Font* font = NULL;
+
 /* Used for word list functions (see below): */
 static int num_words;
-wchar_t word_list[MAX_NUM_WORDS][MAX_WORD_SIZE + 1];
-wchar_t char_list[MAX_UNICODES];  // List of distinct letters in list
+static wchar_t word_list[MAX_NUM_WORDS][MAX_WORD_SIZE + 1];
+static wchar_t char_list[MAX_UNICODES];  // List of distinct letters in list
 static int num_chars_used = 0;       // Number of different letters in word list
 
 /* These are the arrays for the red and white letters: */
-uni_glyph char_glyphs[MAX_UNICODES];
+static uni_glyph char_glyphs[MAX_UNICODES];
 
 /* Local function prototypes: */
 static void gen_char_list(void);
@@ -56,7 +59,7 @@ static int convert_from_UTF8(wchar_t* wide_word, const char* UTF8_word);
 
 
 #ifndef WIN32
-SDLPango_Matrix* SDL_Colour_to_SDLPango_Matrix(const SDL_Color* cl);
+static SDLPango_Matrix* SDL_Colour_to_SDLPango_Matrix(const SDL_Color* cl);
 #endif
 
 
@@ -144,7 +147,7 @@ int LoadKeyboard(void)
           ALPHABET[(int)wide_str[j]] = 1;  // first character is default
         }
         else
-          fprintf(stderr, "LoadKeyboard() - Unicode char outside supported range\n");
+          fprintf(stderr, "LoadKeyboard() - Unicode char outside Western range\n");
         //for (i++; i<wcslen(wide_str); i++)
         //KEYMAP[(int)wide_str[i]] = wide_str[j];
 
@@ -159,7 +162,7 @@ int LoadKeyboard(void)
               FINGER[wide_str[j]][(int)(wide_str[i] - '0')] = 1;
             }
             else
-              fprintf(stderr, "LoadKeyboard() - Unicode char outside supported range\n");
+              fprintf(stderr, "LoadKeyboard() - Unicode char outside Western range\n");
           }
         }
         ALPHABET_SIZE++;
@@ -730,7 +733,7 @@ int RenderLetters(const TTF_Font* letter_font)
   {
     t = char_list[i];
 
-    if(TTF_GlyphMetrics(font, t, NULL , NULL, NULL,
+    if(TTF_GlyphMetrics(letter_font, t, NULL , NULL, NULL,
                         &maxy, NULL) == -1)
     {
       fprintf(stderr, "Could not get glyph metrics for %lc", t);
@@ -744,8 +747,8 @@ int RenderLetters(const TTF_Font* letter_font)
     }
 
     char_glyphs[i].unicode_value = t;
-    char_glyphs[i].white_glyph = BlackOutline_wchar(t, font, &white);
-    char_glyphs[i].red_glyph = BlackOutline_wchar(t, font, &red);
+    char_glyphs[i].white_glyph = BlackOutline_wchar(t, letter_font, &white);
+    char_glyphs[i].red_glyph = BlackOutline_wchar(t, letter_font, &red);
     char_glyphs[i].max_y = maxy;
 
     i++;

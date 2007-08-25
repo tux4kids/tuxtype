@@ -21,13 +21,6 @@
 #include "funcs.h"
 #include "laser.h"
 
-sprite* shield = NULL;
-SDL_Surface* images[NUM_IMAGES] = {NULL};
-Mix_Chunk* sounds[NUM_SOUNDS] = {NULL};
-Mix_Music* musics[NUM_MUSICS] = {NULL};
-SDL_Surface* bkgd = NULL;
-
-
 
 #define FPS (1000 / 15)   /* 15 fps max */
 #define CITY_EXPL_START 3 * 5  /* Must be mult. of 5 (number of expl frames) */
@@ -40,26 +33,32 @@ SDL_Surface* bkgd = NULL;
 #define COMET_ZAP_FONT_SIZE 32
 
 /* Local (to laser.c) 'globals': */
+static sprite* shield = NULL;
+static SDL_Surface* images[NUM_IMAGES] = {NULL};
+static Mix_Chunk* sounds[NUM_SOUNDS] = {NULL};
+static Mix_Music* musics[NUM_MUSICS] = {NULL};
+static SDL_Surface* bkgd = NULL;
+static TTF_Font* font = NULL;
 
-int wave, speed, score, pre_wave_score, num_attackers, distanceMoved;
-wchar_t ans[NUM_ANS];
-int ans_num;
+static int wave, speed, score, pre_wave_score, num_attackers, distanceMoved;
+static wchar_t ans[NUM_ANS];
+static int ans_num;
 
-comet_type comets[MAX_COMETS];
-city_type cities[NUM_CITIES];
-laser_type laser;
+static comet_type comets[MAX_COMETS];
+static city_type cities[NUM_CITIES];
+static laser_type laser;
 
 /* Local function prototypes: */
-void laser_add_comet(int diff_level);
-void laser_add_score(int inc);
-void laser_draw_console_image(int i);
-void laser_draw_let(wchar_t c, int x, int y);
-void laser_draw_line(int x1, int y1, int x2, int y2, int r, int g, int b);
-void laser_draw_numbers(const unsigned char* str, int x);
-void laser_load_data(void);
-void laser_reset_level(int diff_level);
-void laser_putpixel(SDL_Surface* surface, int x, int y, Uint32 pixel);
-void laser_unload_data(void);
+static void laser_add_comet(int diff_level);
+static void laser_add_score(int inc);
+static void laser_draw_console_image(int i);
+static void laser_draw_let(wchar_t c, int x, int y);
+static void laser_draw_line(int x1, int y1, int x2, int y2, int r, int g, int b);
+static void laser_draw_numbers(const unsigned char* str, int x);
+static void laser_load_data(void);
+static void laser_reset_level(int diff_level);
+static void laser_putpixel(SDL_Surface* surface, int x, int y, Uint32 pixel);
+static void laser_unload_data(void);
 
 /* --- MAIN GAME FUNCTION!!! --- */
 
@@ -652,7 +651,7 @@ int PlayLaserGame(int diff_level)
 
 
 /* --- Load all media --- */
-void laser_load_data(void)
+static void laser_load_data(void)
 {
 	int i;
 
@@ -679,7 +678,7 @@ void laser_load_data(void)
 
 
 /* --- unload all media --- */
-void laser_unload_data(void) {
+static void laser_unload_data(void) {
 	int i;
 
 	FreeLetters();
@@ -695,17 +694,18 @@ void laser_unload_data(void) {
 	}
 
 	FreeSprite(shield);
+        shield = NULL;
 
 	PauseUnloadMedia();
 
-
 	TTF_CloseFont(font);
+        font = NULL;
 }
 
 
 /* Reset stuff for the next level! */
 
-void laser_reset_level(int diff_level)
+static void laser_reset_level(int diff_level)
 {
   unsigned char fname[1024];
   static int last_bkgd = -1;
@@ -769,7 +769,7 @@ void laser_reset_level(int diff_level)
 
 /* Add an comet to the game (if there's room): */
 
-void laser_add_comet(int diff_level) {
+static void laser_add_comet(int diff_level) {
 
 	int target, location = 0;
 	static int last = -1;
@@ -870,7 +870,7 @@ void laser_add_comet(int diff_level) {
 
 /* Draw numbers/symbols over the attacker: */
 
-void laser_draw_let(wchar_t c, int x, int y)
+static void laser_draw_let(wchar_t c, int x, int y)
 {
   int top_x, top_y;
   SDL_Rect dst;
@@ -888,7 +888,7 @@ void laser_draw_let(wchar_t c, int x, int y)
 
 /* Draw status numbers: */
 
-void laser_draw_numbers(const unsigned char* str, int x)
+static void laser_draw_numbers(const unsigned char* str, int x)
 {
   int i, cur_x, c;
   SDL_Rect src, dest;
@@ -937,7 +937,7 @@ void laser_draw_numbers(const unsigned char* str, int x)
 
 /* Draw a line: */
 
-void laser_draw_line(int x1, int y1, int x2, int y2, int red, int grn, int blu)
+static void laser_draw_line(int x1, int y1, int x2, int y2, int red, int grn, int blu)
 {
   int dx, dy, tmp;
   float m, b;
@@ -990,7 +990,7 @@ void laser_draw_line(int x1, int y1, int x2, int y2, int red, int grn, int blu)
 
 /* Draw a single pixel into the surface: */
 
-void laser_putpixel(SDL_Surface * surface, int x, int y, Uint32 pixel)
+static void laser_putpixel(SDL_Surface * surface, int x, int y, Uint32 pixel)
 {
 #ifdef PUTPIXEL_RAW
   int bpp;
@@ -1055,7 +1055,7 @@ void laser_putpixel(SDL_Surface * surface, int x, int y, Uint32 pixel)
 
 /* Draw image at lower center of screen: */
 
-void laser_draw_console_image(int i)
+static void laser_draw_console_image(int i)
 {
   SDL_Rect dest;
 
@@ -1070,7 +1070,7 @@ void laser_draw_console_image(int i)
 
 /* Increment score: */
 
-void laser_add_score(int inc)
+static void laser_add_score(int inc)
 {
   score += inc;
   if (score < 0) score = 0;

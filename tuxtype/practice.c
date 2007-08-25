@@ -19,13 +19,14 @@ email                : jdandr2@uky.edu
 #include "globals.h"
 #include "funcs.h"
 
-SDL_Surface* hands;
-SDL_Surface* hand[11];
-SDL_Rect hand_loc, letter_loc;
-TTF_Font* font;
-char phrase[255][FNLEN];
+static SDL_Surface* bg = NULL;
+static SDL_Surface* hands = NULL; 
+static SDL_Surface* hand[11] = {NULL};
+static SDL_Rect hand_loc, letter_loc;
+static TTF_Font* font = NULL;
+static char phrase[255][FNLEN];
 
-Mix_Chunk* wrong;
+static Mix_Chunk* wrong = NULL;
 
 /*local function prototypes: */
 static int get_phrase(const char* phr);
@@ -65,7 +66,7 @@ int Phrases(char* pphrase ) {
 	     totaltime[FNLEN];
 
 	practice_load_media();
-	SDL_BlitSurface(bkg, NULL, screen, NULL);
+	SDL_BlitSurface(bg, NULL, screen, NULL);
 	SDL_BlitSurface(hands, NULL, screen, &hand_loc);
 	SDL_Flip(screen);
 
@@ -135,8 +136,8 @@ int Phrases(char* pphrase ) {
 						state=0;
 						dst2.x=40;
 						dst4.x=480;
-						SDL_BlitSurface(bkg, &dst3, screen, &dst2);
-						SDL_BlitSurface(bkg, &dst5, screen, &dst4);
+						SDL_BlitSurface(bg, &dst3, screen, &dst2);
+						SDL_BlitSurface(bg, &dst5, screen, &dst4);
 						SDL_Flip(screen);
 						SDL_BlitSurface(letters[event.key.keysym.unicode], NULL, screen, &dst);
 						for (z=0;z<strlen(keytime);z++){
@@ -202,7 +203,7 @@ static void practice_load_media(void)
 	hand_loc.w = (hand[0]->w);
 	hand_loc.h = (hand[0]->h);
 
-	bkg = LoadImage("main_bkg.png", IMG_ALPHA);
+	bg = LoadImage("main_bkg.png", IMG_ALPHA);
 
 	font = LoadFont(settings.theme_font_name, 32 );
 
@@ -215,9 +216,10 @@ static void practice_load_media(void)
 			letters[i] = BlackOutline(let, font, &white); 
 		}
 
-	LOG("DONE - Loading practice media\n");
 	TTF_CloseFont(font);
+        font = NULL;
 
+	LOG("DONE - Loading practice media\n");
 }
 
 
@@ -225,17 +227,25 @@ static void practice_load_media(void)
 static void practice_unload_media(void)
 {
 	int i;
-	SDL_FreeSurface(bkg);
+	SDL_FreeSurface(bg);
+        bg = NULL;
 	SDL_FreeSurface(hands);
+        hands = NULL;
 	//TTF_CloseFont(font);
 
 	for (i=0; i<10; i++) 
-		SDL_FreeSurface(hand[i]);
-
+        {
+          SDL_FreeSurface(hand[i]);
+          hand[i] = NULL;
+        }
 	for (i=1; i<255; i++) 
-		if (ALPHABET[i]) 
-			SDL_FreeSurface(letters[i]);
+		if (ALPHABET[i])
+                { 
+		  SDL_FreeSurface(letters[i]);
+                  letters[i] = NULL;
+                }
 	Mix_FreeChunk(wrong);
+	wrong = NULL;
 }
 
 

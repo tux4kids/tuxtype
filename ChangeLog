@@ -1,3 +1,16 @@
+[ David Bruce ]
+       - got rid of autogen.sh - autoreconf is recommended way to
+         do the same thing.
+       - replaced acinclude.m4 with newer version to get rid of 
+         "underquoted AM_PATH_SDL" message.
+       - fixed bug causing crash on exit from cascade game do to 
+         double free of ptr.
+       - fixed bug with Espanol display of menus.
+       - added "static" keyword to file-scope variables.
+       - moved more of global variables to file or local scope.
+       - added hard-coded hack-work to LoadFont() to support
+         Rachana and Doulos as well as Andika in Debian.
+
 v 1.5.11
 19 Aug 2007
 [ David Bruce ]

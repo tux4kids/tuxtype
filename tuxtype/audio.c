@@ -18,11 +18,9 @@
 
 #include "globals.h"
 #include "funcs.h"
-/* NOTE these two don't really belong here - not used in this file */
-Mix_Chunk* sound[NUM_WAVES];
-Mix_Music* music;
 
-Mix_Music* defaultMusic = NULL; // holds music for audioMusicLoad/unload
+static Mix_Music* defaultMusic = NULL; // holds music for audioMusicLoad/unload
+
 
 void PlaySound(Mix_Chunk* snd) {
 	if (!settings.sys_sound) return;

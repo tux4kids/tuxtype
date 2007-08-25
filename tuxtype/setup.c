@@ -32,8 +32,8 @@ const char PATHS[NUM_PATHS][FNLEN] =
 
 
 /* Local function prototypes: */
-int load_settings_fp(FILE* fp);
-int load_settings_filename(const char* fn);
+static int load_settings_fp(FILE* fp);
+static int load_settings_filename(const char* fn);
 
 /***************************
 	GraphicsInit: Initializes the graphic system
@@ -163,13 +163,13 @@ void LoadSettings(void)
 /* Load the settings if given the complete pathname to the settings file.  Returns 1 if
    able to call load_settings_fp() successfully on named file.
  */
-int load_settings_filename(const char* fn)
+static int load_settings_filename(const char* fn)
 {
   FILE* fp = fopen(fn, "r");
 
   if (!fp)
   {
-    fprintf(stderr, "load_settings_filename(): Settings file could not be opened! settings not loaded\n");
+    fprintf(stderr, "load_settings_filename(): no theme-specific settings found\n");
     return;
   }
 	
@@ -189,7 +189,7 @@ int load_settings_filename(const char* fn)
 /* Load the settings if given an open FILE* pointer to the settings file.  Returns 1 if
    at least one setting value found, 0 otherwise. It does not close the FILE*.
  */
-int load_settings_fp(FILE* fp)
+static int load_settings_fp(FILE* fp)
 {
   char setting[FNLEN]; /* these don't really need to be 'FNLEN' long */
   char value[FNLEN];

@@ -20,7 +20,6 @@
 #include "funcs.h"
 
 SDL_Surface* screen;
-SDL_Surface* bkg;
 
 
 SDL_Event  event;
@@ -38,14 +37,6 @@ int main(int argc, char *argv[])
 
   /* Initialize settings with hard-coded defaults: */ 
   Opts_Initialize();
-
-// 	settings.sys_sound = 1;      //default using system sounds
-// 	settings.speed_up = 0;       //run at normal speed
-// 	settings.show_tux4kids = 1;  //show tux4kids logo the first time in main menu
-// 	settings.use_english = 1;     //default to no theme
-// 	settings.debug_on = 0;        //default to not in debug mode
-// 	settings.hidden = 0;         //default to no "hidden" background
-
 
 	srand(time(NULL));
 

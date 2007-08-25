@@ -189,8 +189,10 @@ enum { EASY, MEDIUM, HARD, INSANE, INF_PRACT };
 
 extern game_option_type settings;
 
+/* FIXME get rid of as much global data as possible, esp. pointers */
+
 extern SDL_Surface* screen;
-extern TTF_Font* font;
+//extern TTF_Font* font;
 extern SDL_Event  event;
 
 extern SDL_Color black;
@@ -200,7 +202,6 @@ extern SDL_Color red;
 extern SDL_Color white;
 extern SDL_Color yellow;
 
-extern SDL_Surface* bkg;
 extern SDL_Surface* letters[255]; /* Will be going away */
 
 /* These need some work to support Unicode & i18n: */
@@ -220,9 +221,6 @@ enum {
 	PAUSE_WAV,
 	NUM_WAVES
 };
-
-extern Mix_Chunk* sound[NUM_WAVES];
-extern Mix_Music*  music;
 
 #define MUSIC_FADE_OUT_MS	80
 

@@ -21,8 +21,8 @@
 #include "funcs.h"
 
 /* Local function prototypes: */
-int max(int n1, int n2);
-SDL_Surface* flip(SDL_Surface *in, int x, int y);
+static int max(int n1, int n2);
+static SDL_Surface* flip(SDL_Surface *in, int x, int y);
 
 /* Returns 1 if valid file, 2 if valid dir, 0 if neither: */
 int CheckFile(const char* file)
@@ -91,6 +91,7 @@ void LoadLang(void)
   if (0 != Load_PO_File( fn ))  /* Meaning it failed! */
   {
     /* failed to find a lang.po file, clear gettext & return */
+    fprintf(stderr, "LoadLang() - could not load lang.po file for %s\n", fn);
     return;
   }
 }
@@ -213,13 +214,22 @@ TTF_Font* LoadFont(const char* font_name, int font_size )
   DEBUGCODE { fprintf(stderr, "LoadFont(): looking for %s using data paths\n", fn); }
 
   /* try to load the font, if successful, return font*/
- loaded_font = TTF_OpenFont(fn, font_size);
- if (loaded_font != NULL)
-   return loaded_font;
+  loaded_font = TTF_OpenFont(fn, font_size);
+  if (loaded_font != NULL)
+    return loaded_font;
 		
 
-  /* HACK hard-coded for Debian once Andika is included: */ 
-  sprintf(fn, "%s/%s", "/usr/share/fonts/truetype/ttf-andika/", font_name);
+  /* HACK hard-coded for Debian (and current exact font names): */ 
+
+  if (strncmp(font_name, "AndikaDesRevG.ttf", FNLEN ) == 0)
+    sprintf(fn, "%s/%s", "/usr/share/fonts/truetype/ttf-sil-andika-desrev", font_name);
+  else if (strncmp(font_name, "DoulosSILR.ttf", FNLEN ) == 0)
+    sprintf(fn, "%s/%s", "/usr/share/fonts/truetype/ttf-sil-doulos", font_name);
+  else if (strncmp(font_name, "Rachana_w01.ttf", FNLEN ) == 0)
+    sprintf(fn, "%s/%s", "/usr/share/fonts/truetype/ttf-malayalam-fonts", font_name);
+
+
+
   DEBUGCODE { fprintf(stderr, "LoadFont(): looking for %s\n in OS' font path\n", fn); }
 
   /* try to load the font, if successful, return font*/
@@ -227,7 +237,7 @@ TTF_Font* LoadFont(const char* font_name, int font_size )
   if (loaded_font != NULL)
     return loaded_font;
 
-  fprintf(stderr, "LoadFont(): Error - couldn't load font: %s\n", font_name);
+  fprintf(stderr, "LoadFont(): Error - couldn't load font: %s\n", fn);
   return NULL;
 }
 
@@ -370,12 +380,17 @@ sprite* LoadSprite(const char* name, int MODE ) {
 	return new_sprite;
 }
 
-void FreeSprite(sprite *gfx ) {
-	int x;
-	for (x = 0; x < gfx->num_frames; x++)
-		SDL_FreeSurface( gfx->frame[x] );
-	SDL_FreeSurface( gfx->default_img );
-	free(gfx);
+void FreeSprite(sprite* gfx )
+{
+  int x;
+
+  if (!gfx)
+    return;
+ 
+  for (x = 0; x < gfx->num_frames; x++)
+    SDL_FreeSurface(gfx->frame[x]);
+  SDL_FreeSurface(gfx->default_img);
+  free(gfx);
 }
 
 /***************************
