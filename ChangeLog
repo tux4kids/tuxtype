@@ -1,3 +1,5 @@
+v 1.5.12
+26 Aug 2007
 [ David Bruce ]
        - got rid of autogen.sh - autoreconf is recommended way to
          do the same thing.
