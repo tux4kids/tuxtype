@@ -3,7 +3,7 @@ MAKENSIS=@NSIS@
 
 SUBDIRS = tuxtype
 
-EXTRA_DIST = AUTHORS COPYING ChangeLog INSTALL README TODO tuxtype.lsm tuxtype.spec tuxtype.spec.in README.Win32 config.h autorun.inf tuxtype.ico autogen.sh
+EXTRA_DIST = AUTHORS COPYING ChangeLog INSTALL README TODO tuxtype.lsm tuxtype.spec tuxtype.spec.in README.Win32 config.h autorun.inf tuxtype.ico
 
 install-data-local:
 	$(mkinstalldirs) $(DESTDIR)$(prefix)/doc/$(PACKAGE)

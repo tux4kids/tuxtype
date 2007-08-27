@@ -222,11 +222,11 @@ TTF_Font* LoadFont(const char* font_name, int font_size )
   /* HACK hard-coded for Debian (and current exact font names): */ 
 
   if (strncmp(font_name, "AndikaDesRevG.ttf", FNLEN ) == 0)
-    sprintf(fn, "%s/%s", "/usr/share/fonts/truetype/ttf-sil-andika-desrev", font_name);
+    sprintf(fn, "/usr/share/fonts/truetype/ttf-sil-andika/AndikaDesRevG.ttf");
   else if (strncmp(font_name, "DoulosSILR.ttf", FNLEN ) == 0)
-    sprintf(fn, "%s/%s", "/usr/share/fonts/truetype/ttf-sil-doulos", font_name);
+    sprintf(fn, "/usr/share/fonts/truetype/ttf-sil-doulos/DoulosSILR.ttf");
   else if (strncmp(font_name, "Rachana_w01.ttf", FNLEN ) == 0)
-    sprintf(fn, "%s/%s", "/usr/share/fonts/truetype/ttf-malayalam-fonts", font_name);
+    sprintf(fn, "/usr/share/fonts/truetype/ttf-malayalam-fonts/Rachana_w01.ttf");
 
 
 
