@@ -75,15 +75,15 @@ void TestLesson( void ) {
 	int stop = 0;
 	int loc = 0;
 	int old_loc = 1;
-	int i;
+	int i,n;
 	int c = 0;
 	
 	char fn[FNLEN]; 
 	unsigned char wordlistFile[200][200];
 	unsigned char wordPath[FNLEN];
 
-	DIR *wordsDir;
-	struct dirent *wordsFile;
+	//DIR *wordsDir;
+	struct dirent **wordsFile;
 //	FILE *tempFile;
 
 	pointer = LoadImage( "right.png", IMG_ALPHA );
@@ -105,48 +105,34 @@ void TestLesson( void ) {
 	}
 	spot.x=60;
 	spot.y=20;
-
-
-	/* create a list of all the .txt files */
-
-	wordsDir = opendir( wordPath );	
+/**********************************/
 	font = LoadFont( ttf_font, 14 );
-	do {
-		wordsFile = readdir(wordsDir);
-		if (!wordsFile)
-			break;
-
+	n=scandir(wordPath, &wordsFile, 0, alphasort);
+	for(i=0;i<n;i++)
+	{
 		/* must have at least .txt at the end */
-		if (strlen(wordsFile->d_name) < 5)
+		if (strlen(wordsFile[i]->d_name) < 5)
 			continue;
 
-		if (strcmp(&wordsFile->d_name[strlen(wordsFile->d_name)-4],".xml"))
+		if (strcmp(&wordsFile[i]->d_name[strlen(wordsFile[i]->d_name)-4],".xml"))
 			continue;
 
-		sprintf( wordlistFile[c], "%s", wordsFile->d_name );
+		sprintf( wordlistFile[c], "%s", wordsFile[i]->d_name );
 
-		filenames[c] = TTF_RenderUTF8_Blended(  font, wordsFile->d_name, white);
+		filenames[c] = TTF_RenderUTF8_Blended(  font, wordsFile[i]->d_name, white);
+		//filenames[c]=create_surface_wchar(wordsFile->d_name,font,white,14);
+		
 		SDL_BlitSurface( filenames[c], NULL, screen, &spot );
                 SDL_FreeSurface(filenames[c]);
+		free(wordsFile[i]);		
 		c++;
 		spot.y+=18;
-
-		/* load the name for the wordlist from the file ... (1st line) */
-/*		tempFile = fopen( wordlistFile[lists], "r" );
-		if (tempFile==NULL) continue;
-		fscanf( tempFile, "%[^\n]\n", wordlistName[lists] );
-*/
-		/* check to see if it has a \r at the end of it (dos format!) */
-/*		if (wordlistName[lists][ strlen(wordlistName[lists])-1 ] == '\r')
-			wordlistName[lists][ strlen(wordlistName[lists])-1 ] = '\0';
-		lists++;
-
-		fclose(tempFile);*/
-		
-	} while (1);
+	}
+	free(wordsFile);
+/**********************/
 
 	TTF_CloseFont(font);
-	closedir( wordsDir );	
+	//closedir( wordsDir );	
 	SDL_Flip( screen );
 
 	left = LoadImage("left.png", IMG_ALPHA);       
@@ -210,7 +196,7 @@ void TestLesson( void ) {
                                 case SDL_KEYDOWN:
                                         if (event.key.keysym.sym == SDLK_ESCAPE) { stop = 2; break; }
                                         if (event.key.keysym.sym == SDLK_RETURN) {
-						sprintf( fn, "%s/scripts/%s", realPath[1], wordlistFile[loc]);
+						sprintf( fn, "%s/%s", wordPath, wordlistFile[loc]);
                                                 stop = 1;
                                                 break;
                                         }
@@ -234,6 +220,7 @@ void TestLesson( void ) {
                                                 if (loc+1< c)
                                                         loc++;
                                         }
+			
                         }
 
                if (stop == 2) {
@@ -241,8 +228,10 @@ void TestLesson( void ) {
                         SDL_FreeSurface(left);
                         SDL_FreeSurface(right);
                         SDL_FreeSurface(bkg);
-                        return;
+			return;
+			
                }
+	
                if (old_loc != loc) {
                         int start;
 
@@ -763,7 +752,9 @@ static void run_script(void)
                         
                         shown += toshow + 1;
 			//printf("Rendering %s\n", tmp);
-                        img = TTF_RenderUTF8_Blended( myFont, tmp, *col );
+                        //img = TTF_RenderUTF8_Blended( myFont, tmp, *col );
+			//img=create_surface_wchar(tmp,myFont,*col,14);
+			img=BlackOutline(tmp ,myFont, col);
 
                         if (img) {
                     
@@ -862,7 +853,7 @@ static void run_script(void)
 							switch (event.key.keysym.sym) {
 								case SDLK_ESCAPE: 
 									curPage = NULL; done=1; break;  // quit
-								case SDLK_p:
+								case SDLK_SPACE:
 									curPage = curPage->next; done=1; break;
 								default: break;
 							};

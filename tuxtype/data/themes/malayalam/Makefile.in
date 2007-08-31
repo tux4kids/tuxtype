@@ -163,6 +163,7 @@ top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 SUBDIRS = \
 images\
+scripts\
 words
 
 EXTRA_DIST = keyboard.lst lang.po phrases.txt

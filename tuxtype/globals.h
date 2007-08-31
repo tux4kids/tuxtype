@@ -169,7 +169,7 @@ extern SDL_Surface *letters[255]; //FIXME get rid of this - use GetWhiteGlyph(),
 
 extern wchar_t ALPHABET[256];
 
-extern unsigned char FINGER[256][10];
+extern unsigned char FINGER[20000][10];
 extern int ALPHABET_SIZE;
 
 //global vars

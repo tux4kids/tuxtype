@@ -63,8 +63,6 @@ int convert_from_UTF8(wchar_t* wide_word, const char* UTF8_word);
 /*                                                   */
 /*****************************************************/
 
-
-
 void LoadKeyboard( void ) {
 	unsigned char fn[FNLEN];
 	int l;
@@ -91,7 +89,7 @@ void LoadKeyboard( void ) {
                                 /* Convert to wcs from UTF-8, if needed; */
                                 mbstowcs(wide_str, str, strlen(str) + 1);
 
-				if (wcslen(wide_str) > 3) {
+				if (wcslen(wide_str) >= 3) {
 
 					/* format is: FINGER(s)|Char(s) Upper/Lower */
 
@@ -101,7 +99,7 @@ void LoadKeyboard( void ) {
 
 					i++; // pass the '|'
 					j = i; 
-					ALPHABET[(int)wide_str[j]] = 1;  // first character is default
+					//ALPHABET[(int)wide_str[j]] = 1;  // first character is default
 
 					for (i++; i<wcslen(wide_str); i++)
 						wide_str[i] = wide_str[j];
@@ -119,11 +117,11 @@ void LoadKeyboard( void ) {
 
 			fclose(f);
 
-			DEBUGCODE
+			/*DEBUGCODE
 			{
 			  fprintf(stderr, "printing keymap for %s\n", fn);
         		  print_keymap();
-			}
+			}*/
 
 			return;
 		}

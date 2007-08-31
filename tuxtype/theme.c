@@ -30,7 +30,7 @@ const char PATHS[NUM_PATHS][FNLEN] = {
 
 SDL_Surface *letters[255] = { NULL };
 wchar_t ALPHABET[256];
-unsigned char FINGER[256][10];
+unsigned char FINGER[20000][10];
 int ALPHABET_SIZE;
 unsigned char realPath[2][FNLEN];
 char themeName[FNLEN];

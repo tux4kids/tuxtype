@@ -60,8 +60,7 @@ int Phrases(char* pphrase ) {
 	 */
 	SDL_Surface *tmp;
 	SDL_Surface *clear_text;
-        wchar_t wphrase[128];	
-
+        wchar_t wphrase[128];
 	Uint32 start=0,a=0;
 	int 	quit=0,
 		i=0,
@@ -76,22 +75,22 @@ int Phrases(char* pphrase ) {
 	     totaltime[FNLEN];
 
 	practice_load_media();
-
 	clear_text = SDL_CreateRGBSurface(SDL_SWSURFACE, 700, 50, 32, rmask, gmask, bmask, amask);
 	
-	SDL_FillRect(clear_text, NULL, 0xff000000);
-
+	SDL_FillRect(clear_text, NULL, 0xffff6000);
+	//SDL_FillRect(clear_text, NULL, SDL_MapRGB(NULL, 0x1B, 0x65, 0xE0));
 	SDL_BlitSurface(bkg, NULL, screen, NULL);
 	SDL_BlitSurface(hands, NULL, screen, &hand_loc);
 	SDL_Flip(screen);
 
 	convert_from_UTF8(wphrase, pphrase);
-
 	wp = get_phrase(wphrase);
+
 	if (!strncmp(phrase[0], "", 1))
 		strncpy(pphrase, phrase[0], 80);
-
-/* 	dst.x = 320 - (letters[65]->w/2);	dst.y = 100;	dst.w = letters[65]->w;	dst.h = letters[65]->h;
+	DEBUGCODE { printf("wrap point is: %d\n",wp); }
+/*
+ 	dst.x = 320 - (letters[65]->w/2);	dst.y = 100;	dst.w = letters[65]->w;	dst.h = letters[65]->h;
  	dst2.x = 50;				dst2.y = 400;	dst2.w = letters[65]->w;	dst2.h = letters[65]->h;
  	dst3.x = 50;				dst3.y = 400;	dst3.w = 160;			dst3.h = 50;
  	dst4.x = 480;				dst4.y = 400;	dst4.w = 240;			dst4.h = 50;
@@ -99,7 +98,14 @@ int Phrases(char* pphrase ) {
 	dst.x = 40;
 */
 
-
+/*	dst.x = 320 - 3;	dst.y = 100;	dst.w = 6;	dst.h = 6;
+ 	dst2.x = 50;				dst2.y = 400;	dst2.w = 6;	dst2.h = 6;
+ 	dst3.x = 50;				dst3.y = 400;	dst3.w = 160;			dst3.h = 50;
+ 	dst4.x = 480;				dst4.y = 400;	dst4.w = 240;			dst4.h = 50;
+ 	dst5.x = 480;				dst5.y = 400;	dst5.w = 240;			dst5.h = 50;
+	dst.x = 40;
+DEBUGCODE { printf("sadsadsadsadsad2\n"); }
+*/
  	dst.x = 320 - 10;	dst.y = 100;	dst.w = 21;	dst.h = 21;
  	dst2.x = 50;				dst2.y = 400;	dst2.w = 21;	dst2.h = 21;
  	dst3.x = 50;				dst3.y = 400;	dst3.w = 160;			dst3.h = 50;
@@ -111,8 +117,6 @@ int Phrases(char* pphrase ) {
 	clear_dst.w = 700;
 	clear_dst.h=40;
 	SDL_BlitSurface(clear_text, NULL, screen, &clear_dst);
-
-
 	start = SDL_GetTicks();
 
 	do {
@@ -126,7 +130,6 @@ int Phrases(char* pphrase ) {
 			if (SDL_GetTicks() - start > 500) {
 				for (i=0; i<10; i++)
 					if (FINGER[(int)wphrase[c]][i]){
-
 						SDL_BlitSurface(hand[i], NULL, screen, &hand_loc);
 					}
 				state = 2;
@@ -144,16 +147,13 @@ int Phrases(char* pphrase ) {
 		case 4:
 			for (i=0; i<10; i++)
 				if (FINGER[(int)wphrase[c]][i])
-
 					SDL_BlitSurface(hand[i], NULL, screen, &hand_loc);
 			state = 11;
 			break;
 		default:
 			state -= 2; // this is to make the flashing slower
 		}
-
 		next_letter(wphrase, c);
-
 		while  (SDL_PollEvent(&event)) {
 				if (event.type == SDL_KEYDOWN) {
 					a=SDL_GetTicks();

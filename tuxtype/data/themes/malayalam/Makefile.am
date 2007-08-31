@@ -1,6 +1,7 @@
 
 SUBDIRS = \
 images\
+scripts\
 words
 
 EXTRA_DIST = keyboard.lst lang.po phrases.txt

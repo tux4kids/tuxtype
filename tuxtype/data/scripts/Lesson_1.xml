@@ -12,7 +12,7 @@
    <img src="/keyboard/keyboard-us.png" x="30" y="200"/>
    <text align="center">In this exercise we practice the home row keys.</text>
    <text align="center">asdfjkl;asdfjkl;asdfjkl;</text>
-   <text align="center">To start practicing hit the p key</text>
+   <text align="center">To start practicing hit the space key</text>
    <text color="#000000" x="101" y="273">A</text>
    <text color="#000000" x="141" y="273">S</text>
    <text color="#000000" x="181" y="273">D</text>
@@ -49,7 +49,7 @@
    <text align="center">but, a little bit differently!</text>
    <text align="center">See how fast you are at this one!</text>   
    <text align="center">lad lass dad sad fad gas had jag ask;</text>
-   <text align="center">To start practicing hit the p key</text>
+   <text align="center">To start practicing hit the space key</text>
    <text color="#000000" x="101" y="273">A</text>
    <text color="#000000" x="141" y="273">S</text>
    <text color="#000000" x="181" y="273">D</text>
