@@ -1,0 +1,57 @@
+<script title="LESSON SIX" bgcolor="#3f4f9f">
+   <page title="Malayalam Lesson">
+   <text color="#ffff00" align="center" y="200">പാഠം ആറ്</text>
+   <text color="#00ffff" align="center" y="300">തുടങ്ങാന്‍ സ്പേസ് അമര്‍ത്തൂ!</text>
+  <waitforinput/>
+   </page>
+   <page title="Keys" bgcolor="#3f7f3f">
+   <img src="/keyboard/keyboard-us.png" x="30" y="200"/>
+   <text align="center">ഇവിടെ നാം പഠിക്കുന്ന അക്ഷരങ്ങള്‍.</text>
+   <text align="center" color="#ffff00">െ  ം  മ  ,  .  യ </text>
+   <text align="center" color="#00ffff">തുടങ്ങാന്‍ സ്പേസ് അമര്‍ത്തുക</text>
+   <text color="#ffff00" x="115" y="325">െ</text>
+   <text color="#ffff00" x="156" y="325">ം</text>
+   <text color="#ffff00" x="197" y="325">മ</text>
+   <text color="#ffff00" x="390" y="322">,</text>
+   <text color="#ffff00" x="428" y="322">.</text>
+   <text color="#ffff00" x="463" y="325">യ</text>
+  <waitforchar/>
+   <prac goal="15">െ ം മ , . യ ം െ</prac>
+   <prac>യ ം മ . , ം മ െ യ</prac>
+   <prac>മ െ യ ം . ം മ , െ മ</prac>
+   </page>
+ <page>
+   <img src="keyboard/space.png" x="200" y="160"/>
+   <img src="keyboard/larrow.png" x="460" y="18"/>
+   <img src="keyboard/esc.png" x="515" y="50"/>
+   <text align="center">അഭിനന്ദനങ്ങള്‍!</text>
+   <text align="left">         To repeat the last exercise, press</text>
+   <text align="center">To go back to the main menu hit</text>
+   <text align="center">To continue on to the next exercise,</text>
+   <text align="center">press</text>
+   <text align="center">Space</text>
+   <text></text>
+   <text></text>
+   <text></text>
+   <text align="center">Next Exercise:</text>
+   <text align="center">മയം മം മ.യമ, യെമ മംമയ .,.</text> 
+   <waitforinput/>
+ </page>
+ <page title="Keys" bgcolor="#b07bc6">
+   <img src="keyboard/keyboard-us.png" x="30" y="200"/>
+   <text align="center" y="20">അഭ്യാസം</text>  
+   <text align="center" color="#ffff00" y="50">മയം മം മ.യമ</text>
+   <text align="center" color="#00ffff" y="140">തുടങ്ങാന്‍ സ്പേസ് അമര്‍ത്തുക</text>
+   <text color="#ffff00" x="115" y="325">െ</text>
+   <text color="#ffff00" x="156" y="325">ം</text>
+   <text color="#ffff00" x="197" y="325">മ</text>
+   <text color="#ffff00" x="390" y="322">,</text>
+   <text color="#ffff00" x="428" y="322">.</text>
+   <text color="#ffff00" x="463" y="325">യ</text>
+   <waitforchar/>
+   <prac>മയം മം മ. ., യമ, യെമ മംമയ .,.</prac>
+   <prac>യമ, യെമ മംമയ .,. യെമ മംമയ .,.</prac>
+   <prac>യെമ മംമയ .,. യെമ  മ. ., യമ,</prac>
+ </page>
+</script>
+

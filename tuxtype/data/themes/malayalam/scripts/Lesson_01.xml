@@ -1,0 +1,62 @@
+<script title="Test Lesson" bgcolor="#3f4f1f">
+   <page title="Introduction to Eample Lesson">
+   <text align="center" y="200">പാഠം ഒന്ന്</text>
+   <text align="center" y="250">തുടങ്ങാന്‍ സ്പേസ് അമര്‍ത്തൂ!</text>
+  <waitforinput/>
+   </page>
+   <page title="Home Row Keys" bgcolor="#3f7f3f">
+   <img src="/keyboard/keyboard-us.png" x="30" y="200"/>
+   <text align="center">ഇവിടെ നാം പഠിക്കുന്ന അക്ഷരങ്ങള്‍</text>
+   <text align="center"> ോ േ ് ി ര ക ത ച</text>
+   <text align="center">തുടങ്ങാന്‍ സ്പേസ് അമര്‍ത്തു</text>
+   <text color="#ffffff" x="98" y="282">ോ</text>
+   <text color="#ffffff" x="141" y="282">േ</text>
+   <text color="#ffffff" x="181" y="282">്</text>
+   <text color="#ffffff" x="220" y="282">ി</text>
+   <text color="#ffffff" x="338" y="282">ര</text>
+   <text color="#ffffff" x="378" y="282">ക</text>
+   <text color="#ffffff" x="418" y="282">ത</text>
+   <text color="#ffffff" x="458" y="282">ച</text>
+  <waitforchar/>
+   <prac goal="15">ോേ്ിരകതച ോേ്ിരകതച ോേ്ിരകതച</prac>
+   <prac>ോേ്ിരകതച ോേ്ിരകതച ോേ്ിരകതച</prac>
+   <prac>ോേ്ിരകതച ോേ്ിരകതച ോേ്ിരകതച</prac>
+   </page>
+ <page>
+   <img src="keyboard/space.png" x="200" y="160"/>
+   <img src="keyboard/larrow.png" x="460" y="18"/>
+   <img src="keyboard/esc.png" x="515" y="50"/>
+   <text align="center">അഭിനന്ദനങ്ങള്‍!</text>
+   <text align="left">         To repeat the last exercise, press</text>
+   <text align="center">To go back to the main menu hit</text>
+   <text align="center">To continue on to the next exercise,</text>
+   <text align="center">press</text>
+   <text align="center">Space</text>
+   <text></text>
+   <text></text>
+   <text></text>
+   <text align="center">Next Exercise:</text>
+   <text align="center">lad lass dad sad fad gas had jag ask;</text> 
+   <waitforinput/>
+ </page>
+ <page title="Home Row Keys" bgcolor="#b07bc6">
+   <img src="keyboard/keyboard-us.png" x="30" y="200"/>
+   <text align="center">In this exercise we practice the home row keys,</text>
+   <text align="center">but, a little bit differently!</text>
+   <text align="center">See how fast you are at this one!</text>   
+   <text align="center">കര തിര ചേര കര ചേര് ചോര</text>
+   <text align="center">തുടങ്ങാന്‍ സ്പേസ് അമര്‍ത്തു</text>
+   <text color="#ffffff" x="98" y="282">ോ</text>
+   <text color="#ffffff" x="141" y="282">േ</text>
+   <text color="#ffffff" x="181" y="282">്</text>
+   <text color="#ffffff" x="220" y="282">ി</text>
+   <text color="#ffffff" x="338" y="282">ര</text>
+   <text color="#ffffff" x="378" y="282">ക</text>
+   <text color="#ffffff" x="418" y="282">ത</text>
+   <text color="#ffffff" x="458" y="282">ച</text>
+   <waitforchar/>
+   <prac>കര തിര ചേര കര ചേര് ചോര തിര ചേര ചകിരി ചേര്</prac>
+   <prac>കര തിര ചേര കര ചേര് ചോര തിര ചേര ചകിരി ചേര്</prac>
+   <prac>കര തിര ചേര കര ചേര് ചോര തിര ചേര ചകിരി ചേര്</prac>
+ </page>
+</script>
