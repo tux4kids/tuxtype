@@ -1,0 +1,55 @@
+<script title="LESSON TEN" bgcolor="#3f4f9f">
+   <page title="Malayalam Lesson">
+   <text color="#ffff00" align="center" y="200">പാഠം പത്ത്</text>
+   <text color="#00ffff" align="center" y="300">തുടങ്ങാന്‍ സ്പേസ് അമര്‍ത്തൂ!</text>
+  <waitforinput/>
+   </page>
+   <page title="Keys" bgcolor="#3f7f3f">
+   <img src="/keyboard/keyboard-us.png" x="30" y="200"/>
+   <text align="center">ഇവിടെ നാം പഠിക്കുന്ന അക്ഷരങ്ങള്‍.</text>
+   <text align="center" color="#ffff00">ഒ ഊ ഭ ഢ ഞ</text>
+   <text align="center" color="#00ffff">തുടങ്ങാന്‍ സ്പേസ് അമര്‍ത്തുക</text>
+   <text color="#ffff00" x="33" y="215">ഒ</text>
+   <text color="#ffff00" x="250" y="250">ഊ</text>
+   <text color="#ffff00" x="290" y="250">ഭ</text>
+   <text color="#ffff00" x="480" y="250">ഢ</text>
+   <text color="#ffff00" x="510" y="250">ഞ</text>
+  <waitforchar/>
+   <prac goal="15">ഒ ഊ ഭ ഢ ഞ ഭ ഢ ഞ</prac>
+   <prac>ഒ ഊ ഭ ഢ ഞ ഭ ഢ ഞ</prac>
+   <prac>ഒ ഊ ഭ ഢ ഞ ഭ ഢ ഞ</prac>
+   </page>
+ <page>
+   <img src="keyboard/space.png" x="200" y="160"/>
+   <img src="keyboard/larrow.png" x="460" y="18"/>
+   <img src="keyboard/esc.png" x="515" y="50"/>
+   <text align="center">അഭിനന്ദനങ്ങള്‍!</text>
+   <text align="left">         To repeat the last exercise, press</text>
+   <text align="center">To go back to the main menu hit</text>
+   <text align="center">To continue on to the next exercise,</text>
+   <text align="center">press</text>
+   <text align="center">Space</text>
+   <text></text>
+   <text></text>
+   <text></text>
+   <text align="center">Next Exercise:</text>
+   <text align="center">ഒഭ ഊഢ ഭഞ ഢഭ ഒഞ ഊഭ ഊഞ</text> 
+   <waitforinput/>
+ </page>
+ <page title="Keys" bgcolor="#b07bc6">
+   <img src="keyboard/keyboard-us.png" x="30" y="200"/>
+   <text align="center" y="20">അഭ്യാസം</text>
+   <text align="center" color="#ffff00" y="50">ഭഞ ഢഭ ഒഞ ഊഭ </text>
+   <text align="center" color="#00ffff" y="140">തുടങ്ങാന്‍ സ്പേസ് അമര്‍ത്തുക</text>
+   <text color="#ffff00" x="33" y="215">ഒ</text>
+   <text color="#ffff00" x="250" y="250">ഊ</text>
+   <text color="#ffff00" x="290" y="250">ഭ</text>
+   <text color="#ffff00" x="480" y="250">ഢ</text>
+   <text color="#ffff00" x="518" y="250">ഞ</text>
+   <waitforchar/>
+   <prac>ഒഭ ഊഢ ഭഞ ഢഭ ഊഭ ഊഞ ഊഞ</prac>
+   <prac>ഢഭ ഒഞ ഊഭ ഢഭ ഒഞ ഊഭ ഊഞ </prac>
+   <prac>ഒഭ ഒഞ ഊഭ ഊഞ ഢഭ ഊഭ ഊഞ</prac>
+ </page>
+</script>
+
