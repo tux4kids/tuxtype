@@ -26,7 +26,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/Lesson_08.xml $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/malayalam/scripts/Lesson_08.xml
 	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/malayalam/scripts
 	$(INSTALL_DATA) $(srcdir)/Lesson_09.xml $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/malayalam/scripts/Lesson_09.xml
-        $(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/malayalam/scripts
+	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/malayalam/scripts
 	$(INSTALL_DATA) $(srcdir)/Lesson_10.xml $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/malayalam/scripts/Lesson_10.xml
 	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/malayalam/scripts
 	$(INSTALL_DATA) $(srcdir)/Lesson_11.xml $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/malayalam/scripts/Lesson_11.xml
