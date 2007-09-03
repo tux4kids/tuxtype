@@ -137,9 +137,7 @@ int PlayCascade( int diflevel ) {
 	LoadTuxAnims(); 
 	LoadFishies();
 	LoadOthers();
-printf("before RenderLetters\n");
 	RenderLetters(font);
-printf("after RenderLetters\n");
 
 	LOG( " starting game \n ");
 	while (still_playing) {
@@ -1385,10 +1383,10 @@ static void DrawFish(int which)
 	int j = 0;
 	int red_letters = 0;
 	int current_letter;
-	/* 'x_origin' and 'y_origin' are where the glyph origin should be          */
-	/* located relative to the fishy graphic (lower left corner of most chars) */
-	const int x_origin = 10;
-        const int y_origin = 30;
+	/* 'x_inset' and 'y_inset' are where the glyph to be drawn relative        */
+	/* the fishy graphic:                                                      */
+	const int x_inset = 10;
+        const int y_inset = 10;
 	/* letter_x and letter_y are where the upper left corner of the glyph needs */
         /* to be located - (e.g. how SDL blitting understands locations)           */
         int letter_x = 0;
@@ -1449,14 +1447,11 @@ static void DrawFish(int which)
                   else
                     letter_surface = GetWhiteGlyph(current_letter);
 
-		  /* Set "letter_x" and "letter_y to where we want the *origin* drawn: */
-		  letter_x = fish_object[which].x + (j * fishy->frame[0]->w) + x_origin;
-		  letter_y = fish_object[which].y + y_origin;
-		  /* Now get correct upper-left coords for this particular glyph: */
-		  GetGlyphCoords(current_letter, &letter_x, &letter_y);
+		  /* Set "letter_x" and "letter_y to where we want the letter drawn: */
+		  letter_x = fish_object[which].x + (j * fishy->frame[0]->w) + x_inset;
+		  letter_y = fish_object[which].y + y_inset;
 
 		  DrawObject(letter_surface, letter_x, letter_y);
-
 		}
 	}
 /*        LOG ("Leaving DrawFish()\n");*/

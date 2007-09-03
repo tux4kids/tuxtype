@@ -22,7 +22,7 @@
 
 SDL_Surface* letters[255] = {NULL}; //get rid of this
 wchar_t ALPHABET[256];
-unsigned char FINGER[256][10];
+unsigned char FINGER[256][10] = {0};
 int ALPHABET_SIZE;
 
 

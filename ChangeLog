@@ -1,4 +1,18 @@
-v 1.5.12
+v 1.5.13
+03 Sep 2007
+[ David Bruce ]
+       - practice.c revised significantly to prevent crashes if
+         keyboard.lst erroneous or incomplete - if entry not found
+         in FINGER[] array for a character, fingering hint not
+         shown but program still functions. "Practice" now uses the
+         same RenderLetters() code as the Cascade and Comet Zap
+         activities.
+       - BlackOutLine() for single letters now uses 
+         TTF_RenderUNICODE_Blended() rather than
+         TTF_RenderGlyph_Blended() because the former version
+         renders all glyphs to a consistent baseline, simplifying
+         our code.
+
 26 Aug 2007
 [ David Bruce ]
        - got rid of autogen.sh - autoreconf is recommended way to

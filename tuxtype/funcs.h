@@ -21,23 +21,26 @@
 
 
 /* In alphabet.c */
-SDL_Surface* BlackOutline(const unsigned char *t, TTF_Font* font, const SDL_Color* c);
-SDL_Surface* BlackOutline_wchar(wchar_t t, TTF_Font* font, const SDL_Color* c);
+SDL_Surface* BlackOutline(const unsigned char *t, const TTF_Font* font, const SDL_Color* c);
+SDL_Surface* BlackOutline_Unicode(const Uint16* t, const TTF_Font* font, const SDL_Color* c);
 
 #ifndef WIN32
-SDL_Surface* BlackOutline_SDLPango(const unsigned char *t, TTF_Font* font, const SDL_Color* c);
+SDL_Surface* BlackOutline_SDLPango(const unsigned char* t, const TTF_Font* font, const SDL_Color* c);
 #endif
 
+/* (still in alphabet.c:) */
 void ClearWordList(void);
 void FreeLetters(void);
 void GenerateWordList(const char* wordFn);
+void GenCharListFromString(const char* UTF8_str);
+void ResetCharList(void);
 wchar_t GetLetter(void);
 wchar_t* GetWord(void);
 SDL_Surface* GetWhiteGlyph(wchar_t t);
 SDL_Surface* GetRedGlyph(wchar_t t);
-int GetGlyphCoords(wchar_t t, int* x, int* y);
 int LoadKeyboard(void);
 int RenderLetters(const TTF_Font* letter_font);
+
 void UseAlphabet(void);
 
 

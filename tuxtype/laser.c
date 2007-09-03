@@ -872,17 +872,17 @@ static void laser_add_comet(int diff_level) {
 
 static void laser_draw_let(wchar_t c, int x, int y)
 {
-  int top_x, top_y;
+  /* Draw letter in correct place relative to comet: */
+  const int offset_x = -10; /* Values determined by trial and error: */
+  const int offset_y = -50;
+
   SDL_Rect dst;
-  /* Start with coords for where we want glyph origin to go: */
-  top_x = x - (GetWhiteGlyph(c)->w/2);
-  top_y = y - 10;
-  /* Correct for varying height of glyphs: */
-  GetGlyphCoords(c, &top_x, &top_y);
-  /* Plug into the SDL_Rect and blit: */
-  dst.x = top_x;
-  dst.y = top_y;
-  SDL_BlitSurface(GetWhiteGlyph(c), NULL, screen, &dst); 
+  SDL_Surface* s;
+  dst.x = x + offset_x;
+  dst.y = y + offset_y;
+  s = GetWhiteGlyph(c);
+  if (s)
+    SDL_BlitSurface(s, NULL, screen, &dst); 
 }
 
 

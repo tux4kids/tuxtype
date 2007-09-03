@@ -177,7 +177,10 @@ int LoadKeyboard(void)
 }
 
 
-SDL_Surface* BlackOutline(const unsigned char *t, TTF_Font *font, const SDL_Color *c)
+/* NOTE if we can consistently use SDLPango on all platforms, we can simply */
+/* rename the pango version to BlackOutline() and get rid of this one.      */
+/* The input for this function should be UTF-8.                             */
+SDL_Surface* BlackOutline(const unsigned char* t, const TTF_Font* font, const SDL_Color* c)
 {
   SDL_Surface* out = NULL;
   SDL_Surface* black_letters = NULL;
@@ -269,7 +272,7 @@ SDLPango_Matrix* SDL_Colour_to_SDLPango_Matrix(const SDL_Color *cl)
 
 /* This version basically uses the SDLPango lib instead of */
 /* TTF_RenderUTF*_Blended() to properly render Indic text. */
-SDL_Surface* BlackOutline_SDLPango(const unsigned char *t, TTF_Font *font, const SDL_Color *c)
+SDL_Surface* BlackOutline_SDLPango(const unsigned char* t, const TTF_Font* font, const SDL_Color* c)
 {
   SDL_Surface* out = NULL;
   SDL_Surface* black_letters = NULL;
@@ -355,9 +358,11 @@ SDL_Surface* BlackOutline_SDLPango(const unsigned char *t, TTF_Font *font, const
 /* End of win32-excluded coded */
 
 
-/* This version takes a single wide character and renders it with the */
-/* Unicode glyph versions of the SDL_ttf functions:                         */
-SDL_Surface* BlackOutline_wchar(wchar_t t, TTF_Font* font, const SDL_Color* c)
+
+
+/* This version takes a wide character string and renders it with the */
+/* Unicode string versions of the SDL_ttf functions:                  */
+SDL_Surface* BlackOutline_Unicode(const Uint16* t, const TTF_Font* font, const SDL_Color* c)
 {
   SDL_Surface* out = NULL;
   SDL_Surface* black_letters = NULL;
@@ -372,11 +377,11 @@ SDL_Surface* BlackOutline_wchar(wchar_t t, TTF_Font* font, const SDL_Color* c)
     return NULL;
   }
 
-  black_letters = TTF_RenderGlyph_Blended(font, t, black);
+  black_letters = TTF_RenderUNICODE_Blended(font, t, black);
 
   if (!black_letters)
   {
-    fprintf (stderr, "Warning - BlackOutline_wchar() could not create image for %lc\n", t);
+    fprintf (stderr, "Warning - BlackOutline_wchar() could not create image for %S\n", t);
     return NULL;
   }
 
@@ -402,7 +407,7 @@ SDL_Surface* BlackOutline_wchar(wchar_t t, TTF_Font* font, const SDL_Color* c)
   SDL_FreeSurface(black_letters);
 
   /* --- Put the color version of the text on top! --- */
-  white_letters = TTF_RenderGlyph_Blended(font, t, *c);
+  white_letters = TTF_RenderUNICODE_Blended(font, t, *c);
   dstrect.x = 1;
   dstrect.y = 1;
   SDL_BlitSurface(white_letters, NULL, bg, &dstrect);
@@ -712,14 +717,11 @@ void GenerateWordList(const char* wordFn)
 
 
 
-
-/* Now that the words are stored internally as wchars, we use the */
-/* Unicode glyph version of black_outline():                      */
+/* This version creates the letters using TTF_RenderUNICODE_Blended */
 int RenderLetters(const TTF_Font* letter_font)
 {
-  wchar_t t;
-  int i;
-  int maxy;
+  Uint16 t[2];
+  int i, j;  /* i is chars attempted, j is chars actually rendered. */
 
   if (!letter_font)
   {
@@ -727,36 +729,31 @@ int RenderLetters(const TTF_Font* letter_font)
     return 0;
   }
 
-  /* The following will supercede the old code: */
   i = num_chars_used = 0;
+  j = 0;
+  t[1] = '\0';
+
   while (char_list[i] != '\0')
   {
-    t = char_list[i];
-
-    if(TTF_GlyphMetrics(letter_font, t, NULL , NULL, NULL,
-                        &maxy, NULL) == -1)
-    {
-      fprintf(stderr, "Could not get glyph metrics for %lc", t);
-      i++;
-      continue;
-    }
-
+    t[0] = char_list[i];
+    
     DEBUGCODE
     {
-      fprintf(stderr, "Creating SDL_Surface for list element %d, char = %lc\n", i, t);
+      fprintf(stderr, "Creating SDL_Surface for list element %d, char = %lc\n", i, *t);
     }
 
-    char_glyphs[i].unicode_value = t;
-    char_glyphs[i].white_glyph = BlackOutline_wchar(t, letter_font, &white);
-    char_glyphs[i].red_glyph = BlackOutline_wchar(t, letter_font, &red);
-    char_glyphs[i].max_y = maxy;
+    char_glyphs[j].unicode_value = t[0];
+    char_glyphs[j].white_glyph = BlackOutline_Unicode(t, letter_font, &white);
+    char_glyphs[j].red_glyph = BlackOutline_Unicode(t, letter_font, &red);
 
     i++;
+    j++;
     num_chars_used++;
   }
   /* Remember how many letters we added: */
   return num_chars_used;
 }
+
 
 
 void FreeLetters(void)
@@ -767,6 +764,9 @@ void FreeLetters(void)
   {
     SDL_FreeSurface(char_glyphs[i].white_glyph);
     SDL_FreeSurface(char_glyphs[i].red_glyph);
+    char_glyphs[i].unicode_value = 0;
+    char_glyphs[i].white_glyph = NULL;
+    char_glyphs[i].red_glyph = NULL;
   } 
   /* List now empty: */
   num_chars_used = 0;
@@ -818,34 +818,7 @@ SDL_Surface* GetRedGlyph(wchar_t t)
 }
 
 
-/* Since SDL drawing just uses the upper left corner, but text needs to be drawn relative to */
-/* the glyph origin (i.e. the lower left corner for a character that doesn't go below        */
-/* the baseline), we need to convert them - basically just subtracting the max_y, which is   */
-/* the glyph's height above the baseline.                                                    */
-/*  So - 'x' and 'y' before the function should be the coords where the *origin* is supposed */
-/* to be, and after the function they will contain the correct coords for blitting of the    */
-/* glyph. OK?                                                                                */
-int GetGlyphCoords(wchar_t t, int* x, int* y)
-{
-  int i;
 
-  for (i = 0;
-       char_glyphs[i].unicode_value != t && i <= num_chars_used;
-       i++)
-  {}
-
-  if (i > num_chars_used)
-  {
-    /* Didn't find character: */
-    fprintf(stderr, "Could not find glyph for unicode character %lc\n", t);
-    return 0;
-  }
-  
-  /* Set "upper left" coordinates for blitting (currently, don't need to */
-  /* do anything to x):                                                  */
-  *y -= char_glyphs[i].max_y;
-  return 1;
-}
 
 /****************************************************/
 /*                                                  */
@@ -884,6 +857,43 @@ static void gen_char_list(void)
 
 
 
+void ResetCharList(void)
+{
+  char_list[0] = '\0';
+}
+
+
+
+/* Creates a list of distinct Unicode characters in       */
+/* the argument string for subsequent rendering.          */
+/* Like gen_char_list() but takes a string argument       */
+/* instead of going through the currently selected        */
+/* word list. Argument should be UTF-8                    */
+/* Can be called multiple times on different strings      */
+/* to accumulate entire repertoire - call ResetCharList() */
+/* to start over                                          */
+void GenCharListFromString(const char* UTF8_str)
+{
+  int i = 0;
+  wchar_t wchar_buf[MAX_UNICODES];
+
+  convert_from_UTF8(wchar_buf, UTF8_str);
+
+  /* FNLEN is max length of phrase (I think) */
+  while (wchar_buf[i] != '\0' && i < FNLEN) 
+  {
+    add_char(wchar_buf[i]);
+    i++;
+  }
+
+  DEBUGCODE
+  {
+    fprintf(stderr, "char_list = %S\n", char_list);
+  }
+}
+
+
+
 /* FIXME this function is currently dead code */
 /* --- setup the alphabet --- */
 static void set_letters(unsigned char *t) {
@@ -905,7 +915,7 @@ static void set_letters(unsigned char *t) {
 /* Checks to see if the argument is already in the list and adds    */
 /* it if necessary.  Returns 1 if char added, 0 if already in list, */
 /* -1 if list already up to maximum size:                           */
-
+/* FIXME performance would be better with hashtable                 */
 static int add_char(wchar_t uc)
 {
   int i = 0;

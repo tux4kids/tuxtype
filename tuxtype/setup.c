@@ -93,6 +93,7 @@ void LibInit(Uint32 lib_flags)
 	LOG( "LibInit():\n-About to init SDL Library\n" );
 
 	if (SDL_Init(lib_flags) < 0) 
+		/* FIXME this looks wrong - if no sys_sound, we don't init video??? */
 		if (settings.sys_sound) {
 			if (SDL_Init(SDL_INIT_VIDEO) < 0) {
 				fprintf(stderr, "Couldn't initialize SDL: %s\n",
@@ -109,11 +110,17 @@ void LibInit(Uint32 lib_flags)
 
 	LOG( "-SDL Library init'd successfully\n" );
 
-	if (settings.sys_sound) 
-		if (Mix_OpenAudio( 22050, AUDIO_S16, 1, 2048) < 0) {
-			fprintf( stderr, "Warning: couldn't set 22050 Hz 8-bit audio\n - Reasons: %s\n", SDL_GetError());
-			settings.sys_sound=0;
-		}
+	/* FIXME should read settings before we do this: */ 
+	if (settings.sys_sound)
+        { 
+          if (Mix_OpenAudio(22050, AUDIO_S16, 1, 2048) == -1)
+          {
+            fprintf( stderr, "Warning: couldn't set 22050 Hz 8-bit audio\n - Reasons: %s\n", SDL_GetError());
+            settings.sys_sound=0;
+          }
+          else
+            LOG("Mix_OpenAudio() successful\n");
+        }
 
 	LOG( "-about to init SDL_ttf\n" );
 

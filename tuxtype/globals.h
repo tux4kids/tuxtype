@@ -241,5 +241,4 @@ typedef struct uni_glyph {
   wchar_t unicode_value;
   SDL_Surface* white_glyph;
   SDL_Surface* red_glyph;
-  int max_y;
 } uni_glyph;

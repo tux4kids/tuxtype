@@ -21,7 +21,7 @@ make install
 
 if you run into problems rerun:
 
-autoreconf
+autoreconf --install
 
 We want this to work for everybody, everywhere, if it doesn't
 work for you please contact calarndt@tux4kids.org
