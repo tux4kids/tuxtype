@@ -123,3 +123,9 @@ msgstr "പുറത്തു കടക്കുക"
 #
 msgid "Main Menu"
 msgstr "പ്രധാന മെനു" 
+#
+msgid "Next letter:"
+msgstr "അടുത്തത് :"
+#
+msgid "Great!"
+msgstr "അഭിനന്ദനങ്ങള്‍!"

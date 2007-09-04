@@ -1,28 +1,33 @@
-<script title="Cascade Instructions" background="main_bkg.png">
+<script title="കോമറ്റ് സാപ്പ് നിര്‍‌ദ്ദേശങ്ങള്‍" background="main_bkg.png">
   <page>
-    <text align="center" size="32">Help Tux Eat Fish!</text>
+    <text align="center" size="32">മീനെ തിന്നാന്‍ ടക്സിനെ</text>
+    <text align="center" size="32">   സഹായിക്കൂ!    </text>
 <waitforinput/>
  </page>
   <page>
-    <text align="center" size="32">Help Tux Eat Fish!</text>
+    <text align="center" size="32">മീനെ തിന്നാന്‍ ടക്സിനെ</text>
+    <text align="center" size="32">   സഹായിക്കൂ!    </text>
 <waitforinput/>
  </page>
   <page>
-    <text align="center" size="32">Help Tux Eat Fish!</text>
+    <text align="center" size="32">മീനെ തിന്നാന്‍ ടക്സിനെ</text>
+    <text align="center" size="32">   സഹായിക്കൂ!    </text>
 <waitforinput/>
  </page>
   <page>
-    <text align="center" size="32">Help Tux Eat Fish!</text>
+    <text align="center" size="32">മീനെ തിന്നാന്‍ ടക്സിനെ</text>
+    <text align="center" size="32">   സഹായിക്കൂ!    </text>
 <waitforinput/>
  </page>
   <page>
-    <text align="center" size="32">Help Tux Eat Fish!</text>
+    <text align="center" size="32">മീനെ തിന്നാന്‍ ടക്സിനെ</text>
+    <text align="center" size="32">   സഹായിക്കൂ!    </text>
 <waitforinput/>
  </page>
   <page>
-    <text>Tux is very hungry!  Eating fish with letters gives him a tummy ache.</text>
-    <text>Help Tux eat fish by pressing the letters on the fish making</text>
-    <text>them go away so he can eat all the 10 9 8 7 6 5 4 3 2 1 0</text>
+    <text>ടക്സിന് വിശക്കുന്നു!</text>
+    <text>മീനിന്റെ മുകളില്‍ എഴുതിയിരിക്കുന്ന</text>
+    <text>അക്ഷരം അമര്‍ത്തി ടക്സിനെ സഹായിക്കൂ! so he can eat all the 10 9 8 7 6 5 4 3 2 1 0</text>
  <waitforinput/>
  </page>
 </lesson>
