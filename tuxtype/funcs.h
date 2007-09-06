@@ -5,7 +5,12 @@
     begin                : Sat May 6 2000
     copyright            : (C) 2000 by Sam Hart
     email                : hart@geekcomix.com
- ***************************************************************************/
+ 
+  Modified by David Bruce
+  dbruce@tampabay.rr.com
+  2007
+
+***************************************************************************/
 
 /***************************************************************************
  *                                                                         *
@@ -21,7 +26,7 @@
 
 
 /* In alphabet.c */
-SDL_Surface* BlackOutline(const unsigned char *t, const TTF_Font* font, const SDL_Color* c);
+SDL_Surface* BlackOutline(const unsigned char* t, const TTF_Font* font, const SDL_Color* c);
 SDL_Surface* BlackOutline_Unicode(const Uint16* t, const TTF_Font* font, const SDL_Color* c);
 
 #ifndef WIN32
@@ -30,6 +35,7 @@ SDL_Surface* BlackOutline_SDLPango(const unsigned char* t, const TTF_Font* font,
 
 /* (still in alphabet.c:) */
 void ClearWordList(void);
+int ConvertFromUTF8(wchar_t* wide_word, const char* UTF8_word);
 void FreeLetters(void);
 void GenerateWordList(const char* wordFn);
 void GenCharListFromString(const char* UTF8_str);
@@ -39,6 +45,7 @@ wchar_t* GetWord(void);
 SDL_Surface* GetWhiteGlyph(wchar_t t);
 SDL_Surface* GetRedGlyph(wchar_t t);
 int LoadKeyboard(void);
+int GetFinger(wchar_t uni_char);
 int RenderLetters(const TTF_Font* letter_font);
 
 void UseAlphabet(void);
@@ -88,7 +95,7 @@ int TransWipe(SDL_Surface* newbkg, int type, int var1, int var2);
 
 
 /* In practice.c: */
-int Phrases(char* practice_phrase);
+int Phrases(wchar_t* practice_phrase);
 
 
 /* In scripting.c: */

@@ -24,15 +24,15 @@ static SDL_Surface* hands = NULL;
 static SDL_Surface* hand[11] = {NULL};
 static SDL_Rect hand_loc, letter_loc;
 static TTF_Font* font = NULL;
-static char phrase[255][FNLEN];
+static wchar_t phrase[255][FNLEN];
 
 static Mix_Chunk* wrong = NULL;
 
 /*local function prototypes: */
-static int get_phrase(const char* phr);
+static int get_phrase(const wchar_t* phr);
 static int practice_load_media(void);
 static void practice_unload_media(void);
-static void print_at(const char* pphrase, int wrap, int x, int y);
+static void print_at(const wchar_t* pphrase, int wrap, int x, int y);
 static void show(unsigned char t);
 
 
@@ -44,7 +44,7 @@ static void show(unsigned char t);
 
 
 /* FIXME this is not UTF-8/Unicode compatible */
-int Phrases(char* pphrase )
+int Phrases(wchar_t* pphrase )
 {
 
   /* TODO 
@@ -53,6 +53,7 @@ int Phrases(char* pphrase )
   * 
   */
 
+  /* FIXME make variable names more descriptive */
   Uint32 start = 0, a = 0;
   int quit = 0,
       i = 0,
@@ -63,8 +64,8 @@ int Phrases(char* pphrase )
       state = 0;
   int key[100] = {0};
   SDL_Rect dst, dst2, dst3, dst4, dst5;
-  char keytime[FNLEN],
-       totaltime[FNLEN];
+  char keytime[20],
+       totaltime[20];
   SDL_Surface* srfc = NULL;
 
 
@@ -81,24 +82,26 @@ int Phrases(char* pphrase )
 
   wp = get_phrase(pphrase);
 
-  if (!strncmp(phrase[0], "", 1))
-    strncpy(pphrase, phrase[0], 80);
+  if (!wcsncmp(phrase[0], (wchar_t*)"", 1))
+    wcsncpy(pphrase, phrase[0], 80);
 
-  if (!letters[65])
+  srfc = GetWhiteGlyph(65);
+
+  if (!srfc)
   {
-    fprintf(stderr, "Phrases() - letters[65] not defined - bailing out.\n");
+    fprintf(stderr, "Phrases() - GetWhiteGlyph(65) not defined - bailing out.\n");
     return 0;
   }
 
-  dst.x = 320 - (letters[65]->w/2);
+  dst.x = 320 - (srfc->w/2);
   dst.y = 100;
-  dst.w = letters[65]->w;
-  dst.h = letters[65]->h;
+  dst.w = srfc->w;
+  dst.h = srfc->h;
 
   dst2.x = 50;
   dst2.y = 400;
-  dst2.w = letters[65]->w;
-  dst2.h = letters[65]->h;
+  dst2.w = srfc->w;
+  dst2.h = srfc->h;
 
   dst3.x = 50;
   dst3.y = 400;
@@ -132,15 +135,12 @@ int Phrases(char* pphrase )
       case 1:
         if (SDL_GetTicks() - start > 500)
         {
-          for (i = 0; i < 10; i++)
-          { 
-            if (((int)pphrase[c] >= 0) /* Prevent bounds violation */
-              &&((int)pphrase[c] < 256) 
-              && FINGER[(int)pphrase[c]][i])
-            {
-              SDL_BlitSurface(hand[i], NULL, screen, &hand_loc);
-            }
-          }
+          /* Show finger hint, if available. Note that GetFinger() */
+          /* returns negative values on error and never returns a  */
+          /* value greater than 9.                                 */
+          int fing = GetFinger(pphrase[c]);
+          if (fing >= 0) 
+            SDL_BlitSurface(hand[fing], NULL, screen, &hand_loc);
           state = 2;
         }
         break;
@@ -158,20 +158,16 @@ int Phrases(char* pphrase )
        break;  
 
       case 4:
-        for (i = 0; i < 10; i++)
         {
-          if (((int)pphrase[c] >= 0) /* Prevent bounds violation */
-            &&((int)pphrase[c] < 256) /* This can't actually occur for type char */
-            && FINGER[(int)pphrase[c]][i])
-          {
-            SDL_BlitSurface(hand[i], NULL, screen, &hand_loc);
-          }
+          int fing = GetFinger(pphrase[c]);
+          if (fing >= 0) 
+            SDL_BlitSurface(hand[fing], NULL, screen, &hand_loc);
+          state = 11;
+          break;
         }
-        state = 11;
-        break;
 
       default:
-      state -= 2; // this is to make the flashing slower
+        state -= 2; // this is to make the flashing slower
     }
 
 
@@ -196,14 +192,6 @@ int Phrases(char* pphrase )
         }
         else
         {
-          /* Keep from segfaulting on unicode chars beyond 255 */
-          /* until practice mode is fixed:                     */
-          if (event.key.keysym.unicode > 255)
-          {
-            fprintf(stderr, "Practice mode cannot handle this unicode char\n");
-            continue;
-          }
-
           if (pphrase[c]==(char)event.key.keysym.unicode)
           {
             state = 0;
@@ -241,9 +229,11 @@ int Phrases(char* pphrase )
             }
 
 
-            if (c == (strlen(pphrase) - 1))
+            if (c == (wcslen(pphrase) - 1))
             {
-              print_at("Great!",6 ,275 ,200);
+              wchar_t buf[10];
+              ConvertFromUTF8(buf, _("Great!"));
+              print_at(buf,6 ,275 ,200);
               SDL_Flip(screen);
               SDL_Delay(2500);
               quit = 1;
@@ -286,7 +276,6 @@ int Phrases(char* pphrase )
 /************************************************************************/
 
 
-/* FIXME use RenderLetters(), etc */
 static int practice_load_media(void)
 {
   int i;	
@@ -300,6 +289,7 @@ static int practice_load_media(void)
   hands = LoadImage("hands/hands.png", IMG_ALPHA);
   bg = LoadImage("main_bkg.png", IMG_ALPHA);
   wrong = LoadSound("tock.wav");
+  font = LoadFont(settings.theme_font_name, 32);
 
   for (i = 0; i < 10; i++)
   {
@@ -313,7 +303,8 @@ static int practice_load_media(void)
   if (load_failed
     ||!hands
     ||!bg
-    ||!wrong)
+    ||!wrong
+    ||!font)
   {
     fprintf(stderr, "practice_load_media() - failed to load needed media \n");
     practice_unload_media;
@@ -321,26 +312,14 @@ static int practice_load_media(void)
   }
 
   /* Should be safe from here on out: */
-
   hand_loc.x = (screen->w/2) - (hand[0]->w/2);
   hand_loc.y = screen->h - (hand[0]->h);
   hand_loc.w = (hand[0]->w);
   hand_loc.h = (hand[0]->h);
 
   /* Now render letters for glyphs in alphabet: */
-  font = LoadFont(settings.theme_font_name, 32 );
-
-  /* FIXME below problem with i18n: */
-  let[1]=0;
-  for (i=1; i<255; i++)
-    /* until we fix or get rid of ALPHABET[], just render the whole range: */
-    if (ALPHABET[i])
-    {
-      let[0] = i;
-      letters[i] = BlackOutline(let, font, &white); 
-    }
-
-  TTF_CloseFont(font);
+  RenderLetters(font);
+  TTF_CloseFont(font);  /* Don't need it after rendering done */
   font = NULL;
 
   LOG("DONE - Loading practice media\n");
@@ -363,12 +342,7 @@ static void practice_unload_media(void)
           SDL_FreeSurface(hand[i]);
           hand[i] = NULL;
         }
-	for (i = 1; i < 255; i++) 
-		if (ALPHABET[i])
-                { 
-		  SDL_FreeSurface(letters[i]);
-                  letters[i] = NULL;
-                }
+
 	Mix_FreeChunk(wrong);
 	wrong = NULL;
 }
@@ -392,7 +366,7 @@ static void show(unsigned char t)
 
 
 
-static int get_phrase(const char* phr)
+static int get_phrase(const wchar_t* phr)
 {
   int pc = 0;  // 'phrase count' (?)
   int pw[256] = { 0 };
@@ -400,7 +374,7 @@ static int get_phrase(const char* phr)
   char fn[FNLEN];
 
   /* If we didn't receive a phrase get the first one from the file...*/
-  if (strncmp("", phr, 40) == 0)
+  if (wcsncmp((wchar_t*)"", phr, 40) == 0)
   {
     FILE* pf; /*   "phrase file"   */
     /* set the phrases directory/file */
@@ -433,38 +407,38 @@ static int get_phrase(const char* phr)
   else
   {
     pc = 1;
-    strncpy(phrase[0], phr, 80);
+    wcsncpy(phrase[0], phr, 80);
   }
 
-
-  /* Need to generate glyphs for all the needed Unicode chars: */
-
-  ResetCharList();
-  /* 'A' (i.e. 65) always has to go into list because width used for layout */
-  /* HACK also need chars for "Great!" because of congrats message - this   */
-  /* obviously is not a general solution. Numerals also needed for timers.  */
-  {
-    char* let = "AGreat!0123456789.";
-    GenCharListFromString(let);
-  }
-
-
-  /* Scan through all the phrases and put needed chars into list: */
-  for (c = 0; c <= pc; c++)
-    GenCharListFromString(phrase[c]);
-
-  /* Now render letters for glyphs in list: */
-  font = LoadFont(settings.theme_font_name, 32 );
-  if (!font)
-  {
-    fprintf(stderr, "get_phrase() - could not load font\n");
-    return 0;
-  }
-
-  RenderLetters(font);
-
-  TTF_CloseFont(font);
-  font = NULL;
+  /* FIXME maybe should verify that all chars in phrase are 
+//   /* Need to generate glyphs for all the needed Unicode chars: */
+// 
+//   ResetCharList();
+//   /* 'A' (i.e. 65) always has to go into list because width used for layout */
+//   /* HACK also need chars for "Great!" because of congrats message - this   */
+//   /* obviously is not a general solution. Numerals also needed for timers.  */
+//   {
+//     char* let = "AGreat!0123456789.";
+//     GenCharListFromString(let);
+//   }
+// 
+// 
+//   /* Scan through all the phrases and put needed chars into list: */
+//   for (c = 0; c <= pc; c++)
+//     GenCharListFromString(phrase[c]);
+// 
+//   /* Now render letters for glyphs in list: */
+//   font = LoadFont(settings.theme_font_name, 32 );
+//   if (!font)
+//   {
+//     fprintf(stderr, "get_phrase() - could not load font\n");
+//     return 0;
+//   }
+// 
+//   RenderLetters(font);
+// 
+//   TTF_CloseFont(font);
+//   font = NULL;
 
 
   //Calculate and record pixel width of phrases
@@ -472,14 +446,14 @@ static int get_phrase(const char* phr)
     SDL_Surface* let = NULL;
     for (c = 0; c <= pc; c++)
     {
-      for(i = 0; i < strlen(phrase[c]); i++)
+      for(i = 0; i < wcslen(phrase[c]); i++)
       {
         let = GetWhiteGlyph((int)phrase[c][i]);
         if (let)  
           pw[c]+= let->w - 5;
         else
         {
-          fprintf(stderr, "get_phrase() - needed glyph not in letters[]\n");
+          fprintf(stderr, "get_phrase() - needed glyph not available\n");
           return;
         }
       }
@@ -493,7 +467,7 @@ static int get_phrase(const char* phr)
     {
       if (c == 0)
       {
-        wp = strlen(phrase[c]);
+        wp = wcslen(phrase[c]);
         print_at(phrase[0], wp, 40, 10);
       }
     }
@@ -502,7 +476,7 @@ static int get_phrase(const char* phr)
       z = 0;
       wp = 0;
 
-      for (i = 0; i < strlen(phrase[c]); i++)
+      for (i = 0; i < wcslen(phrase[c]); i++)
       {
         /* Should be safe (if no glyph, will have returned above) */
         z += GetWhiteGlyph((int)phrase[c][i])->w-5;
@@ -515,7 +489,7 @@ static int get_phrase(const char* phr)
 
       for (i = wp; i >= 0; i--)
       {
-        if (strncmp(" ", &phrase[c][i], 1) == 0)
+        if (wcsncmp((wchar_t*)" ", &phrase[c][i], 1) == 0)
         {
           wp = i-1;
           break;
@@ -534,7 +508,7 @@ static int get_phrase(const char* phr)
 
 
 
-static void print_at(const char *pphrase, int wrap, int x, int y)
+static void print_at(const wchar_t *pphrase, int wrap, int x, int y)
 {
   int z = 0;
   SDL_Surface* surf = NULL;
@@ -545,20 +519,20 @@ static void print_at(const char *pphrase, int wrap, int x, int y)
 
   LOG("Entering print_at()\n");
 
-  if (wrap >= strlen(pphrase)) // I think this means it fits on a single line
+  if (wrap >= wcslen(pphrase)) // I think this means it fits on a single line
   {
-    for (z = 0; z <strlen(pphrase); z++)
+    for (z = 0; z <wcslen(pphrase); z++)
     {
-      surf = GetWhiteGlyph((wchar_t)pphrase[z]);
+      surf = GetWhiteGlyph(pphrase[z]);
       if (surf)
       {
-        DEBUGCODE{printf("surf not NULL for %c\n", pphrase[z]);}
+        DEBUGCODE{printf("surf not NULL for %C\n", pphrase[z]);}
         SDL_BlitSurface(surf, NULL, screen, &letter_loc);
         letter_loc.x = (letter_loc.x + surf->w) - 5;
       }
       else
       {
-        fprintf(stderr, "print_at(): needed glyph for %c not found\n",
+        fprintf(stderr, "print_at(): needed glyph for %C not found\n",
                 pphrase[z]);
       }
     }
@@ -567,15 +541,15 @@ static void print_at(const char *pphrase, int wrap, int x, int y)
   {
     for (z = 0; z <= wrap; z++) 
     {
-      surf = GetWhiteGlyph((wchar_t)pphrase[z]);
+      surf = GetWhiteGlyph(pphrase[z]);
       if (surf)
       {
-        DEBUGCODE{printf("surf not NULL for %c\n", pphrase[z]);}
+        DEBUGCODE{printf("surf not NULL for %C\n", pphrase[z]);}
         SDL_BlitSurface(surf, NULL, screen, &letter_loc);
         letter_loc.x = (letter_loc.x + surf->w) - 5;      }
       else
       {
-        fprintf(stderr, "print_at(): needed glyph for %c not found\n",
+        fprintf(stderr, "print_at(): needed glyph for %C not found\n",
                 pphrase[z]);
       }
     }
@@ -585,9 +559,9 @@ static void print_at(const char *pphrase, int wrap, int x, int y)
     // - (letter_loc.h/4) to account for free space at top and bottom of rendered letters
     letter_loc.y = letter_loc.y + letter_loc.h - (letter_loc.h/4);
 
-    for (z = wrap + 2; z <strlen(pphrase); z++)
+    for (z = wrap + 2; z <wcslen(pphrase); z++)
     {
-      surf = GetWhiteGlyph((wchar_t)pphrase[z]);
+      surf = GetWhiteGlyph(pphrase[z]);
       if (surf)
       {
         DEBUGCODE{printf("surf not NULL for %c\n", pphrase[z]);}

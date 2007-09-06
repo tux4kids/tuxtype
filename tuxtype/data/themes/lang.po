@@ -114,3 +114,6 @@ msgstr ""
 #
 msgid "Main Menu"
 msgstr ""
+#
+msgid "Great!"
+msgstr ""

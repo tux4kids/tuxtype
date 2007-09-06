@@ -206,7 +206,6 @@ extern SDL_Surface* letters[255]; /* Will be going away */
 
 /* These need some work to support Unicode & i18n: */
 extern wchar_t ALPHABET[256];
-extern unsigned char FINGER[256][10];
 extern int ALPHABET_SIZE;
 
 
@@ -234,11 +233,3 @@ enum {
 };
 
 
-/* An individual item in the list of cached unicode characters that are rendered at   */
-/* the start of each game. The 'max_y' is stored so that the characters can be lined  */
-/* up properly even if their heights are different.                                   */
-typedef struct uni_glyph {
-  wchar_t unicode_value;
-  SDL_Surface* white_glyph;
-  SDL_Surface* red_glyph;
-} uni_glyph;

@@ -99,7 +99,7 @@ void TitleScreen(void)
   int redraw = 0;
   int key_menu = 1;
   int old_key_menu = 5;
-  char phrase[128];
+  wchar_t phrase[128];
 
 
   if (settings.sys_sound)
@@ -110,7 +110,10 @@ void TitleScreen(void)
 
 
   /* FIXME phrase(s) should come from file */
-  strncpy( phrase, "Now is the time for all good men to come to the aid of their country.", 128);
+
+  ConvertFromUTF8(phrase, "Now is the time for all good men to come to the aid of their country.");
+
+//  wcscpy(phrase, "Now is the time for all good men to come to the aid of their country.");
   start = SDL_GetTicks();
 
 

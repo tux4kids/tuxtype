@@ -28,6 +28,7 @@
 #include "globals.h"
 #include "funcs.h"
 
+
 /* NOTE these are externed in globals.h so not static */
 /* the colors we use throughout the game */
 SDL_Color black;
@@ -38,6 +39,31 @@ SDL_Color white;
 SDL_Color yellow;
 
 
+
+/* An individual item in the list of cached unicode characters that are rendered at   */
+/* the start of each game.                                                            */
+typedef struct uni_glyph {
+  wchar_t unicode_value;
+  SDL_Surface* white_glyph;
+  SDL_Surface* red_glyph;
+} uni_glyph;
+
+/* These are the arrays for the red and white letters: */
+static uni_glyph char_glyphs[MAX_UNICODES] = {0, NULL, NULL};
+
+/* An individual item in the list of unicode characters in the keyboard setup.   */
+/* Basically, just the Unicode value for the key and the finger used to type it. */
+typedef struct kbd_char {
+  wchar_t unicode_value;
+  char finger;
+} kbd_char;
+
+/* List with one entry for each typable character in keyboard setup - has the */
+/* Unicode value of the key and the associated fingering.                     */
+static kbd_char keyboard_list[MAX_UNICODES] = {0, -1};
+
+
+
 static TTF_Font* font = NULL;
 
 /* Used for word list functions (see below): */
@@ -46,8 +72,7 @@ static wchar_t word_list[MAX_NUM_WORDS][MAX_WORD_SIZE + 1];
 static wchar_t char_list[MAX_UNICODES];  // List of distinct letters in list
 static int num_chars_used = 0;       // Number of different letters in word list
 
-/* These are the arrays for the red and white letters: */
-static uni_glyph char_glyphs[MAX_UNICODES];
+
 
 /* Local function prototypes: */
 static void gen_char_list(void);
@@ -55,7 +80,7 @@ static int add_char(wchar_t uc);
 static void set_letters(unsigned char* t);
 static void show_letters(void);
 static void clear_keyboard(void);
-static int convert_from_UTF8(wchar_t* wide_word, const char* UTF8_word);
+static int unicode_in_key_list(wchar_t uni_char);
 
 
 #ifndef WIN32
@@ -115,7 +140,7 @@ int LoadKeyboard(void)
     wchar_t wide_str[255];
 
     FILE* f;
-    int i, j;
+    int i = 0, j = 0, k = 0;
 
     f = fopen( fn, "r" );
 
@@ -125,49 +150,43 @@ int LoadKeyboard(void)
       return 0;
     }
 
+
     do
     {
       fscanf( f, "%[^\n]\n", str);
       /* Convert to wcs from UTF-8, if needed; */
       //mbstowcs(wide_str, str, strlen(str) + 1);
-      convert_from_UTF8(wide_str, str);
+      ConvertFromUTF8(wide_str, str);
 
-      if (wcslen(wide_str) > 3)
+      /* Line must have 3 chars (if more, rest are ignored) */
+      /* Format is: FINGER|Char  e.g   "3|d"                */
+      /* wide_str[0] == finger used to type char            */
+      /* wide_str[1] =='|'
+      /* wide_str[2] == Unicode value of character          */
+
+      /* FIXME - this might be a good place to use a    */
+      /* hash table to avoid n^2 performance problems.  */
+      /* Some sanity checks:  */
+      if ((wcslen(wide_str) >=3)
+       && (wcstol(&wide_str[0], NULL, 0) >=0)   /* These lines just make sure the */
+       && (wcstol(&wide_str[0], NULL, 0) < 10)  /* finger is between 0 and 10     */
+       && (wide_str[1] == '|')
+       && (k < MAX_UNICODES)
+       && !unicode_in_key_list(wide_str[2])) /* Make sure char not already added */
       {
-        /* format is: FINGER(s)|Char(s) Upper/Lower */
-
-        /* advance past the fingers */
-        for (i = 0; i < wcslen(wide_str) && wide_str[i] != '|'; i++);
-
-        i++; // pass the '|'
-        j = i; 
-        if ( ((int)wide_str[j] >= 0) 
-          && ((int)wide_str[j] < 256) )
+        DEBUGCODE
         {
-          ALPHABET[(int)wide_str[j]] = 1;  // first character is default
+          fprintf(stderr, "Adding key: Unicode char = %C, finger = %d\n",
+                  wide_str[2], wcstol(&wide_str[0], NULL, 0)); 
         }
-        else
-          fprintf(stderr, "LoadKeyboard() - Unicode char outside Western range\n");
-        //for (i++; i<wcslen(wide_str); i++)
-        //KEYMAP[(int)wide_str[i]] = wide_str[j];
 
-        /* set the fingers for this letter */
-        for (i=0; i<j-1; i++)
-        {
-          if (wide_str[i] >= '0' && wide_str[i] <= '9')
-          {
-            if ( ((int)wide_str[j] >= 0) 
-              && ((int)wide_str[j] < 256) )
-            {
-              FINGER[wide_str[j]][(int)(wide_str[i] - '0')] = 1;
-            }
-            else
-              fprintf(stderr, "LoadKeyboard() - Unicode char outside Western range\n");
-          }
-        }
-        ALPHABET_SIZE++;
+        /* Just plug values into array: */
+        keyboard_list[k].unicode_value = wide_str[2];
+        keyboard_list[k].finger = wcstol(&wide_str[0], NULL, 0);
+        k++;
       }
     } while (!feof(f));
+
 
     fclose(f);
 
@@ -176,6 +195,52 @@ int LoadKeyboard(void)
   }
 }
 
+/* Returns the finger hint(0-9) associated with a given Unicode value */
+/* in the keyboard_list:                                              */
+/* Returns -1 if somehow no finger associated with a Unicode value    */
+/* in the list (shouldn't happen).                                    */
+/* Returns -2 if Unicode value not in list.                           */
+int GetFinger(wchar_t uni_char)
+{
+  int i = 0;
+
+  while ((i < MAX_UNICODES)
+     &&  (keyboard_list[i].unicode_value != uni_char))
+  {
+    i++;
+  }
+
+  if (i == MAX_UNICODES)
+  {
+    fprintf(stderr, "GetFinger() - Unicode char '%C' not found in list.\n");
+    return -2;
+  }
+
+  if ((keyboard_list[i].finger < 0)
+   || (keyboard_list[i].finger > 9))
+  {
+    fprintf(stderr, "GetFinger() - Unicode char '%C' has no valid finger.\n");
+    return -1;
+  }  
+
+  return (int)keyboard_list[i].finger; /* Keep compiler from complaining */
+}
+
+
+
+int unicode_in_key_list(wchar_t uni_char)
+{
+  int i = 0;
+  while ((i < MAX_UNICODES)
+     &&  (keyboard_list[i].unicode_value != uni_char))
+  {
+    i++;
+  }
+  if (i = MAX_UNICODES)
+    return 0;
+  else
+    return 1;
+}
 
 /* NOTE if we can consistently use SDLPango on all platforms, we can simply */
 /* rename the pango version to BlackOutline() and get rid of this one.      */
@@ -654,7 +719,7 @@ void GenerateWordList(const char* wordFn)
     /* NOTE need to add one to length arg so terminating '\0' gets added: */
     //length = mbstowcs(temp_wide_word, temp_word, strlen(temp_word) + 1);
 
-    length = convert_from_UTF8(temp_wide_word, temp_word);
+    length = ConvertFromUTF8(temp_wide_word, temp_word);
     DOUT(length);
 
     if (length == -1)  /* Means invalid UTF-8 sequence or conversion failed */
@@ -729,28 +794,31 @@ int RenderLetters(const TTF_Font* letter_font)
     return 0;
   }
 
-  i = num_chars_used = 0;
-  j = 0;
+  i = j = num_chars_used = 0;
+
   t[1] = '\0';
 
-  while (char_list[i] != '\0')
+  while (i < MAX_UNICODES)
   {
-    t[0] = char_list[i];
-    
-    DEBUGCODE
+    t[0] = keyboard_list[i].unicode_value;
+
+    if (t[0] != 0)
     {
-      fprintf(stderr, "Creating SDL_Surface for list element %d, char = %lc\n", i, *t);
+      DEBUGCODE
+      {
+        fprintf(stderr, "Creating SDL_Surface for list element %d, char = %lc\n", i, *t);
+      }
+
+      char_glyphs[j].unicode_value = t[0];
+      char_glyphs[j].white_glyph = BlackOutline_Unicode(t, letter_font, &white);
+      char_glyphs[j].red_glyph = BlackOutline_Unicode(t, letter_font, &red);
+
+      j++;
+      num_chars_used++;
     }
-
-    char_glyphs[j].unicode_value = t[0];
-    char_glyphs[j].white_glyph = BlackOutline_Unicode(t, letter_font, &white);
-    char_glyphs[j].red_glyph = BlackOutline_Unicode(t, letter_font, &red);
-
     i++;
-    j++;
-    num_chars_used++;
   }
-  /* Remember how many letters we added: */
+
   return num_chars_used;
 }
 
@@ -877,7 +945,7 @@ void GenCharListFromString(const char* UTF8_str)
   int i = 0;
   wchar_t wchar_buf[MAX_UNICODES];
 
-  convert_from_UTF8(wchar_buf, UTF8_str);
+  ConvertFromUTF8(wchar_buf, UTF8_str);
 
   /* FNLEN is max length of phrase (I think) */
   while (wchar_buf[i] != '\0' && i < FNLEN) 
@@ -951,22 +1019,24 @@ static int add_char(wchar_t uc)
 }
 
 
-static void clear_keyboard( void ) {
-	int i,j;
 
-	ALPHABET_SIZE = 0;
-	for (i=0; i<256; i++) {
-		ALPHABET[i]=0;
-		for (j=0; j<10; j++)
-			FINGER[i][j]=0;
-	}
+static void clear_keyboard(void)
+{
+  int i = 0;
+  for (i = 0; i < MAX_UNICODES; i++)
+  {
+    keyboard_list[i].unicode_value = 0;
+    keyboard_list[i].finger = -1;
+  }
 }
+
+
 /* This function just tidies up all the ptr args needed for      */
 /* ConvertUTF8toUTF32() from Unicode, Inc. into a neat wrapper.  */
 /* It returns -1 on error, otherwise returns the length of the   */
 /* converted, null-terminated wchar_t* string now stored in the  */
 /* location of the 'wide_word' pointer.                          */
-static int convert_from_UTF8(wchar_t* wide_word, const char* UTF8_word)
+int ConvertFromUTF8(wchar_t* wide_word, const char* UTF8_word)
 {
   int i = 0;
   ConversionResult result;

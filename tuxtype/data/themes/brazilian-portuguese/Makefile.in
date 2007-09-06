@@ -162,7 +162,7 @@ target_vendor = @target_vendor@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 SUBDIRS = images words
-EXTRA_DIST = lang.po
+EXTRA_DIST = lang.po keyboard.lst
 all: all-recursive
 
 .SUFFIXES:
@@ -474,9 +474,11 @@ uninstall-am: uninstall-local
 install-data-local:
 	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/brazilian-portuguese
 	$(INSTALL_DATA) $(srcdir)/lang.po $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/brazilian-portuguese/lang.po
+	$(INSTALL_DATA) $(srcdir)/keyboard.lst $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/brazilian-portuguese/keyboard.lst
 
 uninstall-local:
 	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/brazilian-portuguese/lang.po
+	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/brazilian-portuguese/keyboard.lst
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:
