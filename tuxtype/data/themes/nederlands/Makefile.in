@@ -162,7 +162,7 @@ target_vendor = @target_vendor@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 SUBDIRS = words
-EXTRA_DIST = lang.po nederlands.txt
+EXTRA_DIST = lang.po keyboard.lst nederlands.txt
 all: all-recursive
 
 .SUFFIXES:
@@ -474,12 +474,13 @@ uninstall-am: uninstall-local
 install-data-local:
 	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/nederlands
 	$(INSTALL_DATA) $(srcdir)/lang.po $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/nederlands/lang.po
-	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/nederlands
 	$(INSTALL_DATA) $(srcdir)/nederlands.txt $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/nederlands/nederlands.txt
+	$(INSTALL_DATA) $(srcdir)/keyboard.lst $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/nederlands/keyboard.lst
 
 uninstall-local:
 	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/nederlands/lang.po
 	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/nederlands/nederlands.txt
+	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/nederlands/keyboard.lst
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:

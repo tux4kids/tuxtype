@@ -69,7 +69,7 @@ static TTF_Font* font = NULL;
 /* Used for word list functions (see below): */
 static int num_words;
 static wchar_t word_list[MAX_NUM_WORDS][MAX_WORD_SIZE + 1];
-static wchar_t char_list[MAX_UNICODES];  // List of distinct letters in list
+static wchar_t char_list[MAX_UNICODES];  // List of distinct letters in word list
 static int num_chars_used = 0;       // Number of different letters in word list
 
 
@@ -176,8 +176,8 @@ int LoadKeyboard(void)
       {
         DEBUGCODE
         {
-          fprintf(stderr, "Adding key: Unicode char = %C, finger = %d\n",
-                  wide_str[2], wcstol(&wide_str[0], NULL, 0)); 
+          fprintf(stderr, "Adding key: Unicode char = '%C'\tUnicode value = %d\tfinger = %d\n",
+                  wide_str[2], wide_str[2], wcstol(&wide_str[0], NULL, 0)); 
         }
 
         /* Just plug values into array: */
@@ -806,7 +806,7 @@ int RenderLetters(const TTF_Font* letter_font)
     {
       DEBUGCODE
       {
-        fprintf(stderr, "Creating SDL_Surface for list element %d, char = %lc\n", i, *t);
+        fprintf(stderr, "Creating SDL_Surface for list element %d, char = '%lc', Unicode value = %d\n", i, *t, *t);
       }
 
       char_glyphs[j].unicode_value = t[0];
@@ -854,7 +854,7 @@ SDL_Surface* GetWhiteGlyph(wchar_t t)
   if (i > num_chars_used)
   {
     /* Didn't find character: */
-    fprintf(stderr, "Could not find glyph for unicode character %lc\n", t);
+    fprintf(stderr, "Could not find glyph for Unicode char '%C', value = %d\n", t, t);
     return NULL;
   }
   
@@ -886,6 +886,30 @@ SDL_Surface* GetRedGlyph(wchar_t t)
 }
 
 
+/* Checks to see if all of the glyphs needed by the word list have been     */
+/* successfully rendered based on the Unicode values given in keyboard.lst. */
+/* If not, then the list contains characters that will not display and (if  */
+/* keyboard.lst is correct) cannot be typed. Most likely, this means that   */
+/* keyboard.lst is not correct.
+/* Returns 1 if all needed chars found, 0 otherwise.                        */
+int CheckNeededGlyphs(void)
+{
+  int i = 0;
+
+  while ((i < MAX_UNICODES)
+      && (char_list[i] != '\0'))
+  {
+    if (!GetWhiteGlyph(char_list[i]))
+    {
+      fprintf(stderr, "\nCheckNeededGlyphs() - needed char '%C' (Unicode value = %d) not found.\n",
+              char_list[i], char_list[i]);
+      fprintf(stderr, "This probably means that the theme's 'keyboard.lst' file is incorrect or incomplete.\n");
+      return 0;
+    }
+  }
+  LOG("CheckNeededGlyphs() - all chars found.\n");
+  return 0;
+}
 
 
 /****************************************************/

@@ -7,9 +7,7 @@ jam-short.txt
 install-data-local:
 	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/jamaican/words
 	$(INSTALL_DATA) $(srcdir)/jam-long.txt $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/jamaican/words/jam-long.txt
-	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/jamaican/words
 	$(INSTALL_DATA) $(srcdir)/jam-med.txt $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/jamaican/words/jam-med.txt
-	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/jamaican/words
 	$(INSTALL_DATA) $(srcdir)/jam-short.txt $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/jamaican/words/jam-short.txt
 
 

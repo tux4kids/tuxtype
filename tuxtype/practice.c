@@ -289,7 +289,7 @@ static int practice_load_media(void)
   hands = LoadImage("hands/hands.png", IMG_ALPHA);
   bg = LoadImage("main_bkg.png", IMG_ALPHA);
   wrong = LoadSound("tock.wav");
-  font = LoadFont(settings.theme_font_name, 32);
+  font = LoadFont(settings.theme_font_name, 30);
 
   for (i = 0; i < 10; i++)
   {

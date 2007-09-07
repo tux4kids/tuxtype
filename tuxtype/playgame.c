@@ -70,7 +70,7 @@ static void draw_bar(int curlevel, int diflevel, int curlives,
               int oldlives, int fish_left, int oldfish_left);
 static void DrawFish(int which);
 static void DrawNumbers(int num, int x, int y, int places);
-static int DrawObject(SDL_Surface* sprite, int x, int y);
+static int DrawObject(SDL_Surface* surf, int x, int y);
 static int DrawSprite(sprite* gfx, int x, int y);
 static void EraseNumbers(int num, int x, int y, int places);
 static int EraseObject(SDL_Surface* sprite, int x, int y);
@@ -138,6 +138,17 @@ int PlayCascade( int diflevel ) {
 	LoadFishies();
 	LoadOthers();
 	RenderLetters(font);
+
+	/* Make sure everything in the word list is "typable" according to the current */
+        /* theme's keyboard.lst:                                                       */
+	if (!CheckNeededGlyphs())
+	{
+          fprintf(stderr, "PlayCascade() - did not find all needed characters in theme's "
+                          "keyboard.lst file - returning to menu!\n\n\n");
+          return 0;
+	}
+
+
 
 	LOG( " starting game \n ");
 	while (still_playing) {
