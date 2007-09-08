@@ -146,6 +146,8 @@ tuxtype/data/themes/lithuanian/words/Makefile
 tuxtype/data/themes/malayalam/Makefile
 tuxtype/data/themes/malayalam/images/Makefile
 tuxtype/data/themes/malayalam/images/status/Makefile
+tuxtype/data/themes/malayalam/images/keyboard/Makefile
+tuxtype/data/themes/malayalam/scripts/Makefile
 tuxtype/data/themes/malayalam/words/Makefile
 tuxtype/data/themes/nederlands/Makefile
 tuxtype/data/themes/nederlands/words/Makefile
