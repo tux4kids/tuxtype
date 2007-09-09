@@ -1,4 +1,21 @@
 v 1.5.13
+08 Sep 2007
+[ David Bruce <dbruce@tampabay.rr.com> ]
+       - more work on practice.c - nearly all strings changed to 
+         wchar_t arrays, should be able to support Unicode in
+         practice phrases.
+       - simplified format of keyboard.lst - each line now just
+         gives the fingering for a single character (e.g. "0|a").
+         The code to read in the keyboard.lst has been replaced.
+         All keyboard.lst files in the themes are updated to the
+         new format, however the Russian and Greek keyboard.lst files
+         are erroneous and prevent these themes from working.
+         TuxType now relies on the keyboard.lst files to tell it
+         what characters are permissible in the typing activities.
+         (If anyone knows of a cross-platform way to find out from
+         the OS what Unicode values are "typable" with the user's
+         current keyboard setup, please let me know!).
+
 03 Sep 2007
 [ David Bruce ]
        - practice.c revised significantly to prevent crashes if

@@ -138,6 +138,7 @@ int PlayCascade( int diflevel ) {
 	LoadFishies();
 	LoadOthers();
 	RenderLetters(font);
+	LOG( " Done rendering letters \n ");
 
 	/* Make sure everything in the word list is "typable" according to the current */
         /* theme's keyboard.lst:                                                       */

@@ -906,9 +906,10 @@ int CheckNeededGlyphs(void)
       fprintf(stderr, "This probably means that the theme's 'keyboard.lst' file is incorrect or incomplete.\n");
       return 0;
     }
+    i++;
   }
   LOG("CheckNeededGlyphs() - all chars found.\n");
-  return 0;
+  return 1;
 }
 
 
