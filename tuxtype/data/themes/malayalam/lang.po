@@ -15,12 +15,12 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
-#
+
 msgid "Sound Effects Volume"
 msgstr "ശബ്ദം"
-#
+
 msgid "Music Volume"
-msgstr "പാട്ട്"
+msgstr ""
 #
 msgid "Sound & Music Disabled"
 msgstr "ശബ്ദം പാട്ട് ഇല്ല"
@@ -29,73 +29,73 @@ msgid "Paused!"
 msgstr "തടസ്സം"
 
 msgid "Press escape again to return to menu"
-msgstr "ഏസ്സക്കേപ്പ് അമ൪ത്തു പുറത്തേക്ക് പോകാ൯"
+msgstr "പുറത്തോട്ടുപോകാന്‍ വീണ്ടും Esc കീ അമര്‍ത്തുക"
 #
 msgid "Press space bar to return to game"
-msgstr "സ്പേസ്സ് അമ൪ത്തു പുറത്തേക്ക് പോകാ൯"
+msgstr "കളിയില്‍ തിരിച്ചെത്താന്‍ സ്പെയ്സ് കീ അടിക്കുക"
 #
 msgid "Level"
-msgstr "നില"
+msgstr "തട്ട്"
 #
 msgid "Lives"
-msgstr "ജീവിതം"
+msgstr "ആയുസ്സ്"
 #
 msgid "Fish"
-msgstr "മീ൯"
+msgstr "മത്സ്യം"
 #
 msgid "Easy"
 msgstr "എളുപ്പം"
 #
 msgid "Medium"
-msgstr "മീഡിയം"
+msgstr "ഇടത്തരം"
 #
 msgid "Hard"
-msgstr "ഹാ൪ഡ്"
+msgstr "ബുദ്ധിമുട്ടുള്ളത്"
 #
 msgid "Practice"
-msgstr "പഠനം"
+msgstr "പരിശീലനം"
 #
 msgid "Congratulations"
-msgstr "അഭിനന്ദനം"
+msgstr "കൊള്ളാലോ!!!"
 #
 msgid "Oh No!"
-msgstr "നോ!"
+msgstr "അയ്യോ!.."
 #
 msgid "Work In Progress!"
-msgstr "ജോലി പുരോഗമിക്കുന്നു"
+msgstr "പണി നടക്കുന്നുണ്ടല്ലോ"
 #
 msgid "This feature is not ready yet"
-msgstr  "ഈ ഫീച്ചര്‍ ശരിയായിട്ടില്ല"
+msgstr  "ഇത് ഇതുവരെ ശരിയാക്കിയിട്ടില്ല."
 #
 msgid "Discuss the future of TuxTyping at"
-msgstr "ടക്സ് ടൈപ്പിന്റെ  ഭാവി ചര്‍ച്ചചെയ്യുക"
+msgstr "ടക്സ് ടൈപ്പിന്റെ  ഭാവി ചര്‍ച്ചചെയ്യാനായി ഇവിടെ പോകുക"
 #
 msgid "Alphabet"
 msgstr "അക്ഷരം"
 #
 msgid "Short Words"
-msgstr "ചെറിയവാക്ക്"
+msgstr "ചെറിയ വാക്ക്"
 #
 msgid "Medium Words"
-msgstr "മീഡിയംവാക്ക്"
+msgstr "ഇടത്തരം വാക്ക്"
 #
 msgid "Long Words"
-msgstr "വലിയവാക്ക്"
+msgstr "വലിയ വാക്ക്"
 #
 msgid "Fish Cascade"
-msgstr "മീ൯ കാസകേഡ്"
+msgstr "വീഴുന്ന മത്സ്യങ്ങള്‍"
 #
 msgid "Space Cadet"
-msgstr "ആകാശ പറവ"
+msgstr "ആകാശ പറവകള്‍ "
 #
 msgid "Edit Word Lists"
 msgstr "വാക്കുകളുടെ ശേഖരം"
 #
 msgid "Comet Zap"
-msgstr "കോമറ്റ് സാപ്പ്"
+msgstr "വാല്‍ നക്ഷത്രത്തെ പിടിക്കുക"
 #
 msgid "Pilot"
-msgstr "പൈലറ്റ്"
+msgstr "ആദ്യ പരിശീലനം"
 #
 msgid "Lessons"
 msgstr "പാഠങ്ങള്‍"
@@ -104,7 +104,7 @@ msgid "Ace"
 msgstr "എയ്സ്"
 #
 msgid "Project Info"
-msgstr "കളിയുടെ വിിവരങ്ങള്‍"
+msgstr "കളിയുടെ വിവരങ്ങള്‍"
 #
 msgid "Options"
 msgstr "ഐച്ഛികങ്ങള്‍"
