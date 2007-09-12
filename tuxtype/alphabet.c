@@ -595,7 +595,8 @@ void UseAlphabet(void)
 	/* This totally mucks up i18n abilities :( */
 	for (i=65; i<90; i++) 
 	{
-		if (ALPHABET[i]) {
+		//if (ALPHABET[i])
+                {
 			word_list[num_words][0] = (unsigned char)i;
 			word_list[num_words][1] = '\0';
 			num_words++;

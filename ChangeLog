@@ -1,3 +1,26 @@
+
+May-Sep 2007
+Tux Type Indic Team:
+[ Sreyas Kurumanghat <k.sreyas@gmail.com> ]
+[ Sreerenj Balachandran <bsreerenj@gmail.com> ]
+[ Vimal Ravi <vimal_ravi@rediff.com> ]
+[ Prince K. Antony <prince.kantony@gmail.com> ]
+[ Mobin Mohan <mobinmohan@gmail.com> ]
+
+       - added libSDLPango to handle complex rendering issues related with 
+         Indic languages. This will eventually allow support of any of the
+         world's major  languages.
+       - added an Indic language theme, Malayalam, which also contains a 
+         lesson area.
+       - new format of keyboard.lst for malayalam theme (now added to other
+         themes too.
+       - created a new file named practice.txt which contains the strings to
+         display in the practice session. Also did a major role in adding 
+         Unicode support in the practice area.
+       - removed old keymap that was limited to Unicode chars 0-255 (now
+         replaced by a scheme that can support any chars in Unicode).
+       - added series of XML lessons for Malayalam theme.
+
 v 1.5.13
 08 Sep 2007
 [ David Bruce <dbruce@tampabay.rr.com> ]
@@ -52,7 +75,7 @@ v 1.5.11
        - program now looks for a settings file under the theme dir
          when a theme is selected, allowing themes to specify a 
          preferred font (or other settings).
-       - Incorporated most of changes from tuxtype-Indic branch.
+       - Incorporated most of changes from TuxType-Indic branch.
          Program will now require SDLPango (as well as pango itself
          and glib) - for now, pango-related code #ifndef-ed out for
          win32 until I figure out how to get Windows build to work.

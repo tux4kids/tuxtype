@@ -5,6 +5,11 @@ Jesse Andrews <jdandr2@uky.edu>
 Calvin Arndt <calarndt@tux4kids.org>
 Sam Hart <hart@geekcomix.com>  --- Sam started it all with TuxType 1!!!
 Jacob Greig <bombastic@firstlinux.net>
+Sreyas Kurumanghat <k.sreyas@gmail.com>
+Sreerenj Balachandran <bsreerenj@gmail.com>
+Vimal Ravi <vimal_ravi@rediff.com>
+Prince K. Antony <prince.kantony@gmail.com>
+Mobin Mohan <mobinmohan@gmail.com>
 
 Packaging & Ports:
 ------------------
@@ -24,7 +29,11 @@ Martin Moeller <martin@liga.dk> - (for Danish word files in TuxType 1)
 Martin Rioux <riomar2000@hotmail.com> - (for French translation in TuxType 1)
 Karl Ove Hufthammer <karl@huftis.org> - (for Norwegian Nynorsk translation work for Tuxtype 2)
 Trond Mæhlum <trondm@skolelinux.no> - (for Norwegian Bokmål translation work for Tuxtype 2)
-
+Sreyas Kurumanghat <k.sreyas@gmail.com> - (for Indic language support)
+Sreerenj Balachandran <bsreerenj@gmail.com> - (for Indic language support)
+Vimal Ravi <vimal_ravi@rediff.com> - (for Indic language support)
+Prince K. Antony <prince.kantony@gmail.com> - (for Indic language support)
+Mobin Mohan <mobinmohan@gmail.com> - (for Indic language support)
 
 Note: ConvertUTF.c/.h are from Unicode, Inc. and are released under a very free (BSD-like) license:
 

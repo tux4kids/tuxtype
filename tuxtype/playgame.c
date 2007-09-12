@@ -146,6 +146,7 @@ int PlayCascade( int diflevel ) {
 	{
           fprintf(stderr, "PlayCascade() - did not find all needed characters in theme's "
                           "keyboard.lst file - returning to menu!\n\n\n");
+          FreeGame();
           return 0;
 	}
 
@@ -1242,6 +1243,12 @@ static void SpawnFishies(int diflevel, int* fishies, int* frame)
 	LOG( "=>Spawning fishy\n" );
 
 	new_word = GetWord();
+
+	if (!new_word)
+	{
+	  fprintf(stderr, "SpawnFishies() - could not get word - returning.\n");
+          return;
+	}
 
 	/* If we get to here, it should be OK to actually spawn the fishy: */
 	fish_object[*fishies].word = new_word;

@@ -1257,6 +1257,8 @@ static int chooseWordlist(void)
 
   DEBUGCODE { fprintf(stderr, "wordPath is: %s\n", wordPath); }
 
+
+  /* FIXME looks like a place for scandir() - or our own w32_scandir() */
   /* create a list of all the .txt files */
 
   wordsDir = opendir( wordPath );	

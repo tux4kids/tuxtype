@@ -62,6 +62,8 @@ static void laser_unload_data(void);
 
 /* --- MAIN GAME FUNCTION!!! --- */
 
+/* TODO modify game to allow longer words (12 chars or so) */
+
 int PlayLaserGame(int diff_level)
 {
 	int i, img, done, quit, frame, lowest, lowest_y, 
