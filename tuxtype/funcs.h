@@ -38,7 +38,7 @@ int CheckNeededGlyphs(void);
 void ClearWordList(void);
 int ConvertFromUTF8(wchar_t* wide_word, const char* UTF8_word);
 void FreeLetters(void);
-void GenerateWordList(const char* wordFn);
+int GenerateWordList(const char* wordFn);
 void GenCharListFromString(const char* UTF8_str);
 void ResetCharList(void);
 wchar_t GetLetter(void);
@@ -49,7 +49,7 @@ int LoadKeyboard(void);
 int GetFinger(wchar_t uni_char);
 int RenderLetters(const TTF_Font* letter_font);
 
-void UseAlphabet(void);
+//void UseAlphabet(void);
 
 
 /* In audio.c:   */

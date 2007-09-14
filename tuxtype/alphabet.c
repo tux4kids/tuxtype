@@ -585,34 +585,34 @@ void ClearWordList(void)
 /* UseAlphabet(): setups the word_list so that it really
  * returns a LETTER when GetWord() is called
  */
-void UseAlphabet(void)
-{
-	int i;
-
-	LOG("Entering UseAlphabet()\n");
-
-	num_words = 0;
-	/* This totally mucks up i18n abilities :( */
-	for (i=65; i<90; i++) 
-	{
-		//if (ALPHABET[i])
-                {
-			word_list[num_words][0] = (unsigned char)i;
-			word_list[num_words][1] = '\0';
-			num_words++;
-
-			DEBUGCODE { fprintf(stderr, "Adding %c\n", (unsigned char)i); }
-		}
-	}
-	/* Make sure list is terminated with null character */
-	word_list[num_words][0] = '\0';
-
-	/* Make list of all unicode characters used in word list: */
-	gen_char_list();
-
-	DOUT(num_words);
-	LOG("Leaving UseAlphabet()\n");
-}
+// void UseAlphabet(void)
+// {
+// 	int i;
+// 
+// 	LOG("Entering UseAlphabet()\n");
+// 
+// 	num_words = 0;
+// 	/* This totally mucks up i18n abilities :( */
+// 	for (i=65; i<90; i++) 
+// 	{
+// 		//if (ALPHABET[i])
+//                 {
+// 			word_list[num_words][0] = (unsigned char)i;
+// 			word_list[num_words][1] = '\0';
+// 			num_words++;
+// 
+// 			DEBUGCODE { fprintf(stderr, "Adding %c\n", (unsigned char)i); }
+// 		}
+// 	}
+// 	/* Make sure list is terminated with null character */
+// 	word_list[num_words][0] = '\0';
+// 
+// 	/* Make list of all unicode characters used in word list: */
+// 	gen_char_list();
+// 
+// 	DOUT(num_words);
+// 	LOG("Leaving UseAlphabet()\n");
+// }
 
 /* GetWord: returns a random word that wasn't returned
  * the previous time (unless there is only 1 word!!!)
@@ -672,7 +672,9 @@ wchar_t* GetWord(void)
  * character (such as #)
  */
 
-void GenerateWordList(const char* wordFn)
+/* Now returns the number of words in the list, so if no words */
+/* returns "false"                                             */
+int GenerateWordList(const char* wordFn)
 {
   int j;
   unsigned char temp_word[FNLEN];
@@ -692,9 +694,8 @@ void GenerateWordList(const char* wordFn)
   if ( wordFile == NULL )
   {
     fprintf(stderr, "ERROR: could not load wordlist: %s\n", wordFn );
-    fprintf(stderr, "Using ALPHABET instead\n");
-    UseAlphabet( );
-    return;
+//    UseAlphabet( );
+    return 0;
   }
 
 
@@ -767,15 +768,18 @@ void GenerateWordList(const char* wordFn)
 
   DOUT(num_words);
 
-  if (num_words == 0)
-    UseAlphabet( );
+//  if (num_words == 0)
+//    UseAlphabet( );
 
   fclose(wordFile);
 
   /* Make list of all unicode characters used in word list: */
+  /* (we use this to check to make sure all are "typable"); */
   gen_char_list();
 
   LOG("Leaving GenerateWordList()\n");
+
+  return (num_words);
 }
 
 

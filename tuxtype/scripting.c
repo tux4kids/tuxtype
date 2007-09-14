@@ -108,10 +108,12 @@ int TestLesson( void )
 	
   char fn[FNLEN]; 
   unsigned char wordlistFile[200][200];
-  unsigned char wordPath[FNLEN];
+  unsigned char script_path[FNLEN];
 
   DIR* wordsDir = NULL;
   struct dirent* wordsFile = NULL;
+
+  LOG("\nEnter TestLesson()\n");
 
   pointer = LoadImage( "right.png", IMG_ALPHA );
   bkg = LoadImage( "main_bkg.png", IMG_REGULAR );
@@ -136,9 +138,10 @@ int TestLesson( void )
   /* First look in theme path, if desired: */
   if (!settings.use_english)
   {
-    sprintf( wordPath, "%s/scripts", settings.theme_data_path);
-    if (CheckFile(wordPath))
+    sprintf( script_path, "%s/scripts", settings.theme_data_path);
+    if (CheckFile(script_path))
     {
+      DEBUGCODE { fprintf(stderr, "Using theme script dir: %s\n", script_path); }
       found = 1;
     }
   }
@@ -146,9 +149,10 @@ int TestLesson( void )
   /* Now look in default path if desired or needed: */
   if (!found)
   {
-    sprintf( wordPath, "%s/scripts", settings.default_data_path);
-    if (CheckFile(wordPath))
+    sprintf( script_path, "%s/scripts", settings.default_data_path);
+    if (CheckFile(script_path))
     {
+      DEBUGCODE { fprintf(stderr, "Using theme script dir: %s\n", script_path); }
       found = 1;
     }
   }
@@ -160,13 +164,13 @@ int TestLesson( void )
   }
 
   /* What is this location? */
-  spot.x=60;
-  spot.y=20;
+  spot.x = 60;
+  spot.y = 20;
 
 
   /* create a list of all the .xml files */
 
-  wordsDir = opendir( wordPath );	
+  wordsDir = opendir( script_path );	
   font = LoadFont(settings.theme_font_name, MENU_FONT_SIZE);
   do
   {
@@ -182,6 +186,9 @@ int TestLesson( void )
       continue;
 
     sprintf( wordlistFile[c], "%s", wordsFile->d_name );
+
+    DEBUGCODE { fprintf(stderr, "Adding XML file no. %d: %s\n", c, wordlistFile[c]); }
+
 
     filenames[c] = TTF_RenderUTF8_Blended(  font, wordsFile->d_name, white);
     SDL_BlitSurface( filenames[c], NULL, screen, &spot );
@@ -227,7 +234,7 @@ int TestLesson( void )
         case SDL_QUIT:
           exit(0);
           break;
-
+        /* FIXME some of mouse code is wrong */
         case SDL_MOUSEMOTION:
           for (i=0; (i<8) && (loc-(loc%8)+i<c); i++)
             if (inRect( titleRects[i], event.motion.x, event.motion.y ))
@@ -255,15 +262,15 @@ int TestLesson( void )
           for (i=0; (i<8) && (loc-(loc%8)+i<c); i++)
             if (inRect(titleRects[i], event.button.x, event.button.y))
             {
-              loc = loc-(loc%8)+i;
-              ClearWordList(); /* clear old selection */
-              if (loc==0)
-                UseAlphabet(); 
-              else
-                GenerateWordList(wordlistFile[loc]);
-
-              stop = 1;
-              break;
+//              loc = loc-(loc%8)+i;
+//              ClearWordList(); /* clear old selection */
+//               if (loc==0)
+//                 UseAlphabet(); 
+//               else
+//                 GenerateWordList(wordlistFile[loc]);
+// 
+//               stop = 1;
+//               break;
             }
           break;
 
@@ -307,15 +314,6 @@ int TestLesson( void )
           }
       }
 
-      if (stop == 2)
-      {
-        SDL_FreeSurface(pointer);
-        SDL_FreeSurface(left);
-        SDL_FreeSurface(right);
-        SDL_FreeSurface(bkg);
-        pointer = left = right = bkg = NULL;
-        return;
-      }
 
       if (old_loc != loc)
       {
@@ -344,10 +342,27 @@ int TestLesson( void )
     SDL_FreeSurface(bkg);
     pointer = left = right = bkg = NULL;
 
+    if (stop == 2)
+    {
+      LOG("Player pressed 'Esc' - leaving TestLesson\n");
+      return 1;
+    }
+
     if (load_script( fn ) != 0)
+    {
+      fprintf(stderr, "load_script() failed to load '%s'\n");
       return 0; // bail if any errors occur
-    run_script();
-    SDL_ShowCursor(1);
+    }
+
+  DEBUGCODE { fprintf(stderr, "Attempting to run script: %s\n", fn); }
+
+  run_script();
+
+  /* FIXME - shouldn't we show the cursor if returning in other code paths? */
+  SDL_ShowCursor(1);
+
+  LOG("Leave TestLesson()\n");
+
   return 1; 
 }
 
@@ -439,7 +454,7 @@ static int load_script(const char* fn)
   char str[FNLEN];
   FILE* f = NULL;
     
-  LOG( "loadScript()\n" );
+  LOG( "\nEnter load_script()\n" );
     
   if (curScript)
   {
@@ -837,6 +852,9 @@ static int load_script(const char* fn)
   } while(!feof(f));
 
   fclose(f);
+
+  LOG("Leave load_script()\n");
+
   return 0;
 }
 
@@ -849,6 +867,8 @@ static void run_script(void)
   /* --- for on mouse click on an image --- */
   Mix_Chunk* clickWavs[FNLEN] = {NULL};
   SDL_Rect   clickRects[FNLEN];
+
+  LOG("\nEnter run_script()\n");
 
   if (!curScript)
   {
@@ -899,8 +919,8 @@ static void run_script(void)
           {
             /* --- figure out where to put it! --- */
             SDL_Rect loc;
-            loc.w=img->w;
-            loc.h=img->h;
+            loc.w = img->w;
+            loc.h = img->h;
 
             /* --- if user specifies y location, use it --- */
             if (curItem->y >= 0)
@@ -909,7 +929,8 @@ static void run_script(void)
             }
             else
             {
-              loc.y=y; y+=loc.h;
+              loc.y = y;
+              y += loc.h;
             }
 
             /* --- if user specifies x location, use it --- */
@@ -921,9 +942,15 @@ static void run_script(void)
             {
               switch (curItem->align)
               {
-                case 'r': loc.x = (screen->w)-(loc.w); break;
-                case 'c': loc.x = ((screen->w)-(loc.w))/2; break;
-                default:  loc.x = 0; break;
+                case 'r':
+                  loc.x = (screen->w) - (loc.w);
+                  break;
+                case 'c':
+                  loc.x = ((screen->w) - (loc.w))/2;
+                  break;
+                default:
+                  loc.x = 0;
+                  break;
               }
             }
 
@@ -1168,15 +1195,17 @@ static void run_script(void)
 
         case itemPRAC:
         {
+          wchar_t wide_buf[FNLEN];
+          ConvertFromUTF8(wide_buf, curItem->data);
           if (curItem->goal > 0)
           {
             //printf( "goal is %d\n", curItem->goal );
-            Phrases(curItem->data);
+            Phrases(wide_buf);
           }
           else
           {
             //printf( "No goal \n" );
-            Phrases(curItem->data);
+            Phrases(wide_buf);
           }
           break;
         }
@@ -1224,6 +1253,8 @@ static void run_script(void)
     }
 
   } /* --- End of "while (curPage)" loop ----*/
+
+  LOG("Leave run_script()\n");
 }
 
 

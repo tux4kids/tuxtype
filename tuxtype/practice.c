@@ -5,6 +5,9 @@ practice.c
 begin                : Friday Jan 25, 2003
 copyright            : (C) 2003 by Jesse Andrews
 email                : jdandr2@uky.edu
+
+Revised extensively: 2007
+David Bruce <dbruce@tampabay.rr.com>
 ***************************************************************************/
 
 /***************************************************************************

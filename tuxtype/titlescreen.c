@@ -1218,7 +1218,7 @@ static int chooseWordlist(void)
   int stop = 0;
   int loc = 0;
   int old_loc = 1;
-  int lists = 1;
+  int lists = 0;
   int i;
   unsigned char wordPath[FNLEN];
   unsigned char wordlistFile[MAX_WORD_LISTS][200];
@@ -1295,22 +1295,27 @@ static int chooseWordlist(void)
   } while (1); /* Loop continues until break occurs */
 
   closedir(wordsDir);	
+ 
+ DEBUGCODE { fprintf(stderr, "Found %d .txt file(s) in words dir\n", lists); }
 
 
 
   /* let the user pick the list */
 
   /* Render SDL_Surfaces for list entries: */
-  titles[0] = BlackOutline( _("Alphabet"), font, &white );
-  select[0] = BlackOutline( _("Alphabet"), font, &yellow);
+//  titles[0] = BlackOutline( _("Alphabet"), font, &white );
+//  select[0] = BlackOutline( _("Alphabet"), font, &yellow);
 
-  for (i = 1; i<lists; i++)
+  /* NOTE - no longer hard-coding titles[0] to be alphabet - themes  */
+  /* should include a regular word list file called "alphabet.txt"   */
+  /* Should sort the list and always put the alphabet file first, if */
+  /* present.                                                        */
+  for (i = 0; i < lists; i++)
   {
     titles[i] = BlackOutline( wordlistName[i], font, &white );
     select[i] = BlackOutline( wordlistName[i], font, &yellow);
   }
 
-//  SDL_FreeSurface(bkg);
   backg = LoadImage("main_bkg.png", IMG_REGULAR);
   left = LoadImage("left.png", IMG_ALPHA);
   right = LoadImage("right.png", IMG_ALPHA);
@@ -1320,7 +1325,7 @@ static int chooseWordlist(void)
   {
     fprintf(stderr, "chooseWordList(): needed image not available\n");
   
-    for (i = 0; i<lists; i++)
+    for (i = 0; i < lists; i++)
     {
       SDL_FreeSurface(titles[i]);
       SDL_FreeSurface(select[i]);
@@ -1388,10 +1393,10 @@ static int chooseWordlist(void)
                                                 if (inRect(titleRects[i], event.button.x, event.button.y)) {
                                                         loc = loc-(loc%8)+i;
 							ClearWordList(); /* clear old selection */
-							if (loc==0)
-							  UseAlphabet(); 
-							else
-							  GenerateWordList(wordlistFile[loc]); 
+							//if (loc==0)
+							//  UseAlphabet(); 
+							//else
+							GenerateWordList(wordlistFile[loc]); 
                                                         stop = 1;
                                                         break;
                                                 }
@@ -1400,10 +1405,10 @@ static int chooseWordlist(void)
                                         if (event.key.keysym.sym == SDLK_ESCAPE) { stop = 2; break; }
                                         if (event.key.keysym.sym == SDLK_RETURN) {
 						ClearWordList(); /* clear old selection */
-						if (loc==0)
-						  UseAlphabet(); 
-						else
-						  GenerateWordList(wordlistFile[loc]); 
+						//if (loc==0)
+						//  UseAlphabet(); 
+						//else
+						GenerateWordList(wordlistFile[loc]); 
                                                 stop = 1;
                                                 break;
                                         }
