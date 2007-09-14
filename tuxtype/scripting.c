@@ -57,9 +57,9 @@ void InstructLaser(void)
   char fn[FNLEN];
 
   if (settings.use_english)
-    sprintf( fn, "%s/scripts/cascade.xml", settings.default_data_path);
+    sprintf( fn, "%s/scripts/laser.xml", settings.default_data_path);
   else
-    sprintf( fn, "%s/scripts/cascade.xml", settings.theme_data_path);
+    sprintf( fn, "%s/scripts/laser.xml", settings.theme_data_path);
 
   if (load_script( fn ) != 0)
     return; // bail if any errors occur
@@ -77,9 +77,9 @@ void ProjectInfo(void)
   char fn[FNLEN]; 
 
   if (settings.use_english)
-    sprintf( fn, "%s/scripts/cascade.xml", settings.default_data_path);
+    sprintf( fn, "%s/scripts/projectInfo.xml", settings.default_data_path);
   else
-    sprintf( fn, "%s/scripts/cascade.xml", settings.theme_data_path);
+    sprintf( fn, "%s/scripts/projectInfo.xml", settings.theme_data_path);
 
   if (load_script( fn ) != 0)
     return; // bail if any errors occur
@@ -88,10 +88,10 @@ void ProjectInfo(void)
 }
 
 
-int TestLesson( void )
+int TestLesson(void)
 {
   SDL_Surface* left = NULL, *right = NULL, *pointer = NULL, *bkg = NULL;
-  SDL_Surface *filenames[200] = {NULL};
+  SDL_Surface* filenames[200] = {NULL};
 
   SDL_Rect spot, arrow_area;
   SDL_Rect leftRect, rightRect;
@@ -190,7 +190,7 @@ int TestLesson( void )
     DEBUGCODE { fprintf(stderr, "Adding XML file no. %d: %s\n", c, wordlistFile[c]); }
 
 
-    filenames[c] = TTF_RenderUTF8_Blended(  font, wordsFile->d_name, white);
+    filenames[c] = TTF_RenderUTF8_Blended(font, wordsFile->d_name, white);
     SDL_BlitSurface( filenames[c], NULL, screen, &spot );
     SDL_FreeSurface(filenames[c]);
     c++;
@@ -214,7 +214,7 @@ int TestLesson( void )
   titleRects[0].y = 30;
   titleRects[0].w = titleRects[0].h = titleRects[0].x = 0;
 
-  for (i = 1; i<8; i++)
+  for (i = 1; i < 8; i++)
   { 
     titleRects[i].y = titleRects[i-1].y + 50;
     titleRects[i].w = titleRects[i].h = titleRects[i].x = 0;
@@ -228,7 +228,7 @@ int TestLesson( void )
   while (!stop)
   {
     while (SDL_PollEvent(&event))
-
+    {
       switch (event.type)
       {
         case SDL_QUIT:
@@ -312,47 +312,50 @@ int TestLesson( void )
             if (loc+1< c)
               loc++;
           }
-      }
+      } /* End of 'switch(event.type)' loop */
+    }  /* End of 'while(SDL_PollEvent(&event))' loop */
 
 
-      if (old_loc != loc)
+
+    if (old_loc != loc)
+    {
+      int start;
+      SDL_BlitSurface( bkg, &arrow_area, screen, NULL);
+
+      start = loc;
+      for (i = start; i < c; i++)
       {
-        int start;
-        SDL_BlitSurface( bkg, &arrow_area, screen, NULL);
-
-        start = loc;
-        for (i = start; i < c; i++)
-        {
-          spot.x = 5;
-          spot.y = (i * MENU_FONT_SIZE) + 18;
-          if (i == loc)
-            SDL_BlitSurface(pointer, NULL, screen, &spot);
-        }
-
-        SDL_Flip(screen);
+        spot.x = 5;
+        spot.y = (i * MENU_FONT_SIZE) + 18;
+        if (i == loc)
+          SDL_BlitSurface(pointer, NULL, screen, &spot);
       }
+
+      SDL_Flip(screen);
+    }
 
       SDL_Delay(40);
       old_loc = loc;
-    }
+  }   /*   End of 'while(!stop)' loop  */
 
-    SDL_FreeSurface(pointer);
-    SDL_FreeSurface(left);
-    SDL_FreeSurface(right);
-    SDL_FreeSurface(bkg);
-    pointer = left = right = bkg = NULL;
+  SDL_FreeSurface(pointer);
+  SDL_FreeSurface(left);
+  SDL_FreeSurface(right);
+  SDL_FreeSurface(bkg);
+  pointer = left = right = bkg = NULL;
 
-    if (stop == 2)
-    {
-      LOG("Player pressed 'Esc' - leaving TestLesson\n");
-      return 1;
-    }
+  if (stop == 2)
+  {
+    LOG("Player pressed 'Esc' - leaving TestLesson\n");
+    return 1;
+  }
 
-    if (load_script( fn ) != 0)
-    {
-      fprintf(stderr, "load_script() failed to load '%s'\n");
-      return 0; // bail if any errors occur
-    }
+  /* Getting to here means "stop == 1", try to run chosen script: */
+  if (load_script(fn) != 0)
+  {
+    fprintf(stderr, "load_script() failed to load '%s'\n");
+    return 0; // bail if any errors occur
+  }
 
   DEBUGCODE { fprintf(stderr, "Attempting to run script: %s\n", fn); }
 

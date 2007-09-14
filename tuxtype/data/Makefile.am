@@ -10,3 +10,4 @@ install-data-local:
 uninstall-local:
 	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/keyboard.lst
 
+_SOURCES = alphabet.txt

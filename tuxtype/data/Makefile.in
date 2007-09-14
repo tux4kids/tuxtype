@@ -163,6 +163,7 @@ top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 SUBDIRS = images scripts sounds themes words fonts
 EXTRA_DIST = keyboard.lst
+_SOURCES = alphabet.txt
 all: all-recursive
 
 .SUFFIXES:
