@@ -3,7 +3,7 @@
 # modified for tuxmath by Yves Combe (yves@ycombe.net)
 # modified for tuxtype by David Bruce (dbruce@tampabay.rr.com)
 
-!define PKG_VERSION "1.5.9"
+!define PKG_VERSION "1.5.10"
 !define PKG_PREFIX  "tuxtype"
 
 !define APP_PREFIX  "TuxType2"

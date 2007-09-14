@@ -45,12 +45,12 @@ CONFIG_CLEAN_FILES =
 SOURCES =
 DIST_SOURCES =
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
-ACLOCAL = ${SHELL} /root/Desktop/tuxtype-indic/missing --run aclocal-1.10
-AMTAR = ${SHELL} /root/Desktop/tuxtype-indic/missing --run tar
-AUTOCONF = ${SHELL} /root/Desktop/tuxtype-indic/missing --run autoconf
-AUTOHEADER = ${SHELL} /root/Desktop/tuxtype-indic/missing --run autoheader
-AUTOMAKE = ${SHELL} /root/Desktop/tuxtype-indic/missing --run automake-1.10
-AWK = gawk
+ACLOCAL = ${SHELL} /home/dbruce/tux4kids/tuxtype/branches/tuxtype-indic/missing --run aclocal-1.10
+AMTAR = ${SHELL} /home/dbruce/tux4kids/tuxtype/branches/tuxtype-indic/missing --run tar
+AUTOCONF = ${SHELL} /home/dbruce/tux4kids/tuxtype/branches/tuxtype-indic/missing --run autoconf
+AUTOHEADER = ${SHELL} /home/dbruce/tux4kids/tuxtype/branches/tuxtype-indic/missing --run autoheader
+AUTOMAKE = ${SHELL} /home/dbruce/tux4kids/tuxtype/branches/tuxtype-indic/missing --run automake-1.10
+AWK = mawk
 CC = gcc
 CCDEPMODE = depmode=gcc3
 CFLAGS = -g -O2 -I/usr/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT
@@ -72,13 +72,13 @@ INSTALL_SCRIPT = ${INSTALL}
 INSTALL_STRIP_PROGRAM = $(install_sh) -c -s
 LDFLAGS = 
 LIBOBJS = 
-LIBS = -L/usr/lib -lSDL -lSDL_image -lSDL_ttf -lSDL_mixer 
+LIBS = -L/usr/lib -lSDL -lSDL_Pango -lSDL_image -lSDL_ttf -lSDL_mixer 
 LN_S = ln -s
 LTLIBOBJS = 
-MAKEINFO = ${SHELL} /root/Desktop/tuxtype-indic/missing --run makeinfo
+MAKEINFO = ${SHELL} /home/dbruce/tux4kids/tuxtype/branches/tuxtype-indic/missing --run makeinfo
 MKDIR_P = /bin/mkdir -p
-NSIS = no
-NSI_DLL_DIR = /root/tuxtype_dll
+NSIS = /usr/bin/makensis
+NSI_DLL_DIR = /home/dbruce/tuxtype_dll
 NSI_INSTALL_DIR = mingw32
 OBJEXT = o
 PACKAGE = tuxtype
@@ -96,10 +96,10 @@ SHELL = /bin/sh
 STRIP = 
 VERSION = 1.5.10
 WINDRES = 
-abs_builddir = /root/Desktop/tuxtype-indic/tuxtype/data/fonts
-abs_srcdir = /root/Desktop/tuxtype-indic/tuxtype/data/fonts
-abs_top_builddir = /root/Desktop/tuxtype-indic
-abs_top_srcdir = /root/Desktop/tuxtype-indic
+abs_builddir = /home/dbruce/tux4kids/tuxtype/branches/tuxtype-indic/tuxtype/data/fonts
+abs_srcdir = /home/dbruce/tux4kids/tuxtype/branches/tuxtype-indic/tuxtype/data/fonts
+abs_top_builddir = /home/dbruce/tux4kids/tuxtype/branches/tuxtype-indic
+abs_top_srcdir = /home/dbruce/tux4kids/tuxtype/branches/tuxtype-indic
 ac_ct_CC = gcc
 am__include = include
 am__leading_dot = .
@@ -126,7 +126,7 @@ host_vendor = unknown
 htmldir = ${docdir}
 includedir = ${prefix}/include
 infodir = ${datarootdir}/info
-install_sh = $(SHELL) /root/Desktop/tuxtype-indic/install-sh
+install_sh = $(SHELL) /home/dbruce/tux4kids/tuxtype/branches/tuxtype-indic/install-sh
 libdir = ${exec_prefix}/lib
 libexecdir = ${exec_prefix}/libexec
 localedir = ${datarootdir}/locale
@@ -149,7 +149,7 @@ target_os = linux-gnu
 target_vendor = unknown
 top_builddir = ../../..
 top_srcdir = ../../..
-EXTRA_DIST = Rachana_g01.ttf
+EXTRA_DIST = Rachana_w01.ttf
 all: all-am
 
 .SUFFIXES:
@@ -162,9 +162,9 @@ $(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
 	      exit 1;; \
 	  esac; \
 	done; \
-	echo ' cd $(top_srcdir) && $(AUTOMAKE) --foreign  tuxtype/data/fonts/Makefile'; \
+	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu  tuxtype/data/fonts/Makefile'; \
 	cd $(top_srcdir) && \
-	  $(AUTOMAKE) --foreign  tuxtype/data/fonts/Makefile
+	  $(AUTOMAKE) --gnu  tuxtype/data/fonts/Makefile
 .PRECIOUS: Makefile
 Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
 	@case '$?' in \
@@ -313,10 +313,10 @@ uninstall-am: uninstall-local
 
 install-data-local:
 	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/fonts
-	$(INSTALL_DATA) $(srcdir)/Rachana_g01.ttf $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/fonts
+	$(INSTALL_DATA) $(srcdir)/Rachana_w01.ttf $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/fonts
 
 uninstall-local:
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/fonts/Rachana_g01.ttf
+	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/fonts/Rachana_w01.ttf
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:

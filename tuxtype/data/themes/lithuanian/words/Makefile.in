@@ -169,9 +169,9 @@ $(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
 	      exit 1;; \
 	  esac; \
 	done; \
-	echo ' cd $(top_srcdir) && $(AUTOMAKE) --foreign  tuxtype/data/themes/lithuanian/words/Makefile'; \
+	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu  tuxtype/data/themes/lithuanian/words/Makefile'; \
 	cd $(top_srcdir) && \
-	  $(AUTOMAKE) --foreign  tuxtype/data/themes/lithuanian/words/Makefile
+	  $(AUTOMAKE) --gnu  tuxtype/data/themes/lithuanian/words/Makefile
 .PRECIOUS: Makefile
 Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
 	@case '$?' in \

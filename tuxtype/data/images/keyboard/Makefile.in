@@ -171,9 +171,9 @@ $(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
 	      exit 1;; \
 	  esac; \
 	done; \
-	echo ' cd $(top_srcdir) && $(AUTOMAKE) --foreign  tuxtype/data/images/keyboard/Makefile'; \
+	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu  tuxtype/data/images/keyboard/Makefile'; \
 	cd $(top_srcdir) && \
-	  $(AUTOMAKE) --foreign  tuxtype/data/images/keyboard/Makefile
+	  $(AUTOMAKE) --gnu  tuxtype/data/images/keyboard/Makefile
 .PRECIOUS: Makefile
 Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
 	@case '$?' in \

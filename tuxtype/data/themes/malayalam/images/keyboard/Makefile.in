@@ -164,9 +164,9 @@ $(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
 	      exit 1;; \
 	  esac; \
 	done; \
-	echo ' cd $(top_srcdir) && $(AUTOMAKE) --foreign  tuxtype/data/themes/malayalam/images/keyboard/Makefile'; \
+	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu  tuxtype/data/themes/malayalam/images/keyboard/Makefile'; \
 	cd $(top_srcdir) && \
-	  $(AUTOMAKE) --foreign  tuxtype/data/themes/malayalam/images/keyboard/Makefile
+	  $(AUTOMAKE) --gnu  tuxtype/data/themes/malayalam/images/keyboard/Makefile
 .PRECIOUS: Makefile
 Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
 	@case '$?' in \
@@ -316,10 +316,9 @@ uninstall-am: uninstall-local
 install-data-local:
 	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/malayalam/images/keyboard
 	$(INSTALL_DATA) $(srcdir)/key.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/malayalam/images/keyboard/key.png
-	
+
 uninstall-local:
 	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/malayalam/images/keyboard/key.png
-	
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:

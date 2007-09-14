@@ -162,9 +162,9 @@ $(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
 	      exit 1;; \
 	  esac; \
 	done; \
-	echo ' cd $(top_srcdir) && $(AUTOMAKE) --foreign  tuxtype/data/themes/brazilian-portuguese/images/Makefile'; \
+	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu  tuxtype/data/themes/brazilian-portuguese/images/Makefile'; \
 	cd $(top_srcdir) && \
-	  $(AUTOMAKE) --foreign  tuxtype/data/themes/brazilian-portuguese/images/Makefile
+	  $(AUTOMAKE) --gnu  tuxtype/data/themes/brazilian-portuguese/images/Makefile
 .PRECIOUS: Makefile
 Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
 	@case '$?' in \

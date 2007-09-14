@@ -57,12 +57,12 @@ ETAGS = etags
 CTAGS = ctags
 DIST_SUBDIRS = $(SUBDIRS)
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
-ACLOCAL = ${SHELL} /usr/local/src/tuxtype-indic/missing --run aclocal-1.10
-AMTAR = ${SHELL} /usr/local/src/tuxtype-indic/missing --run tar
-AUTOCONF = ${SHELL} /usr/local/src/tuxtype-indic/missing --run autoconf
-AUTOHEADER = ${SHELL} /usr/local/src/tuxtype-indic/missing --run autoheader
-AUTOMAKE = ${SHELL} /usr/local/src/tuxtype-indic/missing --run automake-1.10
-AWK = gawk
+ACLOCAL = ${SHELL} /home/dbruce/tux4kids/tuxtype/branches/tuxtype-indic/missing --run aclocal-1.10
+AMTAR = ${SHELL} /home/dbruce/tux4kids/tuxtype/branches/tuxtype-indic/missing --run tar
+AUTOCONF = ${SHELL} /home/dbruce/tux4kids/tuxtype/branches/tuxtype-indic/missing --run autoconf
+AUTOHEADER = ${SHELL} /home/dbruce/tux4kids/tuxtype/branches/tuxtype-indic/missing --run autoheader
+AUTOMAKE = ${SHELL} /home/dbruce/tux4kids/tuxtype/branches/tuxtype-indic/missing --run automake-1.10
+AWK = mawk
 CC = gcc
 CCDEPMODE = depmode=gcc3
 CFLAGS = -g -O2 -I/usr/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT
@@ -87,10 +87,10 @@ LIBOBJS =
 LIBS = -L/usr/lib -lSDL -lSDL_Pango -lSDL_image -lSDL_ttf -lSDL_mixer 
 LN_S = ln -s
 LTLIBOBJS = 
-MAKEINFO = ${SHELL} /usr/local/src/tuxtype-indic/missing --run makeinfo
+MAKEINFO = ${SHELL} /home/dbruce/tux4kids/tuxtype/branches/tuxtype-indic/missing --run makeinfo
 MKDIR_P = /bin/mkdir -p
-NSIS = no
-NSI_DLL_DIR = /home/mobin/tuxtype_dll
+NSIS = /usr/bin/makensis
+NSI_DLL_DIR = /home/dbruce/tuxtype_dll
 NSI_INSTALL_DIR = mingw32
 OBJEXT = o
 PACKAGE = tuxtype
@@ -108,10 +108,10 @@ SHELL = /bin/sh
 STRIP = 
 VERSION = 1.5.10
 WINDRES = 
-abs_builddir = /usr/local/src/tuxtype-indic/tuxtype/data/themes/malayalam
-abs_srcdir = /usr/local/src/tuxtype-indic/tuxtype/data/themes/malayalam
-abs_top_builddir = /usr/local/src/tuxtype-indic
-abs_top_srcdir = /usr/local/src/tuxtype-indic
+abs_builddir = /home/dbruce/tux4kids/tuxtype/branches/tuxtype-indic/tuxtype/data/themes/malayalam
+abs_srcdir = /home/dbruce/tux4kids/tuxtype/branches/tuxtype-indic/tuxtype/data/themes/malayalam
+abs_top_builddir = /home/dbruce/tux4kids/tuxtype/branches/tuxtype-indic
+abs_top_srcdir = /home/dbruce/tux4kids/tuxtype/branches/tuxtype-indic
 ac_ct_CC = gcc
 am__include = include
 am__leading_dot = .
@@ -138,7 +138,7 @@ host_vendor = unknown
 htmldir = ${docdir}
 includedir = ${prefix}/include
 infodir = ${datarootdir}/info
-install_sh = $(SHELL) /usr/local/src/tuxtype-indic/install-sh
+install_sh = $(SHELL) /home/dbruce/tux4kids/tuxtype/branches/tuxtype-indic/install-sh
 libdir = ${exec_prefix}/lib
 libexecdir = ${exec_prefix}/libexec
 localedir = ${datarootdir}/locale
@@ -163,6 +163,7 @@ top_builddir = ../../../..
 top_srcdir = ../../../..
 SUBDIRS = \
 images\
+scripts\
 words
 
 EXTRA_DIST = keyboard.lst lang.po phrases.txt
@@ -178,9 +179,9 @@ $(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
 	      exit 1;; \
 	  esac; \
 	done; \
-	echo ' cd $(top_srcdir) && $(AUTOMAKE) --foreign  tuxtype/data/themes/malayalam/Makefile'; \
+	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu  tuxtype/data/themes/malayalam/Makefile'; \
 	cd $(top_srcdir) && \
-	  $(AUTOMAKE) --foreign  tuxtype/data/themes/malayalam/Makefile
+	  $(AUTOMAKE) --gnu  tuxtype/data/themes/malayalam/Makefile
 .PRECIOUS: Makefile
 Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
 	@case '$?' in \
