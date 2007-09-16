@@ -1,32 +1,38 @@
 msgid ""
 msgstr ""
 
+"Last-Translator: Amaya Rodrigo <amaya@debian.org>\n"
+"PO-Revision-Date: 2007-09-16 19:00+0000\n"
+"Language-Team: Spanish\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
 msgid "Congratulations"
-msgstr "Congratulations"
+msgstr "¡Felicidades!"
 
 msgid "Oh No!"
-msgstr "Que Lastima!"
+msgstr "¡Oh, no!"
 
 msgid "Sound & Music Disabled"
-msgstr "Sound & Music Disabled"
+msgstr "Deshabilitar Sonido y Música"
 
 msgid "Paused!"
-msgstr "Paused!"
+msgstr "¡Pausa!"
 
 msgid "Press escape again to return to menu"
-msgstr "Toca escapa a regresar atraz al menu"
+msgstr "Pulsa Esc para regresar al menú"
 
 msgid "Press space bar to return to game"
-msgstr "Toca la llave del espacio a regresar al juego"
+msgstr "Pulsa la barra espaciadora para regresar al juego"
 
 msgid "Sound Effects Volume"
-msgstr "Volumen de los efectos de sonido"
+msgstr "Volumen de los Efectos de Sonido"
 
 msgid "Music Volume"
-msgstr "Volumen de Musica"
+msgstr "Volumen de la Música"
 
 msgid "Edit Word Lists"
-msgstr "Revisa las listas de palabras"
+msgstr "Revisar las listas de palabras"
 
 msgid "Fish"
 msgstr "Pescado"
@@ -41,11 +47,11 @@ msgid "Options"
 msgstr "Opciones"
 
 msgid "Alphabet"
-msgstr "Alphabeto"
+msgstr "Alfabeto"
 
 # "Cadete de espacio" es nivel 1 en zapea cometa
 msgid "Space Cadet"
-msgstr "Cadete de espacio"
+msgstr "Cadete Espacial"
 
 # "Piloto" es nivel 2 en zapea cometas
 msgid "Pilot"
@@ -61,20 +67,20 @@ msgstr "Comandante"
 
 #niveles para juego de cascada:
 msgid "Easy"
-msgstr "Facil"
+msgstr "Fácil"
 
 msgid "Medium"
-msgstr "Mediano"
+msgstr "Medio"
 
 msgid "Hard"
-msgstr "Dificil"
+msgstr "Difícil"
 
 #Tipos de juegos
 msgid "Comet Zap"
-msgstr "Zapea Cometas"
+msgstr "Cometas"
 
 msgid "Fish Cascade"
-msgstr "Cascada de pescado"
+msgstr "Cascada de Pescado"
 
 #Cosas generales
 msgid "Practice"
@@ -87,28 +93,28 @@ msgid "Instructions"
 msgstr "Instrucciones"
 
 msgid "Main Menu"
-msgstr "Menu principal"
+msgstr "Menú Principal"
 
 msgid "Options"
 msgstr "Opciones"
 
 msgid "Quit"
-msgstr "Salido"
+msgstr "Salir"
 
 msgid "Setup Keyboard"
-msgstr "Arreglo de teclado"
+msgstr "Teclado"
 
 msgid "Setup Language"
-msgstr "Idioma arreglo"
+msgstr "Idioma"
 
 #work Cosas que estan abajo de construccion.
 msgid "Work In Progress!"
-msgstr "Trabojo abajo de Construccion!"
+msgstr "¡Trabajo en Curso!"
 
 msgid "this feature is not ready yet"
-msgstr "este funcion no esta listo todavia"
+msgstr "Esta función no esta lista todavía"
 
 msgid "Discuss the future of TuxTyping at"
-msgstr "A Charlar del futuro de TuxTyping"
+msgstr "Charlar del futuro de TuxTyping en"
 
 #àáâãäåæçèéêëìíîïðñòóôõöùúûüýÿ

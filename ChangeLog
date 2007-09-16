@@ -1,3 +1,6 @@
+[ Holger Levsen ]
+	- added updated spanish translation by Amaya Rodrigo 
+
 v 1.5.14 - svn revision 240
 15 Sep 2007
 [ David Bruce <dbruce@tampabay.rr.com> ]
@@ -16,7 +19,7 @@ Tux Type Indic Team:
 
        - added libSDLPango to handle complex rendering issues related with 
          Indic languages. This will eventually allow support of any of the
-         world's major  languages.
+         world's major languages.
        - added an Indic language theme, Malayalam, which also contains a 
          lesson area.
        - new format of keyboard.lst for malayalam theme (now added to other
