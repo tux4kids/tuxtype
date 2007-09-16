@@ -63,7 +63,7 @@ v 1.5.13
 26 Aug 2007
 [ David Bruce ]
        - got rid of autogen.sh - autoreconf is recommended way to
-         do the same thing.
+         do the same thing according to autotools folks.
        - replaced acinclude.m4 with newer version to get rid of 
          "underquoted AM_PATH_SDL" message.
        - fixed bug causing crash on exit from cascade game do to 

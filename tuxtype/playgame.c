@@ -932,7 +932,11 @@ static void LoadOthers(void)
 	unsigned char filename[FNLEN];
 
 	LOG( "=LoadOthers()\n" );
-
+	DEBUGCODE
+	{
+	  fprintf(stderr, "settings.theme_font_name is %s\n",
+                  settings.theme_font_name);
+	}
 	font = LoadFont(settings.theme_font_name, GAME_FONT_SIZE);
 
 	curlev = BlackOutline(_("Level"), font, &white);

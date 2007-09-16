@@ -1009,6 +1009,12 @@ static int load_media(void)
   sel = LoadSprite("menu/sel", IMG_ALPHA);
   reg = LoadSprite("menu/reg", IMG_ALPHA);
   Tux = LoadSprite("tux", IMG_ALPHA);
+
+  DEBUGCODE
+  {
+    fprintf(stderr, "titlescreen.c load_media(): settings.theme_font_name is %s\n",
+            settings.theme_font_name);
+  }
   font = LoadFont(settings.theme_font_name, MENU_FONT_SIZE);
 
   /* Make sure we were successful: */

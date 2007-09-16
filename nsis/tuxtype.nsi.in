@@ -6,9 +6,9 @@
 !define PKG_VERSION "@VERSION@"
 !define PKG_PREFIX  "tuxtype"
 
-!define APP_PREFIX  "TuxType2"
+!define APP_PREFIX  "TuxType"
 !define APP_EXE     "${APP_PREFIX}.exe"
-!define APP_NAME    "Tux Typing 2"
+!define APP_NAME    "Tux Typing"
 
 OutFile     "${PKG_PREFIX}-${PKG_VERSION}-win32-installer.exe"
 Name        "${APP_NAME}"
