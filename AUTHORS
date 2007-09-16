@@ -13,7 +13,7 @@ Mobin Mohan <mobinmohan@gmail.com>
 
 Packaging & Ports:
 ------------------
-Holger Levsen <debian@layer-acht.org> - (Debian packager, project maintainer)
+Holger Levsen <holger@debian.org> - (Debian packager, project maintainer)
 David Bruce <dbruce@tampabay.rr.com> - (Windows crossbuild using Linux host)
 David Marshman <marshy@silvan.demon.co.uk> - (BeOS port/packages)
 Calvin Arndt <calarndt@yahoo.com> - (Red Hat 7.1+ RPMs)
