@@ -20,7 +20,7 @@ Tux Type Indic Team:
        - added an Indic language theme, Malayalam, which also contains a 
          lesson area.
        - new format of keyboard.lst for malayalam theme (now added to other
-         themes too.
+         themes too).
        - created a new file named practice.txt which contains the strings to
          display in the practice session. Also did a major role in adding 
          Unicode support in the practice area.
