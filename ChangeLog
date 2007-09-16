@@ -1,3 +1,10 @@
+v 1.5.14 - svn revision 240
+15 Sep 2007
+[ David Bruce <dbruce@tampabay.rr.com> ]
+       - scripting.c - added UTF-8 to wchar_t conversion at needed point
+         when calling Phrases() (line ~1200).
+       - some corrections and editing of scripts projectInfo.xml, cascade.xml,
+         laser.xml - more work needed.
 
 May-Sep 2007
 Tux Type Indic Team:

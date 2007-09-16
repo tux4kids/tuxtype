@@ -2,25 +2,26 @@
   <page>
     <img src="line2.png" x="5" y="0"></img>
     <text size="6"></text>
-    <text size="18" align="center" color="#000000">Tuxtype Project Information Center</text>
+    <text size="18" align="center" color="#000000">Tux Typing Project Information</text>
     <text size="6" align="center"></text>
-    <text size="14" align="center">Please visit one of the Tuxtype discussion forums at: </text>
-    <text size="16" align="center">http://tuxtype.sf.net/forums</text>
-    <text size="16" align="center">mailto://tuxtype-dev@tux4kids.net or irc://freenode/tuxtype</text>
+    <text size="14" align="center">Please visit one of the TuxType discussion forums at: </text>
+    <text size="16" align="center">http://tux4kids.alioth.debian.org</text>
+    <text size="16" align="center">mailto://tuxmath-devel@sourceforge.net or irc://freenode/tuxtype</text>
     <text size="6" align="center"></text>
     <text size="16" align="center">Tuxtype is brought to you by the good people of tux4kids. http://tux4kids.com</text>
     <text size="6" align="center"></text>
-    <text size="16" align="center">Our development Server is located at http://svn.tux4kids.net</text>
+    <text size="16" align="center">Our source code repository is located at http://svn.debian.org/wsvn/tux4kids/tuxtype/</text>
     <text size="6" align="center"></text>
-    <text size="16" align="center">Tutype was the brainchild of Sam Hart of the Univ of Arizona. It was then taken</text>
-    <text size="16" align="center">over by Jesse D. Andrews, from of the Univ. of KY.</text>
-    <text size="16" align="center">Many other people have contributed to Tuxtype please see the AUTHORS file.</text>
+    <text size="16" align="center">Tux Typing was the brainchild of Sam Hart, and was subsequently developed</text>
+    <text size="16" align="center">by Jesse D. Andrews. The current lead programmer is:</text>
+    <text size="16" align="center">David Bruce  mailto://dbruce@tampabay.rr.com</text>
+    <text size="16" align="center">Please see the AUTHORS file for many others who have contributed significantly.</text>
     <text size="4" align="center"></text>
     <text size="32" align="center" color="#ff003f">BUGS:</text>
-    <text size="16" align="center">Please report any bugs you find or any suggestions you have</text>
-    <text size="16" align="center">to any of the discussion forums listed above.</text>
+    <text size="16" align="center">Please forward any bugs or suggestions</text>
+    <text size="16" align="center">to mailto://tuxmath-devel@sourceforge.net.</text>
     <text size="4" align="center"></text>
-    <text size="22" align="center" color="#ff7f3f">Tuxtype is GPL licensed Free software.</text>
+    <text size="22" align="center" color="#ff7f3f">Tuxtype is GPL licensed Free Software.</text>
     <text size="22" align="center" color="#ff7f3f">Please see the COPYING file</text>
     <text size="22" align="center" color="#000000">Hit SPACE to CONTINUE!!!</text>
   <waitforinput/>

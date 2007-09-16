@@ -38,29 +38,49 @@ static void run_script(void);
 
 void InstructCascade(void)
 {
-  char fn[FNLEN];
+  char fn[FNLEN]; 
 
-  if (settings.use_english)
-    sprintf( fn, "%s/scripts/cascade.xml", settings.default_data_path);
-  else
+  /* Try theme script first: */
+  if (!settings.use_english)
     sprintf( fn, "%s/scripts/cascade.xml", settings.theme_data_path);
 
+  if (load_script( fn ) == 0) /* meaning successful load */
+  {
+    run_script();
+    return;
+  }
+
+  /* If unsuccessful, fall back to default (English) script: */
+  sprintf( fn, "%s/scripts/cascade.xml", settings.default_data_path);
   if (load_script( fn ) != 0)
     return; // bail if any errors occur
+
   run_script();
 }
 
 
 void InstructLaser(void)
 {
+  char fn[FNLEN]; 
   int i;
-  char fn[FNLEN];
 
-  if (settings.use_english)
-    sprintf( fn, "%s/scripts/laser.xml", settings.default_data_path);
-  else
+  /* Try theme script first: */
+  if (!settings.use_english)
     sprintf( fn, "%s/scripts/laser.xml", settings.theme_data_path);
 
+  if (load_script( fn ) == 0) /* meaning successful load */
+  {
+    for (i = 0; i < 20; i++)
+    {
+      run_script();
+      SDL_Delay(500);
+    }
+    return;
+  }
+
+
+  /* If unsuccessful, fall back to default (English) script: */
+  sprintf( fn, "%s/scripts/laser.xml", settings.default_data_path);
   if (load_script( fn ) != 0)
     return; // bail if any errors occur
 
@@ -76,11 +96,18 @@ void ProjectInfo(void)
 {
   char fn[FNLEN]; 
 
-  if (settings.use_english)
-    sprintf( fn, "%s/scripts/projectInfo.xml", settings.default_data_path);
-  else
+  /* Try theme script first: */
+  if (!settings.use_english)
     sprintf( fn, "%s/scripts/projectInfo.xml", settings.theme_data_path);
 
+  if (load_script( fn ) == 0) /* meaning successful load */
+  {
+    run_script();
+    return;
+  }
+
+  /* If unsuccessful, fall back to default (English) script: */
+  sprintf( fn, "%s/scripts/projectInfo.xml", settings.default_data_path);
   if (load_script( fn ) != 0)
     return; // bail if any errors occur
 
@@ -457,11 +484,14 @@ static int load_script(const char* fn)
   char str[FNLEN];
   FILE* f = NULL;
     
-  LOG( "\nEnter load_script()\n" );
-    
+  DEBUGCODE
+  {
+    fprintf(stderr, "\nEnter load_script() - attempt to load '%s'\n", fn);
+  }
+
   if (curScript)
   {
-    LOG( "script already in memory, removing now!\n");
+    LOG( "previous script in memory, removing now!\n");
     close_script();
   }
     

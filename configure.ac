@@ -1,9 +1,9 @@
 # Process this file with autoconf to produce a configure script.
-AC_INIT(tuxtype, 1.5.13, tuxmath-devel@lists.sourceforge.net)
+AC_INIT(tuxtype, 1.5.14, tuxmath-devel@lists.sourceforge.net)
 AC_CANONICAL_HOST
 AC_CANONICAL_TARGET
 AM_CONFIG_HEADER(config.h)
-AM_INIT_AUTOMAKE(tuxtype, 1.5.13)
+AM_INIT_AUTOMAKE(tuxtype, 1.5.14)
 
 AC_CONFIG_SRCDIR([tuxtype/funcs.h])
 
