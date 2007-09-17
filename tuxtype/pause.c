@@ -19,16 +19,17 @@ email                : jdandr2@uky.edu
 #include "globals.h"
 #include "funcs.h"
 
-static Mix_Chunk *pause_sfx;
-static SDL_Surface *up, *down, *left, *right;
+static Mix_Chunk *pause_sfx = NULL;
+static SDL_Surface *up = NULL, *down = NULL, *left = NULL, *right = NULL;
 static SDL_Rect rectUp, rectDown, rectLeft, rectRight;
-static TTF_Font *f1, *f2;
+static TTF_Font *f1 = NULL, *f2 = NULL;
 
 /* Local function prototypes: */
 static void darkenscreen(void);
 static void draw_vols(int sfx, int mus);
-static void pause_draw_info(void);
-
+static void pause_draw(void);
+static void pause_load_media(void);
+static void pause_unload_media(void);
 
 // QUESTION: For usability sake, should escape return to the game
 //           and the user have to choose to quit the game, or ???
@@ -47,8 +48,9 @@ int Pause(void)
 	int tocks=0;  // used for keeping track of when a tock has happened
 	SDL_Event event;
 
-	LOG( "---GAME PAUSED---\n" );
+	LOG( "Entering Pause()\n" );
 
+	pause_load_media();
 	/* --- stop all sounds, play pause noise --- */
 
 	if (settings.sys_sound) {
@@ -65,7 +67,7 @@ int Pause(void)
 	// Darken the screen...
 	darkenscreen(); 
 
-	pause_draw_info();
+	pause_draw();
 
 	if (settings.sys_sound) {
 		draw_vols(sfx_volume, mus_volume);
@@ -194,13 +196,15 @@ int Pause(void)
 		Mix_Resume(-1);
 	}
 
-	LOG( "---GAME RESUMED---\n" );
+	pause_unload_media();
+
+	LOG( "Leaving Pause()\n" );
 
 	return (quit);
 }
 
 
-void PauseLoadMedia(void) {
+static void pause_load_media(void) {
 	if (settings.sys_sound) 
 		pause_sfx = LoadSound( "tock.wav" );
 
@@ -220,7 +224,7 @@ void PauseLoadMedia(void) {
 	f2 = LoadFont(settings.theme_font_name, 36);
 }
 
-void PauseUnloadMedia(void) {
+static void pause_unload_media(void) {
 	if (settings.sys_sound)
         {
 	  Mix_FreeChunk(pause_sfx);
@@ -254,93 +258,119 @@ int inRect(SDL_Rect r, int x, int y)
 
 
 
-static void pause_draw_info(void) {
-	SDL_Rect s;
-	SDL_Surface *t;
+static void pause_draw(void)
+{
+  SDL_Rect s;
+  SDL_Surface* t = NULL;
 
-	rectLeft.y = rectRight.y = 200;
-	rectDown.y = rectUp.y = 300;
+  LOG("Entering pause_draw()\n");
 
-	rectLeft.x = rectDown.x = 320 - (7*16) - rectLeft.w - 4;
-	rectRight.x = rectUp.x  = 320 + (7*16) + 4;
+  rectLeft.y = rectRight.y = 200;
+  rectDown.y = rectUp.y = 300;
 
-	if (settings.sys_sound) {
+  rectLeft.x = rectDown.x = 320 - (7*16) - rectLeft.w - 4;
+  rectRight.x = rectUp.x  = 320 + (7*16) + 4;
 
-		SDL_BlitSurface(left, NULL, screen, &rectLeft);
-		SDL_BlitSurface(right, NULL, screen, &rectRight);
+  /* Avoid segfault if any needed SDL_Surfaces missing: */
+  if (settings.sys_sound
+    && left && right && down && up)
+  {
+    SDL_BlitSurface(left, NULL, screen, &rectLeft);
+    SDL_BlitSurface(right, NULL, screen, &rectRight);
+    SDL_BlitSurface(down, NULL, screen, &rectDown);
+    SDL_BlitSurface(up, NULL, screen, &rectUp);
+  }
 
-		SDL_BlitSurface(down, NULL, screen, &rectDown);
-		SDL_BlitSurface(up, NULL, screen, &rectUp);
-	}
+  if (settings.sys_sound)
+  {
+    t = BlackOutline(_("Sound Effects Volume"), f1, &white);
+    if (t)
+    {	
+      s.y = 160;
+      s.x = 320 - t->w/2;
+      SDL_BlitSurface(t, NULL, screen, &s);
+      SDL_FreeSurface(t);
+    }
 
-	if (settings.sys_sound) {
+    t = BlackOutline(_("Music Volume"), f1, &white);
+    if (t)
+    {
+      s.y = 260;
+      s.x = 320 - t->w/2;
+      SDL_BlitSurface(t, NULL, screen, &s);
+      SDL_FreeSurface(t);
+    }
+  }
+  else  /* No sound: */
+  {
+    t = BlackOutline(_("Sound & Music Disabled"), f1, &white);
+    if (t)
+    {
+      s.y = 160;
+      s.x = 320 - t->w/2;
+      SDL_BlitSurface(t, NULL, screen, &s);
+      SDL_FreeSurface(t);
+    }
+  }
 
-		t = BlackOutline(_("Sound Effects Volume"), f1, &white);
-		s.y = 160;
-		s.x = 320 - t->w/2;
-		SDL_BlitSurface(t, NULL, screen, &s);
-		SDL_FreeSurface(t);
-
-		t = BlackOutline(_("Music Volume"), f1, &white);
-		s.y = 260;
-		s.x = 320 - t->w/2;
-		SDL_BlitSurface(t, NULL, screen, &s);
-		SDL_FreeSurface(t);
-
-	} else {
-
-		t = BlackOutline(_("Sound & Music Disabled"), f1, &white);
-		s.y = 160;
-		s.x = 320 - t->w/2;
-		SDL_BlitSurface(t, NULL, screen, &s);
-		SDL_FreeSurface(t);
-	}
-
-	t = BlackOutline(_("Paused!"), f2, &white);
+  t = BlackOutline(_("Paused!"), f2, &white);
+  if (t)
+  {
 	s.y = 60;
 	s.x = 320 - t->w/2;
 	SDL_BlitSurface(t, NULL, screen, &s);
 	SDL_FreeSurface(t);
+  }
 
-	t = BlackOutline(_("Press escape again to return to menu"), f1, &white);
-	s.y = 400;
-	s.x = 320 - t->w/2;
-	SDL_BlitSurface(t, NULL, screen, &s);
-	SDL_FreeSurface(t);
+  t = BlackOutline(_("Press escape again to return to menu"), f1, &white);
+  if (t)
+  {
+    s.y = 400;
+    s.x = 320 - t->w/2;
+    SDL_BlitSurface(t, NULL, screen, &s);
+    SDL_FreeSurface(t);
+  }
 
-	t = BlackOutline(_("Press space bar to return to game"), f1, &white);
-	s.y = 440;
-	s.x = 320 - t->w/2;
-	SDL_BlitSurface(t, NULL, screen, &s);
-	SDL_FreeSurface(t);
+  t = BlackOutline(_("Press space bar to return to game"), f1, &white);
+  if (t)
+  {
+    s.y = 440;
+    s.x = 320 - t->w/2;
+    SDL_BlitSurface(t, NULL, screen, &s);
+    SDL_FreeSurface(t);
+  }
+
+  LOG("Leaving pause_draw()\n");
 }
 
 
+/* FIXME what if rectLeft and rectDown not initialized? - should be args */
+static void draw_vols(int sfx, int mus)
+{
+  SDL_Rect s,m;
+  int i;
 
-static void draw_vols(int sfx, int mus) {
-	SDL_Rect s,m;
-	int i;
+  s.y = rectLeft.y; 
+  m.y = rectDown.y;
+  m.w = s.w = 5;
+  s.x = rectLeft.x + rectLeft.w + 5;
+  m.x = rectDown.x + rectDown.w + 5;
+  m.h = s.h = 40;
 
-	s.y = rectLeft.y; 
-	m.y = rectDown.y;
-	m.w = s.w = 5;
-	s.x = rectLeft.x + rectLeft.w + 5;
-	m.x = rectDown.x + rectDown.w + 5;
-	m.h = s.h = 40;
+  for (i = 1; i<=32; i++)
+  {
+    if (sfx >= i * 4)
+      SDL_FillRect(screen, &s, SDL_MapRGB(screen->format, 0, 0, 127 + sfx));
+    else
+      SDL_FillRect(screen, &s, SDL_MapRGB(screen->format, 0, 0, 0));
 
-	for (i = 1; i<=32; i++){
-		if (sfx >= i*4)
-			SDL_FillRect(screen, &s, SDL_MapRGB(screen->format, 0, 0, 127+sfx));
-		else
-			SDL_FillRect(screen, &s, SDL_MapRGB(screen->format, 0, 0, 0));
+    if (mus >= i * 4)
+      SDL_FillRect(screen, &m, SDL_MapRGB(screen->format, 0, 0, 127 + mus));
+    else
+      SDL_FillRect(screen, &m, SDL_MapRGB(screen->format, 0, 0, 0));
 
-		if (mus >= i*4)
-			SDL_FillRect(screen, &m, SDL_MapRGB(screen->format, 0, 0, 127+mus));
-		else
-			SDL_FillRect(screen, &m, SDL_MapRGB(screen->format, 0, 0, 0));
-
-		m.x = s.x += 7;
-	}
+    m.x = s.x += 7;
+  }
 }
 
 /* ==== fillscreen ====

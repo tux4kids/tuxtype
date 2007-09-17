@@ -675,7 +675,7 @@ static void laser_load_data(void)
 			musics[i] = LoadMusic(music_filenames[i]);
 	}
 
-	PauseLoadMedia();
+//	PauseLoadMedia();
 }
 
 
@@ -698,7 +698,7 @@ static void laser_unload_data(void) {
 	FreeSprite(shield);
         shield = NULL;
 
-	PauseUnloadMedia();
+//	PauseUnloadMedia();
 
 	TTF_CloseFont(font);
         font = NULL;
@@ -829,7 +829,7 @@ static void laser_add_comet(int diff_level) {
           int i = 0;
           comet_type* prev_comet = NULL;
 
-          DEBUGCODE {fprintf(stderr, "word is: %s\n", word);}
+          DEBUGCODE {fprintf(stderr, "word is: %S\tlength is: %d\n", word, (int)wcslen(word));}
           do
           { 
   	    target = rand() % (NUM_CITIES - wcslen(word) + 1);
@@ -862,7 +862,7 @@ static void laser_add_comet(int diff_level) {
 				/* Save pointer for next time through: */
                                 prev_comet = &comets[location];
 
-				DEBUGCODE {fprintf(stderr, "Assigning letter to comet: %c\n", word[i]);}
+				DEBUGCODE {fprintf(stderr, "Assigning letter to comet: %C\n", word[i]);}
 			}
 		}
 	}

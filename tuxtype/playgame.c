@@ -249,7 +249,8 @@ int PlayCascade( int diflevel ) {
 					if (event.key.keysym.sym == SDLK_F12) 
 						SNOW_toggle();
 					if (event.key.keysym.sym == SDLK_ESCAPE) {
-
+						/* Pause() returns 1 if quitting, */
+						/* 0 if returning to game:        */
 						if (Pause() == 1) {
 							playing_level = 0;
 							still_playing = 0;
@@ -979,7 +980,7 @@ static void LoadOthers(void)
 	} else 
 		LOG( "=NO SOUND FX LOADED (not selected)\n" );
 
-	PauseLoadMedia();
+//	PauseLoadMedia();
 
 	LOG( "=Setting NULL fish & splat & word\n" );
 
@@ -1187,7 +1188,7 @@ static void FreeGame(void)
 	  }
 	}
 
-	PauseUnloadMedia();
+//	PauseUnloadMedia();
 
 
 	LOG( "FreeGame(): END\n" );

@@ -1,5 +1,18 @@
+v 1.5.15 - svn revision 255
+15 Sep 2007
+[ David Bruce <dbruce@tampabay.rr.com> ]
+       - alphabet.c - fixed crash occurring in BlackOutline_SDLPango() when 
+         passed empty string (see Debian Bug #439071)
+       - alphabet.c - added code to check words in list to see if they have
+         chars not in keyboard.lst, and just leave out these words rather
+         than aborting the game.
+       - Corrected Makefile.am for Malayalam theme so that settings.txt
+         gets installed (needed for font selection to work).
+       - Added numerals and punctuation to German keyboard.lst (likely
+         needs to be done for many other themes).
+
 [ Holger Levsen ]
-	- added updated spanish translation by Amaya Rodrigo 
+	- added updated Spanish translation by Amaya Rodrigo 
 
 v 1.5.14 - svn revision 240
 15 Sep 2007

@@ -81,7 +81,7 @@ static void set_letters(unsigned char* t);
 static void show_letters(void);
 static void clear_keyboard(void);
 static int unicode_in_key_list(wchar_t uni_char);
-
+int check_needed_unicodes_str(const wchar_t* s);
 
 #ifndef WIN32
 static SDLPango_Matrix* SDL_Colour_to_SDLPango_Matrix(const SDL_Color* cl);
@@ -236,7 +236,7 @@ int unicode_in_key_list(wchar_t uni_char)
   {
     i++;
   }
-  if (i = MAX_UNICODES)
+  if (i == MAX_UNICODES)
     return 0;
   else
     return 1;
@@ -253,6 +253,8 @@ SDL_Surface* BlackOutline(const unsigned char* t, const TTF_Font* font, const SD
   SDL_Surface* bg = NULL;
   SDL_Rect dstrect;
   Uint32 color_key;
+
+  LOG("Entering BlackOutline()\n");
 
 /* Simply passthrough to SDLPango version if available (i.e. not under Windows):*/
 #ifndef WIN32
@@ -307,6 +309,8 @@ return BlackOutline_SDLPango(t, font, c);
   out = SDL_DisplayFormatAlpha(bg);
   SDL_FreeSurface(bg);
 
+  LOG("Leaving BlackOutline()\n");
+
   return out;
 }
 
@@ -345,20 +349,28 @@ SDL_Surface* BlackOutline_SDLPango(const unsigned char* t, const TTF_Font* font,
   SDL_Surface* bg = NULL;
   SDL_Rect dstrect;
   Uint32 color_key;
-
   /* To covert SDL_Colour to SDLPango_Matrix */
-  SDLPango_Matrix* colour;
+  SDLPango_Matrix* colour = NULL;
   /* Create a context which contains Pango objects.*/
-  SDLPango_Context* context;
+  SDLPango_Context* context = NULL;
 
+  LOG("\nEntering BlackOutline_SDLPango()\n");
+  DEBUGCODE{ fprintf(stderr, "will attempt to render: %s\n", t); }
 
   if (!t || !font || !c)
   {
-    fprintf(stderr, "BlackOutline(): invalid ptr parameter, returning.");
+    fprintf(stderr, "BlackOutline_SDLPango(): invalid ptr parameter, returning.");
     return NULL;
   }
 
-  colour=SDL_Colour_to_SDLPango_Matrix(c);
+  /* SDLPango crashes on 64 bit machines if passed empty string - Debian Bug#439071 */
+  if (*t == '\0')
+  {
+    fprintf(stderr, "BlackOutline_SDLPango(): empty string arg - must return to avoid segfault.");
+    return NULL;
+  }
+
+  colour = SDL_Colour_to_SDLPango_Matrix(c);
   
   /* Create the context */
   context = SDLPango_CreateContext();	
@@ -367,14 +379,19 @@ SDL_Surface* BlackOutline_SDLPango(const unsigned char* t, const TTF_Font* font,
   SDLPango_SetDefaultColor(context, MATRIX_TRANSPARENT_BACK_BLACK_LETTER );
   SDLPango_SetBaseDirection(context, SDLPANGO_DIRECTION_LTR);
   /* Set text to context */ 
-  SDLPango_SetMarkup(context,t, -1);  
+  SDLPango_SetMarkup(context, t, -1); 
 
+  if (!context)
+  {
+    fprintf (stderr, "In BlackOutline_SDLPango(), could not create context for %s", t);
+    return NULL;
+  }
 
   black_letters = SDLPango_CreateSurfaceDraw(context);
 
   if (!black_letters)
   {
-    fprintf (stderr, "Warning - BlackOutline() could not create image for %s\n", t);
+    fprintf (stderr, "Warning - BlackOutline_SDLPango() could not create image for %s\n", t);
     return NULL;
   }
 
@@ -383,10 +400,16 @@ SDL_Surface* BlackOutline_SDLPango(const unsigned char* t, const TTF_Font* font,
                             (black_letters->h) + 5,
                              32,
                              RMASK, GMASK, BMASK, AMASK);
+  if (!bg)
+  {
+    fprintf (stderr, "Warning - BlackOutline()_SDLPango - bg creation failed\n");
+    SDL_FreeSurface(black_letters);
+    return NULL;
+  }
 
   /* Draw text on a existing surface */
   SDLPango_Draw(context, bg, 0, 0);
-  
+
   /* Use color key for eventual transparency: */
   color_key = SDL_MapRGB(bg->format, 10, 10, 10);
   SDL_FillRect(bg, NULL, color_key);
@@ -415,6 +438,8 @@ SDL_Surface* BlackOutline_SDLPango(const unsigned char* t, const TTF_Font* font,
   SDL_SetColorKey(bg, SDL_SRCCOLORKEY|SDL_RLEACCEL, color_key);
   out = SDL_DisplayFormatAlpha(bg);
   SDL_FreeSurface(bg);
+
+  LOG("Leaving BlackOutline_SDLPango()\n\n");
 
   return out;
 }
@@ -742,7 +767,7 @@ int GenerateWordList(const char* wordFn)
               temp_word, MAX_WORD_SIZE);
       continue;
     }
-;
+
     if (num_words >= MAX_NUM_WORDS)
     {
       fprintf(stderr, "Word '%s' not added - list has reached max of %d characters\n",
@@ -750,10 +775,16 @@ int GenerateWordList(const char* wordFn)
       continue;
     }
 
+    if (!check_needed_unicodes_str(temp_wide_word))
+    {
+      fprintf(stderr, "Word '%S' not added - contains Unicode chars not in keyboard list\n",
+              temp_wide_word);
+      continue;
+    }
+
     /* If we make it to here, OK to add word: */
     /* NOTE we have to add one to the length argument */
     /* to include the terminating null.  */
-    //mbstowcs(word_list[num_words], temp_word, strlen(temp_word) + 1);
     DEBUGCODE
     {
       fprintf(stderr, "Adding word: %ls\n", temp_wide_word);
@@ -917,6 +948,23 @@ int CheckNeededGlyphs(void)
   return 1;
 }
 
+int check_needed_unicodes_str(const wchar_t* s)
+{
+  int i = 0;
+
+  while ((i < MAX_WORD_SIZE)
+      && (s[i] != '\0'))
+  {
+    if (!unicode_in_key_list(s[i]))
+    {
+      fprintf(stderr, "\ncheck_needed_unicodes_str() - needed char '%C' (Unicode value = %d) not found.\n",
+              s[i], s[i]);
+      return 0;
+    }
+    i++;
+  }
+  return 1;
+}
 
 /****************************************************/
 /*                                                  */

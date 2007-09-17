@@ -84,8 +84,6 @@ void Opts_Initialize(void);
 
 /* In pause.c: */
 int  Pause(void);
-void PauseLoadMedia(void);
-void PauseUnloadMedia(void);
 int  inRect(SDL_Rect r, int x, int y);
 
 
