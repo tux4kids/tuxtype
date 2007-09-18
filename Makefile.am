@@ -69,6 +69,11 @@ install-nsi-local: all
 
 #	cp $(NSI_DLL_DIR)/*.ttf $(top_srcdir)/$(NSI_INSTALL_DIR)/data/fonts ;
 
+## Bundle in fonts for distribution tar.gz to be used without package manager:
+## i.e. to make tarball to post for individual download - use 'make distcheck' for Debian.
+## (thanks to Ralf Wildenhues <Ralf.Wildenhues@gmx.de> for automake help!)
+dist_with_fonts:
+	$(MAKE) $(AM_MAKEFLAGS) dist dist_fonts='AndikaDesRevG.ttf DoulosSILR.ttf Rachana_w01.ttf'
 
 install-nsi-am: install-nsi-local
 
