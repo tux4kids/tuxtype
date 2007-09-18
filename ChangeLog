@@ -1,3 +1,11 @@
+
+15 Sep 2007
+[ David Bruce <dbruce@tampabay.rr.com> ]
+       - "make dist" no longer includes fonts - added new Makefile target,
+         "make dist_with_fonts" that does include them. Thanks to Ralf 
+          Wildenhues <Ralf.Wildenhues@gmx.de> for autotools help via
+          mailing lists.
+
 v 1.5.15 - svn revision 255
 15 Sep 2007
 [ David Bruce <dbruce@tampabay.rr.com> ]
