@@ -38,8 +38,8 @@ uninstall-local:
 	-rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/tuxtype.ico
 	-rm -rf $(DESTDIR)$(prefix)/share/$(PACKAGE)
 
-#AUTOMAKE_OPTIONS = foreign dist-bzip2
-AUTOMAKE_OPTIONS = foreign 
+# Now doing this in preferred way via AM_INIT_AUTOMAKE in configure.ac:
+#AUTOMAKE_OPTIONS = foreign 
 
 
 # Rule to build tar-gzipped distribution package
@@ -47,7 +47,7 @@ $(PACKAGE)-$(VERSION).tar.gz: distcheck
 
 # Rule to build RPM distribution package
 rpm: $(PACKAGE)-$(VERSION).tar.gz
-	rpm -ta $(PACKAGE)-$(VERSION).tar.gz
+	rpmbuild -ta $(PACKAGE)-$(VERSION).tar.gz
 
 # Rules needed to cross-build nsis Win32 installer under Linux
 # Taken from tuxmath's Makefile.am - David Bruce
@@ -73,7 +73,8 @@ install-nsi-local: all
 ## i.e. to make tarball to post for individual download - use 'make distcheck' for Debian.
 ## (thanks to Ralf Wildenhues <Ralf.Wildenhues@gmx.de> for automake help!)
 dist_with_fonts:
-	$(MAKE) $(AM_MAKEFLAGS) dist dist_fonts='AndikaDesRevG.ttf DoulosSILR.ttf Rachana_w01.ttf'
+	$(MAKE) $(AM_MAKEFLAGS) distdir=$(PACKAGE)_w_fonts-$(VERSION) dist_fonts='AndikaDesRevG.ttf DoulosSILR.ttf Rachana_w01.ttf' dist
+#	distdir=tuxtype
 
 install-nsi-am: install-nsi-local
 

@@ -1,11 +1,17 @@
 # Process this file with autoconf to produce a configure script.
-AC_INIT(tuxtype, 1.5.15, tuxmath-devel@lists.sourceforge.net)
+AC_INIT(Tux Typing, 1.5.15, tuxmath-devel@lists.sourceforge.net, tuxtype)
+
+AC_CANONICAL_BUILD
 AC_CANONICAL_HOST
 AC_CANONICAL_TARGET
-AM_CONFIG_HEADER(config.h)
-AM_INIT_AUTOMAKE(tuxtype, 1.5.15)
 
 AC_CONFIG_SRCDIR([tuxtype/funcs.h])
+
+# Tell Automake not to be as strict about packaging standards for tuxtype
+# as it would be for an official Gnu program:
+AM_INIT_AUTOMAKE(foreign)
+AM_CONFIG_HEADER(config.h)
+
 
 # Checks for programs.
 AC_PROG_CC
