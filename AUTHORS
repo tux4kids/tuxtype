@@ -44,3 +44,6 @@ Note: ConvertUTF.c/.h are from Unicode, Inc. and are released under a very free 
    Unicode Standard, and to make copies of this file in any form
    for internal or external distribution as long as this notice
    remains attached."
+
+Note: The Andika,Doulos, and Charis fonts are from SIL International and are licensed under the Open Font 
+   License, Version 1.1 (see "OFL.txt" in this directory for the full license text). 

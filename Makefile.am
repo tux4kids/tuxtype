@@ -3,7 +3,7 @@ MAKENSIS=@NSIS@
 
 SUBDIRS = tuxtype
 
-EXTRA_DIST = AUTHORS COPYING ChangeLog INSTALL README TODO tuxtype.lsm tuxtype.spec tuxtype.spec.in README.Win32 config.h autorun.inf tuxtype.ico
+EXTRA_DIST = AUTHORS COPYING ChangeLog INSTALL README TODO tuxtype.lsm tuxtype.spec tuxtype.spec.in README.Win32 config.h autorun.inf tuxtype.ico OFL.txt
 
 install-data-local:
 	$(mkinstalldirs) $(DESTDIR)$(prefix)/doc/$(PACKAGE)
@@ -24,6 +24,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/tuxtype.ico $(DESTDIR)$(prefix)/share/$(PACKAGE)/tuxtype.ico
 	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)
 	$(INSTALL_DATA) $(srcdir)/autorun.inf $(DESTDIR)$(prefix)/share/$(PACKAGE)/autorun.inf
+	$(INSTALL_DATA) $(srcdir)/OFL.txt $(DESTDIR)$(prefix)/share/$(PACKAGE)/OFL.txt
 
 uninstall-local:
 	-rm -f $(DESTDIR)$(prefix)/doc/$(PACKAGE)/AUTHORS
