@@ -9,21 +9,14 @@ space.png\
 rarrow.png
 
 install-data-local:
-	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/keyboard
+	$(MKDIR_P) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/keyboard
 	$(INSTALL_DATA) $(srcdir)/keyboard.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/keyboard/keyboard.png
-	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/keyboard
 	$(INSTALL_DATA) $(srcdir)/keyboard-us.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/keyboard/keyboard-us.png
-	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/keyboard
 	$(INSTALL_DATA) $(srcdir)/keyboard.eps $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/keyboard/keyboard.eps
-	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/keyboard
 	$(INSTALL_DATA) $(srcdir)/keyboard-us.eps $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/keyboard/keyboard-us.eps
-	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/keyboard
 	$(INSTALL_DATA) $(srcdir)/esc.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/keyboard/esc.png
-	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/keyboard
 	$(INSTALL_DATA) $(srcdir)/larrow.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/keyboard/larrow.png
-	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/keyboard
 	$(INSTALL_DATA) $(srcdir)/space.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/keyboard/space.png
-	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/keyboard
 	$(INSTALL_DATA) $(srcdir)/rarrow.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/keyboard/rarrow.png
 
 uninstall-local:

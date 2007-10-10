@@ -6,23 +6,15 @@ SUBDIRS = tuxtype
 EXTRA_DIST = AUTHORS COPYING ChangeLog INSTALL README TODO tuxtype.lsm tuxtype.spec tuxtype.spec.in README.Win32 config.h autorun.inf tuxtype.ico OFL.txt
 
 install-data-local:
-	$(mkinstalldirs) $(DESTDIR)$(prefix)/doc/$(PACKAGE)
+	$(MKDIR_P) $(DESTDIR)$(prefix)/doc/$(PACKAGE)
 	$(INSTALL_DATA) $(srcdir)/AUTHORS $(DESTDIR)$(prefix)/doc/$(PACKAGE)/AUTHORS
-	$(mkinstalldirs) $(DESTDIR)$(prefix)/doc/$(PACKAGE)
 	$(INSTALL_DATA) $(srcdir)/COPYING $(DESTDIR)$(prefix)/doc/$(PACKAGE)/COPYING
-	$(mkinstalldirs) $(DESTDIR)$(prefix)/doc/$(PACKAGE)
 	$(INSTALL_DATA) $(srcdir)/ChangeLog $(DESTDIR)$(prefix)/doc/$(PACKAGE)/ChangeLog
-	$(mkinstalldirs) $(DESTDIR)$(prefix)/doc/$(PACKAGE)
 	$(INSTALL_DATA) $(srcdir)/INSTALL $(DESTDIR)$(prefix)/doc/$(PACKAGE)/INSTALL
-	$(mkinstalldirs) $(DESTDIR)$(prefix)/doc/$(PACKAGE)
 	$(INSTALL_DATA) $(srcdir)/README $(DESTDIR)$(prefix)/doc/$(PACKAGE)/README
-	$(mkinstalldirs) $(DESTDIR)$(prefix)/doc/$(PACKAGE)
 	$(INSTALL_DATA) $(srcdir)/TODO $(DESTDIR)$(prefix)/doc/$(PACKAGE)/TODO
-	$(mkinstalldirs) $(DESTDIR)$(prefix)/doc/$(PACKAGE)
 	$(INSTALL_DATA) $(srcdir)/tuxtype.lsm $(DESTDIR)$(prefix)/doc/$(PACKAGE)/tuxtype.lsm
-	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)
 	$(INSTALL_DATA) $(srcdir)/tuxtype.ico $(DESTDIR)$(prefix)/share/$(PACKAGE)/tuxtype.ico
-	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)
 	$(INSTALL_DATA) $(srcdir)/autorun.inf $(DESTDIR)$(prefix)/share/$(PACKAGE)/autorun.inf
 	$(INSTALL_DATA) $(srcdir)/OFL.txt $(DESTDIR)$(prefix)/share/$(PACKAGE)/OFL.txt
 

@@ -161,11 +161,7 @@ target_os = @target_os@
 target_vendor = @target_vendor@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-SUBDIRS = \
-images\
-scripts\
-words
-
+SUBDIRS = images scripts words
 EXTRA_DIST = keyboard.lst lang.po phrases.txt settings.txt
 all: all-recursive
 

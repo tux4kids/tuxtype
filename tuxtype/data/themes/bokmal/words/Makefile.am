@@ -9,23 +9,15 @@ sprak.txt\
 yrke.txt
 
 install-data-local:
-	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/bokmal/words
+	$(MKDIR_P) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/bokmal/words
 	$(INSTALL_DATA) $(srcdir)/3boks.txt $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/bokmal/words/3boks.txt
-	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/bokmal/words
 	$(INSTALL_DATA) $(srcdir)/4boks.txt $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/bokmal/words/4boks.txt
-	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/bokmal/words
 	$(INSTALL_DATA) $(srcdir)/5boks.txt $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/bokmal/words/5boks.txt
-	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/bokmal/words
 	$(INSTALL_DATA) $(srcdir)/6boks.txt $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/bokmal/words/6boks.txt
-	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/bokmal/words
 	$(INSTALL_DATA) $(srcdir)/dyrenavn.txt $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/bokmal/words/dyrenavn.txt
-	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/bokmal/words
 	$(INSTALL_DATA) $(srcdir)/frukt.txt $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/bokmal/words/frukt.txt
-	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/bokmal/words
 	$(INSTALL_DATA) $(srcdir)/land.txt $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/bokmal/words/land.txt
-	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/bokmal/words
 	$(INSTALL_DATA) $(srcdir)/sprak.txt $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/bokmal/words/sprak.txt
-	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/bokmal/words
 	$(INSTALL_DATA) $(srcdir)/yrke.txt $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/bokmal/words/yrke.txt
 
 

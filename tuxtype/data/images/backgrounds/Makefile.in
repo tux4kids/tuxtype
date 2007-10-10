@@ -318,15 +318,11 @@ uninstall-am: uninstall-local
 
 
 install-data-local:
-	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/backgrounds
+	$(MKDIR_P) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/backgrounds
 	$(INSTALL_DATA) $(srcdir)/0.jpg $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/backgrounds/0.jpg
-	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/backgrounds
 	$(INSTALL_DATA) $(srcdir)/1.jpg $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/backgrounds/1.jpg
-	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/backgrounds
 	$(INSTALL_DATA) $(srcdir)/2.jpg $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/backgrounds/2.jpg
-	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/backgrounds
 	$(INSTALL_DATA) $(srcdir)/3.jpg $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/backgrounds/3.jpg
-	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/backgrounds
 	$(INSTALL_DATA) $(srcdir)/4.jpg $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/backgrounds/4.jpg
 
 uninstall-local:

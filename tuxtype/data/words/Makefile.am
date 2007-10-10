@@ -7,7 +7,7 @@ EXTRA_DIST = alphabet.txt\
 	words3.txt
 
 install-data-local:
-	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/words
+	$(MKDIR_P) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/words
 	$(INSTALL_DATA) $(srcdir)/alphabet.txt $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/words/alphabet.txt
 	$(INSTALL_DATA) $(srcdir)/fingers.txt $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/words/fingers.txt
 	$(INSTALL_DATA) $(srcdir)/plants.txt $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/words/plants.txt

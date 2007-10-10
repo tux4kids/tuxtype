@@ -1,8 +1,5 @@
 
-SUBDIRS = \
-images\
-scripts\
-words
+SUBDIRS = images scripts words
 
 EXTRA_DIST = keyboard.lst lang.po phrases.txt settings.txt
 

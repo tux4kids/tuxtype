@@ -4,7 +4,7 @@ SUBDIRS = images scripts sounds themes words fonts
 EXTRA_DIST = keyboard.lst
 
 install-data-local:
-	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data
+	$(MKDIR_P) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data
 	$(INSTALL_DATA) $(srcdir)/keyboard.lst $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/keyboard.lst
 
 uninstall-local:

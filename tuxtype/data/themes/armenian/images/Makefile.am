@@ -4,9 +4,8 @@ splat0.png \
 title1.png 
 
 install-data-local:
-	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/armenian/images
+	$(MKDIR_P) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/armenian/images
 	$(INSTALL_DATA) $(srcdir)/splat0.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/armenian/images/splat0.png
-	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/armenian/images
 	$(INSTALL_DATA) $(srcdir)/title1.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/armenian/images/title1.png
 
 uninstall-local:

@@ -1,5 +1,5 @@
 # Process this file with autoconf to produce a configure script.
-AC_INIT(Tux Typing, 1.5.15, tuxmath-devel@lists.sourceforge.net, tuxtype)
+AC_INIT([Tux Typing],[1.5.15],[tuxmath-devel@lists.sourceforge.net],[tuxtype])
 
 AC_CANONICAL_BUILD
 AC_CANONICAL_HOST
@@ -10,7 +10,7 @@ AC_CONFIG_SRCDIR([tuxtype/funcs.h])
 # Tell Automake not to be as strict about packaging standards for tuxtype
 # as it would be for an official Gnu program:
 AM_INIT_AUTOMAKE(foreign)
-AM_CONFIG_HEADER(config.h)
+AC_CONFIG_HEADERS([config.h])
 
 
 # Checks for programs.
@@ -179,9 +179,7 @@ NSI_INSTALL_DIR=mingw32
 AC_SUBST(NSI_INSTALL_DIR)
 
 NSI_DLL_DIR=~/tuxtype_dll
-AC_ARG_WITH(dll-directory,AC_HELP_STRING(
-    [--with-dll-directory=path],
-    [set the path where dll for TuxType are [$(NSI_DLL_DIR)]]), dll_path=$withval, dll_path=no)
+AC_ARG_WITH(dll-directory,AS_HELP_STRING([--with-dll-directory=path],[set the path where dll for TuxType are [$(NSI_DLL_DIR)]]), dll_path=$withval, dll_path=no)
 
 AM_CONDITIONAL(NSI_BUILD, test "$dll_path" = no)
 
