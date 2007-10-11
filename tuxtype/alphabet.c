@@ -268,7 +268,7 @@ return BlackOutline_SDLPango(t, font, c);
     return NULL;
   }
 
-  black_letters = TTF_RenderUTF8_Blended(font, t, black);
+  black_letters = TTF_RenderUTF8_Blended((TTF_Font*)font, t, black);
 
   if (!black_letters)
   {
@@ -298,7 +298,8 @@ return BlackOutline_SDLPango(t, font, c);
   SDL_FreeSurface(black_letters);
 
   /* --- Put the color version of the text on top! --- */
-  white_letters = TTF_RenderUTF8_Blended(font, t, *c);
+  /* NOTE we cast away the 'const-ness' to keep compliler from complaining: */
+  white_letters = TTF_RenderUTF8_Blended((TTF_Font*)font, t, *c);
   dstrect.x = 1;
   dstrect.y = 1;
   SDL_BlitSurface(white_letters, NULL, bg, &dstrect);
@@ -466,8 +467,8 @@ SDL_Surface* BlackOutline_Unicode(const Uint16* t, const TTF_Font* font, const S
     fprintf(stderr, "BlackOutline_wchar(): invalid ptr parameter, returning.");
     return NULL;
   }
-
-  black_letters = TTF_RenderUNICODE_Blended(font, t, black);
+                                        /* (cast to stop compiler complaint) */
+  black_letters = TTF_RenderUNICODE_Blended((TTF_Font*)font, t, black);
 
   if (!black_letters)
   {
@@ -497,7 +498,8 @@ SDL_Surface* BlackOutline_Unicode(const Uint16* t, const TTF_Font* font, const S
   SDL_FreeSurface(black_letters);
 
   /* --- Put the color version of the text on top! --- */
-  white_letters = TTF_RenderUNICODE_Blended(font, t, *c);
+                                       /* (cast to stop compiler complaint) */
+  white_letters = TTF_RenderUNICODE_Blended((TTF_Font*)font, t, *c);
   dstrect.x = 1;
   dstrect.y = 1;
   SDL_BlitSurface(white_letters, NULL, bg, &dstrect);
@@ -1018,7 +1020,7 @@ void ResetCharList(void)
 /* Can be called multiple times on different strings      */
 /* to accumulate entire repertoire - call ResetCharList() */
 /* to start over                                          */
-void GenCharListFromString(const char* UTF8_str)
+void GenCharListFromString(const unsigned char* UTF8_str)
 {
   int i = 0;
   wchar_t wchar_buf[MAX_UNICODES];
@@ -1114,7 +1116,7 @@ static void clear_keyboard(void)
 /* It returns -1 on error, otherwise returns the length of the   */
 /* converted, null-terminated wchar_t* string now stored in the  */
 /* location of the 'wide_word' pointer.                          */
-int ConvertFromUTF8(wchar_t* wide_word, const char* UTF8_word)
+int ConvertFromUTF8(wchar_t* wide_word, const unsigned char* UTF8_word)
 {
   int i = 0;
   ConversionResult result;

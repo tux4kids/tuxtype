@@ -5,11 +5,9 @@ words3.txt
 
 
 install-data-local:
-	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/euskara/words
+	$(MKDIR_P) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/euskara/words
 	$(INSTALL_DATA) $(srcdir)/words1.txt $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/euskara/words/words1.txt
-	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/euskara/words
 	$(INSTALL_DATA) $(srcdir)/words2.txt $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/euskara/words/words2.txt
-	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/euskara/words
 	$(INSTALL_DATA) $(srcdir)/words3.txt $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/euskara/words/words3.txt
 
 

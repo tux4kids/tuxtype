@@ -5,7 +5,7 @@ EXTRA_DIST = \
 splat0.png
 
 install-data-local:
-	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/malayalam/images
+	$(MKDIR_P) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/malayalam/images
 	$(INSTALL_DATA) $(srcdir)/splat0.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/malayalam/images/splat0.png
 
 uninstall-local:

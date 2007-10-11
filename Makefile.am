@@ -67,7 +67,6 @@ install-nsi-local: all
 ## (thanks to Ralf Wildenhues <Ralf.Wildenhues@gmx.de> for automake help!)
 dist_with_fonts:
 	$(MAKE) $(AM_MAKEFLAGS) distdir=$(PACKAGE)_w_fonts-$(VERSION) dist_fonts='AndikaDesRevG.ttf DoulosSILR.ttf Rachana_w01.ttf' dist
-#	distdir=tuxtype
 
 install-nsi-am: install-nsi-local
 

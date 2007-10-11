@@ -321,23 +321,15 @@ uninstall-am: uninstall-local
 
 
 install-data-local:
-	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/nynorsk/words
+	$(MKDIR_P) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/nynorsk/words
 	$(INSTALL_DATA) $(srcdir)/3boks.txt $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/nynorsk/words/3boks.txt
-	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/nynorsk/words
 	$(INSTALL_DATA) $(srcdir)/4boks.txt $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/nynorsk/words/4boks.txt
-	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/nynorsk/words
 	$(INSTALL_DATA) $(srcdir)/5boks.txt $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/nynorsk/words/5boks.txt
-	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/nynorsk/words
 	$(INSTALL_DATA) $(srcdir)/6boks.txt $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/nynorsk/words/6boks.txt
-	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/nynorsk/words
 	$(INSTALL_DATA) $(srcdir)/dyrenamn.txt $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/nynorsk/words/dyrenamn.txt
-	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/nynorsk/words
 	$(INSTALL_DATA) $(srcdir)/frukt.txt $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/nynorsk/words/frukt.txt
-	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/nynorsk/words
 	$(INSTALL_DATA) $(srcdir)/land.txt $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/nynorsk/words/land.txt
-	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/nynorsk/words
 	$(INSTALL_DATA) $(srcdir)/sprak.txt $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/nynorsk/words/sprak.txt
-	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/nynorsk/words
 	$(INSTALL_DATA) $(srcdir)/yrke.txt $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/nynorsk/words/yrke.txt
 
 uninstall-local:

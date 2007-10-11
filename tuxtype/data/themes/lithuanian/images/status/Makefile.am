@@ -4,11 +4,9 @@ score.png\
 wave.png
 
 install-data-local:
-	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/lithuanian/images/status
+	$(MKDIR_P) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/lithuanian/images/status
 	$(INSTALL_DATA) $(srcdir)/gameover.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/lithuanian/images/status/gameover.png
-	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/lithuanian/images/status
 	$(INSTALL_DATA) $(srcdir)/score.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/lithuanian/images/status/score.png
-	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/lithuanian/images/status
 	$(INSTALL_DATA) $(srcdir)/wave.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/lithuanian/images/status/wave.png
 
 uninstall-local:

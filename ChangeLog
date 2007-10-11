@@ -1,3 +1,10 @@
+11 Oct 2007
+[ David Bruce <dbruce@tampabay.rr.com> ]
+       - updated all Makefile.am's to use the currently-preferred "MKDIR_P"
+         instead of "mkinstalldirs"; removed multiple redundant invocations
+         of "mkinstalldirs".
+       - ran Autoconf's "autoupdate" to be sure build system will work
+         properly with automake 1.10.
 
 15 Sep 2007
 [ David Bruce <dbruce@tampabay.rr.com> ]

@@ -22,7 +22,7 @@ swahili
 EXTRA_DIST = lang.po
 
 install-data-local:
-	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes
+	$(MKDIR_P) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes
 	$(INSTALL_DATA) $(srcdir)/lang.po $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/lang.po
 
 uninstall-local:

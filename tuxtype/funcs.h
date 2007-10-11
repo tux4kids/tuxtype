@@ -36,10 +36,10 @@ SDL_Surface* BlackOutline_SDLPango(const unsigned char* t, const TTF_Font* font,
 /* (still in alphabet.c:) */
 int CheckNeededGlyphs(void);
 void ClearWordList(void);
-int ConvertFromUTF8(wchar_t* wide_word, const char* UTF8_word);
+int ConvertFromUTF8(wchar_t* wide_word, const unsigned char* UTF8_word);
 void FreeLetters(void);
 int GenerateWordList(const char* wordFn);
-void GenCharListFromString(const char* UTF8_str);
+void GenCharListFromString(const unsigned char* UTF8_str);
 void ResetCharList(void);
 wchar_t GetLetter(void);
 wchar_t* GetWord(void);

@@ -3,7 +3,7 @@ EXTRA_DIST = easy.txt
 
 
 install-data-local:
-	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/greek/words
+	$(MKDIR_P) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/greek/words
 	$(INSTALL_DATA) $(srcdir)/easy.txt $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/greek/words/easy.txt
 
 
