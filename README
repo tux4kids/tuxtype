@@ -6,9 +6,9 @@ An Educational Typing Tutor Game Starring Tux, the Linux Penguin
 
     If you are interested in Translation/moving this game to another 
     language, please send a mail to Holger Levsen <debian@layer-acht.org>
-    or submit a ticket in trac at http://trac.tux4kids.net/tuxtype/newticket
+    or to tuxmath-devel@lists.sourceforge.net.
 
-This is version 1.5.11 of Tux Typing.
+This is version 1.5.15 of Tux Typing.
 
 In Fish Cascade you control Tux as he searches for fish to eat. Fish fall
 from the top of the screen. These fish have letters on them.  Unforunately

@@ -4,6 +4,7 @@ backgrounds\
 cities\
 comets\
 hands\
+icons\
 keyboard\
 menu\
 status\

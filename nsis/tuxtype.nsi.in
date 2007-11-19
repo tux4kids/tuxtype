@@ -64,8 +64,8 @@ Section "Start Menu Shortcuts"
   SetShellVarContext all
   SetOutPath $INSTDIR
   CreateDirectory "$SMPROGRAMS\${APP_NAME}"
-  CreateShortCut  "$SMPROGRAMS\${APP_NAME}\${APP_NAME} (Full Screen).lnk" "$INSTDIR\${APP_EXE}" "-f" "$INSTDIR\${APP_EXE}" 0 "" "" "Start TuxType2 in Fullscreen mode"
-  CreateShortCut  "$SMPROGRAMS\${APP_NAME}\${APP_NAME} (Windowed).lnk" "$INSTDIR\${APP_EXE}" "-w" "$INSTDIR\${APP_EXE}" 0 "" "" "Start TuxType2 in a Window"
+  CreateShortCut  "$SMPROGRAMS\${APP_NAME}\${APP_NAME} (Full Screen).lnk" "$INSTDIR\${APP_EXE}" "-f" "$INSTDIR\data\images\icons\tuxtype.ico" 0 "" "" "Start TuxType2 in Fullscreen mode"
+  CreateShortCut  "$SMPROGRAMS\${APP_NAME}\${APP_NAME} (Windowed).lnk" "$INSTDIR\${APP_EXE}" "-w" "$INSTDIR\data\images\icons\tuxtype.ico" 0 "" "" "Start TuxType2 in a Window"
   CreateShortCut  "$SMPROGRAMS\${APP_NAME}\Uninstall.lnk" "$INSTDIR\uninstall.exe" "" "$INSTDIR\uninstall.exe" 0 "" "" "Remove Tux Typing 2"
 SectionEnd
 
@@ -73,7 +73,7 @@ SectionEnd
 Section "Desktop Shortcut"
   SetShellVarContext all
   SetOutPath $INSTDIR
-  CreateShortCut "$DESKTOP\${APP_NAME}.lnk" "$INSTDIR\${APP_EXE}" "" "$INSTDIR\${APP_EXE}" 0  "" "" "Run Tux Typing 2"
+  CreateShortCut "$DESKTOP\${APP_NAME}.lnk" "$INSTDIR\${APP_EXE}" "" "$INSTDIR\data\images\icons\tuxtype.ico" 0  "" "" "Run Tux Typing 2"
 SectionEnd
 
 ;Function .onInstSuccess

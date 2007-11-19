@@ -106,6 +106,7 @@ tuxtype/data/images/backgrounds/Makefile
 tuxtype/data/images/cities/Makefile
 tuxtype/data/images/comets/Makefile
 tuxtype/data/images/hands/Makefile
+tuxtype/data/images/icons/Makefile
 tuxtype/data/images/keyboard/Makefile
 tuxtype/data/images/menu/Makefile
 tuxtype/data/images/status/Makefile
@@ -169,6 +170,9 @@ tuxtype/data/themes/svenska/Makefile
 tuxtype/data/themes/svenska/words/Makefile
 tuxtype/data/themes/swahili/Makefile
 tuxtype/data/themes/swahili/words/Makefile
+tuxtype/data/themes/wolof/Makefile
+tuxtype/data/themes/wolof/images/Makefile
+tuxtype/data/themes/wolof/words/Makefile
 tuxtype/data/words/Makefile
 tuxtype/docs/Makefile
 tuxtype/docs/en/Makefile

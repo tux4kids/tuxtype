@@ -17,7 +17,8 @@ nederlands\
 nynorsk\
 russian\
 svenska\
-swahili
+swahili \
+wolof
 
 EXTRA_DIST = lang.po
 
