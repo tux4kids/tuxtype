@@ -259,8 +259,8 @@ int PlayCascade( int diflevel ) {
 						DrawBackground();
 					}
 
-
-					key_unicode = event.key.keysym.unicode & 0xff;
+					key_unicode = event.key.keysym.unicode;
+					//key_unicode = event.key.keysym.unicode & 0xff;
 					/* For now, tuxtype is case-insensitive for input, */
                                         /* with only uppercase for answers:                */
 					DEBUGCODE

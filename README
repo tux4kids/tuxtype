@@ -5,8 +5,13 @@ An Educational Typing Tutor Game Starring Tux, the Linux Penguin
 (To install the game on your system, please read the INSTALL file.)
 
     If you are interested in Translation/moving this game to another 
-    language, please send a mail to Holger Levsen <debian@layer-acht.org>
-    or to tuxmath-devel@lists.sourceforge.net.
+    language, please send a mail to David Bruce <dbruce@tampabay.rr.com>, 
+    Holger Levsen <debian@layer-acht.org>,  or to:
+
+    <tux4kids-tuxtype-dev@lists.alioth.debian.org>
+
+    Additional information on this subject is covered in "HowToTheme.html"
+    in the "docs" directory of this package.
 
 This is version 1.5.15 of Tux Typing.
 

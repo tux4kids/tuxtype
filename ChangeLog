@@ -1,3 +1,9 @@
+28 Nov 2007
+[ David Bruce <dbruce@tampabay.rr.com> ]
+       - Corrected Russian keyboard.lst.
+       - Possible bugfix that may have prevented recognition of chars
+         beyond 255 in cascade and comet zap games.
+
 19 Nov 2007
 [ David Bruce <dbruce@tampabay.rr.com> ]
        - added Wolof theme by Issa Dominique Rochefort.

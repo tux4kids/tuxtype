@@ -184,8 +184,8 @@ int PlayLaserGame(int diff_level)
 				if (level_start_wait > 0) 
 					key = SDLK_UNKNOWN;
 				
-
-				key_unicode = event.key.keysym.unicode & 0xff;
+				key_unicode = event.key.keysym.unicode;
+				//key_unicode = event.key.keysym.unicode & 0xff;
 
 				DEBUGCODE
 				{
