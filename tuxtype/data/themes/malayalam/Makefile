@@ -63,10 +63,10 @@ AUTOCONF = ${SHELL} /home/dbruce/tux4kids/tuxtype/trunk/missing --run autoconf
 AUTOHEADER = ${SHELL} /home/dbruce/tux4kids/tuxtype/trunk/missing --run autoheader
 AUTOMAKE = ${SHELL} /home/dbruce/tux4kids/tuxtype/trunk/missing --run automake-1.10
 AWK = mawk
-CC = gcc
+CC = i586-mingw32msvc-gcc
 CCDEPMODE = depmode=gcc3
 CFLAGS = -g -O2 -I/usr/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT -D__GW32__
-CPP = gcc -E
+CPP = i586-mingw32msvc-gcc -E
 CPPFLAGS = -I/usr/local/cross-tools/i586-mingw32msvc/include -idirafter /usr/local/cross-tools/i586-mingw32msvc/include/glibc -DDATA_PREFIX=\"$(prefix)\"
 CYGPATH_W = echo
 DEFS = -DHAVE_CONFIG_H
@@ -75,7 +75,7 @@ ECHO_C =
 ECHO_N = -n
 ECHO_T = 
 EGREP = /bin/grep -E
-EXEEXT = 
+EXEEXT = .exe
 GREP = /bin/grep
 INSTALL = /usr/bin/install -c
 INSTALL_DATA = ${INSTALL} -m 644
@@ -84,35 +84,35 @@ INSTALL_SCRIPT = ${INSTALL}
 INSTALL_STRIP_PROGRAM = $(install_sh) -c -s
 LDFLAGS = -L/usr/local/cross-tools/i586-mingw32msvc/lib
 LIBOBJS = 
-LIBS = -lmingw32 -lSDLmain -L/usr/lib -lSDL -lSDL_Pango -lSDL_image -lSDL_ttf -lSDL_mixer  -lgw32c -luuid -lole32 -lwsock32 -mwindows
+LIBS = -lmingw32 -lSDLmain -L/usr/lib -lSDL -lSDL_image -lSDL_ttf -lSDL_mixer  -lgw32c -luuid -lole32 -lwsock32 -mwindows
 LN_S = ln -s
 LTLIBOBJS = 
 MAKEINFO = ${SHELL} /home/dbruce/tux4kids/tuxtype/trunk/missing --run makeinfo
 MKDIR_P = /bin/mkdir -p
-NSIS = no
+NSIS = /usr/bin/makensis
 NSI_DLL_DIR = /home/dbruce/tuxtype_dll
 NSI_INSTALL_DIR = mingw32
 OBJEXT = o
 PACKAGE = tuxtype
-PACKAGE_BUGREPORT = tuxmath-devel@lists.sourceforge.net
-PACKAGE_NAME = tuxtype
-PACKAGE_STRING = tuxtype 1.5.13
+PACKAGE_BUGREPORT = tux4kids-tuxtype-dev@lists.alioth.debian.org
+PACKAGE_NAME = Tux Typing
+PACKAGE_STRING = Tux Typing 1.5.16
 PACKAGE_TARNAME = tuxtype
-PACKAGE_VERSION = 1.5.13
+PACKAGE_VERSION = 1.5.16
 PATH_SEPARATOR = :
 SDL_CFLAGS = -I/usr/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT
 SDL_CONFIG = /usr/bin/sdl-config
 SDL_LIBS = -L/usr/lib -lSDL
 SET_MAKE = 
 SHELL = /bin/sh
-STRIP = strip
-VERSION = 1.5.13
-WINDRES = no
+STRIP = i586-mingw32msvc-strip
+VERSION = 1.5.16
+WINDRES = /usr/bin/i586-mingw32msvc-windres
 abs_builddir = /home/dbruce/tux4kids/tuxtype/trunk/tuxtype/data/themes/malayalam
 abs_srcdir = /home/dbruce/tux4kids/tuxtype/trunk/tuxtype/data/themes/malayalam
 abs_top_builddir = /home/dbruce/tux4kids/tuxtype/trunk
 abs_top_srcdir = /home/dbruce/tux4kids/tuxtype/trunk
-ac_ct_CC = gcc
+ac_ct_CC = 
 am__include = include
 am__leading_dot = .
 am__quote = 
@@ -161,12 +161,8 @@ target_os = mingw32msvc
 target_vendor = pc
 top_builddir = ../../../..
 top_srcdir = ../../../..
-SUBDIRS = \
-images\
-scripts\
-words
-
-EXTRA_DIST = keyboard.lst lang.po phrases.txt
+SUBDIRS = images scripts words
+EXTRA_DIST = keyboard.lst lang.po phrases.txt settings.txt
 all: all-recursive
 
 .SUFFIXES:
@@ -179,9 +175,9 @@ $(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
 	      exit 1;; \
 	  esac; \
 	done; \
-	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu  tuxtype/data/themes/malayalam/Makefile'; \
+	echo ' cd $(top_srcdir) && $(AUTOMAKE) --foreign  tuxtype/data/themes/malayalam/Makefile'; \
 	cd $(top_srcdir) && \
-	  $(AUTOMAKE) --gnu  tuxtype/data/themes/malayalam/Makefile
+	  $(AUTOMAKE) --foreign  tuxtype/data/themes/malayalam/Makefile
 .PRECIOUS: Makefile
 Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
 	@case '$?' in \
@@ -476,17 +472,17 @@ uninstall-am: uninstall-local
 
 
 install-data-local:
-	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/malayalam
+	$(MKDIR_P) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/malayalam
 	$(INSTALL_DATA) $(srcdir)/lang.po $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/malayalam/lang.po
-	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/malayalam
 	$(INSTALL_DATA) $(srcdir)/keyboard.lst $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/malayalam/keyboard.lst
-	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/malayalam
 	$(INSTALL_DATA) $(srcdir)/phrases.txt $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/malayalam/phrases.txt
+	$(INSTALL_DATA) $(srcdir)/settings.txt $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/malayalam/settings.txt
 
 uninstall-local:
 	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/malayalam/keyboard.lst
 	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/malayalam/lang.po
 	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/malayalam/phrases.txt
+	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/malayalam/settings.txt
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:

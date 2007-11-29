@@ -1,5 +1,5 @@
 # Process this file with autoconf to produce a configure script.
-AC_INIT([Tux Typing],[1.5.15],[tuxmath-devel@lists.sourceforge.net],[tuxtype])
+AC_INIT([Tux Typing],[1.5.16],[tux4kids-tuxtype-dev@lists.alioth.debian.org],[tuxtype])
 
 AC_CANONICAL_BUILD
 AC_CANONICAL_HOST
@@ -125,6 +125,8 @@ tuxtype/data/themes/brazilian-portuguese/images/Makefile
 tuxtype/data/themes/brazilian-portuguese/words/Makefile
 tuxtype/data/themes/catalan/Makefile
 tuxtype/data/themes/catalan/words/Makefile
+tuxtype/data/themes/czech/Makefile
+tuxtype/data/themes/czech/words/Makefile
 tuxtype/data/themes/dansk/Makefile
 tuxtype/data/themes/dansk/sounds/Makefile
 tuxtype/data/themes/dansk/words/Makefile
