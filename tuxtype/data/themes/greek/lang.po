@@ -50,7 +50,7 @@ msgstr "2. Πιλότος"
 
 # "Ace" is level 3 in comet zap
 msgid "Ace"
-msgstr "3. ’σσος"
+msgstr "3. Άσσος"
 
 # "Commander" is level 4 in comet zap
 msgid "Commander"
@@ -108,3 +108,8 @@ msgstr "Αυτό το κομμάτι δεν είναι ακόμη έτοιμο"
 msgid "Discuss the future of TuxTyping at"
 msgstr "Σχόλια για το TuxTyping"
 
+msgid "Great!"
+msgstr "Μπράβο!"
+
+msgid "Project Info"
+msgstr "Πληροφορίες προγράμματος"
