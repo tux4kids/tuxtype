@@ -19,7 +19,9 @@
 
 /* Needed to handle rendering issues for Indic languages*/
 #ifndef WIN32
+#ifndef MACOSX
 #include <SDL_Pango.h>
+#endif
 #endif
 
 /* Needed to convert UTF-8 under Windows because we don't have glibc: */
@@ -84,7 +86,9 @@ static int unicode_in_key_list(wchar_t uni_char);
 int check_needed_unicodes_str(const wchar_t* s);
 
 #ifndef WIN32
+#ifndef MACOSX
 static SDLPango_Matrix* SDL_Colour_to_SDLPango_Matrix(const SDL_Color* cl);
+#endif
 #endif
 
 
@@ -258,7 +262,9 @@ SDL_Surface* BlackOutline(const unsigned char* t, const TTF_Font* font, const SD
 
 /* Simply passthrough to SDLPango version if available (i.e. not under Windows):*/
 #ifndef WIN32
+#ifndef MACOSX
 return BlackOutline_SDLPango(t, font, c);
+#endif
 #endif
 
 
@@ -318,6 +324,7 @@ return BlackOutline_SDLPango(t, font, c);
 
 
 #ifndef WIN32
+#ifndef MACOSX
 /*Convert SDL_Colour to SDLPango_Matrix*/
 
 SDLPango_Matrix* SDL_Colour_to_SDLPango_Matrix(const SDL_Color *cl)
@@ -445,6 +452,7 @@ SDL_Surface* BlackOutline_SDLPango(const unsigned char* t, const TTF_Font* font,
   return out;
 }
 
+#endif
 #endif
 /* End of win32-excluded coded */
 
