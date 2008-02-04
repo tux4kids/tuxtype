@@ -1,7 +1,7 @@
 #!/bin/sh
 
-PREFIX=/usr/local/cross-tools
-TARGET=i386-mingw32msvc
+PREFIX=/usr/local/mingw
+TARGET=i586-pc-mingw32
 PATH="$PREFIX/bin:$PREFIX/$TARGET/bin:$PATH"
 export PATH
 exec make $*

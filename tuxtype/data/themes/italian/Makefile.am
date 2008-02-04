@@ -1,5 +1,5 @@
 
-SUBDIRS = words
+SUBDIRS = words images
 
 EXTRA_DIST = lang.po keyboard.lst
 

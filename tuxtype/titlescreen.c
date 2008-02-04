@@ -111,7 +111,8 @@ void TitleScreen(void)
 
   /* FIXME phrase(s) should come from file */
 
-  ConvertFromUTF8(phrase, "Now is the time for all good men to come to the aid of their country.");
+//  ConvertFromUTF8(phrase, "Now is the time for all good men to come to the aid of their country.");
+  ConvertFromUTF8(phrase, "To all that believe in his name he gave power to become children of God");
 
 //  wcscpy(phrase, "Now is the time for all good men to come to the aid of their country.");
   start = SDL_GetTicks();

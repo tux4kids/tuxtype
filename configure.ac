@@ -72,7 +72,7 @@ if test "$native_win32" = yes; then
 
    AC_DEFINE([BUILD_MINGW32], 1,[Native MinGW32 build])
    CFLAGS="$CFLAGS -D__GW32__"
-   LIBS="-lmingw32 -lSDLmain $LIBS -lgw32c -luuid -lole32 -lwsock32 -mwindows"
+   LIBS="-lmingw32 -lSDLmain $LIBS -luuid -lole32 -lwsock32 -mwindows"
    CPPFLAGS="$CPPFLAGS -idirafter $prefix/include/glibc"
    #CPPFLAGS="$CPPFLAGS -I$prefix/include/glibc"
    AC_PATH_PROG(WINDRES, "$target_alias-windres", no, [$PATH])
@@ -143,6 +143,7 @@ tuxtype/data/themes/french/words/Makefile
 tuxtype/data/themes/greek/Makefile
 tuxtype/data/themes/greek/words/Makefile
 tuxtype/data/themes/italian/Makefile
+tuxtype/data/themes/italian/images/Makefile
 tuxtype/data/themes/italian/words/Makefile
 tuxtype/data/themes/jamaican/Makefile
 tuxtype/data/themes/jamaican/images/Makefile
