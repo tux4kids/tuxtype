@@ -1,2 +1,2 @@
-
-  SUBDIRS = en
+## Makefile.am for tuxtype/docs:
+SUBDIRS = en

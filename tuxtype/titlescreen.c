@@ -813,7 +813,6 @@ void TitleScreen(void)
 }
 
 
-/* FIXME this should update settings.fullscreen */
 void SwitchScreenMode(void)
 {
   SDL_Surface *tmp;
@@ -856,6 +855,8 @@ void SwitchScreenMode(void)
   SDL_UpdateRect(tmp,0,0,RES_X,RES_Y);
   SDL_FreeSurface(tmp);
 
+  /* FIXME maybe settings.fullscreen should be updated by the */
+  /* calling function rather than here? */
   settings.fullscreen = !settings.fullscreen;
 }
 
