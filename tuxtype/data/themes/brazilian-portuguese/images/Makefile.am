@@ -1,9 +1,6 @@
-EXTRA_DIST = map.png
+## Makefile.am for tuxtype - data/themes/brazilian-portuguese/images:
+## Process with Automake to create Makefile.in
 
-install-data-local:
-	$(MKDIR_P) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/brazilian-portuguese/images
-	$(INSTALL_DATA) $(srcdir)/map.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/brazilian-portuguese/images/map.png
+themes_brazilian_portuguese_imagesdir = $(pkgdatadir)/data/themes/brazilian-portuguese/images
 
-
-uninstall-local:
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/brazilian-portuguese/images/map.png
+dist_themes_brazilian_portuguese_images_DATA = map.png

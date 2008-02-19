@@ -1,15 +1,10 @@
+## Makefile.am for tuxtype - data/themes/swahili:
+## Process with Automake to create Makefile.in
 
-SUBDIRS = words
+SUBDIRS = words 
 
-EXTRA_DIST = AUTHOR lang.po keyboard.lst
+themes_swahilidir = $(pkgdatadir)/data/themes/swahili
 
-install-data-local:
-	$(MKDIR_P) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/swahili
-	$(INSTALL_DATA) $(srcdir)/lang.po $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/swahili/lang.po
-	$(INSTALL_DATA) $(srcdir)/keyboard.lst $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/swahili/keyboard.lst
-	$(INSTALL_DATA) $(srcdir)/AUTHOR $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/swahili/AUTHOR
-
-uninstall-local:
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/swahili/lang.po
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/swahili/keyboard.lst
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/swahili/AUTHOR
+dist_themes_swahili_DATA = AUTHOR \
+  lang.po \
+  keyboard.lst

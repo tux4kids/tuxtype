@@ -1,14 +1,7 @@
-
+## Makefile.am for tuxtype - data/themes/catalan:
+## Process with Automake to create Makefile.in
 SUBDIRS = words
 
-EXTRA_DIST = lang.po keyboard.lst
+themes_catalandir = $(pkgdatadir)/data/themes/catalan
 
-install-data-local:
-	$(MKDIR_P) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/catalan
-
-	$(INSTALL_DATA) $(srcdir)/lang.po $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/catalan/lang.po
-	$(INSTALL_DATA) $(srcdir)/keyboard.lst $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/catalan/keyboard.lst
-
-uninstall-local:
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/catalan/lang.po
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/catalan/keyboard.lst
+dist_themes_catalan_DATA = lang.po keyboard.lst

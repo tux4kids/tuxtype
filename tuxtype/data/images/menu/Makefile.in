@@ -13,6 +13,7 @@
 # PARTICULAR PURPOSE.
 
 @SET_MAKE@
+
 VPATH = @srcdir@
 pkgdatadir = $(datadir)/@PACKAGE@
 pkglibdir = $(libdir)/@PACKAGE@
@@ -33,7 +34,8 @@ build_triplet = @build@
 host_triplet = @host@
 target_triplet = @target@
 subdir = tuxtype/data/images/menu
-DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
+DIST_COMMON = $(dist_images_menu_DATA) $(srcdir)/Makefile.am \
+	$(srcdir)/Makefile.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/acinclude.m4 \
 	$(top_srcdir)/configure.ac
@@ -44,6 +46,15 @@ CONFIG_HEADER = $(top_builddir)/config.h
 CONFIG_CLEAN_FILES =
 SOURCES =
 DIST_SOURCES =
+am__vpath_adj_setup = srcdirstrip=`echo "$(srcdir)" | sed 's|.|.|g'`;
+am__vpath_adj = case $$p in \
+    $(srcdir)/*) f=`echo "$$p" | sed "s|^$$srcdirstrip/||"`;; \
+    *) f=$$p;; \
+  esac;
+am__strip_dir = `echo $$p | sed -e 's|^.*/||'`;
+am__installdirs = "$(DESTDIR)$(images_menudir)"
+dist_images_menuDATA_INSTALL = $(INSTALL_DATA)
+DATA = $(dist_images_menu_DATA)
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 ACLOCAL = @ACLOCAL@
 AMTAR = @AMTAR@
@@ -149,8 +160,8 @@ target_os = @target_os@
 target_vendor = @target_vendor@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-EXTRA_DIST = \
-cascade0.png\
+images_menudir = $(pkgdatadir)/data/images_menu
+dist_images_menu_DATA = cascade0.png\
 cascade1.png\
 cascade10.png\
 cascade2.png\
@@ -247,6 +258,23 @@ $(top_srcdir)/configure:  $(am__configure_deps)
 	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh
 $(ACLOCAL_M4):  $(am__aclocal_m4_deps)
 	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh
+install-dist_images_menuDATA: $(dist_images_menu_DATA)
+	@$(NORMAL_INSTALL)
+	test -z "$(images_menudir)" || $(MKDIR_P) "$(DESTDIR)$(images_menudir)"
+	@list='$(dist_images_menu_DATA)'; for p in $$list; do \
+	  if test -f "$$p"; then d=; else d="$(srcdir)/"; fi; \
+	  f=$(am__strip_dir) \
+	  echo " $(dist_images_menuDATA_INSTALL) '$$d$$p' '$(DESTDIR)$(images_menudir)/$$f'"; \
+	  $(dist_images_menuDATA_INSTALL) "$$d$$p" "$(DESTDIR)$(images_menudir)/$$f"; \
+	done
+
+uninstall-dist_images_menuDATA:
+	@$(NORMAL_UNINSTALL)
+	@list='$(dist_images_menu_DATA)'; for p in $$list; do \
+	  f=$(am__strip_dir) \
+	  echo " rm -f '$(DESTDIR)$(images_menudir)/$$f'"; \
+	  rm -f "$(DESTDIR)$(images_menudir)/$$f"; \
+	done
 tags: TAGS
 TAGS:
 
@@ -282,8 +310,11 @@ distdir: $(DISTFILES)
 	done
 check-am: all-am
 check: check-am
-all-am: Makefile
+all-am: Makefile $(DATA)
 installdirs:
+	for dir in "$(DESTDIR)$(images_menudir)"; do \
+	  test -z "$$dir" || $(MKDIR_P) "$$dir"; \
+	done
 install: install-am
 install-exec: install-exec-am
 install-data: install-data-am
@@ -326,7 +357,7 @@ info: info-am
 
 info-am:
 
-install-data-am: install-data-local
+install-data-am: install-dist_images_menuDATA
 
 install-dvi: install-dvi-am
 
@@ -360,154 +391,22 @@ ps: ps-am
 
 ps-am:
 
-uninstall-am: uninstall-local
+uninstall-am: uninstall-dist_images_menuDATA
 
 .MAKE: install-am install-strip
 
 .PHONY: all all-am check check-am clean clean-generic distclean \
 	distclean-generic distdir dvi dvi-am html html-am info info-am \
 	install install-am install-data install-data-am \
-	install-data-local install-dvi install-dvi-am install-exec \
-	install-exec-am install-html install-html-am install-info \
-	install-info-am install-man install-pdf install-pdf-am \
-	install-ps install-ps-am install-strip installcheck \
-	installcheck-am installdirs maintainer-clean \
+	install-dist_images_menuDATA install-dvi install-dvi-am \
+	install-exec install-exec-am install-html install-html-am \
+	install-info install-info-am install-man install-pdf \
+	install-pdf-am install-ps install-ps-am install-strip \
+	installcheck installcheck-am installdirs maintainer-clean \
 	maintainer-clean-generic mostlyclean mostlyclean-generic pdf \
-	pdf-am ps ps-am uninstall uninstall-am uninstall-local
+	pdf-am ps ps-am uninstall uninstall-am \
+	uninstall-dist_images_menuDATA
 
-
-install-data-local:
-	$(MKDIR_P) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu
-	$(INSTALL_DATA) $(srcdir)/cascade0.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/cascade0.png
-	$(INSTALL_DATA) $(srcdir)/cascade1.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/cascade1.png
-	$(INSTALL_DATA) $(srcdir)/cascade10.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/cascade10.png
-	$(INSTALL_DATA) $(srcdir)/cascade2.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/cascade2.png
-	$(INSTALL_DATA) $(srcdir)/cascade3.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/cascade3.png
-	$(INSTALL_DATA) $(srcdir)/cascade4.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/cascade4.png
-	$(INSTALL_DATA) $(srcdir)/cascade5.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/cascade5.png
-	$(INSTALL_DATA) $(srcdir)/cascade6.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/cascade6.png
-	$(INSTALL_DATA) $(srcdir)/cascade7.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/cascade7.png
-	$(INSTALL_DATA) $(srcdir)/cascade8.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/cascade8.png
-	$(INSTALL_DATA) $(srcdir)/cascade9.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/cascade9.png
-	$(INSTALL_DATA) $(srcdir)/cascaded.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/cascaded.png
-	$(INSTALL_DATA) $(srcdir)/comet0.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/comet0.png
-	$(INSTALL_DATA) $(srcdir)/comet1.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/comet1.png
-	$(INSTALL_DATA) $(srcdir)/comet2.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/comet2.png
-	$(INSTALL_DATA) $(srcdir)/comet3.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/comet3.png
-	$(INSTALL_DATA) $(srcdir)/comet4.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/comet4.png
-	$(INSTALL_DATA) $(srcdir)/comet5.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/comet5.png
-	$(INSTALL_DATA) $(srcdir)/cometd.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/cometd.png
-	$(INSTALL_DATA) $(srcdir)/keyboard0.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/keyboard0.png
-	$(INSTALL_DATA) $(srcdir)/keyboard1.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/keyboard1.png
-	$(INSTALL_DATA) $(srcdir)/keyboard2.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/keyboard2.png
-	$(INSTALL_DATA) $(srcdir)/keyboardd.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/keyboardd.png
-	$(INSTALL_DATA) $(srcdir)/keycas0.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/keycas0.png
-	$(INSTALL_DATA) $(srcdir)/keycas1.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/keycas1.png
-	$(INSTALL_DATA) $(srcdir)/keycas2.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/keycas2.png
-	$(INSTALL_DATA) $(srcdir)/keycas3.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/keycas3.png
-	$(INSTALL_DATA) $(srcdir)/keycas4.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/keycas4.png
-	$(INSTALL_DATA) $(srcdir)/keycas5.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/keycas5.png
-	$(INSTALL_DATA) $(srcdir)/keycas6.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/keycas6.png
-	$(INSTALL_DATA) $(srcdir)/keycas7.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/keycas7.png
-	$(INSTALL_DATA) $(srcdir)/keycas8.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/keycas8.png
-	$(INSTALL_DATA) $(srcdir)/keycas9.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/keycas9.png
-	$(INSTALL_DATA) $(srcdir)/keycasd.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/keycasd.png
-	$(INSTALL_DATA) $(srcdir)/lesson0.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/lesson0.png
-	$(INSTALL_DATA) $(srcdir)/lesson1.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/lesson1.png
-	$(INSTALL_DATA) $(srcdir)/lesson2.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/lesson2.png
-	$(INSTALL_DATA) $(srcdir)/lesson3.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/lesson3.png
-	$(INSTALL_DATA) $(srcdir)/lessond.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/lessond.png
-	$(INSTALL_DATA) $(srcdir)/main0.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/main0.png
-	$(INSTALL_DATA) $(srcdir)/main1.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/main1.png
-	$(INSTALL_DATA) $(srcdir)/main2.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/main2.png
-	$(INSTALL_DATA) $(srcdir)/main3.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/main3.png
-	$(INSTALL_DATA) $(srcdir)/main4.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/main4.png
-	$(INSTALL_DATA) $(srcdir)/main5.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/main5.png
-	$(INSTALL_DATA) $(srcdir)/main6.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/main6.png
-	$(INSTALL_DATA) $(srcdir)/main7.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/main7.png
-	$(INSTALL_DATA) $(srcdir)/maind.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/maind.png
-	$(INSTALL_DATA) $(srcdir)/quit0.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/quit0.png
-	$(INSTALL_DATA) $(srcdir)/quit1.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/quit1.png
-	$(INSTALL_DATA) $(srcdir)/quit2.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/quit2.png
-	$(INSTALL_DATA) $(srcdir)/quit3.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/quit3.png
-	$(INSTALL_DATA) $(srcdir)/quit4.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/quit4.png
-	$(INSTALL_DATA) $(srcdir)/quit5.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/quit5.png
-	$(INSTALL_DATA) $(srcdir)/quit6.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/quit6.png
-	$(INSTALL_DATA) $(srcdir)/quit7.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/quit7.png
-	$(INSTALL_DATA) $(srcdir)/quit8.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/quit8.png
-	$(INSTALL_DATA) $(srcdir)/quitd.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/quitd.png
-	$(INSTALL_DATA) $(srcdir)/reg0.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/reg0.png
-	$(INSTALL_DATA) $(srcdir)/reg1.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/reg1.png
-	$(INSTALL_DATA) $(srcdir)/reg2.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/reg2.png
-	$(INSTALL_DATA) $(srcdir)/sel0.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/sel0.png
-	$(INSTALL_DATA) $(srcdir)/sel1.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/sel1.png
-	$(INSTALL_DATA) $(srcdir)/sel2.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/sel2.png
-
-uninstall-local:
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/cascade0.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/cascade1.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/cascade10.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/cascade2.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/cascade3.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/cascade4.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/cascade5.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/cascade6.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/cascade7.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/cascade8.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/cascade9.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/cascaded.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/comet0.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/comet1.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/comet2.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/comet3.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/comet4.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/comet5.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/cometd.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/keyboard0.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/keyboard1.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/keyboard2.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/keyboardd.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/keycas0.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/keycas1.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/keycas2.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/keycas3.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/keycas4.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/keycas5.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/keycas6.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/keycas7.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/keycas8.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/keycas9.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/keycasd.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/lesson0.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/lesson1.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/lesson2.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/lesson3.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/lessond.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/main0.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/main1.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/main2.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/main3.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/main4.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/main5.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/main6.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/main7.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/maind.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/quit0.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/quit1.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/quit2.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/quit3.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/quit4.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/quit5.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/quit6.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/quit7.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/quit8.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/quitd.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/reg0.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/reg1.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/reg2.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/sel0.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/sel1.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/menu/sel2.png
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:

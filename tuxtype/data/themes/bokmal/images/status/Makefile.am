@@ -1,14 +1,6 @@
+## Makefile.am for tuxtype - data/themes/bokmal/images/status:
+## Process with Automake to create Makefile.in
 
-EXTRA_DIST = score.png wave.png
+themes_bokmal_images_statusdir = $(pkgdatadir)/data/themes/bokmal/images/status
 
-install-data-local:
-	$(MKDIR_P) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/bokmal/images/status
-	$(INSTALL_DATA) $(srcdir)/score.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/bokmal/images/status/score.png
-	$(INSTALL_DATA) $(srcdir)/wave.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/bokmal/images/status/wave.png
-
-
-
-uninstall-local:
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/bokmal/images/status/score.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/bokmal/images/status/wave.png
-	
+dist_themes_bokmal_images_status_DATA = score.png wave.png

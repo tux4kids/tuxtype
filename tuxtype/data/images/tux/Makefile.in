@@ -13,6 +13,7 @@
 # PARTICULAR PURPOSE.
 
 @SET_MAKE@
+
 VPATH = @srcdir@
 pkgdatadir = $(datadir)/@PACKAGE@
 pkglibdir = $(libdir)/@PACKAGE@
@@ -33,7 +34,8 @@ build_triplet = @build@
 host_triplet = @host@
 target_triplet = @target@
 subdir = tuxtype/data/images/tux
-DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
+DIST_COMMON = $(dist_images_tux_DATA) $(srcdir)/Makefile.am \
+	$(srcdir)/Makefile.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/acinclude.m4 \
 	$(top_srcdir)/configure.ac
@@ -44,6 +46,15 @@ CONFIG_HEADER = $(top_builddir)/config.h
 CONFIG_CLEAN_FILES =
 SOURCES =
 DIST_SOURCES =
+am__vpath_adj_setup = srcdirstrip=`echo "$(srcdir)" | sed 's|.|.|g'`;
+am__vpath_adj = case $$p in \
+    $(srcdir)/*) f=`echo "$$p" | sed "s|^$$srcdirstrip/||"`;; \
+    *) f=$$p;; \
+  esac;
+am__strip_dir = `echo $$p | sed -e 's|^.*/||'`;
+am__installdirs = "$(DESTDIR)$(images_tuxdir)"
+dist_images_tuxDATA_INSTALL = $(INSTALL_DATA)
+DATA = $(dist_images_tux_DATA)
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 ACLOCAL = @ACLOCAL@
 AMTAR = @AMTAR@
@@ -149,7 +160,8 @@ target_os = @target_os@
 target_vendor = @target_vendor@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-EXTRA_DIST = console.png\
+images_tuxdir = $(pkgdatadir)/data/images_tux
+dist_images_tux_DATA = console.png\
 gulp0.png\
 gulp1.png\
 gulp2.png\
@@ -217,6 +229,23 @@ $(top_srcdir)/configure:  $(am__configure_deps)
 	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh
 $(ACLOCAL_M4):  $(am__aclocal_m4_deps)
 	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh
+install-dist_images_tuxDATA: $(dist_images_tux_DATA)
+	@$(NORMAL_INSTALL)
+	test -z "$(images_tuxdir)" || $(MKDIR_P) "$(DESTDIR)$(images_tuxdir)"
+	@list='$(dist_images_tux_DATA)'; for p in $$list; do \
+	  if test -f "$$p"; then d=; else d="$(srcdir)/"; fi; \
+	  f=$(am__strip_dir) \
+	  echo " $(dist_images_tuxDATA_INSTALL) '$$d$$p' '$(DESTDIR)$(images_tuxdir)/$$f'"; \
+	  $(dist_images_tuxDATA_INSTALL) "$$d$$p" "$(DESTDIR)$(images_tuxdir)/$$f"; \
+	done
+
+uninstall-dist_images_tuxDATA:
+	@$(NORMAL_UNINSTALL)
+	@list='$(dist_images_tux_DATA)'; for p in $$list; do \
+	  f=$(am__strip_dir) \
+	  echo " rm -f '$(DESTDIR)$(images_tuxdir)/$$f'"; \
+	  rm -f "$(DESTDIR)$(images_tuxdir)/$$f"; \
+	done
 tags: TAGS
 TAGS:
 
@@ -252,8 +281,11 @@ distdir: $(DISTFILES)
 	done
 check-am: all-am
 check: check-am
-all-am: Makefile
+all-am: Makefile $(DATA)
 installdirs:
+	for dir in "$(DESTDIR)$(images_tuxdir)"; do \
+	  test -z "$$dir" || $(MKDIR_P) "$$dir"; \
+	done
 install: install-am
 install-exec: install-exec-am
 install-data: install-data-am
@@ -296,7 +328,7 @@ info: info-am
 
 info-am:
 
-install-data-am: install-data-local
+install-data-am: install-dist_images_tuxDATA
 
 install-dvi: install-dvi-am
 
@@ -330,96 +362,22 @@ ps: ps-am
 
 ps-am:
 
-uninstall-am: uninstall-local
+uninstall-am: uninstall-dist_images_tuxDATA
 
 .MAKE: install-am install-strip
 
 .PHONY: all all-am check check-am clean clean-generic distclean \
 	distclean-generic distdir dvi dvi-am html html-am info info-am \
 	install install-am install-data install-data-am \
-	install-data-local install-dvi install-dvi-am install-exec \
-	install-exec-am install-html install-html-am install-info \
-	install-info-am install-man install-pdf install-pdf-am \
-	install-ps install-ps-am install-strip installcheck \
-	installcheck-am installdirs maintainer-clean \
+	install-dist_images_tuxDATA install-dvi install-dvi-am \
+	install-exec install-exec-am install-html install-html-am \
+	install-info install-info-am install-man install-pdf \
+	install-pdf-am install-ps install-ps-am install-strip \
+	installcheck installcheck-am installdirs maintainer-clean \
 	maintainer-clean-generic mostlyclean mostlyclean-generic pdf \
-	pdf-am ps ps-am uninstall uninstall-am uninstall-local
+	pdf-am ps ps-am uninstall uninstall-am \
+	uninstall-dist_images_tuxDATA
 
-
-install-data-local:
-	$(MKDIR_P) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux
-	$(INSTALL_DATA) $(srcdir)/console.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/console.png
-	$(INSTALL_DATA) $(srcdir)/gulp0.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/gulp0.png
-	$(INSTALL_DATA) $(srcdir)/gulp1.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/gulp1.png
-	$(INSTALL_DATA) $(srcdir)/gulp2.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/gulp2.png
-	$(INSTALL_DATA) $(srcdir)/gulp3.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/gulp3.png
-	$(INSTALL_DATA) $(srcdir)/run0.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/run0.png
-	$(INSTALL_DATA) $(srcdir)/run1.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/run1.png
-	$(INSTALL_DATA) $(srcdir)/stand-.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/stand-.png
-	$(INSTALL_DATA) $(srcdir)/stand0.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/stand0.png
-	$(INSTALL_DATA) $(srcdir)/stand1.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/stand1.png
-	$(INSTALL_DATA) $(srcdir)/tux-console1.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/tux-console1.png
-	$(INSTALL_DATA) $(srcdir)/tux-console2.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/tux-console2.png
-	$(INSTALL_DATA) $(srcdir)/tux-console3.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/tux-console3.png
-	$(INSTALL_DATA) $(srcdir)/tux-console4.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/tux-console4.png
-	$(INSTALL_DATA) $(srcdir)/tux-drat.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/tux-drat.png
-	$(INSTALL_DATA) $(srcdir)/tux-egypt0.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/tux-egypt0.png
-	$(INSTALL_DATA) $(srcdir)/tux-egypt1.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/tux-egypt1.png
-	$(INSTALL_DATA) $(srcdir)/tux-fist0.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/tux-fist0.png
-	$(INSTALL_DATA) $(srcdir)/tux-fist1.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/tux-fist1.png
-	$(INSTALL_DATA) $(srcdir)/tux-kiss1.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/tux-kiss1.png
-	$(INSTALL_DATA) $(srcdir)/tux-kiss2.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/tux-kiss2.png
-	$(INSTALL_DATA) $(srcdir)/tux-relax1.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/tux-relax1.png
-	$(INSTALL_DATA) $(srcdir)/tux-relax2.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/tux-relax2.png
-	$(INSTALL_DATA) $(srcdir)/tux-sit.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/tux-sit.png
-	$(INSTALL_DATA) $(srcdir)/tux-yay1.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/tux-yay1.png
-	$(INSTALL_DATA) $(srcdir)/tux-yay2.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/tux-yay2.png
-	$(INSTALL_DATA) $(srcdir)/tux-yes1.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/tux-yes1.png
-	$(INSTALL_DATA) $(srcdir)/tux-yes2.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/tux-yes2.png
-	$(INSTALL_DATA) $(srcdir)/tux-yipe.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/tux-yipe.png
-	$(INSTALL_DATA) $(srcdir)/walk0.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/walk0.png
-	$(INSTALL_DATA) $(srcdir)/walk1.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/walk1.png
-	$(INSTALL_DATA) $(srcdir)/walk2.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/walk2.png
-	$(INSTALL_DATA) $(srcdir)/walk3.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/walk3.png
-	$(INSTALL_DATA) $(srcdir)/win0.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/win0.png
-	$(INSTALL_DATA) $(srcdir)/yipe0.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/yipe0.png
-
-uninstall-local:
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/console.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/gulp0.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/gulp1.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/gulp2.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/gulp3.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/run0.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/run1.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/stand-.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/stand0.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/stand1.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/tux-console1.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/tux-console2.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/tux-console3.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/tux-console4.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/tux-drat.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/tux-egypt0.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/tux-egypt1.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/tux-fist0.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/tux-fist1.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/tux-kiss1.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/tux-kiss2.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/tux-relax1.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/tux-relax2.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/tux-sit.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/tux-yay1.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/tux-yay2.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/tux-yes1.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/tux-yes2.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/tux-yipe.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/walk0.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/walk1.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/walk2.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/walk3.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/win0.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/yipe0.png
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:

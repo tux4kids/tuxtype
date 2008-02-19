@@ -1,12 +1,7 @@
+## Makefile.am for tuxtype - data/themes/bokmal:
+## Process with Automake to create Makefile.in
 SUBDIRS = images words
 
-EXTRA_DIST = lang.po keyboard.lst
+themes_bokmaldir = $(pkgdatadir)/data/themes/bokmal
 
-install-data-local:
-	$(MKDIR_P) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/bokmal
-	$(INSTALL_DATA) $(srcdir)/lang.po $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/bokmal/lang.po
-	$(INSTALL_DATA) $(srcdir)/keyboard.lst $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/bokmal/keyboard.lst
-
-uninstall-local:
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/bokmal/lang.po
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/bokmal/keyboard.lst
+dist_themes_bokmal_DATA = lang.po keyboard.lst

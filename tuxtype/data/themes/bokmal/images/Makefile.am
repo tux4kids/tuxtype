@@ -1,15 +1,7 @@
-
+## Makefile.am for tuxtype - data/themes/bokmal/images:
+## Process with Automake to create Makefile.in
 SUBDIRS = status
 
-EXTRA_DIST = splat0.png map.png
+themes_bokmal_imagesdir = $(pkgdatadir)/data/themes/bokmal/images
 
-install-data-local:
-	$(MKDIR_P) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/bokmal/images
-	$(INSTALL_DATA) $(srcdir)/splat0.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/bokmal/images/splat0.png
-	$(INSTALL_DATA) $(srcdir)/map.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/bokmal/images/map.png
-
-
-
-uninstall-local:
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/bokmal/images/splat0.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/bokmal/images/map.png
+dist_themes_bokmal_images_DATA = splat0.png map.png

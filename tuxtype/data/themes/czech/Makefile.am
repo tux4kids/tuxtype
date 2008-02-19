@@ -1,16 +1,11 @@
+## Makefile.am for tuxtype - data/themes/czech:
+## Process with Automake to create Makefile.in
 
 SUBDIRS = words
 
-EXTRA_DIST = keyboard.lst lang.po settings.txt
+themes_czechdir = $(pkgdatadir)/data/themes/czech
 
-install-data-local:
-	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/czech
-	$(INSTALL_DATA) $(srcdir)/lang.po $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/czech/lang.po
-	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/czech
-	$(INSTALL_DATA) $(srcdir)/keyboard.lst $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/czech/keyboard.lst
-	$(INSTALL_DATA) $(srcdir)/settings.txt $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/czech/settings.txt
+dist_themes_czech_DATA = keyboard.lst \
+  lang.po \
+  settings.txt
 
-uninstall-local:
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/czech/keyboard.lst
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/czech/lang.po
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/czech/settings.txt

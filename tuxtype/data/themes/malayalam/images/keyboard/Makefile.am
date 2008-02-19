@@ -1,11 +1,6 @@
+## Makefile.am for tuxtype - data/themes/malayalam/images/keyboard:
+## Process with Automake to create Makefile.in
 
-EXTRA_DIST = \
-key.png
+themes_malayalam_images_keyboarddir = $(pkgdatadir)/data/themes/malayalam/images/keyboard
 
-install-data-local:
-	$(MKDIR_P) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/malayalam/images/keyboard
-	$(INSTALL_DATA) $(srcdir)/key.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/malayalam/images/keyboard/key.png
-	
-uninstall-local:
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/malayalam/images/keyboard/key.png
-	
+dist_themes_malayalam_images_keyboard_DATA = key.png

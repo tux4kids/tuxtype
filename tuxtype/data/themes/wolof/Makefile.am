@@ -1,12 +1,9 @@
-SUBDIRS = images words
+## Makefile.am for tuxtype - data/themes/wolof:
+## Process with Automake to create Makefile.in
 
-EXTRA_DIST = lang.po keyboard.lst
+SUBDIRS = images words 
 
-install-data-local:
-	$(MKDIR_P) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/wolof
-	$(INSTALL_DATA) $(srcdir)/lang.po $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/wolof
-	$(INSTALL_DATA) $(srcdir)/keyboard.lst $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/wolof
+themes_wolofdir = $(pkgdatadir)/data/themes/wolof
 
-uninstall-local:
-	-rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/wolof/lang.po
-	-rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/wolof/keyboard.lst
+dist_themes_wolof_DATA = lang.po \
+  keyboard.lst

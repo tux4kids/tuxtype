@@ -1,12 +1,6 @@
-EXTRA_DIST = excuseme.wav
+## Makefile.am for tuxtype - data/themes/lithuanian/sounds:
+## Process with Automake to create Makefile.in
 
+themes_lithuanian_soundsdir = $(pkgdatadir)/data/themes/lithuanian/sounds
 
-
-install-data-local:
-	$(MKDIR_P) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/lithuanian/sounds
-	$(INSTALL_DATA) $(srcdir)/excuseme.wav $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/lithuanian/sounds/excuseme.wav
-
-
-
-uninstall-local:
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/lithuanian/sounds/excuseme.wav
+dist_themes_lithuanian_sounds_DATA = excuseme.wav

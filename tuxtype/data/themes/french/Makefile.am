@@ -1,16 +1,9 @@
+## Makefile.am for tuxtype - data/themes/french:
+## Process with Automake to create Makefile.in
 
 SUBDIRS = words
-EXTRA_DIST = lang.po keyboard.lst
 
+themes_frenchdir = $(pkgdatadir)/data/themes/french
 
-install-data-local:
-
-	$(MKDIR_P) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/french
-	$(INSTALL_DATA) $(srcdir)/lang.po $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/french/lang.po
-	$(INSTALL_DATA) $(srcdir)/keyboard.lst $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/french/keyboard.lst
-
-
-
-uninstall-local:
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/french/lang.po
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/french/keyboard.lst
+dist_themes_french_DATA = lang.po \
+  keyboard.lst

@@ -1,18 +1,8 @@
-EXTRA_DIST = words1.txt\
-words2.txt\
-words3.txt
+## Makefile.am for tuxtype - data/themes/russian/words:
+## Process with Automake to create Makefile.in
 
+themes_russian_wordsdir = $(pkgdatadir)/data/themes/russian/words
 
-
-install-data-local:
-	$(MKDIR_P) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/russian/words
-	$(INSTALL_DATA) $(srcdir)/words1.txt $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/russian/words/words1.txt
-	$(INSTALL_DATA) $(srcdir)/words2.txt $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/russian/words/words2.txt
-	$(INSTALL_DATA) $(srcdir)/words3.txt $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/russian/words/words3.txt
-
-
-
-uninstall-local:
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/russian/words/words1.txt
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/russian/words/words2.txt
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/russian/words/words3.txt
+dist_themes_russian_words_DATA = words1.txt \
+  words2.txt \
+  words3.txt

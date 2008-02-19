@@ -1,12 +1,6 @@
-EXTRA_DIST = excuseme.wav
+## Makefile.am for tuxtype - data/themes/dansk/sounds:
+## Process with Automake to create Makefile.in
 
+themes_dansk_soundsdir = $(pkgdatadir)/data/themes/dansk/sounds
 
-
-install-data-local:
-	$(MKDIR_P) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/dansk/sounds
-	$(INSTALL_DATA) $(srcdir)/excuseme.wav $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/dansk/sounds/excuseme.wav
-
-
-
-uninstall-local:
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/dansk/sounds/excuseme.wav
+dist_themes_dansk_sounds_DATA = excuseme.wav

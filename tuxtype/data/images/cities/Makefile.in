@@ -13,6 +13,7 @@
 # PARTICULAR PURPOSE.
 
 @SET_MAKE@
+
 VPATH = @srcdir@
 pkgdatadir = $(datadir)/@PACKAGE@
 pkglibdir = $(libdir)/@PACKAGE@
@@ -33,7 +34,8 @@ build_triplet = @build@
 host_triplet = @host@
 target_triplet = @target@
 subdir = tuxtype/data/images/cities
-DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
+DIST_COMMON = $(dist_images_cities_DATA) $(srcdir)/Makefile.am \
+	$(srcdir)/Makefile.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/acinclude.m4 \
 	$(top_srcdir)/configure.ac
@@ -44,6 +46,15 @@ CONFIG_HEADER = $(top_builddir)/config.h
 CONFIG_CLEAN_FILES =
 SOURCES =
 DIST_SOURCES =
+am__vpath_adj_setup = srcdirstrip=`echo "$(srcdir)" | sed 's|.|.|g'`;
+am__vpath_adj = case $$p in \
+    $(srcdir)/*) f=`echo "$$p" | sed "s|^$$srcdirstrip/||"`;; \
+    *) f=$$p;; \
+  esac;
+am__strip_dir = `echo $$p | sed -e 's|^.*/||'`;
+am__installdirs = "$(DESTDIR)$(images_citiesdir)"
+dist_images_citiesDATA_INSTALL = $(INSTALL_DATA)
+DATA = $(dist_images_cities_DATA)
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 ACLOCAL = @ACLOCAL@
 AMTAR = @AMTAR@
@@ -149,7 +160,8 @@ target_os = @target_os@
 target_vendor = @target_vendor@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-EXTRA_DIST = cdead-blue.png\
+images_citiesdir = $(pkgdatadir)/data/images/cities
+dist_images_cities_DATA = cdead-blue.png\
 cdead-green.png\
 cdead-orange.png\
 cdead-red.png\
@@ -215,6 +227,23 @@ $(top_srcdir)/configure:  $(am__configure_deps)
 	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh
 $(ACLOCAL_M4):  $(am__aclocal_m4_deps)
 	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh
+install-dist_images_citiesDATA: $(dist_images_cities_DATA)
+	@$(NORMAL_INSTALL)
+	test -z "$(images_citiesdir)" || $(MKDIR_P) "$(DESTDIR)$(images_citiesdir)"
+	@list='$(dist_images_cities_DATA)'; for p in $$list; do \
+	  if test -f "$$p"; then d=; else d="$(srcdir)/"; fi; \
+	  f=$(am__strip_dir) \
+	  echo " $(dist_images_citiesDATA_INSTALL) '$$d$$p' '$(DESTDIR)$(images_citiesdir)/$$f'"; \
+	  $(dist_images_citiesDATA_INSTALL) "$$d$$p" "$(DESTDIR)$(images_citiesdir)/$$f"; \
+	done
+
+uninstall-dist_images_citiesDATA:
+	@$(NORMAL_UNINSTALL)
+	@list='$(dist_images_cities_DATA)'; for p in $$list; do \
+	  f=$(am__strip_dir) \
+	  echo " rm -f '$(DESTDIR)$(images_citiesdir)/$$f'"; \
+	  rm -f "$(DESTDIR)$(images_citiesdir)/$$f"; \
+	done
 tags: TAGS
 TAGS:
 
@@ -250,8 +279,11 @@ distdir: $(DISTFILES)
 	done
 check-am: all-am
 check: check-am
-all-am: Makefile
+all-am: Makefile $(DATA)
 installdirs:
+	for dir in "$(DESTDIR)$(images_citiesdir)"; do \
+	  test -z "$$dir" || $(MKDIR_P) "$$dir"; \
+	done
 install: install-am
 install-exec: install-exec-am
 install-data: install-data-am
@@ -294,7 +326,7 @@ info: info-am
 
 info-am:
 
-install-data-am: install-data-local
+install-data-am: install-dist_images_citiesDATA
 
 install-dvi: install-dvi-am
 
@@ -328,92 +360,22 @@ ps: ps-am
 
 ps-am:
 
-uninstall-am: uninstall-local
+uninstall-am: uninstall-dist_images_citiesDATA
 
 .MAKE: install-am install-strip
 
 .PHONY: all all-am check check-am clean clean-generic distclean \
 	distclean-generic distdir dvi dvi-am html html-am info info-am \
 	install install-am install-data install-data-am \
-	install-data-local install-dvi install-dvi-am install-exec \
-	install-exec-am install-html install-html-am install-info \
-	install-info-am install-man install-pdf install-pdf-am \
-	install-ps install-ps-am install-strip installcheck \
-	installcheck-am installdirs maintainer-clean \
+	install-dist_images_citiesDATA install-dvi install-dvi-am \
+	install-exec install-exec-am install-html install-html-am \
+	install-info install-info-am install-man install-pdf \
+	install-pdf-am install-ps install-ps-am install-strip \
+	installcheck installcheck-am installdirs maintainer-clean \
 	maintainer-clean-generic mostlyclean mostlyclean-generic pdf \
-	pdf-am ps ps-am uninstall uninstall-am uninstall-local
+	pdf-am ps ps-am uninstall uninstall-am \
+	uninstall-dist_images_citiesDATA
 
-
-install-data-local:
-	$(MKDIR_P) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/cities
-	$(INSTALL_DATA) $(srcdir)/cdead-blue.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/cities/cdead-blue.png
-	$(INSTALL_DATA) $(srcdir)/cdead-green.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/cities/cdead-green.png
-	$(INSTALL_DATA) $(srcdir)/cdead-orange.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/cities/cdead-orange.png
-	$(INSTALL_DATA) $(srcdir)/cdead-red.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/cities/cdead-red.png
-	$(INSTALL_DATA) $(srcdir)/city-blue.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/cities/city-blue.png
-	$(INSTALL_DATA) $(srcdir)/city-green.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/cities/city-green.png
-	$(INSTALL_DATA) $(srcdir)/city-orange.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/cities/city-orange.png
-	$(INSTALL_DATA) $(srcdir)/city-red.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/cities/city-red.png
-	$(INSTALL_DATA) $(srcdir)/csplode-blue-1.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/cities/csplode-blue-1.png
-	$(INSTALL_DATA) $(srcdir)/csplode-blue-2.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/cities/csplode-blue-2.png
-	$(INSTALL_DATA) $(srcdir)/csplode-blue-3.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/cities/csplode-blue-3.png
-	$(INSTALL_DATA) $(srcdir)/csplode-blue-4.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/cities/csplode-blue-4.png
-	$(INSTALL_DATA) $(srcdir)/csplode-blue-5.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/cities/csplode-blue-5.png
-	$(INSTALL_DATA) $(srcdir)/csplode-green-1.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/cities/csplode-green-1.png
-	$(INSTALL_DATA) $(srcdir)/csplode-green-2.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/cities/csplode-green-2.png
-	$(INSTALL_DATA) $(srcdir)/csplode-green-3.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/cities/csplode-green-3.png
-	$(INSTALL_DATA) $(srcdir)/csplode-green-4.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/cities/csplode-green-4.png
-	$(INSTALL_DATA) $(srcdir)/csplode-green-5.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/cities/csplode-green-5.png
-	$(INSTALL_DATA) $(srcdir)/csplode-orange-1.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/cities/csplode-orange-1.png
-	$(INSTALL_DATA) $(srcdir)/csplode-orange-2.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/cities/csplode-orange-2.png
-	$(INSTALL_DATA) $(srcdir)/csplode-orange-3.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/cities/csplode-orange-3.png
-	$(INSTALL_DATA) $(srcdir)/csplode-orange-4.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/cities/csplode-orange-4.png
-	$(INSTALL_DATA) $(srcdir)/csplode-orange-5.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/cities/csplode-orange-5.png
-	$(INSTALL_DATA) $(srcdir)/csplode-red-1.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/cities/csplode-red-1.png
-	$(INSTALL_DATA) $(srcdir)/csplode-red-2.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/cities/csplode-red-2.png
-	$(INSTALL_DATA) $(srcdir)/csplode-red-3.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/cities/csplode-red-3.png
-	$(INSTALL_DATA) $(srcdir)/csplode-red-4.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/cities/csplode-red-4.png
-	$(INSTALL_DATA) $(srcdir)/csplode-red-5.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/cities/csplode-red-5.png
-	$(INSTALL_DATA) $(srcdir)/shields.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/cities/shields.png
-	$(INSTALL_DATA) $(srcdir)/shield0.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/cities/shield0.png
-	$(INSTALL_DATA) $(srcdir)/shield1.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/cities/shield1.png
-	$(INSTALL_DATA) $(srcdir)/shield2.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/cities/shield2.png
-	$(INSTALL_DATA) $(srcdir)/shield3.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/cities/shield3.png
-
-uninstall-local:
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/cities/cdead-blue.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/cities/cdead-green.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/cities/cdead-orange.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/cities/cdead-red.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/cities/city-blue.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/cities/city-green.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/cities/city-orange.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/cities/city-red.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/cities/csplode-blue-1.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/cities/csplode-blue-2.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/cities/csplode-blue-3.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/cities/csplode-blue-4.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/cities/csplode-blue-5.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/cities/csplode-green-1.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/cities/csplode-green-2.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/cities/csplode-green-3.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/cities/csplode-green-4.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/cities/csplode-green-5.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/cities/csplode-orange-1.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/cities/csplode-orange-2.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/cities/csplode-orange-3.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/cities/csplode-orange-4.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/cities/csplode-orange-5.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/cities/csplode-red-1.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/cities/csplode-red-2.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/cities/csplode-red-3.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/cities/csplode-red-4.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/cities/csplode-red-5.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/cities/shields.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/cities/shield0.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/cities/shield1.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/cities/shield2.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/cities/shield3.png
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:

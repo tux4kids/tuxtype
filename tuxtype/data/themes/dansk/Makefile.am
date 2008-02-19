@@ -1,15 +1,8 @@
-
+## Makefile.am for tuxtype - data/themes/dansk:
+## Process with Automake to create Makefile.in
 SUBDIRS = sounds words
 
-EXTRA_DIST = \
-lang.po\
-keyboard.lst
+themes_danskdir = $(pkgdatadir)/data/themes/dansk
 
-install-data-local:
-	$(MKDIR_P) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/dansk
-	$(INSTALL_DATA) $(srcdir)/lang.po $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/dansk/lang.po
-	$(INSTALL_DATA) $(srcdir)/keyboard.lst $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/dansk/keyboard.lst
-
-uninstall-local:
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/dansk/lang.po
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/dansk/keyboard.lst
+dist_themes_dansk_DATA = lang.po \
+  keyboard.lst

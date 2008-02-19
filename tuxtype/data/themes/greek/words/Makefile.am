@@ -1,12 +1,6 @@
-EXTRA_DIST = easy.txt
+## Makefile.am for tuxtype - data/themes/greek/words:
+## Process with Automake to create Makefile.in
 
+themes_greek_wordsdir = $(pkgdatadir)/data/themes/greek/words
 
-
-install-data-local:
-	$(MKDIR_P) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/greek/words
-	$(INSTALL_DATA) $(srcdir)/easy.txt $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/greek/words/easy.txt
-
-
-
-uninstall-local:
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/greek/words/easy.txt
+dist_themes_greek_words_DATA = easy.txt

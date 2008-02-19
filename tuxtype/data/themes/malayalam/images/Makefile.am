@@ -1,12 +1,8 @@
+## Makefile.am for tuxtype - data/themes/malayalam/images:
+## Process with Automake to create Makefile.in
 
-SUBDIRS = status keyboard
+SUBDIRS = keyboard status
 
-EXTRA_DIST = \
-splat0.png
+themes_malayalam_imagesdir = $(pkgdatadir)/data/themes/malayalam/images
 
-install-data-local:
-	$(MKDIR_P) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/malayalam/images
-	$(INSTALL_DATA) $(srcdir)/splat0.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/malayalam/images/splat0.png
-
-uninstall-local:
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/malayalam/images/splat0.png
+dist_themes_malayalam_images_DATA = splat0.png

@@ -1,14 +1,7 @@
+## Makefile.am for tuxtype - data/themes/nynorsk/images/status:
+## Process with Automake to create Makefile.in
 
-EXTRA_DIST = score.png wave.png
+themes_nynorsk_images_statusdir = $(pkgdatadir)/data/themes/nynorsk/images/status
 
-install-data-local:
-	$(MKDIR_P) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/nynorsk/images/status
-	$(INSTALL_DATA) $(srcdir)/score.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/nynorsk/images/status/score.png
-	$(INSTALL_DATA) $(srcdir)/wave.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/nynorsk/images/status/wave.png
-
-
-
-uninstall-local:
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/nynorsk/images/status/score.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/nynorsk/images/status/wave.png
-	
+dist_themes_nynorsk_images_status_DATA = score.png \
+  wave.png

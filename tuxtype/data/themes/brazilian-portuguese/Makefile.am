@@ -1,12 +1,7 @@
+## Makefile.am for tuxtype - data/themes/brazilian-portuguese:
+## Process with Automake to create Makefile.in
 SUBDIRS = images words
 
-EXTRA_DIST = lang.po keyboard.lst
+themes_brazilian_portuguesedir = $(pkgdatadir)/data/themes/brazilian-portuguese
 
-install-data-local:
-	$(MKDIR_P) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/brazilian-portuguese
-	$(INSTALL_DATA) $(srcdir)/lang.po $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/brazilian-portuguese/lang.po
-	$(INSTALL_DATA) $(srcdir)/keyboard.lst $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/brazilian-portuguese/keyboard.lst
-
-uninstall-local:
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/brazilian-portuguese/lang.po
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/brazilian-portuguese/keyboard.lst
+dist_themes_brazilian_portuguese_DATA = AUTHOR lang.po keyboard.lst

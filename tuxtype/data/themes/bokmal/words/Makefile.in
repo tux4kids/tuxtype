@@ -13,6 +13,7 @@
 # PARTICULAR PURPOSE.
 
 @SET_MAKE@
+
 VPATH = @srcdir@
 pkgdatadir = $(datadir)/@PACKAGE@
 pkglibdir = $(libdir)/@PACKAGE@
@@ -33,7 +34,8 @@ build_triplet = @build@
 host_triplet = @host@
 target_triplet = @target@
 subdir = tuxtype/data/themes/bokmal/words
-DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
+DIST_COMMON = $(dist_themes_bokmal_words_DATA) $(srcdir)/Makefile.am \
+	$(srcdir)/Makefile.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/acinclude.m4 \
 	$(top_srcdir)/configure.ac
@@ -44,6 +46,15 @@ CONFIG_HEADER = $(top_builddir)/config.h
 CONFIG_CLEAN_FILES =
 SOURCES =
 DIST_SOURCES =
+am__vpath_adj_setup = srcdirstrip=`echo "$(srcdir)" | sed 's|.|.|g'`;
+am__vpath_adj = case $$p in \
+    $(srcdir)/*) f=`echo "$$p" | sed "s|^$$srcdirstrip/||"`;; \
+    *) f=$$p;; \
+  esac;
+am__strip_dir = `echo $$p | sed -e 's|^.*/||'`;
+am__installdirs = "$(DESTDIR)$(themes_bokmal_wordsdir)"
+dist_themes_bokmal_wordsDATA_INSTALL = $(INSTALL_DATA)
+DATA = $(dist_themes_bokmal_words_DATA)
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 ACLOCAL = @ACLOCAL@
 AMTAR = @AMTAR@
@@ -149,15 +160,16 @@ target_os = @target_os@
 target_vendor = @target_vendor@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-EXTRA_DIST = 3boks.txt\
-4boks.txt\
-5boks.txt\
-6boks.txt\
-dyrenavn.txt\
-frukt.txt\
-land.txt\
-sprak.txt\
-yrke.txt
+themes_bokmal_wordsdir = $(pkgdatadir)/data/themes/bokmal/words
+dist_themes_bokmal_words_DATA = 3boks.txt \
+  4boks.txt \
+  5boks.txt \
+  6boks.txt \
+  dyrenavn.txt \
+  frukt.txt \
+  land.txt \
+  sprak.txt \
+  yrke.txt
 
 all: all-am
 
@@ -191,6 +203,23 @@ $(top_srcdir)/configure:  $(am__configure_deps)
 	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh
 $(ACLOCAL_M4):  $(am__aclocal_m4_deps)
 	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh
+install-dist_themes_bokmal_wordsDATA: $(dist_themes_bokmal_words_DATA)
+	@$(NORMAL_INSTALL)
+	test -z "$(themes_bokmal_wordsdir)" || $(MKDIR_P) "$(DESTDIR)$(themes_bokmal_wordsdir)"
+	@list='$(dist_themes_bokmal_words_DATA)'; for p in $$list; do \
+	  if test -f "$$p"; then d=; else d="$(srcdir)/"; fi; \
+	  f=$(am__strip_dir) \
+	  echo " $(dist_themes_bokmal_wordsDATA_INSTALL) '$$d$$p' '$(DESTDIR)$(themes_bokmal_wordsdir)/$$f'"; \
+	  $(dist_themes_bokmal_wordsDATA_INSTALL) "$$d$$p" "$(DESTDIR)$(themes_bokmal_wordsdir)/$$f"; \
+	done
+
+uninstall-dist_themes_bokmal_wordsDATA:
+	@$(NORMAL_UNINSTALL)
+	@list='$(dist_themes_bokmal_words_DATA)'; for p in $$list; do \
+	  f=$(am__strip_dir) \
+	  echo " rm -f '$(DESTDIR)$(themes_bokmal_wordsdir)/$$f'"; \
+	  rm -f "$(DESTDIR)$(themes_bokmal_wordsdir)/$$f"; \
+	done
 tags: TAGS
 TAGS:
 
@@ -226,8 +255,11 @@ distdir: $(DISTFILES)
 	done
 check-am: all-am
 check: check-am
-all-am: Makefile
+all-am: Makefile $(DATA)
 installdirs:
+	for dir in "$(DESTDIR)$(themes_bokmal_wordsdir)"; do \
+	  test -z "$$dir" || $(MKDIR_P) "$$dir"; \
+	done
 install: install-am
 install-exec: install-exec-am
 install-data: install-data-am
@@ -270,7 +302,7 @@ info: info-am
 
 info-am:
 
-install-data-am: install-data-local
+install-data-am: install-dist_themes_bokmal_wordsDATA
 
 install-dvi: install-dvi-am
 
@@ -304,44 +336,22 @@ ps: ps-am
 
 ps-am:
 
-uninstall-am: uninstall-local
+uninstall-am: uninstall-dist_themes_bokmal_wordsDATA
 
 .MAKE: install-am install-strip
 
 .PHONY: all all-am check check-am clean clean-generic distclean \
 	distclean-generic distdir dvi dvi-am html html-am info info-am \
 	install install-am install-data install-data-am \
-	install-data-local install-dvi install-dvi-am install-exec \
-	install-exec-am install-html install-html-am install-info \
-	install-info-am install-man install-pdf install-pdf-am \
-	install-ps install-ps-am install-strip installcheck \
-	installcheck-am installdirs maintainer-clean \
-	maintainer-clean-generic mostlyclean mostlyclean-generic pdf \
-	pdf-am ps ps-am uninstall uninstall-am uninstall-local
+	install-dist_themes_bokmal_wordsDATA install-dvi \
+	install-dvi-am install-exec install-exec-am install-html \
+	install-html-am install-info install-info-am install-man \
+	install-pdf install-pdf-am install-ps install-ps-am \
+	install-strip installcheck installcheck-am installdirs \
+	maintainer-clean maintainer-clean-generic mostlyclean \
+	mostlyclean-generic pdf pdf-am ps ps-am uninstall uninstall-am \
+	uninstall-dist_themes_bokmal_wordsDATA
 
-
-install-data-local:
-	$(MKDIR_P) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/bokmal/words
-	$(INSTALL_DATA) $(srcdir)/3boks.txt $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/bokmal/words/3boks.txt
-	$(INSTALL_DATA) $(srcdir)/4boks.txt $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/bokmal/words/4boks.txt
-	$(INSTALL_DATA) $(srcdir)/5boks.txt $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/bokmal/words/5boks.txt
-	$(INSTALL_DATA) $(srcdir)/6boks.txt $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/bokmal/words/6boks.txt
-	$(INSTALL_DATA) $(srcdir)/dyrenavn.txt $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/bokmal/words/dyrenavn.txt
-	$(INSTALL_DATA) $(srcdir)/frukt.txt $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/bokmal/words/frukt.txt
-	$(INSTALL_DATA) $(srcdir)/land.txt $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/bokmal/words/land.txt
-	$(INSTALL_DATA) $(srcdir)/sprak.txt $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/bokmal/words/sprak.txt
-	$(INSTALL_DATA) $(srcdir)/yrke.txt $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/bokmal/words/yrke.txt
-
-uninstall-local:
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/bokmal/words/3boks.txt
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/bokmal/words/4boks.txt
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/bokmal/words/5boks.txt
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/bokmal/words/6boks.txt
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/bokmal/words/dyrenavn.txt
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/bokmal/words/frukt.txt
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/bokmal/words/land.txt
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/bokmal/words/sprak.txt
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/bokmal/words/yrke.txt
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:
