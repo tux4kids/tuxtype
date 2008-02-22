@@ -1,6 +1,6 @@
 ## Makefile.am for tuxtype - data/images/tux:
 ## Process with Automake to create Makefile.in
-images_tuxdir = $(pkgdatadir)/data/images_tux
+images_tuxdir = $(pkgdatadir)/data/images/tux
 
 dist_images_tux_DATA = console.png\
 gulp0.png\

@@ -160,7 +160,7 @@ target_os = @target_os@
 target_vendor = @target_vendor@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-images_menudir = $(pkgdatadir)/data/images_menu
+images_menudir = $(pkgdatadir)/data/images/menu
 dist_images_menu_DATA = cascade0.png\
 cascade1.png\
 cascade10.png\
@@ -224,7 +224,10 @@ reg1.png\
 reg2.png\
 sel0.png\
 sel1.png\
-sel2.png
+sel2.png\
+tux_config0.png\
+tux_config1.png\
+tux_configd.png
 
 all: all-am
 

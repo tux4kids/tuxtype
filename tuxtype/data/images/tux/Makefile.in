@@ -160,7 +160,7 @@ target_os = @target_os@
 target_vendor = @target_vendor@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-images_tuxdir = $(pkgdatadir)/data/images_tux
+images_tuxdir = $(pkgdatadir)/data/images/tux
 dist_images_tux_DATA = console.png\
 gulp0.png\
 gulp1.png\

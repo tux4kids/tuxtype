@@ -160,7 +160,7 @@ target_os = @target_os@
 target_vendor = @target_vendor@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-images_iconsdir = $(pkgdatadir)/data/images_icons
+images_iconsdir = $(pkgdatadir)/data/images/icons
 dist_images_icons_DATA = tuxtype.ico tuxtype.icns
 all: all-am
 

@@ -111,8 +111,8 @@ void TitleScreen(void)
 
   /* FIXME phrase(s) should come from file */
 
-//  ConvertFromUTF8(phrase, "Now is the time for all good men to come to the aid of their country.");
-  ConvertFromUTF8(phrase, "To all that believe in his name he gave power to become children of God");
+  ConvertFromUTF8(phrase, "Now is the time for all good men to come to the aid of their country.");
+//  ConvertFromUTF8(phrase, "To all that believe in his name he gave power to become children of God");
 
 //  wcscpy(phrase, "Now is the time for all good men to come to the aid of their country.");
   start = SDL_GetTicks();
@@ -691,17 +691,24 @@ void TitleScreen(void)
         menu_button[i].w = menu_width[menu_depth] + (2*reg->frame[2]->w);
       }
 
+
       update_locs = 0;
 
       /* --- draw the full menu --- */
 
       for (j = 1; j <= TITLE_MENU_ITEMS; j++)
       {
+        DOUT(j);
         draw_button(j, reg);
-        SDL_BlitSurface(reg_text[j][menu_depth], NULL, screen, &text_dst[j]);
-        SDL_BlitSurface(menu_gfx[j][menu_depth]->default_img, NULL, screen, &menu_gfxdest[j]);
+        if (reg_text[j][menu_depth] != NULL)
+          SDL_BlitSurface(reg_text[j][menu_depth], NULL, screen, &text_dst[j]);
+        if (menu_gfx[j][menu_depth] != NULL)
+          SDL_BlitSurface(menu_gfx[j][menu_depth]->default_img, NULL, screen, &menu_gfxdest[j]);
       }
+
       SDL_UpdateRect(screen, 0, 0, 0, 0);
+
+      LOG("TitleScreen() - update_locs completed\n");
     }
 
 
