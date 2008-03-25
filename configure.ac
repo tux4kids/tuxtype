@@ -98,6 +98,7 @@ AC_CHECK_FUNCS([atexit memset strchr strstr malloc])
 CPPFLAGS="$CPPFLAGS -DDATA_PREFIX=\\\"\$(prefix)\\\""
 
 AC_CONFIG_FILES([Makefile
+doc/Makefile
 tuxtype/Makefile
 tuxtype/data/Makefile
 tuxtype/data/fonts/Makefile
