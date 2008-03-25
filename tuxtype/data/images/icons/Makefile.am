@@ -1,8 +1,6 @@
-EXTRA_DIST = tuxtype.ico
+## Makefile.am for tuxtype - data/images/icons:
+## Process with Automake to create Makefile.in
 
-install-data-local:
-	$(MKDIR_P) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/icons
-	$(INSTALL_DATA) $(srcdir)/tuxtype.ico $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/icons/tuxtype.ico
+images_iconsdir = $(pkgdatadir)/data/images/icons
 
-uninstall-local:
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/icons/tuxtype.ico
+dist_images_icons_DATA = tuxtype.ico tuxtype.icns

@@ -1,18 +1,8 @@
-EXTRA_DIST = ord1.txt\
-ord2.txt\
-ord3.txt
+## Makefile.am for tuxtype - data/themes/svenska/words:
+## Process with Automake to create Makefile.in
 
+themes_svenska_wordsdir = $(pkgdatadir)/data/themes/svenska/words
 
-
-install-data-local:
-	$(MKDIR_P) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/svenska/words
-	$(INSTALL_DATA) $(srcdir)/ord1.txt $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/svenska/words/ord1.txt
-	$(INSTALL_DATA) $(srcdir)/ord2.txt $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/svenska/words/ord2.txt
-	$(INSTALL_DATA) $(srcdir)/ord3.txt $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/svenska/words/ord3.txt
-
-
-
-uninstall-local:
-	rm -f $(prefix)/share/$(PACKAGE)/data/themes/svenska/words/ord1.txt
-	rm -f $(prefix)/share/$(PACKAGE)/data/themes/svenska/words/ord2.txt
-	rm -f $(prefix)/share/$(PACKAGE)/data/themes/svenska/words/ord3.txt
+dist_themes_svenska_words_DATA = ord1.txt \
+  ord2.txt \
+  ord3.txt

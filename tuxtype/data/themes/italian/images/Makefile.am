@@ -1,14 +1,7 @@
-EXTRA_DIST = map.png photo.png
+## Makefile.am for tuxtype - data/themes/italian/images:
+## Process with Automake to create Makefile.in
 
-install-data-local:
+themes_italian_imagesdir = $(pkgdatadir)/data/themes/italian/images
 
-	$(MKDIR_P) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/italian/images
-	$(INSTALL_DATA) $(srcdir)/map.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/italian/images
-	$(INSTALL_DATA) $(srcdir)/photo.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/italian/images
-
-
-
-uninstall-local:
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/italian/images/map.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/italian/images/photo.png
-
+dist_themes_italian_images_DATA = map.png \
+  photo.png

@@ -1,12 +1,8 @@
+## Makefile.am for tuxtype - data:
+## Process with Automake to create Makefile.in
 
 SUBDIRS = images scripts sounds themes words fonts
 
-EXTRA_DIST = keyboard.lst
+tuxtypedatadir = $(pkgdatadir)/data
 
-install-data-local:
-	$(MKDIR_P) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data
-	$(INSTALL_DATA) $(srcdir)/keyboard.lst $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/keyboard.lst
-
-uninstall-local:
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/keyboard.lst
-
+dist_tuxtypedata_DATA = keyboard.lst

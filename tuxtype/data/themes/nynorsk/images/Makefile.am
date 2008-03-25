@@ -1,15 +1,10 @@
+## Makefile.am for tuxtype - data/themes/nynorsk/images:
+## Process with Automake to create Makefile.in
 
-SUBDIRS = status
+SUBDIRS = status 
 
-EXTRA_DIST = splat0.png map.png
+themes_nynorsk_imagesdir = $(pkgdatadir)/data/themes/nynorsk/images
 
-install-data-local:
-	$(MKDIR_P) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/nynorsk/images
-	$(INSTALL_DATA) $(srcdir)/splat0.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/nynorsk/images/splat0.png
-	$(INSTALL_DATA) $(srcdir)/map.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/nynorsk/images/map.png
+dist_themes_nynorsk_images_DATA = splat0.png \
+  map.png
 
-
-
-uninstall-local:
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/nynorsk/images/splat0.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/nynorsk/images/map.png

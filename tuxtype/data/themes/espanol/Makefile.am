@@ -1,11 +1,9 @@
+## Makefile.am for tuxtype - data/themes/espanol:
+## Process with Automake to create Makefile.in
 
 SUBDIRS = images words
 
-EXTRA_DIST = lang.po
+themes_espanoldir = $(pkgdatadir)/data/themes/espanol
 
-install-data-local:
-	$(MKDIR_P) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/espanol
-	$(INSTALL_DATA) $(srcdir)/lang.po $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/espanol/lang.po
-
-uninstall-local:
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/espanol/lang.po
+dist_themes_espanol_DATA = lang.po \
+  keyboard.lst

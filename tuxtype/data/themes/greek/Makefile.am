@@ -1,14 +1,10 @@
+## Makefile.am for tuxtype - data/themes/greek:
+## Process with Automake to create Makefile.in
 
-SUBDIRS = \
-words
+SUBDIRS = words
 
-EXTRA_DIST = keyboard.lst lang.po
+themes_greekdir = $(pkgdatadir)/data/themes/greek
 
-install-data-local:
-	$(MKDIR_P) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/greek
-	$(INSTALL_DATA) $(srcdir)/lang.po $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/greek/lang.po
-	$(INSTALL_DATA) $(srcdir)/keyboard.lst $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/greek/keyboard.lst
-
-uninstall-local:
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/greek/keyboard.lst
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/greek/lang.po
+dist_themes_greek_DATA = keyboard.lst \
+  lang.po \
+  settings.txt

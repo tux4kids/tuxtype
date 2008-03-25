@@ -23,11 +23,6 @@ SUBDIRS = armenian \
   swahili \
   wolof
 
-EXTRA_DIST = lang.po
+themesdir = $(pkgdatadir)/data/themes
 
-install-data-local:
-	$(MKDIR_P) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes
-	$(INSTALL_DATA) $(srcdir)/lang.po $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/lang.po
-
-uninstall-local:
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/lang.po
+dist_themes_DATA = lang.po

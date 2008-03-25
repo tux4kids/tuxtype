@@ -1,12 +1,9 @@
-SUBDIRS = images words
+## Makefile.am for tuxtype - data/themes/nynorsk:
+## Process with Automake to create Makefile.in
 
-EXTRA_DIST = lang.po keyboard.lst
+SUBDIRS = images words 
 
-install-data-local:
-	$(MKDIR_P) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/nynorsk
-	$(INSTALL_DATA) $(srcdir)/lang.po $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/nynorsk/lang.po
-	$(INSTALL_DATA) $(srcdir)/keyboard.lst $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/nynorsk/keyboard.lst
+themes_nynorskdir = $(pkgdatadir)/data/themes/nynorsk
 
-uninstall-local:
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/nynorsk/lang.po
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/nynorsk/keyboard.lst
+dist_themes_nynorsk_DATA = lang.po \
+  keyboard.lst

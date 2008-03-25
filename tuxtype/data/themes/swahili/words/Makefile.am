@@ -1,9 +1,6 @@
-EXTRA_DIST = words1.txt
+## Makefile.am for tuxtype - data/themes/swahili/words:
+## Process with Automake to create Makefile.in
 
+themes_swahili_wordsdir = $(pkgdatadir)/data/themes/swahili/words
 
-install-data-local:
-	$(MKDIR_P) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/swahili/words
-	$(INSTALL_DATA) $(srcdir)/words1.txt $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/swahili/words/words1.txt
-
-uninstall-local:
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/swahili/words/words1.txt
+dist_themes_swahili_words_DATA = words1.txt

@@ -13,6 +13,7 @@
 # PARTICULAR PURPOSE.
 
 @SET_MAKE@
+
 VPATH = @srcdir@
 pkgdatadir = $(datadir)/@PACKAGE@
 pkglibdir = $(libdir)/@PACKAGE@
@@ -33,7 +34,8 @@ build_triplet = @build@
 host_triplet = @host@
 target_triplet = @target@
 subdir = tuxtype/data/themes/bokmal/images
-DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
+DIST_COMMON = $(dist_themes_bokmal_images_DATA) $(srcdir)/Makefile.am \
+	$(srcdir)/Makefile.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/acinclude.m4 \
 	$(top_srcdir)/configure.ac
@@ -51,6 +53,15 @@ RECURSIVE_TARGETS = all-recursive check-recursive dvi-recursive \
 	install-pdf-recursive install-ps-recursive install-recursive \
 	installcheck-recursive installdirs-recursive pdf-recursive \
 	ps-recursive uninstall-recursive
+am__vpath_adj_setup = srcdirstrip=`echo "$(srcdir)" | sed 's|.|.|g'`;
+am__vpath_adj = case $$p in \
+    $(srcdir)/*) f=`echo "$$p" | sed "s|^$$srcdirstrip/||"`;; \
+    *) f=$$p;; \
+  esac;
+am__strip_dir = `echo $$p | sed -e 's|^.*/||'`;
+am__installdirs = "$(DESTDIR)$(themes_bokmal_imagesdir)"
+dist_themes_bokmal_imagesDATA_INSTALL = $(INSTALL_DATA)
+DATA = $(dist_themes_bokmal_images_DATA)
 RECURSIVE_CLEAN_TARGETS = mostlyclean-recursive clean-recursive	\
   distclean-recursive maintainer-clean-recursive
 ETAGS = etags
@@ -162,7 +173,8 @@ target_vendor = @target_vendor@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 SUBDIRS = status
-EXTRA_DIST = splat0.png map.png
+themes_bokmal_imagesdir = $(pkgdatadir)/data/themes/bokmal/images
+dist_themes_bokmal_images_DATA = splat0.png map.png
 all: all-recursive
 
 .SUFFIXES:
@@ -195,6 +207,23 @@ $(top_srcdir)/configure:  $(am__configure_deps)
 	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh
 $(ACLOCAL_M4):  $(am__aclocal_m4_deps)
 	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh
+install-dist_themes_bokmal_imagesDATA: $(dist_themes_bokmal_images_DATA)
+	@$(NORMAL_INSTALL)
+	test -z "$(themes_bokmal_imagesdir)" || $(MKDIR_P) "$(DESTDIR)$(themes_bokmal_imagesdir)"
+	@list='$(dist_themes_bokmal_images_DATA)'; for p in $$list; do \
+	  if test -f "$$p"; then d=; else d="$(srcdir)/"; fi; \
+	  f=$(am__strip_dir) \
+	  echo " $(dist_themes_bokmal_imagesDATA_INSTALL) '$$d$$p' '$(DESTDIR)$(themes_bokmal_imagesdir)/$$f'"; \
+	  $(dist_themes_bokmal_imagesDATA_INSTALL) "$$d$$p" "$(DESTDIR)$(themes_bokmal_imagesdir)/$$f"; \
+	done
+
+uninstall-dist_themes_bokmal_imagesDATA:
+	@$(NORMAL_UNINSTALL)
+	@list='$(dist_themes_bokmal_images_DATA)'; for p in $$list; do \
+	  f=$(am__strip_dir) \
+	  echo " rm -f '$(DESTDIR)$(themes_bokmal_imagesdir)/$$f'"; \
+	  rm -f "$(DESTDIR)$(themes_bokmal_imagesdir)/$$f"; \
+	done
 
 # This directory's subdirectories are mostly independent; you can cd
 # into them and run `make' without going through this Makefile.
@@ -372,9 +401,12 @@ distdir: $(DISTFILES)
 	done
 check-am: all-am
 check: check-recursive
-all-am: Makefile
+all-am: Makefile $(DATA)
 installdirs: installdirs-recursive
 installdirs-am:
+	for dir in "$(DESTDIR)$(themes_bokmal_imagesdir)"; do \
+	  test -z "$$dir" || $(MKDIR_P) "$$dir"; \
+	done
 install: install-recursive
 install-exec: install-exec-recursive
 install-data: install-data-recursive
@@ -417,7 +449,7 @@ info: info-recursive
 
 info-am:
 
-install-data-am: install-data-local
+install-data-am: install-dist_themes_bokmal_imagesDATA
 
 install-dvi: install-dvi-recursive
 
@@ -451,7 +483,7 @@ ps: ps-recursive
 
 ps-am:
 
-uninstall-am: uninstall-local
+uninstall-am: uninstall-dist_themes_bokmal_imagesDATA
 
 .MAKE: $(RECURSIVE_CLEAN_TARGETS) $(RECURSIVE_TARGETS) install-am \
 	install-strip
@@ -460,25 +492,17 @@ uninstall-am: uninstall-local
 	all all-am check check-am clean clean-generic ctags \
 	ctags-recursive distclean distclean-generic distclean-tags \
 	distdir dvi dvi-am html html-am info info-am install \
-	install-am install-data install-data-am install-data-local \
-	install-dvi install-dvi-am install-exec install-exec-am \
-	install-html install-html-am install-info install-info-am \
-	install-man install-pdf install-pdf-am install-ps \
-	install-ps-am install-strip installcheck installcheck-am \
-	installdirs installdirs-am maintainer-clean \
-	maintainer-clean-generic mostlyclean mostlyclean-generic pdf \
-	pdf-am ps ps-am tags tags-recursive uninstall uninstall-am \
-	uninstall-local
+	install-am install-data install-data-am \
+	install-dist_themes_bokmal_imagesDATA install-dvi \
+	install-dvi-am install-exec install-exec-am install-html \
+	install-html-am install-info install-info-am install-man \
+	install-pdf install-pdf-am install-ps install-ps-am \
+	install-strip installcheck installcheck-am installdirs \
+	installdirs-am maintainer-clean maintainer-clean-generic \
+	mostlyclean mostlyclean-generic pdf pdf-am ps ps-am tags \
+	tags-recursive uninstall uninstall-am \
+	uninstall-dist_themes_bokmal_imagesDATA
 
-
-install-data-local:
-	$(MKDIR_P) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/bokmal/images
-	$(INSTALL_DATA) $(srcdir)/splat0.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/bokmal/images/splat0.png
-	$(INSTALL_DATA) $(srcdir)/map.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/bokmal/images/map.png
-
-uninstall-local:
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/bokmal/images/splat0.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/bokmal/images/map.png
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:

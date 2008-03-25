@@ -1,5 +1,8 @@
+## Makefile.am for tuxtype - data/images/tux:
+## Process with Automake to create Makefile.in
+images_tuxdir = $(pkgdatadir)/data/images/tux
 
-EXTRA_DIST = console.png\
+dist_images_tux_DATA = console.png\
 gulp0.png\
 gulp1.png\
 gulp2.png\
@@ -34,78 +37,3 @@ walk2.png\
 walk3.png\
 win0.png\
 yipe0.png
-
-install-data-local:
-	$(MKDIR_P) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux
-	$(INSTALL_DATA) $(srcdir)/console.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/console.png
-	$(INSTALL_DATA) $(srcdir)/gulp0.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/gulp0.png
-	$(INSTALL_DATA) $(srcdir)/gulp1.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/gulp1.png
-	$(INSTALL_DATA) $(srcdir)/gulp2.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/gulp2.png
-	$(INSTALL_DATA) $(srcdir)/gulp3.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/gulp3.png
-	$(INSTALL_DATA) $(srcdir)/run0.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/run0.png
-	$(INSTALL_DATA) $(srcdir)/run1.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/run1.png
-	$(INSTALL_DATA) $(srcdir)/stand-.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/stand-.png
-	$(INSTALL_DATA) $(srcdir)/stand0.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/stand0.png
-	$(INSTALL_DATA) $(srcdir)/stand1.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/stand1.png
-	$(INSTALL_DATA) $(srcdir)/tux-console1.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/tux-console1.png
-	$(INSTALL_DATA) $(srcdir)/tux-console2.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/tux-console2.png
-	$(INSTALL_DATA) $(srcdir)/tux-console3.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/tux-console3.png
-	$(INSTALL_DATA) $(srcdir)/tux-console4.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/tux-console4.png
-	$(INSTALL_DATA) $(srcdir)/tux-drat.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/tux-drat.png
-	$(INSTALL_DATA) $(srcdir)/tux-egypt0.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/tux-egypt0.png
-	$(INSTALL_DATA) $(srcdir)/tux-egypt1.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/tux-egypt1.png
-	$(INSTALL_DATA) $(srcdir)/tux-fist0.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/tux-fist0.png
-	$(INSTALL_DATA) $(srcdir)/tux-fist1.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/tux-fist1.png
-	$(INSTALL_DATA) $(srcdir)/tux-kiss1.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/tux-kiss1.png
-	$(INSTALL_DATA) $(srcdir)/tux-kiss2.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/tux-kiss2.png
-	$(INSTALL_DATA) $(srcdir)/tux-relax1.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/tux-relax1.png
-	$(INSTALL_DATA) $(srcdir)/tux-relax2.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/tux-relax2.png
-	$(INSTALL_DATA) $(srcdir)/tux-sit.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/tux-sit.png
-	$(INSTALL_DATA) $(srcdir)/tux-yay1.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/tux-yay1.png
-	$(INSTALL_DATA) $(srcdir)/tux-yay2.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/tux-yay2.png
-	$(INSTALL_DATA) $(srcdir)/tux-yes1.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/tux-yes1.png
-	$(INSTALL_DATA) $(srcdir)/tux-yes2.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/tux-yes2.png
-	$(INSTALL_DATA) $(srcdir)/tux-yipe.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/tux-yipe.png
-	$(INSTALL_DATA) $(srcdir)/walk0.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/walk0.png
-	$(INSTALL_DATA) $(srcdir)/walk1.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/walk1.png
-	$(INSTALL_DATA) $(srcdir)/walk2.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/walk2.png
-	$(INSTALL_DATA) $(srcdir)/walk3.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/walk3.png
-	$(INSTALL_DATA) $(srcdir)/win0.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/win0.png
-	$(INSTALL_DATA) $(srcdir)/yipe0.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/yipe0.png
-
-uninstall-local:
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/console.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/gulp0.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/gulp1.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/gulp2.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/gulp3.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/run0.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/run1.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/stand-.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/stand0.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/stand1.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/tux-console1.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/tux-console2.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/tux-console3.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/tux-console4.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/tux-drat.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/tux-egypt0.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/tux-egypt1.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/tux-fist0.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/tux-fist1.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/tux-kiss1.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/tux-kiss2.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/tux-relax1.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/tux-relax2.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/tux-sit.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/tux-yay1.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/tux-yay2.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/tux-yes1.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/tux-yes2.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/tux-yipe.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/walk0.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/walk1.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/walk2.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/walk3.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/win0.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/tux/yipe0.png

@@ -1,11 +1,7 @@
+## Makefile.am for tuxtype - data/themes/wolof/images:
+## Process with Automake to create Makefile.in
 
-EXTRA_DIST = photo.png map.png
+themes_wolof_imagesdir = $(pkgdatadir)/data/themes/wolof/images
 
-install-data-local:
-	$(MKDIR_P) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/wolof/images
-	$(INSTALL_DATA) $(srcdir)/photo.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/wolof/images
-	$(INSTALL_DATA) $(srcdir)/map.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/wolof/images
-
-uninstall-local:
-	-rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/wolof/images/photo.png
-	-rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/wolof/images/map.png
+dist_themes_wolof_images_DATA = photo.png \
+  map.png

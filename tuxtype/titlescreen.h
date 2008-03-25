@@ -33,7 +33,7 @@ const unsigned char *menu_icon[][6]=
  {"", "cascade", "easy",   "grade1_", "list"   },
  {"", "comet",   "medium", "grade2_", "practice" },
  {"", "lesson","hard",   "grade3_", "keyboard"   },
- {"", "option",  "tutor",  "grade4_", "lang" },
+ {"", "tux_config",  "tutor",  "grade4_", "lang" },
  {"", "quit",    "main",   "main",    "main"   }};
 
 /* --- timings for tux blinking --- */

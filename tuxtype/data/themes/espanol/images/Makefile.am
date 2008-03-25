@@ -1,10 +1,6 @@
-EXTRA_DIST = map.png
+## Makefile.am for tuxtype - data/themes/espanol/images:
+## Process with Automake to create Makefile.in
 
-install-data-local:
-	$(MKDIR_P) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/espanol/images
-	$(INSTALL_DATA) $(srcdir)/map.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/espanol/images/map.png
+themes_espanol_imagesdir = $(pkgdatadir)/data/themes/espanol/images
 
-
-
-uninstall-local:
-	rm -f $(prefix)/share/$(PACKAGE)/data/themes/espanol/images/map.png
+dist_themes_espanol_images_DATA = map.png

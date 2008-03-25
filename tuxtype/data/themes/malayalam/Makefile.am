@@ -1,19 +1,11 @@
+## Makefile.am for tuxtype - data/themes/malayalam:
+## Process with Automake to create Makefile.in
 
-SUBDIRS = images scripts words
+SUBDIRS = images scripts words 
 
-EXTRA_DIST = keyboard.lst lang.po phrases.txt settings.txt
+themes_malayalamdir = $(pkgdatadir)/data/themes/malayalam
 
-install-data-local:
-	$(MKDIR_P) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/malayalam
-	$(INSTALL_DATA) $(srcdir)/lang.po $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/malayalam/lang.po
-	$(INSTALL_DATA) $(srcdir)/keyboard.lst $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/malayalam/keyboard.lst
-	$(INSTALL_DATA) $(srcdir)/phrases.txt $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/malayalam/phrases.txt
-	$(INSTALL_DATA) $(srcdir)/settings.txt $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/malayalam/settings.txt
-
-
-uninstall-local:
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/malayalam/keyboard.lst
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/malayalam/lang.po
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/malayalam/phrases.txt
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/malayalam/settings.txt
-
+dist_themes_malayalam_DATA = keyboard.lst \
+  lang.po \
+  phrases.txt \
+  settings.txt

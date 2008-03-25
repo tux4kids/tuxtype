@@ -1,17 +1,10 @@
+## Makefile.am for tuxtype - data/themes/russian:
+## Process with Automake to create Makefile.in
 
-SUBDIRS = \
-images\
-words
+SUBDIRS = images words 
 
-EXTRA_DIST = keyboard.lst lang.po settings.txt
+themes_russiandir = $(pkgdatadir)/data/themes/russian
 
-install-data-local:
-	$(MKDIR_P) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/russian
-	$(INSTALL_DATA) $(srcdir)/lang.po $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/russian/lang.po
-	$(INSTALL_DATA) $(srcdir)/keyboard.lst $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/russian/keyboard.lst
-	$(INSTALL_DATA) $(srcdir)/settings.txt $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/russian/settings.txt
-
-uninstall-local:
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/russian/keyboard.lst
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/russian/lang.po
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/russian/settings.txt
+dist_themes_russian_DATA = keyboard.lst \
+  lang.po \
+  settings.txt

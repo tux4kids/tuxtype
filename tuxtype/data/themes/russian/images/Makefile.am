@@ -1,12 +1,8 @@
+## Makefile.am for tuxtype - data/themes/russian/images:
+## Process with Automake to create Makefile.in
 
-SUBDIRS = status
+SUBDIRS = status 
 
-EXTRA_DIST = \
-splat0.png
+themes_russian_imagesdir = $(pkgdatadir)/data/themes/russian/images
 
-install-data-local:
-	$(MKDIR_P) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/russian/images
-	$(INSTALL_DATA) $(srcdir)/splat0.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/russian/images/splat0.png
-
-uninstall-local:
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/russian/images/splat0.png
+dist_themes_russian_images_DATA = splat0.png

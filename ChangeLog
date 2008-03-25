@@ -1,3 +1,13 @@
+22 Feb 2008
+[ David Bruce <dbruce@tampabay.rr.com> ]
+       - replaced many of menu icon images with new shiny ones.
+
+19 Feb 2008
+[ David Bruce <dbruce@tampabay.rr.com> ]
+       - updated remainder of Makefile.am's to use automake
+         variables rather than hard-coded 'install' and 'uninstall'
+         targets.
+
 15 Feb 2008
 [ David Bruce <dbruce@tampabay.rr.com> ]
        - start of rewrite of Makefile.am's for data heirarchy

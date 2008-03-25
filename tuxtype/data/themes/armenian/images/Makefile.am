@@ -1,13 +1,7 @@
+## Makefile.am for tuxtype - data/themes/armenian/images:
+## Process with Automake to create Makefile.in
 
-EXTRA_DIST = \
-splat0.png \
-title1.png 
+themes_armenian_imagesdir = $(pkgdatadir)/data/themes/armenian/images
 
-install-data-local:
-	$(MKDIR_P) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/armenian/images
-	$(INSTALL_DATA) $(srcdir)/splat0.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/armenian/images/splat0.png
-	$(INSTALL_DATA) $(srcdir)/title1.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/armenian/images/title1.png
-
-uninstall-local:
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/armenian/images/splat0.png
-	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/themes/armenian/images/title1.png
+dist_themes_armenian_images_DATA = splat0.png \
+  title1.png 
