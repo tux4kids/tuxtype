@@ -1,7 +1,7 @@
 # Modified to include support for NSIS Windows installer - David Bruce <dbruce@tampabay.rr.com>
 MAKENSIS=@NSIS@
 
-SUBDIRS = tuxtype doc
+SUBDIRS = data doc src
 
 EXTRA_DIST = AUTHORS COPYING ChangeLog INSTALL README TODO tuxtype.lsm tuxtype.spec tuxtype.spec.in config.h autorun.inf tuxtype.ico
 

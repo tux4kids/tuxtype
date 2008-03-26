@@ -5,7 +5,7 @@ AC_CANONICAL_BUILD
 AC_CANONICAL_HOST
 AC_CANONICAL_TARGET
 
-AC_CONFIG_SRCDIR([tuxtype/funcs.h])
+AC_CONFIG_SRCDIR([src/funcs.h])
 
 # Tell Automake not to be as strict about packaging standards for tuxtype
 # as it would be for an official Gnu program:
@@ -95,91 +95,91 @@ AC_CHECK_FUNCS([atexit memset strchr strstr malloc])
 
 
 # Sam's Install Kludge-work
-CPPFLAGS="$CPPFLAGS -DDATA_PREFIX=\\\"\$(prefix)\\\""
+# CPPFLAGS="$CPPFLAGS -DDATA_PREFIX=\\\"\$(prefix)\\\""
 
 AC_CONFIG_FILES([Makefile
+data/Makefile
+data/fonts/Makefile
+data/images/Makefile
+data/images/backgrounds/Makefile
+data/images/cities/Makefile
+data/images/comets/Makefile
+data/images/hands/Makefile
+data/images/icons/Makefile
+data/images/keyboard/Makefile
+data/images/menu/Makefile
+data/images/status/Makefile
+data/images/tux/Makefile
+data/scripts/Makefile
+data/sounds/Makefile
+data/themes/Makefile
+data/themes/armenian/Makefile
+data/themes/armenian/images/Makefile
+data/themes/bokmal/Makefile
+data/themes/bokmal/words/Makefile
+data/themes/bokmal/images/Makefile
+data/themes/bokmal/images/status/Makefile
+data/themes/brazilian-portuguese/Makefile
+data/themes/brazilian-portuguese/images/Makefile
+data/themes/brazilian-portuguese/words/Makefile
+data/themes/catalan/Makefile
+data/themes/catalan/words/Makefile
+data/themes/czech/Makefile
+data/themes/czech/words/Makefile
+data/themes/dansk/Makefile
+data/themes/dansk/sounds/Makefile
+data/themes/dansk/words/Makefile
+data/themes/deutsch/Makefile
+data/themes/deutsch/words/Makefile
+data/themes/espanol/Makefile
+data/themes/espanol/images/Makefile
+data/themes/espanol/words/Makefile
+data/themes/euskara/Makefile
+data/themes/euskara/images/Makefile
+data/themes/euskara/words/Makefile
+data/themes/french/Makefile
+data/themes/french/words/Makefile
+data/themes/greek/Makefile
+data/themes/greek/words/Makefile
+data/themes/italian/Makefile
+data/themes/italian/images/Makefile
+data/themes/italian/words/Makefile
+data/themes/jamaican/Makefile
+data/themes/jamaican/images/Makefile
+data/themes/jamaican/words/Makefile
+data/themes/lithuanian/Makefile
+data/themes/lithuanian/images/Makefile
+data/themes/lithuanian/images/status/Makefile
+data/themes/lithuanian/sounds/Makefile
+data/themes/lithuanian/words/Makefile
+data/themes/malayalam/Makefile
+data/themes/malayalam/images/Makefile
+data/themes/malayalam/images/status/Makefile
+data/themes/malayalam/images/keyboard/Makefile
+data/themes/malayalam/scripts/Makefile
+data/themes/malayalam/words/Makefile
+data/themes/nederlands/Makefile
+data/themes/nederlands/words/Makefile
+data/themes/nynorsk/Makefile
+data/themes/nynorsk/images/Makefile
+data/themes/nynorsk/images/status/Makefile
+data/themes/nynorsk/words/Makefile
+data/themes/russian/Makefile
+data/themes/russian/images/Makefile
+data/themes/russian/images/status/Makefile
+data/themes/russian/words/Makefile
+data/themes/svenska/Makefile
+data/themes/svenska/words/Makefile
+data/themes/swahili/Makefile
+data/themes/swahili/words/Makefile
+data/themes/wolof/Makefile
+data/themes/wolof/images/Makefile
+data/themes/wolof/words/Makefile
+data/words/Makefile
 doc/Makefile
-tuxtype/Makefile
-tuxtype/data/Makefile
-tuxtype/data/fonts/Makefile
-tuxtype/data/images/Makefile
-tuxtype/data/images/backgrounds/Makefile
-tuxtype/data/images/cities/Makefile
-tuxtype/data/images/comets/Makefile
-tuxtype/data/images/hands/Makefile
-tuxtype/data/images/icons/Makefile
-tuxtype/data/images/keyboard/Makefile
-tuxtype/data/images/menu/Makefile
-tuxtype/data/images/status/Makefile
-tuxtype/data/images/tux/Makefile
-tuxtype/data/scripts/Makefile
-tuxtype/data/sounds/Makefile
-tuxtype/data/themes/Makefile
-tuxtype/data/themes/armenian/Makefile
-tuxtype/data/themes/armenian/images/Makefile
-tuxtype/data/themes/bokmal/Makefile
-tuxtype/data/themes/bokmal/words/Makefile
-tuxtype/data/themes/bokmal/images/Makefile
-tuxtype/data/themes/bokmal/images/status/Makefile
-tuxtype/data/themes/brazilian-portuguese/Makefile
-tuxtype/data/themes/brazilian-portuguese/images/Makefile
-tuxtype/data/themes/brazilian-portuguese/words/Makefile
-tuxtype/data/themes/catalan/Makefile
-tuxtype/data/themes/catalan/words/Makefile
-tuxtype/data/themes/czech/Makefile
-tuxtype/data/themes/czech/words/Makefile
-tuxtype/data/themes/dansk/Makefile
-tuxtype/data/themes/dansk/sounds/Makefile
-tuxtype/data/themes/dansk/words/Makefile
-tuxtype/data/themes/deutsch/Makefile
-tuxtype/data/themes/deutsch/words/Makefile
-tuxtype/data/themes/espanol/Makefile
-tuxtype/data/themes/espanol/images/Makefile
-tuxtype/data/themes/espanol/words/Makefile
-tuxtype/data/themes/euskara/Makefile
-tuxtype/data/themes/euskara/images/Makefile
-tuxtype/data/themes/euskara/words/Makefile
-tuxtype/data/themes/french/Makefile
-tuxtype/data/themes/french/words/Makefile
-tuxtype/data/themes/greek/Makefile
-tuxtype/data/themes/greek/words/Makefile
-tuxtype/data/themes/italian/Makefile
-tuxtype/data/themes/italian/images/Makefile
-tuxtype/data/themes/italian/words/Makefile
-tuxtype/data/themes/jamaican/Makefile
-tuxtype/data/themes/jamaican/images/Makefile
-tuxtype/data/themes/jamaican/words/Makefile
-tuxtype/data/themes/lithuanian/Makefile
-tuxtype/data/themes/lithuanian/images/Makefile
-tuxtype/data/themes/lithuanian/images/status/Makefile
-tuxtype/data/themes/lithuanian/sounds/Makefile
-tuxtype/data/themes/lithuanian/words/Makefile
-tuxtype/data/themes/malayalam/Makefile
-tuxtype/data/themes/malayalam/images/Makefile
-tuxtype/data/themes/malayalam/images/status/Makefile
-tuxtype/data/themes/malayalam/images/keyboard/Makefile
-tuxtype/data/themes/malayalam/scripts/Makefile
-tuxtype/data/themes/malayalam/words/Makefile
-tuxtype/data/themes/nederlands/Makefile
-tuxtype/data/themes/nederlands/words/Makefile
-tuxtype/data/themes/nynorsk/Makefile
-tuxtype/data/themes/nynorsk/images/Makefile
-tuxtype/data/themes/nynorsk/images/status/Makefile
-tuxtype/data/themes/nynorsk/words/Makefile
-tuxtype/data/themes/russian/Makefile
-tuxtype/data/themes/russian/images/Makefile
-tuxtype/data/themes/russian/images/status/Makefile
-tuxtype/data/themes/russian/words/Makefile
-tuxtype/data/themes/svenska/Makefile
-tuxtype/data/themes/svenska/words/Makefile
-tuxtype/data/themes/swahili/Makefile
-tuxtype/data/themes/swahili/words/Makefile
-tuxtype/data/themes/wolof/Makefile
-tuxtype/data/themes/wolof/images/Makefile
-tuxtype/data/themes/wolof/words/Makefile
-tuxtype/data/words/Makefile
-tuxtype/docs/Makefile
-tuxtype/docs/en/Makefile
+doc/en/Makefile
+src/Makefile
+nsis/tuxtype.nsi
 tuxtype.spec])
 
 # Support for building NSIS Win32 installer (adapted from TuxMath NSIS):
@@ -199,10 +199,6 @@ AC_SUBST(NSI_DLL_DIR)
 
 AC_PATH_PROG(NSIS, makensis, no, [$PATH])
 
-# FIXME should this go into earlier AC_CONFIG_FILES ?
-AC_CONFIG_FILES([
-nsis/tuxtype.nsi
-])
 
 AC_OUTPUT
 

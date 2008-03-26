@@ -33,9 +33,9 @@ POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
 target_triplet = @target@
-subdir = doc
-DIST_COMMON = README $(dist_doc_DATA) $(srcdir)/Makefile.am \
-	$(srcdir)/Makefile.in AUTHORS COPYING ChangeLog INSTALL TODO
+subdir = data/images/menu
+DIST_COMMON = $(dist_images_menu_DATA) $(srcdir)/Makefile.am \
+	$(srcdir)/Makefile.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/acinclude.m4 \
 	$(top_srcdir)/configure.ac
@@ -52,9 +52,9 @@ am__vpath_adj = case $$p in \
     *) f=$$p;; \
   esac;
 am__strip_dir = `echo $$p | sed -e 's|^.*/||'`;
-am__installdirs = "$(DESTDIR)$(docdir)"
-dist_docDATA_INSTALL = $(INSTALL_DATA)
-DATA = $(dist_doc_DATA)
+am__installdirs = "$(DESTDIR)$(images_menudir)"
+dist_images_menuDATA_INSTALL = $(INSTALL_DATA)
+DATA = $(dist_images_menu_DATA)
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 ACLOCAL = @ACLOCAL@
 AMTAR = @AMTAR@
@@ -160,13 +160,74 @@ target_os = @target_os@
 target_vendor = @target_vendor@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-dist_doc_DATA = AUTHORS \
-  COPYING \
-  ChangeLog \
-  INSTALL \
-  OFL \
-  README \
-  TODO
+images_menudir = $(pkgdatadir)/data/images/menu
+dist_images_menu_DATA = cascade0.png\
+cascade1.png\
+cascade10.png\
+cascade2.png\
+cascade3.png\
+cascade4.png\
+cascade5.png\
+cascade6.png\
+cascade7.png\
+cascade8.png\
+cascade9.png\
+cascaded.png\
+comet0.png\
+comet1.png\
+comet2.png\
+comet3.png\
+comet4.png\
+comet5.png\
+cometd.png\
+keyboard0.png\
+keyboard1.png\
+keyboard2.png\
+keyboardd.png\
+keycas0.png\
+keycas1.png\
+keycas2.png\
+keycas3.png\
+keycas4.png\
+keycas5.png\
+keycas6.png\
+keycas7.png\
+keycas8.png\
+keycas9.png\
+keycasd.png\
+lesson0.png\
+lesson1.png\
+lesson2.png\
+lesson3.png\
+lessond.png\
+main0.png\
+main1.png\
+main2.png\
+main3.png\
+main4.png\
+main5.png\
+main6.png\
+main7.png\
+maind.png\
+quit0.png\
+quit1.png\
+quit2.png\
+quit3.png\
+quit4.png\
+quit5.png\
+quit6.png\
+quit7.png\
+quit8.png\
+quitd.png\
+reg0.png\
+reg1.png\
+reg2.png\
+sel0.png\
+sel1.png\
+sel2.png\
+tux_config0.png\
+tux_config1.png\
+tux_configd.png
 
 all: all-am
 
@@ -180,9 +241,9 @@ $(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
 	      exit 1;; \
 	  esac; \
 	done; \
-	echo ' cd $(top_srcdir) && $(AUTOMAKE) --foreign  doc/Makefile'; \
+	echo ' cd $(top_srcdir) && $(AUTOMAKE) --foreign  data/images/menu/Makefile'; \
 	cd $(top_srcdir) && \
-	  $(AUTOMAKE) --foreign  doc/Makefile
+	  $(AUTOMAKE) --foreign  data/images/menu/Makefile
 .PRECIOUS: Makefile
 Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
 	@case '$?' in \
@@ -200,22 +261,22 @@ $(top_srcdir)/configure:  $(am__configure_deps)
 	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh
 $(ACLOCAL_M4):  $(am__aclocal_m4_deps)
 	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh
-install-dist_docDATA: $(dist_doc_DATA)
+install-dist_images_menuDATA: $(dist_images_menu_DATA)
 	@$(NORMAL_INSTALL)
-	test -z "$(docdir)" || $(MKDIR_P) "$(DESTDIR)$(docdir)"
-	@list='$(dist_doc_DATA)'; for p in $$list; do \
+	test -z "$(images_menudir)" || $(MKDIR_P) "$(DESTDIR)$(images_menudir)"
+	@list='$(dist_images_menu_DATA)'; for p in $$list; do \
 	  if test -f "$$p"; then d=; else d="$(srcdir)/"; fi; \
 	  f=$(am__strip_dir) \
-	  echo " $(dist_docDATA_INSTALL) '$$d$$p' '$(DESTDIR)$(docdir)/$$f'"; \
-	  $(dist_docDATA_INSTALL) "$$d$$p" "$(DESTDIR)$(docdir)/$$f"; \
+	  echo " $(dist_images_menuDATA_INSTALL) '$$d$$p' '$(DESTDIR)$(images_menudir)/$$f'"; \
+	  $(dist_images_menuDATA_INSTALL) "$$d$$p" "$(DESTDIR)$(images_menudir)/$$f"; \
 	done
 
-uninstall-dist_docDATA:
+uninstall-dist_images_menuDATA:
 	@$(NORMAL_UNINSTALL)
-	@list='$(dist_doc_DATA)'; for p in $$list; do \
+	@list='$(dist_images_menu_DATA)'; for p in $$list; do \
 	  f=$(am__strip_dir) \
-	  echo " rm -f '$(DESTDIR)$(docdir)/$$f'"; \
-	  rm -f "$(DESTDIR)$(docdir)/$$f"; \
+	  echo " rm -f '$(DESTDIR)$(images_menudir)/$$f'"; \
+	  rm -f "$(DESTDIR)$(images_menudir)/$$f"; \
 	done
 tags: TAGS
 TAGS:
@@ -254,7 +315,7 @@ check-am: all-am
 check: check-am
 all-am: Makefile $(DATA)
 installdirs:
-	for dir in "$(DESTDIR)$(docdir)"; do \
+	for dir in "$(DESTDIR)$(images_menudir)"; do \
 	  test -z "$$dir" || $(MKDIR_P) "$$dir"; \
 	done
 install: install-am
@@ -299,7 +360,7 @@ info: info-am
 
 info-am:
 
-install-data-am: install-dist_docDATA
+install-data-am: install-dist_images_menuDATA
 
 install-dvi: install-dvi-am
 
@@ -333,20 +394,21 @@ ps: ps-am
 
 ps-am:
 
-uninstall-am: uninstall-dist_docDATA
+uninstall-am: uninstall-dist_images_menuDATA
 
 .MAKE: install-am install-strip
 
 .PHONY: all all-am check check-am clean clean-generic distclean \
 	distclean-generic distdir dvi dvi-am html html-am info info-am \
 	install install-am install-data install-data-am \
-	install-dist_docDATA install-dvi install-dvi-am install-exec \
-	install-exec-am install-html install-html-am install-info \
-	install-info-am install-man install-pdf install-pdf-am \
-	install-ps install-ps-am install-strip installcheck \
-	installcheck-am installdirs maintainer-clean \
+	install-dist_images_menuDATA install-dvi install-dvi-am \
+	install-exec install-exec-am install-html install-html-am \
+	install-info install-info-am install-man install-pdf \
+	install-pdf-am install-ps install-ps-am install-strip \
+	installcheck installcheck-am installdirs maintainer-clean \
 	maintainer-clean-generic mostlyclean mostlyclean-generic pdf \
-	pdf-am ps ps-am uninstall uninstall-am uninstall-dist_docDATA
+	pdf-am ps ps-am uninstall uninstall-am \
+	uninstall-dist_images_menuDATA
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
