@@ -49,7 +49,7 @@ msgid "Level"
 msgstr "Nivå"
 
 msgid "Alphabet"
-msgstr "Alfabet"
+msgstr "Alfabetet"
 
 # "Space Cadet" is level 1 in comet zap
 msgid "Space Cadet"
