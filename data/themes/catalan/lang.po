@@ -1,0 +1,109 @@
+msgid ""
+msgstr ""
+
+msgid "Congratulations"
+msgstr "L'enhorabona!"
+
+msgid "Oh No!"
+msgstr "Oh No!"
+
+msgid "Sound & Music Disabled"
+msgstr "S'ha inhabilitat el só i la música"
+
+msgid "Paused!"
+msgstr "En pausa!"
+
+msgid "press escape again to return to menu"
+msgstr "Torneu a prèmer escape per tornar al menú"
+
+msgid "press space bar to return to game"
+msgstr "Premeu 'espai' per tornar al joc"
+
+msgid "Sound Effects Volume"
+msgstr "Volum dels efectes de só"
+
+msgid "Music Volume"
+msgstr "Volum de la música"
+
+msgid "Edit Word Lists"
+msgstr "Editar les llistes de paraules"
+
+msgid "Fish"
+msgstr "Peix"
+
+msgid "Lives"
+msgstr "Vides"
+
+msgid "Level"
+msgstr "Nivell"
+
+msgid "Alphabet"
+msgstr "Lletres soles"
+
+# "Space Cadet" is level 1 in comet zap
+msgid "Space Cadet"
+msgstr "Cadet"
+
+# "Pilot" is level 2 in comet zap
+msgid "Pilot"
+msgstr "Pilot"
+
+# "Ace" is level 3 in comet zap
+msgid "Ace"
+msgstr "As"
+
+# "Commander" is level 4 in comet zap
+msgid "Commander"
+msgstr "Comandant"
+
+#levels for Cascade game:
+msgid "Easy"
+msgstr "Fàcil"
+
+msgid "Medium"
+msgstr "Mitg"
+
+msgid "Hard"
+msgstr "Difícil"
+
+#types of games
+msgid "Comet Zap"
+msgstr "Caiguda de meteorits"
+
+msgid "Fish Cascade"
+msgstr "Caiguda de peixos"
+
+#general stuff
+msgid "Practice"
+msgstr "Practicar"
+
+msgid "Lessons"
+msgstr "Llissons"
+
+msgid "Instructions"
+msgstr "Instruccions"
+
+msgid "Main Menu"
+msgstr "Menu principal"
+
+msgid "Options"
+msgstr "Opcions"
+
+msgid "Quit"
+msgstr "Sortir"
+
+msgid "Setup Keyboard"
+msgstr "Configuració del teclat"
+
+msgid "Setup Language"
+msgstr "Configuració de l'idioma"
+
+#work in progress stuff
+msgid "Work In Progress!"
+msgstr "Encara en progres!"
+
+msgid "this feature is not ready yet"
+msgstr "Encara no implementat"
+
+msgid "Discuss the future of TuxTyping at"
+msgstr "Podeu parlar sobre el futur de TuxTyping a"
