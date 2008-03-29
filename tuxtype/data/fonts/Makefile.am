@@ -11,9 +11,11 @@ install-data-local:
 	$(MKDIR_P) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/fonts
 	-$(INSTALL_DATA) $(srcdir)/AndikaDesRevG.ttf $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/fonts
 	-$(INSTALL_DATA) $(srcdir)/DoulosSILR.ttf $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/fonts
+	-$(INSTALL_DATA) $(srcdir)/lohit_hi.ttf $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/fonts
 	-$(INSTALL_DATA) $(srcdir)/Rachana_w01.ttf $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/fonts
 
 uninstall-local:
 	-rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/fonts/AndikaDesRevG.ttf
 	-rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/fonts/DoulosSILR.ttf
+	-rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/fonts/lohit_hi.ttf
 	-rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/fonts/Rachana_w01.ttf

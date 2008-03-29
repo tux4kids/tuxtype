@@ -1,3 +1,4 @@
+## Process with Automake to create Makefile.in
 
 bin_PROGRAMS = tuxtype
 

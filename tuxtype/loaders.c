@@ -225,6 +225,8 @@ TTF_Font* LoadFont(const char* font_name, int font_size )
     sprintf(fn, "/usr/share/fonts/truetype/ttf-sil-andika/AndikaDesRevG.ttf");
   else if (strncmp(font_name, "DoulosSILR.ttf", FNLEN ) == 0)
     sprintf(fn, "/usr/share/fonts/truetype/ttf-sil-doulos/DoulosSILR.ttf");
+  else if (strncmp(font_name, "lohit_hi.ttf", FNLEN ) == 0)
+    sprintf(fn, "/usr/share/fonts/truetype/ttf-devanagari-fonts/lohit_hi.ttf");
   else if (strncmp(font_name, "Rachana_w01.ttf", FNLEN ) == 0)
     sprintf(fn, "/usr/share/fonts/truetype/ttf-malayalam-fonts/Rachana_w01.ttf");
 

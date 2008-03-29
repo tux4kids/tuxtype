@@ -19,9 +19,6 @@ AC_PROG_INSTALL
 AC_PROG_LN_S
 AC_PROG_MAKE_SET
 
-dnl Don't think we need C++:
-# AC_PROG_CPP
-# AC_PROG_CXX
 
 AC_PREFIX_DEFAULT(/usr/local)
 if test "x$prefix" = "xNONE"; then
@@ -159,6 +156,8 @@ tuxtype/data/themes/malayalam/images/status/Makefile
 tuxtype/data/themes/malayalam/images/keyboard/Makefile
 tuxtype/data/themes/malayalam/scripts/Makefile
 tuxtype/data/themes/malayalam/words/Makefile
+tuxtype/data/themes/nepali/Makefile
+tuxtype/data/themes/nepali/words/Makefile
 tuxtype/data/themes/nederlands/Makefile
 tuxtype/data/themes/nederlands/words/Makefile
 tuxtype/data/themes/nynorsk/Makefile

@@ -90,21 +90,26 @@ void GraphicsInit(Uint32 video_flags)
 *****************************/
 void LibInit(Uint32 lib_flags)
 {
-	LOG( "LibInit():\n-About to init SDL Library\n" );
+  LOG( "LibInit():\n-About to init SDL Library\n" );
 
-	if (SDL_Init(lib_flags) < 0) 
-		/* FIXME this looks wrong - if no sys_sound, we don't init video??? */
-		if (settings.sys_sound) {
-			if (SDL_Init(SDL_INIT_VIDEO) < 0) {
-				fprintf(stderr, "Couldn't initialize SDL: %s\n",
-				SDL_GetError());
-				exit(2);
-			} else {
-				LOG( "Couldn't initialize SDL Sound\n" );
-				settings.sys_sound = 0;
-			}
-		}
-
+  if (SDL_Init(lib_flags) < 0) 
+  {
+    /* FIXME this looks wrong - if no sys_sound, we don't init video??? */
+    if (settings.sys_sound)
+    {
+      if (SDL_Init(SDL_INIT_VIDEO) < 0)
+      {
+        fprintf(stderr, "Couldn't initialize SDL: %s\n",
+                SDL_GetError());
+        exit(2);
+      }
+      else
+      {
+        LOG( "Couldn't initialize SDL Sound\n" );
+        settings.sys_sound = 0;
+      }
+    }
+  }
 
 //	atexit(SDL_Quit); // fire and forget... 
 

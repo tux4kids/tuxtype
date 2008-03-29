@@ -16,6 +16,7 @@ SUBDIRS = armenian \
   jamaican \
   lithuanian \
   malayalam \
+  nepali \
   nederlands \
   nynorsk \
   russian \
