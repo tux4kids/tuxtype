@@ -1,5 +1,5 @@
 # Process this file with autoconf to produce a configure script.
-AC_INIT([Tux Typing],[1.5.16],[tux4kids-tuxtype-dev@lists.alioth.debian.org],[tuxtype])
+AC_INIT([Tux Typing],[1.5.17],[tux4kids-tuxtype-dev@lists.alioth.debian.org],[tuxtype])
 
 AC_CANONICAL_BUILD
 AC_CANONICAL_HOST
