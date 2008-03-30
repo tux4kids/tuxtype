@@ -96,7 +96,8 @@ int PlayLaserGame(int diff_level)
 
 	done = 0;
 	quit = 0;
-  
+	src.w = src.h = 0;
+
 	/* Prepare to start the game: */
   
 	wave = 1;
