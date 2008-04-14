@@ -1,3 +1,8 @@
+
+13 Apr 2008 - svn revision 460
+[ David Bruce <dbruce@tampabay.rr.com> ]
+       - fixed small typo bug in alphabet.c (thanks Patrick Winnertz)
+
 29 Mar 2008 - svn revision 451
 [ David Bruce <dbruce@tampabay.rr.com> ]
        - new branch made called "tuxtype-new", code reorganized with

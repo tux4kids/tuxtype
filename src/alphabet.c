@@ -217,7 +217,7 @@ int GetFinger(wchar_t uni_char)
   if (i == MAX_UNICODES)
   {
     fprintf(stderr, "GetFinger() - Unicode char '%C' not found in list.\n", uni_char);
-    return -2;
+    return -2;
   }
 
   if ((keyboard_list[i].finger < 0)
