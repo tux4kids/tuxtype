@@ -1,3 +1,19 @@
+
+13 Apr 2008 - svn revision 460
+[ David Bruce <dbruce@tampabay.rr.com> ]
+       - fixed small typo bug in alphabet.c (thanks Patrick Winnertz)
+
+29 Mar 2008 - svn revision 451
+[ David Bruce <dbruce@tampabay.rr.com> ]
+       - new branch made called "tuxtype-new", code reorganized with
+       - more standard subdirs "src", "data", "doc"; Makefile.am's
+         and configure.ac updated accordingly.  After some tweaking,
+         seems to work properly for configuration, "make", "make install",
+         "make uninstall", "make distcheck" - and appears to run
+         correctly on Linux.
+       - version 1.5.17 to be released as last release from tree prior
+         to reorganization.
+
 23 Mar 2008
 [ David Bruce <dbruce@tampabay.rr.com> ]
        - Nepali theme contributed by Vikal Acharya and Shakeel Shrestha

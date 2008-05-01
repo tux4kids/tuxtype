@@ -1,0 +1,120 @@
+# Svenska strängar för TuxType 2
+# Copyright © 2003 Free Software Foundation, Inc.
+# Göran Uddeborg <goeran@uddeborg.se>, 2003.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: tuxtype2 1.5.1\n"
+"PO-Revision-Date: 2003-07-23 17:44+0200\n"
+"Last-Translator: Göran Uddeborg <goeran@uddeborg.se>\n"
+"Language-Team: Swedish <sv@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Congratulations"
+msgstr "Gratulerar"
+
+msgid "Oh No!"
+msgstr "Åh nej!"
+
+msgid "Sound & Music Disabled"
+msgstr "Ljud och musik avaktiverade"
+
+msgid "Paused!"
+msgstr "Pausat!"
+
+msgid "Press escape again to return to menu"
+msgstr "Tryck escape igen för att komma tillbaka till menyn"
+
+msgid "Press space bar to return to game"
+msgstr "Tryck mellanslag för att fortsätta spela"
+
+msgid "Sound Effects Volume"
+msgstr "Ljudeffektvolym"
+
+msgid "Music Volume"
+msgstr "Musikvolym"
+
+msgid "Edit Word Lists"
+msgstr "Redigera ordlista"
+
+msgid "Fish"
+msgstr "Fisk"
+
+msgid "Lives"
+msgstr "Liv"
+
+msgid "Level"
+msgstr "Nivå"
+
+msgid "Alphabet"
+msgstr "Alfabete"
+
+# "Space Cadet" is level 1 in comet zap
+msgid "Space Cadet"
+msgstr "Rymdkadett"
+
+# "Pilot" is level 2 in comet zap
+msgid "Pilot"
+msgstr "Pilot"
+
+# "Ace" is level 3 in comet zap
+msgid "Ace"
+msgstr "Flygaress"
+
+# "Commander" is level 4 in comet zap
+msgid "Commander"
+msgstr "Kommendör"
+
+#levels for Cascade game:
+msgid "Easy"
+msgstr "Lätt"
+
+msgid "Medium"
+msgstr "Mellan"
+
+msgid "Hard"
+msgstr "Svårt"
+
+#types of games
+msgid "Comet Zap"
+msgstr "Pricka kometer"
+
+msgid "Fish Cascade"
+msgstr "Fiskregn"
+
+#general stuff
+msgid "Practice"
+msgstr "Övning"
+
+msgid "Lessons"
+msgstr "Lektioner"
+
+msgid "Instructions"
+msgstr "Instruktioner"
+
+msgid "Main Menu"
+msgstr "Huvudmeny"
+
+msgid "Options"
+msgstr "Inställningar"
+
+msgid "Quit"
+msgstr "Avsluta"
+
+msgid "Setup Keyboard"
+msgstr "Ställ in tangentbord"
+
+msgid "Setup Language"
+msgstr "Ställ in språk"
+
+#work in progress stuff
+msgid "Work In Progress!"
+msgstr "Arbete pågår!"
+
+msgid "this feature is not ready yet"
+msgstr "Denna funktion är inte färdig än"
+
+msgid "Discuss the future of TuxTyping at"
+msgstr "Diskutera TyxeTypes framtid på"
