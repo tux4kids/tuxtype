@@ -1,0 +1,60 @@
+<script title="LESSON SEVEN" bgcolor="#3f4f9f">
+   <page title="Malayalam Lesson">
+   <text color="#ffff00" align="center" y="200">പാഠം ഏഴ്</text>
+   <text color="#00ffff" align="center" y="300">തുടങ്ങാന്‍ സ്പേസ് അമര്‍ത്തൂ!</text>
+  <waitforinput/>
+   </page>
+   <page title="Keys" bgcolor="#3f7f3f">
+   <img src="/keyboard/keyboard-us.png" x="30" y="200"/>
+   <text align="center">ഇവിടെ നാം പഠിക്കുന്ന അക്ഷരങ്ങള്‍.</text>
+   <text align="center" color="#ffff00">ഓ ഏ അ ഇ റ ഖ ഥ ഛ</text>
+   <text align="center" color="#00ffff">തുടങ്ങാന്‍ സ്പേസ് അമര്‍ത്തുക</text>
+   <text color="#ffff00" x="98" y="282">ഓ</text>
+   <text color="#ffff00" x="141" y="282">ഏ</text>
+   <text color="#ffff00" x="181" y="282">അ</text>
+   <text color="#ffff00" x="220" y="282">ഇ</text>
+   <text color="#ffff00" x="338" y="282">റ</text>
+   <text color="#ffff00" x="378" y="282">ഖ</text>
+   <text color="#ffff00" x="418" y="282">ഥ</text>
+   <text color="#ffff00" x="458" y="282">ഛ</text>
+  <waitforchar/>
+   <prac goal="15">ഓ ഏ അ ഛ ഥ ഏ റ അ ഓ ഥ റ അ ഓ ഥ</prac>
+   <prac>ഛ ഥ ഏ റ അ ഓ ഥ ഥ ഏ റ അ ഓ ഥ</prac>
+   <prac>ഥ ഏ റ അ ഓ ഥ ഛ ഥ ഏ റ അ ഓ ഥ</prac>
+   </page>
+ <page>
+   <img src="keyboard/space.png" x="200" y="160"/>
+   <img src="keyboard/larrow.png" x="460" y="18"/>
+   <img src="keyboard/esc.png" x="515" y="50"/>
+   <text align="center">അഭിനന്ദനങ്ങള്‍!</text>
+   <text align="left">         To repeat the last exercise, press</text>
+   <text align="center">To go back to the main menu hit</text>
+   <text align="center">To continue on to the next exercise,</text>
+   <text align="center">press</text>
+   <text align="center">Space</text>
+   <text></text>
+   <text></text>
+   <text></text>
+   <text align="center">Next Exercise:</text>
+   <text align="center">അറ തറ ഓഥ അഛ ഇഖ ഏഥ</text> 
+   <waitforinput/>
+ </page>
+ <page title="Keys" bgcolor="#b07bc6">
+   <img src="keyboard/keyboard-us.png" x="30" y="200"/>
+   <text align="center" y="20">അഭ്യാസം</text>   
+   <text align="center" color="#ffff00" y="50"></text>
+   <text align="center" color="#00ffff" y="140">തുടങ്ങാന്‍ സ്പേസ് അമര്‍ത്തുക</text>
+   <text color="#ffff00" x="98" y="282">ഓ</text>
+   <text color="#ffff00" x="141" y="282">ഏ</text>
+   <text color="#ffff00" x="181" y="282">അ</text>
+   <text color="#ffff00" x="220" y="282">ഇ</text>
+   <text color="#ffff00" x="338" y="282">റ</text>
+   <text color="#ffff00" x="378" y="282">ഖ</text>
+   <text color="#ffff00" x="418" y="282">ഥ</text>
+   <text color="#ffff00" x="458" y="282">ഛ</text>
+   <waitforchar/>
+   <prac>അറ തറ ഓഥ അഛ ഓഥ അഛ ഇഖ ഏഥ ഇഖ ഏഥ</prac>
+   <prac>ഓഥ അഛ ഇഖ ഏഥ അറ തറ ഓഥ അഛ ഇഖ ഏഥ</prac>
+   <prac>അറ തറ ഓഥ ഓഥ അഛ ഇഖ ഏഥ അഛ ഇഖ ഏഥ</prac>
+ </page>
+</script>

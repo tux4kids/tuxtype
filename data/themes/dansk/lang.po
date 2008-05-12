@@ -1,0 +1,120 @@
+msgid ""
+msgstr ""
+""
+"Last-Translator: Nikolai Beier <beier@ofir.dk>\n"
+"PO-Revision-Date: 2003-05-08 17:58+0200\n"
+"Language-Team: Danish\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 0.9.6\n"
+
+msgid "Congratulations"
+msgstr "Tillykke!"
+
+msgid "Oh No!"
+msgstr "Åh nej!"
+
+msgid "Sound & Music Disabled"
+msgstr "Lyd og musik slået fra"
+
+msgid "Paused!"
+msgstr "Pause!"
+
+msgid "Press escape again to return to menu"
+msgstr "Tryk escape igen for at komme tilbage til menuen"
+
+msgid "Press space bar to return to game"
+msgstr "Tryk på mellemrumstasten for at spille videre"
+
+msgid "Sound Effects Volume"
+msgstr "Lydeffekternes styrke"
+
+msgid "Music Volume"
+msgstr "Musikkens styrke"
+
+msgid "Edit Word Lists"
+msgstr "Redigér ordlister"
+
+msgid "Fish"
+msgstr "Fisk"
+
+msgid "Lives"
+msgstr "Liv"
+
+msgid "Level"
+msgstr "Niveau"
+
+msgid "Options"
+msgstr "Indstilling"
+
+msgid "Alphabet"
+msgstr "Alfabetet"
+
+# "Space Cadet" is level 1 in comet zap
+msgid "Space Cadet"
+msgstr "Begynder"
+
+# "Pilot" is level 2 in comet zap
+msgid "Pilot"
+msgstr "Trænet"
+
+# "Ace" is level 3 in comet zap
+msgid "Ace"
+msgstr "Meget erfaren"
+
+# "Commander" is level 4 in comet zap
+msgid "Commander"
+msgstr "Uovertruffen"
+
+#levels for Cascade game:
+msgid "Easy"
+msgstr "Let"
+
+msgid "Medium"
+msgstr "Mellem"
+
+msgid "Hard"
+msgstr "Hård"
+
+#types of games
+msgid "Comet Zap"
+msgstr "Plaf kometer"
+
+msgid "Fish Cascade"
+msgstr "Fiskeregn"
+
+#general stuff
+msgid "Practice"
+msgstr "Øv dig!"
+
+msgid "Lessons"
+msgstr "Lektioner"
+
+msgid "Instructions"
+msgstr "Instruktioner"
+
+msgid "Main Menu"
+msgstr "Hovedmenu"
+
+msgid "Options"
+msgstr "Indstillinger"
+
+msgid "Quit"
+msgstr "Afslut"
+
+msgid "Setup Keyboard"
+msgstr "Indstil tastatur"
+
+msgid "Setup Language"
+msgstr "Vælg sprog"
+
+#work in progress stuff
+msgid "Work In Progress!"
+msgstr "Der arbejdes på sagen!"
+
+msgid "This feature is not ready yet"
+msgstr "Denne feature er ikke klar endnu"
+
+msgid "Discuss the future of TuxTyping at"
+msgstr "Diskutér TuxTypings fremtid på"
+

@@ -1,0 +1,8 @@
+## Makefile.am for tuxtype - data:
+## Process with Automake to create Makefile.in
+
+SUBDIRS = images scripts sounds themes words fonts
+
+tuxtypedatadir = $(pkgdatadir)/data
+
+dist_tuxtypedata_DATA = keyboard.lst

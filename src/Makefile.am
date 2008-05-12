@@ -1,0 +1,32 @@
+## Process with Automake to create Makefile.in
+
+##DATA_PREFIX=${pkgdatadir}
+
+bin_PROGRAMS = tuxtype
+
+tuxtype_SOURCES = 	\
+	playgame.c	\
+	main.c		\
+	titlescreen.c	\
+	loaders.c	\
+	setup.c		\
+	laser.c		\
+	alphabet.c	\
+	theme.c		\
+	practice.c	\
+	audio.c		\
+	gettext.c	\
+	snow.c		\
+	scripting.c	\
+	pause.c		\
+	ConvertUTF.c	\
+	options.c
+
+EXTRA_DIST = titlescreen.h \
+	playgame.h 	\
+	laser.h		\
+	globals.h 	\
+	funcs.h 	\
+	scripting.h	\
+	snow.h		\
+	ConvertUTF.h

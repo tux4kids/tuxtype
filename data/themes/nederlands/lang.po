@@ -1,0 +1,112 @@
+msgid ""
+msgstr ""
+
+msgid "Congratulations"
+msgstr "Gefeliciteerd !"
+
+msgid "Oh No!"
+msgstr "Oh Nee!"
+
+msgid "Sound & Music Disabled"
+msgstr "Geluid & Muziek Uitgeschakeld"
+
+msgid "Paused!"
+msgstr "Pauze!"
+
+msgid "press escape again to return to menu"
+msgstr "terug naar het menu? druk op escape"
+
+msgid "press space bar to return to game"
+msgstr "terug naar het spel? druk op spatiebalk"
+
+msgid "Sound Effects Volume"
+msgstr "Geluidseffect-volume"
+
+msgid "Music Volume"
+msgstr "Muziek-volume"
+
+msgid "Edit Word Lists"
+msgstr "Bewerk de woordenlijsten"
+
+msgid "Fish"
+msgstr "Vissen"
+
+msgid "Lives"
+msgstr "Levens"
+
+msgid "Level"
+msgstr "Level"
+
+msgid "Options"
+msgstr "Opties"
+
+msgid "Alphabet"
+msgstr "Alfabet"
+
+# "Space Cadet" is level 1 in comet zap
+msgid "Space Cadet"
+msgstr "Leerling-vlieger"
+
+# "Pilot" is level 2 in comet zap
+msgid "Pilot"
+msgstr "Ruimtepiloot"
+
+# "Ace" is level 3 in comet zap
+msgid "Ace"
+msgstr "Luitenant-Meteoor"
+
+# "Commander" is level 4 in comet zap
+msgid "Commander"
+msgstr "Opperbevelhebber"
+
+#levels for Cascade game:
+msgid "Easy"
+msgstr "Gemakkelijk"
+
+msgid "Medium"
+msgstr "Moeilijker"
+
+msgid "Hard"
+msgstr "Echt Moeilijk"
+
+#types of games
+msgid "Comet Zap"
+msgstr "Inslaande Kometen"
+
+msgid "Fish Cascade"
+msgstr "Vallende Vissen"
+
+#general stuff
+msgid "Practice"
+msgstr "Vingeroefeningen"
+
+msgid "Lessons"
+msgstr "Lessen"
+
+msgid "Instructions"
+msgstr "Instructies"
+
+msgid "Main Menu"
+msgstr "Hoofdmenu"
+
+msgid "Options"
+msgstr "Opties"
+
+msgid "Quit"
+msgstr "Stoppen"
+
+msgid "Setup Keyboard"
+msgstr "Toetsenbord-instellingen"
+
+msgid "Setup Language"
+msgstr "Taal instellen"
+
+#work in progress stuff
+msgid "Work In Progress!"
+msgstr "Werk In Uitvoering!"
+
+msgid "this feature is not ready yet"
+msgstr "dit onderdeel is nog niet klaar"
+
+msgid "Discuss the future of TuxTyping at"
+msgstr "Bespreek de toekomst van TuxTyping op"

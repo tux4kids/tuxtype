@@ -1,0 +1,153 @@
+# Tux Typing 2 Norwegian Bokmål messages
+# Karl Ove Hufthammer <karl@huftis.org>, 2005.
+# Trond Mæhlum <trondm@skolelinux.no>, 2005.
+msgid ""
+msgstr ""
+"Project-Id-Version: lang\n"
+"POT-Creation-Date: 2003-05-19 08:25+0100\n"
+"PO-Revision-Date: 2005-10-20 21:24+0200\n"
+"Last-Translator: Trond Mæhlum <trondm@skolelinux.no>\n"
+"Language-Team: Norwegian Bokmål <i18n-nb@lister.ping.uio.no>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11\n"
+"Plural-Forms:  nplurals=2; plural=(n != 1);\n"
+
+#: tuxtype/tuxtype/pause.c:79
+msgid "Sound Effects Volume"
+msgstr "Lydeffekter"
+
+#: tuxtype/tuxtype/pause.c:85
+msgid "Music Volume"
+msgstr "Musikk"
+
+#: tuxtype/tuxtype/pause.c:93
+msgid "Sound & Music Disabled"
+msgstr "Lyd og musikk avslått"
+
+#: tuxtype/tuxtype/pause.c:100
+msgid "Paused!"
+msgstr "Pause!"
+
+#: tuxtype/tuxtype/pause.c:106
+msgid "Press escape again to return to menu"
+msgstr "Trykk «Escape» for å gå tilbake til hovedmenyen."
+
+#: tuxtype/tuxtype/pause.c:112
+msgid "Press space bar to return to game"
+msgstr "Trykk mellomrom for å gå tilbake til spillet."
+
+#: tuxtype/tuxtype/playgame.c:295
+msgid "Level"
+msgstr "Nivå"
+
+#: tuxtype/tuxtype/playgame.c:296
+msgid "Lives"
+msgstr "Liv"
+
+#: tuxtype/tuxtype/playgame.c:297
+msgid "Fish"
+msgstr "Fisk"
+
+#: tuxtype/tuxtype/playgame.c:299
+#: tuxtype/tuxtype/titlescreen.h:23
+msgid "Easy"
+msgstr "Lett"
+
+#: tuxtype/tuxtype/playgame.c:300
+#: tuxtype/tuxtype/titlescreen.h:24
+msgid "Medium"
+msgstr "Middels"
+
+#: tuxtype/tuxtype/playgame.c:301
+#: tuxtype/tuxtype/titlescreen.h:25
+msgid "Hard"
+msgstr "Vanskelig"
+
+#: tuxtype/tuxtype/playgame.c:302
+#: tuxtype/tuxtype/titlescreen.h:25
+msgid "Practice"
+msgstr "Øving"
+
+#: tuxtype/tuxtype/playgame.c:313
+msgid "Congratulations"
+msgstr "Gratulerer!"
+
+#: tuxtype/tuxtype/playgame.c:317
+msgid "Oh No!"
+msgstr "Uff!"
+
+#: tuxtype/tuxtype/titlescreen.c:191
+msgid "Work In Progress!"
+msgstr "Uferdig!"
+
+#: tuxtype/tuxtype/titlescreen.c:192
+msgid "This feature is not ready yet"
+msgstr "Denne funksjonen er ikke klar ennå."
+
+#: tuxtype/tuxtype/titlescreen.c:193
+msgid "Discuss the future of TuxTyping at"
+msgstr "Diskuter neste versjon av Tux Typing på"
+
+#: tuxtype/tuxtype/titlescreen.c:735
+#: tuxtype/tuxtype/titlescreen.c:736
+msgid "Alphabet"
+msgstr "Alfabetet"
+
+#: tuxtype/tuxtype/titlescreen.h:23
+msgid "Fish Cascade"
+msgstr "Fiskefall"
+
+#: tuxtype/tuxtype/titlescreen.h:23
+msgid "Space Cadet"
+msgstr "Nybegynner"
+
+#: tuxtype/tuxtype/titlescreen.h:23
+msgid "Edit Word Lists"
+msgstr "Rediger ordliste"
+
+#: tuxtype/tuxtype/titlescreen.h:24
+msgid "Comet Zap"
+msgstr "Kometknusing"
+
+#: tuxtype/tuxtype/titlescreen.h:24
+msgid "Pilot"
+msgstr "Erfaren"
+
+#: tuxtype/tuxtype/titlescreen.h:24
+msgid "Lessons"
+msgstr "Opplæring"
+
+#: tuxtype/tuxtype/titlescreen.h:25
+msgid "Ace"
+msgstr "Profesjonell"
+
+#: tuxtype/tuxtype/titlescreen.h:25
+msgid "Project Info"
+msgstr "Prosjektinfo"
+
+#: tuxtype/tuxtype/titlescreen.h:26
+msgid "Options"
+msgstr "Oppsett"
+
+#: tuxtype/tuxtype/titlescreen.h:26
+msgid "Instructions"
+msgstr "Hjelp"
+
+#: tuxtype/tuxtype/titlescreen.h:26
+msgid "Commander"
+msgstr "Ekspert"
+
+#: tuxtype/tuxtype/titlescreen.h:26
+msgid "Setup Language"
+msgstr "Språk"
+
+#: tuxtype/tuxtype/titlescreen.h:27
+msgid "Quit"
+msgstr "Avslutt"
+
+#: tuxtype/tuxtype/titlescreen.h:27
+msgid "Main Menu"
+msgstr "Hovedmeny"
+

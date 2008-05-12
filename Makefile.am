@@ -1,0 +1,71 @@
+# Modified to include support for NSIS Windows installer - David Bruce <dbruce@tampabay.rr.com>
+MAKENSIS=@NSIS@
+
+SUBDIRS = data doc src
+
+EXTRA_DIST = AUTHORS COPYING ChangeLog INSTALL README TODO tuxtype.lsm tuxtype.spec tuxtype.spec.in config.h autorun.inf tuxtype.ico
+
+install-data-local:
+	$(MKDIR_P) $(DESTDIR)$(prefix)/doc/$(PACKAGE)
+	$(INSTALL_DATA) $(srcdir)/ChangeLog $(DESTDIR)$(prefix)/doc/$(PACKAGE)/ChangeLog
+	$(INSTALL_DATA) $(srcdir)/tuxtype.lsm $(DESTDIR)$(prefix)/doc/$(PACKAGE)/tuxtype.lsm
+	$(MKDIR_P) $(DESTDIR)$(prefix)/share/$(PACKAGE)
+	$(INSTALL_DATA) $(srcdir)/tuxtype.ico $(DESTDIR)$(prefix)/share/$(PACKAGE)/tuxtype.ico
+	$(INSTALL_DATA) $(srcdir)/autorun.inf $(DESTDIR)$(prefix)/share/$(PACKAGE)/autorun.inf
+
+uninstall-local:
+	-rm -f $(DESTDIR)$(prefix)/doc/$(PACKAGE)/ChangeLog
+	-rm -f $(DESTDIR)$(prefix)/doc/$(PACKAGE)/tuxtype.lsm
+	-rm -rf $(DESTDIR)$(prefix)/doc/$(PACKAGE)
+	-rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/autorun.inf
+	-rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/tuxtype.ico
+	-rm -rf $(DESTDIR)$(prefix)/share/$(PACKAGE)
+
+# Now doing this in preferred way via AM_INIT_AUTOMAKE in configure.ac:
+#AUTOMAKE_OPTIONS = foreign 
+
+
+# Rule to build tar-gzipped distribution package
+$(PACKAGE)-$(VERSION).tar.gz: distcheck
+
+# Rule to build RPM distribution package
+rpm: $(PACKAGE)-$(VERSION).tar.gz
+	rpmbuild -ta $(PACKAGE)-$(VERSION).tar.gz
+
+# Rules needed to cross-build nsis Win32 installer under Linux
+# Taken from tuxmath's Makefile.am - David Bruce
+# This rule probably kludgy (hardcoded)- DSB
+install-nsi-local: all
+	$(INSTALL) -d $(top_srcdir)/$(NSI_INSTALL_DIR)/data;
+	$(INSTALL) -d $(top_srcdir)/$(NSI_INSTALL_DIR)/docs;
+
+	(cd $(top_srcdir)/tuxtype/data ; tar cf -  --exclude "Makefile.in" --exclude "*.in" --exclude "*~" --exclude \ "Makefile" --exclude "Makefile.am" --exclude CVS --exclude .xvpics --exclude "1[1-9].ogg"  --exclude "2?.ogg" --exclude "*.svn*" * ) \
+         | ( cd $(top_srcdir)/$(NSI_INSTALL_DIR)/data ; tar xf -) ; \
+	(cd $(top_srcdir)/tuxtype/docs ; tar cf -  --exclude "Makefile.in" --exclude "*.in" --exclude "*~" --exclude \ "Makefile" --exclude "Makefile.am" --exclude CVS --exclude .xvpics --exclude "1[1-9].ogg"  --exclude "2?.ogg" --exclude "*.svn*" * ) \
+         | ( cd $(top_srcdir)/$(NSI_INSTALL_DIR)/docs ; tar xf -) ; \
+	cp $(top_srcdir)/COPYING $(top_srcdir)/$(NSI_INSTALL_DIR)/docs/COPYING.txt ; \
+	cp $(top_srcdir)/AUTHORS $(top_srcdir)/$(NSI_INSTALL_DIR)/docs/AUTHORS.txt ; \
+	cp $(top_srcdir)/INSTALL $(top_srcdir)/$(NSI_INSTALL_DIR)/docs/INSTALL.txt ; \
+	cp $(top_srcdir)/README $(top_srcdir)/$(NSI_INSTALL_DIR)/docs/README.txt ; \
+	cp $(NSI_DLL_DIR)/*.dll $(top_srcdir)/$(NSI_INSTALL_DIR) ; \
+	cp $(SUBDIRS)/tuxtype.exe $(top_srcdir)/$(NSI_INSTALL_DIR)/TuxType.exe ;
+
+#	cp $(NSI_DLL_DIR)/*.ttf $(top_srcdir)/$(NSI_INSTALL_DIR)/data/fonts ;
+
+## Bundle in fonts for distribution tar.gz to be used without package manager:
+## i.e. to make tarball to post for individual download - use 'make distcheck' for Debian.
+## (thanks to Ralf Wildenhues <Ralf.Wildenhues@gmx.de> for automake help!)
+dist_with_fonts:
+	$(MAKE) $(AM_MAKEFLAGS) distdir=$(PACKAGE)_w_fonts-$(VERSION) dist_fonts='AndikaDesRevG.ttf DoulosSILR.ttf lohit_hi.ttf Rachana_w01.ttf' dist
+
+install-nsi-am: install-nsi-local
+
+nsis: install-nsi-local
+	$(MAKENSIS) -NOCD nsis/tuxtype.nsi
+
+
+clean-local:
+	@$(NORMAL_CLEAN)
+	if test -d $(NSI_INSTALL_DIR); then \
+	  rm -fr $(NSI_INSTALL_DIR); \
+	fi

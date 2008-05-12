@@ -1,0 +1,52 @@
+How I Ported Tuxtype to Mac OS X:
+
+**Note** I am writing this from memory.  These steps should work, but if they do not, contact the tuxtype developer team and search google for answers.  That is how I was able to port Tuxtype.
+
+**Note** My tuxtye.xcodeproj should exist in the Tuxtype SVN.  Open that to see my settings for the project.
+
+Requirements:  
+1. Mac OS 10.4 or higher (10.3, SDL, and Quicktime causes an error, so use 10.4)
+2. Xcode 2.5 [a free download from Apple's website] (or Xcode 3 should work but has not been tested)
+
+
+Steps to get Tuxtype working on a Mac:
+
+1. Download the following source codes:
+     a. SDL       (I used version 1.2.12) [http://www.libsdl.org/download-1.2.php]
+     b. SDL_image (I used version 1.2.6)  [http://www.libsdl.org/projects/SDL_image/]
+     c. SDL_mixer (I used version 1.2.8)  [http://www.libsdl.org/projects/SDL_mixer/]
+     d. SDL_ttf   (I used version 2.0.9)  [http://www.libsdl.org/projects/SDL_ttf/]
+
+2. Once you have SDL, open the SDL directory and unzip the Xcode.tar.gz.  Open the Xcode folder, then the SDL folder, then open SDL.xcodeproj in Xcode.  Change the Active Target to Framework and the Active Build Configuration to Deployment.  Click Build.  You now have the framework for SDL. Repeat these steps for SDL_image, SDL_mixer, and SDL_ttf to build their frameworks.
+
+3. Download the source code for Tuxtype.  
+
+4. Open Xcode.  Go to File --> New Project --> SDL Application.  This will be the base of your Tuxtype application.  I reccomend naming your project tuxtype.
+
+5. Delete the file Main.c (this is the SDL demo one, we will add the main.c from tuxtype later).
+
+6. Under linked frameworks, add the following frameworks you built: SDL.framework, SDL_ttf.framework, SDL_image.framework, and SDL_mixer.framework.
+
+7. Drag the 4 SDL Frameworks (From inside your project name then the Frameworks folder in the left pane) into the Copy Frameworks into .app bundle (From targets, then your project name).  This will make your .app come bundled with the SDL framworks so the application can stand alone.
+
+8. Add all of the files from the Tuxtype sourcecode to the project.  Ensure that under "classes" is SDLMain.h and SDLMain.m.  Under "other sources" is all the .c and .h files.  Under "Resources" is the "data" folder and all its contents inside it.  Having the right structure of folders is very important so Tuxtype knows where to find files.
+
+9. Disable SDLPango.  To do this, open alphabet.c and ensure that #IFNDEF MACOSX and #endif enclose all the code for SDLPango.  This should already be done and is done for WIN32 as well. 
+
+10. Open setup.c.  Ensure that DATA_PREFIX is on the of PATHS.
+
+12. Time to set the compiler options.  Go to Project -> Edit project settings, then Build.  Architecture should be "ppc i386", "prepocessor Macros" are MACOSX=1 DATA_PREFIX=\"tuxtype.app/Contents/Resources/data\"  Under Header Search Paths, ensure the location to the SDL frameworks is included.  My header search paths are "/Library/Frameworks/SDL.framework/Headers" "/Library/Frameworks/SDL_image.framework/Headers" etc.
+
+13. In the main Xcode screen, change Active Build Configuration to Release.
+
+14. Pray, then hit Build.  You should now have a tuxtype.app in the build/release/ folder of your xcode project.
+
+15. Search Google for how to add an icon to a .app (I did it by editing a .plist file).  Also search for how to create a .dmg.  Many good tutorials alreayd exist for these, so I will not add instructions for them.
+
+**Note:  A very good SVN client for Mac is SmartSVN.  It has the built in svn+ssh support for alioth.debian.org**
+**Note: If you run into odd compiler errors listing many problems in SDL functions, try rebuilding the SDL frameworks.**
+**Note: Tuxtype on 10.3 will require a different build then on 10.4.  This is because 10.3 uses gcc3.3 and 10.4 uses gcc4.0.  To compile an app for 10.3, see http://bura-bura.com/blog/archives/2005/08/02/how-to-compile-an-application-for-102-or-103-using-xcode-21/**   
+
+Best of luck,
+Alex Shorthouse
+ashorthouse@rsd13.org

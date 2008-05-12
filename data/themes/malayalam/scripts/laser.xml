@@ -1,0 +1,29 @@
+<script title="Cascade Instructions" background="main_bkg.png">
+  <page>
+    <text align="center" size="32">Help Tux Eat Fish!</text>
+<waitforinput/>
+ </page>
+  <page>
+    <text align="center" size="32">Help Tux Eat Fish!</text>
+<waitforinput/>
+ </page>
+  <page>
+    <text align="center" size="32">Help Tux Eat Fish!</text>
+<waitforinput/>
+ </page>
+  <page>
+    <text align="center" size="32">Help Tux Eat Fish!</text>
+<waitforinput/>
+ </page>
+  <page>
+    <text align="center" size="32">Help Tux Eat Fish!</text>
+<waitforinput/>
+ </page>
+  <page>
+    <text>Tux is very hungry!  Eating fish with letters gives him a tummy ache.</text>
+    <text>Help Tux eat fish by pressing the letters on the fish making</text>
+    <text>them go away so he can eat all the 10 9 8 7 6 5 4 3 2 1 0</text>
+ <waitforinput/>
+ </page>
+</lesson>
+   

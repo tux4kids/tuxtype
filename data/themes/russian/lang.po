@@ -1,0 +1,124 @@
+msgid ""
+msgstr ""
+
+msgid "Congratulations"
+msgstr "Поздравляем"
+
+msgid "Oh No!"
+msgstr "О, нет!"
+
+msgid "Sound & Music Disabled"
+msgstr "Звуки & Музыка отключены"
+
+msgid "Paused!"
+msgstr "Пауза!"
+
+msgid "Press escape again to return to menu"
+msgstr "Нажмите еще раз escape для возврата в меню"
+
+msgid "Press space bar to return to game"
+msgstr "Нажмите пробел для возврата к игре"
+
+msgid "Sound Effects Volume"
+msgstr "Громкость звуковых эффектов"
+
+msgid "Music Volume"
+msgstr "Громкость музыки"
+
+msgid "Edit Word Lists"
+msgstr "Редактирование списка слов"
+
+msgid "Fish"
+msgstr "Рыб"
+
+msgid "Lives"
+msgstr "Жизней"
+
+msgid "Level"
+msgstr "Уровень"
+
+msgid "Alphabet"
+msgstr "Алфавит"
+
+msgid "Short Words"
+msgstr "Короткие слова"
+
+msgid "Medium Words"
+msgstr "Средние слова"
+
+msgid "Long Words"
+msgstr "Длинные слова"
+
+# "Space Cadet" is level 1 in comet zap
+msgid "Space Cadet"
+msgstr "Космический кадет"
+
+# "Pilot" is level 2 in comet zap
+msgid "Pilot"
+msgstr "Пилот"
+
+# "Ace" is level 3 in comet zap
+msgid "Ace"
+msgstr "Ас"
+
+# "Commander" is level 4 in comet zap
+msgid "Commander"
+msgstr "Капитан"
+
+#levels for Cascade game:
+msgid "Easy"
+msgstr "Легкий"
+
+msgid "Medium"
+msgstr "Средний"
+
+msgid "Hard"
+msgstr "Сложный"
+
+#types of games
+msgid "Comet Zap"
+msgstr "Падение комет"
+
+msgid "Fish Cascade"
+msgstr "Каскад рыб"
+
+#general stuff
+msgid "Lessons"
+msgstr "Уроки"
+
+msgid "Practice"
+msgstr "Практика"
+
+msgid "Instructions"
+msgstr "Инструкции"
+
+msgid "Main Menu"
+msgstr "Главное меню"
+
+msgid "Options"
+msgstr "Параметры"
+
+msgid "Quit"
+msgstr "Выход"
+
+msgid "Setup Keyboard"
+msgstr "Настройка клавиатуры"
+
+msgid "Setup Screen"
+msgstr "Настройка экрана"
+
+msgid "Setup Language"
+msgstr "Выбор языка"
+
+msgid "Choose screen resolution"
+msgstr "Выберите разрешение экрана"
+
+#work in progress stuff
+msgid "Work In Progress!"
+msgstr "Работа продолжается!"
+
+msgid "This feature is not ready yet"
+msgstr "Эта функция еще не готова"
+
+msgid "Discuss the future of TuxTyping at"
+msgstr "Обсудите будущее TuxTyping на"

@@ -1,0 +1,120 @@
+msgid ""
+msgstr ""
+
+"Last-Translator: Amaya Rodrigo <amaya@debian.org>\n"
+"PO-Revision-Date: 2007-09-16 19:00+0000\n"
+"Language-Team: Spanish\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Congratulations"
+msgstr "¡Felicidades!"
+
+msgid "Oh No!"
+msgstr "¡Oh, no!"
+
+msgid "Sound & Music Disabled"
+msgstr "Deshabilitar Sonido y Música"
+
+msgid "Paused!"
+msgstr "¡Pausa!"
+
+msgid "Press escape again to return to menu"
+msgstr "Pulsa Esc para regresar al menú"
+
+msgid "Press space bar to return to game"
+msgstr "Pulsa la barra espaciadora para regresar al juego"
+
+msgid "Sound Effects Volume"
+msgstr "Volumen de los Efectos de Sonido"
+
+msgid "Music Volume"
+msgstr "Volumen de la Música"
+
+msgid "Edit Word Lists"
+msgstr "Revisar las listas de palabras"
+
+msgid "Fish"
+msgstr "Pescado"
+
+msgid "Lives"
+msgstr "Vidas"
+
+msgid "Level"
+msgstr "Nivel"
+
+msgid "Options"
+msgstr "Opciones"
+
+msgid "Alphabet"
+msgstr "Alfabeto"
+
+# "Cadete de espacio" es nivel 1 en zapea cometa
+msgid "Space Cadet"
+msgstr "Cadete Espacial"
+
+# "Piloto" es nivel 2 en zapea cometas
+msgid "Pilot"
+msgstr "Piloto"
+
+# "As" es nivel 3 en zapea cometas
+msgid "Ace"
+msgstr "As"
+
+# "Commandante" es nivel 4 en zapea cometas
+msgid "Commander"
+msgstr "Comandante"
+
+#niveles para juego de cascada:
+msgid "Easy"
+msgstr "Fácil"
+
+msgid "Medium"
+msgstr "Medio"
+
+msgid "Hard"
+msgstr "Difícil"
+
+#Tipos de juegos
+msgid "Comet Zap"
+msgstr "Cometas"
+
+msgid "Fish Cascade"
+msgstr "Cascada de Pescado"
+
+#Cosas generales
+msgid "Practice"
+msgstr "Practicar"
+
+msgid "Lessons"
+msgstr "Lecciones"
+
+msgid "Instructions"
+msgstr "Instrucciones"
+
+msgid "Main Menu"
+msgstr "Menú Principal"
+
+msgid "Options"
+msgstr "Opciones"
+
+msgid "Quit"
+msgstr "Salir"
+
+msgid "Setup Keyboard"
+msgstr "Teclado"
+
+msgid "Setup Language"
+msgstr "Idioma"
+
+#work Cosas que estan abajo de construccion.
+msgid "Work In Progress!"
+msgstr "¡Trabajo en Curso!"
+
+msgid "this feature is not ready yet"
+msgstr "Esta función no esta lista todavía"
+
+msgid "Discuss the future of TuxTyping at"
+msgstr "Charlar del futuro de TuxTyping en"
+
+#àáâãäåæçèéêëìíîïðñòóôõöùúûüýÿ
