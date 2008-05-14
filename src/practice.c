@@ -172,7 +172,7 @@ int Phrases(wchar_t* pphrase )
       default:
         state -= 2; // this is to make the flashing slower
     }
-
+	next_letter(pphrase, c);
 
     while  (SDL_PollEvent(&event))
     {
@@ -195,7 +195,7 @@ int Phrases(wchar_t* pphrase )
         }
         else
         {
-          if (pphrase[c]==(char)event.key.keysym.unicode)
+          if (pphrase[c]==event.key.keysym.unicode)
           {
             state = 0;
             dst2.x = 40;
@@ -234,6 +234,7 @@ int Phrases(wchar_t* pphrase )
 
             if (c == (wcslen(pphrase) - 1))
             {
+		//print_string_at(_("Great!"), 275, 200);
               wchar_t buf[10];
               ConvertFromUTF8(buf, _("Great!"));
               print_at(buf,6 ,275 ,200);
@@ -581,3 +582,26 @@ static void print_at(const wchar_t *pphrase, int wrap, int x, int y)
   LOG("Leaving print_at()\n");
 }
 
+static void next_letter(wchar_t *t, int c)
+{
+	int i;
+	wchar_t buf[30];
+        i=ConvertFromUTF8(buf, _("Next letter "));
+	buf[i]=t[c];
+	buf[i+1]=0;
+        print_at(buf,wcslen(buf),230 ,400);
+	/*dst.x=320;
+	dst.y=350;
+	dst.h=100;
+	dst.w=100;
+	tmp = SDL_CreateRGBSurface(SDL_SWSURFACE, 100, 100, 32, RMASK, GMASK, BMASK, AMASK);
+	SDL_BlitSurface(tmp, NULL, screen, &dst);
+	SDL_FreeSurface(tmp);
+	dst.x=390;	
+	dst.y=400;
+	dst.h=21;
+	dst.w=21;
+	tmp = create_surface_wchar( t+c, font, &white,1);
+	SDL_BlitSurface(tmp, NULL, screen, &dst);
+	SDL_FreeSurface(tmp);*/
+}

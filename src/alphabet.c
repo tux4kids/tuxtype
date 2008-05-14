@@ -1164,4 +1164,3 @@ int ConvertFromUTF8(wchar_t* wide_word, const unsigned char* UTF8_word)
   return wcslen(wide_word);
 }
 
-
