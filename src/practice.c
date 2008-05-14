@@ -590,18 +590,4 @@ static void next_letter(wchar_t *t, int c)
 	buf[i]=t[c];
 	buf[i+1]=0;
         print_at(buf,wcslen(buf),230 ,400);
-	/*dst.x=320;
-	dst.y=350;
-	dst.h=100;
-	dst.w=100;
-	tmp = SDL_CreateRGBSurface(SDL_SWSURFACE, 100, 100, 32, RMASK, GMASK, BMASK, AMASK);
-	SDL_BlitSurface(tmp, NULL, screen, &dst);
-	SDL_FreeSurface(tmp);
-	dst.x=390;	
-	dst.y=400;
-	dst.h=21;
-	dst.w=21;
-	tmp = create_surface_wchar( t+c, font, &white,1);
-	SDL_BlitSurface(tmp, NULL, screen, &dst);
-	SDL_FreeSurface(tmp);*/
 }
