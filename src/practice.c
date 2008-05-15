@@ -590,5 +590,4 @@ static void next_letter(wchar_t *t, int c)
 	buf[i]=t[c];
 	buf[i+1]=0;
         print_at(buf,wcslen(buf),230 ,400);
-
 }
