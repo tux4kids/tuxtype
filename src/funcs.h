@@ -28,6 +28,7 @@
 /* In alphabet.c */
 SDL_Surface* BlackOutline(const unsigned char* t, const TTF_Font* font, const SDL_Color* c);
 SDL_Surface* BlackOutline_Unicode(const Uint16* t, const TTF_Font* font, const SDL_Color* c);
+SDL_Surface* BlackOutline_w(wchar_t* t, const SDL_Color* c, int size);
 
 #ifndef WIN32
 SDL_Surface* BlackOutline_SDLPango(const unsigned char* t, const TTF_Font* font, const SDL_Color* c);
@@ -48,6 +49,7 @@ SDL_Surface* GetRedGlyph(wchar_t t);
 int LoadKeyboard(void);
 int GetFinger(wchar_t uni_char);
 int RenderLetters(const TTF_Font* letter_font);
+int convert_from_UTF32( char* UTF8_word, wchar_t* wide_word);
 
 //void UseAlphabet(void);
 
@@ -95,6 +97,7 @@ int TransWipe(SDL_Surface* newbkg, int type, int var1, int var2);
 
 /* In practice.c: */
 int Phrases(wchar_t* practice_phrase);
+static void next_letter(wchar_t *t, int c);
 
 
 /* In scripting.c: */

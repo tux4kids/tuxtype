@@ -172,7 +172,7 @@ int Phrases(wchar_t* pphrase )
       default:
         state -= 2; // this is to make the flashing slower
     }
-
+	next_letter(pphrase, c);
 
     while  (SDL_PollEvent(&event))
     {
@@ -195,7 +195,7 @@ int Phrases(wchar_t* pphrase )
         }
         else
         {
-          if (pphrase[c]==(char)event.key.keysym.unicode)
+          if (pphrase[c]==event.key.keysym.unicode)
           {
             state = 0;
             dst2.x = 40;
@@ -234,6 +234,7 @@ int Phrases(wchar_t* pphrase )
 
             if (c == (wcslen(pphrase) - 1))
             {
+		//print_string_at(_("Great!"), 275, 200);
               wchar_t buf[10];
               ConvertFromUTF8(buf, _("Great!"));
               print_at(buf,6 ,275 ,200);
@@ -511,7 +512,7 @@ static int get_phrase(const wchar_t* phr)
 
 
 
-static void print_at(const wchar_t *pphrase, int wrap, int x, int y)
+/*static void print_at(const wchar_t *pphrase, int wrap, int x, int y)
 {
   int z = 0;
   SDL_Surface* surf = NULL;
@@ -540,7 +541,7 @@ static void print_at(const wchar_t *pphrase, int wrap, int x, int y)
       }
     }
   }
-  else  /* Another line required - code only seems to support 1 or 2 lines! */
+  else  /* Another line required - code only seems to support 1 or 2 lines! *//*
   {
     for (z = 0; z <= wrap; z++) 
     {
@@ -557,7 +558,7 @@ static void print_at(const wchar_t *pphrase, int wrap, int x, int y)
       }
     }
 
-    /* Move 'cursor' back to left and down one line: */
+    /* Move 'cursor' back to left and down one line: *//*
     letter_loc.x = 40;
     // - (letter_loc.h/4) to account for free space at top and bottom of rendered letters
     letter_loc.y = letter_loc.y + letter_loc.h - (letter_loc.h/4);
@@ -579,5 +580,50 @@ static void print_at(const wchar_t *pphrase, int wrap, int x, int y)
     }
   }
   LOG("Leaving print_at()\n");
+}*/
+static void print_at(const wchar_t *pphrase, int wrap, int x, int y)
+{
+	int z=0;
+	SDL_Surface *tmp;
+	letter_loc.x = x;
+	letter_loc.y = y;
+	//font = LoadFont(settings.theme_font_name, 30);
+	DEBUGCODE { printf("\n\n\nEntering print_at with : %S\n",pphrase); }
+	if ( wrap == wcslen(pphrase) ){
+		tmp = BlackOutline_w(pphrase, &white, wrap);
+		letter_loc.w = tmp->w+5;
+		letter_loc.h = tmp->h+5;
+		SDL_BlitSurface(tmp, NULL, screen, &letter_loc);
+		SDL_FreeSurface(tmp);
+	}else{
+		tmp = BlackOutline_w(pphrase, &white, wrap+1);
+		letter_loc.w = tmp->w+5;
+		letter_loc.h = tmp->h+5;
+		SDL_BlitSurface(tmp, NULL, screen, &letter_loc);
+		SDL_FreeSurface(tmp);
+		letter_loc.x = 40;
+                // - (letter_loc.h/4) to account for free space at top and bottom of rendered letters
+		//SDL_FreeSurface(tmp);
+		letter_loc.y = letter_loc.y + letter_loc.h - (letter_loc.h/4);
+		tmp = BlackOutline_w(pphrase+wrap+2, &white, wcslen(pphrase));
+		letter_loc.w = tmp->w+5;
+		letter_loc.h = tmp->h+5;
+		SDL_BlitSurface(tmp, NULL, screen, &letter_loc);
+		SDL_FreeSurface(tmp);
+	}
+	//TTF_CloseFont(font);
+	// DEBUGCODE { exit(-1); }
+	DEBUGCODE { printf("Leaving print_at \n\n\n"); }
 }
 
+
+static void next_letter(wchar_t *t, int c)
+{
+	int i;
+	wchar_t buf[30];
+        i=ConvertFromUTF8(buf, _("Next letter     "));
+	buf[i]=t[c];
+	buf[i+1]=0;
+        print_at(buf,wcslen(buf),230 ,400);
+
+}

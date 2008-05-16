@@ -257,28 +257,49 @@ SDL_Surface* BlackOutline(const unsigned char* t, const TTF_Font* font, const SD
   SDL_Surface* bg = NULL;
   SDL_Rect dstrect;
   Uint32 color_key;
+  /* To covert SDL_Colour to SDLPango_Matrix*/
+  SDLPango_Matrix* colour = NULL;
+  /* Create a context which contains Pango objects.*/
+  SDLPango_Context* context = NULL;
 
-  LOG("Entering BlackOutline()\n");
-
-/* Simply passthrough to SDLPango version if available (i.e. not under Windows):*/
-#ifndef WIN32
-#ifndef MACOSX
-return BlackOutline_SDLPango(t, font, c);
-#endif
-#endif
-
+  LOG("\nEntering BlackOutline_SDLPango()\n");
+  DEBUGCODE{ fprintf(stderr, "will attempt to render: %s\n", t); }
 
   if (!t || !font || !c)
   {
-    fprintf(stderr, "BlackOutline(): invalid ptr parameter, returning.");
+    fprintf(stderr, "BlackOutline_SDLPango(): invalid ptr parameter, returning.");
     return NULL;
   }
 
-  black_letters = TTF_RenderUTF8_Blended((TTF_Font*)font, t, black);
+  /* SDLPango crashes on 64 bit machines if passed empty string - Debian Bug#439071 */
+  if (*t == '\0')
+  {
+    fprintf(stderr, "BlackOutline_SDLPango(): empty string arg - must return to avoid segfault.");
+    return NULL;
+  }
+
+  colour = SDL_Colour_to_SDLPango_Matrix(c);
+  
+  /* Create the context */
+  context = SDLPango_CreateContext();	
+  SDLPango_SetDpi(context, 125.0, 125.0);
+  /* Set the color */
+  SDLPango_SetDefaultColor(context, MATRIX_TRANSPARENT_BACK_BLACK_LETTER );
+  SDLPango_SetBaseDirection(context, SDLPANGO_DIRECTION_LTR);
+  /* Set text to context*/  
+  SDLPango_SetMarkup(context, t, -1); 
+
+  if (!context)
+  {
+    fprintf (stderr, "In BlackOutline_SDLPango(), could not create context for %s", t);
+    return NULL;
+  }
+
+  black_letters = SDLPango_CreateSurfaceDraw(context);
 
   if (!black_letters)
   {
-    fprintf (stderr, "Warning - BlackOutline() could not create image for %s\n", t);
+    fprintf (stderr, "Warning - BlackOutline_SDLPango() could not create image for %s\n", t);
     return NULL;
   }
 
@@ -287,7 +308,17 @@ return BlackOutline_SDLPango(t, font, c);
                             (black_letters->h) + 5,
                              32,
                              RMASK, GMASK, BMASK, AMASK);
-  /* Use color key for eventual transparency: */
+  if (!bg)
+  {
+    fprintf (stderr, "Warning - BlackOutline()_SDLPango - bg creation failed\n");
+    SDL_FreeSurface(black_letters);
+    return NULL;
+  }
+
+  /* Draw text on a existing surface*/ 
+  SDLPango_Draw(context, bg, 0, 0);
+
+  /* Use color key for eventual transparency:*/ 
   color_key = SDL_MapRGB(bg->format, 10, 10, 10);
   SDL_FillRect(bg, NULL, color_key);
 
@@ -304,19 +335,19 @@ return BlackOutline_SDLPango(t, font, c);
   SDL_FreeSurface(black_letters);
 
   /* --- Put the color version of the text on top! --- */
-  /* NOTE we cast away the 'const-ness' to keep compliler from complaining: */
-  white_letters = TTF_RenderUTF8_Blended((TTF_Font*)font, t, *c);
+  SDLPango_SetDefaultColor(context, colour);
+  white_letters = SDLPango_CreateSurfaceDraw(context);
   dstrect.x = 1;
   dstrect.y = 1;
   SDL_BlitSurface(white_letters, NULL, bg, &dstrect);
   SDL_FreeSurface(white_letters);
 
-  /* --- Convert to the screen format for quicker blits --- */
+  /* --- Convert to the screen format for quicker blits ---*/ 
   SDL_SetColorKey(bg, SDL_SRCCOLORKEY|SDL_RLEACCEL, color_key);
   out = SDL_DisplayFormatAlpha(bg);
   SDL_FreeSurface(bg);
 
-  LOG("Leaving BlackOutline()\n");
+  LOG("Leaving BlackOutline_SDLPango()\n\n");
 
   return out;
 }
@@ -517,6 +548,156 @@ SDL_Surface* BlackOutline_Unicode(const Uint16* t, const TTF_Font* font, const S
   SDL_SetColorKey(bg, SDL_SRCCOLORKEY|SDL_RLEACCEL, color_key);
   out = SDL_DisplayFormatAlpha(bg);
   SDL_FreeSurface(bg);
+
+  return out;
+}
+int convert_from_UTF32( char* UTF8_word, wchar_t* wide_word)
+{
+  int i = 0;
+  ConversionResult result;
+  UTF8 temp_UTF8[FNLEN];
+  UTF32 temp_UTF32[FNLEN];
+
+  UTF8* UTF8_Start = temp_UTF8;
+  UTF8* UTF8_End = &temp_UTF8[FNLEN-1];
+  const UTF32* UTF32_Start = temp_UTF32;
+  const UTF32* UTF32_End = &temp_UTF32[FNLEN-1];
+
+  wcsncpy(temp_UTF32, wide_word, FNLEN);
+
+  ConvertUTF32toUTF8(&UTF32_Start, UTF32_End, &UTF8_Start, UTF8_End, 0);
+
+  UTF8_word[0] = 0;
+
+  while ((i < FNLEN) && (temp_UTF8[i] != 0))
+  {
+    UTF8_word[i] = temp_UTF8[i];
+    i++; 
+  }
+
+  if (i >= FNLEN)
+  {
+    fprintf(stderr, "convert_from_UTF8(): buffer overflow\n");
+    return -1;
+  }
+  else  //need terminating null:
+  {
+	for(i;i<FNLEN;i++)
+	    UTF8_word[i] = 0;
+  }
+
+  DEBUGCODE {fprintf(stderr, "UTF8_word = %s\n", UTF8_word);}
+
+  return strlen(UTF8_word);
+}
+
+SDL_Surface* BlackOutline_w(wchar_t* t, const SDL_Color* c, int size)
+{
+	wchar_t wchar_tmp[512];
+	char tmp[512];
+	int i;
+  SDL_Surface* out = NULL;
+  SDL_Surface* black_letters = NULL;
+  SDL_Surface* white_letters = NULL;
+  SDL_Surface* bg = NULL;
+  SDL_Rect dstrect;
+  Uint32 color_key;
+  /* To covert SDL_Colour to SDLPango_Matrix*/
+  SDLPango_Matrix* colour = NULL;
+  /* Create a context which contains Pango objects.*/
+  SDLPango_Context* context = NULL;
+
+  LOG("\nEntering BlackOutline_SDLPango()\n");
+  DEBUGCODE{ fprintf(stderr, "will attempt to render: %s\n", t); }
+
+  if (!t || !c)
+  {
+    fprintf(stderr, "BlackOutline_SDLPango(): invalid ptr parameter, returning.");
+    return NULL;
+  }
+
+  wcsncpy( wchar_tmp, t, size);
+  wchar_tmp[size]=0;
+  i=convert_from_UTF32( tmp, wchar_tmp);
+  tmp[i]=0;
+
+  /* SDLPango crashes on 64 bit machines if passed empty string - Debian Bug#439071 */
+  if (*t == '\0')
+  {
+    fprintf(stderr, "BlackOutline_SDLPango(): empty string arg - must return to avoid segfault.");
+    return NULL;
+  }
+
+  colour = SDL_Colour_to_SDLPango_Matrix(c);
+  
+  /* Create the context */
+  context = SDLPango_CreateContext();	
+  SDLPango_SetDpi(context, 125.0, 125.0);
+  /* Set the color */
+  SDLPango_SetDefaultColor(context, MATRIX_TRANSPARENT_BACK_BLACK_LETTER );
+  SDLPango_SetBaseDirection(context, SDLPANGO_DIRECTION_LTR);
+  /* Set text to context*/  
+  SDLPango_SetMarkup(context, tmp, -1); 
+
+  if (!context)
+  {
+    fprintf (stderr, "In BlackOutline_SDLPango(), could not create context for %s", t);
+    return NULL;
+  }
+
+  black_letters = SDLPango_CreateSurfaceDraw(context);
+
+  if (!black_letters)
+  {
+    fprintf (stderr, "Warning - BlackOutline_SDLPango() could not create image for %s\n", t);
+    return NULL;
+  }
+
+  bg = SDL_CreateRGBSurface(SDL_SWSURFACE,
+                            (black_letters->w) + 5,
+                            (black_letters->h) + 5,
+                             32,
+                             RMASK, GMASK, BMASK, AMASK);
+  if (!bg)
+  {
+    fprintf (stderr, "Warning - BlackOutline()_SDLPango - bg creation failed\n");
+    SDL_FreeSurface(black_letters);
+    return NULL;
+  }
+
+  /* Draw text on a existing surface*/ 
+  SDLPango_Draw(context, bg, 0, 0);
+
+  /* Use color key for eventual transparency:*/ 
+  color_key = SDL_MapRGB(bg->format, 10, 10, 10);
+  SDL_FillRect(bg, NULL, color_key);
+
+  /* Now draw black outline/shadow 2 pixels on each side: */
+  dstrect.w = black_letters->w;
+  dstrect.h = black_letters->h;
+
+  /* NOTE: can make the "shadow" more or less pronounced by */
+  /* changing the parameters of these loops.                */
+  for (dstrect.x = 1; dstrect.x < 4; dstrect.x++)
+    for (dstrect.y = 1; dstrect.y < 3; dstrect.y++)
+      SDL_BlitSurface(black_letters , NULL, bg, &dstrect );
+
+  SDL_FreeSurface(black_letters);
+
+  /* --- Put the color version of the text on top! --- */
+  SDLPango_SetDefaultColor(context, colour);
+  white_letters = SDLPango_CreateSurfaceDraw(context);
+  dstrect.x = 1;
+  dstrect.y = 1;
+  SDL_BlitSurface(white_letters, NULL, bg, &dstrect);
+  SDL_FreeSurface(white_letters);
+
+  /* --- Convert to the screen format for quicker blits ---*/ 
+  SDL_SetColorKey(bg, SDL_SRCCOLORKEY|SDL_RLEACCEL, color_key);
+  out = SDL_DisplayFormatAlpha(bg);
+  SDL_FreeSurface(bg);
+
+  LOG("Leaving BlackOutline_SDLPango()\n\n");
 
   return out;
 }
@@ -1163,5 +1344,4 @@ int ConvertFromUTF8(wchar_t* wide_word, const unsigned char* UTF8_word)
 
   return wcslen(wide_word);
 }
-
 
