@@ -262,19 +262,19 @@ SDL_Surface* BlackOutline(const unsigned char* t, const TTF_Font* font, const SD
   /* Create a context which contains Pango objects.*/
   SDLPango_Context* context = NULL;
 
-  LOG("\nEntering BlackOutline_SDLPango()\n");
+  LOG("\nEntering BlackOutline()\n");
   DEBUGCODE{ fprintf(stderr, "will attempt to render: %s\n", t); }
 
   if (!t || !font || !c)
   {
-    fprintf(stderr, "BlackOutline_SDLPango(): invalid ptr parameter, returning.");
+    fprintf(stderr, "BlackOutline(): invalid ptr parameter, returning.");
     return NULL;
   }
 
   /* SDLPango crashes on 64 bit machines if passed empty string - Debian Bug#439071 */
   if (*t == '\0')
   {
-    fprintf(stderr, "BlackOutline_SDLPango(): empty string arg - must return to avoid segfault.");
+    fprintf(stderr, "BlackOutline(): empty string arg - must return to avoid segfault.");
     return NULL;
   }
 
@@ -291,7 +291,7 @@ SDL_Surface* BlackOutline(const unsigned char* t, const TTF_Font* font, const SD
 
   if (!context)
   {
-    fprintf (stderr, "In BlackOutline_SDLPango(), could not create context for %s", t);
+    fprintf (stderr, "In BlackOutline(), could not create context for %s", t);
     return NULL;
   }
 
@@ -299,7 +299,8 @@ SDL_Surface* BlackOutline(const unsigned char* t, const TTF_Font* font, const SD
 
   if (!black_letters)
   {
-    fprintf (stderr, "Warning - BlackOutline_SDLPango() could not create image for %s\n", t);
+    fprintf (stderr, "Warning - BlackOutline() could not create image for %s\n", t);
+	SDLPango_FreeContext(context);
     return NULL;
   }
 
@@ -310,8 +311,9 @@ SDL_Surface* BlackOutline(const unsigned char* t, const TTF_Font* font, const SD
                              RMASK, GMASK, BMASK, AMASK);
   if (!bg)
   {
-    fprintf (stderr, "Warning - BlackOutline()_SDLPango - bg creation failed\n");
+    fprintf (stderr, "Warning - BlackOutline() - bg creation failed\n");
     SDL_FreeSurface(black_letters);
+	SDLPango_FreeContext(context);
     return NULL;
   }
 
@@ -342,12 +344,16 @@ SDL_Surface* BlackOutline(const unsigned char* t, const TTF_Font* font, const SD
   SDL_BlitSurface(white_letters, NULL, bg, &dstrect);
   SDL_FreeSurface(white_letters);
 
+	/********************Free SDL_Pango context************/
+	SDLPango_FreeContext(context);
+
   /* --- Convert to the screen format for quicker blits ---*/ 
   SDL_SetColorKey(bg, SDL_SRCCOLORKEY|SDL_RLEACCEL, color_key);
   out = SDL_DisplayFormatAlpha(bg);
   SDL_FreeSurface(bg);
+	free(colour);
 
-  LOG("Leaving BlackOutline_SDLPango()\n\n");
+  LOG("Leaving BlackOutline()\n\n");
 
   return out;
 }
@@ -473,10 +479,14 @@ SDL_Surface* BlackOutline_SDLPango(const unsigned char* t, const TTF_Font* font,
   SDL_BlitSurface(white_letters, NULL, bg, &dstrect);
   SDL_FreeSurface(white_letters);
 
+	/********************Free SDL_Pango context************/
+	SDLPango_FreeContext(context);
+
   /* --- Convert to the screen format for quicker blits --- */
   SDL_SetColorKey(bg, SDL_SRCCOLORKEY|SDL_RLEACCEL, color_key);
   out = SDL_DisplayFormatAlpha(bg);
   SDL_FreeSurface(bg);
+	free(colour);
 
   LOG("Leaving BlackOutline_SDLPango()\n\n");
 
@@ -607,12 +617,12 @@ SDL_Surface* BlackOutline_w(wchar_t* t, const SDL_Color* c, int size)
   /* Create a context which contains Pango objects.*/
   SDLPango_Context* context = NULL;
 
-  LOG("\nEntering BlackOutline_SDLPango()\n");
+  LOG("\nEntering BlackOutline_w()\n");
   DEBUGCODE{ fprintf(stderr, "will attempt to render: %s\n", t); }
 
   if (!t || !c)
   {
-    fprintf(stderr, "BlackOutline_SDLPango(): invalid ptr parameter, returning.");
+    fprintf(stderr, "BlackOutline_w(): invalid ptr parameter, returning.");
     return NULL;
   }
 
@@ -624,7 +634,7 @@ SDL_Surface* BlackOutline_w(wchar_t* t, const SDL_Color* c, int size)
   /* SDLPango crashes on 64 bit machines if passed empty string - Debian Bug#439071 */
   if (*t == '\0')
   {
-    fprintf(stderr, "BlackOutline_SDLPango(): empty string arg - must return to avoid segfault.");
+    fprintf(stderr, "BlackOutline_w(): empty string arg - must return to avoid segfault.");
     return NULL;
   }
 
@@ -641,7 +651,7 @@ SDL_Surface* BlackOutline_w(wchar_t* t, const SDL_Color* c, int size)
 
   if (!context)
   {
-    fprintf (stderr, "In BlackOutline_SDLPango(), could not create context for %s", t);
+    fprintf (stderr, "In BlackOutline_w(), could not create context for %s", t);
     return NULL;
   }
 
@@ -649,7 +659,8 @@ SDL_Surface* BlackOutline_w(wchar_t* t, const SDL_Color* c, int size)
 
   if (!black_letters)
   {
-    fprintf (stderr, "Warning - BlackOutline_SDLPango() could not create image for %s\n", t);
+    fprintf (stderr, "Warning - BlackOutline_w() could not create image for %s\n", t);
+	SDLPango_FreeContext(context);
     return NULL;
   }
 
@@ -660,8 +671,9 @@ SDL_Surface* BlackOutline_w(wchar_t* t, const SDL_Color* c, int size)
                              RMASK, GMASK, BMASK, AMASK);
   if (!bg)
   {
-    fprintf (stderr, "Warning - BlackOutline()_SDLPango - bg creation failed\n");
+    fprintf (stderr, "Warning - BlackOutline()_w - bg creation failed\n");
     SDL_FreeSurface(black_letters);
+	SDLPango_FreeContext(context);
     return NULL;
   }
 
@@ -692,15 +704,129 @@ SDL_Surface* BlackOutline_w(wchar_t* t, const SDL_Color* c, int size)
   SDL_BlitSurface(white_letters, NULL, bg, &dstrect);
   SDL_FreeSurface(white_letters);
 
+	/********************Free SDL_Pango context************/
+	SDLPango_FreeContext(context);
+
   /* --- Convert to the screen format for quicker blits ---*/ 
   SDL_SetColorKey(bg, SDL_SRCCOLORKEY|SDL_RLEACCEL, color_key);
   out = SDL_DisplayFormatAlpha(bg);
   SDL_FreeSurface(bg);
+	free(colour);
 
-  LOG("Leaving BlackOutline_SDLPango()\n\n");
+  LOG("Leaving BlackOutline_w()\n\n");
 
   return out;
 }
+
+SDL_Surface* BlackOutline_c(const unsigned char* t, const SDL_Color* c)
+{
+  SDL_Surface* out = NULL;
+  SDL_Surface* black_letters = NULL;
+  SDL_Surface* white_letters = NULL;
+  SDL_Surface* bg = NULL;
+  SDL_Rect dstrect;
+  Uint32 color_key;
+  /* To covert SDL_Colour to SDLPango_Matrix*/
+  SDLPango_Matrix* colour = NULL;
+  /* Create a context which contains Pango objects.*/
+  SDLPango_Context* context = NULL;
+
+  LOG("\nEntering BlackOutline_c()\n");
+  DEBUGCODE{ fprintf(stderr, "will attempt to render: %s\n", t); }
+
+  if (!t || !c)
+  {
+    fprintf(stderr, "BlackOutline_c(): invalid ptr parameter, returning.");
+    return NULL;
+  }
+
+  /* SDLPango crashes on 64 bit machines if passed empty string - Debian Bug#439071 */
+  if (*t == '\0')
+  {
+    fprintf(stderr, "BlackOutline_c(): empty string arg - must return to avoid segfault.");
+    return NULL;
+  }
+
+  colour = SDL_Colour_to_SDLPango_Matrix(c);
+  
+  /* Create the context */
+  context = SDLPango_CreateContext();	
+  SDLPango_SetDpi(context, 125.0, 125.0);
+  /* Set the color */
+  SDLPango_SetDefaultColor(context, MATRIX_TRANSPARENT_BACK_BLACK_LETTER );
+  SDLPango_SetBaseDirection(context, SDLPANGO_DIRECTION_LTR);
+  /* Set text to context*/  
+  SDLPango_SetMarkup(context, t, -1); 
+
+  if (!context)
+  {
+    fprintf (stderr, "In BlackOutline_c(), could not create context for %s", t);
+    return NULL;
+  }
+
+  black_letters = SDLPango_CreateSurfaceDraw(context);
+
+  if (!black_letters)
+  {
+    fprintf (stderr, "Warning - BlackOutline_c() could not create image for %s\n", t);
+	SDLPango_FreeContext(context);
+    return NULL;
+  }
+
+  bg = SDL_CreateRGBSurface(SDL_SWSURFACE,
+                            (black_letters->w) + 5,
+                            (black_letters->h) + 5,
+                             32,
+                             RMASK, GMASK, BMASK, AMASK);
+  if (!bg)
+  {
+    fprintf (stderr, "Warning - BlackOutline()_c - bg creation failed\n");
+    SDL_FreeSurface(black_letters);
+	SDLPango_FreeContext(context);
+    return NULL;
+  }
+
+  /* Draw text on a existing surface*/ 
+  SDLPango_Draw(context, bg, 0, 0);
+
+  /* Use color key for eventual transparency:*/ 
+  color_key = SDL_MapRGB(bg->format, 10, 10, 10);
+  SDL_FillRect(bg, NULL, color_key);
+
+  /* Now draw black outline/shadow 2 pixels on each side: */
+  dstrect.w = black_letters->w;
+  dstrect.h = black_letters->h;
+
+  /* NOTE: can make the "shadow" more or less pronounced by */
+  /* changing the parameters of these loops.                */
+  for (dstrect.x = 1; dstrect.x < 4; dstrect.x++)
+    for (dstrect.y = 1; dstrect.y < 3; dstrect.y++)
+      SDL_BlitSurface(black_letters , NULL, bg, &dstrect );
+
+  SDL_FreeSurface(black_letters);
+
+  /* --- Put the color version of the text on top! --- */
+  SDLPango_SetDefaultColor(context, colour);
+  white_letters = SDLPango_CreateSurfaceDraw(context);
+  dstrect.x = 1;
+  dstrect.y = 1;
+  SDL_BlitSurface(white_letters, NULL, bg, &dstrect);
+  SDL_FreeSurface(white_letters);
+
+	/********************Free SDL_Pango context************/
+	SDLPango_FreeContext(context);
+
+  /* --- Convert to the screen format for quicker blits ---*/ 
+  SDL_SetColorKey(bg, SDL_SRCCOLORKEY|SDL_RLEACCEL, color_key);
+  out = SDL_DisplayFormatAlpha(bg);
+  SDL_FreeSurface(bg);
+	free(colour);
+
+  LOG("Leaving BlackOutline_c()\n\n");
+
+  return out;
+}
+
 
 
 /* FIXME dead code but could be useful*/

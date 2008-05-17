@@ -65,13 +65,14 @@ int Phrases(wchar_t* pphrase )
       z = 0,
       total = 0,
       state = 0;
+	int next_line=0;
   int key[100] = {0};
   SDL_Rect dst, dst2, dst3, dst4, dst5;
   char keytime[20],
        totaltime[20];
+  SDL_Surface* tmp = NULL;
   SDL_Surface* srfc = NULL;
-
-
+  
   
   if (!practice_load_media())
   {
@@ -122,7 +123,7 @@ int Phrases(wchar_t* pphrase )
   dst5.h = 50;
 
   dst.x = 40;
-
+	SDL_FreeSurface(srfc);
   start = SDL_GetTicks();
 
   do
@@ -195,82 +196,67 @@ int Phrases(wchar_t* pphrase )
         }
         else
         {
-          if (pphrase[c]==event.key.keysym.unicode)
-          {
-            state = 0;
-            dst2.x = 40;
-            dst4.x = 480;
-            SDL_BlitSurface(bg, &dst3, screen, &dst2);
-            SDL_BlitSurface(bg, &dst5, screen, &dst4);
-            SDL_Flip(screen);
+/******************************************************/
+		if (pphrase[c]==event.key.keysym.unicode){
 
-            srfc = GetWhiteGlyph(event.key.keysym.unicode);
-            if (srfc)
-            { 
-              SDL_BlitSurface(srfc, NULL, screen, &dst);
-              dst.x = (dst.x + srfc->w) - 5;
-            }
- 
-            for (z = 0; z < strlen(keytime); z++)
-            {
-              srfc = GetWhiteGlyph((int)keytime[z]);
-              if (srfc)
-              {
-                SDL_BlitSurface(srfc, NULL, screen, &dst2);
-                dst2.x = dst2.x + srfc->w - 2;
-              }
-            }
-
-            for (z = 0;z < strlen(totaltime); z++)
-            {
-              srfc = GetWhiteGlyph((int)totaltime[z]);
-              if (srfc)
-              {
-                SDL_BlitSurface(srfc, NULL, screen, &dst4);
-                dst4.x = dst4.x + srfc->w - 2;
-              }
-            }
+						state=0;
+						dst2.x=40;
+						dst4.x=480;
+						SDL_BlitSurface(bg, &dst3, screen, &dst2);
+						SDL_BlitSurface(bg, &dst5, screen, &dst4);
+						SDL_Flip(screen);
 
 
-            if (c == (wcslen(pphrase) - 1))
-            {
-		//print_string_at(_("Great!"), 275, 200);
-              wchar_t buf[10];
-              ConvertFromUTF8(buf, _("Great!"));
-              print_at(buf,6 ,275 ,200);
-              SDL_Flip(screen);
-              SDL_Delay(2500);
-              quit = 1;
-            }
+						tmp = BlackOutline_w(pphrase+((wp)*next_line), &white, (c)%wp+1);
+						SDL_BlitSurface(tmp, NULL, screen, &dst);
+						SDL_FreeSurface(tmp);
+						
 
-            if (c == wp)
-            {
-              c++;
-              dst.x = 40;
-              dst.y = 142;
-            }
+/*
+						print_at(keytime,wcslen(keytime),dst2.x,dst2.y);			
+						print_at(totaltime,wcslen(keytime),dst4.x,dst4.y);					
 
-            c++;
-          }
-          else
-          {
-            if (event.key.keysym.sym != SDLK_RSHIFT
-             && event.key.keysym.sym != SDLK_LSHIFT)
-             PlaySound(wrong);
-          }
-        }
-      }
-    }
-    SDL_Flip(screen);
-    SDL_Delay(30);
+*/
+						tmp=BlackOutline_c(keytime, &white);
+						SDL_BlitSurface(tmp, NULL, screen, &dst2);
+						SDL_FreeSurface(tmp);
+						
+						tmp=BlackOutline_c(totaltime, &white);
+						SDL_BlitSurface(tmp, NULL, screen, &dst4);
+						SDL_FreeSurface(tmp);
 
-  }while (!quit);
 
-  practice_unload_media();
-
-  return 1;
+						if (c==(wcslen(pphrase)-1)){
+							wchar_t buf[10];
+							ConvertFromUTF8(buf, _("Great!"));
+							print_at(buf, wcslen(buf), 275, 200);
+							SDL_Flip(screen);
+							SDL_Delay(2500);
+							next_line=0;
+							quit=1;
+							
+						}
+						if (c==wp){
+						//c++;
+							dst.x=40;
+							dst.y=140;
+							next_line=1;
+						}
+						c++;
+					} else {
+							if ( event.key.keysym.sym != SDLK_RSHIFT && event.key.keysym.sym != SDLK_LSHIFT )
+								PlaySound(wrong);
+						}
+					}
+				}
+		}
+	SDL_Flip(screen);
+	SDL_Delay(30);
+	}while (!quit);
+	practice_unload_media();
+	return 1;
 }
-
+         
 
 
 /************************************************************************/
@@ -370,217 +356,126 @@ static void show(unsigned char t)
 
 
 
-static int get_phrase(const wchar_t* phr)
-{
-  int pc = 0;  // 'phrase count' (?)
-  int pw[256] = { 0 };
-  int wp = 0, i = 0, c = 0, z = 0;
-  char fn[FNLEN];
+static int get_phrase(const wchar_t* wphrase)
+{	int pc=0,
+	    pw[256] = { 0 },
+	    wp=0,
+	    i=0,
+//	    c=0
+	    z=0;
+//	char fn[FNLEN];
 
-  /* If we didn't receive a phrase get the first one from the file...*/
-  if (wcsncmp((wchar_t*)"", phr, 40) == 0)
-  {
-    FILE* pf; /*   "phrase file"   */
-    /* set the phrases directory/file */
-    /* FIXME I think the phrases should be under data or the theme */
-#ifdef WIN32
-    snprintf(fn, FNLEN - 1, "userdata/phrases.txt");
-#else
-    snprintf(fn, FNLEN - 1, (const char*)"%s/.tuxtype/phrases.txt", getenv("HOME"));
-#endif
+	/* If we didn't receive a phrase get the first one from the file...*/
+	
+//	if (strncmp("", phr, 40)==0){
+//	FILE *pf;
+//	/* set the phrases directory/file */
+/*	#ifdef WIN32
+		snprintf( fn, FNLEN-1, "userdata/phrases.txt" );
+	#else
+		snprintf( fn, FNLEN-1, (const char*)"%s/.tuxtype/phrases.txt", getenv("HOME") );
+	#endif
 
-    DEBUGCODE { printf("get_phrases(): phrases file is '%s'\n", fn ); }
-    LOG("get_phrases(): trying to open phrases file\n");
-    pf = fopen( fn, "r" );
-    if (pf == NULL) 
-      return(wp);  /* why not just 'return 0;' ??? */
+	DEBUGCODE { printf("get_phrases(): phrases file is '%s'\n", fn ); }
+	LOG("get_phrases(): trying to open phrases file\n");
+	pf = fopen( fn, "r" );
+	if (pf == NULL) 
+		return(wp);
+	while (!feof(pf)) {
+		fscanf( pf, "%[^\n]\n", phrase[pc] );
+		pc++;
+		DEBUGCODE { printf( "%s", phrase[pc] ); }
+	}
+	fclose( pf );
+	pc--;
+	} else {
+		pc=1;
+		strncpy(phrase[0], phr, 80);
+	}
 
-    /* So now copy each line into phrases array: */
-    while (!feof(pf) && pc < 256) 
-    {
-      fscanf( pf, "%[^\n]\n", phrase[pc] );
-      pc++;
-      DEBUGCODE {printf("%s", phrase[pc]);}
-    }
-    if (pc == 256)
-      LOG("File contains more than max allowed phrases - stopping\n");
+	//Calculate and record pixel width of phrases
+ 		for (c=0;c<=pc;c++){
+ 			for(i=0; i<strlen(phrase[c]); i++){
+				if (letters[(int)phrase[c][i]] == NULL){
+					LOG("no letter defined in keyboard.lst\n");
+				}
+				else
+ 					pw[c]+= letters[(int)phrase[c][i]]->w-5;
+ 			}
+ 		}
 
-    fclose(pf);
-    pc--;
-  } 
-  else
-  {
-    pc = 1;
-    wcsncpy(phrase[0], phr, 80);
-  }
-
-  /* FIXME maybe should verify that all chars in phrase are 
-//   /* Need to generate glyphs for all the needed Unicode chars: */
-// 
-//   ResetCharList();
-//   /* 'A' (i.e. 65) always has to go into list because width used for layout */
-//   /* HACK also need chars for "Great!" because of congrats message - this   */
-//   /* obviously is not a general solution. Numerals also needed for timers.  */
-//   {
-//     char* let = "AGreat!0123456789.";
-//     GenCharListFromString(let);
-//   }
-// 
-// 
-//   /* Scan through all the phrases and put needed chars into list: */
-//   for (c = 0; c <= pc; c++)
-//     GenCharListFromString(phrase[c]);
-// 
-//   /* Now render letters for glyphs in list: */
-//   font = LoadFont(settings.theme_font_name, 32 );
-//   if (!font)
-//   {
-//     fprintf(stderr, "get_phrase() - could not load font\n");
-//     return 0;
-//   }
-// 
-//   RenderLetters(font);
-// 
-//   TTF_CloseFont(font);
-//   font = NULL;
+	//Find wrapping point
+	for ( c=0; c<=pc; c++ ){
+			if (pw[c]<598){
+				if ( c==0 ){
+					wp=strlen(phrase[c]);
+					print_at( phrase[0], wp, 40, 10 );
+				}
+			}else{
+				z=0;
+				wp=0;
+				for (i=0;i<strlen(phrase[c]);i++)
+				{
+					z += letters[(int)phrase[c][i]]->w-5;
+					if (wp == 0 && z > 598){
+					wp = i-1;
+					break;
+					}
+				}
+				for (i=wp;i>=0;i--){
+					if ( strncmp( " ", &phrase[c][i], 1 ) == 0 ){
+					wp=i-1;
+					break;
+					}
+				}
+				if ( c==0 ){
+				print_at( phrase[0], wp, 40, 10 );
+				}
+			}
+	}
+	LOG("Leaving get_phrase()\n");
+	return(wp);
+}
+*/
 
 
-  //Calculate and record pixel width of phrases
-  {
-    SDL_Surface* let = NULL;
-    for (c = 0; c <= pc; c++)
-    {
-      for(i = 0; i < wcslen(phrase[c]); i++)
-      {
-        let = GetWhiteGlyph((int)phrase[c][i]);
-        if (let)  
-          pw[c]+= let->w - 5;
-        else
-        {
-          fprintf(stderr, "get_phrase() - needed glyph not available\n");
-          return;
-        }
-      }
-    }
-  }
 
-  //Find wrapping point
-  for (c = 0; c <= pc; c++)
-  {
-    if (pw[c] < 598)  // If the phrase is less than 598 pixels wide
-    {
-      if (c == 0)
-      {
-        wp = wcslen(phrase[c]);
-        print_at(phrase[0], wp, 40, 10);
-      }
-    }
-    else
-    {
-      z = 0;
-      wp = 0;
 
-      for (i = 0; i < wcslen(phrase[c]); i++)
-      {
-        /* Should be safe (if no glyph, will have returned above) */
-        z += GetWhiteGlyph((int)phrase[c][i])->w-5;
-        if (wp == 0 && z > 598)
-        {
-          wp = i - 1;
-          break;
-        }
-      }
+//Calculate and record pixel width of phrases
+	//Find wrapping point
+	if (wcslen(wphrase)<50)
+	{
+		wp=wcslen(wphrase);
+		print_at( wphrase, wp, 40, 10 );
+		
+	}
+	else
+	{
+		z=0;
+		wp=0;
+		for (i=0;i<wcslen(wphrase);i++)
+		{
 
-      for (i = wp; i >= 0; i--)
-      {
-        if (wcsncmp((wchar_t*)" ", &phrase[c][i], 1) == 0)
-        {
-          wp = i-1;
-          break;
-        }
-      }
-
-      if (c == 0)
-      {
-        print_at(phrase[0], wp, 40, 10);
-      }
-    }
-  }
-  LOG("Leaving get_phrase()\n");
-  return(wp);
+			z++;
+			if (wp == 0 && z > 50)
+			{
+				wp = i-1;
+				break;
+			}
+		}
+		for (i=wp;i>=0;i--){
+			if (wphrase[i] == ' ')
+			{
+				wp=i-1;
+				break;
+			}
+		}
+		print_at( wphrase, wp, 40, 10 );
+		
+	}
+	return(wp);
 }
 
-
-
-/*static void print_at(const wchar_t *pphrase, int wrap, int x, int y)
-{
-  int z = 0;
-  SDL_Surface* surf = NULL;
-  letter_loc.x = x;
-  letter_loc.y = y;
-  letter_loc.w = GetWhiteGlyph(65)->w;
-  letter_loc.h = GetWhiteGlyph(65)->h;
-
-  LOG("Entering print_at()\n");
-
-  if (wrap >= wcslen(pphrase)) // I think this means it fits on a single line
-  {
-    for (z = 0; z <wcslen(pphrase); z++)
-    {
-      surf = GetWhiteGlyph(pphrase[z]);
-      if (surf)
-      {
-        DEBUGCODE{printf("surf not NULL for %C\n", pphrase[z]);}
-        SDL_BlitSurface(surf, NULL, screen, &letter_loc);
-        letter_loc.x = (letter_loc.x + surf->w) - 5;
-      }
-      else
-      {
-        fprintf(stderr, "print_at(): needed glyph for %C not found\n",
-                pphrase[z]);
-      }
-    }
-  }
-  else  /* Another line required - code only seems to support 1 or 2 lines! *//*
-  {
-    for (z = 0; z <= wrap; z++) 
-    {
-      surf = GetWhiteGlyph(pphrase[z]);
-      if (surf)
-      {
-        DEBUGCODE{printf("surf not NULL for %C\n", pphrase[z]);}
-        SDL_BlitSurface(surf, NULL, screen, &letter_loc);
-        letter_loc.x = (letter_loc.x + surf->w) - 5;      }
-      else
-      {
-        fprintf(stderr, "print_at(): needed glyph for %C not found\n",
-                pphrase[z]);
-      }
-    }
-
-    /* Move 'cursor' back to left and down one line: *//*
-    letter_loc.x = 40;
-    // - (letter_loc.h/4) to account for free space at top and bottom of rendered letters
-    letter_loc.y = letter_loc.y + letter_loc.h - (letter_loc.h/4);
-
-    for (z = wrap + 2; z <wcslen(pphrase); z++)
-    {
-      surf = GetWhiteGlyph(pphrase[z]);
-      if (surf)
-      {
-        DEBUGCODE{printf("surf not NULL for %c\n", pphrase[z]);}
-        SDL_BlitSurface(surf, NULL, screen, &letter_loc);
-        letter_loc.x = (letter_loc.x + surf->w) - 5;
-      }
-      else
-      {
-        fprintf(stderr, "print_at(): needed glyph for %c not found",
-                pphrase[z]);
-      }
-    }
-  }
-  LOG("Leaving print_at()\n");
-}*/
 static void print_at(const wchar_t *pphrase, int wrap, int x, int y)
 {
 	int z=0;
@@ -621,7 +516,7 @@ static void next_letter(wchar_t *t, int c)
 {
 	int i;
 	wchar_t buf[30];
-        i=ConvertFromUTF8(buf, _("Next letter     "));
+        i=ConvertFromUTF8(buf, _("Next letter :    "));
 	buf[i]=t[c];
 	buf[i+1]=0;
         print_at(buf,wcslen(buf),230 ,400);
