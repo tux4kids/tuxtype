@@ -3,7 +3,7 @@
 
 themes_nynorsk_wordsdir = $(pkgdatadir)/data/themes/nynorsk/words
 
-dist_themes_nynorsk_images_words_DATA = 3boks.txt \
+dist_themes_nynorsk_words_DATA = 3boks.txt \
   4boks.txt \
   5boks.txt \
   6boks.txt \
