@@ -1,7 +1,7 @@
 ## Makefile.am for tuxtype - data/themes/nynorsk/words:
 ## Process with Automake to create Makefile.in
 
-themes_nynorsk_images_wordsdir = $(pkgdatadir)/data/themes/nynorsk/images/words
+themes_nynorsk_wordsdir = $(pkgdatadir)/data/themes/nynorsk/words
 
 dist_themes_nynorsk_images_words_DATA = 3boks.txt \
   4boks.txt \
