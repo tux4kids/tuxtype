@@ -24,8 +24,11 @@ David Bruce <dbruce@tampabay.rr.com>
 
 static SDL_Surface* bg = NULL;
 static SDL_Surface* hands = NULL; 
+static SDL_Surface* keyboard = NULL;
+static SDL_Surface* keypress1 = NULL;
+static SDL_Surface* keypress2 = NULL;
 static SDL_Surface* hand[11] = {NULL};
-static SDL_Rect hand_loc, letter_loc;
+static SDL_Rect hand_loc, letter_loc,keyboard_loc;
 static TTF_Font* font = NULL;
 static wchar_t phrase[255][FNLEN];
 
@@ -37,6 +40,8 @@ static int practice_load_media(void);
 static void practice_unload_media(void);
 static void print_at(const wchar_t* pphrase, int wrap, int x, int y);
 static void show(unsigned char t);
+SDL_Surface* GetKeypress1(int index);
+SDL_Surface* GetKeypress2(int index);
 
 
 /************************************************************************/
@@ -81,6 +86,7 @@ int Phrases(wchar_t* pphrase )
 
   SDL_BlitSurface(bg, NULL, screen, NULL);
   SDL_BlitSurface(hands, NULL, screen, &hand_loc);
+  SDL_BlitSurface(keyboard, NULL, screen, &keyboard_loc);
   SDL_Flip(screen);
 
   wp = get_phrase(pphrase);
@@ -132,6 +138,7 @@ int Phrases(wchar_t* pphrase )
       case 0:
         start = SDL_GetTicks();
         SDL_BlitSurface(hands, NULL, screen, &hand_loc);
+        SDL_BlitSurface(keyboard, NULL, screen, &keyboard_loc);
         state = 1;
         break;
 
@@ -141,9 +148,18 @@ int Phrases(wchar_t* pphrase )
           /* Show finger hint, if available. Note that GetFinger() */
           /* returns negative values on error and never returns a  */
           /* value greater than 9.                                 */
-          int fing = GetFinger(pphrase[c]);
+          int key = GetIndex(pphrase[c]);
+          int fing = GetFinger(key);
+          keypress1= GetKeypress1(key);
+          keypress2= GetKeypress2(key);
+          /*if (!keypress1)
+          if((!keypress2)*/      
           if (fing >= 0) 
             SDL_BlitSurface(hand[fing], NULL, screen, &hand_loc);
+          SDL_BlitSurface(keypress1, NULL, screen, &keyboard_loc);
+          SDL_BlitSurface(keypress2, NULL, screen, &keyboard_loc);
+          SDL_FreeSurface(keypress1);
+          SDL_FreeSurface(keypress2);
           state = 2;
         }
         break;
@@ -162,9 +178,16 @@ int Phrases(wchar_t* pphrase )
 
       case 4:
         {
-          int fing = GetFinger(pphrase[c]);
+          int key = GetIndex(pphrase[c]);
+          int fing = GetFinger(key);
+          keypress1= GetKeypress1(key);
+          keypress2= GetKeypress2(key);
           if (fing >= 0) 
             SDL_BlitSurface(hand[fing], NULL, screen, &hand_loc);
+          SDL_BlitSurface(keypress1, NULL, screen, &keyboard_loc);
+          SDL_BlitSurface(keypress2, NULL, screen, &keyboard_loc);
+          SDL_FreeSurface(keypress1);
+          SDL_FreeSurface(keypress2);
           state = 11;
           break;
         }
@@ -291,6 +314,7 @@ static int practice_load_media(void)
 
 
   hands = LoadImage("hands/hands.png", IMG_ALPHA);
+	keyboard = LoadImage("keyboard/keyboard.png", IMG_ALPHA);
   bg = LoadImage("main_bkg.png", IMG_ALPHA);
   wrong = LoadSound("tock.wav");
   font = LoadFont(settings.theme_font_name, 30);
@@ -321,6 +345,12 @@ static int practice_load_media(void)
   hand_loc.w = (hand[0]->w);
   hand_loc.h = (hand[0]->h);
 
+	/********Position of keyboard image*/
+  keyboard_loc.x = screen->w/2 -keyboard->w/2; 
+  keyboard_loc.y = screen->h/2;
+  keyboard_loc.w = screen->w/8;
+  keyboard_loc.h = screen->h/8;
+
   /* Now render letters for glyphs in alphabet: */
   RenderLetters(font);
   TTF_CloseFont(font);  /* Don't need it after rendering done */
@@ -339,6 +369,8 @@ static void practice_unload_media(void)
         bg = NULL;
 	SDL_FreeSurface(hands);
         hands = NULL;
+   SDL_FreeSurface(keyboard);
+        keyboard = NULL;
 	//TTF_CloseFont(font);
 
 	for (i=0; i<10; i++) 
@@ -590,4 +622,18 @@ static void next_letter(wchar_t *t, int c)
 	buf[i]=t[c];
 	buf[i+1]=0;
         print_at(buf,wcslen(buf),230 ,400);
+}
+
+SDL_Surface* GetKeypress1(int index)
+{
+	char buf[50];
+	GetKeyPos(index,buf);
+	return (LoadImage(buf, IMG_ALPHA));
+}
+
+SDL_Surface* GetKeypress2(int index)
+{
+	char buf[50];
+	GetKeyShift(index,buf);
+	return (LoadImage(buf, IMG_ALPHA));
 }

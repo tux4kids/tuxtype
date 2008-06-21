@@ -55,9 +55,16 @@ static uni_glyph char_glyphs[MAX_UNICODES] = {0, NULL, NULL};
 
 /* An individual item in the list of unicode characters in the keyboard setup.   */
 /* Basically, just the Unicode value for the key and the finger used to type it. */
+/*typedef struct keymap {
+	char keyname[5];
+	int shift;
+} keymap;*/
 typedef struct kbd_char {
   wchar_t unicode_value;
   char finger;
+	//keymap key;
+	char keyname[5];
+	int shift;
 } kbd_char;
 
 /* List with one entry for each typable character in keyboard setup - has the */
@@ -84,6 +91,7 @@ static void show_letters(void);
 static void clear_keyboard(void);
 static int unicode_in_key_list(wchar_t uni_char);
 int check_needed_unicodes_str(const wchar_t* s);
+int map_keys(wchar_t *wide_str,char *keyname,int *shift);
 
 #ifndef WIN32
 #ifndef MACOSX
@@ -182,11 +190,12 @@ int LoadKeyboard(void)
         {
           fprintf(stderr, "Adding key: Unicode char = '%C'\tUnicode value = %d\tfinger = %d\n",
                   wide_str[2], wide_str[2], wcstol(&wide_str[0], NULL, 0)); 
-        }
+	}
 
         /* Just plug values into array: */
         keyboard_list[k].unicode_value = wide_str[2];
         keyboard_list[k].finger = wcstol(&wide_str[0], NULL, 0);
+        map_keys(&wide_str[0],keyboard_list[k].keyname,&keyboard_list[k].shift);
         k++;
       }
     } while (!feof(f));
@@ -204,7 +213,25 @@ int LoadKeyboard(void)
 /* Returns -1 if somehow no finger associated with a Unicode value    */
 /* in the list (shouldn't happen).                                    */
 /* Returns -2 if Unicode value not in list.                           */
-int GetFinger(wchar_t uni_char)
+int GetFinger(int i)
+{
+  if (i == -1)
+  {
+    fprintf(stderr, "GetFinger() - Unicode char '%C' not found in list.\n");
+    return -2;
+  }
+
+  if ((keyboard_list[i].finger < 0)
+   || (keyboard_list[i].finger > 9))
+  {
+    fprintf(stderr, "GetFinger() - Unicode char '%C' has no valid finger.\n");
+    return -1;
+  }  
+
+  return (int)keyboard_list[i].finger; /* Keep compiler from complaining */
+}
+
+int GetIndex(wchar_t uni_char)
 {
   int i = 0;
 
@@ -216,22 +243,28 @@ int GetFinger(wchar_t uni_char)
 
   if (i == MAX_UNICODES)
   {
-    fprintf(stderr, "GetFinger() - Unicode char '%C' not found in list.\n", uni_char);
-    return -2;
+    fprintf(stderr, "GeteKeypress() - Unicode char '%C' not found in list.\n", uni_char);
+    return -1;
   }
 
-  if ((keyboard_list[i].finger < 0)
-   || (keyboard_list[i].finger > 9))
-  {
-    fprintf(stderr, "GetFinger() - Unicode char '%C' has no valid finger.\n",uni_char);
-    return -1;
-  }  
-
-  return (int)keyboard_list[i].finger; /* Keep compiler from complaining */
+  return i;
 }
 
-
-
+void GetKeyPos(int index, char *buf)
+{
+	sprintf(buf,"keyboard/keyboard_%s.png", keyboard_list[index].keyname);
+	
+}
+void GetKeyShift(int index, char *buf)
+{
+	if(keyboard_list[index].shift==0)
+		sprintf(buf,"keyboard/keyboard_None.png");
+		else
+		 	if(keyboard_list[index].shift==1)
+				sprintf(buf,"keyboard/keyboard_D00.png");
+				else
+							sprintf(buf,"keyboard/keyboard_D11.png", settings.default_data_path);			
+}
 int unicode_in_key_list(wchar_t uni_char)
 {
   int i = 0;
@@ -976,6 +1009,353 @@ int check_needed_unicodes_str(const wchar_t* s)
   return 1;
 }
 
+/* This function just tidies up all the ptr args needed for      */
+/* ConvertUTF8toUTF32() from Unicode, Inc. into a neat wrapper.  */
+/* It returns -1 on error, otherwise returns the length of the   */
+/* converted, null-terminated wchar_t* string now stored in the  */
+/* location of the 'wide_word' pointer.                          */
+int ConvertFromUTF8(wchar_t* wide_word, const unsigned char* UTF8_word)
+{
+  int i = 0;
+  ConversionResult result;
+  UTF8 temp_UTF8[FNLEN];
+  UTF32 temp_UTF32[FNLEN];
+
+  const UTF8* UTF8_Start = temp_UTF8;
+  const UTF8* UTF8_End = &temp_UTF8[FNLEN-1];
+  UTF32* UTF32_Start = temp_UTF32;
+  UTF32* UTF32_End = &temp_UTF32[FNLEN-1];
+
+  strncpy(temp_UTF8, UTF8_word, FNLEN);
+
+  ConvertUTF8toUTF32(&UTF8_Start, UTF8_End,
+                     &UTF32_Start, UTF32_End, 0);
+
+  wide_word[0] = '\0';
+
+  while ((i < FNLEN) && (temp_UTF32[i] != '\0'))
+  {
+    wide_word[i] = temp_UTF32[i];
+    i++; 
+  }
+
+  if (i >= FNLEN)
+  {
+    fprintf(stderr, "convert_from_UTF8(): buffer overflow\n");
+    return -1;
+  }
+  else  //need terminating null:
+  {
+    wide_word[i] = '\0';
+  }
+
+  DEBUGCODE {fprintf(stderr, "wide_word = %ls\n", wide_word);}
+
+  return wcslen(wide_word);
+}
+
+/******************************************************************/
+int map_keys(wchar_t *wide_str,char *keyname,int *shift)
+{
+	wchar_t tmp;
+	if ((wcslen(wide_str) <5))
+		tmp=wide_str[2];
+	else
+		tmp=wide_str[5];
+	switch(tmp)
+	{
+		case '`':strcpy(keyname,"A00");
+			*shift=0;
+			break;
+		case '~':strcpy(keyname,"A00");
+			*shift=2;
+			break;
+		case '1':strcpy(keyname,"A01");
+			*shift=0;
+			break;
+		case '!':strcpy(keyname,"A01");
+			*shift=2;
+			break;
+		case '2':strcpy(keyname,"A02");
+			*shift=0;
+			break;
+		case '@':strcpy(keyname,"A02");
+			*shift=2;
+			break;
+		case '3':strcpy(keyname,"A03");
+			*shift=0;
+			break;
+		case '#':strcpy(keyname,"A03");
+			*shift=2;
+			break;
+		case '4':strcpy(keyname,"A04");
+			*shift=0;
+			break;
+		case '$':strcpy(keyname,"A04");
+			*shift=2;
+			break;
+		case '5':strcpy(keyname,"A05");
+			*shift=0;
+			break;
+		case '%':strcpy(keyname,"A05");
+			*shift=2;
+			break;
+		case '6':strcpy(keyname,"A06");
+			*shift=0;
+			break;
+		case '^':strcpy(keyname,"A06");
+			*shift=1;
+			break;
+		case '7':strcpy(keyname,"A07");
+			*shift=0;
+			break;
+		case '&':strcpy(keyname,"A07");
+			*shift=1;
+			break;
+		case '8':strcpy(keyname,"A08");
+			*shift=0;
+			break;
+		case '*':strcpy(keyname,"A08");
+			*shift=1;
+			break;
+		case '9':strcpy(keyname,"A09");
+			*shift=0;
+			break;
+		case '(':strcpy(keyname,"A09");
+			*shift=1;
+			break;
+		case '0':strcpy(keyname,"A10");
+			*shift=0;
+			break;
+		case ')':strcpy(keyname,"A10");
+			*shift=1;
+			break;
+		case '-':strcpy(keyname,"A11");
+			*shift=0;
+			break;
+		case '_':strcpy(keyname,"A11");
+			*shift=1;
+			break;
+		case '=':strcpy(keyname,"A12");
+			*shift=0;
+			break;
+		case '+':strcpy(keyname,"A12");
+			*shift=1;
+			break;
+		case '\\':strcpy(keyname,"A13");
+			*shift=0;
+			break;
+		case '|':strcpy(keyname,"A13");
+			*shift=1;
+			break;
+		case 'q':strcpy(keyname,"B01;");
+			*shift=0;
+			break;
+		case 'Q':strcpy(keyname,"B01");
+			*shift=2;
+			break;
+		case 'w':strcpy(keyname,"B02");
+			*shift=0;
+			break;
+		case 'W':strcpy(keyname,"B02");
+			*shift=2;
+			break;
+		case 'e':strcpy(keyname,"B03");
+			*shift=0;
+			break;
+		case 'E':strcpy(keyname,"B03");
+			*shift=2;
+			break;
+		case 'r':strcpy(keyname,"B04");
+			*shift=0;
+			break;
+		case 'R':strcpy(keyname,"B04");
+			*shift=2;
+			break;
+		case 't':strcpy(keyname,"B05");
+			*shift=0;
+			break;
+		case 'T':strcpy(keyname,"B05");
+			*shift=2;
+			break;
+		case 'y':strcpy(keyname,"B06");
+			*shift=0;
+			break;
+		case 'Y':strcpy(keyname,"B06");
+			*shift=1;
+			break;
+		case 'u':strcpy(keyname,"0xB07");
+			*shift=0;
+			break;
+		case 'U':strcpy(keyname,"B07");
+			*shift=1;
+			break;
+		case 'i':strcpy(keyname,"B08");
+			*shift=0;
+			break;
+		case 'I':strcpy(keyname,"B08");
+			*shift=1;
+			break;
+		case 'o':strcpy(keyname,"B09");
+			*shift=0;
+			break;
+		case 'O':strcpy(keyname,"B09");
+			*shift=1;
+			break;
+		case 'p':strcpy(keyname,"B10");
+			*shift=0;
+			break;
+		case 'P':strcpy(keyname,"B10");
+			*shift=1;
+			break;
+		case '[':strcpy(keyname,"B11");
+			*shift=0;
+			break;
+		case '{':strcpy(keyname,"B11");
+			*shift=1;
+			break;
+		case ']':strcpy(keyname,"B12");
+			*shift=0;
+			break;
+		case '}':strcpy(keyname,"B12");
+			*shift=1;
+			break;
+		case 'a':strcpy(keyname,"C01");
+			*shift=0;
+			break;
+		case 'A':strcpy(keyname,"C01");
+			*shift=2;
+			break;
+		case 's':strcpy(keyname,"C02");
+			*shift=0;
+			break;
+		case 'S':strcpy(keyname,"C02");
+			*shift=2;
+			break;
+		case 'd':strcpy(keyname,"C03");
+			*shift=0;
+			break;
+		case 'D':strcpy(keyname,"C03");
+			*shift=2;
+			break;
+		case 'f':strcpy(keyname,"C04");
+			*shift=0;
+			break;
+		case 'F':strcpy(keyname,"C04");
+			*shift=2;
+			break;
+		case 'g':strcpy(keyname,"C05");
+			*shift=0;
+			break;
+		case 'G':strcpy(keyname,"C05");
+			*shift=2;
+			break;
+		case 'h':strcpy(keyname,"C06");
+			*shift=0;
+			break;
+		case 'H':strcpy(keyname,"C06");
+			*shift=1;
+			break;
+		case 'j':strcpy(keyname,"C07");
+			*shift=0;
+			break;
+		case 'J':strcpy(keyname,"C07");
+			*shift=1;
+			break;
+		case 'k':strcpy(keyname,"C08");
+			*shift=0;
+			break;
+		case 'K':strcpy(keyname,"C08");
+			*shift=1;
+			break;
+		case 'l':strcpy(keyname,"C09");
+			*shift=0;
+			break;
+		case 'L':strcpy(keyname,"C09");
+			*shift=1;
+			break;
+		case ';':strcpy(keyname,"C10");
+			*shift=0;
+			break;
+		case ':':strcpy(keyname,"C10");
+			*shift=1;
+			break;			
+		case '\'':strcpy(keyname,"C11");
+			*shift=0;
+			break;
+		case '"':strcpy(keyname,"C11");
+			*shift=1;
+			break;
+		case 'z':strcpy(keyname,"D01");
+			*shift=0;
+			break;
+		case 'Z':strcpy(keyname,"D01");
+			*shift=2;
+			break;
+		case 'x':strcpy(keyname,"D02");
+			*shift=0;
+			break;
+		case 'X':strcpy(keyname,"D02");
+			*shift=2;
+			break;
+		case 'c':strcpy(keyname,"D03");
+			*shift=0;
+			break;
+		case 'C':strcpy(keyname,"D03");
+			*shift=2;
+			break;
+		case 'v':strcpy(keyname,"D04");
+			*shift=0;
+			break;
+		case 'V':strcpy(keyname,"D04");
+			*shift=2;
+			break;
+		case 'b':strcpy(keyname,"D05");
+			*shift=0;
+			break;
+		case 'B':strcpy(keyname,"D05");
+			*shift=2;
+			break;
+		case 'n':strcpy(keyname,"D06");
+			*shift=0;
+			break;
+		case 'N':strcpy(keyname,"D06");
+			*shift=1;
+			break;
+		case 'm':strcpy(keyname,"D07");
+			*shift=0;
+			break;
+		case 'M':strcpy(keyname,"D07");
+			*shift=1;
+			break;
+		case ',':strcpy(keyname,"D08");
+			*shift=0;
+			break;
+		case '<':strcpy(keyname,"D08");
+			*shift=1;
+			break;
+		case '.':strcpy(keyname,"D09");
+			*shift=0;
+			break;
+		case '>':strcpy(keyname,"D09");
+			*shift=1;
+			break;
+		case '/':strcpy(keyname,"D10");
+			*shift=0;
+			break;
+		case '?':strcpy(keyname,"D10");
+			*shift=1;
+			break;
+		case ' ':strcpy(keyname,"E03");
+			*shift=0;
+			break;
+	default:strcpy(keyname,"None");
+		*shift=0;
+		break;
+	}
+}
+/****************************************************************/
+
 /****************************************************/
 /*                                                  */
 /*       Local ("private") functions:               */
@@ -1119,48 +1499,4 @@ static void clear_keyboard(void)
 }
 
 
-/* This function just tidies up all the ptr args needed for      */
-/* ConvertUTF8toUTF32() from Unicode, Inc. into a neat wrapper.  */
-/* It returns -1 on error, otherwise returns the length of the   */
-/* converted, null-terminated wchar_t* string now stored in the  */
-/* location of the 'wide_word' pointer.                          */
-int ConvertFromUTF8(wchar_t* wide_word, const unsigned char* UTF8_word)
-{
-  int i = 0;
-  ConversionResult result;
-  UTF8 temp_UTF8[FNLEN];
-  UTF32 temp_UTF32[FNLEN];
-
-  const UTF8* UTF8_Start = temp_UTF8;
-  const UTF8* UTF8_End = &temp_UTF8[FNLEN-1];
-  UTF32* UTF32_Start = temp_UTF32;
-  UTF32* UTF32_End = &temp_UTF32[FNLEN-1];
-
-  strncpy(temp_UTF8, UTF8_word, FNLEN);
-
-  ConvertUTF8toUTF32(&UTF8_Start, UTF8_End,
-                     &UTF32_Start, UTF32_End, 0);
-
-  wide_word[0] = '\0';
-
-  while ((i < FNLEN) && (temp_UTF32[i] != '\0'))
-  {
-    wide_word[i] = temp_UTF32[i];
-    i++; 
-  }
-
-  if (i >= FNLEN)
-  {
-    fprintf(stderr, "convert_from_UTF8(): buffer overflow\n");
-    return -1;
-  }
-  else  //need terminating null:
-  {
-    wide_word[i] = '\0';
-  }
-
-  DEBUGCODE {fprintf(stderr, "wide_word = %ls\n", wide_word);}
-
-  return wcslen(wide_word);
-}
 
