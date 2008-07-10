@@ -2,10 +2,32 @@
 /* config.h.in.  Generated from configure.ac by autoheader.  */
 
 /* Native MinGW32 build */
-#define BUILD_MINGW32 1
+/* #undef BUILD_MINGW32 */
+
+/* Define to 1 if translation of program messages to the user's native
+   language is requested. */
+#define ENABLE_NLS 1
 
 /* Define to 1 if you have the `atexit' function. */
 #define HAVE_ATEXIT 1
+
+/* Define to 1 if you have the MacOS X function CFLocaleCopyCurrent in the
+   CoreFoundation framework. */
+/* #undef HAVE_CFLOCALECOPYCURRENT */
+
+/* Define to 1 if you have the MacOS X function CFPreferencesCopyAppValue in
+   the CoreFoundation framework. */
+/* #undef HAVE_CFPREFERENCESCOPYAPPVALUE */
+
+/* Define if the GNU dcgettext() function is already present or preinstalled.
+   */
+#define HAVE_DCGETTEXT 1
+
+/* Define if the GNU gettext() function is already present or preinstalled. */
+#define HAVE_GETTEXT 1
+
+/* Define if you have the iconv() function. */
+/* #undef HAVE_ICONV */
 
 /* Define to 1 if you have the <inttypes.h> header file. */
 #define HAVE_INTTYPES_H 1
@@ -17,7 +39,7 @@
 #define HAVE_LIBSDL_MIXER 1
 
 /* Define to 1 if you have the `SDL_Pango' library (-lSDL_Pango). */
-/* #undef HAVE_LIBSDL_PANGO */
+#define HAVE_LIBSDL_PANGO 1
 
 /* Define to 1 if you have the `SDL_ttf' library (-lSDL_ttf). */
 #define HAVE_LIBSDL_TTF 1

@@ -97,7 +97,7 @@ AC_CHECK_FUNCS([atexit memset strchr strstr malloc])
 # Sam's Install Kludge-work
 CPPFLAGS="$CPPFLAGS -DDATA_PREFIX=\\\"\$(prefix)\\\""
 
-AC_CONFIG_FILES([Makefile
+AC_CONFIG_FILES([Makefile po/Makefile.in
 data/Makefile
 data/fonts/Makefile
 data/images/Makefile
@@ -160,6 +160,8 @@ data/themes/malayalam/scripts/Makefile
 data/themes/malayalam/words/Makefile
 data/themes/nederlands/Makefile
 data/themes/nederlands/words/Makefile
+data/themes/nepali/Makefile
+data/themes/nepali/words/Makefile
 data/themes/nynorsk/Makefile
 data/themes/nynorsk/images/Makefile
 data/themes/nynorsk/images/status/Makefile

@@ -944,9 +944,9 @@ static void LoadOthers(void)
 	lives  = BlackOutline(_("Lives"), font, &white);
 	fish   = BlackOutline(_("Fish"), font, &white);
 
-	level[0] = BlackOutline(_("Easy"), font, &white);
-	level[1] = BlackOutline(_("Medium"), font, &white);
-	level[2] = BlackOutline(_("Hard"), font, &white);
+	level[0] = BlackOutline(gettext("Easy"), font, &white);
+	level[1] = BlackOutline(gettext("Medium"), font, &white);
+	level[2] = BlackOutline(gettext("Hard"), font, &white);
 	level[3] = BlackOutline(_("Practice"), font, &white);
 
 	number_max_w = 0;

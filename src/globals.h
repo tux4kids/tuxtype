@@ -35,6 +35,9 @@
 
 #define MAX_SPRITE_FRAMES 30
 
+
+#define LOCALEDIR "/usr/local/share"
+
 #include <string.h>
 #include <wchar.h>
 #include <math.h>
@@ -51,6 +54,11 @@
 #include <SDL/SDL_image.h>
 #include <SDL/SDL_mixer.h>
 #include <SDL/SDL_ttf.h>
+
+#include "i18n.h"
+#include <libintl.h>
+
+
 
 #endif //  __GLOBALS_H__
 
@@ -70,6 +78,7 @@ typedef struct game_option_type{
   char theme_name[FNLEN];
   char lang[FNLEN];
   char theme_font_name[FNLEN];
+  char theme_locale_name[FNLEN];
   int use_english;
   int fullscreen;
   int sys_sound;
@@ -89,6 +98,7 @@ typedef struct game_option_type{
 /* They can be changed in the struct to other values at run-time */
 #define DEFAULT_MENU_FONT       "AndikaDesRevG.ttf"
 #define DEFAULT_GAME_FONT       "AndikaDesRevG.ttf" 
+#define DEFAULT_LOCALE		"en_US"
 #define DEFAULT_USE_ENGLISH 1
 #define DEFAULT_FULLSCREEN 1
 #define DEFAULT_SYS_SOUND 1
@@ -112,8 +122,9 @@ typedef struct {
   int cur;
 } sprite;
 
-#define _(str) gettext (str)
-#define gettext_noop(str) (str)
+#define _(String) gettext(String)
+#define gettext_noop(String) (String)
+
 
 /* LOGGING works as such:
  *
