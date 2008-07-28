@@ -8,9 +8,6 @@ email                : jdandr2@uky.edu
 
 Revised extensively: 2007
 David Bruce <dbruce@tampabay.rr.com>
-Revised extensively: 2008
-Sreyas K <dbruce@tampabay.rr.com>
-
 ***************************************************************************/
 
 /***************************************************************************
@@ -26,10 +23,13 @@ Sreyas K <dbruce@tampabay.rr.com>
 #include "funcs.h"
 
 static SDL_Surface* bg = NULL;
+static SDL_Surface* hands = NULL;
+static SDL_Surface* hand_shift[3] = {NULL};
 static SDL_Surface* keyboard = NULL;
 static SDL_Surface* keypress1 = NULL;
 static SDL_Surface* keypress2 = NULL;
-static SDL_Rect letter_loc,keyboard_loc;
+static SDL_Surface* hand[11] = {NULL};
+static SDL_Rect hand_loc, letter_loc,keyboard_loc;
 static TTF_Font* font = NULL;
 static wchar_t phrase[255][FNLEN];
 
@@ -86,6 +86,7 @@ int Phrases(wchar_t* pphrase )
   }
 
   SDL_BlitSurface(bg, NULL, screen, NULL);
+  SDL_BlitSurface(hands, NULL, screen, &hand_loc);
   SDL_BlitSurface(keyboard, NULL, screen, &keyboard_loc);
   SDL_Flip(screen);
 
@@ -137,6 +138,7 @@ int Phrases(wchar_t* pphrase )
     {
       case 0:
         start = SDL_GetTicks();
+        SDL_BlitSurface(hands, NULL, screen, &hand_loc);
         SDL_BlitSurface(keyboard, NULL, screen, &keyboard_loc);
         state = 1;
         break;
@@ -149,6 +151,7 @@ int Phrases(wchar_t* pphrase )
           /* value greater than 9.                                 */
           int key = GetIndex(pphrase[c]);
           int fing = GetFinger(key);
+          int shift = GetShift(key);
           keypress1= GetKeypress1(key);
           keypress2= GetKeypress2(key);
           if (!keypress1)
@@ -160,7 +163,11 @@ int Phrases(wchar_t* pphrase )
           {
 				fprintf(stderr, "Phrases() - GetKeypress2 failed, returning.\n");
 				return 0;
-          }      
+          }
+          SDL_BlitSurface(hands, NULL, screen, &hand_loc);
+          if (fing >= 0) 
+            SDL_BlitSurface(hand[fing], NULL, screen, &hand_loc);
+          SDL_BlitSurface(hand_shift[shift], NULL, screen, &hand_loc);
           SDL_BlitSurface(keypress1, NULL, screen, &keyboard_loc);
           SDL_BlitSurface(keypress2, NULL, screen, &keyboard_loc);
           SDL_FreeSurface(keypress1);
@@ -177,6 +184,7 @@ int Phrases(wchar_t* pphrase )
         break;
 
       case 3:
+       SDL_BlitSurface(hands, NULL, screen, &hand_loc);
        state = 12;
        break;  
 
@@ -184,6 +192,7 @@ int Phrases(wchar_t* pphrase )
         {
           int key = GetIndex(pphrase[c]);
           int fing = GetFinger(key);
+          int shift = GetShift(key);
           keypress1= GetKeypress1(key);
           keypress2= GetKeypress2(key);
                     if (!keypress1)
@@ -195,7 +204,11 @@ int Phrases(wchar_t* pphrase )
           {
 				fprintf(stderr, "Phrases() - GetKeypress2 failed, returning.\n");
 				return 0;
-          }      
+          }
+          SDL_BlitSurface(hands, NULL, screen, &hand_loc);
+          if (fing >= 0) 
+            SDL_BlitSurface(hand[fing], NULL, screen, &hand_loc);
+          SDL_BlitSurface(hand_shift[shift], NULL, screen, &hand_loc);
           SDL_BlitSurface(keypress1, NULL, screen, &keyboard_loc);
           SDL_BlitSurface(keypress2, NULL, screen, &keyboard_loc);
           SDL_FreeSurface(keypress1);
@@ -321,27 +334,49 @@ static int practice_load_media(void)
   unsigned char fn[FNLEN];
   unsigned char let[5];
   int load_failed = 0;
-
+  DEBUGCODE { printf("Entering practice_load_media\n"); }
   LOG("Loading practice media\n");
 
 
-  keyboard = LoadImage("keyboard/keyboard.png", IMG_ALPHA);
+  hands = LoadImage("hands/hands.png", IMG_ALPHA);
+	hand_shift[0] = LoadImage("hands/none.png", IMG_ALPHA);
+	hand_shift[1] = LoadImage("hands/lshift.png", IMG_ALPHA);
+	hand_shift[2] = LoadImage("hands/rshift.png", IMG_ALPHA);
+	keyboard = LoadImage("keyboard/keyboard.png", IMG_ALPHA);
   bg = LoadImage("main_bkg.png", IMG_ALPHA);
   wrong = LoadSound("tock.wav");
   font = LoadFont(settings.theme_font_name, 30);
 
+  for (i = 0; i < 10; i++)
+  {
+    sprintf(fn, "hands/%d.png", i);
+    hand[i] = LoadImage(fn, IMG_ALPHA);
+    if (!hand[i])
+      load_failed = 1;
+  }
+
   /* Get out if anything failed to load: */
   if (load_failed
+    ||!hands
     ||!bg
     ||!wrong
-    ||!font)
+    ||!font
+    ||!keyboard
+    ||!hand_shift[0]
+    ||!hand_shift[1]
+    ||!hand_shift[2])
   {
     fprintf(stderr, "practice_load_media() - failed to load needed media \n");
     practice_unload_media;
     return 0;
   }
 
-  
+  /* Should be safe from here on out: */
+  hand_loc.x = (screen->w/2) - (hand[0]->w/2);
+  hand_loc.y = screen->h - (hand[0]->h);
+  hand_loc.w = (hand[0]->w);
+  hand_loc.h = (hand[0]->h);
+
 	/********Position of keyboard image*/
   keyboard_loc.x = screen->w/2 -keyboard->w/2; 
   keyboard_loc.y = screen->h/2;
@@ -352,8 +387,10 @@ static int practice_load_media(void)
   RenderLetters(font);
   TTF_CloseFont(font);  /* Don't need it after rendering done */
   font = NULL;
+  GenerateKeyboard(keyboard);
 
   LOG("DONE - Loading practice media\n");
+  DEBUGCODE { printf("Leaving practice_load_media\n"); }
   return 1;
 }
 
@@ -364,9 +401,24 @@ static void practice_unload_media(void)
 	int i;
 	SDL_FreeSurface(bg);
         bg = NULL;
+	SDL_FreeSurface(hands);
+        hands = NULL;
+	for(i=0;i<3;i++)
+	{
+		SDL_FreeSurface(hand_shift[i]);
+	        hand_shift[i] = NULL;
+	}
 	SDL_FreeSurface(keyboard);
         keyboard = NULL;
 	//TTF_CloseFont(font);
+
+	for (i=0; i<10; i++) 
+        {
+          SDL_FreeSurface(hand[i]);
+          hand[i] = NULL;
+        }
+	
+
 	Mix_FreeChunk(wrong);
 	wrong = NULL;
 }
@@ -609,7 +661,7 @@ static void next_letter(wchar_t *t, int c)
         i=ConvertFromUTF8(buf, _("Next letter "));
 	buf[i]=t[c];
 	buf[i+1]=0;
-        print_at(buf,wcslen(buf),230 ,400);
+        print_at(buf,wcslen(buf),215 ,420);
 }
 
 SDL_Surface* GetKeypress1(int index)

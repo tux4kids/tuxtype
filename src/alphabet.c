@@ -231,6 +231,11 @@ int GetFinger(int i)
   return (int)keyboard_list[i].finger; /* Keep compiler from complaining */
 }
 
+int GetShift(int i)
+{
+	return keyboard_list[i].shift;
+}
+
 int GetIndex(wchar_t uni_char)
 {
   int i = 0;
@@ -1184,7 +1189,7 @@ int map_keys(wchar_t *wide_str,char *keyname,int *shift)
 		case 'Y':strcpy(keyname,"B06");
 			*shift=1;
 			break;
-		case 'u':strcpy(keyname,"0xB07");
+		case 'u':strcpy(keyname,"B07");
 			*shift=0;
 			break;
 		case 'U':strcpy(keyname,"B07");
@@ -1353,6 +1358,64 @@ int map_keys(wchar_t *wide_str,char *keyname,int *shift)
 		*shift=0;
 		break;
 	}
+}
+
+void GenerateKeyboard(SDL_Surface* keyboard)
+{
+	SDL_Surface* tmp = NULL;
+	SDL_Rect new;
+	int i;
+	int col;
+	char row;
+	int render=1;
+	Uint16 t[2];
+	TTF_Font* smallfont = NULL;
+	DEBUGCODE { printf("Entering GenerateKeyboard\n"); }
+	t[1] = '\0';
+	smallfont = LoadFont(settings.theme_font_name, 15);
+	if(!smallfont)
+	{
+		DEBUGCODE { printf("Error loading font\n"); }
+		return;
+	}
+	for(i=0;i < num_chars_used;i++)
+	{
+		render=1;
+		new.x=0;
+		new.y=0;
+		new.w=5;
+		new.h=5;
+		t[0]=keyboard_list[i].unicode_value;
+		sscanf(keyboard_list[i].keyname,"%c%d",&row,&col);
+		switch(row)
+		{
+			case 'A':new.y+=6;new.x+=13;break;
+			case 'B':new.y+=36;new.x+=23;break;
+			case 'C':new.y+=66;new.x+=33;break;
+			case 'D':new.y+=96;new.x+=23;break;
+			case 'E':new.y+126;break;
+			default: render=0;break;
+		}
+		if(!render)
+			continue;
+		new.x+=30*col;
+		if(keyboard_list[i].shift>0)
+		{
+					new.x-=9;
+					new.y-=9;
+		}				
+		DEBUGCODE { printf("Making %d : %C\n",i,keyboard_list[i].unicode_value); }
+		//tmp=BlackOutline_Unicode(t, smallfont, &black);
+		tmp=TTF_RenderUNICODE_Blended((TTF_Font*)smallfont, t, black);
+		if(tmp==NULL)
+		{
+			DEBUGCODE { printf("Error Making %d : %C\n",i,keyboard_list[i].unicode_value); }
+		}
+		SDL_BlitSurface(tmp, NULL, keyboard, &new);
+	}	
+	TTF_CloseFont(smallfont);
+	DEBUGCODE { printf("Leaving GenerateKeyboard\n"); }
+	//DEBUGCODE { exit(-1); }
 }
 /****************************************************************/
 

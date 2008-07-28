@@ -98,7 +98,7 @@ typedef struct game_option_type{
 #define DEFAULT_MENU_SOUND 1
 #define DEFAULT_SPEED_UP 0
 #define DEFAULT_SHOW_TUX4KIDS 1
-#define DEFAULT_DEBUG_ON 0
+#define DEFAULT_DEBUG_ON 1
 #define DEFAULT_O_LIVES 0
 #define DEFAULT_SOUND_VOL 100
 #define DEFAULT_HIDDEN 0
