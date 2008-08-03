@@ -53,6 +53,8 @@ void GetKeyShift(int index, char *buf);
 void GetKeyPos(int index, char *buf);
 //int map_keys(wchar_t *wide_str,keymap key);
 void GenerateKeyboard(SDL_Surface* keyboard);
+void updatekeylist(int key,char ch);
+void savekeyboard(void);
 
 //void UseAlphabet(void);
 

@@ -8,6 +8,8 @@ email                : jdandr2@uky.edu
 
 Revised extensively: 2007
 David Bruce <dbruce@tampabay.rr.com>
+Revised extensively: 2008
+Sreyas Kurumanghat <k.sreyas@gmail.com>
 ***************************************************************************/
 
 /***************************************************************************
@@ -76,8 +78,7 @@ int Phrases(wchar_t* pphrase )
   char keytime[20],
        totaltime[20];
   SDL_Surface* srfc = NULL;
-
-
+  
   
   if (!practice_load_media())
   {
@@ -243,6 +244,145 @@ int Phrases(wchar_t* pphrase )
         }
         else
         {
+/**************************************************/
+		int key=GetIndex((wchar_t)event.key.keysym.unicode);
+		char tmp=-1;
+		switch(event.key.keysym.sym)
+		{
+			case SDLK_SPACE:tmp=' ';
+				break;
+			case SDLK_EXCLAIM:tmp='!';
+				break;
+			case SDLK_QUOTEDBL:tmp='"';
+				break;
+			case SDLK_HASH:tmp='#';
+				break;
+			case SDLK_DOLLAR:tmp='$';
+				break;
+			case SDLK_AMPERSAND:tmp='&';
+				break;
+			case SDLK_QUOTE:tmp='\'';
+				break;
+			case SDLK_LEFTPAREN:tmp='(';
+				break;
+			case SDLK_RIGHTPAREN:tmp=')';
+				break;
+			case SDLK_ASTERISK:tmp='*';
+				break;
+			case SDLK_PLUS:tmp='+';
+				break;
+			case SDLK_COMMA:tmp=',';
+				break;
+			case SDLK_MINUS:tmp='-';
+				break;
+			case SDLK_PERIOD:tmp='.';
+				break;
+			case SDLK_SLASH:tmp='/';
+				break;
+			case SDLK_0:tmp='0';
+				break;
+			case SDLK_1:tmp='1';
+				break;
+			case SDLK_2:tmp='2';
+				break;
+			case SDLK_3:tmp='3';
+				break;
+			case SDLK_4:tmp='4';
+				break;
+			case SDLK_5:tmp='5';
+				break;
+			case SDLK_6:tmp='6';
+				break;
+			case SDLK_7:tmp='7';
+				break;
+			case SDLK_8:tmp='8';
+				break;
+			case SDLK_9:tmp='9';
+				break;
+			case SDLK_COLON:tmp=':';
+				break;
+			case SDLK_SEMICOLON:tmp=';';
+				break;
+			case SDLK_LESS:tmp='<';
+				break;
+			case SDLK_EQUALS:tmp='=';
+				break;
+			case SDLK_GREATER:tmp='>';
+				break;
+			case SDLK_QUESTION:tmp='?';
+				break;
+			case SDLK_AT:tmp='@';
+				break;
+			case SDLK_LEFTBRACKET:tmp='[';
+				break;
+			case SDLK_BACKSLASH:tmp='\\';
+				break;
+			case SDLK_RIGHTBRACKET:tmp=']';
+				break;
+			case SDLK_CARET:tmp='^';
+				break;
+			case SDLK_UNDERSCORE:tmp='_';
+				break;
+			case SDLK_BACKQUOTE:tmp='`';
+				break;
+			case SDLK_a:tmp='a';
+				break;
+			case SDLK_b:tmp='b';
+				break;
+			case SDLK_c:tmp='c';
+				break;
+			case SDLK_d:tmp='d';
+				break;
+			case SDLK_e:tmp='e';
+				break;
+			case SDLK_f:tmp='f';
+				break;
+			case SDLK_g:tmp='g';
+				break;
+			case SDLK_h:tmp='h';
+				break;
+			case SDLK_i:tmp='i';
+				break;
+			case SDLK_j:tmp='j';
+				break;
+			case SDLK_k:tmp='k';
+				break;
+			case SDLK_l:tmp='l';
+				break;
+			case SDLK_m:tmp='m';
+				break;
+			case SDLK_n:tmp='n';
+				break;
+			case SDLK_o:tmp='o';
+				break;
+			case SDLK_p:tmp='p';
+				break;
+			case SDLK_q:tmp='q';
+				break;
+			case SDLK_r:tmp='r';
+				break;
+			case SDLK_s:tmp='s';
+				break;
+			case SDLK_t:tmp='t';
+				break;
+			case SDLK_u:tmp='u';
+				break;
+			case SDLK_v:tmp='v';
+				break;
+			case SDLK_w:tmp='w';
+				break;
+			case SDLK_x:tmp='x';
+				break;
+			case SDLK_y:tmp='y';
+				break;
+			case SDLK_z:tmp='z';
+				break;
+		}
+		if(event.key.keysym.mod&KMOD_SHIFT)
+			tmp=toupper(tmp);
+		if(tmp!=-1)
+			updatekeylist(key,tmp);
+/****************************************************/
           if (pphrase[c]==event.key.keysym.unicode)
           {
             state = 0;
@@ -313,6 +453,8 @@ int Phrases(wchar_t* pphrase )
     SDL_Delay(30);
 
   }while (!quit);
+
+  savekeyboard();
 
   practice_unload_media();
 
@@ -581,8 +723,6 @@ static int get_phrase(const wchar_t* phr)
   LOG("Leaving get_phrase()\n");
   return(wp);
 }
-
-
 
 static void print_at(const wchar_t *pphrase, int wrap, int x, int y)
 {

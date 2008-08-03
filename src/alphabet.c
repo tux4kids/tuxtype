@@ -5,6 +5,8 @@
     begin                : Jan 6 2003
     copyright            : (C) 2003 by Jesse Andrews
     email                : jdandr2@tux4kids.net
+Revised extensively: 2008
+Sreyas Kurumanghat <k.sreyas@gmail.com>
  ***************************************************************************/
 
 /***************************************************************************
@@ -65,11 +67,12 @@ typedef struct kbd_char {
 	//keymap key;
 	char keyname[5];
 	int shift;
+	char latin_char;
 } kbd_char;
 
 /* List with one entry for each typable character in keyboard setup - has the */
 /* Unicode value of the key and the associated fingering.                     */
-static kbd_char keyboard_list[MAX_UNICODES] = {0, -1};
+static kbd_char keyboard_list[MAX_UNICODES] = {0, -1,0,0,-1};
 
 
 
@@ -91,7 +94,7 @@ static void show_letters(void);
 static void clear_keyboard(void);
 static int unicode_in_key_list(wchar_t uni_char);
 int check_needed_unicodes_str(const wchar_t* s);
-int map_keys(wchar_t *wide_str,char *keyname,int *shift);
+int map_keys(wchar_t wide_char,kbd_char* keyboard_entry);
 
 #ifndef WIN32
 #ifndef MACOSX
@@ -195,14 +198,52 @@ int LoadKeyboard(void)
         /* Just plug values into array: */
         keyboard_list[k].unicode_value = wide_str[2];
         keyboard_list[k].finger = wcstol(&wide_str[0], NULL, 0);
-        map_keys(&wide_str[0],keyboard_list[k].keyname,&keyboard_list[k].shift);
+	if (wcslen(wide_str) <5)
+	{
+		if(!settings.use_english)
+		{
+			map_keys(-1,&keyboard_list[k]);
+			keyboard_list[k].latin_char=-1;
+			keyboard_list[k].finger = wcstol(&wide_str[0], NULL, 0);
+		}
+		else
+		{
+			map_keys(wide_str[2],&keyboard_list[k]);
+			keyboard_list[k].latin_char=wide_str[2];
+		}
+	}
+	else
+	{
+		map_keys(wide_str[4],&keyboard_list[k]);
+		keyboard_list[k].latin_char=wide_str[4];
+	}
         k++;
       }
+	else
+	{
+		if(wcslen(wide_str)==1)
+		{
+			if(!settings.use_english)
+			{
+				keyboard_list[k].unicode_value = wide_str[0];
+				map_keys(-1,&keyboard_list[k]);
+				keyboard_list[k].latin_char=-1;
+			}
+			else
+			{
+				keyboard_list[k].unicode_value = wide_str[0];
+				map_keys(-1,&keyboard_list[k]);
+				keyboard_list[k].latin_char=wide_str[0];
+			}
+			k++;
+		}
+		
+	}
+			
     } while (!feof(f));
 
 
     fclose(f);
-
     LOG("Leaving LoadKeyboard()\n");
     return 1;
   }
@@ -1059,304 +1100,437 @@ int ConvertFromUTF8(wchar_t* wide_word, const unsigned char* UTF8_word)
   return wcslen(wide_word);
 }
 
-/******************************************************************/
-int map_keys(wchar_t *wide_str,char *keyname,int *shift)
+/******************To be used for savekeyboard*************/
+/***Converts wchar_t string to char string*****************/
+int ConvertToUTF8(wchar_t* UTF32_word, char* word)
 {
-	wchar_t tmp;
-	if ((wcslen(wide_str) <5))
-		tmp=wide_str[2];
-	else
-		tmp=wide_str[5];
-	switch(tmp)
+  int i = 0;
+  ConversionResult result;
+  UTF8 temp_UTF8[FNLEN];
+  UTF32 temp_UTF32[FNLEN];
+
+  const UTF8* UTF8_Start = temp_UTF8;
+  const UTF8* UTF8_End = &temp_UTF8[FNLEN-1];
+  UTF32* UTF32_Start = temp_UTF32;
+  UTF32* UTF32_End = &temp_UTF32[FNLEN-1];
+
+  strncpy(temp_UTF32, UTF32_word, FNLEN);
+
+  ConvertUTF32toUTF8(&UTF32_Start, UTF32_End,
+                     &UTF8_Start, UTF8_End, 0);
+
+  word[0] = '\0';
+
+  while ((i < FNLEN) && (temp_UTF8[i] != '\0'))
+  {
+    word[i] = temp_UTF8[i];
+    i++; 
+  }
+
+  if (i >= FNLEN)
+  {
+    fprintf(stderr, "convert_from_UTF8(): buffer overflow\n");
+    return -1;
+  }
+  else  //need terminating null:
+  {
+    word[i] = '\0';
+  }
+
+  DEBUGCODE {fprintf(stderr, "word = %s\n", word);}
+
+  return strlen(word);
+}
+
+/******************************************************************/
+int map_keys(wchar_t wide_char,kbd_char* keyboard_entry)
+{
+	switch(wide_char)
 	{
-		case '`':strcpy(keyname,"A00");
-			*shift=0;
-			break;
-		case '~':strcpy(keyname,"A00");
-			*shift=2;
-			break;
-		case '1':strcpy(keyname,"A01");
-			*shift=0;
-			break;
-		case '!':strcpy(keyname,"A01");
-			*shift=2;
-			break;
-		case '2':strcpy(keyname,"A02");
-			*shift=0;
-			break;
-		case '@':strcpy(keyname,"A02");
-			*shift=2;
-			break;
-		case '3':strcpy(keyname,"A03");
-			*shift=0;
-			break;
-		case '#':strcpy(keyname,"A03");
-			*shift=2;
-			break;
-		case '4':strcpy(keyname,"A04");
-			*shift=0;
-			break;
-		case '$':strcpy(keyname,"A04");
-			*shift=2;
-			break;
-		case '5':strcpy(keyname,"A05");
-			*shift=0;
-			break;
-		case '%':strcpy(keyname,"A05");
-			*shift=2;
-			break;
-		case '6':strcpy(keyname,"A06");
-			*shift=0;
-			break;
-		case '^':strcpy(keyname,"A06");
-			*shift=1;
-			break;
-		case '7':strcpy(keyname,"A07");
-			*shift=0;
-			break;
-		case '&':strcpy(keyname,"A07");
-			*shift=1;
-			break;
-		case '8':strcpy(keyname,"A08");
-			*shift=0;
-			break;
-		case '*':strcpy(keyname,"A08");
-			*shift=1;
-			break;
-		case '9':strcpy(keyname,"A09");
-			*shift=0;
-			break;
-		case '(':strcpy(keyname,"A09");
-			*shift=1;
-			break;
-		case '0':strcpy(keyname,"A10");
-			*shift=0;
-			break;
-		case ')':strcpy(keyname,"A10");
-			*shift=1;
-			break;
-		case '-':strcpy(keyname,"A11");
-			*shift=0;
-			break;
-		case '_':strcpy(keyname,"A11");
-			*shift=1;
-			break;
-		case '=':strcpy(keyname,"A12");
-			*shift=0;
-			break;
-		case '+':strcpy(keyname,"A12");
-			*shift=1;
-			break;
-		case '\\':strcpy(keyname,"A13");
-			*shift=0;
-			break;
-		case '|':strcpy(keyname,"A13");
-			*shift=1;
-			break;
-		case 'q':strcpy(keyname,"B01;");
-			*shift=0;
-			break;
-		case 'Q':strcpy(keyname,"B01");
-			*shift=2;
-			break;
-		case 'w':strcpy(keyname,"B02");
-			*shift=0;
-			break;
-		case 'W':strcpy(keyname,"B02");
-			*shift=2;
-			break;
-		case 'e':strcpy(keyname,"B03");
-			*shift=0;
-			break;
-		case 'E':strcpy(keyname,"B03");
-			*shift=2;
-			break;
-		case 'r':strcpy(keyname,"B04");
-			*shift=0;
-			break;
-		case 'R':strcpy(keyname,"B04");
-			*shift=2;
-			break;
-		case 't':strcpy(keyname,"B05");
-			*shift=0;
-			break;
-		case 'T':strcpy(keyname,"B05");
-			*shift=2;
-			break;
-		case 'y':strcpy(keyname,"B06");
-			*shift=0;
-			break;
-		case 'Y':strcpy(keyname,"B06");
-			*shift=1;
-			break;
-		case 'u':strcpy(keyname,"B07");
-			*shift=0;
-			break;
-		case 'U':strcpy(keyname,"B07");
-			*shift=1;
-			break;
-		case 'i':strcpy(keyname,"B08");
-			*shift=0;
-			break;
-		case 'I':strcpy(keyname,"B08");
-			*shift=1;
-			break;
-		case 'o':strcpy(keyname,"B09");
-			*shift=0;
-			break;
-		case 'O':strcpy(keyname,"B09");
-			*shift=1;
-			break;
-		case 'p':strcpy(keyname,"B10");
-			*shift=0;
-			break;
-		case 'P':strcpy(keyname,"B10");
-			*shift=1;
-			break;
-		case '[':strcpy(keyname,"B11");
-			*shift=0;
-			break;
-		case '{':strcpy(keyname,"B11");
-			*shift=1;
-			break;
-		case ']':strcpy(keyname,"B12");
-			*shift=0;
-			break;
-		case '}':strcpy(keyname,"B12");
-			*shift=1;
-			break;
-		case 'a':strcpy(keyname,"C01");
-			*shift=0;
-			break;
-		case 'A':strcpy(keyname,"C01");
-			*shift=2;
-			break;
-		case 's':strcpy(keyname,"C02");
-			*shift=0;
-			break;
-		case 'S':strcpy(keyname,"C02");
-			*shift=2;
-			break;
-		case 'd':strcpy(keyname,"C03");
-			*shift=0;
-			break;
-		case 'D':strcpy(keyname,"C03");
-			*shift=2;
-			break;
-		case 'f':strcpy(keyname,"C04");
-			*shift=0;
-			break;
-		case 'F':strcpy(keyname,"C04");
-			*shift=2;
-			break;
-		case 'g':strcpy(keyname,"C05");
-			*shift=0;
-			break;
-		case 'G':strcpy(keyname,"C05");
-			*shift=2;
-			break;
-		case 'h':strcpy(keyname,"C06");
-			*shift=0;
-			break;
-		case 'H':strcpy(keyname,"C06");
-			*shift=1;
-			break;
-		case 'j':strcpy(keyname,"C07");
-			*shift=0;
-			break;
-		case 'J':strcpy(keyname,"C07");
-			*shift=1;
-			break;
-		case 'k':strcpy(keyname,"C08");
-			*shift=0;
-			break;
-		case 'K':strcpy(keyname,"C08");
-			*shift=1;
-			break;
-		case 'l':strcpy(keyname,"C09");
-			*shift=0;
-			break;
-		case 'L':strcpy(keyname,"C09");
-			*shift=1;
-			break;
-		case ';':strcpy(keyname,"C10");
-			*shift=0;
-			break;
-		case ':':strcpy(keyname,"C10");
-			*shift=1;
+		case '`':strcpy(keyboard_entry->keyname,"A00");
+			keyboard_entry->shift=0;
+			keyboard_entry->finger=1;
+			break;
+		case '~':strcpy(keyboard_entry->keyname,"A00");
+			keyboard_entry->shift=2;
+			keyboard_entry->finger=1;
+			break;
+		case '1':strcpy(keyboard_entry->keyname,"A01");
+			keyboard_entry->shift=0;
+			keyboard_entry->finger=1;
+			break;
+		case '!':strcpy(keyboard_entry->keyname,"A01");
+			keyboard_entry->shift=2;
+			keyboard_entry->finger=1;
+			break;
+		case '2':strcpy(keyboard_entry->keyname,"A02");
+			keyboard_entry->shift=0;
+			keyboard_entry->finger=2;
+			break;
+		case '@':strcpy(keyboard_entry->keyname,"A02");
+			keyboard_entry->shift=2;
+			keyboard_entry->finger=2;
+			break;
+		case '3':strcpy(keyboard_entry->keyname,"A03");
+			keyboard_entry->shift=0;
+			keyboard_entry->finger=3;
+			break;
+		case '#':strcpy(keyboard_entry->keyname,"A03");
+			keyboard_entry->shift=2;
+			keyboard_entry->finger=3;
+			break;
+		case '4':strcpy(keyboard_entry->keyname,"A04");
+			keyboard_entry->shift=0;
+			keyboard_entry->finger=4;
+			break;
+		case '$':strcpy(keyboard_entry->keyname,"A04");
+			keyboard_entry->shift=2;
+			keyboard_entry->finger=4;
+			break;
+		case '5':strcpy(keyboard_entry->keyname,"A05");
+			keyboard_entry->shift=0;
+			keyboard_entry->finger=5;
+			break;
+		case '%':strcpy(keyboard_entry->keyname,"A05");
+			keyboard_entry->shift=2;
+			keyboard_entry->finger=5;
+			break;
+		case '6':strcpy(keyboard_entry->keyname,"A06");
+			keyboard_entry->shift=0;
+			keyboard_entry->finger=6;
+			break;
+		case '^':strcpy(keyboard_entry->keyname,"A06");
+			keyboard_entry->shift=1;
+			keyboard_entry->finger=6;
+			break;
+		case '7':strcpy(keyboard_entry->keyname,"A07");
+			keyboard_entry->shift=0;
+			keyboard_entry->finger=7;
+			break;
+		case '&':strcpy(keyboard_entry->keyname,"A07");
+			keyboard_entry->shift=1;
+			keyboard_entry->finger=7;
+			break;
+		case '8':strcpy(keyboard_entry->keyname,"A08");
+			keyboard_entry->shift=0;
+			keyboard_entry->finger=8;
+			break;
+		case '*':strcpy(keyboard_entry->keyname,"A08");
+			keyboard_entry->shift=1;
+			keyboard_entry->finger=8;
+			break;
+		case '9':strcpy(keyboard_entry->keyname,"A09");
+			keyboard_entry->shift=0;
+			keyboard_entry->finger=9;
+			break;
+		case '(':strcpy(keyboard_entry->keyname,"A09");
+			keyboard_entry->shift=1;
+			keyboard_entry->finger=9;
+			break;
+		case '0':strcpy(keyboard_entry->keyname,"A10");
+			keyboard_entry->shift=0;
+			keyboard_entry->finger=9;
+			break;
+		case ')':strcpy(keyboard_entry->keyname,"A10");
+			keyboard_entry->shift=1;
+			keyboard_entry->finger=9;
+			break;
+		case '-':strcpy(keyboard_entry->keyname,"A11");
+			keyboard_entry->shift=0;
+			keyboard_entry->finger=9;
+			break;
+		case '_':strcpy(keyboard_entry->keyname,"A11");
+			keyboard_entry->shift=1;
+			keyboard_entry->finger=9;
+			break;
+		case '=':strcpy(keyboard_entry->keyname,"A12");
+			keyboard_entry->shift=0;
+			keyboard_entry->finger=9;
+			break;
+		case '+':strcpy(keyboard_entry->keyname,"A12");
+			keyboard_entry->shift=1;
+			keyboard_entry->finger=9;
+			break;
+		case '\\':strcpy(keyboard_entry->keyname,"A13");
+			keyboard_entry->shift=0;
+			keyboard_entry->finger=9;
+			break;
+		case '|':strcpy(keyboard_entry->keyname,"A13");
+			keyboard_entry->shift=1;
+			keyboard_entry->finger=9;
+			break;
+		case 'q':strcpy(keyboard_entry->keyname,"B01;");
+			keyboard_entry->shift=0;
+			keyboard_entry->finger=1;
+			break;
+		case 'Q':strcpy(keyboard_entry->keyname,"B01");
+			keyboard_entry->shift=2;
+			keyboard_entry->finger=1;
+			break;
+		case 'w':strcpy(keyboard_entry->keyname,"B02");
+			keyboard_entry->shift=0;
+			keyboard_entry->finger=2;
+			break;
+		case 'W':strcpy(keyboard_entry->keyname,"B02");
+			keyboard_entry->shift=2;
+			keyboard_entry->finger=2;
+			break;
+		case 'e':strcpy(keyboard_entry->keyname,"B03");
+			keyboard_entry->shift=0;
+			keyboard_entry->finger=3;
+			break;
+		case 'E':strcpy(keyboard_entry->keyname,"B03");
+			keyboard_entry->shift=2;
+			keyboard_entry->finger=3;
+			break;
+		case 'r':strcpy(keyboard_entry->keyname,"B04");
+			keyboard_entry->shift=0;
+			keyboard_entry->finger=4;
+			break;
+		case 'R':strcpy(keyboard_entry->keyname,"B04");
+			keyboard_entry->shift=2;
+			keyboard_entry->finger=4;
+			break;
+		case 't':strcpy(keyboard_entry->keyname,"B05");
+			keyboard_entry->shift=0;
+			keyboard_entry->finger=5;
+			break;
+		case 'T':strcpy(keyboard_entry->keyname,"B05");
+			keyboard_entry->shift=2;
+			keyboard_entry->finger=5;
+			break;
+		case 'y':strcpy(keyboard_entry->keyname,"B06");
+			keyboard_entry->shift=0;
+			keyboard_entry->finger=6;
+			break;
+		case 'Y':strcpy(keyboard_entry->keyname,"B06");
+			keyboard_entry->shift=1;
+			keyboard_entry->finger=6;
+			break;
+		case 'u':strcpy(keyboard_entry->keyname,"B07");
+			keyboard_entry->shift=0;
+			keyboard_entry->finger=7;
+			break;
+		case 'U':strcpy(keyboard_entry->keyname,"B07");
+			keyboard_entry->shift=1;
+			keyboard_entry->finger=7;
+			break;
+		case 'i':strcpy(keyboard_entry->keyname,"B08");
+			keyboard_entry->shift=0;
+			keyboard_entry->finger=8;
+			break;
+		case 'I':strcpy(keyboard_entry->keyname,"B08");
+			keyboard_entry->shift=1;
+			keyboard_entry->finger=8;
+			break;
+		case 'o':strcpy(keyboard_entry->keyname,"B09");
+			keyboard_entry->shift=0;
+			keyboard_entry->finger=9;
+			break;
+		case 'O':strcpy(keyboard_entry->keyname,"B09");
+			keyboard_entry->shift=1;
+			keyboard_entry->finger=9;
+			break;
+		case 'p':strcpy(keyboard_entry->keyname,"B10");
+			keyboard_entry->shift=0;
+			keyboard_entry->finger=9;
+			break;
+		case 'P':strcpy(keyboard_entry->keyname,"B10");
+			keyboard_entry->shift=1;
+			keyboard_entry->finger=9;
+			break;
+		case '[':strcpy(keyboard_entry->keyname,"B11");
+			keyboard_entry->shift=0;
+			keyboard_entry->finger=9;
+			break;
+		case '{':strcpy(keyboard_entry->keyname,"B11");
+			keyboard_entry->shift=1;
+			keyboard_entry->finger=9;
+			break;
+		case ']':strcpy(keyboard_entry->keyname,"B12");
+			keyboard_entry->shift=0;
+			keyboard_entry->finger=9;
+			break;
+		case '}':strcpy(keyboard_entry->keyname,"B12");
+			keyboard_entry->shift=1;
+			keyboard_entry->finger=9;
+			break;
+		case 'a':strcpy(keyboard_entry->keyname,"C01");
+			keyboard_entry->shift=0;
+			keyboard_entry->finger=1;
+			break;
+		case 'A':strcpy(keyboard_entry->keyname,"C01");
+			keyboard_entry->shift=2;
+			keyboard_entry->finger=1;
+			break;
+		case 's':strcpy(keyboard_entry->keyname,"C02");
+			keyboard_entry->shift=0;
+			keyboard_entry->finger=2;
+			break;
+		case 'S':strcpy(keyboard_entry->keyname,"C02");
+			keyboard_entry->shift=2;
+			keyboard_entry->finger=2;
+			break;
+		case 'd':strcpy(keyboard_entry->keyname,"C03");
+			keyboard_entry->shift=0;
+			keyboard_entry->finger=3;
+			break;
+		case 'D':strcpy(keyboard_entry->keyname,"C03");
+			keyboard_entry->shift=2;
+			keyboard_entry->finger=3;
+			break;
+		case 'f':strcpy(keyboard_entry->keyname,"C04");
+			keyboard_entry->shift=0;
+			keyboard_entry->finger=4;
+			break;
+		case 'F':strcpy(keyboard_entry->keyname,"C04");
+			keyboard_entry->shift=2;
+			keyboard_entry->finger=4;
+			break;
+		case 'g':strcpy(keyboard_entry->keyname,"C05");
+			keyboard_entry->shift=0;
+			keyboard_entry->finger=5;
+			break;
+		case 'G':strcpy(keyboard_entry->keyname,"C05");
+			keyboard_entry->shift=2;
+			keyboard_entry->finger=5;
+			break;
+		case 'h':strcpy(keyboard_entry->keyname,"C06");
+			keyboard_entry->shift=0;
+			keyboard_entry->finger=6;
+			break;
+		case 'H':strcpy(keyboard_entry->keyname,"C06");
+			keyboard_entry->shift=1;
+			keyboard_entry->finger=6;
+			break;
+		case 'j':strcpy(keyboard_entry->keyname,"C07");
+			keyboard_entry->shift=0;
+			keyboard_entry->finger=7;
+			break;
+		case 'J':strcpy(keyboard_entry->keyname,"C07");
+			keyboard_entry->shift=1;
+			keyboard_entry->finger=7;
+			break;
+		case 'k':strcpy(keyboard_entry->keyname,"C08");
+			keyboard_entry->shift=0;
+			keyboard_entry->finger=7;
+			break;
+		case 'K':strcpy(keyboard_entry->keyname,"C08");
+			keyboard_entry->shift=1;
+			keyboard_entry->finger=8;
+			break;
+		case 'l':strcpy(keyboard_entry->keyname,"C09");
+			keyboard_entry->shift=0;
+			keyboard_entry->finger=8;
+			break;
+		case 'L':strcpy(keyboard_entry->keyname,"C09");
+			keyboard_entry->shift=1;
+			keyboard_entry->finger=9;
+			break;
+		case ';':strcpy(keyboard_entry->keyname,"C10");
+			keyboard_entry->shift=0;
+			keyboard_entry->finger=9;
+			break;
+		case ':':strcpy(keyboard_entry->keyname,"C10");
+			keyboard_entry->shift=1;
+			keyboard_entry->finger=9;
 			break;			
-		case '\'':strcpy(keyname,"C11");
-			*shift=0;
+		case '\'':strcpy(keyboard_entry->keyname,"C11");
+			keyboard_entry->shift=0;
+			keyboard_entry->finger=9;
 			break;
-		case '"':strcpy(keyname,"C11");
-			*shift=1;
+		case '"':strcpy(keyboard_entry->keyname,"C11");
+			keyboard_entry->shift=1;
+			keyboard_entry->finger=9;
 			break;
-		case 'z':strcpy(keyname,"D01");
-			*shift=0;
+		case 'z':strcpy(keyboard_entry->keyname,"D01");
+			keyboard_entry->shift=0;
+			keyboard_entry->finger=1;
 			break;
-		case 'Z':strcpy(keyname,"D01");
-			*shift=2;
+		case 'Z':strcpy(keyboard_entry->keyname,"D01");
+			keyboard_entry->shift=2;
+			keyboard_entry->finger=1;
 			break;
-		case 'x':strcpy(keyname,"D02");
-			*shift=0;
+		case 'x':strcpy(keyboard_entry->keyname,"D02");
+			keyboard_entry->shift=0;
+			keyboard_entry->finger=2;
 			break;
-		case 'X':strcpy(keyname,"D02");
-			*shift=2;
+		case 'X':strcpy(keyboard_entry->keyname,"D02");
+			keyboard_entry->shift=2;
+			keyboard_entry->finger=2;
 			break;
-		case 'c':strcpy(keyname,"D03");
-			*shift=0;
+		case 'c':strcpy(keyboard_entry->keyname,"D03");
+			keyboard_entry->shift=0;
+			keyboard_entry->finger=3;
 			break;
-		case 'C':strcpy(keyname,"D03");
-			*shift=2;
+		case 'C':strcpy(keyboard_entry->keyname,"D03");
+			keyboard_entry->shift=2;
+			keyboard_entry->finger=3;
 			break;
-		case 'v':strcpy(keyname,"D04");
-			*shift=0;
+		case 'v':strcpy(keyboard_entry->keyname,"D04");
+			keyboard_entry->shift=0;
+			keyboard_entry->finger=4;
 			break;
-		case 'V':strcpy(keyname,"D04");
-			*shift=2;
+		case 'V':strcpy(keyboard_entry->keyname,"D04");
+			keyboard_entry->shift=2;
+			keyboard_entry->finger=4;
 			break;
-		case 'b':strcpy(keyname,"D05");
-			*shift=0;
+		case 'b':strcpy(keyboard_entry->keyname,"D05");
+			keyboard_entry->shift=0;
+			keyboard_entry->finger=5;
 			break;
-		case 'B':strcpy(keyname,"D05");
-			*shift=2;
+		case 'B':strcpy(keyboard_entry->keyname,"D05");
+			keyboard_entry->shift=2;
+			keyboard_entry->finger=5;
 			break;
-		case 'n':strcpy(keyname,"D06");
-			*shift=0;
+		case 'n':strcpy(keyboard_entry->keyname,"D06");
+			keyboard_entry->shift=0;
+			keyboard_entry->finger=6;
 			break;
-		case 'N':strcpy(keyname,"D06");
-			*shift=1;
+		case 'N':strcpy(keyboard_entry->keyname,"D06");
+			keyboard_entry->shift=1;
+			keyboard_entry->finger=6;
 			break;
-		case 'm':strcpy(keyname,"D07");
-			*shift=0;
+		case 'm':strcpy(keyboard_entry->keyname,"D07");
+			keyboard_entry->shift=0;
+			keyboard_entry->finger=7;
 			break;
-		case 'M':strcpy(keyname,"D07");
-			*shift=1;
+		case 'M':strcpy(keyboard_entry->keyname,"D07");
+			keyboard_entry->shift=1;
+			keyboard_entry->finger=7;
 			break;
-		case ',':strcpy(keyname,"D08");
-			*shift=0;
+		case ',':strcpy(keyboard_entry->keyname,"D08");
+			keyboard_entry->shift=0;
+			keyboard_entry->finger=8;
 			break;
-		case '<':strcpy(keyname,"D08");
-			*shift=1;
+		case '<':strcpy(keyboard_entry->keyname,"D08");
+			keyboard_entry->shift=1;
+			keyboard_entry->finger=8;
 			break;
-		case '.':strcpy(keyname,"D09");
-			*shift=0;
+		case '.':strcpy(keyboard_entry->keyname,"D09");
+			keyboard_entry->shift=0;
+			keyboard_entry->finger=9;
 			break;
-		case '>':strcpy(keyname,"D09");
-			*shift=1;
+		case '>':strcpy(keyboard_entry->keyname,"D09");
+			keyboard_entry->shift=1;
+			keyboard_entry->finger=9;
 			break;
-		case '/':strcpy(keyname,"D10");
-			*shift=0;
+		case '/':strcpy(keyboard_entry->keyname,"D10");
+			keyboard_entry->shift=0;
+			keyboard_entry->finger=9;
 			break;
-		case '?':strcpy(keyname,"D10");
-			*shift=1;
+		case '?':strcpy(keyboard_entry->keyname,"D10");
+			keyboard_entry->shift=1;
+			keyboard_entry->finger=9;
 			break;
-		case ' ':strcpy(keyname,"E03");
-			*shift=0;
+		case ' ':strcpy(keyboard_entry->keyname,"E03");
+			keyboard_entry->shift=0;
+			keyboard_entry->finger=5;
 			break;
-	default:strcpy(keyname,"None");
-		*shift=0;
-		break;
+		default:strcpy(keyboard_entry->keyname,"None");
+			keyboard_entry->shift=0;
+			keyboard_entry->finger=-1;
+			break;
 	}
 }
 
@@ -1415,7 +1589,49 @@ void GenerateKeyboard(SDL_Surface* keyboard)
 	}	
 	TTF_CloseFont(smallfont);
 	DEBUGCODE { printf("Leaving GenerateKeyboard\n"); }
-	//DEBUGCODE { exit(-1); }
+}
+void updatekeylist(int key,char ch)
+{
+	wchar_t;
+	keyboard_list[key].latin_char=ch;
+	wchar_t wtmp=ch;
+	map_keys(wtmp,&keyboard_list[key]);
+}
+void savekeyboard(void)
+{
+	unsigned char fn[FNLEN];
+	if(!settings.use_english)
+		sprintf(fn , "%s/keyboard.lst", settings.theme_data_path);
+	else
+		sprintf(fn , "%s/keyboard.lst", settings.default_data_path);
+	FILE *fp;
+	int i;
+	wchar_t tmp[2];
+	char buf[10];
+	tmp[1]='\0';
+	fp=fopen(fn,"w");
+	for(i=0;i<num_chars_used;i++)
+	{
+		tmp[0]=keyboard_list[i].unicode_value;
+		/**********fprintf(fp,"%d|%C\n",keyboard_list[i].finger,keyboard_list[i].unicode_value); doesnt work, so the unicode value is converted into a char string*/
+		ConvertToUTF8(tmp, buf);
+		if(keyboard_list[i].finger==-1)
+		{
+			fprintf(fp,"%s\n",buf);
+		}
+		else
+		if(keyboard_list[i].latin_char==-1)
+		{
+				fprintf(fp,"%d|%s\n",keyboard_list[i].finger,buf);
+				printf("Adding old %d|%s\n",keyboard_list[i].finger,buf);
+		}
+		else
+		{
+			fprintf(fp,"%d|%s|%c\n",keyboard_list[i].finger,buf,keyboard_list[i].latin_char);
+			printf("Adding %d|%s|%c\n",keyboard_list[i].finger,buf,keyboard_list[i].latin_char);
+		}
+	}
+	fclose(fp);
 }
 /****************************************************************/
 
