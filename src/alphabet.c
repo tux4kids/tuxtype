@@ -298,9 +298,14 @@ int GetIndex(wchar_t uni_char)
 
 void GetKeyPos(int index, char *buf)
 {
-	sprintf(buf,"keyboard/keyboard_%s.png", keyboard_list[index].keyname);
-	
+	sprintf(buf,"keyboard/keyboard_%s.png", keyboard_list[index].keyname);	
 }
+
+void GetWrongKeyPos(int index, char *buf)
+{
+	sprintf(buf,"keyboard/keyboardN_%s.png", keyboard_list[index].keyname);
+}
+
 void GetKeyShift(int index, char *buf)
 {
 	if(keyboard_list[index].shift==0)
@@ -309,7 +314,7 @@ void GetKeyShift(int index, char *buf)
 		 	if(keyboard_list[index].shift==1)
 				sprintf(buf,"keyboard/keyboard_D00.png");
 				else
-							sprintf(buf,"keyboard/keyboard_D11.png", settings.default_data_path);			
+							sprintf(buf,"keyboard/keyboard_D12.png", settings.default_data_path);			
 }
 int unicode_in_key_list(wchar_t uni_char)
 {
@@ -1149,59 +1154,59 @@ int map_keys(wchar_t wide_char,kbd_char* keyboard_entry)
 	{
 		case '`':strcpy(keyboard_entry->keyname,"A00");
 			keyboard_entry->shift=0;
-			keyboard_entry->finger=1;
+			keyboard_entry->finger=0;
 			break;
 		case '~':strcpy(keyboard_entry->keyname,"A00");
 			keyboard_entry->shift=2;
-			keyboard_entry->finger=1;
+			keyboard_entry->finger=0;
 			break;
 		case '1':strcpy(keyboard_entry->keyname,"A01");
 			keyboard_entry->shift=0;
-			keyboard_entry->finger=1;
+			keyboard_entry->finger=0;
 			break;
 		case '!':strcpy(keyboard_entry->keyname,"A01");
 			keyboard_entry->shift=2;
-			keyboard_entry->finger=1;
+			keyboard_entry->finger=0;
 			break;
 		case '2':strcpy(keyboard_entry->keyname,"A02");
 			keyboard_entry->shift=0;
-			keyboard_entry->finger=2;
+			keyboard_entry->finger=1;
 			break;
 		case '@':strcpy(keyboard_entry->keyname,"A02");
 			keyboard_entry->shift=2;
-			keyboard_entry->finger=2;
+			keyboard_entry->finger=1;
 			break;
 		case '3':strcpy(keyboard_entry->keyname,"A03");
 			keyboard_entry->shift=0;
-			keyboard_entry->finger=3;
+			keyboard_entry->finger=2;
 			break;
 		case '#':strcpy(keyboard_entry->keyname,"A03");
 			keyboard_entry->shift=2;
-			keyboard_entry->finger=3;
+			keyboard_entry->finger=2;
 			break;
 		case '4':strcpy(keyboard_entry->keyname,"A04");
 			keyboard_entry->shift=0;
-			keyboard_entry->finger=4;
+			keyboard_entry->finger=3;
 			break;
 		case '$':strcpy(keyboard_entry->keyname,"A04");
 			keyboard_entry->shift=2;
-			keyboard_entry->finger=4;
+			keyboard_entry->finger=3;
 			break;
 		case '5':strcpy(keyboard_entry->keyname,"A05");
 			keyboard_entry->shift=0;
-			keyboard_entry->finger=5;
+			keyboard_entry->finger=4;
 			break;
 		case '%':strcpy(keyboard_entry->keyname,"A05");
 			keyboard_entry->shift=2;
-			keyboard_entry->finger=5;
+			keyboard_entry->finger=4;
 			break;
 		case '6':strcpy(keyboard_entry->keyname,"A06");
 			keyboard_entry->shift=0;
-			keyboard_entry->finger=6;
+			keyboard_entry->finger=5;
 			break;
 		case '^':strcpy(keyboard_entry->keyname,"A06");
 			keyboard_entry->shift=1;
-			keyboard_entry->finger=6;
+			keyboard_entry->finger=5;
 			break;
 		case '7':strcpy(keyboard_entry->keyname,"A07");
 			keyboard_entry->shift=0;
@@ -1209,23 +1214,23 @@ int map_keys(wchar_t wide_char,kbd_char* keyboard_entry)
 			break;
 		case '&':strcpy(keyboard_entry->keyname,"A07");
 			keyboard_entry->shift=1;
-			keyboard_entry->finger=7;
+			keyboard_entry->finger=6;
 			break;
 		case '8':strcpy(keyboard_entry->keyname,"A08");
 			keyboard_entry->shift=0;
-			keyboard_entry->finger=8;
+			keyboard_entry->finger=7;
 			break;
 		case '*':strcpy(keyboard_entry->keyname,"A08");
 			keyboard_entry->shift=1;
-			keyboard_entry->finger=8;
+			keyboard_entry->finger=7;
 			break;
 		case '9':strcpy(keyboard_entry->keyname,"A09");
 			keyboard_entry->shift=0;
-			keyboard_entry->finger=9;
+			keyboard_entry->finger=8;
 			break;
 		case '(':strcpy(keyboard_entry->keyname,"A09");
 			keyboard_entry->shift=1;
-			keyboard_entry->finger=9;
+			keyboard_entry->finger=8;
 			break;
 		case '0':strcpy(keyboard_entry->keyname,"A10");
 			keyboard_entry->shift=0;
@@ -1259,25 +1264,25 @@ int map_keys(wchar_t wide_char,kbd_char* keyboard_entry)
 			keyboard_entry->shift=1;
 			keyboard_entry->finger=9;
 			break;
-		case 'q':strcpy(keyboard_entry->keyname,"B01;");
+		case 'q':strcpy(keyboard_entry->keyname,"B01");
 			keyboard_entry->shift=0;
-			keyboard_entry->finger=1;
+			keyboard_entry->finger=0;
 			break;
 		case 'Q':strcpy(keyboard_entry->keyname,"B01");
 			keyboard_entry->shift=2;
-			keyboard_entry->finger=1;
+			keyboard_entry->finger=0;
 			break;
 		case 'w':strcpy(keyboard_entry->keyname,"B02");
 			keyboard_entry->shift=0;
-			keyboard_entry->finger=2;
+			keyboard_entry->finger=1;
 			break;
 		case 'W':strcpy(keyboard_entry->keyname,"B02");
 			keyboard_entry->shift=2;
-			keyboard_entry->finger=2;
+			keyboard_entry->finger=1;
 			break;
 		case 'e':strcpy(keyboard_entry->keyname,"B03");
 			keyboard_entry->shift=0;
-			keyboard_entry->finger=3;
+			keyboard_entry->finger=2;
 			break;
 		case 'E':strcpy(keyboard_entry->keyname,"B03");
 			keyboard_entry->shift=2;
@@ -1285,51 +1290,51 @@ int map_keys(wchar_t wide_char,kbd_char* keyboard_entry)
 			break;
 		case 'r':strcpy(keyboard_entry->keyname,"B04");
 			keyboard_entry->shift=0;
-			keyboard_entry->finger=4;
+			keyboard_entry->finger=3;
 			break;
 		case 'R':strcpy(keyboard_entry->keyname,"B04");
 			keyboard_entry->shift=2;
-			keyboard_entry->finger=4;
+			keyboard_entry->finger=3;
 			break;
 		case 't':strcpy(keyboard_entry->keyname,"B05");
 			keyboard_entry->shift=0;
-			keyboard_entry->finger=5;
+			keyboard_entry->finger=4;
 			break;
 		case 'T':strcpy(keyboard_entry->keyname,"B05");
 			keyboard_entry->shift=2;
-			keyboard_entry->finger=5;
+			keyboard_entry->finger=4;
 			break;
 		case 'y':strcpy(keyboard_entry->keyname,"B06");
 			keyboard_entry->shift=0;
-			keyboard_entry->finger=6;
+			keyboard_entry->finger=5;
 			break;
 		case 'Y':strcpy(keyboard_entry->keyname,"B06");
 			keyboard_entry->shift=1;
-			keyboard_entry->finger=6;
+			keyboard_entry->finger=5;
 			break;
 		case 'u':strcpy(keyboard_entry->keyname,"B07");
 			keyboard_entry->shift=0;
-			keyboard_entry->finger=7;
+			keyboard_entry->finger=6;
 			break;
 		case 'U':strcpy(keyboard_entry->keyname,"B07");
 			keyboard_entry->shift=1;
-			keyboard_entry->finger=7;
+			keyboard_entry->finger=6;
 			break;
 		case 'i':strcpy(keyboard_entry->keyname,"B08");
 			keyboard_entry->shift=0;
-			keyboard_entry->finger=8;
+			keyboard_entry->finger=7;
 			break;
 		case 'I':strcpy(keyboard_entry->keyname,"B08");
 			keyboard_entry->shift=1;
-			keyboard_entry->finger=8;
+			keyboard_entry->finger=7;
 			break;
 		case 'o':strcpy(keyboard_entry->keyname,"B09");
 			keyboard_entry->shift=0;
-			keyboard_entry->finger=9;
+			keyboard_entry->finger=8;
 			break;
 		case 'O':strcpy(keyboard_entry->keyname,"B09");
 			keyboard_entry->shift=1;
-			keyboard_entry->finger=9;
+			keyboard_entry->finger=8;
 			break;
 		case 'p':strcpy(keyboard_entry->keyname,"B10");
 			keyboard_entry->shift=0;
@@ -1357,59 +1362,59 @@ int map_keys(wchar_t wide_char,kbd_char* keyboard_entry)
 			break;
 		case 'a':strcpy(keyboard_entry->keyname,"C01");
 			keyboard_entry->shift=0;
-			keyboard_entry->finger=1;
+			keyboard_entry->finger=0;
 			break;
 		case 'A':strcpy(keyboard_entry->keyname,"C01");
 			keyboard_entry->shift=2;
-			keyboard_entry->finger=1;
+			keyboard_entry->finger=0;
 			break;
 		case 's':strcpy(keyboard_entry->keyname,"C02");
 			keyboard_entry->shift=0;
-			keyboard_entry->finger=2;
+			keyboard_entry->finger=1;
 			break;
 		case 'S':strcpy(keyboard_entry->keyname,"C02");
 			keyboard_entry->shift=2;
-			keyboard_entry->finger=2;
+			keyboard_entry->finger=1;
 			break;
 		case 'd':strcpy(keyboard_entry->keyname,"C03");
 			keyboard_entry->shift=0;
-			keyboard_entry->finger=3;
+			keyboard_entry->finger=2;
 			break;
 		case 'D':strcpy(keyboard_entry->keyname,"C03");
 			keyboard_entry->shift=2;
-			keyboard_entry->finger=3;
+			keyboard_entry->finger=2;
 			break;
 		case 'f':strcpy(keyboard_entry->keyname,"C04");
 			keyboard_entry->shift=0;
-			keyboard_entry->finger=4;
+			keyboard_entry->finger=3;
 			break;
 		case 'F':strcpy(keyboard_entry->keyname,"C04");
 			keyboard_entry->shift=2;
-			keyboard_entry->finger=4;
+			keyboard_entry->finger=3;
 			break;
 		case 'g':strcpy(keyboard_entry->keyname,"C05");
 			keyboard_entry->shift=0;
-			keyboard_entry->finger=5;
+			keyboard_entry->finger=4;
 			break;
 		case 'G':strcpy(keyboard_entry->keyname,"C05");
-			keyboard_entry->shift=2;
-			keyboard_entry->finger=5;
+			keyboard_entry->shift=1;
+			keyboard_entry->finger=4;
 			break;
 		case 'h':strcpy(keyboard_entry->keyname,"C06");
 			keyboard_entry->shift=0;
-			keyboard_entry->finger=6;
+			keyboard_entry->finger=5;
 			break;
 		case 'H':strcpy(keyboard_entry->keyname,"C06");
 			keyboard_entry->shift=1;
-			keyboard_entry->finger=6;
+			keyboard_entry->finger=5;
 			break;
 		case 'j':strcpy(keyboard_entry->keyname,"C07");
 			keyboard_entry->shift=0;
-			keyboard_entry->finger=7;
+			keyboard_entry->finger=6;
 			break;
 		case 'J':strcpy(keyboard_entry->keyname,"C07");
 			keyboard_entry->shift=1;
-			keyboard_entry->finger=7;
+			keyboard_entry->finger=6;
 			break;
 		case 'k':strcpy(keyboard_entry->keyname,"C08");
 			keyboard_entry->shift=0;
@@ -1417,7 +1422,7 @@ int map_keys(wchar_t wide_char,kbd_char* keyboard_entry)
 			break;
 		case 'K':strcpy(keyboard_entry->keyname,"C08");
 			keyboard_entry->shift=1;
-			keyboard_entry->finger=8;
+			keyboard_entry->finger=7;
 			break;
 		case 'l':strcpy(keyboard_entry->keyname,"C09");
 			keyboard_entry->shift=0;
@@ -1425,7 +1430,7 @@ int map_keys(wchar_t wide_char,kbd_char* keyboard_entry)
 			break;
 		case 'L':strcpy(keyboard_entry->keyname,"C09");
 			keyboard_entry->shift=1;
-			keyboard_entry->finger=9;
+			keyboard_entry->finger=8;
 			break;
 		case ';':strcpy(keyboard_entry->keyname,"C10");
 			keyboard_entry->shift=0;
@@ -1445,75 +1450,75 @@ int map_keys(wchar_t wide_char,kbd_char* keyboard_entry)
 			break;
 		case 'z':strcpy(keyboard_entry->keyname,"D01");
 			keyboard_entry->shift=0;
-			keyboard_entry->finger=1;
+			keyboard_entry->finger=0;
 			break;
 		case 'Z':strcpy(keyboard_entry->keyname,"D01");
 			keyboard_entry->shift=2;
-			keyboard_entry->finger=1;
+			keyboard_entry->finger=0;
 			break;
 		case 'x':strcpy(keyboard_entry->keyname,"D02");
 			keyboard_entry->shift=0;
-			keyboard_entry->finger=2;
+			keyboard_entry->finger=1;
 			break;
 		case 'X':strcpy(keyboard_entry->keyname,"D02");
 			keyboard_entry->shift=2;
-			keyboard_entry->finger=2;
+			keyboard_entry->finger=1;
 			break;
 		case 'c':strcpy(keyboard_entry->keyname,"D03");
 			keyboard_entry->shift=0;
-			keyboard_entry->finger=3;
+			keyboard_entry->finger=2;
 			break;
 		case 'C':strcpy(keyboard_entry->keyname,"D03");
 			keyboard_entry->shift=2;
-			keyboard_entry->finger=3;
+			keyboard_entry->finger=2;
 			break;
 		case 'v':strcpy(keyboard_entry->keyname,"D04");
 			keyboard_entry->shift=0;
-			keyboard_entry->finger=4;
+			keyboard_entry->finger=3;
 			break;
 		case 'V':strcpy(keyboard_entry->keyname,"D04");
 			keyboard_entry->shift=2;
-			keyboard_entry->finger=4;
+			keyboard_entry->finger=3;
 			break;
 		case 'b':strcpy(keyboard_entry->keyname,"D05");
 			keyboard_entry->shift=0;
-			keyboard_entry->finger=5;
+			keyboard_entry->finger=4;
 			break;
 		case 'B':strcpy(keyboard_entry->keyname,"D05");
 			keyboard_entry->shift=2;
-			keyboard_entry->finger=5;
+			keyboard_entry->finger=4;
 			break;
 		case 'n':strcpy(keyboard_entry->keyname,"D06");
 			keyboard_entry->shift=0;
-			keyboard_entry->finger=6;
+			keyboard_entry->finger=5;
 			break;
 		case 'N':strcpy(keyboard_entry->keyname,"D06");
 			keyboard_entry->shift=1;
-			keyboard_entry->finger=6;
+			keyboard_entry->finger=5;
 			break;
 		case 'm':strcpy(keyboard_entry->keyname,"D07");
 			keyboard_entry->shift=0;
-			keyboard_entry->finger=7;
+			keyboard_entry->finger=6;
 			break;
 		case 'M':strcpy(keyboard_entry->keyname,"D07");
 			keyboard_entry->shift=1;
-			keyboard_entry->finger=7;
+			keyboard_entry->finger=6;
 			break;
 		case ',':strcpy(keyboard_entry->keyname,"D08");
 			keyboard_entry->shift=0;
-			keyboard_entry->finger=8;
+			keyboard_entry->finger=7;
 			break;
 		case '<':strcpy(keyboard_entry->keyname,"D08");
 			keyboard_entry->shift=1;
-			keyboard_entry->finger=8;
+			keyboard_entry->finger=7;
 			break;
 		case '.':strcpy(keyboard_entry->keyname,"D09");
 			keyboard_entry->shift=0;
-			keyboard_entry->finger=9;
+			keyboard_entry->finger=8;
 			break;
 		case '>':strcpy(keyboard_entry->keyname,"D09");
 			keyboard_entry->shift=1;
-			keyboard_entry->finger=9;
+			keyboard_entry->finger=8;
 			break;
 		case '/':strcpy(keyboard_entry->keyname,"D10");
 			keyboard_entry->shift=0;
@@ -1576,8 +1581,11 @@ void GenerateKeyboard(SDL_Surface* keyboard)
 		if(keyboard_list[i].shift>0)
 		{
 					new.x-=9;
-					new.y-=9;
-		}				
+					if(new.y<9)
+						new.y-=5;
+					else
+						new.y-=9;
+		}
 		DEBUGCODE { printf("Making %d : %C\n",i,keyboard_list[i].unicode_value); }
 		//tmp=BlackOutline_Unicode(t, smallfont, &black);
 		tmp=TTF_RenderUNICODE_Blended((TTF_Font*)smallfont, t, black);
@@ -1623,12 +1631,10 @@ void savekeyboard(void)
 		if(keyboard_list[i].latin_char==-1)
 		{
 				fprintf(fp,"%d|%s\n",keyboard_list[i].finger,buf);
-				printf("Adding old %d|%s\n",keyboard_list[i].finger,buf);
 		}
 		else
 		{
 			fprintf(fp,"%d|%s|%c\n",keyboard_list[i].finger,buf,keyboard_list[i].latin_char);
-			printf("Adding %d|%s|%c\n",keyboard_list[i].finger,buf,keyboard_list[i].latin_char);
 		}
 	}
 	fclose(fp);

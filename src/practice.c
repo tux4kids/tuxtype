@@ -45,6 +45,7 @@ static void print_at(const wchar_t* pphrase, int wrap, int x, int y);
 static void show(unsigned char t);
 SDL_Surface* GetKeypress1(int index);
 SDL_Surface* GetKeypress2(int index);
+SDL_Surface* GetWrongKeypress(int index);
 
 
 /************************************************************************/
@@ -186,6 +187,7 @@ int Phrases(wchar_t* pphrase )
 
       case 3:
        SDL_BlitSurface(hands, NULL, screen, &hand_loc);
+       SDL_BlitSurface(keyboard, NULL, screen, &keyboard_loc);
        state = 12;
        break;  
 
@@ -249,81 +251,131 @@ int Phrases(wchar_t* pphrase )
 		char tmp=-1;
 		switch(event.key.keysym.sym)
 		{
-			case SDLK_SPACE:tmp=' ';
+			case  SDLK_BACKQUOTE:
+				if(event.key.keysym.mod&KMOD_SHIFT)
+					tmp='~';
+				else
+					tmp='`';
 				break;
-			case SDLK_EXCLAIM:tmp='!';
+			case SDLK_COMMA:
+				if(event.key.keysym.mod&KMOD_SHIFT)
+					tmp='<';
+				else
+					tmp=',';
 				break;
-			case SDLK_QUOTEDBL:tmp='"';
+			case SDLK_MINUS:
+				if(event.key.keysym.mod&KMOD_SHIFT)
+					tmp='_';
+				else
+					tmp='-';
 				break;
-			case SDLK_HASH:tmp='#';
+			case SDLK_PERIOD:
+				if(event.key.keysym.mod&KMOD_SHIFT)
+					tmp='>';
+				else
+					tmp='.';
 				break;
-			case SDLK_DOLLAR:tmp='$';
+			case SDLK_SLASH:
+				if(event.key.keysym.mod&KMOD_SHIFT)
+					tmp='?';
+				else
+					tmp='/';
 				break;
-			case SDLK_AMPERSAND:tmp='&';
+			case SDLK_0:
+				if(event.key.keysym.mod&KMOD_SHIFT)
+					tmp=')';
+				else
+					tmp='0';
 				break;
-			case SDLK_QUOTE:tmp='\'';
+			case SDLK_1:
+				if(event.key.keysym.mod&KMOD_SHIFT)
+					tmp='!';
+				else
+					tmp='1';
 				break;
-			case SDLK_LEFTPAREN:tmp='(';
+			case SDLK_2:
+					if(event.key.keysym.mod&KMOD_SHIFT)
+						tmp='@';
+					else
+						tmp='2';
 				break;
-			case SDLK_RIGHTPAREN:tmp=')';
+			case SDLK_3:
+				if(event.key.keysym.mod&KMOD_SHIFT)
+					tmp='#';
+				else
+					tmp='3';
 				break;
-			case SDLK_ASTERISK:tmp='*';
+			case SDLK_4:
+				if(event.key.keysym.mod&KMOD_SHIFT)
+					tmp='$';
+				else
+					tmp='4';
 				break;
-			case SDLK_PLUS:tmp='+';
+			case SDLK_5:
+				if(event.key.keysym.mod&KMOD_SHIFT)
+					tmp='%';
+				else
+					tmp='5';
 				break;
-			case SDLK_COMMA:tmp=',';
+			case SDLK_6:
+				if(event.key.keysym.mod&KMOD_SHIFT)
+					tmp='^';
+				else
+					tmp='6';
 				break;
-			case SDLK_MINUS:tmp='-';
+			case SDLK_7:
+				if(event.key.keysym.mod&KMOD_SHIFT)
+					tmp='&';
+				else
+					tmp='7';
 				break;
-			case SDLK_PERIOD:tmp='.';
+			case SDLK_8:
+				if(event.key.keysym.mod&KMOD_SHIFT)
+					tmp='*';
+				else
+					tmp='8';
 				break;
-			case SDLK_SLASH:tmp='/';
+			case SDLK_9:
+				if(event.key.keysym.mod&KMOD_SHIFT)
+					tmp='(';
+				else
+					tmp='9';
 				break;
-			case SDLK_0:tmp='0';
+			case SDLK_SEMICOLON:
+				if(event.key.keysym.mod&KMOD_SHIFT)
+					tmp=':';
+				else
+					tmp=';';
 				break;
-			case SDLK_1:tmp='1';
+			case SDLK_EQUALS:
+				if(event.key.keysym.mod&KMOD_SHIFT)
+					tmp='+';
+				else
+					tmp='=';
 				break;
-			case SDLK_2:tmp='2';
+			case SDLK_LEFTBRACKET:
+				if(event.key.keysym.mod&KMOD_SHIFT)
+					tmp='{';
+				else
+					tmp='[';
 				break;
-			case SDLK_3:tmp='3';
+			case SDLK_BACKSLASH:
+				if(event.key.keysym.mod&KMOD_SHIFT)
+					tmp='|';
+				else
+					tmp='\\';
 				break;
-			case SDLK_4:tmp='4';
+			case SDLK_RIGHTBRACKET:
+				if(event.key.keysym.mod&KMOD_SHIFT)
+					tmp='}';
+				else
+					tmp=']';
 				break;
-			case SDLK_5:tmp='5';
-				break;
-			case SDLK_6:tmp='6';
-				break;
-			case SDLK_7:tmp='7';
-				break;
-			case SDLK_8:tmp='8';
-				break;
-			case SDLK_9:tmp='9';
-				break;
-			case SDLK_COLON:tmp=':';
-				break;
-			case SDLK_SEMICOLON:tmp=';';
-				break;
-			case SDLK_LESS:tmp='<';
-				break;
-			case SDLK_EQUALS:tmp='=';
-				break;
-			case SDLK_GREATER:tmp='>';
-				break;
-			case SDLK_QUESTION:tmp='?';
-				break;
-			case SDLK_AT:tmp='@';
-				break;
-			case SDLK_LEFTBRACKET:tmp='[';
-				break;
-			case SDLK_BACKSLASH:tmp='\\';
-				break;
-			case SDLK_RIGHTBRACKET:tmp=']';
-				break;
-			case SDLK_CARET:tmp='^';
-				break;
-			case SDLK_UNDERSCORE:tmp='_';
-				break;
-			case SDLK_BACKQUOTE:tmp='`';
+			case SDLK_QUOTE:
+				if(event.key.keysym.mod&KMOD_SHIFT)
+					tmp='"';
+				else
+					tmp='\'';
 				break;
 			case SDLK_a:tmp='a';
 				break;
@@ -380,8 +432,7 @@ int Phrases(wchar_t* pphrase )
 		}
 		if(event.key.keysym.mod&KMOD_SHIFT)
 			tmp=toupper(tmp);
-		if(tmp!=-1)
-			updatekeylist(key,tmp);
+		updatekeylist(key,tmp);
 /****************************************************/
           if (pphrase[c]==event.key.keysym.unicode)
           {
@@ -442,6 +493,12 @@ int Phrases(wchar_t* pphrase )
           }
           else
           {
+		int key = GetIndex((wchar_t)event.key.keysym.unicode);
+		keypress1= GetWrongKeypress(key);
+		SDL_BlitSurface(keypress1, NULL, screen, &keyboard_loc);
+		SDL_FreeSurface(keypress1);
+		state=0;
+		
             if (event.key.keysym.sym != SDLK_RSHIFT
              && event.key.keysym.sym != SDLK_LSHIFT)
              PlaySound(wrong);
@@ -485,7 +542,7 @@ static int practice_load_media(void)
 	hand_shift[1] = LoadImage("hands/lshift.png", IMG_ALPHA);
 	hand_shift[2] = LoadImage("hands/rshift.png", IMG_ALPHA);
 	keyboard = LoadImage("keyboard/keyboard.png", IMG_ALPHA);
-  bg = LoadImage("main_bkg.png", IMG_ALPHA);
+	bg = LoadImage("main_bkg.png", IMG_ALPHA);
   wrong = LoadSound("tock.wav");
   font = LoadFont(settings.theme_font_name, 30);
 
@@ -808,6 +865,13 @@ SDL_Surface* GetKeypress1(int index)
 {
 	char buf[50];
 	GetKeyPos(index,buf);
+	return (LoadImage(buf, IMG_ALPHA));
+}
+
+SDL_Surface* GetWrongKeypress(int index)
+{
+	char buf[50];
+	GetWrongKeyPos(index,buf);
 	return (LoadImage(buf, IMG_ALPHA));
 }
 
