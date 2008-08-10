@@ -56,6 +56,7 @@ void GetWrongKeyPos(int index, char *buf);
 void GenerateKeyboard(SDL_Surface* keyboard);
 void updatekeylist(int key,char ch);
 void savekeyboard(void);
+wchar_t GetLastKey(void);
 
 //void UseAlphabet(void);
 

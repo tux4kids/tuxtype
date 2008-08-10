@@ -97,11 +97,11 @@ int Phrases(wchar_t* pphrase )
   if (!wcsncmp(phrase[0], (wchar_t*)"", 1))
     wcsncpy(pphrase, phrase[0], 80);
 
-  srfc = GetWhiteGlyph(65);
+  srfc = GetWhiteGlyph(GetLastKey());
 
   if (!srfc)
   {
-    fprintf(stderr, "Phrases() - GetWhiteGlyph(65) not defined - bailing out.\n");
+    fprintf(stderr, "Phrases() - GetWhiteGlyph(GetLastKey()) not defined - bailing out.\n");
     return 0;
   }
 
@@ -787,8 +787,8 @@ static void print_at(const wchar_t *pphrase, int wrap, int x, int y)
   SDL_Surface* surf = NULL;
   letter_loc.x = x;
   letter_loc.y = y;
-  letter_loc.w = GetWhiteGlyph(65)->w;
-  letter_loc.h = GetWhiteGlyph(65)->h;
+  letter_loc.w = GetWhiteGlyph(GetLastKey())->w;
+  letter_loc.h = GetWhiteGlyph(GetLastKey())->h;
 
   LOG("Entering print_at()\n");
 

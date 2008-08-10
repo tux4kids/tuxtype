@@ -316,6 +316,13 @@ void GetKeyShift(int index, char *buf)
 				else
 							sprintf(buf,"keyboard/keyboard_D12.png", settings.default_data_path);			
 }
+wchar_t GetLastKey()
+{
+	if(!num_chars_used)
+		return -1;
+	else
+		return keyboard_list[num_chars_used-1].unicode_value;
+} 
 int unicode_in_key_list(wchar_t uni_char)
 {
   int i = 0;
