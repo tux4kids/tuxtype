@@ -8,7 +8,11 @@ EXTRA_DIST = hands.png\
 6.png\
 7.png\
 8.png\
-9.png
+9.png\
+none.png\
+lshift.png\
+rshift.png\
+fishy1.png
 
 
 
@@ -25,7 +29,9 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/7.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/hands/7.png
 	$(INSTALL_DATA) $(srcdir)/8.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/hands/8.png
 	$(INSTALL_DATA) $(srcdir)/9.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/hands/9.png
-
+	$(INSTALL_DATA) $(srcdir)/lshift.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/hands/lshift.png
+	$(INSTALL_DATA) $(srcdir)/rshift.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/hands/rshift.png
+	$(INSTALL_DATA) $(srcdir)/none.png $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/hands/none.png
 
 
 uninstall-local:
@@ -40,3 +46,6 @@ uninstall-local:
 	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/hands/7.png
 	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/hands/8.png
 	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/hands/9.png
+	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/hands/lshift.png
+	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/hands/rshift.png
+	rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/images/hands/none.png
