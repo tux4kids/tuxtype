@@ -2,7 +2,7 @@
 /* config.h.in.  Generated from configure.ac by autoheader.  */
 
 /* Native MinGW32 build */
-#define BUILD_MINGW32 1
+/* #undef BUILD_MINGW32 */
 
 /* Define to 1 if you have the `atexit' function. */
 #define HAVE_ATEXIT 1
@@ -17,7 +17,7 @@
 #define HAVE_LIBSDL_MIXER 1
 
 /* Define to 1 if you have the `SDL_Pango' library (-lSDL_Pango). */
-/* #undef HAVE_LIBSDL_PANGO */
+#define HAVE_LIBSDL_PANGO 1
 
 /* Define to 1 if you have the `SDL_ttf' library (-lSDL_ttf). */
 #define HAVE_LIBSDL_TTF 1
