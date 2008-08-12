@@ -66,13 +66,21 @@ static void unload_media(void);
 static void unload_menu(void);
 
 /* --- menu text --- */
-const unsigned char *menu_text[][6]= 
-{{"", "",            "",             "",            ""    },
- {"",gettext_noop("Fish Cascade"),gettext_noop("Easy"),gettext_noop("Space Cadet"),gettext_noop("Edit Word Lists")},
- {"", gettext_noop("Comet Zap"),    gettext_noop("Medium"),       gettext_noop("Pilot"),       gettext_noop("Practice")},
- {"", gettext_noop("Lessons"),     gettext_noop("Hard"),         gettext_noop("Ace"),         gettext_noop("Project Info")},
- {"", gettext_noop("Options"),      gettext_noop("Instructions"), gettext_noop("Commander"),   gettext_noop("Setup Language")},
- {"", gettext_noop("Quit"),         gettext_noop("Main Menu"),    gettext_noop("Main Menu"),   gettext_noop("Main Menu")}};
+
+
+     
+static const char *menu_text[]= 
+{"", "",            "",             "",            ""    ,
+ "",gettext_noop("Fish Cascade"),gettext_noop("Easy"),gettext_noop("Space Cadet"),gettext_noop("Edit Word Lists"),
+ "",gettext_noop("Comet Zap"),gettext_noop("Medium"),gettext_noop("Pilot"),gettext_noop("Practice"),
+ "",gettext_noop("Lessons"),gettext_noop("Hard"), gettext_noop("Ace"),gettext_noop("Project Info"),
+ "", gettext_noop("Options"),gettext_noop("Instructions"),gettext_noop("Commander"),gettext_noop("Setup Language"),
+ "", gettext_noop("Quit"),gettext_noop("Main Menu"),gettext_noop("Main Menu"),gettext_noop("Main Menu")};
+
+
+
+
+
 
 
 
@@ -921,15 +929,15 @@ static void load_menu(void)
     max = 0;
     for (i = 1; i <= TITLE_MENU_ITEMS; i++)
     {
-      DEBUGCODE
+  //    DEBUGCODE
       {
         fprintf(stderr, "i = '%d'\tj = '%d'\ttext = '%s'\n",
-                i, j,  gettext_noop((unsigned char*)menu_text[i][j]));
+                i, j,  gettext((unsigned char*)menu_text[j+5*i]));
       }
 
       /* --- create text surfaces --- */
-      reg_text[i][j] = BlackOutline( gettext_noop((unsigned char*)menu_text[i][j]), font, &white);
-      sel_text[i][j] = BlackOutline( gettext_noop((unsigned char*)menu_text[i][j]), font, &yellow);
+      reg_text[i][j] = BlackOutline( gettext((unsigned char*)menu_text[j+5*i]), font, &white);
+      sel_text[i][j] = BlackOutline( gettext((unsigned char*)menu_text[j+5*i]), font, &yellow);
 
       /* (first make sure ptr valid to avoid segfault) */
       if (sel_text[i][j] && sel_text[i][j]->w > max)

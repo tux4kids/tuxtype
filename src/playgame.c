@@ -22,6 +22,8 @@ email                : tuxtype-dev@tux4kids.net
 #include "playgame.h"
 #include "snow.h"
 
+#define _(String) gettext(String)
+
 //void add_words( int level );
 
 /* Should these be constants? */
@@ -233,7 +235,7 @@ int PlayCascade( int diflevel ) {
 				if ( event.type == SDL_QUIT ) {
 					exit(0);
 				} else if (event.type == SDL_KEYDOWN) {
-	
+					
 					if (event.key.keysym.sym == SDLK_F11) 
 						SDL_SaveBMP( screen, "screenshot.bmp" );
 					if (event.key.keysym.sym == SDLK_F6){
@@ -940,14 +942,14 @@ static void LoadOthers(void)
 	}
 	font = LoadFont(settings.theme_font_name, GAME_FONT_SIZE);
 
-	curlev = BlackOutline(_("Level"), font, &white);
-	lives  = BlackOutline(_("Lives"), font, &white);
-	fish   = BlackOutline(_("Fish"), font, &white);
+	curlev = BlackOutline(gettext("Level"), font, &white);
+	lives  = BlackOutline(gettext("Lives"), font, &white);
+	fish   = BlackOutline(gettext("Fish"), font, &white);
 
 	level[0] = BlackOutline(gettext("Easy"), font, &white);
 	level[1] = BlackOutline(gettext("Medium"), font, &white);
 	level[2] = BlackOutline(gettext("Hard"), font, &white);
-	level[3] = BlackOutline(_("Practice"), font, &white);
+	level[3] = BlackOutline(gettext("Practice"), font, &white);
 
 	number_max_w = 0;
 	for (i = 0; i < NUM_NUMS; i++) {
@@ -958,11 +960,11 @@ static void LoadOthers(void)
 	}
 
 	for (i = 0; i < CONGRATS_FRAMES; i++) {
-		congrats[i] = BlackOutline(_("Congratulations"), font, &white);
+		congrats[i] = BlackOutline(gettext("Congratulations"), font, &white);
 	}
 
 	for (i = 0; i < OH_NO_FRAMES; i++) {
-		ohno[i] = BlackOutline(_("Oh No!"), font, &white);
+		ohno[i] = BlackOutline(gettext("Oh No!"), font, &white);
 	}
 	
 	if (settings.sys_sound) {

@@ -36,7 +36,7 @@
 #define MAX_SPRITE_FRAMES 30
 
 
-#define LOCALEDIR "/usr/local/share"
+//#define LOCALEDIR "/usr/local/share"
 
 #include <string.h>
 #include <wchar.h>
@@ -55,7 +55,7 @@
 #include <SDL/SDL_mixer.h>
 #include <SDL/SDL_ttf.h>
 
-#include "i18n.h"
+//#include "i18n.h"
 #include <libintl.h>
 
 

@@ -65,12 +65,10 @@ int CheckFile(const char* file)
 void LoadLang(void)
 {
 
-	setlocale(LC_ALL,"ml");
+	setlocale(LC_ALL,"ml_IN");
 	fprintf(stderr,"theme_locale %s\n",settings.theme_locale_name);
-        fprintf(stderr,bindtextdomain(PACKAGE,LOCALEDIR));
+        fprintf(stderr,bindtextdomain(PACKAGE,"/usr/local/share/locale"));
         fprintf(stderr,textdomain(PACKAGE));
-	fprintf(stderr,"loading....\n");
-	fprintf(stderr,gettext("Paused!"));
 	return;
 
 }
