@@ -1625,6 +1625,11 @@ void savekeyboard(void)
 	char buf[10];
 	tmp[1]='\0';
 	fp=fopen(fn,"w");
+	if (fp == NULL)
+	{
+		LOG("savekeyboard() - could not open keyboard.lst\n");
+		return 0;
+	}
 	for(i=0;i<num_chars_used;i++)
 	{
 		tmp[0]=keyboard_list[i].unicode_value;
