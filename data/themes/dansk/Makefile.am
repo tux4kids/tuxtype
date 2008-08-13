@@ -4,5 +4,5 @@ SUBDIRS = sounds words
 
 themes_danskdir = $(pkgdatadir)/data/themes/dansk
 
-dist_themes_dansk_DATA = lang.po \
-  keyboard.lst
+dist_themes_dansk_DATA = keyboard.lst \
+  settings.txt

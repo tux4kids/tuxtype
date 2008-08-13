@@ -475,7 +475,7 @@ int Phrases(wchar_t* pphrase )
             {
 		//print_string_at(_("Great!"), 275, 200);
               wchar_t buf[10];
-              ConvertFromUTF8(buf, _("Great!"));
+              ConvertFromUTF8(buf, gettext("Great!"));
               print_at(buf,6 ,275 ,200);
               SDL_Flip(screen);
               SDL_Delay(2500);
@@ -855,7 +855,7 @@ static void next_letter(wchar_t *t, int c)
 {
 	int i;
 	wchar_t buf[30];
-        i=ConvertFromUTF8(buf, _("Next letter "));
+        i=ConvertFromUTF8(buf, gettext("Next letter "));
 	buf[i]=t[c];
 	buf[i+1]=0;
         print_at(buf,wcslen(buf),215 ,420);

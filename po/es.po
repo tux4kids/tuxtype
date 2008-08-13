@@ -1,0 +1,167 @@
+# Espanol translations for Tux Typing package.
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Mobin M <mobinmohan@gmail.com>, 2008
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Tux Typing 1.5.16\n"
+"Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
+"POT-Creation-Date: 2008-08-13 19:23+0530\n"
+"PO-Revision-Date: 2007-09-16 19:00+0000\n"
+"Last-Translator: Amaya Rodrigo <amaya@debian.org>\n"
+"Language-Team: Spanish\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: src/pause.c:286
+msgid "Sound Effects Volume"
+msgstr "Volumen de los Efectos de Sonido"
+
+#: src/pause.c:295
+msgid "Music Volume"
+msgstr "Volumen de la Música"
+
+#: src/pause.c:306
+msgid "Sound & Music Disabled"
+msgstr "Deshabilitar Sonido y Música"
+
+#: src/pause.c:316
+msgid "Paused!"
+msgstr "¡Pausa!"
+
+#: src/pause.c:325
+msgid "Press escape again to return to menu"
+msgstr "Pulsa Esc para regresar al menú"
+
+#: src/pause.c:334
+msgid "Press space bar to return to game"
+msgstr "Pulsa la barra espaciadora para regresar al juego"
+
+#: src/playgame.c:945
+msgid "Level"
+msgstr "Nivel"
+
+#: src/playgame.c:946
+msgid "Lives"
+msgstr "Vidas"
+
+#: src/playgame.c:947
+msgid "Fish"
+msgstr "Pescado"
+
+# niveles para juego de cascada:
+#: src/playgame.c:949 src/titlescreen.c:74
+msgid "Easy"
+msgstr "Fácil"
+
+#: src/playgame.c:950 src/titlescreen.c:75
+msgid "Medium"
+msgstr "Medio"
+
+#: src/playgame.c:951 src/titlescreen.c:76
+msgid "Hard"
+msgstr "Difícil"
+
+# Cosas generales
+#: src/playgame.c:952 src/titlescreen.c:75
+msgid "Practice"
+msgstr "Practicar"
+
+#: src/playgame.c:963
+msgid "Congratulations"
+msgstr "¡Felicidades!"
+
+#: src/playgame.c:967
+msgid "Oh No!"
+msgstr "¡Oh, no!"
+
+#: src/practice.c:239
+msgid "Great!"
+msgstr ""
+
+#: src/practice.c:589
+msgid "Next letter "
+msgstr ""
+
+#: src/titlescreen.c:74
+msgid "Fish Cascade"
+msgstr "Cascada de Pescado"
+
+# "Cadete de espacio" es nivel 1 en zapea cometa
+#: src/titlescreen.c:74
+msgid "Space Cadet"
+msgstr "Cadete Espacial"
+
+#: src/titlescreen.c:74
+msgid "Edit Word Lists"
+msgstr "Revisar las listas de palabras"
+
+# Tipos de juegos
+#: src/titlescreen.c:75
+msgid "Comet Zap"
+msgstr "Cometas"
+
+# "Piloto" es nivel 2 en zapea cometas
+#: src/titlescreen.c:75
+msgid "Pilot"
+msgstr "Piloto"
+
+#: src/titlescreen.c:76
+msgid "Lessons"
+msgstr "Lecciones"
+
+# "As" es nivel 3 en zapea cometas
+#: src/titlescreen.c:76
+msgid "Ace"
+msgstr "As"
+
+#: src/titlescreen.c:76
+msgid "Project Info"
+msgstr ""
+
+#: src/titlescreen.c:77
+msgid "Options"
+msgstr "Opciones"
+
+#: src/titlescreen.c:77
+msgid "Instructions"
+msgstr "Instrucciones"
+
+# "Commandante" es nivel 4 en zapea cometas
+#: src/titlescreen.c:77
+msgid "Commander"
+msgstr "Comandante"
+
+#: src/titlescreen.c:77
+msgid "Setup Language"
+msgstr "Idioma"
+
+#: src/titlescreen.c:78
+msgid "Quit"
+msgstr "Salir"
+
+#: src/titlescreen.c:78
+msgid "Main Menu"
+msgstr "Menú Principal"
+
+# work Cosas que estan abajo de construccion.
+#: src/titlescreen.c:1156
+msgid "Work In Progress!"
+msgstr "¡Trabajo en Curso!"
+
+#: src/titlescreen.c:1157
+#, fuzzy
+msgid "This feature is not ready yet"
+msgstr "Esta función no esta lista todavía"
+
+#: src/titlescreen.c:1158
+msgid "Discuss the future of TuxTyping at"
+msgstr "Charlar del futuro de TuxTyping en"
+
+#~ msgid "Alphabet"
+#~ msgstr "Alfabeto"
+
+#~ msgid "Setup Keyboard"
+#~ msgstr "Teclado"

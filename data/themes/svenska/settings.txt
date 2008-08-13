@@ -1,0 +1,1 @@
+theme_locale_name=sv_SE.UTF-8

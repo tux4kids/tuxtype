@@ -12,6 +12,9 @@ AC_CONFIG_SRCDIR([src/funcs.h])
 AM_INIT_AUTOMAKE(foreign)
 AC_CONFIG_HEADERS([config.h])
 
+# To link gettext library
+AM_GNU_GETTEXT([external])
+
 
 # Checks for programs.
 AC_PROG_CC
@@ -97,7 +100,7 @@ AC_CHECK_FUNCS([atexit memset strchr strstr malloc])
 # Sam's Install Kludge-work
 CPPFLAGS="$CPPFLAGS -DDATA_PREFIX=\\\"\$(prefix)\\\""
 
-AC_CONFIG_FILES([Makefile
+AC_CONFIG_FILES([Makefile po/Makefile.in
 data/Makefile
 data/fonts/Makefile
 data/images/Makefile

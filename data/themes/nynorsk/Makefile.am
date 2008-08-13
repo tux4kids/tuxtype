@@ -5,5 +5,5 @@ SUBDIRS = images words
 
 themes_nynorskdir = $(pkgdatadir)/data/themes/nynorsk
 
-dist_themes_nynorsk_DATA = lang.po \
-  keyboard.lst
+dist_themes_nynorsk_DATA = keyboard.lst	\
+  settings.txt

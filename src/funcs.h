@@ -69,8 +69,8 @@ void MusicPlay(Mix_Music* musicData, int repeatQty);
 
 
 /* In gettext.c:  */
-unsigned char* gettext(const unsigned char* in);
-int Load_PO_File(const char* file);
+//unsigned char* gettext(const unsigned char* in);
+//int Load_PO_File(const char* file);
 
 
 /* In laser.c:        */

@@ -32,6 +32,7 @@ game_option_type settings;
 void Opts_Initialize(void)
 {
   strncpy(settings.theme_font_name, DEFAULT_MENU_FONT, FNLEN);
+  strncpy(settings.theme_locale_name, DEFAULT_LOCALE, FNLEN);
   settings.use_english = DEFAULT_USE_ENGLISH;
   settings.fullscreen = DEFAULT_FULLSCREEN;
   settings.sys_sound = DEFAULT_SYS_SOUND;

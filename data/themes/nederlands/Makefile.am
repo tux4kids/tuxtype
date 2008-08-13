@@ -5,6 +5,6 @@ SUBDIRS = words
 
 themes_nederlandsdir = $(pkgdatadir)/data/themes/nederlands
 
-dist_themes_nederlands_DATA = lang.po \
-  keyboard.lst \
-  nederlands.txt
+dist_themes_nederlands_DATA = keyboard.lst \
+  nederlands.txt	\
+  settings.txt

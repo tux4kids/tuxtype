@@ -4,5 +4,5 @@ SUBDIRS = images
 
 themes_armeniandir = $(pkgdatadir)/data/themes/armenian
 
-dist_themes_armenian_DATA = lang.po \
-  keyboard.lst
+dist_themes_armenian_DATA = keyboard.lst	\
+  settings.txt

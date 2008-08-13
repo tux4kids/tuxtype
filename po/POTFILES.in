@@ -1,0 +1,16 @@
+./src/ConvertUTF.c
+./src/alphabet.c
+./src/audio.c
+./src/gettext.c
+./src/laser.c
+./src/loaders.c
+./src/main.c
+./src/options.c
+./src/pause.c
+./src/playgame.c
+./src/practice.c
+./src/scripting.c
+./src/setup.c
+./src/snow.c
+./src/theme.c
+./src/titlescreen.c
