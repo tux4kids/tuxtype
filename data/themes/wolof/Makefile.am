@@ -5,5 +5,5 @@ SUBDIRS = images words
 
 themes_wolofdir = $(pkgdatadir)/data/themes/wolof
 
-dist_themes_wolof_DATA = lang.po \
-  keyboard.lst
+dist_themes_wolof_DATA = keyboard.lst	\
+  settings.txt

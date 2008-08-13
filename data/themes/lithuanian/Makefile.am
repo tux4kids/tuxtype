@@ -5,5 +5,5 @@ SUBDIRS = images sounds words
 
 themes_lithuaniandir = $(pkgdatadir)/data/themes/lithuanian
 
-dist_themes_lithuanian_DATA = lang.po \
-  keyboard.lst
+dist_themes_lithuanian_DATA = keyboard.lst	\
+  settings.txt

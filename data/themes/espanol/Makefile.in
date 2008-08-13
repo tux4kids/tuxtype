@@ -190,7 +190,8 @@ top_srcdir = @top_srcdir@
 SUBDIRS = images words
 themes_espanoldir = $(pkgdatadir)/data/themes/espanol
 dist_themes_espanol_DATA = lang.po \
-  keyboard.lst
+  keyboard.lst	\
+  settings.txt
 
 all: all-recursive
 

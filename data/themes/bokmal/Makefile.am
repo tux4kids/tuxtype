@@ -4,4 +4,4 @@ SUBDIRS = images words
 
 themes_bokmaldir = $(pkgdatadir)/data/themes/bokmal
 
-dist_themes_bokmal_DATA = lang.po keyboard.lst
+dist_themes_bokmal_DATA = keyboard.lst settings.txt

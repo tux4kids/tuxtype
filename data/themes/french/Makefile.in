@@ -190,7 +190,8 @@ top_srcdir = @top_srcdir@
 SUBDIRS = words
 themes_frenchdir = $(pkgdatadir)/data/themes/french
 dist_themes_french_DATA = lang.po \
-  keyboard.lst
+  keyboard.lst	\
+  settings.txt
 
 all: all-recursive
 

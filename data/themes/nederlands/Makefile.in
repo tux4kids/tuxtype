@@ -191,7 +191,8 @@ SUBDIRS = words
 themes_nederlandsdir = $(pkgdatadir)/data/themes/nederlands
 dist_themes_nederlands_DATA = lang.po \
   keyboard.lst \
-  nederlands.txt
+  nederlands.txt	\
+  settings.txt
 
 all: all-recursive
 

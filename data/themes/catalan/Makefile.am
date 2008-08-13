@@ -4,4 +4,4 @@ SUBDIRS = words
 
 themes_catalandir = $(pkgdatadir)/data/themes/catalan
 
-dist_themes_catalan_DATA = lang.po keyboard.lst
+dist_themes_catalan_DATA = keyboard.lst settings.txt

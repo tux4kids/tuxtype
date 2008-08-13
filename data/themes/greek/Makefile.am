@@ -6,5 +6,4 @@ SUBDIRS = words
 themes_greekdir = $(pkgdatadir)/data/themes/greek
 
 dist_themes_greek_DATA = keyboard.lst \
-  lang.po \
   settings.txt

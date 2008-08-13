@@ -61,10 +61,17 @@ MSGINIT = msginit
 MSGCONV = msgconv
 MSGFILTER = msgfilter
 
+<<<<<<< .mine
+POFILES =  en@quot.po en@boldquot.po en_GB.po ml.po ru.po ar.po ne.po nb.po pt.po ca.po cs.po da.po de.po es.po eu.po fr.po el.po it.po ja.po lt.po nl.po nn.po sv.po sw.po wo.po
+GMOFILES =  en@quot.gmo en@boldquot.gmo en_GB.gmo ml.gmo ru.gmo ar.gmo ne.gmo nb.gmo pt.gmo ca.gmo cs.gmo da.gmo de.gmo es.gmo eu.gmo fr.gmo el.gmo it.gmo ja.gmo lt.gmo nl.gmo nn.gmo sv.gmo sw.gmo wo.gmo
+UPDATEPOFILES =  en@quot.po-update en@boldquot.po-update en_GB.po-update ml.po-update ru.po-update ar.po-update ne.po-update nb.po-update pt.po-update ca.po-update cs.po-update da.po-update de.po-update es.po-update eu.po-update fr.po-update el.po-update it.po-update ja.po-update lt.po-update nl.po-update nn.po-update sv.po-update sw.po-update wo.po-update
+DUMMYPOFILES =  en@quot.nop en@boldquot.nop en_GB.nop ml.nop ru.nop ar.nop ne.nop nb.nop pt.nop ca.nop cs.nop da.nop de.nop es.nop eu.nop fr.nop el.nop it.nop ja.nop lt.nop nl.nop nn.nop sv.nop sw.nop wo.nop
+=======
 POFILES =  en_US.po ml_IN.po
 GMOFILES =  en_US.gmo ml_IN.gmo
 UPDATEPOFILES =  en_US.po-update ml_IN.po-update
 DUMMYPOFILES =  en_US.nop ml_IN.nop
+>>>>>>> .r616
 DISTFILES.common = Makefile.in.in remove-potcdate.sin \
 $(DISTFILES.common.extra1) $(DISTFILES.common.extra2) $(DISTFILES.common.extra3)
 DISTFILES = $(DISTFILES.common) Makevars POTFILES.in \
@@ -89,7 +96,8 @@ POTFILES = \
      .././src/theme.c \
      .././src/titlescreen.c
 
-CATALOGS =  en_US.gmo ml_IN.gmo
+
+CATALOGS =  en@quot.gmo en@boldquot.gmo en_GB.gmo ml.gmo ru.gmo ar.gmo ne.gmo nb.gmo pt.gmo ca.gmo cs.gmo da.gmo de.gmo es.gmo eu.gmo fr.gmo el.gmo it.gmo ja.gmo lt.gmo nl.gmo nn.gmo sv.gmo sw.gmo wo.gmo
 
 # Makevars gets inserted here. (Don't remove this line!)
 # Makefile variables for PO directory in any package using GNU gettext.

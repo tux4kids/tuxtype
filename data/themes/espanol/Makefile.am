@@ -5,5 +5,5 @@ SUBDIRS = images words
 
 themes_espanoldir = $(pkgdatadir)/data/themes/espanol
 
-dist_themes_espanol_DATA = lang.po \
-  keyboard.lst
+dist_themes_espanol_DATA = keyboard.lst	\
+  settings.txt

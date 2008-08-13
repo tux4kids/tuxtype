@@ -1,0 +1,1 @@
+theme_locale_name=nn_NO.UTF-8

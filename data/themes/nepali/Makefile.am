@@ -7,5 +7,4 @@ themes_nepalidir = $(pkgdatadir)/data/themes/nepali
 
 dist_themes_nepali_DATA = authors.txt \
   keyboard.lst \
-  lang.po \
   settings.txt
