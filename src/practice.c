@@ -467,7 +467,9 @@ int Phrases(wchar_t* pphrase )
 			//c++;
 			dst.x=40;
 			dst.y=140;
-			mydest.y+=40;
+			mydest.y=dst.y;
+			mydest.x=0;
+			mydest.h-=40;
 			next_line=1;
 		}
 		c++;

@@ -100,6 +100,10 @@ void TitleScreen(void)
   int key_menu = 1;
   int old_key_menu = 5;
   wchar_t phrase[128];
+  FILE *fp;
+  unsigned char fn[FNLEN];
+  int found = 0;
+  unsigned char str[1000];
 
 
   if (settings.sys_sound)
@@ -108,10 +112,10 @@ void TitleScreen(void)
     settings.menu_music = 1;
   }
 
-
+  
   /* FIXME phrase(s) should come from file */
 
-  ConvertFromUTF8(phrase, "Now is the time for all good men to come to the aid of their country.");
+//  ConvertFromUTF8(phrase, "Now is the time for all good men to come to the aid of their country.");
 //  ConvertFromUTF8(phrase, "To all that believe in his name he gave power to become children of God");
 
 //  wcscpy(phrase, "Now is the time for all good men to come to the aid of their country.");
@@ -644,10 +648,69 @@ void TitleScreen(void)
     if (menu_opt == FREETYPE)
     {
       unload_media();
-      Phrases( phrase );
+	found=0;
+	if (!settings.use_english)
+ 	{
+		sprintf(fn , "%s/phrases.txt", settings.theme_data_path);
+		if (CheckFile(fn))
+		{
+			found = 1;
+		}
+	/* Now look in default path if desired or needed: */
+		if (!found)
+		{
+			sprintf(fn , "%s/words/words3.txt", settings.theme_data_path);
+			if (CheckFile(fn))
+    			{
+      				found = 1;
+    			}
+  		}
+  		if (!found)
+  		{
+    			sprintf(fn , "%s/words/words2.txt", settings.theme_data_path);
+    			if (CheckFile(fn))
+    			{
+   	   			found = 1;
+    			}
+  		}
+  		if (!found)
+  		{
+    			sprintf(fn , "%s/words/words1.txt", settings.theme_data_path);
+    			if (CheckFile(fn))
+    			{
+     				found = 1;
+			}
+ 		}
+  	}
+  	if (!found)
+  	{
+    		sprintf(fn , "%s/phrases.txt", settings.default_data_path);
+    		if (CheckFile(fn))
+    		{
+      			found = 1;
+    		}
+  	}
+  	if (!found)
+  	{
+    		fprintf(stderr, "LoadKeyboard(): Error finding file for keyboard setup!\n");
+    		return 0;
+  	}
+
+	fp=fopen(fn,"r");
+	do
+	{
+		fscanf( fp, "%[^\n]\n", str);
+		ConvertFromUTF8(phrase, str);
+		Phrases( phrase );
+      		//Practice();
+      		load_media();
+      		redraw = 1;
+	} while (0);
+	fclose(fp);
+      //Phrases( phrase );
       //Practice();
-      load_media();
-      redraw = 1;
+      //load_media();
+      //redraw = 1;
     }
 
     /* ------ End menu_opt processing ----------- */

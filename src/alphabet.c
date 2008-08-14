@@ -637,7 +637,6 @@ SDL_Surface* BlackOutline_c(const unsigned char* t, const SDL_Color* c)
 
   LOG("\nEntering BlackOutline_c()\n");
   DEBUGCODE{ fprintf(stderr, "will attempt to render: %s\n", t); }
-printf("Test111:\n");
 
   if (!t || !c)
   {
@@ -651,38 +650,29 @@ printf("Test111:\n");
     fprintf(stderr, "BlackOutline_c(): empty string arg - must return to avoid segfault.");
     return NULL;
   }
-printf("Test2222:\n");
   colour = SDL_Colour_to_SDLPango_Matrix(c);
   
   /* Create the context */
   context = SDLPango_CreateContext();	
-printf("Test3333\n");
   SDLPango_SetDpi(context, 125.0, 125.0);
-printf("Test4444\n");
   /* Set the color */
   SDLPango_SetDefaultColor(context, MATRIX_TRANSPARENT_BACK_BLACK_LETTER );
-printf("Test55555\n");
   SDLPango_SetBaseDirection(context, SDLPANGO_DIRECTION_LTR);
-printf("Test66666\n");
   /* Set text to context*/  
   SDLPango_SetMarkup(context, t, -1); 
-printf("Test77777\n");
 
   if (!context)
   {
     fprintf (stderr, "In BlackOutline_c(), could not create context for %s", t);
     return NULL;
   }
-printf("Test88888\n");
   black_letters = SDLPango_CreateSurfaceDraw(context);
-printf("Test99999\n");
   if (!black_letters)
   {
     fprintf (stderr, "Warning - BlackOutline_c() could not create image for %s\n", t);
 	SDLPango_FreeContext(context);
     return NULL;
   }
-printf("Test100000\n");
   bg = SDL_CreateRGBSurface(SDL_SWSURFACE,
                             (black_letters->w) + 5,
                             (black_letters->h) + 5,
@@ -695,14 +685,11 @@ printf("Test100000\n");
 	SDLPango_FreeContext(context);
     return NULL;
   }
-printf("Test1222222222\n");
   /* Draw text on a existing surface*/ 
   SDLPango_Draw(context, bg, 0, 0);
-printf("Test133333333:\n");
   /* Use color key for eventual transparency:*/ 
   color_key = SDL_MapRGB(bg->format, 10, 10, 10);
   SDL_FillRect(bg, NULL, color_key);
-printf("Test1444444:\n");
   /* Now draw black outline/shadow 2 pixels on each side: */
   dstrect.w = black_letters->w;
   dstrect.h = black_letters->h;
@@ -712,9 +699,7 @@ printf("Test1444444:\n");
   for (dstrect.x = 1; dstrect.x < 4; dstrect.x++)
     for (dstrect.y = 1; dstrect.y < 3; dstrect.y++)
       SDL_BlitSurface(black_letters , NULL, bg, &dstrect );
-printf("Test1555555555555\n");
   SDL_FreeSurface(black_letters);
-printf("Test1666666666\n");
   /* --- Put the color version of the text on top! --- */
   SDLPango_SetDefaultColor(context, colour);
   white_letters = SDLPango_CreateSurfaceDraw(context);
@@ -722,7 +707,6 @@ printf("Test1666666666\n");
   dstrect.y = 1;
   SDL_BlitSurface(white_letters, NULL, bg, &dstrect);
   SDL_FreeSurface(white_letters);
-printf("Test177777\n");
 	/********************Free SDL_Pango context************/
 	SDLPango_FreeContext(context);
 
@@ -731,7 +715,6 @@ printf("Test177777\n");
   out = SDL_DisplayFormatAlpha(bg);
   SDL_FreeSurface(bg);
 	free(colour);
-printf("Test18888\n");
   LOG("Leaving BlackOutline_c()\n\n");
 
   return out;
