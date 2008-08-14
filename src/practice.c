@@ -75,7 +75,7 @@ int Phrases(wchar_t* pphrase )
       total = 0,
       state = 0;
   int key[100] = {0};
-  SDL_Rect dst, dst2, dst3, dst4, dst5;
+  SDL_Rect dst, dst2, dst3, dst4;
   char keytime[20],
        totaltime[20];
   SDL_Surface* srfc = NULL;
@@ -115,20 +115,15 @@ int Phrases(wchar_t* pphrase )
   dst2.w = srfc->w;
   dst2.h = srfc->h;
 
-  dst3.x = 50;
+  dst3.x = 0;
   dst3.y = 400;
-  dst3.w = 160;
-  dst3.h = 50;
+  dst3.w = screen->w;
+  dst3.h = bg->h-dst3.y;
 
   dst4.x = 480;
   dst4.y = 400;
   dst4.w = 240;
   dst4.h = 50;
-
-  dst5.x = 480;
-  dst5.y = 400;
-  dst5.w = 240;
-  dst5.h = 50;
 
   dst.x = 40;
 
@@ -377,6 +372,8 @@ int Phrases(wchar_t* pphrase )
 				else
 					tmp='\'';
 				break;
+			case SDLK_SPACE:tmp=' ';
+				break;
 			case SDLK_a:tmp='a';
 				break;
 			case SDLK_b:tmp='b';
@@ -440,7 +437,7 @@ int Phrases(wchar_t* pphrase )
             dst2.x = 40;
             dst4.x = 480;
             SDL_BlitSurface(bg, &dst3, screen, &dst2);
-            SDL_BlitSurface(bg, &dst5, screen, &dst4);
+            //SDL_BlitSurface(bg, &dst5, screen, &dst4);
             SDL_Flip(screen);
 
             srfc = GetWhiteGlyph(event.key.keysym.unicode);
