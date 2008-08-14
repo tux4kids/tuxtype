@@ -436,6 +436,7 @@ int SetupPaths(const char* theme_dir)
   {
     settings.use_english = 1; // default is to use English if we cannot find theme
     strcpy(settings.theme_name, "");
+    strncpy(settings.theme_locale_name, DEFAULT_LOCALE,FNLEN);
   }
 
 
