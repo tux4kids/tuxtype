@@ -28,8 +28,6 @@
 /* In alphabet.c */
 SDL_Surface* BlackOutline(const unsigned char* t, const TTF_Font* font, const SDL_Color* c);
 SDL_Surface* BlackOutline_Unicode(const Uint16* t, const TTF_Font* font, const SDL_Color* c);
-SDL_Surface* BlackOutline_w(wchar_t* t, const SDL_Color* c, int size);
-SDL_Surface* BlackOutline_c(const unsigned char* t, const SDL_Color* c);
 
 #ifndef WIN32
 SDL_Surface* BlackOutline_SDLPango(const unsigned char* t, const TTF_Font* font, const SDL_Color* c);
@@ -48,9 +46,20 @@ wchar_t* GetWord(void);
 SDL_Surface* GetWhiteGlyph(wchar_t t);
 SDL_Surface* GetRedGlyph(wchar_t t);
 int LoadKeyboard(void);
-int GetFinger(wchar_t uni_char);
+int GetFinger(int i);
 int RenderLetters(const TTF_Font* letter_font);
-int convert_from_UTF32( char* UTF8_word, wchar_t* wide_word);
+int GetIndex(wchar_t uni_char);
+void GetKeyShift(int index, char *buf);
+void GetKeyPos(int index, char *buf);
+void GetWrongKeyPos(int index, char *buf);
+//int map_keys(wchar_t *wide_str,keymap key);
+void GenerateKeyboard(SDL_Surface* keyboard);
+void updatekeylist(int key,char ch);
+void savekeyboard(void);
+wchar_t GetLastKey(void);
+SDL_Surface* BlackOutline_w(wchar_t* t, const SDL_Color* c, int size);
+SDL_Surface* BlackOutline_c(const unsigned char* t, const SDL_Color* c);
+int ConvertToUTF8(wchar_t* UTF32_word, char* word);
 
 //void UseAlphabet(void);
 

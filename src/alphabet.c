@@ -5,6 +5,8 @@
     begin                : Jan 6 2003
     copyright            : (C) 2003 by Jesse Andrews
     email                : jdandr2@tux4kids.net
+Revised extensively: 2008
+Sreyas Kurumanghat <k.sreyas@gmail.com>
  ***************************************************************************/
 
 /***************************************************************************
@@ -55,14 +57,22 @@ static uni_glyph char_glyphs[MAX_UNICODES] = {0, NULL, NULL};
 
 /* An individual item in the list of unicode characters in the keyboard setup.   */
 /* Basically, just the Unicode value for the key and the finger used to type it. */
+/*typedef struct keymap {
+	char keyname[5];
+	int shift;
+} keymap;*/
 typedef struct kbd_char {
   wchar_t unicode_value;
   char finger;
+	//keymap key;
+	char keyname[5];
+	int shift;
+	char latin_char;
 } kbd_char;
 
 /* List with one entry for each typable character in keyboard setup - has the */
 /* Unicode value of the key and the associated fingering.                     */
-static kbd_char keyboard_list[MAX_UNICODES] = {0, -1};
+static kbd_char keyboard_list[MAX_UNICODES] = {0, -1,0,0,-1};
 
 
 
@@ -84,6 +94,7 @@ static void show_letters(void);
 static void clear_keyboard(void);
 static int unicode_in_key_list(wchar_t uni_char);
 int check_needed_unicodes_str(const wchar_t* s);
+int map_keys(wchar_t wide_char,kbd_char* keyboard_entry);
 
 #ifndef WIN32
 #ifndef MACOSX
@@ -182,18 +193,57 @@ int LoadKeyboard(void)
         {
           fprintf(stderr, "Adding key: Unicode char = '%C'\tUnicode value = %d\tfinger = %d\n",
                   wide_str[2], wide_str[2], wcstol(&wide_str[0], NULL, 0)); 
-        }
+	}
 
         /* Just plug values into array: */
         keyboard_list[k].unicode_value = wide_str[2];
         keyboard_list[k].finger = wcstol(&wide_str[0], NULL, 0);
+	if (wcslen(wide_str) <5)
+	{
+		if(!settings.use_english)
+		{
+			map_keys(-1,&keyboard_list[k]);
+			keyboard_list[k].latin_char=-1;
+			keyboard_list[k].finger = wcstol(&wide_str[0], NULL, 0);
+		}
+		else
+		{
+			map_keys(wide_str[2],&keyboard_list[k]);
+			keyboard_list[k].latin_char=wide_str[2];
+		}
+	}
+	else
+	{
+		map_keys(wide_str[4],&keyboard_list[k]);
+		keyboard_list[k].latin_char=wide_str[4];
+	}
         k++;
       }
+	else
+	{
+		if(wcslen(wide_str)==1)
+		{
+			if(!settings.use_english)
+			{
+				keyboard_list[k].unicode_value = wide_str[0];
+				map_keys(-1,&keyboard_list[k]);
+				keyboard_list[k].latin_char=-1;
+			}
+			else
+			{
+				keyboard_list[k].unicode_value = wide_str[0];
+				map_keys(-1,&keyboard_list[k]);
+				keyboard_list[k].latin_char=wide_str[0];
+			}
+			k++;
+		}
+		
+	}
+			
     } while (!feof(f));
 
 
     fclose(f);
-
     LOG("Leaving LoadKeyboard()\n");
     return 1;
   }
@@ -204,7 +254,30 @@ int LoadKeyboard(void)
 /* Returns -1 if somehow no finger associated with a Unicode value    */
 /* in the list (shouldn't happen).                                    */
 /* Returns -2 if Unicode value not in list.                           */
-int GetFinger(wchar_t uni_char)
+int GetFinger(int i)
+{
+  if (i == -1)
+  {
+    fprintf(stderr, "GetFinger() - Unicode char '%C' not found in list.\n");
+    return -2;
+  }
+
+  if ((keyboard_list[i].finger < 0)
+   || (keyboard_list[i].finger > 9))
+  {
+    fprintf(stderr, "GetFinger() - Unicode char '%C' has no valid finger.\n");
+    return -1;
+  }  
+
+  return (int)keyboard_list[i].finger; /* Keep compiler from complaining */
+}
+
+int GetShift(int i)
+{
+	return keyboard_list[i].shift;
+}
+
+int GetIndex(wchar_t uni_char)
 {
   int i = 0;
 
@@ -216,22 +289,40 @@ int GetFinger(wchar_t uni_char)
 
   if (i == MAX_UNICODES)
   {
-    fprintf(stderr, "GetFinger() - Unicode char '%C' not found in list.\n", uni_char);
-    return -2;
+    fprintf(stderr, "GeteKeypress() - Unicode char '%C' not found in list.\n", uni_char);
+    return -1;
   }
 
-  if ((keyboard_list[i].finger < 0)
-   || (keyboard_list[i].finger > 9))
-  {
-    fprintf(stderr, "GetFinger() - Unicode char '%C' has no valid finger.\n",uni_char);
-    return -1;
-  }  
-
-  return (int)keyboard_list[i].finger; /* Keep compiler from complaining */
+  return i;
 }
 
+void GetKeyPos(int index, char *buf)
+{
+	sprintf(buf,"keyboard/keyboard_%s.png", keyboard_list[index].keyname);	
+}
 
+void GetWrongKeyPos(int index, char *buf)
+{
+	sprintf(buf,"keyboard/keyboardN_%s.png", keyboard_list[index].keyname);
+}
 
+void GetKeyShift(int index, char *buf)
+{
+	if(keyboard_list[index].shift==0)
+		sprintf(buf,"keyboard/keyboard_None.png");
+		else
+		 	if(keyboard_list[index].shift==1)
+				sprintf(buf,"keyboard/keyboard_D00.png");
+				else
+							sprintf(buf,"keyboard/keyboard_D12.png", settings.default_data_path);			
+}
+wchar_t GetLastKey()
+{
+	if(!num_chars_used)
+		return -1;
+	else
+		return keyboard_list[num_chars_used-1].unicode_value;
+} 
 int unicode_in_key_list(wchar_t uni_char)
 {
   int i = 0;
@@ -257,13 +348,16 @@ SDL_Surface* BlackOutline(const unsigned char* t, const TTF_Font* font, const SD
   SDL_Surface* bg = NULL;
   SDL_Rect dstrect;
   Uint32 color_key;
-  /* To covert SDL_Colour to SDLPango_Matrix*/
-  SDLPango_Matrix* colour = NULL;
-  /* Create a context which contains Pango objects.*/
-  SDLPango_Context* context = NULL;
 
-  LOG("\nEntering BlackOutline()\n");
-  DEBUGCODE{ fprintf(stderr, "will attempt to render: %s\n", t); }
+  LOG("Entering BlackOutline()\n");
+
+/* Simply passthrough to SDLPango version if available (i.e. not under Windows):*/
+#ifndef WIN32
+#ifndef MACOSX
+return BlackOutline_SDLPango(t, font, c);
+#endif
+#endif
+
 
   if (!t || !font || !c)
   {
@@ -271,36 +365,11 @@ SDL_Surface* BlackOutline(const unsigned char* t, const TTF_Font* font, const SD
     return NULL;
   }
 
-  /* SDLPango crashes on 64 bit machines if passed empty string - Debian Bug#439071 */
-  if (*t == '\0')
-  {
-    fprintf(stderr, "BlackOutline(): empty string arg - must return to avoid segfault.");
-    return NULL;
-  }
-
-  colour = SDL_Colour_to_SDLPango_Matrix(c);
-  
-  /* Create the context */
-  context = SDLPango_CreateContext();	
-  SDLPango_SetDpi(context, 125.0, 125.0);
-  /* Set the color */
-  SDLPango_SetDefaultColor(context, MATRIX_TRANSPARENT_BACK_BLACK_LETTER );
-  SDLPango_SetBaseDirection(context, SDLPANGO_DIRECTION_LTR);
-  /* Set text to context*/  
-  SDLPango_SetMarkup(context, t, -1); 
-
-  if (!context)
-  {
-    fprintf (stderr, "In BlackOutline(), could not create context for %s", t);
-    return NULL;
-  }
-
-  black_letters = SDLPango_CreateSurfaceDraw(context);
+  black_letters = TTF_RenderUTF8_Blended((TTF_Font*)font, t, black);
 
   if (!black_letters)
   {
     fprintf (stderr, "Warning - BlackOutline() could not create image for %s\n", t);
-	SDLPango_FreeContext(context);
     return NULL;
   }
 
@@ -309,18 +378,7 @@ SDL_Surface* BlackOutline(const unsigned char* t, const TTF_Font* font, const SD
                             (black_letters->h) + 5,
                              32,
                              RMASK, GMASK, BMASK, AMASK);
-  if (!bg)
-  {
-    fprintf (stderr, "Warning - BlackOutline() - bg creation failed\n");
-    SDL_FreeSurface(black_letters);
-	SDLPango_FreeContext(context);
-    return NULL;
-  }
-
-  /* Draw text on a existing surface*/ 
-  SDLPango_Draw(context, bg, 0, 0);
-
-  /* Use color key for eventual transparency:*/ 
+  /* Use color key for eventual transparency: */
   color_key = SDL_MapRGB(bg->format, 10, 10, 10);
   SDL_FillRect(bg, NULL, color_key);
 
@@ -337,23 +395,19 @@ SDL_Surface* BlackOutline(const unsigned char* t, const TTF_Font* font, const SD
   SDL_FreeSurface(black_letters);
 
   /* --- Put the color version of the text on top! --- */
-  SDLPango_SetDefaultColor(context, colour);
-  white_letters = SDLPango_CreateSurfaceDraw(context);
+  /* NOTE we cast away the 'const-ness' to keep compliler from complaining: */
+  white_letters = TTF_RenderUTF8_Blended((TTF_Font*)font, t, *c);
   dstrect.x = 1;
   dstrect.y = 1;
   SDL_BlitSurface(white_letters, NULL, bg, &dstrect);
   SDL_FreeSurface(white_letters);
 
-	/********************Free SDL_Pango context************/
-	SDLPango_FreeContext(context);
-
-  /* --- Convert to the screen format for quicker blits ---*/ 
+  /* --- Convert to the screen format for quicker blits --- */
   SDL_SetColorKey(bg, SDL_SRCCOLORKEY|SDL_RLEACCEL, color_key);
   out = SDL_DisplayFormatAlpha(bg);
   SDL_FreeSurface(bg);
-	free(colour);
 
-  LOG("Leaving BlackOutline()\n\n");
+  LOG("Leaving BlackOutline()\n");
 
   return out;
 }
@@ -479,14 +533,10 @@ SDL_Surface* BlackOutline_SDLPango(const unsigned char* t, const TTF_Font* font,
   SDL_BlitSurface(white_letters, NULL, bg, &dstrect);
   SDL_FreeSurface(white_letters);
 
-	/********************Free SDL_Pango context************/
-	SDLPango_FreeContext(context);
-
   /* --- Convert to the screen format for quicker blits --- */
   SDL_SetColorKey(bg, SDL_SRCCOLORKEY|SDL_RLEACCEL, color_key);
   out = SDL_DisplayFormatAlpha(bg);
   SDL_FreeSurface(bg);
-	free(colour);
 
   LOG("Leaving BlackOutline_SDLPango()\n\n");
 
@@ -561,163 +611,17 @@ SDL_Surface* BlackOutline_Unicode(const Uint16* t, const TTF_Font* font, const S
 
   return out;
 }
-int convert_from_UTF32( char* UTF8_word, wchar_t* wide_word)
-{
-  int i = 0;
-  ConversionResult result;
-  UTF8 temp_UTF8[FNLEN];
-  UTF32 temp_UTF32[FNLEN];
-
-  UTF8* UTF8_Start = temp_UTF8;
-  UTF8* UTF8_End = &temp_UTF8[FNLEN-1];
-  const UTF32* UTF32_Start = temp_UTF32;
-  const UTF32* UTF32_End = &temp_UTF32[FNLEN-1];
-
-  wcsncpy(temp_UTF32, wide_word, FNLEN);
-
-  ConvertUTF32toUTF8(&UTF32_Start, UTF32_End, &UTF8_Start, UTF8_End, 0);
-
-  UTF8_word[0] = 0;
-
-  while ((i < FNLEN) && (temp_UTF8[i] != 0))
-  {
-    UTF8_word[i] = temp_UTF8[i];
-    i++; 
-  }
-
-  if (i >= FNLEN)
-  {
-    fprintf(stderr, "convert_from_UTF8(): buffer overflow\n");
-    return -1;
-  }
-  else  //need terminating null:
-  {
-	for(i;i<FNLEN;i++)
-	    UTF8_word[i] = 0;
-  }
-
-  DEBUGCODE {fprintf(stderr, "UTF8_word = %s\n", UTF8_word);}
-
-  return strlen(UTF8_word);
-}
-
 SDL_Surface* BlackOutline_w(wchar_t* t, const SDL_Color* c, int size)
 {
 	wchar_t wchar_tmp[512];
 	char tmp[512];
 	int i;
-  SDL_Surface* out = NULL;
-  SDL_Surface* black_letters = NULL;
-  SDL_Surface* white_letters = NULL;
-  SDL_Surface* bg = NULL;
-  SDL_Rect dstrect;
-  Uint32 color_key;
-  /* To covert SDL_Colour to SDLPango_Matrix*/
-  SDLPango_Matrix* colour = NULL;
-  /* Create a context which contains Pango objects.*/
-  SDLPango_Context* context = NULL;
-
-  LOG("\nEntering BlackOutline_w()\n");
-  DEBUGCODE{ fprintf(stderr, "will attempt to render: %s\n", t); }
-
-  if (!t || !c)
-  {
-    fprintf(stderr, "BlackOutline_w(): invalid ptr parameter, returning.");
-    return NULL;
-  }
-
-  wcsncpy( wchar_tmp, t, size);
-  wchar_tmp[size]=0;
-  i=convert_from_UTF32( tmp, wchar_tmp);
-  tmp[i]=0;
-
-  /* SDLPango crashes on 64 bit machines if passed empty string - Debian Bug#439071 */
-  if (*t == '\0')
-  {
-    fprintf(stderr, "BlackOutline_w(): empty string arg - must return to avoid segfault.");
-    return NULL;
-  }
-
-  colour = SDL_Colour_to_SDLPango_Matrix(c);
-  
-  /* Create the context */
-  context = SDLPango_CreateContext();	
-  SDLPango_SetDpi(context, 125.0, 125.0);
-  /* Set the color */
-  SDLPango_SetDefaultColor(context, MATRIX_TRANSPARENT_BACK_BLACK_LETTER );
-  SDLPango_SetBaseDirection(context, SDLPANGO_DIRECTION_LTR);
-  /* Set text to context*/  
-  SDLPango_SetMarkup(context, tmp, -1); 
-
-  if (!context)
-  {
-    fprintf (stderr, "In BlackOutline_w(), could not create context for %s", t);
-    return NULL;
-  }
-
-  black_letters = SDLPango_CreateSurfaceDraw(context);
-
-  if (!black_letters)
-  {
-    fprintf (stderr, "Warning - BlackOutline_w() could not create image for %s\n", t);
-	SDLPango_FreeContext(context);
-    return NULL;
-  }
-
-  bg = SDL_CreateRGBSurface(SDL_SWSURFACE,
-                            (black_letters->w) + 5,
-                            (black_letters->h) + 5,
-                             32,
-                             RMASK, GMASK, BMASK, AMASK);
-  if (!bg)
-  {
-    fprintf (stderr, "Warning - BlackOutline()_w - bg creation failed\n");
-    SDL_FreeSurface(black_letters);
-	SDLPango_FreeContext(context);
-    return NULL;
-  }
-
-  /* Draw text on a existing surface*/ 
-  SDLPango_Draw(context, bg, 0, 0);
-
-  /* Use color key for eventual transparency:*/ 
-  color_key = SDL_MapRGB(bg->format, 10, 10, 10);
-  SDL_FillRect(bg, NULL, color_key);
-
-  /* Now draw black outline/shadow 2 pixels on each side: */
-  dstrect.w = black_letters->w;
-  dstrect.h = black_letters->h;
-
-  /* NOTE: can make the "shadow" more or less pronounced by */
-  /* changing the parameters of these loops.                */
-  for (dstrect.x = 1; dstrect.x < 4; dstrect.x++)
-    for (dstrect.y = 1; dstrect.y < 3; dstrect.y++)
-      SDL_BlitSurface(black_letters , NULL, bg, &dstrect );
-
-  SDL_FreeSurface(black_letters);
-
-  /* --- Put the color version of the text on top! --- */
-  SDLPango_SetDefaultColor(context, colour);
-  white_letters = SDLPango_CreateSurfaceDraw(context);
-  dstrect.x = 1;
-  dstrect.y = 1;
-  SDL_BlitSurface(white_letters, NULL, bg, &dstrect);
-  SDL_FreeSurface(white_letters);
-
-	/********************Free SDL_Pango context************/
-	SDLPango_FreeContext(context);
-
-  /* --- Convert to the screen format for quicker blits ---*/ 
-  SDL_SetColorKey(bg, SDL_SRCCOLORKEY|SDL_RLEACCEL, color_key);
-  out = SDL_DisplayFormatAlpha(bg);
-  SDL_FreeSurface(bg);
-	free(colour);
-
-  LOG("Leaving BlackOutline_w()\n\n");
-
-  return out;
+	wcsncpy( wchar_tmp, t, size);
+	wchar_tmp[size]=0;
+	i=ConvertToUTF8( wchar_tmp, tmp);
+	tmp[i]=0;
+	return BlackOutline_c( tmp, c);
 }
-
 SDL_Surface* BlackOutline_c(const unsigned char* t, const SDL_Color* c)
 {
   SDL_Surface* out = NULL;
@@ -733,6 +637,7 @@ SDL_Surface* BlackOutline_c(const unsigned char* t, const SDL_Color* c)
 
   LOG("\nEntering BlackOutline_c()\n");
   DEBUGCODE{ fprintf(stderr, "will attempt to render: %s\n", t); }
+printf("Test111:\n");
 
   if (!t || !c)
   {
@@ -746,33 +651,38 @@ SDL_Surface* BlackOutline_c(const unsigned char* t, const SDL_Color* c)
     fprintf(stderr, "BlackOutline_c(): empty string arg - must return to avoid segfault.");
     return NULL;
   }
-
+printf("Test2222:\n");
   colour = SDL_Colour_to_SDLPango_Matrix(c);
   
   /* Create the context */
   context = SDLPango_CreateContext();	
+printf("Test3333\n");
   SDLPango_SetDpi(context, 125.0, 125.0);
+printf("Test4444\n");
   /* Set the color */
   SDLPango_SetDefaultColor(context, MATRIX_TRANSPARENT_BACK_BLACK_LETTER );
+printf("Test55555\n");
   SDLPango_SetBaseDirection(context, SDLPANGO_DIRECTION_LTR);
+printf("Test66666\n");
   /* Set text to context*/  
   SDLPango_SetMarkup(context, t, -1); 
+printf("Test77777\n");
 
   if (!context)
   {
     fprintf (stderr, "In BlackOutline_c(), could not create context for %s", t);
     return NULL;
   }
-
+printf("Test88888\n");
   black_letters = SDLPango_CreateSurfaceDraw(context);
-
+printf("Test99999\n");
   if (!black_letters)
   {
     fprintf (stderr, "Warning - BlackOutline_c() could not create image for %s\n", t);
 	SDLPango_FreeContext(context);
     return NULL;
   }
-
+printf("Test100000\n");
   bg = SDL_CreateRGBSurface(SDL_SWSURFACE,
                             (black_letters->w) + 5,
                             (black_letters->h) + 5,
@@ -785,14 +695,14 @@ SDL_Surface* BlackOutline_c(const unsigned char* t, const SDL_Color* c)
 	SDLPango_FreeContext(context);
     return NULL;
   }
-
+printf("Test1222222222\n");
   /* Draw text on a existing surface*/ 
   SDLPango_Draw(context, bg, 0, 0);
-
+printf("Test133333333:\n");
   /* Use color key for eventual transparency:*/ 
   color_key = SDL_MapRGB(bg->format, 10, 10, 10);
   SDL_FillRect(bg, NULL, color_key);
-
+printf("Test1444444:\n");
   /* Now draw black outline/shadow 2 pixels on each side: */
   dstrect.w = black_letters->w;
   dstrect.h = black_letters->h;
@@ -802,9 +712,9 @@ SDL_Surface* BlackOutline_c(const unsigned char* t, const SDL_Color* c)
   for (dstrect.x = 1; dstrect.x < 4; dstrect.x++)
     for (dstrect.y = 1; dstrect.y < 3; dstrect.y++)
       SDL_BlitSurface(black_letters , NULL, bg, &dstrect );
-
+printf("Test1555555555555\n");
   SDL_FreeSurface(black_letters);
-
+printf("Test1666666666\n");
   /* --- Put the color version of the text on top! --- */
   SDLPango_SetDefaultColor(context, colour);
   white_letters = SDLPango_CreateSurfaceDraw(context);
@@ -812,7 +722,7 @@ SDL_Surface* BlackOutline_c(const unsigned char* t, const SDL_Color* c)
   dstrect.y = 1;
   SDL_BlitSurface(white_letters, NULL, bg, &dstrect);
   SDL_FreeSurface(white_letters);
-
+printf("Test177777\n");
 	/********************Free SDL_Pango context************/
 	SDLPango_FreeContext(context);
 
@@ -821,13 +731,11 @@ SDL_Surface* BlackOutline_c(const unsigned char* t, const SDL_Color* c)
   out = SDL_DisplayFormatAlpha(bg);
   SDL_FreeSurface(bg);
 	free(colour);
-
+printf("Test18888\n");
   LOG("Leaving BlackOutline_c()\n\n");
 
   return out;
 }
-
-
 
 /* FIXME dead code but could be useful*/
 static void show_letters(void)
@@ -1283,6 +1191,595 @@ int check_needed_unicodes_str(const wchar_t* s)
   return 1;
 }
 
+/* This function just tidies up all the ptr args needed for      */
+/* ConvertUTF8toUTF32() from Unicode, Inc. into a neat wrapper.  */
+/* It returns -1 on error, otherwise returns the length of the   */
+/* converted, null-terminated wchar_t* string now stored in the  */
+/* location of the 'wide_word' pointer.                          */
+int ConvertFromUTF8(wchar_t* wide_word, const unsigned char* UTF8_word)
+{
+  int i = 0;
+  ConversionResult result;
+  UTF8 temp_UTF8[FNLEN];
+  UTF32 temp_UTF32[FNLEN];
+
+  const UTF8* UTF8_Start = temp_UTF8;
+  const UTF8* UTF8_End = &temp_UTF8[FNLEN-1];
+  UTF32* UTF32_Start = temp_UTF32;
+  UTF32* UTF32_End = &temp_UTF32[FNLEN-1];
+
+  strncpy(temp_UTF8, UTF8_word, FNLEN);
+
+  ConvertUTF8toUTF32(&UTF8_Start, UTF8_End,
+                     &UTF32_Start, UTF32_End, 0);
+
+  wide_word[0] = '\0';
+
+  while ((i < FNLEN) && (temp_UTF32[i] != '\0'))
+  {
+    wide_word[i] = temp_UTF32[i];
+    i++; 
+  }
+
+  if (i >= FNLEN)
+  {
+    fprintf(stderr, "convert_from_UTF8(): buffer overflow\n");
+    return -1;
+  }
+  else  //need terminating null:
+  {
+    wide_word[i] = '\0';
+  }
+
+  DEBUGCODE {fprintf(stderr, "wide_word = %ls\n", wide_word);}
+
+  return wcslen(wide_word);
+}
+
+/******************To be used for savekeyboard*************/
+/*****************Converts wchar_t string to char string***/
+int ConvertToUTF8(wchar_t* wide_word, char* UTF8_word)
+{
+  int i = 0;
+  ConversionResult result;
+  UTF8 temp_UTF8[FNLEN];
+  UTF32 temp_UTF32[FNLEN];
+
+  UTF8* UTF8_Start = temp_UTF8;
+  UTF8* UTF8_End = &temp_UTF8[FNLEN-1];
+  const UTF32* UTF32_Start = temp_UTF32;
+  const UTF32* UTF32_End = &temp_UTF32[FNLEN-1];
+
+  wcsncpy(temp_UTF32, wide_word, FNLEN);
+
+  ConvertUTF32toUTF8(&UTF32_Start, UTF32_End, &UTF8_Start, UTF8_End, 0);
+
+  UTF8_word[0] = 0;
+
+  while ((i < FNLEN) && (temp_UTF8[i] != 0))
+  {
+    UTF8_word[i] = temp_UTF8[i];
+    i++; 
+  }
+
+  if (i >= FNLEN)
+  {
+    fprintf(stderr, "convert_from_UTF8(): buffer overflow\n");
+    return -1;
+  }
+  else  //need terminating null:
+  {
+	for(i;i<FNLEN;i++)
+	    UTF8_word[i] = 0;
+  }
+
+  DEBUGCODE {fprintf(stderr, "UTF8_word = %s\n", UTF8_word);}
+
+  return strlen(UTF8_word);
+}
+
+/***Converts wchar_t string to char string******************/
+/******************************************************************/
+int map_keys(wchar_t wide_char,kbd_char* keyboard_entry)
+{
+	switch(wide_char)
+	{
+		case '`':strcpy(keyboard_entry->keyname,"A00");
+			keyboard_entry->shift=0;
+			keyboard_entry->finger=0;
+			break;
+		case '~':strcpy(keyboard_entry->keyname,"A00");
+			keyboard_entry->shift=2;
+			keyboard_entry->finger=0;
+			break;
+		case '1':strcpy(keyboard_entry->keyname,"A01");
+			keyboard_entry->shift=0;
+			keyboard_entry->finger=0;
+			break;
+		case '!':strcpy(keyboard_entry->keyname,"A01");
+			keyboard_entry->shift=2;
+			keyboard_entry->finger=0;
+			break;
+		case '2':strcpy(keyboard_entry->keyname,"A02");
+			keyboard_entry->shift=0;
+			keyboard_entry->finger=1;
+			break;
+		case '@':strcpy(keyboard_entry->keyname,"A02");
+			keyboard_entry->shift=2;
+			keyboard_entry->finger=1;
+			break;
+		case '3':strcpy(keyboard_entry->keyname,"A03");
+			keyboard_entry->shift=0;
+			keyboard_entry->finger=2;
+			break;
+		case '#':strcpy(keyboard_entry->keyname,"A03");
+			keyboard_entry->shift=2;
+			keyboard_entry->finger=2;
+			break;
+		case '4':strcpy(keyboard_entry->keyname,"A04");
+			keyboard_entry->shift=0;
+			keyboard_entry->finger=3;
+			break;
+		case '$':strcpy(keyboard_entry->keyname,"A04");
+			keyboard_entry->shift=2;
+			keyboard_entry->finger=3;
+			break;
+		case '5':strcpy(keyboard_entry->keyname,"A05");
+			keyboard_entry->shift=0;
+			keyboard_entry->finger=4;
+			break;
+		case '%':strcpy(keyboard_entry->keyname,"A05");
+			keyboard_entry->shift=2;
+			keyboard_entry->finger=4;
+			break;
+		case '6':strcpy(keyboard_entry->keyname,"A06");
+			keyboard_entry->shift=0;
+			keyboard_entry->finger=5;
+			break;
+		case '^':strcpy(keyboard_entry->keyname,"A06");
+			keyboard_entry->shift=1;
+			keyboard_entry->finger=5;
+			break;
+		case '7':strcpy(keyboard_entry->keyname,"A07");
+			keyboard_entry->shift=0;
+			keyboard_entry->finger=7;
+			break;
+		case '&':strcpy(keyboard_entry->keyname,"A07");
+			keyboard_entry->shift=1;
+			keyboard_entry->finger=6;
+			break;
+		case '8':strcpy(keyboard_entry->keyname,"A08");
+			keyboard_entry->shift=0;
+			keyboard_entry->finger=7;
+			break;
+		case '*':strcpy(keyboard_entry->keyname,"A08");
+			keyboard_entry->shift=1;
+			keyboard_entry->finger=7;
+			break;
+		case '9':strcpy(keyboard_entry->keyname,"A09");
+			keyboard_entry->shift=0;
+			keyboard_entry->finger=8;
+			break;
+		case '(':strcpy(keyboard_entry->keyname,"A09");
+			keyboard_entry->shift=1;
+			keyboard_entry->finger=8;
+			break;
+		case '0':strcpy(keyboard_entry->keyname,"A10");
+			keyboard_entry->shift=0;
+			keyboard_entry->finger=9;
+			break;
+		case ')':strcpy(keyboard_entry->keyname,"A10");
+			keyboard_entry->shift=1;
+			keyboard_entry->finger=9;
+			break;
+		case '-':strcpy(keyboard_entry->keyname,"A11");
+			keyboard_entry->shift=0;
+			keyboard_entry->finger=9;
+			break;
+		case '_':strcpy(keyboard_entry->keyname,"A11");
+			keyboard_entry->shift=1;
+			keyboard_entry->finger=9;
+			break;
+		case '=':strcpy(keyboard_entry->keyname,"A12");
+			keyboard_entry->shift=0;
+			keyboard_entry->finger=9;
+			break;
+		case '+':strcpy(keyboard_entry->keyname,"A12");
+			keyboard_entry->shift=1;
+			keyboard_entry->finger=9;
+			break;
+		case '\\':strcpy(keyboard_entry->keyname,"A13");
+			keyboard_entry->shift=0;
+			keyboard_entry->finger=9;
+			break;
+		case '|':strcpy(keyboard_entry->keyname,"A13");
+			keyboard_entry->shift=1;
+			keyboard_entry->finger=9;
+			break;
+		case 'q':strcpy(keyboard_entry->keyname,"B01");
+			keyboard_entry->shift=0;
+			keyboard_entry->finger=0;
+			break;
+		case 'Q':strcpy(keyboard_entry->keyname,"B01");
+			keyboard_entry->shift=2;
+			keyboard_entry->finger=0;
+			break;
+		case 'w':strcpy(keyboard_entry->keyname,"B02");
+			keyboard_entry->shift=0;
+			keyboard_entry->finger=1;
+			break;
+		case 'W':strcpy(keyboard_entry->keyname,"B02");
+			keyboard_entry->shift=2;
+			keyboard_entry->finger=1;
+			break;
+		case 'e':strcpy(keyboard_entry->keyname,"B03");
+			keyboard_entry->shift=0;
+			keyboard_entry->finger=2;
+			break;
+		case 'E':strcpy(keyboard_entry->keyname,"B03");
+			keyboard_entry->shift=2;
+			keyboard_entry->finger=3;
+			break;
+		case 'r':strcpy(keyboard_entry->keyname,"B04");
+			keyboard_entry->shift=0;
+			keyboard_entry->finger=3;
+			break;
+		case 'R':strcpy(keyboard_entry->keyname,"B04");
+			keyboard_entry->shift=2;
+			keyboard_entry->finger=3;
+			break;
+		case 't':strcpy(keyboard_entry->keyname,"B05");
+			keyboard_entry->shift=0;
+			keyboard_entry->finger=4;
+			break;
+		case 'T':strcpy(keyboard_entry->keyname,"B05");
+			keyboard_entry->shift=2;
+			keyboard_entry->finger=4;
+			break;
+		case 'y':strcpy(keyboard_entry->keyname,"B06");
+			keyboard_entry->shift=0;
+			keyboard_entry->finger=5;
+			break;
+		case 'Y':strcpy(keyboard_entry->keyname,"B06");
+			keyboard_entry->shift=1;
+			keyboard_entry->finger=5;
+			break;
+		case 'u':strcpy(keyboard_entry->keyname,"B07");
+			keyboard_entry->shift=0;
+			keyboard_entry->finger=6;
+			break;
+		case 'U':strcpy(keyboard_entry->keyname,"B07");
+			keyboard_entry->shift=1;
+			keyboard_entry->finger=6;
+			break;
+		case 'i':strcpy(keyboard_entry->keyname,"B08");
+			keyboard_entry->shift=0;
+			keyboard_entry->finger=7;
+			break;
+		case 'I':strcpy(keyboard_entry->keyname,"B08");
+			keyboard_entry->shift=1;
+			keyboard_entry->finger=7;
+			break;
+		case 'o':strcpy(keyboard_entry->keyname,"B09");
+			keyboard_entry->shift=0;
+			keyboard_entry->finger=8;
+			break;
+		case 'O':strcpy(keyboard_entry->keyname,"B09");
+			keyboard_entry->shift=1;
+			keyboard_entry->finger=8;
+			break;
+		case 'p':strcpy(keyboard_entry->keyname,"B10");
+			keyboard_entry->shift=0;
+			keyboard_entry->finger=9;
+			break;
+		case 'P':strcpy(keyboard_entry->keyname,"B10");
+			keyboard_entry->shift=1;
+			keyboard_entry->finger=9;
+			break;
+		case '[':strcpy(keyboard_entry->keyname,"B11");
+			keyboard_entry->shift=0;
+			keyboard_entry->finger=9;
+			break;
+		case '{':strcpy(keyboard_entry->keyname,"B11");
+			keyboard_entry->shift=1;
+			keyboard_entry->finger=9;
+			break;
+		case ']':strcpy(keyboard_entry->keyname,"B12");
+			keyboard_entry->shift=0;
+			keyboard_entry->finger=9;
+			break;
+		case '}':strcpy(keyboard_entry->keyname,"B12");
+			keyboard_entry->shift=1;
+			keyboard_entry->finger=9;
+			break;
+		case 'a':strcpy(keyboard_entry->keyname,"C01");
+			keyboard_entry->shift=0;
+			keyboard_entry->finger=0;
+			break;
+		case 'A':strcpy(keyboard_entry->keyname,"C01");
+			keyboard_entry->shift=2;
+			keyboard_entry->finger=0;
+			break;
+		case 's':strcpy(keyboard_entry->keyname,"C02");
+			keyboard_entry->shift=0;
+			keyboard_entry->finger=1;
+			break;
+		case 'S':strcpy(keyboard_entry->keyname,"C02");
+			keyboard_entry->shift=2;
+			keyboard_entry->finger=1;
+			break;
+		case 'd':strcpy(keyboard_entry->keyname,"C03");
+			keyboard_entry->shift=0;
+			keyboard_entry->finger=2;
+			break;
+		case 'D':strcpy(keyboard_entry->keyname,"C03");
+			keyboard_entry->shift=2;
+			keyboard_entry->finger=2;
+			break;
+		case 'f':strcpy(keyboard_entry->keyname,"C04");
+			keyboard_entry->shift=0;
+			keyboard_entry->finger=3;
+			break;
+		case 'F':strcpy(keyboard_entry->keyname,"C04");
+			keyboard_entry->shift=2;
+			keyboard_entry->finger=3;
+			break;
+		case 'g':strcpy(keyboard_entry->keyname,"C05");
+			keyboard_entry->shift=0;
+			keyboard_entry->finger=4;
+			break;
+		case 'G':strcpy(keyboard_entry->keyname,"C05");
+			keyboard_entry->shift=1;
+			keyboard_entry->finger=4;
+			break;
+		case 'h':strcpy(keyboard_entry->keyname,"C06");
+			keyboard_entry->shift=0;
+			keyboard_entry->finger=5;
+			break;
+		case 'H':strcpy(keyboard_entry->keyname,"C06");
+			keyboard_entry->shift=1;
+			keyboard_entry->finger=5;
+			break;
+		case 'j':strcpy(keyboard_entry->keyname,"C07");
+			keyboard_entry->shift=0;
+			keyboard_entry->finger=6;
+			break;
+		case 'J':strcpy(keyboard_entry->keyname,"C07");
+			keyboard_entry->shift=1;
+			keyboard_entry->finger=6;
+			break;
+		case 'k':strcpy(keyboard_entry->keyname,"C08");
+			keyboard_entry->shift=0;
+			keyboard_entry->finger=7;
+			break;
+		case 'K':strcpy(keyboard_entry->keyname,"C08");
+			keyboard_entry->shift=1;
+			keyboard_entry->finger=7;
+			break;
+		case 'l':strcpy(keyboard_entry->keyname,"C09");
+			keyboard_entry->shift=0;
+			keyboard_entry->finger=8;
+			break;
+		case 'L':strcpy(keyboard_entry->keyname,"C09");
+			keyboard_entry->shift=1;
+			keyboard_entry->finger=8;
+			break;
+		case ';':strcpy(keyboard_entry->keyname,"C10");
+			keyboard_entry->shift=0;
+			keyboard_entry->finger=9;
+			break;
+		case ':':strcpy(keyboard_entry->keyname,"C10");
+			keyboard_entry->shift=1;
+			keyboard_entry->finger=9;
+			break;			
+		case '\'':strcpy(keyboard_entry->keyname,"C11");
+			keyboard_entry->shift=0;
+			keyboard_entry->finger=9;
+			break;
+		case '"':strcpy(keyboard_entry->keyname,"C11");
+			keyboard_entry->shift=1;
+			keyboard_entry->finger=9;
+			break;
+		case 'z':strcpy(keyboard_entry->keyname,"D01");
+			keyboard_entry->shift=0;
+			keyboard_entry->finger=0;
+			break;
+		case 'Z':strcpy(keyboard_entry->keyname,"D01");
+			keyboard_entry->shift=2;
+			keyboard_entry->finger=0;
+			break;
+		case 'x':strcpy(keyboard_entry->keyname,"D02");
+			keyboard_entry->shift=0;
+			keyboard_entry->finger=1;
+			break;
+		case 'X':strcpy(keyboard_entry->keyname,"D02");
+			keyboard_entry->shift=2;
+			keyboard_entry->finger=1;
+			break;
+		case 'c':strcpy(keyboard_entry->keyname,"D03");
+			keyboard_entry->shift=0;
+			keyboard_entry->finger=2;
+			break;
+		case 'C':strcpy(keyboard_entry->keyname,"D03");
+			keyboard_entry->shift=2;
+			keyboard_entry->finger=2;
+			break;
+		case 'v':strcpy(keyboard_entry->keyname,"D04");
+			keyboard_entry->shift=0;
+			keyboard_entry->finger=3;
+			break;
+		case 'V':strcpy(keyboard_entry->keyname,"D04");
+			keyboard_entry->shift=2;
+			keyboard_entry->finger=3;
+			break;
+		case 'b':strcpy(keyboard_entry->keyname,"D05");
+			keyboard_entry->shift=0;
+			keyboard_entry->finger=4;
+			break;
+		case 'B':strcpy(keyboard_entry->keyname,"D05");
+			keyboard_entry->shift=2;
+			keyboard_entry->finger=4;
+			break;
+		case 'n':strcpy(keyboard_entry->keyname,"D06");
+			keyboard_entry->shift=0;
+			keyboard_entry->finger=5;
+			break;
+		case 'N':strcpy(keyboard_entry->keyname,"D06");
+			keyboard_entry->shift=1;
+			keyboard_entry->finger=5;
+			break;
+		case 'm':strcpy(keyboard_entry->keyname,"D07");
+			keyboard_entry->shift=0;
+			keyboard_entry->finger=6;
+			break;
+		case 'M':strcpy(keyboard_entry->keyname,"D07");
+			keyboard_entry->shift=1;
+			keyboard_entry->finger=6;
+			break;
+		case ',':strcpy(keyboard_entry->keyname,"D08");
+			keyboard_entry->shift=0;
+			keyboard_entry->finger=7;
+			break;
+		case '<':strcpy(keyboard_entry->keyname,"D08");
+			keyboard_entry->shift=1;
+			keyboard_entry->finger=7;
+			break;
+		case '.':strcpy(keyboard_entry->keyname,"D09");
+			keyboard_entry->shift=0;
+			keyboard_entry->finger=8;
+			break;
+		case '>':strcpy(keyboard_entry->keyname,"D09");
+			keyboard_entry->shift=1;
+			keyboard_entry->finger=8;
+			break;
+		case '/':strcpy(keyboard_entry->keyname,"D10");
+			keyboard_entry->shift=0;
+			keyboard_entry->finger=9;
+			break;
+		case '?':strcpy(keyboard_entry->keyname,"D10");
+			keyboard_entry->shift=1;
+			keyboard_entry->finger=9;
+			break;
+		case ' ':strcpy(keyboard_entry->keyname,"E03");
+			keyboard_entry->shift=0;
+			keyboard_entry->finger=5;
+			break;
+		default:strcpy(keyboard_entry->keyname,"None");
+			keyboard_entry->shift=0;
+			keyboard_entry->finger=-1;
+			break;
+	}
+}
+
+void GenerateKeyboard(SDL_Surface* keyboard)
+{
+	SDL_Surface* tmp = NULL;
+	SDL_Rect new;
+	int i;
+	int col;
+	char row;
+	int render=1;
+	Uint16 t[2];
+	TTF_Font* smallfont = NULL;
+	DEBUGCODE { printf("Entering GenerateKeyboard\n"); }
+	t[1] = '\0';
+	smallfont = LoadFont(settings.theme_font_name, 15);
+	if(!smallfont)
+	{
+		DEBUGCODE { printf("Error loading font\n"); }
+		return;
+	}
+	for(i=0;i < num_chars_used;i++)
+	{
+		render=1;
+		new.x=0;
+		new.y=0;
+		new.w=5;
+		new.h=5;
+		t[0]=keyboard_list[i].unicode_value;
+		sscanf(keyboard_list[i].keyname,"%c%d",&row,&col);
+		switch(row)
+		{
+			case 'A':new.y+=6;new.x+=13;break;
+			case 'B':new.y+=36;new.x+=23;break;
+			case 'C':new.y+=66;new.x+=33;break;
+			case 'D':new.y+=96;new.x+=23;break;
+			case 'E':new.y+126;break;
+			default: render=0;break;
+		}
+		if(!render)
+			continue;
+		new.x+=30*col;
+		if(keyboard_list[i].shift>0)
+		{
+					new.x-=9;
+					if(new.y<9)
+						new.y-=5;
+					else
+						new.y-=9;
+		}
+		DEBUGCODE { printf("Making %d : %C\n",i,keyboard_list[i].unicode_value); }
+		//tmp=BlackOutline_Unicode(t, smallfont, &black);
+		tmp=TTF_RenderUNICODE_Blended((TTF_Font*)smallfont, t, black);
+		if(tmp==NULL)
+		{
+			DEBUGCODE { printf("Error Making %d : %C\n",i,keyboard_list[i].unicode_value); }
+		}
+		SDL_BlitSurface(tmp, NULL, keyboard, &new);
+	}	
+	TTF_CloseFont(smallfont);
+	DEBUGCODE { printf("Leaving GenerateKeyboard\n"); }
+}
+void updatekeylist(int key,char ch)
+{
+	keyboard_list[key].latin_char=ch;
+	wchar_t wtmp=ch;
+	map_keys(wtmp,&keyboard_list[key]);
+}
+void savekeyboard()
+{
+	unsigned char fn[FNLEN];
+	FILE *fp;
+	int i,j=0;
+	wchar_t tmp[2];
+	char buf[FNLEN];
+	DEBUGCODE { printf("Entering savekeyboard()\n"); }
+	tmp[1]=0;
+	if(!settings.use_english)
+		sprintf(fn , "%s/keyboard.lst", settings.theme_data_path);
+	else
+		sprintf(fn , "%s/keyboard.lst", settings.default_data_path);
+	fp=fopen(fn,"w");
+	if (fp == NULL)
+	{
+		LOG("savekeyboard() - could not open keyboard.lst\n");
+		return;
+	}
+	for(i=0;i<num_chars_used;i++)
+	{
+		tmp[0]=keyboard_list[i].unicode_value;
+		/**********fprintf(fp,"%d|%C\n",keyboard_list[i].finger,keyboard_list[i].unicode_value); doesnt work, so the unicode value is converted into a char string*/
+		j=ConvertToUTF8(tmp, buf);
+		buf[j]=0;
+		if(keyboard_list[i].finger==-1)
+		{
+			fprintf(fp,"%s\n",buf);
+		}
+		else
+		if(keyboard_list[i].latin_char==-1)
+		{
+				fprintf(fp,"%d|%s\n",keyboard_list[i].finger,buf);
+		}
+		else
+		{
+			fprintf(fp,"%d|%s|%c\n",keyboard_list[i].finger,buf,keyboard_list[i].latin_char);
+		}
+	}
+	fclose(fp);
+	DEBUGCODE { printf("Leaving savekeyboard()\n"); }
+}
+/****************************************************************/
+
 /****************************************************/
 /*                                                  */
 /*       Local ("private") functions:               */
@@ -1426,48 +1923,4 @@ static void clear_keyboard(void)
 }
 
 
-/* This function just tidies up all the ptr args needed for      */
-/* ConvertUTF8toUTF32() from Unicode, Inc. into a neat wrapper.  */
-/* It returns -1 on error, otherwise returns the length of the   */
-/* converted, null-terminated wchar_t* string now stored in the  */
-/* location of the 'wide_word' pointer.                          */
-int ConvertFromUTF8(wchar_t* wide_word, const unsigned char* UTF8_word)
-{
-  int i = 0;
-  ConversionResult result;
-  UTF8 temp_UTF8[FNLEN];
-  UTF32 temp_UTF32[FNLEN];
-
-  const UTF8* UTF8_Start = temp_UTF8;
-  const UTF8* UTF8_End = &temp_UTF8[FNLEN-1];
-  UTF32* UTF32_Start = temp_UTF32;
-  UTF32* UTF32_End = &temp_UTF32[FNLEN-1];
-
-  strncpy(temp_UTF8, UTF8_word, FNLEN);
-
-  ConvertUTF8toUTF32(&UTF8_Start, UTF8_End,
-                     &UTF32_Start, UTF32_End, 0);
-
-  wide_word[0] = '\0';
-
-  while ((i < FNLEN) && (temp_UTF32[i] != '\0'))
-  {
-    wide_word[i] = temp_UTF32[i];
-    i++; 
-  }
-
-  if (i >= FNLEN)
-  {
-    fprintf(stderr, "convert_from_UTF8(): buffer overflow\n");
-    return -1;
-  }
-  else  //need terminating null:
-  {
-    wide_word[i] = '\0';
-  }
-
-  DEBUGCODE {fprintf(stderr, "wide_word = %ls\n", wide_word);}
-
-  return wcslen(wide_word);
-}
 
