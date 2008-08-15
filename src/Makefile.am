@@ -1,6 +1,5 @@
 ## Process with Automake to create Makefile.in
 
-
 ##DATA_PREFIX=${pkgdatadir}
 
 bin_PROGRAMS = tuxtype

@@ -27,131 +27,132 @@ uname -v = #1 SMP Mon Mar 26 17:57:15 UTC 2007
 /usr/bin/oslevel       = unknown
 /bin/universe          = unknown
 
-PATH: /usr/local/bin
 PATH: /usr/local/sbin
-PATH: /sbin
+PATH: /usr/local/bin
 PATH: /usr/sbin
-PATH: /bin
 PATH: /usr/bin
+PATH: /sbin
+PATH: /bin
 PATH: /usr/bin/X11
-PATH: /usr/games
 
 
 ## ----------- ##
 ## Core tests. ##
 ## ----------- ##
 
-configure:1804: checking build system type
-configure:1822: result: i686-pc-linux-gnu
-configure:1844: checking host system type
-configure:1859: result: i686-pc-linux-gnu
-configure:1881: checking target system type
-configure:1896: result: i686-pc-linux-gnu
-configure:1943: checking for a BSD-compatible install
-configure:1999: result: /usr/bin/install -c
-configure:2010: checking whether build environment is sane
-configure:2053: result: yes
-configure:2118: checking for gawk
-configure:2148: result: no
-configure:2118: checking for mawk
-configure:2134: found /usr/bin/mawk
-configure:2145: result: mawk
-configure:2156: checking whether make sets $(MAKE)
-configure:2177: result: yes
-configure:2414: checking for gcc
-configure:2430: found /usr/bin/gcc
-configure:2441: result: gcc
-configure:2679: checking for C compiler version
-configure:2686: gcc --version >&5
+configure:1805: checking build system type
+configure:1823: result: i686-pc-linux-gnu
+configure:1845: checking host system type
+configure:1860: result: i686-pc-linux-gnu
+configure:1882: checking target system type
+configure:1897: result: i686-pc-linux-gnu
+configure:1945: checking for a BSD-compatible install
+configure:2001: result: /usr/bin/install -c
+configure:2012: checking whether build environment is sane
+configure:2055: result: yes
+configure:2083: checking for a thread-safe mkdir -p
+configure:2122: result: /bin/mkdir -p
+configure:2135: checking for gawk
+configure:2165: result: no
+configure:2135: checking for mawk
+configure:2151: found /usr/bin/mawk
+configure:2162: result: mawk
+configure:2173: checking whether make sets $(MAKE)
+configure:2194: result: yes
+configure:2435: checking for gcc
+configure:2451: found /usr/bin/gcc
+configure:2462: result: gcc
+configure:2700: checking for C compiler version
+configure:2707: gcc --version >&5
 gcc (GCC) 4.1.2 20061115 (prerelease) (Debian 4.1.1-21)
 Copyright (C) 2006 Free Software Foundation, Inc.
 This is free software; see the source for copying conditions.  There is NO
 warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
-configure:2689: $? = 0
-configure:2696: gcc -v >&5
+configure:2710: $? = 0
+configure:2717: gcc -v >&5
 Using built-in specs.
 Target: i486-linux-gnu
 Configured with: ../src/configure -v --enable-languages=c,c++,fortran,objc,obj-c++,treelang --prefix=/usr --enable-shared --with-system-zlib --libexecdir=/usr/lib --without-included-gettext --enable-threads=posix --enable-nls --program-suffix=-4.1 --enable-__cxa_atexit --enable-clocale=gnu --enable-libstdcxx-debug --enable-mpfr --with-tune=i686 --enable-checking=release i486-linux-gnu
 Thread model: posix
 gcc version 4.1.2 20061115 (prerelease) (Debian 4.1.1-21)
-configure:2699: $? = 0
-configure:2706: gcc -V >&5
+configure:2720: $? = 0
+configure:2727: gcc -V >&5
 gcc: '-V' option must have argument
-configure:2709: $? = 1
-configure:2732: checking for C compiler default output file name
-configure:2759: gcc    conftest.c  >&5
-configure:2762: $? = 0
-configure:2800: result: a.out
-configure:2817: checking whether the C compiler works
-configure:2827: ./a.out
-configure:2830: $? = 0
-configure:2847: result: yes
-configure:2854: checking whether we are cross compiling
-configure:2856: result: no
-configure:2859: checking for suffix of executables
-configure:2866: gcc -o conftest    conftest.c  >&5
-configure:2869: $? = 0
-configure:2893: result: 
-configure:2899: checking for suffix of object files
-configure:2925: gcc -c   conftest.c >&5
-configure:2928: $? = 0
-configure:2951: result: o
-configure:2955: checking whether we are using the GNU C compiler
-configure:2984: gcc -c   conftest.c >&5
-configure:2990: $? = 0
-configure:3007: result: yes
-configure:3012: checking whether gcc accepts -g
-configure:3042: gcc -c -g  conftest.c >&5
-configure:3048: $? = 0
-configure:3147: result: yes
-configure:3164: checking for gcc option to accept ISO C89
-configure:3238: gcc  -c -g -O2  conftest.c >&5
-configure:3244: $? = 0
-configure:3267: result: none needed
-configure:3296: checking for style of include used by make
-configure:3324: result: GNU
-configure:3352: checking dependency style of gcc
-configure:3442: result: gcc3
-configure:3472: checking for a BSD-compatible install
-configure:3528: result: /usr/bin/install -c
-configure:3539: checking whether ln -s works
-configure:3543: result: yes
-configure:3550: checking whether make sets $(MAKE)
-configure:3571: result: yes
-configure:3638: checking for sdl-config
-configure:3656: found /usr/local/bin/sdl-config
-configure:3669: result: /usr/local/bin/sdl-config
-configure:3678: checking for SDL - version >= 1.2.5
-configure:3775: gcc -o conftest -g -O2 -I/usr/local/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT   conftest.c  -L/usr/local/lib -Wl,-rpath,/usr/local/lib -lSDL -lpthread >&5
-configure:3778: $? = 0
-configure:3784: ./conftest
-configure:3787: $? = 0
-configure:3807: result: yes
-configure:3906: checking for Mix_PlayMusic in -lSDL_mixer
-configure:3941: gcc -o conftest -g -O2   conftest.c -lSDL_mixer   >&5
-configure:3947: $? = 0
-configure:3965: result: yes
-configure:3981: checking for TTF_Init in -lSDL_ttf
-configure:4016: gcc -o conftest -g -O2   conftest.c -lSDL_ttf  -lSDL_mixer  >&5
-configure:4022: $? = 0
-configure:4040: result: yes
-configure:4056: checking for IMG_Load in -lSDL_image
-configure:4091: gcc -o conftest -g -O2   conftest.c -lSDL_image  -lSDL_ttf -lSDL_mixer  >&5
-configure:4097: $? = 0
-configure:4115: result: yes
-configure:4133: checking for SDLPango_Init in -lSDL_Pango
-configure:4168: gcc -o conftest -g -O2   conftest.c -lSDL_Pango  -lSDL_image -lSDL_ttf -lSDL_mixer  >&5
-configure:4174: $? = 0
-configure:4192: result: yes
-configure:4216: checking for native Win32
-configure:4226: result: no
-configure:4301: checking how to run the C preprocessor
-configure:4341: gcc -E  conftest.c
-configure:4347: $? = 0
-configure:4378: gcc -E  conftest.c
+configure:2730: $? = 1
+configure:2753: checking for C compiler default output file name
+configure:2780: gcc    conftest.c  >&5
+configure:2783: $? = 0
+configure:2821: result: a.out
+configure:2838: checking whether the C compiler works
+configure:2848: ./a.out
+configure:2851: $? = 0
+configure:2868: result: yes
+configure:2875: checking whether we are cross compiling
+configure:2877: result: no
+configure:2880: checking for suffix of executables
+configure:2887: gcc -o conftest    conftest.c  >&5
+configure:2890: $? = 0
+configure:2914: result: 
+configure:2920: checking for suffix of object files
+configure:2946: gcc -c   conftest.c >&5
+configure:2949: $? = 0
+configure:2972: result: o
+configure:2976: checking whether we are using the GNU C compiler
+configure:3005: gcc -c   conftest.c >&5
+configure:3011: $? = 0
+configure:3028: result: yes
+configure:3033: checking whether gcc accepts -g
+configure:3063: gcc -c -g  conftest.c >&5
+configure:3069: $? = 0
+configure:3168: result: yes
+configure:3185: checking for gcc option to accept ISO C89
+configure:3259: gcc  -c -g -O2  conftest.c >&5
+configure:3265: $? = 0
+configure:3288: result: none needed
+configure:3317: checking for style of include used by make
+configure:3345: result: GNU
+configure:3370: checking dependency style of gcc
+configure:3461: result: gcc3
+configure:3489: checking for a BSD-compatible install
+configure:3545: result: /usr/bin/install -c
+configure:3556: checking whether ln -s works
+configure:3560: result: yes
+configure:3567: checking whether make sets $(MAKE)
+configure:3588: result: yes
+configure:3655: checking for sdl-config
+configure:3673: found /usr/bin/sdl-config
+configure:3686: result: /usr/bin/sdl-config
+configure:3695: checking for SDL - version >= 1.2.5
+configure:3792: gcc -o conftest -g -O2 -I/usr/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT   conftest.c  -L/usr/lib -lSDL >&5
+configure:3795: $? = 0
+configure:3801: ./conftest
+configure:3804: $? = 0
+configure:3824: result: yes
+configure:3923: checking for Mix_PlayMusic in -lSDL_mixer
+configure:3958: gcc -o conftest -g -O2   conftest.c -lSDL_mixer   >&5
+configure:3964: $? = 0
+configure:3982: result: yes
+configure:3998: checking for TTF_Init in -lSDL_ttf
+configure:4033: gcc -o conftest -g -O2   conftest.c -lSDL_ttf  -lSDL_mixer  >&5
+configure:4039: $? = 0
+configure:4057: result: yes
+configure:4073: checking for IMG_Load in -lSDL_image
+configure:4108: gcc -o conftest -g -O2   conftest.c -lSDL_image  -lSDL_ttf -lSDL_mixer  >&5
+configure:4114: $? = 0
+configure:4132: result: yes
+configure:4150: checking for SDLPango_Init in -lSDL_Pango
+configure:4185: gcc -o conftest -g -O2   conftest.c -lSDL_Pango  -lSDL_image -lSDL_ttf -lSDL_mixer  >&5
+configure:4191: $? = 0
+configure:4209: result: yes
+configure:4233: checking for native Win32
+configure:4243: result: no
+configure:4316: checking how to run the C preprocessor
+configure:4356: gcc -E  conftest.c
+configure:4362: $? = 0
+configure:4393: gcc -E  conftest.c
 conftest.c:14:28: error: ac_nonexistent.h: No such file or directory
-configure:4384: $? = 1
+configure:4399: $? = 1
 configure: failed program was:
 | /* confdefs.h.  */
 | #define PACKAGE_NAME "Tux Typing"
@@ -167,12 +168,12 @@ configure: failed program was:
 | #define HAVE_LIBSDL_PANGO 1
 | /* end confdefs.h.  */
 | #include <ac_nonexistent.h>
-configure:4417: result: gcc -E
-configure:4446: gcc -E  conftest.c
-configure:4452: $? = 0
-configure:4483: gcc -E  conftest.c
+configure:4432: result: gcc -E
+configure:4461: gcc -E  conftest.c
+configure:4467: $? = 0
+configure:4498: gcc -E  conftest.c
 conftest.c:14:28: error: ac_nonexistent.h: No such file or directory
-configure:4489: $? = 1
+configure:4504: $? = 1
 configure: failed program was:
 | /* confdefs.h.  */
 | #define PACKAGE_NAME "Tux Typing"
@@ -188,93 +189,93 @@ configure: failed program was:
 | #define HAVE_LIBSDL_PANGO 1
 | /* end confdefs.h.  */
 | #include <ac_nonexistent.h>
-configure:4527: checking for grep that handles long lines and -e
-configure:4601: result: /bin/grep
-configure:4606: checking for egrep
-configure:4684: result: /bin/grep -E
-configure:4689: checking for ANSI C header files
-configure:4719: gcc -c -g -O2 -I/usr/local/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT  conftest.c >&5
-configure:4725: $? = 0
-configure:4824: gcc -o conftest -g -O2 -I/usr/local/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT   conftest.c -L/usr/local/lib -Wl,-rpath,/usr/local/lib -lSDL -lpthread -lSDL_Pango -lSDL_image -lSDL_ttf -lSDL_mixer  >&5
-configure:4827: $? = 0
-configure:4833: ./conftest
-configure:4836: $? = 0
-configure:4853: result: yes
-configure:4877: checking for sys/types.h
-configure:4898: gcc -c -g -O2 -I/usr/local/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT  conftest.c >&5
-configure:4904: $? = 0
-configure:4920: result: yes
-configure:4877: checking for sys/stat.h
-configure:4898: gcc -c -g -O2 -I/usr/local/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT  conftest.c >&5
-configure:4904: $? = 0
-configure:4920: result: yes
-configure:4877: checking for stdlib.h
-configure:4898: gcc -c -g -O2 -I/usr/local/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT  conftest.c >&5
-configure:4904: $? = 0
-configure:4920: result: yes
-configure:4877: checking for string.h
-configure:4898: gcc -c -g -O2 -I/usr/local/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT  conftest.c >&5
-configure:4904: $? = 0
-configure:4920: result: yes
-configure:4877: checking for memory.h
-configure:4898: gcc -c -g -O2 -I/usr/local/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT  conftest.c >&5
-configure:4904: $? = 0
-configure:4920: result: yes
-configure:4877: checking for strings.h
-configure:4898: gcc -c -g -O2 -I/usr/local/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT  conftest.c >&5
-configure:4904: $? = 0
-configure:4920: result: yes
-configure:4877: checking for inttypes.h
-configure:4898: gcc -c -g -O2 -I/usr/local/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT  conftest.c >&5
-configure:4904: $? = 0
-configure:4920: result: yes
-configure:4877: checking for stdint.h
-configure:4898: gcc -c -g -O2 -I/usr/local/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT  conftest.c >&5
-configure:4904: $? = 0
-configure:4920: result: yes
-configure:4877: checking for unistd.h
-configure:4898: gcc -c -g -O2 -I/usr/local/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT  conftest.c >&5
-configure:4904: $? = 0
-configure:4920: result: yes
-configure:4938: checking for stdlib.h
-configure:4944: result: yes
-configure:4938: checking for string.h
-configure:4944: result: yes
-configure:5080: checking for an ANSI C-conforming const
-configure:5155: gcc -c -g -O2 -I/usr/local/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT  conftest.c >&5
-configure:5161: $? = 0
-configure:5176: result: yes
-configure:5186: checking for inline
-configure:5212: gcc -c -g -O2 -I/usr/local/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT  conftest.c >&5
-configure:5218: $? = 0
-configure:5236: result: inline
-configure:5265: checking for atexit
-configure:5321: gcc -o conftest -g -O2 -I/usr/local/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT   conftest.c -L/usr/local/lib -Wl,-rpath,/usr/local/lib -lSDL -lpthread -lSDL_Pango -lSDL_image -lSDL_ttf -lSDL_mixer  >&5
-configure:5327: $? = 0
-configure:5345: result: yes
-configure:5265: checking for memset
-configure:5321: gcc -o conftest -g -O2 -I/usr/local/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT   conftest.c -L/usr/local/lib -Wl,-rpath,/usr/local/lib -lSDL -lpthread -lSDL_Pango -lSDL_image -lSDL_ttf -lSDL_mixer  >&5
+configure:4542: checking for grep that handles long lines and -e
+configure:4616: result: /bin/grep
+configure:4621: checking for egrep
+configure:4699: result: /bin/grep -E
+configure:4704: checking for ANSI C header files
+configure:4734: gcc -c -g -O2 -I/usr/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT  conftest.c >&5
+configure:4740: $? = 0
+configure:4839: gcc -o conftest -g -O2 -I/usr/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT   conftest.c -L/usr/lib -lSDL -lSDL_Pango -lSDL_image -lSDL_ttf -lSDL_mixer  >&5
+configure:4842: $? = 0
+configure:4848: ./conftest
+configure:4851: $? = 0
+configure:4868: result: yes
+configure:4892: checking for sys/types.h
+configure:4913: gcc -c -g -O2 -I/usr/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT  conftest.c >&5
+configure:4919: $? = 0
+configure:4935: result: yes
+configure:4892: checking for sys/stat.h
+configure:4913: gcc -c -g -O2 -I/usr/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT  conftest.c >&5
+configure:4919: $? = 0
+configure:4935: result: yes
+configure:4892: checking for stdlib.h
+configure:4913: gcc -c -g -O2 -I/usr/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT  conftest.c >&5
+configure:4919: $? = 0
+configure:4935: result: yes
+configure:4892: checking for string.h
+configure:4913: gcc -c -g -O2 -I/usr/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT  conftest.c >&5
+configure:4919: $? = 0
+configure:4935: result: yes
+configure:4892: checking for memory.h
+configure:4913: gcc -c -g -O2 -I/usr/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT  conftest.c >&5
+configure:4919: $? = 0
+configure:4935: result: yes
+configure:4892: checking for strings.h
+configure:4913: gcc -c -g -O2 -I/usr/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT  conftest.c >&5
+configure:4919: $? = 0
+configure:4935: result: yes
+configure:4892: checking for inttypes.h
+configure:4913: gcc -c -g -O2 -I/usr/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT  conftest.c >&5
+configure:4919: $? = 0
+configure:4935: result: yes
+configure:4892: checking for stdint.h
+configure:4913: gcc -c -g -O2 -I/usr/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT  conftest.c >&5
+configure:4919: $? = 0
+configure:4935: result: yes
+configure:4892: checking for unistd.h
+configure:4913: gcc -c -g -O2 -I/usr/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT  conftest.c >&5
+configure:4919: $? = 0
+configure:4935: result: yes
+configure:4953: checking for stdlib.h
+configure:4959: result: yes
+configure:4953: checking for string.h
+configure:4959: result: yes
+configure:5095: checking for an ANSI C-conforming const
+configure:5170: gcc -c -g -O2 -I/usr/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT  conftest.c >&5
+configure:5176: $? = 0
+configure:5191: result: yes
+configure:5201: checking for inline
+configure:5227: gcc -c -g -O2 -I/usr/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT  conftest.c >&5
+configure:5233: $? = 0
+configure:5251: result: inline
+configure:5280: checking for atexit
+configure:5336: gcc -o conftest -g -O2 -I/usr/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT   conftest.c -L/usr/lib -lSDL -lSDL_Pango -lSDL_image -lSDL_ttf -lSDL_mixer  >&5
+configure:5342: $? = 0
+configure:5360: result: yes
+configure:5280: checking for memset
+configure:5336: gcc -o conftest -g -O2 -I/usr/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT   conftest.c -L/usr/lib -lSDL -lSDL_Pango -lSDL_image -lSDL_ttf -lSDL_mixer  >&5
 conftest.c:50: warning: conflicting types for built-in function 'memset'
-configure:5327: $? = 0
-configure:5345: result: yes
-configure:5265: checking for strchr
-configure:5321: gcc -o conftest -g -O2 -I/usr/local/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT   conftest.c -L/usr/local/lib -Wl,-rpath,/usr/local/lib -lSDL -lpthread -lSDL_Pango -lSDL_image -lSDL_ttf -lSDL_mixer  >&5
+configure:5342: $? = 0
+configure:5360: result: yes
+configure:5280: checking for strchr
+configure:5336: gcc -o conftest -g -O2 -I/usr/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT   conftest.c -L/usr/lib -lSDL -lSDL_Pango -lSDL_image -lSDL_ttf -lSDL_mixer  >&5
 conftest.c:51: warning: conflicting types for built-in function 'strchr'
-configure:5327: $? = 0
-configure:5345: result: yes
-configure:5265: checking for strstr
-configure:5321: gcc -o conftest -g -O2 -I/usr/local/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT   conftest.c -L/usr/local/lib -Wl,-rpath,/usr/local/lib -lSDL -lpthread -lSDL_Pango -lSDL_image -lSDL_ttf -lSDL_mixer  >&5
+configure:5342: $? = 0
+configure:5360: result: yes
+configure:5280: checking for strstr
+configure:5336: gcc -o conftest -g -O2 -I/usr/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT   conftest.c -L/usr/lib -lSDL -lSDL_Pango -lSDL_image -lSDL_ttf -lSDL_mixer  >&5
 conftest.c:52: warning: conflicting types for built-in function 'strstr'
-configure:5327: $? = 0
-configure:5345: result: yes
-configure:5265: checking for malloc
-configure:5321: gcc -o conftest -g -O2 -I/usr/local/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT   conftest.c -L/usr/local/lib -Wl,-rpath,/usr/local/lib -lSDL -lpthread -lSDL_Pango -lSDL_image -lSDL_ttf -lSDL_mixer  >&5
+configure:5342: $? = 0
+configure:5360: result: yes
+configure:5280: checking for malloc
+configure:5336: gcc -o conftest -g -O2 -I/usr/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT   conftest.c -L/usr/lib -lSDL -lSDL_Pango -lSDL_image -lSDL_ttf -lSDL_mixer  >&5
 conftest.c:53: warning: conflicting types for built-in function 'malloc'
-configure:5327: $? = 0
-configure:5345: result: yes
-configure:5399: checking for makensis
-configure:5430: result: no
-configure:5568: creating ./config.status
+configure:5342: $? = 0
+configure:5360: result: yes
+configure:5412: checking for makensis
+configure:5443: result: no
+configure:5581: creating ./config.status
 
 ## ---------------------- ##
 ## Running config.status. ##
@@ -291,94 +292,95 @@ generated by GNU Autoconf 2.61.  Invocation command line was
 
 on debian
 
-config.status:745: creating Makefile
-config.status:745: creating data/Makefile
-config.status:745: creating data/fonts/Makefile
-config.status:745: creating data/images/Makefile
-config.status:745: creating data/images/backgrounds/Makefile
-config.status:745: creating data/images/cities/Makefile
-config.status:745: creating data/images/comets/Makefile
-config.status:745: creating data/images/hands/Makefile
-config.status:745: creating data/images/icons/Makefile
-config.status:745: creating data/images/keyboard/Makefile
-config.status:745: creating data/images/menu/Makefile
-config.status:745: creating data/images/status/Makefile
-config.status:745: creating data/images/tux/Makefile
-config.status:745: creating data/scripts/Makefile
-config.status:745: creating data/sounds/Makefile
-config.status:745: creating data/themes/Makefile
-config.status:745: creating data/themes/armenian/Makefile
-config.status:745: creating data/themes/armenian/images/Makefile
-config.status:745: creating data/themes/bokmal/Makefile
-config.status:745: creating data/themes/bokmal/words/Makefile
-config.status:745: creating data/themes/bokmal/images/Makefile
-config.status:745: creating data/themes/bokmal/images/status/Makefile
-config.status:745: creating data/themes/brazilian-portuguese/Makefile
-config.status:745: creating data/themes/brazilian-portuguese/images/Makefile
-config.status:745: creating data/themes/brazilian-portuguese/words/Makefile
-config.status:745: creating data/themes/catalan/Makefile
-config.status:745: creating data/themes/catalan/words/Makefile
-config.status:745: creating data/themes/czech/Makefile
-config.status:745: creating data/themes/czech/words/Makefile
-config.status:745: creating data/themes/dansk/Makefile
-config.status:745: creating data/themes/dansk/sounds/Makefile
-config.status:745: creating data/themes/dansk/words/Makefile
-config.status:745: creating data/themes/deutsch/Makefile
-config.status:745: creating data/themes/deutsch/words/Makefile
-config.status:745: creating data/themes/espanol/Makefile
-config.status:745: creating data/themes/espanol/images/Makefile
-config.status:745: creating data/themes/espanol/words/Makefile
-config.status:745: creating data/themes/euskara/Makefile
-config.status:745: creating data/themes/euskara/images/Makefile
-config.status:745: creating data/themes/euskara/words/Makefile
-config.status:745: creating data/themes/french/Makefile
-config.status:745: creating data/themes/french/words/Makefile
-config.status:745: creating data/themes/greek/Makefile
-config.status:745: creating data/themes/greek/words/Makefile
-config.status:745: creating data/themes/italian/Makefile
-config.status:745: creating data/themes/italian/images/Makefile
-config.status:745: creating data/themes/italian/words/Makefile
-config.status:745: creating data/themes/jamaican/Makefile
-config.status:745: creating data/themes/jamaican/images/Makefile
-config.status:745: creating data/themes/jamaican/words/Makefile
-config.status:745: creating data/themes/lithuanian/Makefile
-config.status:745: creating data/themes/lithuanian/images/Makefile
-config.status:745: creating data/themes/lithuanian/images/status/Makefile
-config.status:745: creating data/themes/lithuanian/sounds/Makefile
-config.status:745: creating data/themes/lithuanian/words/Makefile
-config.status:745: creating data/themes/malayalam/Makefile
-config.status:745: creating data/themes/malayalam/images/Makefile
-config.status:745: creating data/themes/malayalam/images/status/Makefile
-config.status:745: creating data/themes/malayalam/images/keyboard/Makefile
-config.status:745: creating data/themes/malayalam/scripts/Makefile
-config.status:745: creating data/themes/malayalam/words/Makefile
-config.status:745: creating data/themes/nederlands/Makefile
-config.status:745: creating data/themes/nederlands/words/Makefile
-config.status:745: creating data/themes/nepali/Makefile
-config.status:745: creating data/themes/nepali/words/Makefile
-config.status:745: creating data/themes/nynorsk/Makefile
-config.status:745: creating data/themes/nynorsk/images/Makefile
-config.status:745: creating data/themes/nynorsk/images/status/Makefile
-config.status:745: creating data/themes/nynorsk/words/Makefile
-config.status:745: creating data/themes/russian/Makefile
-config.status:745: creating data/themes/russian/images/Makefile
-config.status:745: creating data/themes/russian/images/status/Makefile
-config.status:745: creating data/themes/russian/words/Makefile
-config.status:745: creating data/themes/svenska/Makefile
-config.status:745: creating data/themes/svenska/words/Makefile
-config.status:745: creating data/themes/swahili/Makefile
-config.status:745: creating data/themes/swahili/words/Makefile
-config.status:745: creating data/themes/wolof/Makefile
-config.status:745: creating data/themes/wolof/images/Makefile
-config.status:745: creating data/themes/wolof/words/Makefile
-config.status:745: creating data/words/Makefile
-config.status:745: creating doc/Makefile
-config.status:745: creating doc/en/Makefile
-config.status:745: creating src/Makefile
-config.status:745: creating nsis/tuxtype.nsi
-config.status:745: creating tuxtype.spec
-config.status:745: creating config.h
-config.status:1022: executing depfiles commands
+config.status:747: creating Makefile
+config.status:747: creating data/Makefile
+config.status:747: creating data/fonts/Makefile
+config.status:747: creating data/images/Makefile
+config.status:747: creating data/images/backgrounds/Makefile
+config.status:747: creating data/images/cities/Makefile
+config.status:747: creating data/images/comets/Makefile
+config.status:747: creating data/images/hands/Makefile
+config.status:747: creating data/images/icons/Makefile
+config.status:747: creating data/images/keyboard/Makefile
+config.status:747: creating data/images/menu/Makefile
+config.status:747: creating data/images/status/Makefile
+config.status:747: creating data/images/tux/Makefile
+config.status:747: creating data/scripts/Makefile
+config.status:747: creating data/sounds/Makefile
+config.status:747: creating data/themes/Makefile
+config.status:747: creating data/themes/armenian/Makefile
+config.status:747: creating data/themes/armenian/images/Makefile
+config.status:747: creating data/themes/bokmal/Makefile
+config.status:747: creating data/themes/bokmal/words/Makefile
+config.status:747: creating data/themes/bokmal/images/Makefile
+config.status:747: creating data/themes/bokmal/images/status/Makefile
+config.status:747: creating data/themes/brazilian-portuguese/Makefile
+config.status:747: creating data/themes/brazilian-portuguese/images/Makefile
+config.status:747: creating data/themes/brazilian-portuguese/words/Makefile
+config.status:747: creating data/themes/catalan/Makefile
+config.status:747: creating data/themes/catalan/words/Makefile
+config.status:747: creating data/themes/czech/Makefile
+config.status:747: creating data/themes/czech/words/Makefile
+config.status:747: creating data/themes/dansk/Makefile
+config.status:747: creating data/themes/dansk/sounds/Makefile
+config.status:747: creating data/themes/dansk/words/Makefile
+config.status:747: creating data/themes/deutsch/Makefile
+config.status:747: creating data/themes/deutsch/words/Makefile
+config.status:747: creating data/themes/espanol/Makefile
+config.status:747: creating data/themes/espanol/images/Makefile
+config.status:747: creating data/themes/espanol/words/Makefile
+config.status:747: creating data/themes/euskara/Makefile
+config.status:747: creating data/themes/euskara/images/Makefile
+config.status:747: creating data/themes/euskara/words/Makefile
+config.status:747: creating data/themes/french/Makefile
+config.status:747: creating data/themes/french/words/Makefile
+config.status:747: creating data/themes/greek/Makefile
+config.status:747: creating data/themes/greek/words/Makefile
+config.status:747: creating data/themes/italian/Makefile
+config.status:747: creating data/themes/italian/images/Makefile
+config.status:747: creating data/themes/italian/words/Makefile
+config.status:747: creating data/themes/jamaican/Makefile
+config.status:747: creating data/themes/jamaican/images/Makefile
+config.status:747: creating data/themes/jamaican/words/Makefile
+config.status:747: creating data/themes/lithuanian/Makefile
+config.status:747: creating data/themes/lithuanian/images/Makefile
+config.status:747: creating data/themes/lithuanian/images/status/Makefile
+config.status:747: creating data/themes/lithuanian/sounds/Makefile
+config.status:747: creating data/themes/lithuanian/words/Makefile
+config.status:747: creating data/themes/malayalam/Makefile
+config.status:747: creating data/themes/malayalam/images/Makefile
+config.status:747: creating data/themes/malayalam/images/status/Makefile
+config.status:747: creating data/themes/malayalam/images/keyboard/Makefile
+config.status:747: creating data/themes/malayalam/scripts/Makefile
+config.status:747: creating data/themes/malayalam/words/Makefile
+config.status:747: creating data/themes/nederlands/Makefile
+config.status:747: creating data/themes/nederlands/words/Makefile
+config.status:747: creating data/themes/nepali/Makefile
+config.status:747: creating data/themes/nepali/words/Makefile
+config.status:747: creating data/themes/nynorsk/Makefile
+config.status:747: creating data/themes/nynorsk/images/Makefile
+config.status:747: creating data/themes/nynorsk/images/status/Makefile
+config.status:747: creating data/themes/nynorsk/words/Makefile
+config.status:747: creating data/themes/russian/Makefile
+config.status:747: creating data/themes/russian/images/Makefile
+config.status:747: creating data/themes/russian/images/status/Makefile
+config.status:747: creating data/themes/russian/words/Makefile
+config.status:747: creating data/themes/svenska/Makefile
+config.status:747: creating data/themes/svenska/words/Makefile
+config.status:747: creating data/themes/swahili/Makefile
+config.status:747: creating data/themes/swahili/words/Makefile
+config.status:747: creating data/themes/wolof/Makefile
+config.status:747: creating data/themes/wolof/images/Makefile
+config.status:747: creating data/themes/wolof/words/Makefile
+config.status:747: creating data/words/Makefile
+config.status:747: creating doc/Makefile
+config.status:747: creating doc/en/Makefile
+config.status:747: creating src/Makefile
+config.status:747: creating nsis/tuxtype.nsi
+config.status:747: creating tuxtype.spec
+config.status:747: creating config.h
+config.status:984: config.h is unchanged
+config.status:1030: executing depfiles commands
 
 ## ---------------- ##
 ## Cache variables. ##
@@ -430,8 +432,9 @@ ac_cv_objext=o
 ac_cv_path_EGREP='/bin/grep -E'
 ac_cv_path_GREP=/bin/grep
 ac_cv_path_NSIS=no
-ac_cv_path_SDL_CONFIG=/usr/local/bin/sdl-config
+ac_cv_path_SDL_CONFIG=/usr/bin/sdl-config
 ac_cv_path_install='/usr/bin/install -c'
+ac_cv_path_mkdir=/bin/mkdir
 ac_cv_prog_AWK=mawk
 ac_cv_prog_CPP='gcc -E'
 ac_cv_prog_ac_ct_CC=gcc
@@ -445,20 +448,20 @@ am_cv_CC_dependencies_compiler_type=gcc3
 ## Output variables. ##
 ## ----------------- ##
 
-ACLOCAL='${SHELL} /usr/local/src/tuxtype-1.5.17-rev-489/missing --run aclocal-1.9'
+ACLOCAL='${SHELL} /home/mobin/tuxtype/branches/tuxtype-1.5.17_soc1/missing --run aclocal-1.10'
 AMDEPBACKSLASH='\'
 AMDEP_FALSE='#'
 AMDEP_TRUE=''
-AMTAR='${SHELL} /usr/local/src/tuxtype-1.5.17-rev-489/missing --run tar'
-AUTOCONF='${SHELL} /usr/local/src/tuxtype-1.5.17-rev-489/missing --run autoconf'
-AUTOHEADER='${SHELL} /usr/local/src/tuxtype-1.5.17-rev-489/missing --run autoheader'
-AUTOMAKE='${SHELL} /usr/local/src/tuxtype-1.5.17-rev-489/missing --run automake-1.9'
+AMTAR='${SHELL} /home/mobin/tuxtype/branches/tuxtype-1.5.17_soc1/missing --run tar'
+AUTOCONF='${SHELL} /home/mobin/tuxtype/branches/tuxtype-1.5.17_soc1/missing --run autoconf'
+AUTOHEADER='${SHELL} /home/mobin/tuxtype/branches/tuxtype-1.5.17_soc1/missing --run autoheader'
+AUTOMAKE='${SHELL} /home/mobin/tuxtype/branches/tuxtype-1.5.17_soc1/missing --run automake-1.10'
 AWK='mawk'
 BUILD_MINGW32_FALSE=''
 BUILD_MINGW32_TRUE='#'
 CC='gcc'
 CCDEPMODE='depmode=gcc3'
-CFLAGS='-g -O2 -I/usr/local/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT'
+CFLAGS='-g -O2 -I/usr/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT'
 CPP='gcc -E'
 CPPFLAGS=' -DDATA_PREFIX=\"$(prefix)\"'
 CYGPATH_W='echo'
@@ -473,13 +476,13 @@ GREP='/bin/grep'
 INSTALL_DATA='${INSTALL} -m 644'
 INSTALL_PROGRAM='${INSTALL}'
 INSTALL_SCRIPT='${INSTALL}'
-INSTALL_STRIP_PROGRAM='${SHELL} $(install_sh) -c -s'
+INSTALL_STRIP_PROGRAM='$(install_sh) -c -s'
 LDFLAGS=''
 LIBOBJS=''
-LIBS='-L/usr/local/lib -Wl,-rpath,/usr/local/lib -lSDL -lpthread -lSDL_Pango -lSDL_image -lSDL_ttf -lSDL_mixer '
+LIBS='-L/usr/lib -lSDL -lSDL_Pango -lSDL_image -lSDL_ttf -lSDL_mixer '
 LN_S='ln -s'
 LTLIBOBJS=''
-MAKEINFO='${SHELL} /usr/local/src/tuxtype-1.5.17-rev-489/missing --run makeinfo'
+MAKEINFO='${SHELL} /home/mobin/tuxtype/branches/tuxtype-1.5.17_soc1/missing --run makeinfo'
 NSIS='no'
 NSI_BUILD_FALSE='#'
 NSI_BUILD_TRUE=''
@@ -493,9 +496,9 @@ PACKAGE_STRING='Tux Typing 1.5.16'
 PACKAGE_TARNAME='tuxtype'
 PACKAGE_VERSION='1.5.16'
 PATH_SEPARATOR=':'
-SDL_CFLAGS='-I/usr/local/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT'
-SDL_CONFIG='/usr/local/bin/sdl-config'
-SDL_LIBS='-L/usr/local/lib -Wl,-rpath,/usr/local/lib -lSDL -lpthread'
+SDL_CFLAGS='-I/usr/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT'
+SDL_CONFIG='/usr/bin/sdl-config'
+SDL_LIBS='-L/usr/lib -lSDL'
 SET_MAKE=''
 SHELL='/bin/sh'
 STRIP=''
@@ -505,6 +508,7 @@ ac_ct_CC='gcc'
 am__fastdepCC_FALSE='#'
 am__fastdepCC_TRUE=''
 am__include='include'
+am__isrc=''
 am__leading_dot='.'
 am__quote=''
 am__tar='${AMTAR} chof - "$$tardir"'
@@ -528,13 +532,13 @@ host_vendor='pc'
 htmldir='${docdir}'
 includedir='${prefix}/include'
 infodir='${datarootdir}/info'
-install_sh='/usr/local/src/tuxtype-1.5.17-rev-489/install-sh'
+install_sh='$(SHELL) /home/mobin/tuxtype/branches/tuxtype-1.5.17_soc1/install-sh'
 libdir='${exec_prefix}/lib'
 libexecdir='${exec_prefix}/libexec'
 localedir='${datarootdir}/locale'
 localstatedir='${prefix}/var'
 mandir='${datarootdir}/man'
-mkdir_p='mkdir -p --'
+mkdir_p='/bin/mkdir -p'
 oldincludedir='/usr/include'
 pdfdir='${docdir}'
 prefix='/usr/local'
@@ -583,21 +587,3 @@ target_vendor='pc'
 #define HAVE_MALLOC 1
 
 configure: exit 0
-
-## ---------------------- ##
-## Running config.status. ##
-## ---------------------- ##
-
-This file was extended by Tux Typing config.status 1.5.16, which was
-generated by GNU Autoconf 2.61.  Invocation command line was
-
-  CONFIG_FILES    = 
-  CONFIG_HEADERS  = 
-  CONFIG_LINKS    = 
-  CONFIG_COMMANDS = 
-  $ ./config.status config.h
-
-on debian
-
-config.status:745: creating config.h
-config.status:976: config.h is unchanged
