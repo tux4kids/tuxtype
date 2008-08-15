@@ -1,0 +1,66 @@
+<script title="Test Lesson" bgcolor="#3f4f1f">
+   <page title="Introduction to Eample Lesson">
+   <text align="center">The Lesson that follows is only an example</text>
+   <text align="center">lesson to help you to see how to write lessons.</text>
+   <text align="center">To start writing your own lessons, edit the file,</text>
+   <text align="center">"Lesson_1.xml" in your "tuxtype/data/scripts"</text>
+   <text align="center">directory.</text>
+   <text align="center" y="300"> PRESS SPACE TO START THE LESSON!</text>
+  <waitforinput/>
+   </page>
+   <page title="Home Row Keys" bgcolor="#3f7f3f">
+   <img src="/keyboard/keyboard-us.png" x="30" y="200"/>
+   <text align="center">In this exercise we practice the home row keys.</text>
+   <text align="center">asdfjkl;asdfjkl;asdfjkl;</text>
+   <text align="center">To start practicing hit the p key</text>
+   <text color="#000000" x="101" y="273">A</text>
+   <text color="#000000" x="141" y="273">S</text>
+   <text color="#000000" x="181" y="273">D</text>
+   <text color="#000000" x="220" y="273">F</text>
+   <text color="#000000" x="338" y="273">J</text>
+   <text color="#000000" x="378" y="273">K</text>
+   <text color="#000000" x="418" y="273">L</text>
+   <text color="#000000" x="458" y="273">;</text>
+  <waitforchar/>
+   <prac goal="15">asdfjkl;asdfjkl;asdfjkl;</prac>
+   <prac>asdfjkl;asdfjkl;asdfjkl;</prac>
+   <prac>asdfjkl;asdfjkl;asdfjkl;</prac>
+   </page>
+ <page>
+   <img src="keyboard/space.png" x="200" y="160"/>
+   <img src="keyboard/larrow.png" x="460" y="18"/>
+   <img src="keyboard/esc.png" x="515" y="50"/>
+   <text align="center">Great Job!</text>
+   <text align="left">         To repeat the last exercise, press</text>
+   <text align="center">To go back to the main menu hit</text>
+   <text align="center">To continue on to the next exercise,</text>
+   <text align="center">press</text>
+   <text align="center">Space</text>
+   <text></text>
+   <text></text>
+   <text></text>
+   <text align="center">Next Exercise:</text>
+   <text align="center">lad lass dad sad fad gas had jag ask;</text> 
+   <waitforinput/>
+ </page>
+ <page title="Home Row Keys" bgcolor="#b07bc6">
+   <img src="keyboard/keyboard-us.png" x="30" y="200"/>
+   <text align="center">In this exercise we practice the home row keys,</text>
+   <text align="center">but, a little bit differently!</text>
+   <text align="center">See how fast you are at this one!</text>   
+   <text align="center">lad lass dad sad fad gas had jag ask;</text>
+   <text align="center">To start practicing hit the p key</text>
+   <text color="#000000" x="101" y="273">A</text>
+   <text color="#000000" x="141" y="273">S</text>
+   <text color="#000000" x="181" y="273">D</text>
+   <text color="#000000" x="220" y="273">F</text>
+   <text color="#000000" x="338" y="273">J</text>
+   <text color="#000000" x="378" y="273">K</text>
+   <text color="#000000" x="418" y="273">L</text>
+   <text color="#000000" x="458" y="273">;</text>
+   <waitforchar/>
+   <prac>lad lass dad sad fad gas had jag ask; lad lass dad sad fad gas had jag ask;</prac>
+   <prac>lad lass dad sad fad gas had jag ask; lad lass dad sad fad gas had jag ask;</prac>
+   <prac>lad lass dad sad fad gas had jag ask; lad lass dad sad fad gas had jag ask;</prac>
+ </page>
+</script>

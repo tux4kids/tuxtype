@@ -1,0 +1,114 @@
+<script title="LESSON THIRTEEN" bgcolor="#3f4f9f">
+   <page title="Malayalam Lesson">
+  <text color="#ffff00" align="center" y="200">പാഠം പതിമൂന്ന്</text>
+  <text color="#00ffff" align="center" y="300">തുടങ്ങാന്‍ സ്പേസ് അമര്‍ത്തൂ!</text>
+  <waitforinput/>
+   </page>
+   <page title="Keys" bgcolor="#3f7f3f">
+   <img src="/keyboard/keyboard-us.png" x="30" y="200"/>
+   <text align="center">ഇവിടെ നാം പഠിക്കുന്നത് </text>
+   <text align="center">കൂട്ടക്ഷരങ്ങളാണ്.</text>
+   <text color="#00ffff" align="center">തുടങ്ങാന്‍ സ്പേസ് അമര്‍ത്തുക</text>
+   <text color="#ffff00" x="98" y="282">ോ</text>
+   <text color="#ffff00" x="141" y="282">േ</text>
+   <text color="#ffff00" x="181" y="282">്</text>
+   <text color="#ffff00" x="220" y="282">ി</text>
+   <text color="#ffff00" x="338" y="282">ര</text>
+   <text color="#ffff00" x="378" y="282">ക</text>
+   <text color="#ffff00" x="418" y="282">ത</text>
+   <text color="#ffff00" x="458" y="282">ച</text>
+   <text color="#ffff00" x="260" y="280">ു</text>
+   <text color="#ffff00" x="300" y="280">പ</text>
+   <text color="#ffff00" x="495" y="280">ട</text>
+   <text color="#ffff00" x="80"  y="250">ൌ</text>
+   <text color="#ffff00" x="120" y="250">ൈ</text>
+   <text color="#ffff00" x="165" y="250">ാ</text>
+   <text color="#ffff00" x="205" y="250">ീ</text>
+   <text color="#ffff00" x="325" y="250">ഹ</text>
+   <text color="#ffff00" x="365" y="250">ഗ</text>
+   <text color="#ffff00" x="405" y="250">ദ</text>
+   <text color="#ffff00" x="443" y="250">ജ</text>
+   <text color="#ffff00" x="30" y="215">ൊ</text>
+   <text color="#ffff00" x="250" y="250">ൂ</text>
+   <text color="#ffff00" x="290" y="250">ബ</text>
+   <text color="#ffff00" x="480" y="250">ഡ</text>
+   <text color="#ffff00" x="235" y="325">ന</text>
+   <text color="#ffff00" x="270" y="325">വ</text>
+   <text color="#ffff00" x="308" y="325">ല</text>
+   <text color="#ffff00" x="346" y="325">സ</text>
+   <text color="#ffff00" x="115" y="325">െ</text>
+   <text color="#ffff00" x="156" y="325">ം</text>
+   <text color="#ffff00" x="197" y="325">മ</text>
+   <text color="#ffff00" x="390" y="322">,</text>
+   <text color="#ffff00" x="428" y="322">.</text>
+   <text color="#ffff00" x="463" y="325">യ</text>
+  <waitforchar/>
+   <prac goal="15">പ്പ ക്ക ത്ത ച്ച ട്ട ത്ത ച്ച പ്പ ക്ക ട്ട</prac>
+   <prac>ത്ത ച്ച ട്ട ത്ത ച്ച പ്പ ക്ക ച്ച ത്ത ട്ട</prac>
+   <prac>ബ്ബ ഗ്ഗ ദ്ദ ജ്ജ ഡ്ഡ ദ്ദ ജ്ജ ഗ്ഗ ബ്ബ ഡ്ഡ ദ്ദ</prac>
+   <prac>ദ്ദ ജ്ജ ഗ്ഗ ബ്ബ ഡ്ഡ ദ്ദ ബ്ബ ഗ്ഗ ദ്ദ ജ്ജ ഡ്ഡ</prac>
+   <prac>മ്മ ന്ന വ്വ ല്ല സ്സ യ്യ വ്വ ല്ല സ്സ യ്യ മ്മ ന്ന</prac>
+   <prac>യ്യ വ്വ ല്ല സ്സ യ്യ മ്മ ന്ന മ്മ ന്ന വ്വ ല്ല സ്സ </prac>     
+   </page>
+ <page>
+   <img src="keyboard/space.png" x="200" y="160"/>
+   <img src="keyboard/larrow.png" x="460" y="18"/>
+   <img src="keyboard/esc.png" x="515" y="50"/>
+   <text align="center">അഭിനന്ദനങ്ങള്‍!</text>
+   <text align="left">         To repeat the last exercise, press</text>
+   <text align="center">To go back to the main menu hit</text>
+   <text align="center">To continue on to the next exercise,</text>
+   <text align="center">press</text>
+   <text align="center">Space</text>
+   <text></text>
+   <text></text>
+   <text></text>
+   <text align="center">Next Exercise:</text>
+   <text align="center">തത്ത കക്ക ചക്ക മനസ്സ്</text> 
+   <waitforinput/>
+ </page>
+ <page title="Keys" bgcolor="#b07bc6">
+   <img src="keyboard/keyboard-us.png" x="30" y="200"/>
+   <text align="center" y="20">അഭ്യാസം</text> 
+   <text color="#ffff00" align="center" y="50">തത്ത കക്ക ചക്ക മനസ്സ് ലജ്ജ</text>
+   <text color="#00ffff" align="center" y="140">തുടങ്ങാന്‍ സ്പേസ് അമര്‍ത്തുക</text>
+   <text color="#ffff00" x="98" y="282">ോ</text>
+   <text color="#ffff00" x="141" y="282">േ</text>
+   <text color="#ffff00" x="181" y="282">്</text>
+   <text color="#ffff00" x="220" y="282">ി</text>
+   <text color="#ffff00" x="338" y="282">ര</text>
+   <text color="#ffff00" x="378" y="282">ക</text>
+   <text color="#ffff00" x="418" y="282">ത</text>
+   <text color="#ffff00" x="458" y="282">ച</text>
+   <text color="#ffff00" x="260" y="280">ു</text>
+   <text color="#ffff00" x="300" y="280">പ</text>
+   <text color="#ffff00" x="495" y="280">ട</text>
+   <text color="#ffff00" x="80"  y="250">ൌ</text>
+   <text color="#ffff00" x="120" y="250">ൈ</text>
+   <text color="#ffff00" x="165" y="250">ാ</text>
+   <text color="#ffff00" x="205" y="250">ീ</text>
+   <text color="#ffff00" x="325" y="250">ഹ</text>
+   <text color="#ffff00" x="365" y="250">ഗ</text>
+   <text color="#ffff00" x="405" y="250">ദ</text>
+   <text color="#ffff00" x="443" y="250">ജ</text>
+   <text color="#ffff00" x="30" y="215">ൊ</text>
+   <text color="#ffff00" x="250" y="250">ൂ</text>
+   <text color="#ffff00" x="290" y="250">ബ</text>
+   <text color="#ffff00" x="480" y="250">ഡ</text>
+   <text color="#ffff00" x="235" y="325">ന</text>
+   <text color="#ffff00" x="270" y="325">വ</text>
+   <text color="#ffff00" x="308" y="325">ല</text>
+   <text color="#ffff00" x="346" y="325">സ</text>
+   <text color="#ffff00" x="115" y="325">െ</text>
+   <text color="#ffff00" x="156" y="325">ം</text>
+   <text color="#ffff00" x="197" y="325">മ</text>
+   <text color="#ffff00" x="390" y="322">,</text>
+   <text color="#ffff00" x="428" y="322">.</text>
+   <text color="#ffff00" x="463" y="325">യ</text>
+   <waitforchar/>
+   <prac>തത്ത കക്ക ചക്ക മനസ്സ് ലജ്ജ കപ്പ തൊപ്പി</prac>
+   <prac>മമ്മി നിസ്സാരം കല്ല് പാട്ടം പല്ല് ചൊവ്വ പട്ടം</prac>
+   <prac>വില്ല് പല്ലക്ക് കത്തി ലജ്ജ കപ്പ തൊപ്പി</prac>
+ </page>
+</script>
+

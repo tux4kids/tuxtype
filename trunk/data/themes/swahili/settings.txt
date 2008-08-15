@@ -1,0 +1,1 @@
+theme_locale_name=sw_KE.UTF-8

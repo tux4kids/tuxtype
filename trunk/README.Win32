@@ -1,0 +1,37 @@
+Tux Typing :
+An Educational Typing Tutor Game Starring Tux, the Linux Penguin
+----------------------------------------------------------------
+
+20 August 2007 - NOTE: the below instructions are very old, and I 
+do not know if they work. I do not use nor have access to MSVC. The
+recent Windows builds of Tux Typing have all been done on my Debian
+machine using the mingw cross-tools (see "README-CROSSBUILD.txt").
+My earlier attempts to set up a build environment under Windows using
+either Cygwin or mingw32/msys were not successful.  If anyone works
+out a successful way to build Tux Typing (or TuxMath) on Windows,
+please let me know and I will post it here.
+
+David Bruce <dbruce@tampabay.rr.com> 
+
+
+
+COMPILING TUX TYPING IN WINDOWS USING MSVC:
+
+You need to have the development versions of SDL, SDL_Image and
+SDL_Mixer, that is the .lib, .h and .dll files.  They also need to be
+in VC's search path:
+
+Tools/Options/Directories
+
+Under "Include Files", add the directories where the include files for
+all three projects are.
+
+Under "Library Files", add the directories where the .lib files for
+all three projects are.
+
+Olivier Dagenais (Win32 Port)
+<olivier_dagenais@canada.com>
+
+Sam "Criswell" Hart (Tux Typing project manager)
+<hart@geekcomix.com>
+http://www.geekcomix.com/dm/tuxtype/

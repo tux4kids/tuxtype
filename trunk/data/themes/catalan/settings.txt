@@ -1,0 +1,1 @@
+theme_locale_name=ca_ES.UTF-8
