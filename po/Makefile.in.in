@@ -174,7 +174,7 @@ $(POFILES): $(srcdir)/$(DOMAIN).pot
 	fi
 
 
-install: install-exec install-data
+install: update-po install-exec install-data
 install-exec:
 install-data: install-data-@USE_NLS@
 	if test "$(PACKAGE)" = "gettext-tools"; then \

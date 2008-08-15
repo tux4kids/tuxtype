@@ -1,2 +1,0 @@
-theme_font_name=Rachana_w01.ttf
-theme_locale_name=ml_IN

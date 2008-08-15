@@ -1,1 +1,0 @@
-theme_locale_name=ja_JP.UTF-8

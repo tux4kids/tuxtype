@@ -1,2 +1,0 @@
-theme_font_name=lohit_hi.ttf
-theme_locale_name=ne_NP

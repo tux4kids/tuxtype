@@ -1,10 +1,19 @@
+
+3 Aug 2008 - svn revision 599
+[ Sreyas Kurumanghat <k.sreyas@gmail.com ]
+	- Added keypress details for wrong key pressed in practice.
+
 2008-07-09  gettextize  <bug-gnu-gettext@gnu.org>
 
-	* Makefile.am (SUBDIRS): Add po.
-	(ACLOCAL_AMFLAGS): New variable.
-	(EXTRA_DIST): Add config.rpath, m4/ChangeLog.
-	* configure.ac (AC_CONFIG_FILES): Add po/Makefile.in.
 
+3 Aug 2008 - svn revision 580
+[ Sreyas Kurumanghat <k.sreyas@gmail.com ]
+	- Added automatic keyboard layout generation in practice.c.
+	- Modified the keyboard.lst file format. The current format can be any of the three below:
+	- char
+	- finger|char
+	- finger|char|latin character
+	- Features added so that the information about the keyboard gets updated each time the game is run.
 
 13 Apr 2008 - svn revision 460
 [ David Bruce <dbruce@tampabay.rr.com> ]

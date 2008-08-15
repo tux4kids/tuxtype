@@ -66,9 +66,8 @@ void LoadLang(void)
 {
 
 	setlocale(LC_ALL,settings.theme_locale_name);
-	fprintf(stderr,"theme_locale %s\n",settings.theme_locale_name);
-        fprintf(stderr,bindtextdomain(PACKAGE,"/usr/local/share/locale"));
-        fprintf(stderr,textdomain(PACKAGE));
+	bindtextdomain(PACKAGE,"/usr/local/share/locale");
+        textdomain(PACKAGE);
 	return;
 
 }
