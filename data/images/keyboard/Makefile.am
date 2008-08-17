@@ -20,7 +20,6 @@ dist_images_keyboard_DATA = keyboard.png \
 	keyboard_E05.png \
 	keyboard_A01.png \
 	keyboard_B07.png \
-	keyboard_C13.png \
 	keyboard_E06.png \
 	keyboard_A02.png \
 	keyboard_B08.png \

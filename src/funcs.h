@@ -57,8 +57,7 @@ void GenerateKeyboard(SDL_Surface* keyboard);
 void updatekeylist(int key,char ch);
 void savekeyboard(void);
 wchar_t GetLastKey(void);
-SDL_Surface* BlackOutline_w(wchar_t* t, const SDL_Color* c, int size);
-SDL_Surface* BlackOutline_c(const unsigned char* t, const SDL_Color* c);
+SDL_Surface* BlackOutline_w(wchar_t* t, const TTF_Font* font, const SDL_Color* c, int size);
 int ConvertToUTF8(wchar_t* UTF32_word, char* word);
 
 //void UseAlphabet(void);

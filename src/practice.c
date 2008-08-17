@@ -130,7 +130,7 @@ int Phrases(wchar_t* pphrase )
   mydest.x = 0;
   mydest.y = dst.y;
   mydest.w = screen->w;
-  mydest.h = screen->h-80;
+  mydest.h = screen->h-mydest.y;
 
 
   start = SDL_GetTicks();
@@ -437,24 +437,37 @@ int Phrases(wchar_t* pphrase )
 /****************************************************/
           if (pphrase[c]==event.key.keysym.unicode)
           {
+		c++;
 		state = 0;
 		dst2.x = 40;
 		dst4.x = 480;
+		
+		if (c==wp+2){
+			//c++;
+			dst.x=40;
+			dst.y=140;
+			mydest.y=dst.y;
+			mydest.h=screen->h-mydest.y;
+			next_line=1;
+		}
 		SDL_BlitSurface(bg, &mydest, screen, &mydest);
 		SDL_Flip(screen);
-		tmpsurf = BlackOutline_w(pphrase+((wp)*next_line), &white, (c)%wp+1);
+		if(!next_line)
+			tmpsurf = BlackOutline_w(pphrase, font, &white, c);
+		else
+			tmpsurf = BlackOutline_w(pphrase+wp+1, font, &white, c-(wp+1));
 		SDL_BlitSurface(tmpsurf, NULL, screen, &dst);
 		SDL_FreeSurface(tmpsurf);
 		tmpsurf = NULL;
-		tmpsurf=BlackOutline_c(keytime, &white);
+		tmpsurf = BlackOutline(keytime, font, &white);
 		SDL_BlitSurface(tmpsurf, NULL, screen, &dst2);
 		SDL_FreeSurface(tmpsurf);
 		tmpsurf = NULL;	
-		tmpsurf=BlackOutline_c(totaltime, &white);
+		tmpsurf = BlackOutline(totaltime, font, &white);
 		SDL_BlitSurface(tmpsurf, NULL, screen, &dst4);
 		SDL_FreeSurface(tmpsurf);
 		tmpsurf = NULL;
-		if (c==(wcslen(pphrase)-1)){
+		if (c==(wcslen(pphrase))){
 				wchar_t buf[10];
 				ConvertFromUTF8(buf, _("Great!"));
 				print_at(buf, wcslen(buf), 275, 200);
@@ -463,16 +476,6 @@ int Phrases(wchar_t* pphrase )
 				next_line=0;
 				quit=1;
 		}
-		if (c==wp){
-			//c++;
-			dst.x=40;
-			dst.y=140;
-			mydest.y=dst.y;
-			mydest.x=0;
-			mydest.h-=40;
-			next_line=1;
-		}
-		c++;
 	}
 	else
 	{
@@ -565,8 +568,8 @@ static int practice_load_media(void)
 
   /* Now render letters for glyphs in alphabet: */
   RenderLetters(font);
-  TTF_CloseFont(font);  /* Don't need it after rendering done */
-  font = NULL;
+  //TTF_CloseFont(font);  /* Don't need it after rendering done */
+  //font = NULL;
   GenerateKeyboard(keyboard);
 
   LOG("DONE - Loading practice media\n");
@@ -591,7 +594,8 @@ static void practice_unload_media(void)
 	}
 	SDL_FreeSurface(keyboard);
         keyboard = NULL;
-	//TTF_CloseFont(font);
+	TTF_CloseFont(font);
+	font = NULL;
 	for (i=0; i<10; i++) 
         {
           SDL_FreeSurface(hand[i]);
@@ -630,13 +634,13 @@ static void print_at(const wchar_t *pphrase, int wrap, int x, int y)
 	//font = LoadFont(settings.theme_font_name, 30);
 	DEBUGCODE { printf("\n\n\nEntering print_at with : %S\n",pphrase); }
 	if ( wrap == wcslen(pphrase) ){
-		tmp = BlackOutline_w(pphrase, &white, wrap);
+		tmp = BlackOutline_w(pphrase, font, &white, wrap);
 		letter_loc.w = tmp->w+5;
 		letter_loc.h = tmp->h+5;
 		SDL_BlitSurface(tmp, NULL, screen, &letter_loc);
 		SDL_FreeSurface(tmp);
 	}else{
-		tmp = BlackOutline_w(pphrase, &white, wrap+1);
+		tmp = BlackOutline_w(pphrase, font, &white, wrap+1);
 		letter_loc.w = tmp->w+5;
 		letter_loc.h = tmp->h+5;
 		SDL_BlitSurface(tmp, NULL, screen, &letter_loc);
@@ -645,7 +649,7 @@ static void print_at(const wchar_t *pphrase, int wrap, int x, int y)
                 // - (letter_loc.h/4) to account for free space at top and bottom of rendered letters
 		//SDL_FreeSurface(tmp);
 		letter_loc.y = letter_loc.y + letter_loc.h - (letter_loc.h/4);
-		tmp = BlackOutline_w(pphrase+wrap+2, &white, wcslen(pphrase));
+		tmp = BlackOutline_w(pphrase+wrap+2, font, &white, wcslen(pphrase));
 		letter_loc.w = tmp->w+5;
 		letter_loc.h = tmp->h+5;
 		SDL_BlitSurface(tmp, NULL, screen, &letter_loc);
