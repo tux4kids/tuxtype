@@ -726,12 +726,14 @@ void TitleScreen(void)
 	{
 		fscanf( fp, "%[^\n]\n", str);
 		ConvertFromUTF8(phrase, str);
-		Phrases( phrase );
+		if(Phrases( phrase )==1)
+			break;
       		//Practice();
-      		load_media();
-      		redraw = 1;
-	} while (0);
+
+	} while (!feof(fp));
 	fclose(fp);
+  	load_media();
+      	redraw = 1;
       //Phrases( phrase );
       //Practice();
       //load_media();

@@ -1,3 +1,7 @@
+18 Aug 2008 - svn revision 647
+[ Sreyas Kurumanghat <k.sreyas@gmail.com ]
+	- Added features to practice game. Now pressing the down arrow presents the next phrase for practice and the escape key quits from the game.
+
 18 Aug 2008 - svn revision 646
 [ Sreyas Kurumanghat <k.sreyas@gmail.com ]
 	- Added pango support and rendering to practice game.

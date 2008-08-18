@@ -235,11 +235,11 @@ int Phrases(wchar_t* pphrase )
 
         if (event.key.keysym.sym == SDLK_ESCAPE)
           quit = 1;
-
+	else
         if (event.key.keysym.sym == SDLK_DOWN) 
         {
           //practice next phase in list
-          //a=a;
+          quit = 2;
         }
         else
         {
@@ -443,7 +443,7 @@ int Phrases(wchar_t* pphrase )
 		if (c==wp+2){
 			//c++;
 			dst.x=40;
-			dst.y=140;
+			dst.y=dst.y+dst.h;
 			mydest.y=dst.y;
 			mydest.h=screen->h-mydest.y;
 			next_line=1;
@@ -472,7 +472,7 @@ int Phrases(wchar_t* pphrase )
 				SDL_Flip(screen);
 				SDL_Delay(2500);
 				next_line=0;
-				quit=1;
+				quit=2;
 		}
 	}
           else
@@ -499,7 +499,7 @@ int Phrases(wchar_t* pphrase )
 
   practice_unload_media();
 
-  return 1;
+  return quit;
 }
 
 
