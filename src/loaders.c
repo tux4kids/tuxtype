@@ -19,10 +19,14 @@
 
 #include "globals.h"
 #include "funcs.h"
+#include "SDL_extras.h"
+
+static SDL_Surface* win_bkgd = NULL;
+static SDL_Surface* fullscr_bkgd = NULL;
 
 /* Local function prototypes: */
 static int max(int n1, int n2);
-static SDL_Surface* flip(SDL_Surface *in, int x, int y);
+//static SDL_Surface* flip(SDL_Surface *in, int x, int y);
 
 /* Returns 1 if valid file, 2 if valid dir, 0 if neither: */
 int CheckFile(const char* file)
@@ -77,104 +81,104 @@ int max(int n1, int n2)
 	return (n1 > n2 ? n1 : n2);
 }
 
-/**********************
- Flip:
-   input: a SDL_Surface, x, y
-   output: a copy of the SDL_Surface flipped via rules:
-
-     if x is a positive value, then flip horizontally
-     if y is a positive value, then flip vertically
-
-     note: you can have it flip both
-**********************/
-SDL_Surface* flip(SDL_Surface* in, int x, int y ) {
-	SDL_Surface *out, *tmp;
-	SDL_Rect from_rect, to_rect;
-	Uint32	flags;
-	Uint32  colorkey=0;
-
-	/* --- grab the settings for the incoming pixmap --- */
-
-	SDL_LockSurface(in);
-	flags = in->flags;
-
-	/* --- change in's flags so ignore colorkey & alpha --- */
-
-	if (flags & SDL_SRCCOLORKEY) {
-		in->flags &= ~SDL_SRCCOLORKEY;
-		colorkey = in->format->colorkey;
-	}
-	if (flags & SDL_SRCALPHA) {
-		in->flags &= ~SDL_SRCALPHA;
-	}
-
-	SDL_UnlockSurface(in);
-
-	/* --- create our new surface --- */
-
-	out = SDL_CreateRGBSurface(
-		SDL_SWSURFACE,
-		in->w, in->h, 32, RMASK, GMASK, BMASK, AMASK);
-
-	/* --- flip horizontally if requested --- */
-
-	if (x) {
-		from_rect.h = to_rect.h = in->h;
-		from_rect.w = to_rect.w = 1;
-		from_rect.y = to_rect.y = 0;
-		from_rect.x = 0;
-		to_rect.x = in->w - 1;
-
-		do {
-			SDL_BlitSurface(in, &from_rect, out, &to_rect);
-			from_rect.x++;
-			to_rect.x--;
-		} while (to_rect.x >= 0);
-	}
-
-	/* --- flip vertically if requested --- */
-
-	if (y) {
-		from_rect.h = to_rect.h = 1;
-		from_rect.w = to_rect.w = in->w;
-		from_rect.x = to_rect.x = 0;
-		from_rect.y = 0;
-		to_rect.y = in->h - 1;
-
-		do {
-			SDL_BlitSurface(in, &from_rect, out, &to_rect);
-			from_rect.y++;
-			to_rect.y--;
-		} while (to_rect.y >= 0);
-	}
-
-	/* --- restore colorkey & alpha on in and setup out the same --- */
-
-	SDL_LockSurface(in);
-
-	if (flags & SDL_SRCCOLORKEY) {
-		in->flags |= SDL_SRCCOLORKEY;
-		in->format->colorkey = colorkey;
-		tmp = SDL_DisplayFormat(out);
-		SDL_FreeSurface(out);
-		out = tmp;
-		out->flags |= SDL_SRCCOLORKEY;
-		out->format->colorkey = colorkey;
-	} else if (flags & SDL_SRCALPHA) {
-		in->flags |= SDL_SRCALPHA;
-		tmp = SDL_DisplayFormatAlpha(out);
-		SDL_FreeSurface(out);
-		out = tmp;
-	} else {
-		tmp = SDL_DisplayFormat(out);
-		SDL_FreeSurface(out);
-		out = tmp;
-	}
-
-	SDL_UnlockSurface(in);
-
-	return out;
-}
+// /**********************
+//  Flip:
+//    input: a SDL_Surface, x, y
+//    output: a copy of the SDL_Surface flipped via rules:
+// 
+//      if x is a positive value, then flip horizontally
+//      if y is a positive value, then flip vertically
+// 
+//      note: you can have it flip both
+// **********************/
+// SDL_Surface* flip(SDL_Surface* in, int x, int y ) {
+// 	SDL_Surface *out, *tmp;
+// 	SDL_Rect from_rect, to_rect;
+// 	Uint32	flags;
+// 	Uint32  colorkey=0;
+// 
+// 	/* --- grab the settings for the incoming pixmap --- */
+// 
+// 	SDL_LockSurface(in);
+// 	flags = in->flags;
+// 
+// 	/* --- change in's flags so ignore colorkey & alpha --- */
+// 
+// 	if (flags & SDL_SRCCOLORKEY) {
+// 		in->flags &= ~SDL_SRCCOLORKEY;
+// 		colorkey = in->format->colorkey;
+// 	}
+// 	if (flags & SDL_SRCALPHA) {
+// 		in->flags &= ~SDL_SRCALPHA;
+// 	}
+// 
+// 	SDL_UnlockSurface(in);
+// 
+// 	/* --- create our new surface --- */
+// 
+// 	out = SDL_CreateRGBSurface(
+// 		SDL_SWSURFACE,
+// 		in->w, in->h, 32, RMASK, GMASK, BMASK, AMASK);
+// 
+// 	/* --- flip horizontally if requested --- */
+// 
+// 	if (x) {
+// 		from_rect.h = to_rect.h = in->h;
+// 		from_rect.w = to_rect.w = 1;
+// 		from_rect.y = to_rect.y = 0;
+// 		from_rect.x = 0;
+// 		to_rect.x = in->w - 1;
+// 
+// 		do {
+// 			SDL_BlitSurface(in, &from_rect, out, &to_rect);
+// 			from_rect.x++;
+// 			to_rect.x--;
+// 		} while (to_rect.x >= 0);
+// 	}
+// 
+// 	/* --- flip vertically if requested --- */
+// 
+// 	if (y) {
+// 		from_rect.h = to_rect.h = 1;
+// 		from_rect.w = to_rect.w = in->w;
+// 		from_rect.x = to_rect.x = 0;
+// 		from_rect.y = 0;
+// 		to_rect.y = in->h - 1;
+// 
+// 		do {
+// 			SDL_BlitSurface(in, &from_rect, out, &to_rect);
+// 			from_rect.y++;
+// 			to_rect.y--;
+// 		} while (to_rect.y >= 0);
+// 	}
+// 
+// 	/* --- restore colorkey & alpha on in and setup out the same --- */
+// 
+// 	SDL_LockSurface(in);
+// 
+// 	if (flags & SDL_SRCCOLORKEY) {
+// 		in->flags |= SDL_SRCCOLORKEY;
+// 		in->format->colorkey = colorkey;
+// 		tmp = SDL_DisplayFormat(out);
+// 		SDL_FreeSurface(out);
+// 		out = tmp;
+// 		out->flags |= SDL_SRCCOLORKEY;
+// 		out->format->colorkey = colorkey;
+// 	} else if (flags & SDL_SRCALPHA) {
+// 		in->flags |= SDL_SRCALPHA;
+// 		tmp = SDL_DisplayFormatAlpha(out);
+// 		SDL_FreeSurface(out);
+// 		out = tmp;
+// 	} else {
+// 		tmp = SDL_DisplayFormat(out);
+// 		SDL_FreeSurface(out);
+// 		out = tmp;
+// 	}
+// 
+// 	SDL_UnlockSurface(in);
+// 
+// 	return out;
+// }
 
 
 /* FIXME need code to search for font paths on different platforms */
@@ -315,16 +319,94 @@ SDL_Surface* LoadImage(const char* datafile, int mode)
   return (final_pic);
 }
 
+
+
+/**********************
+LoadBothBkgds() : loads two scaled images: one for the user's native 
+resolution and one for 640x480 fullscreen. 
+Returns: the number of images that were scaled
+**********************/
+int LoadBothBkgds(const char* datafile)
+{
+  int ret = 0;
+  SDL_Surface* orig = NULL;
+  
+  //Avoid memory leak in case something else already loaded:
+  UnloadBkgds();
+
+  LOG("Entering LoadBothBkgds()\n");
+
+  orig = LoadImage(datafile, IMG_REGULAR);
+
+  DEBUGCODE
+  {
+     printf("Scaling %dx%d to: %dx%d, %dx%d\n", 
+           orig->w, orig->h, RES_X, RES_Y, fs_res_x, fs_res_y);
+  }
+
+  if (orig->w == RES_X && orig->h == RES_Y)
+  {
+    win_bkgd = orig;
+  }
+  else
+  {
+    win_bkgd = zoom(orig, RES_X, RES_Y);
+    ++ret;
+  }
+  
+  if (orig->w == fs_res_x && orig->h == fs_res_y)
+  {
+    fullscr_bkgd = orig;
+  }
+  else
+  {
+    fullscr_bkgd = zoom(orig, fs_res_x, fs_res_y);
+    ++ret;
+  }
+  
+  if (ret == 2) //orig won't be used at all
+    SDL_FreeSurface(orig);
+    
+  DEBUGCODE
+  {
+    printf("%d images scaled\nLeaving LoadBothBkgds()\n", ret);
+  }
+  return ret;
+}
+
+
+SDL_Surface* CurrentBkgd(void)
+{
+  if (!screen)
+    return NULL;
+  if (screen->flags & SDL_FULLSCREEN)
+    return fullscr_bkgd;
+  else
+    return win_bkgd;
+}
+
+void UnloadBkgds(void)
+{
+  if (win_bkgd)
+    SDL_FreeSurface(win_bkgd);
+  win_bkgd = NULL;
+
+  if (fullscr_bkgd)
+    SDL_FreeSurface(fullscr_bkgd);
+  fullscr_bkgd = NULL;
+}
+
+
 sprite* FlipSprite(sprite* in, int X, int Y ) {
 	sprite* out;
 
 	out = malloc(sizeof(sprite));
 	if (in->default_img != NULL)
-		out->default_img = flip( in->default_img, X, Y );
+		out->default_img = Flip( in->default_img, X, Y );
 	else
 		out->default_img = NULL;
 	for ( out->num_frames=0; out->num_frames<in->num_frames; out->num_frames++ )
-		out->frame[out->num_frames] = flip( in->frame[out->num_frames], X, Y );
+		out->frame[out->num_frames] = Flip( in->frame[out->num_frames], X, Y );
 	out->cur = 0;
 	return out;
 }

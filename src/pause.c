@@ -18,6 +18,7 @@ email                : jdandr2@uky.edu
 
 #include "globals.h"
 #include "funcs.h"
+#include "SDL_extras.h"
 
 static Mix_Chunk *pause_sfx = NULL;
 static SDL_Surface *up = NULL, *down = NULL, *left = NULL, *right = NULL;
@@ -25,7 +26,7 @@ static SDL_Rect rectUp, rectDown, rectLeft, rectRight;
 static TTF_Font *f1 = NULL, *f2 = NULL;
 
 /* Local function prototypes: */
-static void darkenscreen(void);
+//static void darkenscreen(void);
 static void draw_vols(int sfx, int mus);
 static void pause_draw(void);
 static void pause_load_media(void);
@@ -65,7 +66,7 @@ int Pause(void)
 	SDL_ShowCursor(1);
 
 	// Darken the screen...
-	darkenscreen(); 
+	DarkenScreen(1); 
 
 	pause_draw();
 
@@ -241,14 +242,6 @@ static void pause_unload_media(void) {
 }
 
 
-/* Slightly useful function but not sure this file is the right place for it.  */
-int inRect(SDL_Rect r, int x, int y)
-{
-  if ((x < r.x) || (y < r.y) || (x > r.x + r.w) || (y > r.y + r.h))
-   return 0;
-  return 1;
-}
-
 
 /******************************************/
 /*                                        */
@@ -265,11 +258,11 @@ static void pause_draw(void)
 
   LOG("Entering pause_draw()\n");
 
-  rectLeft.y = rectRight.y = 200;
-  rectDown.y = rectUp.y = 300;
+  rectLeft.y = rectRight.y = screen->h/2 - 40;
+  rectDown.y = rectUp.y = screen->h/2 + 60;
 
-  rectLeft.x = rectDown.x = 320 - (7*16) - rectLeft.w - 4;
-  rectRight.x = rectUp.x  = 320 + (7*16) + 4;
+  rectLeft.x = rectDown.x = screen->w/2 - (7*16) - rectLeft.w - 4;
+  rectRight.x = rectUp.x  = screen->w/2 + (7*16) + 4;
 
   /* Avoid segfault if any needed SDL_Surfaces missing: */
   if (settings.sys_sound
@@ -286,8 +279,8 @@ static void pause_draw(void)
     t = BlackOutline(gettext("Sound Effects Volume"), f1, &white);
     if (t)
     {	
-      s.y = 160;
-      s.x = 320 - t->w/2;
+      s.y = screen->h/2 - 80;
+      s.x = screen->w/2 - t->w/2;
       SDL_BlitSurface(t, NULL, screen, &s);
       SDL_FreeSurface(t);
     }
@@ -295,8 +288,8 @@ static void pause_draw(void)
     t = BlackOutline(gettext("Music Volume"), f1, &white);
     if (t)
     {
-      s.y = 260;
-      s.x = 320 - t->w/2;
+      s.y = screen->h/2 + 20;
+      s.x = screen->w/2 - t->w/2;
       SDL_BlitSurface(t, NULL, screen, &s);
       SDL_FreeSurface(t);
     }
@@ -306,8 +299,8 @@ static void pause_draw(void)
     t = BlackOutline(gettext("Sound & Music Disabled"), f1, &white);
     if (t)
     {
-      s.y = 160;
-      s.x = 320 - t->w/2;
+      s.y = screen->h/2 - 80;
+      s.x = screen->w/2 - t->w/2;
       SDL_BlitSurface(t, NULL, screen, &s);
       SDL_FreeSurface(t);
     }
@@ -316,8 +309,8 @@ static void pause_draw(void)
   t = BlackOutline(gettext("Paused!"), f2, &white);
   if (t)
   {
-	s.y = 60;
-	s.x = 320 - t->w/2;
+	s.y = screen->h/2 - 180; //60;
+	s.x = screen->w/2 - t->w/2;
 	SDL_BlitSurface(t, NULL, screen, &s);
 	SDL_FreeSurface(t);
   }
@@ -325,8 +318,8 @@ static void pause_draw(void)
   t = BlackOutline(gettext("Press escape again to return to menu"), f1, &white);
   if (t)
   {
-    s.y = 400;
-    s.x = 320 - t->w/2;
+    s.y = screen->h/2 + 160;
+    s.x = screen->w/2 - t->w/2;
     SDL_BlitSurface(t, NULL, screen, &s);
     SDL_FreeSurface(t);
   }
@@ -334,8 +327,8 @@ static void pause_draw(void)
   t = BlackOutline(gettext("Press space bar to return to game"), f1, &white);
   if (t)
   {
-    s.y = 440;
-    s.x = 320 - t->w/2;
+    s.y = screen->h/2 + 200;
+    s.x = screen->w/2 - t->w/2;
     SDL_BlitSurface(t, NULL, screen, &s);
     SDL_FreeSurface(t);
   }
@@ -373,28 +366,28 @@ static void draw_vols(int sfx, int mus)
   }
 }
 
-/* ==== fillscreen ====
- * RESULT: it will darken the screen by a factor of 4
- * WARNING: only works on 16bit screens right now!
- */
-static void darkenscreen(void)
-{
-  Uint16 rm = screen->format->Rmask;
-  Uint16 gm = screen->format->Gmask;
-  Uint16 bm = screen->format->Bmask;
-  Uint16* p; 
-  int x, y;
-
-  p = screen->pixels;
-
-  for (y = 0; y < 480; y++) 
-  {
-    for (x = 0; x < 640; x++)
-    {
-      *p = (((*p&rm)>>2)&rm) | (((*p&gm)>>2)&gm) | (((*p&bm)>>2)&bm);
-      p++;
-    }
-  }
-}
+// /* ==== fillscreen ====
+//  * RESULT: it will darken the screen by a factor of 4
+//  * WARNING: only works on 16bit screens right now!
+//  */
+// static void darkenscreen(void)
+// {
+//   Uint16 rm = screen->format->Rmask;
+//   Uint16 gm = screen->format->Gmask;
+//   Uint16 bm = screen->format->Bmask;
+//   Uint16* p; 
+//   int x, y;
+// 
+//   p = screen->pixels;
+// 
+//   for (y = 0; y < 480; y++) 
+//   {
+//     for (x = 0; x < 640; x++)
+//     {
+//       *p = (((*p&rm)>>2)&rm) | (((*p&gm)>>2)&gm) | (((*p&bm)>>2)&bm);
+//       p++;
+//     }
+//   }
+// }
 
 

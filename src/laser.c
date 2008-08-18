@@ -37,7 +37,6 @@ static sprite* shield = NULL;
 static SDL_Surface* images[NUM_IMAGES] = {NULL};
 static Mix_Chunk* sounds[NUM_SOUNDS] = {NULL};
 static Mix_Music* musics[NUM_MUSICS] = {NULL};
-static SDL_Surface* bkgd = NULL;
 static TTF_Font* font = NULL;
 
 static int wave, speed, score, pre_wave_score, num_attackers, distanceMoved;
@@ -59,6 +58,8 @@ static void laser_load_data(void);
 static void laser_reset_level(int diff_level);
 static void laser_putpixel(SDL_Surface* surface, int x, int y, Uint32 pixel);
 static void laser_unload_data(void);
+static void calc_city_pos(void);
+static void recalc_comet_pos(void);
 
 /* --- MAIN GAME FUNCTION!!! --- */
 
@@ -106,29 +107,19 @@ int PlayLaserGame(int diff_level)
 	level_start_wait = LEVEL_START_WAIT_START;
 
 	
-	/* (Create and position cities) */
-  
-	for (i = 0; i < NUM_CITIES; i++) {
-		cities[i].alive = 1;
-		cities[i].expl = 0;
-		cities[i].shields = 1;
+  /* (Create and position cities) */
+  for (i = 0; i < NUM_CITIES; i++)
+  {
+    cities[i].alive = 1;
+    cities[i].expl = 0;
+    cities[i].shields = 1;
+  }
 
-		if (NUM_CITIES % 2 == 0) {
-			/* Left vs. Right - makes room for Tux and the console */
+  /* figure out x placement: */
+  calc_city_pos();
 
-			if (i < NUM_CITIES / 2) 
-				cities[i].x = (((screen->w / (NUM_CITIES + 1)) * i) + ((images[IMG_CITY_BLUE] -> w) / 2));
-			else
-				cities[i].x = (screen->w - ((((screen->w / (NUM_CITIES + 1)) * (i - (NUM_CITIES / 2)) + ((images[IMG_CITY_BLUE] -> w) / 2)))));
-		} else {
-			/* put them in order across the bottom of     *
-			 * the screen so we can do word's in order!!! */
-			cities[i].x = i*screen->w / (NUM_CITIES) + images[IMG_CITY_BLUE]->w/2;
-		}
-	}
-
-	num_cities_alive = NUM_CITIES;
-	num_comets_alive = 0;
+  num_cities_alive = NUM_CITIES;
+  num_comets_alive = 0;
 
 
 	/* (Clear laser) */
@@ -138,7 +129,6 @@ int PlayLaserGame(int diff_level)
   
 	/* Reset remaining stuff: */
  
-	bkgd = NULL;
 	laser_reset_level(diff_level);
   
 	/* --- MAIN GAME LOOP!!! --- */
@@ -174,7 +164,11 @@ int PlayLaserGame(int diff_level)
 
 				key = event.key.keysym.sym;
 				if (key == SDLK_F10) 
-					SwitchScreenMode();	      
+                                {
+				  SwitchScreenMode();
+                                  calc_city_pos();
+                                  recalc_comet_pos();
+                                }
 				if (key == SDLK_F11)
 					SDL_SaveBMP( screen, "laser.bmp");
 
@@ -474,7 +468,7 @@ int PlayLaserGame(int diff_level)
       
 		/* Draw background: */
      
-		SDL_BlitSurface(bkgd, NULL, screen, NULL);
+		SDL_BlitSurface(CurrentBkgd(), NULL, screen, NULL);
 
 		/* Draw wave: */
 
@@ -629,10 +623,8 @@ int PlayLaserGame(int diff_level)
 		while (!done && !quit);
 
   
-	/* Free background: */
-
-	if (bkgd != NULL)
-		SDL_FreeSurface(bkgd);
+  /* Free backgrounds: */
+  UnloadBkgds();
 
 	/* Stop music: */
 	if ((settings.sys_sound) && (Mix_PlayingMusic()))
@@ -651,6 +643,53 @@ int PlayLaserGame(int diff_level)
 /*****************************************************/
 
 
+static void calc_city_pos(void)
+{
+  int i = 0;
+
+  for (i = 0; i < NUM_CITIES; i++)
+  {
+    if (NUM_CITIES % 2 == 0)
+    {
+      /* Left vs. Right - makes room for Tux and the console */
+      if (i < NUM_CITIES / 2)
+      {
+        cities[i].x = (((screen->w / (NUM_CITIES + 1)) * i)
+                      + ((images[IMG_CITY_BLUE] -> w) / 2));
+      }
+      else
+      {
+        cities[i].x = screen->w
+                    - screen->w/(NUM_CITIES + 1) * (i - NUM_CITIES/2)
+                    + images[IMG_CITY_BLUE]->w/2;
+      }
+    }
+    else
+    {
+      /* put them in order across the bottom of     *
+      * the screen so we can do words in order!!! */
+      cities[i].x = i*screen->w/(NUM_CITIES)
+                    + images[IMG_CITY_BLUE]->w/2;
+    }
+  }
+}
+
+/* Update the x position of comets when resolution changes: */
+/* Must call calc_city_pos() first for this to work! */
+static void recalc_comet_pos(void)
+{
+  int i, target;
+
+  for (i = 0; i < MAX_COMETS; i++)
+  {
+    /* Set each live comet's x to that of its target city: */
+    if (comets[i].alive == 1)
+    {
+      target = comets[i].city;
+      comets[i].x = cities[target].x;
+    }
+  }
+}
 
 
 /* --- Load all media --- */
@@ -737,12 +776,11 @@ static void laser_reset_level(int diff_level)
   LOG("Will try to load file:");
   LOG(fname);
 
-  if (bkgd != NULL)
-    SDL_FreeSurface(bkgd);
+  UnloadBkgds();
 
-  bkgd = LoadImage(fname, IMG_REGULAR);
+  LoadBothBkgds(fname);
 
-  if (bkgd == NULL)
+  if (CurrentBkgd() == NULL)
   {
     fprintf(stderr,
      "\nWarning: Could not load background image:\n"

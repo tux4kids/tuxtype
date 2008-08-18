@@ -28,8 +28,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tux Typing 1.5.16\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2008-08-13 19:23+0530\n"
-"PO-Revision-Date: 2008-08-13 19:23+0530\n"
+"POT-Creation-Date: 2008-08-18 15:29-0500\n"
+"PO-Revision-Date: 2008-08-18 15:29-0500\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -37,138 +37,138 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: src/pause.c:286
+#: src/pause.c:279
 msgid "Sound Effects Volume"
 msgstr "Sound Effects Volume"
 
-#: src/pause.c:295
+#: src/pause.c:288
 msgid "Music Volume"
 msgstr "Music Volume"
 
-#: src/pause.c:306
+#: src/pause.c:299
 msgid "Sound & Music Disabled"
 msgstr "Sound & Music Disabled"
 
-#: src/pause.c:316
+#: src/pause.c:309
 msgid "Paused!"
 msgstr "Paused!"
 
-#: src/pause.c:325
+#: src/pause.c:318
 msgid "Press escape again to return to menu"
 msgstr "Press escape again to return to menu"
 
-#: src/pause.c:334
+#: src/pause.c:327
 msgid "Press space bar to return to game"
 msgstr "Press space bar to return to game"
 
-#: src/playgame.c:945
+#: src/playgame.c:947
 msgid "Level"
 msgstr "Level"
 
-#: src/playgame.c:946
+#: src/playgame.c:948
 msgid "Lives"
 msgstr "Lives"
 
-#: src/playgame.c:947
+#: src/playgame.c:949
 msgid "Fish"
 msgstr "Fish"
 
-#: src/playgame.c:949 src/titlescreen.c:74
+#: src/playgame.c:951 src/titlescreen.c:91
 msgid "Easy"
 msgstr "Easy"
 
-#: src/playgame.c:950 src/titlescreen.c:75
+#: src/playgame.c:952 src/titlescreen.c:92
 msgid "Medium"
 msgstr "Medium"
 
-#: src/playgame.c:951 src/titlescreen.c:76
+#: src/playgame.c:953 src/titlescreen.c:93
 msgid "Hard"
 msgstr "Hard"
 
-#: src/playgame.c:952 src/titlescreen.c:75
+#: src/playgame.c:954 src/titlescreen.c:92
 msgid "Practice"
 msgstr "Practice"
 
-#: src/playgame.c:963
+#: src/playgame.c:965
 msgid "Congratulations"
 msgstr "Congratulations"
 
-#: src/playgame.c:967
+#: src/playgame.c:969
 msgid "Oh No!"
 msgstr "Oh No!"
 
-#: src/practice.c:239
+#: src/practice.c:470
 msgid "Great!"
 msgstr "Great!"
 
-#: src/practice.c:589
+#: src/practice.c:806
 msgid "Next letter "
 msgstr "Next letter "
 
-#: src/titlescreen.c:74
+#: src/titlescreen.c:91
 msgid "Fish Cascade"
 msgstr "Fish Cascade"
 
-#: src/titlescreen.c:74
+#: src/titlescreen.c:91
 msgid "Space Cadet"
 msgstr "Space Cadet"
 
-#: src/titlescreen.c:74
+#: src/titlescreen.c:91
 msgid "Edit Word Lists"
 msgstr "Edit Word Lists"
 
-#: src/titlescreen.c:75
+#: src/titlescreen.c:92
 msgid "Comet Zap"
 msgstr "Comet Zap"
 
-#: src/titlescreen.c:75
+#: src/titlescreen.c:92
 msgid "Pilot"
 msgstr "Pilot"
 
-#: src/titlescreen.c:76
+#: src/titlescreen.c:93
 msgid "Lessons"
 msgstr "Lessons"
 
-#: src/titlescreen.c:76
+#: src/titlescreen.c:93
 msgid "Ace"
 msgstr "Ace"
 
-#: src/titlescreen.c:76
+#: src/titlescreen.c:93
 msgid "Project Info"
 msgstr "Project Info"
 
-#: src/titlescreen.c:77
+#: src/titlescreen.c:94
 msgid "Options"
 msgstr "Options"
 
-#: src/titlescreen.c:77
+#: src/titlescreen.c:94
 msgid "Instructions"
 msgstr "Instructions"
 
-#: src/titlescreen.c:77
+#: src/titlescreen.c:94
 msgid "Commander"
 msgstr "Commander"
 
-#: src/titlescreen.c:77
+#: src/titlescreen.c:94
 msgid "Setup Language"
 msgstr "Setup Language"
 
-#: src/titlescreen.c:78
+#: src/titlescreen.c:95
 msgid "Quit"
 msgstr "Quit"
 
-#: src/titlescreen.c:78
+#: src/titlescreen.c:95
 msgid "Main Menu"
 msgstr "Main Menu"
 
-#: src/titlescreen.c:1156
+#: src/titlescreen.c:1175
 msgid "Work In Progress!"
 msgstr "Work In Progress!"
 
-#: src/titlescreen.c:1157
+#: src/titlescreen.c:1176
 msgid "This feature is not ready yet"
 msgstr "This feature is not ready yet"
 
-#: src/titlescreen.c:1158
+#: src/titlescreen.c:1177
 msgid "Discuss the future of TuxTyping at"
 msgstr "Discuss the future of TuxTyping at"

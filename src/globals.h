@@ -23,7 +23,7 @@
 
 #define RES_X	640
 #define RES_Y	480
-#define BPP	16	
+#define BPP	32
 
 #ifdef WIN32 
 #undef DATA_PREFIX
@@ -145,17 +145,17 @@ typedef struct {
 #define DEBUGCODE if (settings.debug_on) 
 #define DOUT(x) if (settings.debug_on) fprintf(stderr, "%s = %d\n", #x, x);
 
-#if SDL_BYTEORDER == SDL_BIG_ENDIAN
-#define RMASK 0xff000000
-#define GMASK 0x00ff0000
-#define BMASK 0x0000ff00
-#define AMASK 0x000000ff
-#else
-#define RMASK 0x000000ff
-#define GMASK 0x0000ff00
-#define BMASK 0x00ff0000
-#define AMASK 0xff000000
-#endif
+// #if SDL_BYTEORDER == SDL_BIG_ENDIAN
+// #define RMASK 0xff000000
+// #define GMASK 0x00ff0000
+// #define BMASK 0x0000ff00
+// #define AMASK 0x000000ff
+// #else
+// #define RMASK 0x000000ff
+// #define GMASK 0x0000ff00
+// #define BMASK 0x00ff0000
+// #define AMASK 0xff000000
+// #endif
 
 
 
@@ -194,6 +194,10 @@ enum Game_Type {
 #define IMG_NOT_REQUIRED 0x10
 #define IMG_NO_THEME     0x20
 
+/* Values for menu button drawing: */
+#define REG_RGBA 16,16,96,96
+#define SEL_RGBA 16,16,128,128
+
 //Game difficulty levels
 enum { EASY, MEDIUM, HARD, INSANE, INF_PRACT };
 #define NUM_LEVELS  4
@@ -203,6 +207,11 @@ extern game_option_type settings;
 /* FIXME get rid of as much global data as possible, esp. pointers */
 
 extern SDL_Surface* screen;
+/* these will store the resolution used by the OS when we start, so we */
+/* can run fullscreen at the user's preferred resolution:              */
+extern uint fs_res_x;
+extern uint fs_res_y;
+
 //extern TTF_Font* font;
 extern SDL_Event  event;
 

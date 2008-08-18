@@ -774,8 +774,8 @@ UpdateScreen : Update the screen and increment the frame num
 ***************************/
 static void UpdateScreen(int* frame)
 {
-	int i;
-
+  int i;
+  LOG("Entering UpdateScreen()\n");
 	/* -- First erase everything we need to -- */
 	for (i = 0; i < numupdates; i++)
 		if (blits[i].type == 'E') 
@@ -796,6 +796,8 @@ static void UpdateScreen(int* frame)
 
 	numupdates = 0;
 	*frame = *frame + 1;
+
+  LOG("Leaving UpdateScreen()\n");
 }
 
 static int EraseSprite(sprite* img, int x, int y)

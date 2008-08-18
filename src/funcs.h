@@ -26,11 +26,11 @@
 
 
 /* In alphabet.c */
-SDL_Surface* BlackOutline(const unsigned char* t, const TTF_Font* font, const SDL_Color* c);
-SDL_Surface* BlackOutline_Unicode(const Uint16* t, const TTF_Font* font, const SDL_Color* c);
+//SDL_Surface* BlackOutline(const unsigned char* t, const TTF_Font* font, const SDL_Color* c);
+//SDL_Surface* BlackOutline_Unicode(const Uint16* t, const TTF_Font* font, const SDL_Color* c);
 
 #ifndef WIN32
-SDL_Surface* BlackOutline_SDLPango(const unsigned char* t, const TTF_Font* font, const SDL_Color* c);
+//SDL_Surface* BlackOutline_SDLPango(const unsigned char* t, const TTF_Font* font, const SDL_Color* c);
 #endif
 
 /* (still in alphabet.c:) */
@@ -57,7 +57,7 @@ void GenerateKeyboard(SDL_Surface* keyboard);
 void updatekeylist(int key,char ch);
 void savekeyboard(void);
 wchar_t GetLastKey(void);
-SDL_Surface* BlackOutline_w(wchar_t* t, const TTF_Font* font, const SDL_Color* c, int size);
+
 
 //void UseAlphabet(void);
 
@@ -84,6 +84,9 @@ sprite* FlipSprite(sprite* in, int X, int Y);
 void FreeSprite(sprite* gfx);
 TTF_Font* LoadFont(const char* fontfile, int fontsize);
 SDL_Surface* LoadImage(const char* datafile, int mode);
+int LoadBothBkgds(const char* datafile);
+SDL_Surface* CurrentBkgd(void);
+void UnloadBkgds(void);
 void LoadLang(void);
 Mix_Music* LoadMusic(const char* datafile);
 Mix_Chunk* LoadSound(const char* datafile);
@@ -94,7 +97,6 @@ void Opts_Initialize(void);
 
 /* In pause.c: */
 int  Pause(void);
-int  inRect(SDL_Rect r, int x, int y);
 
 
 /* In playgame.c: */
@@ -116,7 +118,7 @@ void InstructLaser(void);
 
 
 /* In setup.c: */
-void GraphicsInit(Uint32 video_flags);
+void GraphicsInit(void);
 void LibInit(Uint32 lib_flags);
 void LoadSettings(void);
 void SaveSettings(void);
@@ -128,6 +130,6 @@ void ChooseTheme(void);
 
 
 /* In titlescreen.c: */
-void SwitchScreenMode(void);
+//void SwitchScreenMode(void);
 void TitleScreen(void);
 

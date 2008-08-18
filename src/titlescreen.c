@@ -20,27 +20,21 @@
 #include "globals.h"
 #include "funcs.h"
 #include "titlescreen.h"
+#include "SDL_extras.h"
 
 /* --- media for menus --- */
 
 /* images of regular and selected text of menu items: */
 static SDL_Surface* reg_text[TITLE_MENU_ITEMS + 1][TITLE_MENU_DEPTH + 1] = {NULL};
 static SDL_Surface* sel_text[TITLE_MENU_ITEMS + 1][TITLE_MENU_DEPTH + 1] = {NULL};
-static sprite* reg = NULL;
-static sprite* sel = NULL;
 /* this will contain pointers to all of the menu 'icons' */
 static sprite* menu_gfx[TITLE_MENU_ITEMS + 1][TITLE_MENU_DEPTH + 1] = {NULL};
-/* keep track of the width of each menu: */
-static int menu_width[TITLE_MENU_DEPTH + 1];
 
-/* NOTE for 'depth', think pages like a restaurant menu, */
-/* not heirarchical depth - choice of term is misleading */
-static int menu_depth; // how deep we are in the menu
-//int menu_sound; // status of menu sound effects
-//int menu_music; // status of menu sound effects
+/* Background images for windowed and fullscreen modes: */
+static SDL_Surface* win_bkgd = NULL; //640x480 background (windowed)
+static SDL_Surface* fullscr_bkgd = NULL; //native resolution (fullscreen)
 
 /* --- other media --- */
-static SDL_Surface* bkg = NULL;
 static SDL_Surface* title = NULL;
 static SDL_Surface* speaker = NULL;
 static SDL_Surface* speakeroff = NULL;
@@ -50,24 +44,46 @@ static Mix_Chunk* snd_select = NULL;
 static TTF_Font* font = NULL;
 
 /* --- locations we need --- */
-static SDL_Rect text_dst[TITLE_MENU_ITEMS + 1];     // location of text for menu
-static SDL_Rect menu_gfxdest[TITLE_MENU_ITEMS + 1]; // location of animated icon
-/* These are the rectangular mouse event "buttons" for each menu item */
-static SDL_Rect menu_button[TITLE_MENU_ITEMS + 1];  // size of "button"
+static SDL_Rect text_dst[TITLE_MENU_ITEMS + 1];     // location of menu text
+static SDL_Rect menu_gfxdest[TITLE_MENU_ITEMS + 1]; // location of menu sprite
+static SDL_Rect menu_button[TITLE_MENU_ITEMS + 1];  // menu mouse event buttons
+/* keep track of the width of each menu: */
+static int menu_width[TITLE_MENU_DEPTH + 1];
 
+static SDL_Rect Tuxdest;
+static SDL_Rect Titledest;
+static SDL_Rect spkrdest;
+static SDL_Rect cursor;
 
 /* Local function prototypes: */
-static int chooseWordlist(void);
-static void draw_button(int id, sprite* s);
-static void ChooseWord(char *words_file);
-static void ChooseFile(void);
+static void show_logo(void);
 static int load_media(void);
 static void load_menu(void);
+static void recalc_rects(void);
+static int chooseWordlist(void);
+static void not_implemented(void);
 static void unload_media(void);
 static void unload_menu(void);
 
 /* --- menu text --- */
 
+/* --- define menu structure --- */
+/* (these values are all in the Game_Type enum in globals.h) */
+const int menu_item[][6]= {{0, 0,         0,         0,          0},
+			   {0, CASCADE,   LEVEL1,    LEVEL1,  NOT_CODED },
+			   {0, LASER,     LEVEL2,    LEVEL2,  FREETYPE   },
+			   {0, LESSONS,  LEVEL3,    LEVEL3,  PROJECT_INFO },
+			   {0, OPTIONS,   INSTRUCT,  LEVEL4,  SET_LANGUAGE},
+			   {0, QUIT_GAME, MAIN,      MAIN,    MAIN}};
+
+/* --- menu icons --- */
+const unsigned char *menu_icon[][6]= 
+{{"", "", "", "", ""},
+ {"", "cascade", "easy",   "grade1_", "list"   },
+ {"", "comet",   "medium", "grade2_", "practice" },
+ {"", "lesson","hard",   "grade3_", "keyboard"   },
+ {"", "tux_config",  "tutor",  "grade4_", "lang" },
+ {"", "quit",    "main",   "main",    "main"   }};
 
      
 static const char *menu_text[]= 
@@ -81,22 +97,11 @@ static const char *menu_text[]=
 
 
 
-
-
-
-
-
-
-
-
-
-
 /************************************************************************/
 /*                                                                      */ 
 /*         "Public" functions (callable throughout program)             */
 /*                                                                      */
 /************************************************************************/
-
 
 
 /****************************************
@@ -107,14 +112,12 @@ static const char *menu_text[]=
 void TitleScreen(void)
 {
 
-  SDL_Rect dest,
-	 Tuxdest,
-	 Titledest,
-	 spkrdest,
-	 cursor;
-
   Uint32 frame = 0;
   Uint32 start = 0;
+
+  /* NOTE for 'depth', think pages like a restaurant menu, */
+  /* not heirarchical depth - choice of term is misleading */
+  int menu_depth; // how deep we are in the menu
 
   int i, j, tux_frame = 0;
   int done = 0;
@@ -141,36 +144,16 @@ void TitleScreen(void)
   
   /* FIXME phrase(s) should come from file */
 
-//  ConvertFromUTF8(phrase, "Now is the time for all good men to come to the aid of their country.");
-//  ConvertFromUTF8(phrase, "To all that believe in his name he gave power to become children of God");
+  ConvertFromUTF8(phrase, "The quick brown fox jumps over the lazy dog.");
 
 //  wcscpy(phrase, "Now is the time for all good men to come to the aid of their country.");
   start = SDL_GetTicks();
 
 
   /*
-  * StandbyScreen: Display the Standby screen.... 
+  * Display the Standby screen.... 
   */
-
-  if (settings.show_tux4kids)
-  {
-    SDL_Surface* standby = NULL;
-    standby = LoadImage("standby.png", IMG_REGULAR|IMG_NO_THEME);
-
-    if (standby) /* Avoid segfault */
-    { 
-      dest.x = ((screen->w) / 2) - (standby->w) / 2;  // Center horizontally
-      dest.y = ((screen->h) / 2) - (standby->h) / 2;  // Center vertically
-      dest.w = standby->w;
-      dest.h = standby->h;
-
-      SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 0, 0, 0));
-      SDL_BlitSurface(standby, NULL, screen, &dest);
-      SDL_UpdateRect(screen, 0, 0, 0, 0);
-      SDL_FreeSurface(standby);  // Unload image
-    }
-  }
-
+  show_logo();
 
   /* Load media and menu data: */
   if (!load_media())
@@ -198,8 +181,8 @@ void TitleScreen(void)
   Titledest.w = title->w;
   Titledest.h = title->h;
 
-  spkrdest.x = 520;
-  spkrdest.y = 420;
+  spkrdest.x = screen->w - speaker->w - 10;
+  spkrdest.y = screen->h - speaker->h - 10;
   spkrdest.w = speaker->w;
   spkrdest.h = speaker->h;
 
@@ -216,18 +199,18 @@ void TitleScreen(void)
 
   SDL_ShowCursor(1);    
   /* FIXME not sure the next line works in Windows: */
-  TransWipe(bkg, RANDOM_WIPE, 10, 20);
+  TransWipe(CurrentBkgd(), RANDOM_WIPE, 10, 20);
   /* Make sure background gets drawn (since TransWipe() doesn't */
   /* seem to work reliably as of yet):                          */
-  SDL_BlitSurface(bkg, NULL, screen, NULL);
+  SDL_BlitSurface(CurrentBkgd(), NULL, screen, NULL);
   SDL_UpdateRect(screen, 0, 0, 0, 0);
 
   /* --- Pull tux & logo onscreen --- */
-  for (i = 0; i < (PRE_ANIM_FRAMES * PRE_FRAME_MULT); i++)
+  for (i = 0; i <= (PRE_ANIM_FRAMES * PRE_FRAME_MULT); i++)
   {
     start = SDL_GetTicks();
-    SDL_BlitSurface(bkg, &Tuxdest, screen, &Tuxdest);
-    SDL_BlitSurface(bkg, &Titledest, screen, &Titledest);
+    SDL_BlitSurface(CurrentBkgd(), &Tuxdest, screen, &Tuxdest);
+    SDL_BlitSurface(CurrentBkgd(), &Titledest, screen, &Titledest);
 
     Tuxdest.y -= Tux->frame[0]->h / (PRE_ANIM_FRAMES * PRE_FRAME_MULT);
     Titledest.x -= (screen->w) / (PRE_ANIM_FRAMES * PRE_FRAME_MULT);
@@ -236,7 +219,7 @@ void TitleScreen(void)
     SDL_BlitSurface(title, NULL, screen, &Titledest);
 
     SDL_UpdateRect(screen, Tuxdest.x, Tuxdest.y, Tuxdest.w, Tuxdest.h);
-    SDL_UpdateRect(screen, Titledest.x, Titledest.y, Titledest.w+40, Titledest.h);
+    SDL_UpdateRect(screen, Titledest.x, Titledest.y, Titledest.w + 40, Titledest.h);
 
     while ((SDL_GetTicks() - start) < 33) 
     {
@@ -244,7 +227,7 @@ void TitleScreen(void)
     }
   }
 
-  SDL_BlitSurface(title, NULL, screen, &Titledest);
+  recalc_rects();
 
   /* Pick speaker graphic according to whether music is on: */
   if ( settings.menu_music )
@@ -263,7 +246,6 @@ void TitleScreen(void)
   cursor.y = menu_button[1].y + (3 * menu_button[1].h / 4);
   SDL_WarpMouse(cursor.x, cursor.y);
   SDL_WM_GrabInput(SDL_GRAB_OFF);
-
 
 
   /****************************
@@ -309,8 +291,7 @@ void TitleScreen(void)
 
           for (j = 1; j <= TITLE_MENU_ITEMS; j++)
           {
-            if ((cursor.x >= menu_button[j].x && cursor.x <= (menu_button[j].x + menu_button[j].w)) && 
-                (cursor.y >= menu_button[j].y && cursor.y <= (menu_button[j].y + menu_button[j].h)))
+            if (inRect(menu_button[j], cursor.x, cursor.y))
             {
               menu_opt = menu_item[j][menu_depth];
               if (settings.menu_sound)
@@ -326,8 +307,7 @@ void TitleScreen(void)
           }
 
           /* If mouse over speaker, toggle menu music off or on: */
-          if ((cursor.x >= spkrdest.x && cursor.x <= (spkrdest.x + spkrdest.w)) && 
-              (cursor.y >= spkrdest.y && cursor.y <= (spkrdest.y + spkrdest.h)))
+          if (inRect(spkrdest, cursor.x, cursor.y))
           {
             if (settings.menu_music)
             {
@@ -376,6 +356,7 @@ void TitleScreen(void)
             case SDLK_F10:
             {
               SwitchScreenMode();
+              recalc_rects();
               redraw = 1;
               break;
             }
@@ -387,11 +368,11 @@ void TitleScreen(void)
               if (settings.menu_music)
               {
                 MusicUnload( );
-                settings.menu_music=0;
+                settings.menu_music = 0;
               }
               else
               {
-                settings.menu_music=1;
+                settings.menu_music = 1;
                 MusicLoad("tuxi.ogg", -1);
               }
               redraw = 1;
@@ -514,9 +495,9 @@ void TitleScreen(void)
     }
 
 
-    if (menu_opt == EDIT_WORDLIST)
+    if (menu_opt == NOT_CODED)
     {
-      ChooseFile();
+      not_implemented();
       redraw = 1;
     }
 
@@ -530,7 +511,7 @@ void TitleScreen(void)
 
     if (menu_opt == LESSONS)
     {
-      SDL_BlitSurface(bkg, NULL, screen, NULL);
+      SDL_BlitSurface(CurrentBkgd(), NULL, screen, NULL);
       SDL_Flip( screen );
       unload_media();
 
@@ -674,71 +655,61 @@ void TitleScreen(void)
     if (menu_opt == FREETYPE)
     {
       unload_media();
-	found=0;
-	if (!settings.use_english)
- 	{
-		sprintf(fn , "%s/phrases.txt", settings.theme_data_path);
-		if (CheckFile(fn))
-		{
-			found = 1;
-		}
-	/* Now look in default path if desired or needed: */
-		if (!found)
-		{
-			sprintf(fn , "%s/words/words3.txt", settings.theme_data_path);
-			if (CheckFile(fn))
-    			{
-      				found = 1;
-    			}
-  		}
-  		if (!found)
-  		{
-    			sprintf(fn , "%s/words/words2.txt", settings.theme_data_path);
-    			if (CheckFile(fn))
-    			{
-   	   			found = 1;
-    			}
-  		}
-  		if (!found)
-  		{
-    			sprintf(fn , "%s/words/words1.txt", settings.theme_data_path);
-    			if (CheckFile(fn))
-    			{
-     				found = 1;
-			}
- 		}
-  	}
-  	if (!found)
-  	{
-    		sprintf(fn , "%s/phrases.txt", settings.default_data_path);
-    		if (CheckFile(fn))
-    		{
-      			found = 1;
-    		}
-  	}
-  	if (!found)
-  	{
-    		fprintf(stderr, "LoadKeyboard(): Error finding file for keyboard setup!\n");
-    		return;
-  	}
+      found = 0;
 
-	fp=fopen(fn,"r");
-	do
-	{
-		fscanf( fp, "%[^\n]\n", str);
-		ConvertFromUTF8(phrase, str);
-		if(Phrases( phrase )==1)
-			break;
-      		//Practice();
+      if (!settings.use_english)
+      {
+        sprintf(fn , "%s/phrases.txt", settings.theme_data_path);
+        if (CheckFile(fn))
+          found = 1;
 
-	} while (!feof(fp));
-	fclose(fp);
-  	load_media();
-      	redraw = 1;
-      //Phrases( phrase );
-      //Practice();
-      //load_media();
-      //redraw = 1;
+        /* Now look in default path if desired or needed: */
+        if (!found)
+        {
+          sprintf(fn , "%s/words/words3.txt", settings.theme_data_path);
+          if (CheckFile(fn))
+            found = 1;
+        }
+
+        if (!found)
+        {
+          sprintf(fn , "%s/words/words2.txt", settings.theme_data_path);
+          if (CheckFile(fn))
+            found = 1;
+        }
+
+        if (!found)
+        {
+          sprintf(fn , "%s/words/words1.txt", settings.theme_data_path);
+          if (CheckFile(fn))
+            found = 1;
+        }
+      }
+
+      /* Now checking English: */
+      if (!found)
+      {
+        sprintf(fn , "%s/phrases.txt", settings.default_data_path);
+        if (CheckFile(fn))
+          found = 1;
+      }
+
+      /* Now do Phrases activity if phrase loaded successfully: */
+      if (found)
+      {
+        fp=fopen(fn,"r");
+        fscanf( fp, "%[^\n]\n", str);
+        ConvertFromUTF8(phrase, str);
+        Phrases( phrase );
+        //Practice();
+        load_media();
+        redraw = 1;
+        fclose(fp);
+      }
+      else
+      {
+        fprintf(stderr, "LoadKeyboard(): Error finding file for keyboard setup!\n");
+      }
     }
 
     /* ------ End menu_opt processing ----------- */
@@ -748,8 +719,9 @@ void TitleScreen(void)
     if (redraw)
     {
       LOG("TitleScreen() - redraw requested\n");
+      recalc_rects();
 
-      SDL_BlitSurface(bkg, NULL, screen, NULL); 
+      SDL_BlitSurface(CurrentBkgd(), NULL, screen, NULL); 
       SDL_BlitSurface(title, NULL, screen, &Titledest);
 
       if ( settings.menu_music )
@@ -775,11 +747,11 @@ void TitleScreen(void)
       /* --- erase the last menu --- */
       for (i = 1; i <= TITLE_MENU_ITEMS; i++)
       {
-        text_dst[i].x = 290;
+        text_dst[i].x = screen->w/2 - 70;//290;
         text_dst[i].w = reg_text[i][menu_depth]->w;
         text_dst[i].h = reg_text[i][menu_depth]->h;
-        SDL_BlitSurface(bkg, &menu_button[i], screen, &menu_button[i]);
-        menu_button[i].w = menu_width[menu_depth] + (2*reg->frame[2]->w);
+        SDL_BlitSurface(CurrentBkgd(), &menu_button[i], screen, &menu_button[i]);
+        menu_button[i].w = menu_width[menu_depth] + 20;
       }
 
 
@@ -790,7 +762,7 @@ void TitleScreen(void)
       for (j = 1; j <= TITLE_MENU_ITEMS; j++)
       {
         DOUT(j);
-        draw_button(j, reg);
+        DrawButton(&menu_button[j], 10, REG_RGBA);
         if (reg_text[j][menu_depth] != NULL)
           SDL_BlitSurface(reg_text[j][menu_depth], NULL, screen, &text_dst[j]);
         if (menu_gfx[j][menu_depth] != NULL)
@@ -819,8 +791,17 @@ void TitleScreen(void)
 
     if (tux_frame)
     {
-      SDL_BlitSurface(bkg, &Tuxdest, screen, &Tuxdest);
-      SDL_BlitSurface(Tux->frame[tux_frame - 1], NULL, screen, &Tuxdest);
+      SDL_Rect blink_src, blink_dest;
+      blink_src.x = 0;
+      blink_src.y = 0;
+      blink_src.w = Tuxdest.w;
+      blink_src.h = Tuxdest.h;
+      blink_dest.x = Tuxdest.x + blink_src.x;
+      blink_dest.y = Tuxdest.y + blink_src.y;
+      blink_dest.w = blink_src.w;
+      blink_dest.h = blink_src.h;
+//      SDL_BlitSurface(CurrentBkgd(), , screen, &Tuxdest);
+      SDL_BlitSurface(Tux->frame[tux_frame - 1], &blink_src, screen, &blink_dest);
     }
 
 
@@ -843,8 +824,8 @@ void TitleScreen(void)
 
     if (old_key_menu && (key_menu != old_key_menu))
     {
-      SDL_BlitSurface(bkg, &menu_button[old_key_menu], screen, &menu_button[old_key_menu]);
-      draw_button( old_key_menu, reg );
+      SDL_BlitSurface(CurrentBkgd(), &menu_button[old_key_menu], screen, &menu_button[old_key_menu]);
+      DrawButton(&menu_button[old_key_menu], 10, REG_RGBA);
       SDL_BlitSurface(reg_text[old_key_menu][menu_depth], NULL, screen, &text_dst[old_key_menu]);
       SDL_BlitSurface(menu_gfx[old_key_menu][menu_depth]->default_img, NULL, screen, &menu_gfxdest[old_key_menu]);
     }
@@ -861,8 +842,8 @@ void TitleScreen(void)
         PlaySound(snd_move);
       }
 
-      SDL_BlitSurface(bkg, &menu_button[key_menu], screen, &menu_button[key_menu]);
-      draw_button( key_menu, sel );
+      SDL_BlitSurface(CurrentBkgd(), &menu_button[key_menu], screen, &menu_button[key_menu]);
+      DrawButton(&menu_button[key_menu], 10, SEL_RGBA);
       SDL_BlitSurface(sel_text[key_menu][menu_depth], NULL, screen, &text_dst[key_menu]);
       SDL_BlitSurface(menu_gfx[key_menu][menu_depth]->frame[menu_gfx[key_menu][menu_depth]->cur], NULL, screen, &menu_gfxdest[key_menu]);
 
@@ -879,7 +860,7 @@ void TitleScreen(void)
 
     SDL_UpdateRect(screen, spkrdest.x, spkrdest.y, spkrdest.w, spkrdest.h);
 
-    for ( i=1; i<6; i++ )
+    for (i = 1; i < 6; i++)
     {
       SDL_UpdateRect(screen, menu_button[i].x, menu_button[i].y, menu_button[i].w, menu_button[i].h);
     }
@@ -911,53 +892,6 @@ void TitleScreen(void)
 }
 
 
-void SwitchScreenMode(void)
-{
-  SDL_Surface *tmp;
-  SDL_Rect src, dst;
-  int window=0;
-  src.x = 0; src.y = 0;
-  src.w = RES_X; src.h = RES_Y;
-  dst.x = 0; dst.y = 0;
-
-  tmp = SDL_CreateRGBSurface(
-      SDL_SWSURFACE,
-      RES_X,
-      RES_Y,
-      BPP,
-#if SDL_BYTEORDER == SDL_BIG_ENDIAN
-      0xff000000,
-      0x00ff0000,
-      0x0000ff00,
-      0x000000ff
-#else
-      0x000000ff,
-      0x0000ff00,
-      0x00ff0000,
-      0xff000000
-#endif
-      );
-  if (screen->flags & SDL_FULLSCREEN)
-	window=1;
-  SDL_BlitSurface(screen,&src,tmp,&dst);
-  SDL_UpdateRect(tmp,0,0,RES_X,RES_Y);
-  SDL_FreeSurface(screen);
-  screen = NULL;
-
-  if ( window ){
-	screen = SDL_SetVideoMode(RES_X,RES_Y,BPP, SDL_SWSURFACE|SDL_HWPALETTE);
-  } else {
-	screen = SDL_SetVideoMode(RES_X,RES_Y,BPP, SDL_SWSURFACE|SDL_HWPALETTE|SDL_FULLSCREEN);
-  }
-  SDL_BlitSurface(tmp,&src,screen,&dst);
-  SDL_UpdateRect(tmp,0,0,RES_X,RES_Y);
-  SDL_FreeSurface(tmp);
-
-  /* FIXME maybe settings.fullscreen should be updated by the */
-  /* calling function rather than here? */
-  settings.fullscreen = !settings.fullscreen;
-}
-
 
 /************************************************************************/
 /*                                                                      */ 
@@ -965,22 +899,34 @@ void SwitchScreenMode(void)
 /*                                                                      */
 /************************************************************************/
 
+static void show_logo(void)
+{
+  if (settings.show_tux4kids)
+  {
+    SDL_Rect logo_rect;
+    SDL_Surface* t4k_logo = LoadImage("standby.png", IMG_REGULAR|IMG_NO_THEME);
+    
+    if (t4k_logo) /* Avoid segfault */
+    { 
+      logo_rect.x = screen->w/2 - t4k_logo->w/2;  // Center horizontally
+      logo_rect.y = screen->h/2 - t4k_logo->h/2;  // Center vertically
+      logo_rect.w = t4k_logo->w;
+      logo_rect.h = t4k_logo->h;
 
-static void draw_button(int id, sprite* s) {
-	SDL_Rect button;
-
-	button.x = menu_button[id].x;
-	button.y = menu_button[id].y;
-	button.w = s->frame[0]->w;
-	button.h = s->frame[0]->h;
-	SDL_BlitSurface(s->frame[0], NULL, screen, &button);
-	button.w = s->frame[1]->w;
-	for (button.x += s->frame[0]->w; button.x < (menu_button[id].x + menu_width[menu_depth]); button.x += s->frame[1]->w) 
-		SDL_BlitSurface(s->frame[1], NULL, screen, &button);
-	button.w = s->frame[2]->w;
-	SDL_BlitSurface(s->frame[2], NULL, screen, &button);
+      /* Black out screen: */
+      SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 0, 0, 0));
+      SDL_BlitSurface(t4k_logo, NULL, screen, &logo_rect);
+      SDL_UpdateRect(screen, 0, 0, 0, 0);
+      SDL_FreeSurface(t4k_logo);  // Unload image
+    }
+    else
+      fprintf(stderr, "Couldn't load 'standby.png'\n");
+  }
 }
 
+
+/* Renders the menu text for all items and loads the associated */
+/* animated sprites, if any.                                    */
 static void load_menu(void)
 {
   unsigned char fn[FNLEN];
@@ -1016,42 +962,66 @@ static void load_menu(void)
     menu_width[j] = max + 20 + 40; // Not clear where '20' and '40' are coming from
   }
 
-  LOG("done creating graphics, now setting positions\n");
+  recalc_rects();
+}
+
+
+
+static void recalc_rects(void)
+{
+  int i = 0;
+
+  Tuxdest.x = 0;
+  Tuxdest.y = screen->h - Tux->frame[0]->h;
+  Tuxdest.w = Tux->frame[0]->w;
+  Tuxdest.h = Tux->frame[0]->h;
+
+  Titledest.x = 0;
+  Titledest.y = 10;
+  Titledest.w = title->w;
+  Titledest.h = title->h;
+
+  spkrdest.x = screen->w - speaker->w - 10;
+  spkrdest.y = screen->h - speaker->h - 10;
+  spkrdest.w = speaker->w;
+  spkrdest.h = speaker->h;
 
   /* --- setup menu item destinations --- */
-  menu_button[1].x = 240;
+  menu_button[1].x = screen->w/2 - 120; //240;
   menu_button[1].y = 100;
   menu_button[1].w = menu_width[1];  //calc from width of widest menu item
-  /* we should only get to here after we know 'sel' successfully loaded, so safe: */
-  menu_button[1].h = sel->frame[1]->h; //height of sprite image
+  menu_button[1].h = 50;
 
   menu_gfxdest[1].x = menu_button[1].x + 6; // inset graphic by (6, 4) */
   menu_gfxdest[1].y = menu_button[1].y + 4;
   menu_gfxdest[1].w = 40;
   menu_gfxdest[1].h = 50;
 
+  text_dst[1].x = screen->w/2 - 70;//290;
   text_dst[1].y = menu_button[1].y + 15;
 
   /* FIXME each menu item drawn hardcoded 60 pixels below last - */
   /* perhaps increment should be "menu_button[j-1].h + MENU_ITEM_GAP" */
-  for (j = 2; j < 6; j++) 
+  for (i = 2; i < 6; i++) 
   {
-    /* --- setup vertical location of button text --- */
-    text_dst[j].y = text_dst[j-1].y + 60;
+    /* --- setup location of button text --- */
+    text_dst[i].x = screen->w/2 - 70;
+    text_dst[i].y = text_dst[i - 1].y + 60;
 
     /* --- setup location of button background --- */
-    menu_button[j].x = menu_button[j-1].x;
-    menu_button[j].y = menu_button[j-1].y + 60;
-    menu_button[j].w = menu_button[j-1].w;
-    menu_button[j].h = menu_button[j-1].h;
+    menu_button[i].x = menu_button[i - 1].x;
+    menu_button[i].y = menu_button[i - 1].y + 60;
+    menu_button[i].w = menu_button[i - 1].w;
+    menu_button[i].h = menu_button[i - 1].h;
 
     /* --- setup location of animated icon --- */
-    menu_gfxdest[j].x = menu_gfxdest[j-1].x;
-    menu_gfxdest[j].y = menu_gfxdest[j-1].y + 60;
-    menu_gfxdest[j].w = menu_gfxdest[j-1].w;
-    menu_gfxdest[j].h = menu_gfxdest[j-1].h;
+    menu_gfxdest[i].x = menu_gfxdest[i - 1].x;
+    menu_gfxdest[i].y = menu_gfxdest[i - 1].y + 60;
+    menu_gfxdest[i].w = menu_gfxdest[i - 1].w;
+    menu_gfxdest[i].h = menu_gfxdest[i - 1].h;
   }
 }
+
 
 
 static void unload_menu(void)
@@ -1102,12 +1072,12 @@ static int load_media(void)
   }
  
   /* --- load graphics --- */
+  LoadBothBkgds("main_bkg.png");
   title = LoadImage( "title1.png", IMG_ALPHA );
   speaker = LoadImage( "sound.png", IMG_ALPHA );
   speakeroff = LoadImage( "nosound.png", IMG_ALPHA );
-  bkg = LoadImage( "main_bkg.png", IMG_REGULAR );
-  sel = LoadSprite("menu/sel", IMG_ALPHA);
-  reg = LoadSprite("menu/reg", IMG_ALPHA);
+//  sel = LoadSprite("menu/sel", IMG_ALPHA);
+//  reg = LoadSprite("menu/reg", IMG_ALPHA);
   Tux = LoadSprite("tux", IMG_ALPHA);
 
   DEBUGCODE
@@ -1118,12 +1088,10 @@ static int load_media(void)
   font = LoadFont(settings.theme_font_name, MENU_FONT_SIZE);
 
   /* Make sure we were successful: */
-  if (!title
+  if (!CurrentBkgd()
+   || !title
    || !speaker
    || !speakeroff
-   || !bkg
-   || !sel
-   || !reg
    || !Tux
    || !font)
   {
@@ -1175,22 +1143,8 @@ static void unload_media(void)
     speakeroff = NULL;
   }
 
-  if (bkg)
-  {
-    SDL_FreeSurface(bkg);
-    bkg = NULL;
-  }
+  UnloadBkgds();
 
-  if (sel)
-  {
-    FreeSprite(sel);
-    sel = NULL;
-  }
-  if (reg)
-  {
-    FreeSprite(reg);
-    reg = NULL;
-  }
   if (Tux)
   {
     FreeSprite(Tux);
@@ -1211,7 +1165,6 @@ static void unload_media(void)
 
 static void not_implemented(void)
 {
-  SDL_Surface* bk = NULL;
   SDL_Surface *s1 = NULL, *s2 = NULL, *s3 = NULL, *s4 = NULL;
   sprite* tux = NULL;
   SDL_Rect loc;
@@ -1239,24 +1192,23 @@ static void not_implemented(void)
     s4 = BlackOutline( "http://tuxtype.sf.net/forums", font, &white);
 
   tux = LoadSprite("tux/tux-egypt", IMG_ALPHA);
-  bk = LoadImage("main_bkg.png", IMG_REGULAR);
 
-  if (s1 && s2 && s3 && s4 && tux && bk)
+  if (s1 && s2 && s3 && s4 && tux)
   {
     LOG( "NotImplemented() - drawing screen\n" );
 
-    SDL_BlitSurface(bk, NULL, screen, NULL);
-    loc.x = 320-(s1->w/2); loc.y = 10;
+    SDL_BlitSurface(CurrentBkgd(), NULL, screen, NULL);
+    loc.x = screen->w/2 - (s1->w/2); loc.y = 10;
     SDL_BlitSurface( s1, NULL, screen, &loc);
-    loc.x = 320-(s2->w/2); loc.y = 60;
+    loc.x = screen->w/2 - (s2->w/2); loc.y = 60;
     SDL_BlitSurface( s2, NULL, screen, &loc);
-    loc.x = 320-(s3->w/2); loc.y = 400;
-    SDL_BlitSurface( s3, NULL, screen, &loc);
-    loc.x = 320-(s4->w/2); loc.y = 440;
+    loc.x = screen->w/2 - (s3->w/2); loc.y = screen->h/2 + 160;
+    SDL_BlitSurface(s3, NULL, screen, &loc);
+    loc.x = screen->w/2 - (s4->w/2); loc.y = screen->h/2 + 200;
     SDL_BlitSurface( s4, NULL, screen, &loc);
 
-    loc.x = 320-(tux->frame[0]->w/2);
-    loc.y = 200;
+    loc.x = screen->w/2 - (tux->frame[0]->w/2);
+    loc.y = screen->h - 280;
     loc.w = tux->frame[0]->w;
     loc.h = tux->frame[0]->h;
     SDL_BlitSurface( tux->frame[tux->cur], NULL, screen, &loc);
@@ -1284,7 +1236,7 @@ static void not_implemented(void)
       if (i %5 == 0)
       {
         NEXT_FRAME(tux);
-        SDL_BlitSurface(bk, &loc, screen, &loc);
+        SDL_BlitSurface(CurrentBkgd(), &loc, screen, &loc);
         SDL_BlitSurface(tux->frame[tux->cur], NULL, screen, &loc);
         SDL_UpdateRect(screen, loc.x, loc.y, loc.w, loc.h);
       }
@@ -1299,8 +1251,7 @@ static void not_implemented(void)
   SDL_FreeSurface(s2);
   SDL_FreeSurface(s3);
   SDL_FreeSurface(s4);
-  SDL_FreeSurface(bk);
-  s1 = s2 = s3 = s4 = bk = NULL;
+  s1 = s2 = s3 = s4 = NULL;
   FreeSprite(tux);
   tux = NULL;
 }
@@ -1318,7 +1269,6 @@ static int chooseWordlist(void)
   SDL_Surface* titles[MAX_WORD_LISTS] = {NULL};
   SDL_Surface* select[MAX_WORD_LISTS] = {NULL};
   SDL_Surface* left = NULL, *right = NULL;
-  SDL_Surface* backg = NULL;
   SDL_Rect leftRect, rightRect;
   SDL_Rect titleRects[8];
   int stop = 0;
@@ -1422,12 +1372,11 @@ static int chooseWordlist(void)
     select[i] = BlackOutline( wordlistName[i], font, &yellow);
   }
 
-  backg = LoadImage("main_bkg.png", IMG_REGULAR);
   left = LoadImage("left.png", IMG_ALPHA);
   right = LoadImage("right.png", IMG_ALPHA);
 
   /* Get out if needed surface not loaded successfully: */
-  if (!backg || !left || !right)
+  if (!CurrentBkgd() || !left || !right)
   {
     fprintf(stderr, "chooseWordList(): needed image not available\n");
   
@@ -1438,21 +1387,22 @@ static int chooseWordlist(void)
       titles[i] = select[i] = NULL;
     }
 
-    SDL_FreeSurface(backg);
     SDL_FreeSurface(left);
     SDL_FreeSurface(right);
-    backg = left = right = NULL;
+    left = right = NULL;
 
     return 0;
   }
   
 
 
-  leftRect.w = left->w; leftRect.h = left->h;
-  leftRect.x = 320 - 80 - (leftRect.w/2); leftRect.y = 430;
+  leftRect.w = left->w;
+  leftRect.h = left->h;
+  leftRect.x = screen->w/2 - 80 - (leftRect.w/2);
+  leftRect.y = screen->h/2 - 50;
 
   rightRect.w = right->w; rightRect.h = right->h;
-  rightRect.x = 320 + 80 - (rightRect.w/2); rightRect.y = 430;
+  rightRect.x = screen->w/2 + 80 - (rightRect.w/2); rightRect.y = screen->h/2 - 50;
 
   /* set initial rect sizes */
   titleRects[0].y = 30;
@@ -1532,14 +1482,7 @@ static int chooseWordlist(void)
                                         if (event.key.keysym.sym == SDLK_UP) {
                                                 if (loc > 0)
                                                         loc--;
-                 if(settings.use_english){
-	sprintf(fn , "%s/words", settings.default_data_path);
-	fprintf(stderr , "%s/words", settings.default_data_path);
-}
-else{
-  sprintf(fn , "%s/words", settings.theme_data_path);
-  fprintf(stderr , "%s/words", settings.theme_data_path);
-}                       }
+                                        }
 
                                         if (event.key.keysym.sym == SDLK_DOWN) {
                                                 if (loc+1<lists)
@@ -1551,11 +1494,11 @@ else{
     if (old_loc != loc) {
                         int start;
 
-                        SDL_BlitSurface(backg, NULL, screen, NULL );
+                        SDL_BlitSurface(CurrentBkgd(), NULL, screen, NULL );
 
                         start = loc - (loc % 8);
                         for (i = start; i<MIN(start+8,lists); i++) {
-                                titleRects[i%8].x = 320 - (titles[i]->w/2);
+                                titleRects[i%8].x = screen->w/2 - (titles[i]->w/2);
                                 if (i == loc)
                                         SDL_BlitSurface(select[loc], NULL, screen, &titleRects[i%8]);
                                 else
@@ -1584,10 +1527,9 @@ else{
     titles[i] = select[i] = NULL;
   }
 
-  SDL_FreeSurface(backg);
   SDL_FreeSurface(left);
   SDL_FreeSurface(right);
-  backg = left = right = NULL; /* Maybe overkill - about to be destroyed anyway */
+  left = right = NULL; /* Maybe overkill - about to be destroyed anyway */
 
   DEBUGCODE { fprintf( stderr, "Leaving chooseWordlist();\n" ); }
 
@@ -1597,453 +1539,4 @@ else{
   return 1;
 }
 
-static void ChooseFile(void)
-{
-  SDL_Surface* titles[MAX_WORD_LISTS] = {NULL};
-  SDL_Surface* select[MAX_WORD_LISTS] = {NULL};
-  SDL_Surface *photo = NULL;
-  SDL_Surface* bkg = NULL;
-  TTF_Font* font = NULL;
-  SDL_Rect titleRects[8];
-  int stop = 0;
-  int loc = 0;
-  int old_loc = 1;
 
-  int themes = 0;
-  int i;
-  unsigned char fn[FNLEN];
-  unsigned char wordTypes[MAX_WORD_LISTS][FNLEN];
-  unsigned char fileNames[MAX_WORD_LISTS][FNLEN];
-
-  int old_use_english;
-  char old_theme_path[FNLEN];
-
-  FILE *fp;
-
-  DIR* themesDir = NULL;
-  struct dirent* themesFile = NULL;
-
- /* save previous settings in case we back out: */
-  old_use_english = settings.use_english;
-  strncpy(old_theme_path, settings.theme_data_path, FNLEN - 1);
-
-  if(settings.use_english)
-	sprintf(fn , "%s/words", settings.default_data_path);
-  else
-	sprintf(fn , "%s/words", settings.theme_data_path);
-  
-  themesDir = opendir(fn);
-
-  if (!themesDir)
-  {
-    fprintf(stderr, "Choosefile() - cannot open themes directory!");
-    return;
-  }
-
-  do
-  {
-	themesFile = readdir(themesDir);
-	if (!themesFile)
-		break;
-
-		/* we ignore any hidden file and CVS */
-
-	if (themesFile->d_name[0] == '.') 
-		continue;
-
-	if (strcmp("CVS", themesFile->d_name)==0)
-		continue;
-
-	if(settings.use_english)
-		sprintf(fn, "%s/words/%s",settings.default_data_path, themesFile->d_name);
-	else	
-		sprintf(fn, "%s/words/%s", settings.theme_data_path, themesFile->d_name);
-
-		/* CheckFile() returns 2 if dir, 1 if file, 0 if neither: */
-	if (CheckFile(fn) == 1) {
-		fp=fopen(fn,"r");
-		    /* HACK: we should get the names from file :) */
-		fscanf(fp, "%[^\n]\n", wordTypes[themes]);
-		    /* Make sure theme name is capitalized: */
-                wordTypes[themes][0] = toupper(wordTypes[themes][0]);
-		fclose(fp);
-		strncpy( fileNames[themes++], themesFile->d_name, FNLEN-1 );
-		    
-	}
-  } while (1);
-
-  closedir(themesDir);
-
-  settings.use_english = 1;
-        // HACK: is font empty now???
-  font = LoadFont(settings.theme_font_name, MENU_FONT_SIZE);
-
-	
-  for (i = 0; i<themes; i++) {
-	titles[i] = BlackOutline( wordTypes[i], font, &white );
-	select[i] = BlackOutline( wordTypes[i], font, &yellow);
-  }
-
-	
-  TTF_CloseFont(font);
-  font = NULL;
-
-  settings.use_english = old_use_english;
-
-  bkg = LoadImage("main_bkg.png", IMG_REGULAR);
-
-	
-	/* set initial rect sizes */
-  titleRects[0].y = 150;
-  titleRects[0].w = titleRects[0].h = titleRects[0].x = 0;
-  for (i = 1; i<8; i++) {
-	titleRects[i].y = titleRects[i-1].y + 50;
-	titleRects[i].w = titleRects[i].h = titleRects[i].x = 0;
-  }
-	
-
-  while (!stop) {
-	while (SDL_PollEvent(&event)) 
-		switch (event.type) {
-			case SDL_QUIT:
-				exit(0);
-				break;
-			case SDL_MOUSEMOTION: 
-				for (i=0; (i<8) && (loc-(loc%8)+i<themes); i++)
-					if (inRect( titleRects[i], event.motion.x, event.motion.y )) {
-						loc = loc-(loc%8)+i;
-						break;
-					}
-				
-				break;
-			case SDL_MOUSEBUTTONDOWN: 
-				
-				for (i=0; (i<8) && (loc-(loc%8)+i<themes); i++) 
-					if (inRect(titleRects[i], event.button.x, event.button.y)) {
-						loc = loc-(loc%8)+i;
-						ChooseWord(fileNames[loc]);
-						break;
-					}
-					break;
-			case SDL_KEYDOWN:
-				if (event.key.keysym.sym == SDLK_ESCAPE) { 
-					settings.use_english = old_use_english;
-					strncpy(settings.theme_data_path, old_theme_path, FNLEN - 1);
-					stop = 1; 
-					break; 
-				}
-				if (event.key.keysym.sym == SDLK_RETURN) { 
-					ChooseWord(fileNames[loc]);
-					loc=0;
-					break;
-				
-	}
-
-				if ((event.key.keysym.sym == SDLK_LEFT) || (event.key.keysym.sym == SDLK_PAGEUP)) {
-					if (loc-(loc%8)-8 >= 0) 
-						loc=loc-(loc%8)-8;
-				}
-
-				if ((event.key.keysym.sym == SDLK_RIGHT) || (event.key.keysym.sym == SDLK_PAGEDOWN)) {
-					if (loc-(loc%8)+8 < themes)
-						loc=(loc-(loc%8)+8);
-				}
-
-				if (event.key.keysym.sym == SDLK_UP) {
-					if (loc > 0)
-						loc--;
-				}
-
-				if (event.key.keysym.sym == SDLK_DOWN) {
-					if (loc+1<themes)
-						loc++;
-				}
-		}
-
-	if (old_loc != loc) {
-		int start;
-
-		SDL_BlitSurface( bkg, NULL, screen, NULL );
-  
-		//if (loc) SetupPaths(fileNames[loc]); else SetupPaths(NULL);
-
-		start = loc - (loc % 8);
-		for (i = start; i<MIN(start+8,themes); i++) {
-			titleRects[i%8].x = 320 - (titles[i]->w/2);
-			if (i == loc)
-				SDL_BlitSurface(select[loc], NULL, screen, &titleRects[i%8]);
-			else
-				SDL_BlitSurface(titles[i], NULL, screen, &titleRects[i%8]);
-		}
-
-		SDL_UpdateRect(screen, 0, 0, 0 ,0);
-	}
-	SDL_Delay(40);
-	old_loc = loc;
-  }
-
-  /* --- clear graphics before quitting --- */ 
-
-  for (i = 0; i<themes; i++)
-  {
-    SDL_FreeSurface(titles[i]);
-    SDL_FreeSurface(select[i]);
-  }
-
-  
-  SDL_FreeSurface(bkg);
- 
-  bkg = NULL;  /* the other pointers are going out of scope so we don't */
-               /* have to worry about setting them to NULL              */
-}
-
-
-static void ChooseWord(char *words_file)
-{
-  SDL_Surface* titles[MAX_WORD_LISTS] = {NULL};
-  SDL_Surface* select[MAX_WORD_LISTS] = {NULL};
-  SDL_Surface* left = NULL, *right = NULL;
-  SDL_Rect leftRect, rightRect;
-  SDL_Surface *photo = NULL;
-  SDL_Surface* bkg = NULL;
-  TTF_Font* font = NULL;
-  SDL_Rect worldRect, photoRect;
-  SDL_Rect titleRects[8];
-  int stop = 0;
-  int loc = 0;
-  int old_loc = 1;
-
-  FILE *fp;
-
-  int start,themes = 0;
-  int i,len;
-  unsigned char fn[FNLEN];
-  unsigned char str[FNLEN];
-  unsigned char editWordW[MAX_WORD_LISTS][FNLEN];
-  unsigned char editWordY[MAX_WORD_LISTS][FNLEN];
-
-  wchar_t temp[FNLEN];
-
-  int old_use_english;
-  char old_theme_path[FNLEN];
-
-  
-
-  /* save previous settings in case we back out: */
-  old_use_english = settings.use_english;
-  strncpy(old_theme_path, settings.theme_data_path, FNLEN - 1);
-
-  if(settings.use_english)
-	sprintf(fn , "%s/words/%s", settings.default_data_path,words_file);
-  else
-  	sprintf(fn , "%s/words/%s", settings.theme_data_path,words_file);
-		
-  fp=fopen(fn,"r");
-  fscanf(fp, "%[^\n]\n", str);
-
-  while(!feof(fp))
-  {
-	/* HACK: we should get the strings from file :) */
-	fscanf(fp, "%[^\n]\n", editWordW[themes]);
-	strcpy(editWordY[themes++],editWordW[themes]);
-  }
-  
-  fclose(fp); 
-  
-  settings.use_english = 1;
-        // HACK: is font empty now???
-  font = LoadFont(settings.theme_font_name, MENU_FONT_SIZE);
-
-  for (i = 0; i<themes; i++) {
-	titles[i] = BlackOutline( editWordW[i], font, &white );
-	strcat(editWordY[i],"|");
-	select[i] = BlackOutline( editWordY[i], font, &yellow);
-  }
-
-  TTF_CloseFont(font);
-  font = NULL;
-
-  settings.use_english = old_use_english;
-  strncpy(settings.theme_data_path, old_theme_path, FNLEN - 1);
-
-  bkg = LoadImage("main_bkg.png", IMG_REGULAR);
-
-  left = LoadImage("left.png", IMG_ALPHA);
-  leftRect.w = left->w; leftRect.h = left->h;
-  leftRect.x = 320 - 100 - (leftRect.w/2); leftRect.y = 430;
-
-  right = LoadImage("right.png", IMG_ALPHA);
-  rightRect.w = right->w; rightRect.h = right->h;
-  rightRect.x = 320 + 100 - (rightRect.w/2); rightRect.y = 430;
-
-	/* set initial rect sizes */ 
-  titleRects[0].y = 30;
-  titleRects[0].w = titleRects[0].h = titleRects[0].x = 0;
-  for (i = 1; i<8; i++) {
-	titleRects[i].y = titleRects[i-1].y + 50;
-	titleRects[i].w = titleRects[i].h = titleRects[i].x = 0;
-  }
-	
-
-  while (!stop) {
-	while (SDL_PollEvent(&event)) 
-		switch (event.type) {
-			case SDL_QUIT:
-				exit(0);
-				break;
-			case SDL_MOUSEMOTION: 
-				if (inRect( leftRect, event.button.x, event.button.y )) 
-						if (loc-(loc%8)-8 >= 0) {
-							loc=loc-(loc%8)-8;
-							break;
-						}
-					if (inRect( rightRect, event.button.x, event.button.y )) 
-						if (loc-(loc%8)+8 < themes) {
-							loc=loc-(loc%8)+8;
-							break;
-						}
-				for (i=0; (i<8) && (loc-(loc%8)+i<themes); i++)
-					if (inRect( titleRects[i], event.motion.x, event.motion.y )) {
-						loc = loc-(loc%8)+i;
-						break;
-					}
-					
-				break;
-				
-			case SDL_KEYDOWN:
-				i=1;
-				if (event.key.keysym.sym == SDLK_BACKSPACE) {
-					font = LoadFont(settings.theme_font_name, MENU_FONT_SIZE);						
-					
-					len=ConvertFromUTF8(temp,editWordW[loc]);
-					temp[len-1]=temp[len];
-					len=ConvertToUTF8(temp,editWordW[loc]);
-					titles[loc] = BlackOutline(editWordW[loc], font, &white );						
-					len=ConvertFromUTF8(temp,editWordY[loc]);
-					temp[len-2]=temp[len-1];
-					temp[len-1]=temp[len];
-					len=ConvertToUTF8(temp,editWordY[loc]);
-					select[loc] = BlackOutline(editWordY[loc], font, &yellow);
-					TTF_CloseFont(font);
-        				font = NULL;
-					break;
-				}
-
-				if (event.key.keysym.sym == SDLK_ESCAPE) { 
-					settings.use_english = old_use_english;
-					strncpy(settings.theme_data_path, old_theme_path, FNLEN - 1);					
-					stop = 1; 
-					break; 
-				}
-					
-				if ((event.key.keysym.sym == SDLK_LEFT) || (event.key.keysym.sym == SDLK_PAGEUP)) {
-						if (loc-(loc%8)-8 >= 0) 
-							loc=loc-(loc%8)-8;
-						break;
-					}
-
-				if ((event.key.keysym.sym == SDLK_RIGHT) || (event.key.keysym.sym == SDLK_PAGEDOWN)) {
-					if (loc-(loc%8)+8 < themes)
-						loc=(loc-(loc%8)+8);
-					break;
-				}
-
-
-				if (event.key.keysym.sym == SDLK_UP) {
-					if (loc > 0)
-						loc--;
-					break;
-				}
-					
-				if (event.key.keysym.sym == SDLK_DOWN) {
-					if (loc+1<themes)
-						loc++;
-					break;
-				}
-				switch (event.key.keysym.sym){
-					case SDLK_RALT:
-					case SDLK_LALT:
-					case SDLK_RSHIFT:
-					case SDLK_LSHIFT:
-					case SDLK_RCTRL:
-					case SDLK_LCTRL:i=0;
-							break;
-				}
-				if(i){
-					
-					font = LoadFont(settings.theme_font_name, MENU_FONT_SIZE);						
-					
-					len=ConvertFromUTF8(temp,editWordW[loc]);
-					temp[len]=event.key.keysym.unicode;
-					temp[len+1]=0;
-					ConvertToUTF8(temp,editWordW[loc]);
-					titles[loc] = BlackOutline(editWordW[loc], font, &white );					
-						
-					len=ConvertFromUTF8(temp,editWordY[loc]);
-					temp[len+1]=0;
-					temp[len]=temp[len-1];
-					temp[len-1]=event.key.keysym.unicode;
-					ConvertToUTF8(temp,editWordY[loc]);
-					select[loc] = BlackOutline(editWordY[loc], font, &yellow);
-					TTF_CloseFont(font);
-        				font = NULL;
-					i=0;
-					break;
-				}	
-		}
-	if(!stop){
-	SDL_BlitSurface( bkg, NULL, screen, NULL );
-
-//	if (loc) SetupPaths(fileNames[loc]); else SetupPaths(NULL);	
-
-	start = loc - (loc % 8);
-	for (i = start; i<MIN(start+8,themes); i++) {
-		titleRects[i%8].x = 320 - (titles[i]->w/2);
-		if (i == loc)
-			SDL_BlitSurface(select[loc], NULL, screen, &titleRects[i%8]);
-		else
-			SDL_BlitSurface(titles[i], NULL, screen, &titleRects[i%8]);
-	}
-
-		/* --- draw buttons --- */
-
-	if (start>0) 
-		SDL_BlitSurface( left, NULL, screen, &leftRect );
-
-	if (start+8<themes) 
-		SDL_BlitSurface( right, NULL, screen, &rightRect );
-
-	SDL_UpdateRect(screen, 0, 0, 0 ,0);
-	}		
-	//SDL_Delay(40);
-	old_loc = loc;
-  }
-
-  
-  fp=fopen(fn,"w");
-  fseek(fp,0,SEEK_SET);
-  fprintf(fp, "%s\n", str);
-  i=0;
-
-  while(i<themes)
-  {
-	fprintf(fp, "%s\n", editWordW[i++]);
-	i++;
-  }
-  
-  fclose(fp); 
-  
-  /* --- clear graphics before quitting --- */ 
-
-  for (i = 0; i<themes; i++)
-  {
-    SDL_FreeSurface(titles[i]);
-    SDL_FreeSurface(select[i]);
-  }
-
-  SDL_FreeSurface(bkg);
-  SDL_FreeSurface(left);
-  SDL_FreeSurface(right);
-  bkg = NULL;  /* the other pointers are going out of scope so we don't */
-               /* have to worry about setting them to NULL              */
-}

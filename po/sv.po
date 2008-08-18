@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tuxtype2 1.5.1\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2008-08-13 19:23+0530\n"
+"POT-Creation-Date: 2008-08-18 15:29-0500\n"
 "PO-Revision-Date: 2003-07-23 17:44+0200\n"
 "Last-Translator: Göran Uddeborg <goeran@uddeborg.se>\n"
 "Language-Team: Swedish <sv@li.org>\n"
@@ -15,148 +15,148 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/pause.c:286
+#: src/pause.c:279
 msgid "Sound Effects Volume"
 msgstr "Ljudeffektvolym"
 
-#: src/pause.c:295
+#: src/pause.c:288
 msgid "Music Volume"
 msgstr "Musikvolym"
 
-#: src/pause.c:306
+#: src/pause.c:299
 msgid "Sound & Music Disabled"
 msgstr "Ljud och musik avaktiverade"
 
-#: src/pause.c:316
+#: src/pause.c:309
 msgid "Paused!"
 msgstr "Pausat!"
 
-#: src/pause.c:325
+#: src/pause.c:318
 msgid "Press escape again to return to menu"
 msgstr "Tryck escape igen för att komma tillbaka till menyn"
 
-#: src/pause.c:334
+#: src/pause.c:327
 msgid "Press space bar to return to game"
 msgstr "Tryck mellanslag för att fortsätta spela"
 
-#: src/playgame.c:945
+#: src/playgame.c:947
 msgid "Level"
 msgstr "Nivå"
 
-#: src/playgame.c:946
+#: src/playgame.c:948
 msgid "Lives"
 msgstr "Liv"
 
-#: src/playgame.c:947
+#: src/playgame.c:949
 msgid "Fish"
 msgstr "Fisk"
 
 # levels for Cascade game:
-#: src/playgame.c:949 src/titlescreen.c:74
+#: src/playgame.c:951 src/titlescreen.c:91
 msgid "Easy"
 msgstr "Lätt"
 
-#: src/playgame.c:950 src/titlescreen.c:75
+#: src/playgame.c:952 src/titlescreen.c:92
 msgid "Medium"
 msgstr "Mellan"
 
-#: src/playgame.c:951 src/titlescreen.c:76
+#: src/playgame.c:953 src/titlescreen.c:93
 msgid "Hard"
 msgstr "Svårt"
 
 # general stuff
-#: src/playgame.c:952 src/titlescreen.c:75
+#: src/playgame.c:954 src/titlescreen.c:92
 msgid "Practice"
 msgstr "Övning"
 
-#: src/playgame.c:963
+#: src/playgame.c:965
 msgid "Congratulations"
 msgstr "Gratulerar"
 
-#: src/playgame.c:967
+#: src/playgame.c:969
 msgid "Oh No!"
 msgstr "Åh nej!"
 
-#: src/practice.c:239
+#: src/practice.c:470
 msgid "Great!"
 msgstr ""
 
-#: src/practice.c:589
+#: src/practice.c:806
 msgid "Next letter "
 msgstr ""
 
-#: src/titlescreen.c:74
+#: src/titlescreen.c:91
 msgid "Fish Cascade"
 msgstr "Fiskregn"
 
 # "Space Cadet" is level 1 in comet zap
-#: src/titlescreen.c:74
+#: src/titlescreen.c:91
 msgid "Space Cadet"
 msgstr "Rymdkadett"
 
-#: src/titlescreen.c:74
+#: src/titlescreen.c:91
 msgid "Edit Word Lists"
 msgstr "Redigera ordlista"
 
 # types of games
-#: src/titlescreen.c:75
+#: src/titlescreen.c:92
 msgid "Comet Zap"
 msgstr "Pricka kometer"
 
 # "Pilot" is level 2 in comet zap
-#: src/titlescreen.c:75
+#: src/titlescreen.c:92
 msgid "Pilot"
 msgstr "Pilot"
 
-#: src/titlescreen.c:76
+#: src/titlescreen.c:93
 msgid "Lessons"
 msgstr "Lektioner"
 
 # "Ace" is level 3 in comet zap
-#: src/titlescreen.c:76
+#: src/titlescreen.c:93
 msgid "Ace"
 msgstr "Flygaress"
 
-#: src/titlescreen.c:76
+#: src/titlescreen.c:93
 msgid "Project Info"
 msgstr ""
 
-#: src/titlescreen.c:77
+#: src/titlescreen.c:94
 msgid "Options"
 msgstr "Inställningar"
 
-#: src/titlescreen.c:77
+#: src/titlescreen.c:94
 msgid "Instructions"
 msgstr "Instruktioner"
 
 # "Commander" is level 4 in comet zap
-#: src/titlescreen.c:77
+#: src/titlescreen.c:94
 msgid "Commander"
 msgstr "Kommendör"
 
-#: src/titlescreen.c:77
+#: src/titlescreen.c:94
 msgid "Setup Language"
 msgstr "Ställ in språk"
 
-#: src/titlescreen.c:78
+#: src/titlescreen.c:95
 msgid "Quit"
 msgstr "Avsluta"
 
-#: src/titlescreen.c:78
+#: src/titlescreen.c:95
 msgid "Main Menu"
 msgstr "Huvudmeny"
 
 # work in progress stuff
-#: src/titlescreen.c:1156
+#: src/titlescreen.c:1175
 msgid "Work In Progress!"
 msgstr "Arbete pågår!"
 
-#: src/titlescreen.c:1157
+#: src/titlescreen.c:1176
 #, fuzzy
 msgid "This feature is not ready yet"
 msgstr "Denna funktion är inte färdig än"
 
-#: src/titlescreen.c:1158
+#: src/titlescreen.c:1177
 msgid "Discuss the future of TuxTyping at"
 msgstr "Diskutera TyxeTypes framtid på"
 

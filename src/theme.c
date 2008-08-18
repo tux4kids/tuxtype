@@ -33,13 +33,15 @@ void ChooseTheme(void)
 {
   SDL_Surface* titles[MAX_LANGUAGES] = {NULL};
   SDL_Surface* select[MAX_LANGUAGES] = {NULL};
-  SDL_Surface* left = NULL, *right = NULL;
+  SDL_Surface* left = NULL;
+  SDL_Surface* right = NULL;
+  SDL_Surface* world = NULL;
+  SDL_Surface* map = NULL;
+  SDL_Surface* photo = NULL;
   SDL_Rect leftRect, rightRect;
-  SDL_Surface* world = NULL, *map = NULL, *photo = NULL;
-  SDL_Surface* bkg = NULL;
-  TTF_Font* font = NULL;
   SDL_Rect worldRect, photoRect;
   SDL_Rect titleRects[8];
+  TTF_Font* font = NULL;  
   int stop = 0;
   int loc = 0;
   int old_loc = 1;
@@ -69,205 +71,246 @@ void ChooseTheme(void)
     return;
   }
 
-  do
+  do  /* Iterate until readdir() returns NULL: */
   {
     themesFile = readdir(themesDir);
     if (!themesFile)
-			break;
+      break;
 
-		/* we ignore any hidden file and CVS */
+    /* we ignore any hidden file and CVS */
+    if (themesFile->d_name[0] == '.') 
+      continue;
+    if (strcmp("CVS", themesFile->d_name)==0)
+      continue;
 
-		if (themesFile->d_name[0] == '.') 
-			continue;
+    /* check to see if it is a directory */
+    sprintf(fn, "%s/themes/%s", settings.default_data_path, themesFile->d_name);
 
-		if (strcmp("CVS", themesFile->d_name)==0)
-			continue;
+    /* CheckFile() returns 2 if dir, 1 if file, 0 if neither: */
+    if (CheckFile(fn) == 2)
+    {
+      /* HACK: we should get the names from file :) */
+      strncpy( themeNames[themes], themesFile->d_name, FNLEN-1);
+      /* Make sure theme name is capitalized: */
+      themeNames[themes][0] = toupper(themeNames[themes][0]);
+      strncpy( themePaths[themes++], themesFile->d_name, FNLEN-1 );
+    }
+  } while (1);
 
-		/* check to see if it is a directory */
-		sprintf(fn, "%s/themes/%s", settings.default_data_path, themesFile->d_name);
+  closedir(themesDir);
 
+  settings.use_english = 1;
+  // HACK: is font empty now???
+  font = LoadFont(settings.theme_font_name, MENU_FONT_SIZE);
 
-		/* CheckFile() returns 2 if dir, 1 if file, 0 if neither: */
-		if (CheckFile(fn) == 2) {
-		    /* HACK: we should get the names from file :) */
-		    strncpy( themeNames[themes], themesFile->d_name, FNLEN-1);
-		    /* Make sure theme name is capitalized: */
-                    themeNames[themes][0] = toupper(themeNames[themes][0]);
-		    strncpy( themePaths[themes++], themesFile->d_name, FNLEN-1 );
-		}
-	} while (1);
+  titles[0] = BlackOutline( "English", font, &white );
+  select[0] = BlackOutline( "English", font, &yellow);
+  for (i = 1; i < themes; i++)
+  {
+    titles[i] = BlackOutline( themeNames[i], font, &white );
+    select[i] = BlackOutline( themeNames[i], font, &yellow);
+  }
 
-	closedir(themesDir);
+  LoadBothBkgds("main_bkg.png");
 
-	settings.use_english = 1;
-        // HACK: is font empty now???
-	font = LoadFont(settings.theme_font_name, MENU_FONT_SIZE);
+  world = LoadImage("world.png", IMG_ALPHA);
+  left = LoadImage("left.png", IMG_ALPHA);
+  right = LoadImage("right.png", IMG_ALPHA);
 
-	titles[0] = BlackOutline( "English", font, &white );
-	select[0] = BlackOutline( "English", font, &yellow);
-	for (i = 1; i<themes; i++) {
-		titles[i] = BlackOutline( themeNames[i], font, &white );
-		select[i] = BlackOutline( themeNames[i], font, &yellow);
-	}
+  if (!world || !left || !right || !CurrentBkgd())
+  {
+    fprintf(stderr, "ChooseTheme() - could not load needed image.\n");
+    return;
+  }
 
-	world = LoadImage("world.png", IMG_ALPHA);
-	worldRect.x = 480 - (world->w/2);
-	worldRect.w = world->w;
-	worldRect.y = 10;
-	worldRect.h = world->h;
+  worldRect.x = screen->w - world->w;
+  worldRect.w = world->w;
+  worldRect.y = 10;
+  worldRect.h = world->h;
 
-	
+  leftRect.w = left->w;
+  leftRect.h = left->h;
+  leftRect.x = 160 - 80 - (leftRect.w/2);
+  leftRect.y = 430;
 
-	TTF_CloseFont(font);
-        font = NULL;
+  rightRect.w = right->w;
+  rightRect.h = right->h;
+  rightRect.x = 160 + 80 - (rightRect.w/2); 
+  rightRect.y = 430;
 
-	settings.use_english = old_use_english;
+  /* set initial rect sizes */
+  titleRects[0].y = 30;
+  titleRects[0].w = titleRects[0].h = titleRects[0].x = 0;
+  for (i = 1; i < 8; i++)
+  {
+    titleRects[i].y = titleRects[i - 1].y + 50;
+    titleRects[i].w = titleRects[i].h = titleRects[i].x = 0;
+  }
 
-	bkg = LoadImage("main_bkg.png", IMG_REGULAR);
+  TTF_CloseFont(font);
+  font = NULL;
+  settings.use_english = old_use_english;
 
-	left = LoadImage("left.png", IMG_ALPHA);
-	leftRect.w = left->w; leftRect.h = left->h;
-	leftRect.x = 160 - 80 - (leftRect.w/2); leftRect.y = 430;
+  while (!stop)
+  {
+    while (SDL_PollEvent(&event)) 
+      switch (event.type)
+      {
+        case SDL_QUIT:
+        exit(0);
+        break;
 
-	right = LoadImage("right.png", IMG_ALPHA);
-	rightRect.w = right->w; rightRect.h = right->h;
-	rightRect.x = 160 + 80 - (rightRect.w/2); rightRect.y = 430;
+        case SDL_MOUSEMOTION:
+          for (i = 0; (i < 8) && (loc - (loc%8) + i < themes); i++)
+            if (inRect( titleRects[i], event.motion.x, event.motion.y ))
+            {
+              loc = loc-(loc%8)+i;
+              break;
+            }
 
-	/* set initial rect sizes */
-	titleRects[0].y = 30;
-	titleRects[0].w = titleRects[0].h = titleRects[0].x = 0;
-	for (i = 1; i<8; i++) {
-		titleRects[i].y = titleRects[i-1].y + 50;
-		titleRects[i].w = titleRects[i].h = titleRects[i].x = 0;
-	}
-	
+          break;
 
-	while (!stop) {
-		while (SDL_PollEvent(&event)) 
-			switch (event.type) {
-				case SDL_QUIT:
-					exit(0);
-					break;
-				case SDL_MOUSEMOTION: 
-					for (i=0; (i<8) && (loc-(loc%8)+i<themes); i++)
-						if (inRect( titleRects[i], event.motion.x, event.motion.y )) {
-							loc = loc-(loc%8)+i;
-							break;
-						}
-					
-					break;
-				case SDL_MOUSEBUTTONDOWN: 
-					if (inRect( leftRect, event.button.x, event.button.y )) 
-						if (loc-(loc%8)-8 >= 0) {
-							loc=loc-(loc%8)-8;
-							break;
-						}
-					if (inRect( rightRect, event.button.x, event.button.y )) 
-						if (loc-(loc%8)+8 < themes) {
-							loc=loc-(loc%8)+8;
-							break;
-						}
-					for (i=0; (i<8) && (loc-(loc%8)+i<themes); i++) 
-						if (inRect(titleRects[i], event.button.x, event.button.y)) {
-							loc = loc-(loc%8)+i;
-							if (loc) {
-								/* --- set theme --- */
-								SetupPaths(themePaths[loc]);
-							} else {
-								/* --- english --- */
-								SetupPaths(NULL);
-							}
-							stop = 1;
-							break;
-						}
-					break;
-				case SDL_KEYDOWN:
-					if (event.key.keysym.sym == SDLK_ESCAPE) { 
-						settings.use_english = old_use_english;
-						strncpy(settings.theme_data_path, old_theme_path, FNLEN - 1);
-						stop = 1; 
-						break; 
-					}
-					if (event.key.keysym.sym == SDLK_RETURN) { 
-						if (loc) {
-							/* --- set theme --- */
-							SetupPaths(themePaths[loc]);
-						} else {
-							/* --- english --- */
-							SetupPaths(NULL);
-						}
-						stop = 1;
-						break;
-					}
+        case SDL_MOUSEBUTTONDOWN: 
+          if (inRect( leftRect, event.button.x, event.button.y )) 
+            if (loc-(loc%8)-8 >= 0)
+            {
+              loc=loc-(loc%8)-8;
+              break;
+            }
 
-					if ((event.key.keysym.sym == SDLK_LEFT) || (event.key.keysym.sym == SDLK_PAGEUP)) {
-						if (loc-(loc%8)-8 >= 0) 
-							loc=loc-(loc%8)-8;
-					}
+          if (inRect( rightRect, event.button.x, event.button.y )) 
+            if (loc-(loc%8)+8 < themes)
+            {
+              loc=loc-(loc%8)+8;
+              break;
+            }
 
-					if ((event.key.keysym.sym == SDLK_RIGHT) || (event.key.keysym.sym == SDLK_PAGEDOWN)) {
-						if (loc-(loc%8)+8 < themes)
-							loc=(loc-(loc%8)+8);
-					}
+          for (i=0; (i<8) && (loc-(loc%8)+i<themes); i++) 
+            if (inRect(titleRects[i], event.button.x, event.button.y))
+            {
+              loc = loc-(loc%8)+i;
+              if (loc)
+              {
+                /* --- set theme --- */
+                SetupPaths(themePaths[loc]);
+              }
+              else
+              {
+                /* --- english --- */
+                SetupPaths(NULL);
+              }
 
+              stop = 1;
+              break;
+            }
+          break;
 
-					if (event.key.keysym.sym == SDLK_UP) {
-						if (loc > 0)
-							loc--;
-					}
+        case SDL_KEYDOWN:
+          if (event.key.keysym.sym == SDLK_ESCAPE)
+          {
+            settings.use_english = old_use_english;
+            strncpy(settings.theme_data_path, old_theme_path, FNLEN - 1);
+            stop = 1; 
+            break; 
+          }
 
-					if (event.key.keysym.sym == SDLK_DOWN) {
-						if (loc+1<themes)
-							loc++;
-					}
-			}
+          if (event.key.keysym.sym == SDLK_RETURN)
+          { 
+            if (loc)
+            {
+              /* --- set theme --- */
+              SetupPaths(themePaths[loc]);
+            }
+            else
+            {
+              /* --- English --- */
+              SetupPaths(NULL);
+            }
 
-		if (old_loc != loc) {
-			int start;
+            stop = 1;
+            break;
+          }
 
-			SDL_BlitSurface( bkg, NULL, screen, NULL );
+          if ((event.key.keysym.sym == SDLK_LEFT)
+           || (event.key.keysym.sym == SDLK_PAGEUP))
+          {
+            if (loc-(loc%8)-8 >= 0) 
+              loc=loc-(loc%8)-8;
+          }
 
-			SDL_BlitSurface( world, NULL, screen, &worldRect );
+          if ((event.key.keysym.sym == SDLK_RIGHT)
+           || (event.key.keysym.sym == SDLK_PAGEDOWN))
+          {
+            if (loc-(loc%8)+8 < themes)
+              loc=(loc-(loc%8)+8);
+          }
 
-		        if (loc) SetupPaths(themePaths[loc]); else SetupPaths(NULL);
+          if (event.key.keysym.sym == SDLK_UP)
+          {
+            if (loc > 0)
+              loc--;
+          }
 
-			map = LoadImage( "map.png", IMG_ALPHA|IMG_NOT_REQUIRED );
-			if (map) {
-				SDL_BlitSurface( map, NULL, screen, &worldRect );
-				SDL_FreeSurface( map );
-			}
+          if (event.key.keysym.sym == SDLK_DOWN)
+          {
+            if (loc+1<themes)
+              loc++;
+          }
+        }
 
-			photo = LoadImage( "photo.png", IMG_ALPHA|IMG_NOT_REQUIRED );
-			if (photo) {
-				photoRect.x = 480 - (photo->w/2);
-				photoRect.y = 250;
-				photoRect.w = photo->w;
-				photoRect.h = photo->h;
-				SDL_BlitSurface( photo, NULL, screen, &photoRect );
-				SDL_FreeSurface( photo );
-			}
+    if (old_loc != loc)
+    {
+      int start;
 
-			start = loc - (loc % 8);
-			for (i = start; i<MIN(start+8,themes); i++) {
-				titleRects[i%8].x = 160 - (titles[i]->w/2);
-				if (i == loc)
-					SDL_BlitSurface(select[loc], NULL, screen, &titleRects[i%8]);
-				else
-					SDL_BlitSurface(titles[i], NULL, screen, &titleRects[i%8]);
-			}
+      SDL_BlitSurface(CurrentBkgd(), NULL, screen, NULL );
+      SDL_BlitSurface( world, NULL, screen, &worldRect );
 
-			/* --- draw buttons --- */
+      if (loc)
+        SetupPaths(themePaths[loc]);
+      else
+        SetupPaths(NULL);
 
-			if (start>0) 
-				SDL_BlitSurface( left, NULL, screen, &leftRect );
+      map = LoadImage( "map.png", IMG_ALPHA|IMG_NOT_REQUIRED );
+      if (map)
+      {
+        SDL_BlitSurface( map, NULL, screen, &worldRect );
+        SDL_FreeSurface( map );
+      }
 
-			if (start+8<themes) 
-				SDL_BlitSurface( right, NULL, screen, &rightRect );
+      photo = LoadImage( "photo.png", IMG_ALPHA|IMG_NOT_REQUIRED );
+      if (photo)
+      {
+        photoRect.x = 480 - (photo->w/2);
+        photoRect.y = 250;
+        photoRect.w = photo->w;
+        photoRect.h = photo->h;
+        SDL_BlitSurface( photo, NULL, screen, &photoRect );
+        SDL_FreeSurface( photo );
+      }
 
-			SDL_UpdateRect(screen, 0, 0, 0 ,0);
-		}
-		SDL_Delay(40);
-		old_loc = loc;
+      start = loc - (loc % 8);
+
+      for (i = start; i<MIN(start+8,themes); i++)
+      {
+        titleRects[i%8].x = 160 - (titles[i]->w/2);
+
+        if (i == loc)
+          SDL_BlitSurface(select[loc], NULL, screen, &titleRects[i%8]);
+        else
+          SDL_BlitSurface(titles[i], NULL, screen, &titleRects[i%8]);
+      }
+
+      /* --- draw buttons --- */
+      if (start>0) 
+        SDL_BlitSurface( left, NULL, screen, &leftRect );
+
+      if (start+8<themes) 
+        SDL_BlitSurface( right, NULL, screen, &rightRect );
+
+      SDL_UpdateRect(screen, 0, 0, 0 ,0);
+    }
+    SDL_Delay(40);
+    old_loc = loc;
   }
 
   /* --- clear graphics before quitting --- */ 
@@ -279,9 +322,7 @@ void ChooseTheme(void)
   }
 
   SDL_FreeSurface(world);
-  SDL_FreeSurface(bkg);
   SDL_FreeSurface(left);
   SDL_FreeSurface(right);
-  bkg = NULL;  /* the other pointers are going out of scope so we don't */
-               /* have to worry about setting them to NULL              */
+
 }

@@ -337,80 +337,80 @@ int unicode_in_key_list(wchar_t uni_char)
     return 1;
 }
 
-/* NOTE if we can consistently use SDLPango on all platforms, we can simply */
-/* rename the pango version to BlackOutline() and get rid of this one.      */
-/* The input for this function should be UTF-8.                             */
-SDL_Surface* BlackOutline(const unsigned char* t, const TTF_Font* font, const SDL_Color* c)
-{
-  SDL_Surface* out = NULL;
-  SDL_Surface* black_letters = NULL;
-  SDL_Surface* white_letters = NULL;
-  SDL_Surface* bg = NULL;
-  SDL_Rect dstrect;
-  Uint32 color_key;
-
-  LOG("Entering BlackOutline()\n");
-
-/* Simply passthrough to SDLPango version if available (i.e. not under Windows):*/
-#ifndef WIN32
-#ifndef MACOSX
-return BlackOutline_SDLPango(t, font, c);
-#endif
-#endif
-
-
-  if (!t || !font || !c)
-  {
-    fprintf(stderr, "BlackOutline(): invalid ptr parameter, returning.");
-    return NULL;
-  }
-
-  black_letters = TTF_RenderUTF8_Blended((TTF_Font*)font, t, black);
-
-  if (!black_letters)
-  {
-    fprintf (stderr, "Warning - BlackOutline() could not create image for %s\n", t);
-    return NULL;
-  }
-
-  bg = SDL_CreateRGBSurface(SDL_SWSURFACE,
-                            (black_letters->w) + 5,
-                            (black_letters->h) + 5,
-                             32,
-                             RMASK, GMASK, BMASK, AMASK);
-  /* Use color key for eventual transparency: */
-  color_key = SDL_MapRGB(bg->format, 10, 10, 10);
-  SDL_FillRect(bg, NULL, color_key);
-
-  /* Now draw black outline/shadow 2 pixels on each side: */
-  dstrect.w = black_letters->w;
-  dstrect.h = black_letters->h;
-
-  /* NOTE: can make the "shadow" more or less pronounced by */
-  /* changing the parameters of these loops.                */
-  for (dstrect.x = 1; dstrect.x < 4; dstrect.x++)
-    for (dstrect.y = 1; dstrect.y < 3; dstrect.y++)
-      SDL_BlitSurface(black_letters , NULL, bg, &dstrect );
-
-  SDL_FreeSurface(black_letters);
-
-  /* --- Put the color version of the text on top! --- */
-  /* NOTE we cast away the 'const-ness' to keep compliler from complaining: */
-  white_letters = TTF_RenderUTF8_Blended((TTF_Font*)font, t, *c);
-  dstrect.x = 1;
-  dstrect.y = 1;
-  SDL_BlitSurface(white_letters, NULL, bg, &dstrect);
-  SDL_FreeSurface(white_letters);
-
-  /* --- Convert to the screen format for quicker blits --- */
-  SDL_SetColorKey(bg, SDL_SRCCOLORKEY|SDL_RLEACCEL, color_key);
-  out = SDL_DisplayFormatAlpha(bg);
-  SDL_FreeSurface(bg);
-
-  LOG("Leaving BlackOutline()\n");
-
-  return out;
-}
+// /* NOTE if we can consistently use SDLPango on all platforms, we can simply */
+// /* rename the pango version to BlackOutline() and get rid of this one.      */
+// /* The input for this function should be UTF-8.                             */
+// SDL_Surface* BlackOutline(const unsigned char* t, const TTF_Font* font, const SDL_Color* c)
+// {
+//   SDL_Surface* out = NULL;
+//   SDL_Surface* black_letters = NULL;
+//   SDL_Surface* white_letters = NULL;
+//   SDL_Surface* bg = NULL;
+//   SDL_Rect dstrect;
+//   Uint32 color_key;
+// 
+//   LOG("Entering BlackOutline()\n");
+// 
+// /* Simply passthrough to SDLPango version if available (i.e. not under Windows):*/
+// #ifndef WIN32
+// #ifndef MACOSX
+// return BlackOutline_SDLPango(t, font, c);
+// #endif
+// #endif
+// 
+// 
+//   if (!t || !font || !c)
+//   {
+//     fprintf(stderr, "BlackOutline(): invalid ptr parameter, returning.");
+//     return NULL;
+//   }
+// 
+//   black_letters = TTF_RenderUTF8_Blended((TTF_Font*)font, t, black);
+// 
+//   if (!black_letters)
+//   {
+//     fprintf (stderr, "Warning - BlackOutline() could not create image for %s\n", t);
+//     return NULL;
+//   }
+// 
+//   bg = SDL_CreateRGBSurface(SDL_SWSURFACE,
+//                             (black_letters->w) + 5,
+//                             (black_letters->h) + 5,
+//                              32,
+//                              RMASK, GMASK, BMASK, AMASK);
+//   /* Use color key for eventual transparency: */
+//   color_key = SDL_MapRGB(bg->format, 10, 10, 10);
+//   SDL_FillRect(bg, NULL, color_key);
+// 
+//   /* Now draw black outline/shadow 2 pixels on each side: */
+//   dstrect.w = black_letters->w;
+//   dstrect.h = black_letters->h;
+// 
+//   /* NOTE: can make the "shadow" more or less pronounced by */
+//   /* changing the parameters of these loops.                */
+//   for (dstrect.x = 1; dstrect.x < 4; dstrect.x++)
+//     for (dstrect.y = 1; dstrect.y < 3; dstrect.y++)
+//       SDL_BlitSurface(black_letters , NULL, bg, &dstrect );
+// 
+//   SDL_FreeSurface(black_letters);
+// 
+//   /* --- Put the color version of the text on top! --- */
+//   /* NOTE we cast away the 'const-ness' to keep compliler from complaining: */
+//   white_letters = TTF_RenderUTF8_Blended((TTF_Font*)font, t, *c);
+//   dstrect.x = 1;
+//   dstrect.y = 1;
+//   SDL_BlitSurface(white_letters, NULL, bg, &dstrect);
+//   SDL_FreeSurface(white_letters);
+// 
+//   /* --- Convert to the screen format for quicker blits --- */
+//   SDL_SetColorKey(bg, SDL_SRCCOLORKEY|SDL_RLEACCEL, color_key);
+//   out = SDL_DisplayFormatAlpha(bg);
+//   SDL_FreeSurface(bg);
+// 
+//   LOG("Leaving BlackOutline()\n");
+// 
+//   return out;
+// }
 
 
 
@@ -438,110 +438,110 @@ SDLPango_Matrix* SDL_Colour_to_SDLPango_Matrix(const SDL_Color *cl)
 
 
 
-/* This version basically uses the SDLPango lib instead of */
-/* TTF_RenderUTF*_Blended() to properly render Indic text. */
-SDL_Surface* BlackOutline_SDLPango(const unsigned char* t, const TTF_Font* font, const SDL_Color* c)
-{
-  SDL_Surface* out = NULL;
-  SDL_Surface* black_letters = NULL;
-  SDL_Surface* white_letters = NULL;
-  SDL_Surface* bg = NULL;
-  SDL_Rect dstrect;
-  Uint32 color_key;
-  /* To covert SDL_Colour to SDLPango_Matrix */
-  SDLPango_Matrix* colour = NULL;
-  /* Create a context which contains Pango objects.*/
-  SDLPango_Context* context = NULL;
-
-  LOG("\nEntering BlackOutline_SDLPango()\n");
-  DEBUGCODE{ fprintf(stderr, "will attempt to render: %s\n", t); }
-
-  if (!t || !font || !c)
-  {
-    fprintf(stderr, "BlackOutline_SDLPango(): invalid ptr parameter, returning.");
-    return NULL;
-  }
-
-  /* SDLPango crashes on 64 bit machines if passed empty string - Debian Bug#439071 */
-  if (*t == '\0')
-  {
-    fprintf(stderr, "BlackOutline_SDLPango(): empty string arg - must return to avoid segfault.");
-    return NULL;
-  }
-
-  colour = SDL_Colour_to_SDLPango_Matrix(c);
-  
-  /* Create the context */
-  context = SDLPango_CreateContext();	
-  SDLPango_SetDpi(context, 125.0, 125.0);
-  /* Set the color */
-  SDLPango_SetDefaultColor(context, MATRIX_TRANSPARENT_BACK_BLACK_LETTER );
-  SDLPango_SetBaseDirection(context, SDLPANGO_DIRECTION_LTR);
-  /* Set text to context */ 
-  SDLPango_SetMarkup(context, t, -1); 
-
-  if (!context)
-  {
-    fprintf (stderr, "In BlackOutline_SDLPango(), could not create context for %s", t);
-    return NULL;
-  }
-
-  black_letters = SDLPango_CreateSurfaceDraw(context);
-
-  if (!black_letters)
-  {
-    fprintf (stderr, "Warning - BlackOutline_SDLPango() could not create image for %s\n", t);
-    return NULL;
-  }
-
-  bg = SDL_CreateRGBSurface(SDL_SWSURFACE,
-                            (black_letters->w) + 5,
-                            (black_letters->h) + 5,
-                             32,
-                             RMASK, GMASK, BMASK, AMASK);
-  if (!bg)
-  {
-    fprintf (stderr, "Warning - BlackOutline()_SDLPango - bg creation failed\n");
-    SDL_FreeSurface(black_letters);
-    return NULL;
-  }
-
-  /* Draw text on a existing surface */
-  SDLPango_Draw(context, bg, 0, 0);
-
-  /* Use color key for eventual transparency: */
-  color_key = SDL_MapRGB(bg->format, 10, 10, 10);
-  SDL_FillRect(bg, NULL, color_key);
-
-  /* Now draw black outline/shadow 2 pixels on each side: */
-  dstrect.w = black_letters->w;
-  dstrect.h = black_letters->h;
-
-  /* NOTE: can make the "shadow" more or less pronounced by */
-  /* changing the parameters of these loops.                */
-  for (dstrect.x = 1; dstrect.x < 4; dstrect.x++)
-    for (dstrect.y = 1; dstrect.y < 3; dstrect.y++)
-      SDL_BlitSurface(black_letters , NULL, bg, &dstrect );
-
-  SDL_FreeSurface(black_letters);
-
-  /* --- Put the color version of the text on top! --- */
-  SDLPango_SetDefaultColor(context, colour);
-  white_letters = SDLPango_CreateSurfaceDraw(context);
-  dstrect.x = 1;
-  dstrect.y = 1;
-  SDL_BlitSurface(white_letters, NULL, bg, &dstrect);
-  SDL_FreeSurface(white_letters);
-
-  /* --- Convert to the screen format for quicker blits --- */
-  SDL_SetColorKey(bg, SDL_SRCCOLORKEY|SDL_RLEACCEL, color_key);
-  out = SDL_DisplayFormatAlpha(bg);
-  SDL_FreeSurface(bg);
-
-  LOG("Leaving BlackOutline_SDLPango()\n\n");
-
-  return out;
-}
+// /* This version basically uses the SDLPango lib instead of */
+// /* TTF_RenderUTF*_Blended() to properly render Indic text. */
+// SDL_Surface* BlackOutline_SDLPango(const unsigned char* t, const TTF_Font* font, const SDL_Color* c)
+// {
+//   SDL_Surface* out = NULL;
+//   SDL_Surface* black_letters = NULL;
+//   SDL_Surface* white_letters = NULL;
+//   SDL_Surface* bg = NULL;
+//   SDL_Rect dstrect;
+//   Uint32 color_key;
+//   /* To covert SDL_Colour to SDLPango_Matrix */
+//   SDLPango_Matrix* colour = NULL;
+//   /* Create a context which contains Pango objects.*/
+//   SDLPango_Context* context = NULL;
+// 
+//   LOG("\nEntering BlackOutline_SDLPango()\n");
+//   DEBUGCODE{ fprintf(stderr, "will attempt to render: %s\n", t); }
+// 
+//   if (!t || !font || !c)
+//   {
+//     fprintf(stderr, "BlackOutline_SDLPango(): invalid ptr parameter, returning.");
+//     return NULL;
+//   }
+// 
+//   /* SDLPango crashes on 64 bit machines if passed empty string - Debian Bug#439071 */
+//   if (*t == '\0')
+//   {
+//     fprintf(stderr, "BlackOutline_SDLPango(): empty string arg - must return to avoid segfault.");
+//     return NULL;
+//   }
+// 
+//   colour = SDL_Colour_to_SDLPango_Matrix(c);
+//   
+//   /* Create the context */
+//   context = SDLPango_CreateContext();	
+//   SDLPango_SetDpi(context, 125.0, 125.0);
+//   /* Set the color */
+//   SDLPango_SetDefaultColor(context, MATRIX_TRANSPARENT_BACK_BLACK_LETTER );
+//   SDLPango_SetBaseDirection(context, SDLPANGO_DIRECTION_LTR);
+//   /* Set text to context */ 
+//   SDLPango_SetMarkup(context, t, -1); 
+// 
+//   if (!context)
+//   {
+//     fprintf (stderr, "In BlackOutline_SDLPango(), could not create context for %s", t);
+//     return NULL;
+//   }
+// 
+//   black_letters = SDLPango_CreateSurfaceDraw(context);
+// 
+//   if (!black_letters)
+//   {
+//     fprintf (stderr, "Warning - BlackOutline_SDLPango() could not create image for %s\n", t);
+//     return NULL;
+//   }
+// 
+//   bg = SDL_CreateRGBSurface(SDL_SWSURFACE,
+//                             (black_letters->w) + 5,
+//                             (black_letters->h) + 5,
+//                              32,
+//                              RMASK, GMASK, BMASK, AMASK);
+//   if (!bg)
+//   {
+//     fprintf (stderr, "Warning - BlackOutline()_SDLPango - bg creation failed\n");
+//     SDL_FreeSurface(black_letters);
+//     return NULL;
+//   }
+// 
+//   /* Draw text on a existing surface */
+//   SDLPango_Draw(context, bg, 0, 0);
+// 
+//   /* Use color key for eventual transparency: */
+//   color_key = SDL_MapRGB(bg->format, 10, 10, 10);
+//   SDL_FillRect(bg, NULL, color_key);
+// 
+//   /* Now draw black outline/shadow 2 pixels on each side: */
+//   dstrect.w = black_letters->w;
+//   dstrect.h = black_letters->h;
+// 
+//   /* NOTE: can make the "shadow" more or less pronounced by */
+//   /* changing the parameters of these loops.                */
+//   for (dstrect.x = 1; dstrect.x < 4; dstrect.x++)
+//     for (dstrect.y = 1; dstrect.y < 3; dstrect.y++)
+//       SDL_BlitSurface(black_letters , NULL, bg, &dstrect );
+// 
+//   SDL_FreeSurface(black_letters);
+// 
+//   /* --- Put the color version of the text on top! --- */
+//   SDLPango_SetDefaultColor(context, colour);
+//   white_letters = SDLPango_CreateSurfaceDraw(context);
+//   dstrect.x = 1;
+//   dstrect.y = 1;
+//   SDL_BlitSurface(white_letters, NULL, bg, &dstrect);
+//   SDL_FreeSurface(white_letters);
+// 
+//   /* --- Convert to the screen format for quicker blits --- */
+//   SDL_SetColorKey(bg, SDL_SRCCOLORKEY|SDL_RLEACCEL, color_key);
+//   out = SDL_DisplayFormatAlpha(bg);
+//   SDL_FreeSurface(bg);
+// 
+//   LOG("Leaving BlackOutline_SDLPango()\n\n");
+// 
+//   return out;
+// }
 
 #endif
 #endif
@@ -550,79 +550,68 @@ SDL_Surface* BlackOutline_SDLPango(const unsigned char* t, const TTF_Font* font,
 
 
 
-/* This version takes a wide character string and renders it with the */
-/* Unicode string versions of the SDL_ttf functions:                  */
-SDL_Surface* BlackOutline_Unicode(const Uint16* t, const TTF_Font* font, const SDL_Color* c)
-{
-  SDL_Surface* out = NULL;
-  SDL_Surface* black_letters = NULL;
-  SDL_Surface* white_letters = NULL;
-  SDL_Surface* bg = NULL;
-  SDL_Rect dstrect;
-  Uint32 color_key;
+// /* This version takes a wide character string and renders it with the */
+// /* Unicode string versions of the SDL_ttf functions:                  */
+// SDL_Surface* BlackOutline_Unicode(const Uint16* t, const TTF_Font* font, const SDL_Color* c)
+// {
+//   SDL_Surface* out = NULL;
+//   SDL_Surface* black_letters = NULL;
+//   SDL_Surface* white_letters = NULL;
+//   SDL_Surface* bg = NULL;
+//   SDL_Rect dstrect;
+//   Uint32 color_key;
+// 
+//   if (!font || !c)
+//   {
+//     fprintf(stderr, "BlackOutline_wchar(): invalid ptr parameter, returning.");
+//     return NULL;
+//   }
+//                                         /* (cast to stop compiler complaint) */
+//   black_letters = TTF_RenderUNICODE_Blended((TTF_Font*)font, t, black);
+// 
+//   if (!black_letters)
+//   {
+//     fprintf (stderr, "Warning - BlackOutline_wchar() could not create image for %S\n", t);
+//     return NULL;
+//   }
+// 
+//   bg = SDL_CreateRGBSurface(SDL_SWSURFACE,
+//                             (black_letters->w) + 5,
+//                             (black_letters->h) + 5,
+//                              32,
+//                              RMASK, GMASK, BMASK, AMASK);
+//   /* Use color key for eventual transparency: */
+//   color_key = SDL_MapRGB(bg->format, 10, 10, 10);
+//   SDL_FillRect(bg, NULL, color_key);
+// 
+//   /* Now draw black outline/shadow 2 pixels on each side: */
+//   dstrect.w = black_letters->w;
+//   dstrect.h = black_letters->h;
+// 
+//   /* NOTE: can make the "shadow" more or less pronounced by */
+//   /* changing the parameters of these loops.                */
+//   for (dstrect.x = 1; dstrect.x < 4; dstrect.x++)
+//     for (dstrect.y = 1; dstrect.y < 3; dstrect.y++)
+//       SDL_BlitSurface(black_letters , NULL, bg, &dstrect );
+// 
+//   SDL_FreeSurface(black_letters);
+// 
+//   /* --- Put the color version of the text on top! --- */
+//                                        /* (cast to stop compiler complaint) */
+//   white_letters = TTF_RenderUNICODE_Blended((TTF_Font*)font, t, *c);
+//   dstrect.x = 1;
+//   dstrect.y = 1;
+//   SDL_BlitSurface(white_letters, NULL, bg, &dstrect);
+//   SDL_FreeSurface(white_letters);
+// 
+//   /* --- Convert to the screen format for quicker blits --- */
+//   SDL_SetColorKey(bg, SDL_SRCCOLORKEY|SDL_RLEACCEL, color_key);
+//   out = SDL_DisplayFormatAlpha(bg);
+//   SDL_FreeSurface(bg);
+// 
+//   return out;
+// }
 
-  if (!font || !c)
-  {
-    fprintf(stderr, "BlackOutline_wchar(): invalid ptr parameter, returning.");
-    return NULL;
-  }
-                                        /* (cast to stop compiler complaint) */
-  black_letters = TTF_RenderUNICODE_Blended((TTF_Font*)font, t, black);
-
-  if (!black_letters)
-  {
-    fprintf (stderr, "Warning - BlackOutline_wchar() could not create image for %S\n", t);
-    return NULL;
-  }
-
-  bg = SDL_CreateRGBSurface(SDL_SWSURFACE,
-                            (black_letters->w) + 5,
-                            (black_letters->h) + 5,
-                             32,
-                             RMASK, GMASK, BMASK, AMASK);
-  /* Use color key for eventual transparency: */
-  color_key = SDL_MapRGB(bg->format, 10, 10, 10);
-  SDL_FillRect(bg, NULL, color_key);
-
-  /* Now draw black outline/shadow 2 pixels on each side: */
-  dstrect.w = black_letters->w;
-  dstrect.h = black_letters->h;
-
-  /* NOTE: can make the "shadow" more or less pronounced by */
-  /* changing the parameters of these loops.                */
-  for (dstrect.x = 1; dstrect.x < 4; dstrect.x++)
-    for (dstrect.y = 1; dstrect.y < 3; dstrect.y++)
-      SDL_BlitSurface(black_letters , NULL, bg, &dstrect );
-
-  SDL_FreeSurface(black_letters);
-
-  /* --- Put the color version of the text on top! --- */
-                                       /* (cast to stop compiler complaint) */
-  white_letters = TTF_RenderUNICODE_Blended((TTF_Font*)font, t, *c);
-  dstrect.x = 1;
-  dstrect.y = 1;
-  SDL_BlitSurface(white_letters, NULL, bg, &dstrect);
-  SDL_FreeSurface(white_letters);
-
-  /* --- Convert to the screen format for quicker blits --- */
-  SDL_SetColorKey(bg, SDL_SRCCOLORKEY|SDL_RLEACCEL, color_key);
-  out = SDL_DisplayFormatAlpha(bg);
-  SDL_FreeSurface(bg);
-
-  return out;
-}
-
-SDL_Surface* BlackOutline_w(wchar_t* t, const TTF_Font* font, const SDL_Color* c, int size)
-{
-	wchar_t wchar_tmp[512];
-	char tmp[512];
-	int i;
-	wcsncpy( wchar_tmp, t, size);
-	wchar_tmp[size]=0;
-	i=ConvertToUTF8( wchar_tmp, tmp);
-	tmp[i]=0;
-	return BlackOutline(tmp, font, c);
-}
 
 /* FIXME dead code but could be useful*/
 static void show_letters(void)

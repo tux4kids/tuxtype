@@ -34,6 +34,8 @@ const char PATHS[NUM_PATHS][FNLEN] =
   "./data"
 };
 
+uint fs_res_x = 0;
+uint fs_res_y = 0;
 
 /* Local function prototypes: */
 static int load_settings_fp(FILE* fp);
@@ -42,21 +44,86 @@ static int load_settings_filename(const char* fn);
 /***************************
 	GraphicsInit: Initializes the graphic system
 ****************************/
-void GraphicsInit(Uint32 video_flags)
+void GraphicsInit(void)
 {
-	LOG( "GraphicsInit - Initialize graphic system\n" );
+  const SDL_VideoInfo* video_info = SDL_GetVideoInfo();
+  Uint32 surface_mode = 0;
 
-	DEBUGCODE {
-		fprintf(stderr, "-SDL Setting VidMode to %ix%ix%i\n", RES_X, RES_Y, BPP);
-	}
+  if (video_info->hw_available)
+  {
+    surface_mode = SDL_HWSURFACE;
+    LOG("HW mode\n");
+  }
+  else
+  {
+    surface_mode = SDL_SWSURFACE;
+    LOG("SW mode\n");
+  }
 
-	/* NOTE fullscreen vs. windowed is indicated by video_flags */
-	screen = SDL_SetVideoMode(RES_X, RES_Y, BPP, video_flags);
+  // Determine the current resolution: this will be used as the
+  // fullscreen resolution, if the user wants fullscreen.
+  DEBUGCODE
+  {
+    fprintf(stderr, "Current resolution: w %d, h %d.\n", 
+            video_info->current_w, video_info->current_h);
+  }
 
-	if (screen == NULL) {
-		fprintf(stderr, "Couldn't set %ix%i video mode: %s\n", RES_X, RES_Y, SDL_GetError());
-		exit(2);
-	}
+  /* For fullscreen, we try to use current resolution from OS: */
+  
+  fs_res_x = video_info->current_w;
+  fs_res_y = video_info->current_h;
+
+  if (settings.fullscreen == 1)
+  {
+    screen = SDL_SetVideoMode(fs_res_x, fs_res_y, BPP, SDL_FULLSCREEN | surface_mode);
+    if (screen == NULL)
+    {
+      fprintf(stderr,
+            "\nWarning: I could not open the display in fullscreen mode.\n"
+            "The Simple DirectMedia error that occured was:\n"
+            "%s\n\n", SDL_GetError());
+      settings.fullscreen = 0;
+    }
+  }
+
+  /* Either fullscreen not requested, or couldn't get fullscreen in SDL: */
+  if (settings.fullscreen == 0)
+  {
+    screen = SDL_SetVideoMode(RES_X, RES_Y, BPP, surface_mode);
+  }
+
+  /* Failed to get a usable screen - must bail out! */
+  if (screen == NULL)
+  {
+    fprintf(stderr,
+          "\nError: I could not open the display.\n"
+          "The Simple DirectMedia error that occured was:\n"
+          "%s\n\n", SDL_GetError());
+    exit(2);
+  }
+
+// 	LOG( "GraphicsInit - Initialize graphic system\n" );
+// 
+// 	DEBUGCODE {
+// 		fprintf(stderr, "-SDL Setting VidMode to %ix%ix%i\n", RES_X, RES_Y, BPP);
+// 	}
+// 
+// 	/* NOTE fullscreen vs. windowed is indicated by video_flags: */
+// 	if (settings.fullscreen)
+//         {
+// 	  video_flags = (SDL_FULLSCREEN | SDL_SWSURFACE | SDL_HWPALETTE);
+// 	} 
+//         else
+//         {
+// 	  video_flags = (SDL_SWSURFACE | SDL_HWPALETTE);
+// 	}
+// 
+// 	screen = SDL_SetVideoMode(RES_X, RES_Y, BPP, video_flags);
+// 
+// 	if (screen == NULL) {
+// 		fprintf(stderr, "Couldn't set %ix%i video mode: %s\n", RES_X, RES_Y, SDL_GetError());
+// 		exit(2);
+// 	}
 
 
 	LOG( "SDL_SetClipRect(screen, NULL):\n" );
@@ -81,9 +148,14 @@ void GraphicsInit(Uint32 video_flags)
 
 	InitEngine();
 
-	DEBUGCODE {
-		fprintf(stderr, "-SDL VidMode successfully set to %ix%ix%i\n", RES_X, RES_Y, BPP);
-	}
+  DEBUGCODE 
+  {
+    video_info = SDL_GetVideoInfo();
+    fprintf(stderr, "-SDL VidMode successfully set to %ix%ix%i\n",
+            video_info->current_w,
+            video_info->current_h,
+            video_info->vfmt->BitsPerPixel);
+  }
 
 	LOG( "GraphicsInit():END\n" );
 }
@@ -221,32 +293,32 @@ static int load_settings_fp(FILE* fp)
 
     if (strncmp( setting, "lang", FNLEN ) == 0 )
     {
-      DEBUGCODE {fprintf(stderr, "LoadSettings: Setting language to %s", value);}
+      DEBUGCODE {fprintf(stderr, "LoadSettings: Setting language to %s\n", value);}
       strncpy(settings.lang, value, FNLEN - 1);
       setting_found = 1;
       SetupPaths(value); /* Does this really belong here? */ 
     }
     else if (strncmp( setting, "o_lives", FNLEN ) == 0 )
     {
-      DEBUGCODE {fprintf(stderr, "LoadSettings: Setting lives to %s", value);}
+      DEBUGCODE {fprintf(stderr, "LoadSettings: Setting lives to %s\n", value);}
       settings.o_lives = atoi(value);
       setting_found = 1;
    }
     else if (strncmp( setting, "mus_volume", FNLEN ) == 0 )
     {
-      DEBUGCODE {fprintf(stderr, "LoadSettings: Setting music volume to %s", value);}
+      DEBUGCODE {fprintf(stderr, "LoadSettings: Setting music volume to %s\n", value);}
       settings.mus_volume = atoi(value);
       setting_found = 1;
     }
     else if (strncmp(setting, "sfx_volume", FNLEN) == 0)
     {
-      DEBUGCODE {fprintf(stderr, "LoadSettings: Setting effects volume to %s", value);}
+      DEBUGCODE {fprintf(stderr, "LoadSettings: Setting effects volume to %s\n", value);}
       settings.sfx_volume = atoi(value);
       setting_found = 1;
     }
     else if (strncmp(setting, "menu_music", FNLEN) == 0)
     {
-      DEBUGCODE {fprintf(stderr, "LoadSettings: Setting menu music to %s", value);}
+      DEBUGCODE {fprintf(stderr, "LoadSettings: Setting menu music to %s\n", value);}
       settings.menu_music = atoi(value);
       setting_found = 1;
     }
@@ -257,19 +329,19 @@ static int load_settings_fp(FILE* fp)
     }
     else if (strncmp( setting, "theme_font_name", FNLEN ) == 0 )
     {
-      DEBUGCODE {fprintf(stderr, "load_settings_fp(): Setting theme font to %s", value);}
+      DEBUGCODE {fprintf(stderr, "load_settings_fp(): Setting theme font to %s\n", value);}
       strncpy(settings.theme_font_name, value, FNLEN - 1);
       setting_found = 1;
     }
     else if (strncmp( setting, "theme_locale_name", FNLEN ) == 0 )
     {
-      DEBUGCODE {fprintf(stderr, "load_settings_fp(): Setting theme locale to %s", value);}
+      DEBUGCODE {fprintf(stderr, "load_settings_fp(): Setting theme locale to %s\n", value);}
       strncpy(settings.theme_locale_name, value, FNLEN - 1);
       setting_found = 1;
-      fprintf(stderr, "load_settings_fp(): Setting theme locale to %s", value);
+      fprintf(stderr, "load_settings_fp(): Setting theme locale to %s\n", value);
     }
     else
-      DEBUGCODE {fprintf(stderr, "load_settings_fp(): unrecognized string: %s", value);}
+      DEBUGCODE {fprintf(stderr, "load_settings_fp(): unrecognized string: %s\n", value);}
 
   }
 

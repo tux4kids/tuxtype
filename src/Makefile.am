@@ -18,6 +18,8 @@ tuxtype_SOURCES = 	\
 	gettext.c	\
 	snow.c		\
 	scripting.c	\
+	SDL_extras.c	\
+	pixels.c	\
 	pause.c		\
 	ConvertUTF.c	\
 	options.c
@@ -27,7 +29,9 @@ EXTRA_DIST = titlescreen.h \
 	laser.h		\
 	globals.h 	\
 	funcs.h 	\
+	pixels.h	\
 	scripting.h	\
+	SDL_extras.h	\
 	snow.h		\
 	ConvertUTF.h	\
 	i18n.h
