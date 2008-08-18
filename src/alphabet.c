@@ -1595,7 +1595,7 @@ void GenerateKeyboard(SDL_Surface* keyboard)
 		}
 		if(!render)
 			continue;
-		new.x+=30*col;
+		new.x+=31*col;
 		if(keyboard_list[i].shift>0)
 		{
 					new.x-=9;
