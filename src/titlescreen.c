@@ -1532,7 +1532,14 @@ static int chooseWordlist(void)
                                         if (event.key.keysym.sym == SDLK_UP) {
                                                 if (loc > 0)
                                                         loc--;
-                                        }
+                 if(settings.use_english){
+	sprintf(fn , "%s/words", settings.default_data_path);
+	fprintf(stderr , "%s/words", settings.default_data_path);
+}
+else{
+  sprintf(fn , "%s/words", settings.theme_data_path);
+  fprintf(stderr , "%s/words", settings.theme_data_path);
+}                       }
 
                                         if (event.key.keysym.sym == SDLK_DOWN) {
                                                 if (loc+1<lists)
@@ -1620,8 +1627,11 @@ static void ChooseFile(void)
   old_use_english = settings.use_english;
   strncpy(old_theme_path, settings.theme_data_path, FNLEN - 1);
 
-  sprintf(fn , "%s/words", settings.theme_data_path);
-
+  if(settings.use_english)
+	sprintf(fn , "%s/words", settings.default_data_path);
+  else
+	sprintf(fn , "%s/words", settings.theme_data_path);
+  
   themesDir = opendir(fn);
 
   if (!themesDir)
@@ -1644,9 +1654,10 @@ static void ChooseFile(void)
 	if (strcmp("CVS", themesFile->d_name)==0)
 		continue;
 
-		
-	sprintf(fn, "%s/words/%s", settings.theme_data_path, themesFile->d_name);
-
+	if(settings.use_english)
+		sprintf(fn, "%s/words/%s",settings.default_data_path, themesFile->d_name);
+	else	
+		sprintf(fn, "%s/words/%s", settings.theme_data_path, themesFile->d_name);
 
 		/* CheckFile() returns 2 if dir, 1 if file, 0 if neither: */
 	if (CheckFile(fn) == 1) {
@@ -1822,8 +1833,11 @@ static void ChooseWord(char *words_file)
   old_use_english = settings.use_english;
   strncpy(old_theme_path, settings.theme_data_path, FNLEN - 1);
 
-  sprintf(fn , "%s/words/%s", settings.theme_data_path,words_file);
-	
+  if(settings.use_english)
+	sprintf(fn , "%s/words/%s", settings.default_data_path,words_file);
+  else
+  	sprintf(fn , "%s/words/%s", settings.theme_data_path,words_file);
+		
   fp=fopen(fn,"r");
   fscanf(fp, "%[^\n]\n", str);
 
