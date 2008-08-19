@@ -289,7 +289,7 @@ int GetIndex(wchar_t uni_char)
 
   if (i == MAX_UNICODES)
   {
-    fprintf(stderr, "GeteKeypress() - Unicode char '%C' not found in list.\n", uni_char);
+    fprintf(stderr, "GetIndex - Unicode char '%C' not found in list.\n", uni_char);
     return -1;
   }
 

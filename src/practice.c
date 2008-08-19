@@ -669,60 +669,10 @@ static int get_phrase(const wchar_t* phr)
     wcsncpy(phrase[0], phr, 80);
   }
 
-  /* FIXME maybe should verify that all chars in phrase are 
-//   /* Need to generate glyphs for all the needed Unicode chars: */
-// 
-//   ResetCharList();
-//   /* 'A' (i.e. 65) always has to go into list because width used for layout */
-//   /* HACK also need chars for "Great!" because of congrats message - this   */
-//   /* obviously is not a general solution. Numerals also needed for timers.  */
-//   {
-//     char* let = "AGreat!0123456789.";
-//     GenCharListFromString(let);
-//   }
-// 
-// 
-//   /* Scan through all the phrases and put needed chars into list: */
-//   for (c = 0; c <= pc; c++)
-//     GenCharListFromString(phrase[c]);
-// 
-//   /* Now render letters for glyphs in list: */
-//   font = LoadFont(settings.theme_font_name, 32 );
-//   if (!font)
-//   {
-//     fprintf(stderr, "get_phrase() - could not load font\n");
-//     return 0;
-//   }
-// 
-//   RenderLetters(font);
-// 
-//   TTF_CloseFont(font);
-//   font = NULL;
-
-
-  //Calculate and record pixel width of phrases
-  {
-    SDL_Surface* let = NULL;
-    for (c = 0; c <= pc; c++)
-    {
-      for(i = 0; i < wcslen(phrase[c]); i++)
-      {
-        let = GetWhiteGlyph((int)phrase[c][i]);
-        if (let)  
-          pw[c]+= let->w - 5;
-        else
-        {
-          fprintf(stderr, "get_phrase() - needed glyph not available\n");
-          return;
-        }
-      }
-    }
-  }
-
   //Find wrapping point
   for (c = 0; c <= pc; c++)
   {
-    if (pw[c] < 598)  // If the phrase is less than 598 pixels wide
+    if (pw[c] < 50)  // If the phrase is less than 598 pixels wide
     {
       if (c == 0)
       {
@@ -738,8 +688,8 @@ static int get_phrase(const wchar_t* phr)
       for (i = 0; i < wcslen(phrase[c]); i++)
       {
         /* Should be safe (if no glyph, will have returned above) */
-        z += GetWhiteGlyph((int)phrase[c][i])->w-5;
-        if (wp == 0 && z > 598)
+        z ++;
+        if (wp == 0 && z > 50)
         {
           wp = i - 1;
           break;
