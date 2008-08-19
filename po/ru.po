@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tux Typing 1.5.16\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2008-08-18 21:04-0500\n"
+"POT-Creation-Date: 2008-08-19 12:29-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Mobin M <mobinmohan@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -40,39 +40,39 @@ msgstr "Нажмите еще раз escape для возврата в меню"
 msgid "Press space bar to return to game"
 msgstr "Нажмите пробел для возврата к игре"
 
-#: src/playgame.c:963
+#: src/playgame.c:1017
 msgid "Level"
 msgstr "Уровень"
 
-#: src/playgame.c:964
+#: src/playgame.c:1018
 msgid "Lives"
 msgstr "Жизней"
 
-#: src/playgame.c:965
+#: src/playgame.c:1019
 msgid "Fish"
 msgstr "Рыб"
 
-#: src/playgame.c:967 src/titlescreen.c:91
+#: src/playgame.c:1021 src/titlescreen.c:91
 msgid "Easy"
 msgstr "Легкий"
 
-#: src/playgame.c:968 src/titlescreen.c:92
+#: src/playgame.c:1022 src/titlescreen.c:92
 msgid "Medium"
 msgstr "Средний"
 
-#: src/playgame.c:969 src/titlescreen.c:93
+#: src/playgame.c:1023 src/titlescreen.c:93
 msgid "Hard"
 msgstr "Сложный"
 
-#: src/playgame.c:970 src/titlescreen.c:92
+#: src/playgame.c:1024 src/titlescreen.c:92
 msgid "Practice"
 msgstr "Практика"
 
-#: src/playgame.c:981
+#: src/playgame.c:1035
 msgid "Congratulations"
 msgstr "Поздравляем"
 
-#: src/playgame.c:985
+#: src/playgame.c:1039
 msgid "Oh No!"
 msgstr "О, нет!"
 
@@ -80,7 +80,7 @@ msgstr "О, нет!"
 msgid "Great!"
 msgstr ""
 
-#: src/practice.c:806
+#: src/practice.c:756
 msgid "Next letter "
 msgstr ""
 

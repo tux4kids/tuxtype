@@ -34,12 +34,12 @@ INSTALL_DATA = ${INSTALL} -m 644
 # We use $(mkdir_p).
 # In automake <= 1.9.x, $(mkdir_p) is defined either as "mkdir -p --" or as
 # "$(mkinstalldirs)" or as "$(install_sh) -d". For these automake versions,
-# $(SHELL) /usr/local/src/soc-mobin-up/install-sh does not start with $(SHELL), so we add it.
+# $(SHELL) /root/tuxtype/trunk/install-sh does not start with $(SHELL), so we add it.
 # In automake >= 1.10, /bin/mkdir -p is derived from ${MKDIR_P}, which is defined
 # either as "/path/to/mkdir -p" or ".../install-sh -c -d". For these automake
 # versions, $(mkinstalldirs) and $(install_sh) are unused.
-mkinstalldirs = $(SHELL) $(SHELL) /usr/local/src/soc-mobin-up/install-sh -d
-install_sh = $(SHELL) $(SHELL) /usr/local/src/soc-mobin-up/install-sh
+mkinstalldirs = $(SHELL) $(SHELL) /root/tuxtype/trunk/install-sh -d
+install_sh = $(SHELL) $(SHELL) /root/tuxtype/trunk/install-sh
 MKDIR_P = /bin/mkdir -p
 mkdir_p = /bin/mkdir -p
 
@@ -61,17 +61,10 @@ MSGINIT = msginit
 MSGCONV = msgconv
 MSGFILTER = msgfilter
 
-<<<<<<< .mine
 POFILES =  en@quot.po en@boldquot.po en_GB.po ml.po ru.po ar.po ne.po nb.po pt.po ca.po cs.po da.po de.po es.po eu.po fr.po el.po it.po ja.po lt.po nl.po nn.po sv.po sw.po wo.po
 GMOFILES =  en@quot.gmo en@boldquot.gmo en_GB.gmo ml.gmo ru.gmo ar.gmo ne.gmo nb.gmo pt.gmo ca.gmo cs.gmo da.gmo de.gmo es.gmo eu.gmo fr.gmo el.gmo it.gmo ja.gmo lt.gmo nl.gmo nn.gmo sv.gmo sw.gmo wo.gmo
 UPDATEPOFILES =  en@quot.po-update en@boldquot.po-update en_GB.po-update ml.po-update ru.po-update ar.po-update ne.po-update nb.po-update pt.po-update ca.po-update cs.po-update da.po-update de.po-update es.po-update eu.po-update fr.po-update el.po-update it.po-update ja.po-update lt.po-update nl.po-update nn.po-update sv.po-update sw.po-update wo.po-update
 DUMMYPOFILES =  en@quot.nop en@boldquot.nop en_GB.nop ml.nop ru.nop ar.nop ne.nop nb.nop pt.nop ca.nop cs.nop da.nop de.nop es.nop eu.nop fr.nop el.nop it.nop ja.nop lt.nop nl.nop nn.nop sv.nop sw.nop wo.nop
-=======
-POFILES =  en_US.po ml_IN.po
-GMOFILES =  en_US.gmo ml_IN.gmo
-UPDATEPOFILES =  en_US.po-update ml_IN.po-update
-DUMMYPOFILES =  en_US.nop ml_IN.nop
->>>>>>> .r616
 DISTFILES.common = Makefile.in.in remove-potcdate.sin \
 $(DISTFILES.common.extra1) $(DISTFILES.common.extra2) $(DISTFILES.common.extra3)
 DISTFILES = $(DISTFILES.common) Makevars POTFILES.in \
@@ -95,7 +88,6 @@ POTFILES = \
      .././src/snow.c \
      .././src/theme.c \
      .././src/titlescreen.c
-
 
 CATALOGS =  en@quot.gmo en@boldquot.gmo en_GB.gmo ml.gmo ru.gmo ar.gmo ne.gmo nb.gmo pt.gmo ca.gmo cs.gmo da.gmo de.gmo es.gmo eu.gmo fr.gmo el.gmo it.gmo ja.gmo lt.gmo nl.gmo nn.gmo sv.gmo sw.gmo wo.gmo
 
@@ -239,7 +231,7 @@ $(POFILES): $(srcdir)/$(DOMAIN).pot
 	fi
 
 
-install: install-exec install-data
+install: update-po install-exec install-data
 install-exec:
 install-data: install-data-yes
 	if test "$(PACKAGE)" = "gettext-tools"; then \

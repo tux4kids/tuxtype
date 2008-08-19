@@ -135,7 +135,6 @@ dist_images_keyboard_DATA = esc.png \
   keyboard-us.eps \
   keyboard-us.png \
   larrow.png \
-<<<<<<< .mine
   space.png \
   rarrow.png\
 	keyboard_B05.png \
@@ -263,8 +262,6 @@ dist_images_keyboard_DATA = esc.png \
 	keyboardN_E02.png \
 	keyboardN_B04.png \
 	keyboardN_C10.png \
-	keyboardN_E03.png
-=======
+	keyboardN_E03.png \
   rarrow.png \
-  space.png
->>>>>>> .r654
+  space.png 

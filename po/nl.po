@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tuxtype\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2008-08-18 21:04-0500\n"
+"POT-Creation-Date: 2008-08-19 12:29-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -42,41 +42,41 @@ msgstr "terug naar het menu? druk op escape"
 msgid "Press space bar to return to game"
 msgstr "terug naar het spel? druk op spatiebalk"
 
-#: src/playgame.c:963
+#: src/playgame.c:1017
 msgid "Level"
 msgstr "Level"
 
-#: src/playgame.c:964
+#: src/playgame.c:1018
 msgid "Lives"
 msgstr "Levens"
 
-#: src/playgame.c:965
+#: src/playgame.c:1019
 msgid "Fish"
 msgstr "Vissen"
 
 # levels for Cascade game:
-#: src/playgame.c:967 src/titlescreen.c:91
+#: src/playgame.c:1021 src/titlescreen.c:91
 msgid "Easy"
 msgstr "Gemakkelijk"
 
-#: src/playgame.c:968 src/titlescreen.c:92
+#: src/playgame.c:1022 src/titlescreen.c:92
 msgid "Medium"
 msgstr "Moeilijker"
 
-#: src/playgame.c:969 src/titlescreen.c:93
+#: src/playgame.c:1023 src/titlescreen.c:93
 msgid "Hard"
 msgstr "Echt Moeilijk"
 
 # general stuff
-#: src/playgame.c:970 src/titlescreen.c:92
+#: src/playgame.c:1024 src/titlescreen.c:92
 msgid "Practice"
 msgstr "Vingeroefeningen"
 
-#: src/playgame.c:981
+#: src/playgame.c:1035
 msgid "Congratulations"
 msgstr "Gefeliciteerd !"
 
-#: src/playgame.c:985
+#: src/playgame.c:1039
 msgid "Oh No!"
 msgstr "Oh Nee!"
 
@@ -84,7 +84,7 @@ msgstr "Oh Nee!"
 msgid "Great!"
 msgstr ""
 
-#: src/practice.c:806
+#: src/practice.c:756
 msgid "Next letter "
 msgstr ""
 

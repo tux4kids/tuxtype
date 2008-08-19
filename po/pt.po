@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tux Typing 1.5.16\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2008-08-18 21:04-0500\n"
+"POT-Creation-Date: 2008-08-19 12:29-0400\n"
 "PO-Revision-Date: 2007-02-07 16:08+0000\n"
 "Last-Translator: Hudson G M Figueredo <kynder@pquilinux.org>\n"
 "Language-Team:  <pt@li.org>\n"
@@ -39,41 +39,41 @@ msgstr "Tecle ESC novamente para voltar ao Menu"
 msgid "Press space bar to return to game"
 msgstr "Pressione a barra de espaço para voltar ao jogo"
 
-#: src/playgame.c:963
+#: src/playgame.c:1017
 msgid "Level"
 msgstr "Nível"
 
-#: src/playgame.c:964
+#: src/playgame.c:1018
 msgid "Lives"
 msgstr "Vidas"
 
-#: src/playgame.c:965
+#: src/playgame.c:1019
 msgid "Fish"
 msgstr "Peixes"
 
 # levels for Cascade game:
-#: src/playgame.c:967 src/titlescreen.c:91
+#: src/playgame.c:1021 src/titlescreen.c:91
 msgid "Easy"
 msgstr "Fácil"
 
-#: src/playgame.c:968 src/titlescreen.c:92
+#: src/playgame.c:1022 src/titlescreen.c:92
 msgid "Medium"
 msgstr "Médio"
 
-#: src/playgame.c:969 src/titlescreen.c:93
+#: src/playgame.c:1023 src/titlescreen.c:93
 msgid "Hard"
 msgstr "Difícil"
 
 # general stuff
-#: src/playgame.c:970 src/titlescreen.c:92
+#: src/playgame.c:1024 src/titlescreen.c:92
 msgid "Practice"
 msgstr "Praticar"
 
-#: src/playgame.c:981
+#: src/playgame.c:1035
 msgid "Congratulations"
 msgstr "Parabéns"
 
-#: src/playgame.c:985
+#: src/playgame.c:1039
 msgid "Oh No!"
 msgstr "Ah não!"
 
@@ -81,7 +81,7 @@ msgstr "Ah não!"
 msgid "Great!"
 msgstr ""
 
-#: src/practice.c:806
+#: src/practice.c:756
 msgid "Next letter "
 msgstr ""
 
