@@ -21,6 +21,7 @@ email                : tuxtype-dev@tux4kids.net
 #include "funcs.h"
 #include "playgame.h"
 #include "snow.h"
+#include "SDL_extras.h"
 
 #define _(String) gettext(String)
 
@@ -69,7 +70,7 @@ static int check_word(int f);
 static void display_msg(const unsigned char* msg, int x, int y);
 static void DrawBackground(void);
 static void draw_bar(int curlevel, int diflevel, int curlives,
-              int oldlives, int fish_left, int oldfish_left);
+                     int oldlives, int fish_left, int oldfish_left);
 static void DrawFish(int which);
 static void DrawNumbers(int num, int x, int y, int places);
 static int DrawObject(SDL_Surface* surf, int x, int y);
@@ -103,343 +104,397 @@ static void WaitFrame(void);
 /*************************************************************************
 * PlayCascade : This is the main Cascade game loop               *
 *************************************************************************/
-int PlayCascade( int diflevel ) {
-	unsigned char filename[FNLEN];
-	int still_playing = 1;
-	int playing_level = 1;
-	int setup_new_level = 1;
-	int won_level = 0;
-	int quitting = 0;
-	int curlevel = 0;
-	int i;
-	int curlives;
-	int oldlives=0, oldfish_left=0;
-	int fish_left, fishies = 0, local_max_fishies=1;
-	int frame = 0;
-	int done_frames;
-	int splats = 0;
-	SDL_Event event;
-	SDL_Surface *temp_text[CONGRATS_FRAMES + OH_NO_FRAMES];
-	SDL_Rect text_rect;
-	int text_y_end;
-	int xamp, yamp, x_not, y_not;
-	int temp_text_frames;
-	int temp_text_count;
-	Uint16 key_unicode;
-
-	DEBUGCODE {
-		fprintf(stderr, "->PlayCascade: level=%i\n", diflevel );
-	}
-
-	SDL_WarpMouse(screen->w / 2, screen->h / 2);
-	SDL_ShowCursor(0);
-
-	SNOW_init();
-
-	LoadTuxAnims(); 
-	LoadFishies();
-	LoadOthers();
-	RenderLetters(font);
-	LOG( " Done rendering letters \n ");
-
-	/* Make sure everything in the word list is "typable" according to the current */
-        /* theme's keyboard.lst:                                                       */
-	if (!CheckNeededGlyphs())
-	{
-          fprintf(stderr, "PlayCascade() - did not find all needed characters in theme's "
-                          "keyboard.lst file - returning to menu!\n\n\n");
-          FreeGame();
-          return 0;
-	}
-
-
-
-	LOG( " starting game \n ");
-	while (still_playing) {
-
-		if (setup_new_level) {
-
-			switch (diflevel) {
-				case EASY:
-				            fish_left = MAX_FISHIES_EASY;
-				            if (settings.o_lives >  LIVES_INIT_EASY){
-    				    		curlives = settings.o_lives;
-					    }else
-				    		curlives = LIVES_INIT_EASY;
-				            break;
-				case MEDIUM:
-				            fish_left = MAX_FISHIES_MEDIUM;
-				            if (settings.o_lives >  LIVES_INIT_MEDIUM){
-    				    		curlives = settings.o_lives;
-					    }else
-				            curlives =  LIVES_INIT_MEDIUM;
-				            break;
-				case HARD:
-				            fish_left = MAX_FISHIES_HARD;
-				            if (settings.o_lives >  LIVES_INIT_HARD){
-    				    		curlives = settings.o_lives;
-					    }else
-				            curlives =  LIVES_INIT_HARD;
-				            break;
-			}
-
-			local_max_fishies = fish_left;
-
-			if (curlevel != 0) {
-				SDL_FreeSurface(background);
-			}
-
-			if (diflevel == INF_PRACT)
-				sprintf(filename, "pract.png");
-			else
-				sprintf(filename, "kcas%i_%i.jpg", diflevel+1, curlevel+1);
-
-			/* ---  Special Hidden Code  --- */
-
-			if (settings.hidden && curlevel == 3)
-				sprintf(filename, "hidden.jpg");
-
-			DEBUGCODE {
-				fprintf(stderr, "->>Loading background: %s\n", filename);
-			}
-
-			background = LoadImage( filename, IMG_REGULAR );
-			SNOW_setBkg( background );
-
-			DrawBackground();
-
-			ResetObjects();
-
-			if (settings.sys_sound) {
-				sprintf(filename, "kmus%i.wav", curlevel + 1);
-				MusicLoad( filename, -1 );
-			}
-
-			LOG( "->>PLAYING THE GAME\n" );
-
-			setup_new_level = 0;
-		}
-
-		/* --- Poll input queue, get keyboard info --- */
-
-		while (playing_level) {
-
-			oldlives = curlives;
-			oldfish_left = fish_left;
-
-			EraseSprite( tux_object.spr[tux_object.state][tux_object.facing], tux_object.x, tux_object.y );
-
-			/* --- Checking input --- */
-
-			while ( SDL_PollEvent( &event ) ) 
-				if ( event.type == SDL_QUIT ) {
-					exit(0);
-				} else if (event.type == SDL_KEYDOWN) {
-					
-					if (event.key.keysym.sym == SDLK_F11) 
-						SDL_SaveBMP( screen, "screenshot.bmp" );
-					if (event.key.keysym.sym == SDLK_F6){
-						settings.o_lives=settings.o_lives-10;
-						curlives=curlives-10;
-					}
-					if (event.key.keysym.sym == SDLK_F7) {
-						settings.o_lives=settings.o_lives+10;
-						curlives=curlives+10;
-					}
-					if (event.key.keysym.sym == SDLK_F10) 
-						SwitchScreenMode();
-					if (event.key.keysym.sym == SDLK_F12) 
-						SNOW_toggle();
-					if (event.key.keysym.sym == SDLK_ESCAPE) {
-						/* Pause() returns 1 if quitting, */
-						/* 0 if returning to game:        */
-						if (Pause() == 1) {
-							playing_level = 0;
-							still_playing = 0;
-							quitting = 1;
-						} 
-						DrawBackground();
-					}
-
-					key_unicode = event.key.keysym.unicode;
-					//key_unicode = event.key.keysym.unicode & 0xff;
-					/* For now, tuxtype is case-insensitive for input, */
-                                        /* with only uppercase for answers:                */
-					DEBUGCODE
-					{
-					  fprintf(stderr,
-					    "\nkey_unicode = %d\twchar_t = %lc\t\n",
-					     key_unicode, key_unicode);
-					}
-
-                                        if (key_unicode >= 97 && key_unicode <= 122)
-                                          key_unicode -= 32;  //convert lowercase to uppercase
-                                        if (key_unicode >= 224 && key_unicode <= 255)
-                                          key_unicode -= 32; //same for non-US chars
-
-					LOG ("After checking for lower case:\n");
-					DEBUGCODE
-					{
-					  fprintf(stderr,
-					    "key_unicode = %d\twchar_t = %lc\\n\n",
-					     key_unicode, key_unicode);
-					}
-
-					/* Now update with case-folded value: */
-					UpdateTux(key_unicode, fishies, frame);
-				}
-
-			/* --- fishy updates --- */
-
-			if ((frame % 10) == 0) NEXT_FRAME( fishy );
-			
-			if (fishies < local_max_fishies)
-				SpawnFishies( diflevel, &fishies, &frame );
-
-			MoveTux( frame, fishies );
-			CheckCollision(fishies, &fish_left, frame );
-			DrawSprite( tux_object.spr[tux_object.state][tux_object.facing], tux_object.x, tux_object.y );
-			MoveFishies(&fishies, &splats, &curlives, &frame);
-			CheckFishies(&fishies, &splats);
-			SNOW_update();
-
-			/* --- update top score/info bar --- */
-
-			if (diflevel != INF_PRACT) {
-				draw_bar(curlevel, diflevel, curlives, oldlives, fish_left, oldfish_left);
-
-				if (curlives <= 0) {
-					playing_level = 0;
-					still_playing = 0;
-				}
-			} else
-				fish_left = 1; // in practice there is always 1 fish left!
-
-			if (fish_left <= 0) {
-				won_level = 1;
-				playing_level = 0;
-				curlevel++;
-				setup_new_level = 1;
-				still_playing = 1;
-			}
-
-			if (!quitting) {
-				UpdateScreen(&frame);
-
-				if (!settings.speed_up)
-					WaitFrame();
-			}
-		}
-
-		if (settings.sys_sound)
-			Mix_FadeOutMusic(MUSIC_FADE_OUT_MS);
-
-		DrawBackground();
-
-		if (quitting == 0) {
-
-			if (won_level) {
-
-				won_level = 0;
-				if (curlevel < 4) {
-
-					LOG( "--->NEXT LEVEL!\n" );
-
-					done_frames = MAX_END_FRAMES_BETWEEN_LEVELS;
-					playing_level = 1;
-					xamp = 0;
-					yamp = 0;
-
-				} else {
-
-					LOG( "--->WINNER!\n" );
-
-					done_frames = MAX_END_FRAMES_WIN_GAME;
-					still_playing = 0;
-					xamp = WIN_GAME_XAMP;
-					yamp = WIN_GAME_YAMP;
-
-					if (settings.sys_sound) 
-						Mix_PlayChannel(WINFINAL_WAV, sound[WINFINAL_WAV], 0);
-				}
-
-				if (settings.sys_sound) 
-					Mix_PlayChannel(WIN_WAV, sound[WIN_WAV], 0);
-
-				for (i = 0; i < CONGRATS_FRAMES; i++)
-					temp_text[i] = congrats[i];
-
-				temp_text_frames = CONGRATS_FRAMES;
-				tux_object.state = TUX_WINNING;
-
-			} else {
-
-				LOG( "--->LOST :(\n" );
-
-				done_frames = MAX_END_FRAMES_GAMEOVER;
-				xamp = 0;
-				yamp = 0;
-
-				if (settings.sys_sound)
-					Mix_PlayChannel(LOSE_WAV, sound[LOSE_WAV], 0);
-
-				for (i = 0; i < OH_NO_FRAMES; i++)
-					temp_text[i] = ohno[i];
-
-				temp_text_frames = OH_NO_FRAMES;
-				tux_object.state = TUX_YIPING;
-			}
-
-			/* --- draw the animation here --- */
-
-			temp_text_count = 0;
-			text_y_end = (screen->h / 2) - (temp_text[0]->h / 2);
-			text_rect.x = (screen->w / 2) - (temp_text[0]->w / 2);
-			text_rect.y = screen->h - temp_text[0]->h - 1;
-			x_not = text_rect.x;
-
-			LOG( "--->Starting Ending Animation\n" );
-			
-			for ( i=0; i<= done_frames; i++ ) {
-				temp_text_count = (temp_text_count+1) % temp_text_frames;
-
-				text_rect.y -= END_FRAME_DY;
-				y_not = text_rect.y;
-
-				if (text_rect.y < text_y_end) {
-					y_not = text_y_end + yamp * sin(i / WIN_GAME_ANGLE_MULT);
-					text_rect.y = text_y_end;
-					text_rect.x = x_not + xamp * cos(i / WIN_GAME_ANGLE_MULT);
-				}
-
-				DrawSprite( tux_object.spr[tux_object.state][tux_object.facing], tux_object.x, tux_object.y );
-				DrawObject(temp_text[temp_text_count], text_rect.x, y_not);
-				DrawObject(level[diflevel], 1, 1);
-				draw_bar(curlevel - 1, diflevel, curlives, oldlives, fish_left, oldfish_left);
-
-				next_tux_frame();
-				SNOW_update();
-				UpdateScreen(&frame);
-
-				EraseSprite( tux_object.spr[tux_object.state][tux_object.facing], tux_object.x, tux_object.y );
-				
-				EraseObject(temp_text[temp_text_count], text_rect.x, y_not);
-
-				if (!settings.speed_up)
-					WaitFrame();
-			}
-		}
-	}
-
-	SNOW_on = 0;
-
-	LOG( "->Done with level... cleaning up\n" );
-
-	FreeGame();
-
-	LOG( "->PlayCascade: END\n" );
-
-	return 1;
+int PlayCascade(int diflevel)
+{
+  unsigned char filename[FNLEN];
+  int still_playing = 1;
+  int playing_level = 1;
+  int setup_new_level = 1;
+  int won_level = 0;
+  int quitting = 0;
+  int curlevel = 0;
+  int i;
+  int curlives;
+  int oldlives = 0;
+  int oldfish_left = 0;
+  int fish_left;
+  int fishies = 0;
+  int local_max_fishies = 1;
+  int frame = 0;
+  int done_frames;
+  int splats = 0;
+  SDL_Event event;
+  SDL_Surface *temp_text[CONGRATS_FRAMES + OH_NO_FRAMES];
+  SDL_Rect text_rect;
+  int text_y_end;
+  int xamp;
+  int yamp;
+  int x_not;
+  int y_not;
+  int temp_text_frames;
+  int temp_text_count;
+  Uint16 key_unicode;
+
+  DEBUGCODE
+  {
+    fprintf(stderr, "->Entering PlayCascade(): level=%i\n", diflevel);
+  }
+
+  SDL_WarpMouse(screen->w / 2, screen->h / 2);
+  SDL_ShowCursor(0);
+
+//	SNOW_init();
+
+  LoadTuxAnims(); 
+  LoadFishies();
+  LoadOthers();
+  RenderLetters(font);
+  LOG( " Done rendering letters \n ");
+
+  /* Make sure everything in the word list is "typable" according to the current */
+  /* theme's keyboard.lst:                                                       */
+  if (!CheckNeededGlyphs())
+  {
+    fprintf(stderr, "PlayCascade() - did not find all needed characters in theme's "
+                    "keyboard.lst file - returning to menu!\n\n\n");
+    FreeGame();
+    return 0;
+  }
+
+
+  /*  --------- Begin outer game loop (cycles once per level): ------------- */
+
+  LOG( " starting game \n ");
+
+  while (still_playing)
+  {
+    /* FIXME split out as smaller function */
+    if (setup_new_level) 
+    {
+      switch (diflevel)
+      {
+        default:
+        case EASY:
+          fish_left = MAX_FISHIES_EASY;
+
+          if (settings.o_lives >  LIVES_INIT_EASY)
+            curlives = settings.o_lives;
+          else
+            curlives = LIVES_INIT_EASY;
+          break;
+
+        case MEDIUM:
+          fish_left = MAX_FISHIES_MEDIUM;
+
+          if (settings.o_lives >  LIVES_INIT_MEDIUM)
+            curlives = settings.o_lives;
+          else
+            curlives =  LIVES_INIT_MEDIUM;
+          break;
+
+        case HARD:
+          fish_left = MAX_FISHIES_HARD;
+
+          if (settings.o_lives >  LIVES_INIT_HARD)
+            curlives = settings.o_lives;
+          else
+            curlives =  LIVES_INIT_HARD;
+          break;
+      }
+
+      local_max_fishies = fish_left;
+
+      /* ------- Load and draw background: ----------------- */
+
+      if (curlevel != 0)
+      {
+        SDL_FreeSurface(background);
+      }
+
+      if (diflevel == INF_PRACT)
+        sprintf(filename, "pract.png");
+      else
+        sprintf(filename, "kcas%i_%i.jpg", diflevel+1, curlevel+1);
+
+      /* ---  Special Hidden Code  --- */
+
+      if (settings.hidden && curlevel == 3)
+        sprintf(filename, "hidden.jpg");
+
+      DEBUGCODE
+      {
+        fprintf(stderr, "->>Loading background: %s\n", filename);
+      }
+
+      background = LoadImage( filename, IMG_REGULAR );
+//			SNOW_setBkg( background );
+
+      DrawBackground();
+
+      ResetObjects();
+
+      if (settings.sys_sound)
+      {
+        sprintf(filename, "kmus%i.wav", curlevel + 1);
+        MusicLoad( filename, -1 );
+      }
+
+      setup_new_level = 0;
+
+      LOG( "->>PLAYING THE GAME\n" );
+
+    }
+
+    /*  --------- Begin main game loop (cycles once per frame): ------------- */
+
+
+    while (playing_level)
+    {
+      oldlives = curlives;
+      oldfish_left = fish_left;
+
+      EraseSprite( tux_object.spr[tux_object.state][tux_object.facing], tux_object.x, tux_object.y );
+
+      /* --- Poll input queue, get keyboard info --- */
+      while (SDL_PollEvent(&event))
+        if ( event.type == SDL_QUIT )
+        {
+          exit(0); /* FIXME does memory get cleaned up properly if we do this? */
+        }
+        else
+          if (event.type == SDL_KEYDOWN)
+          {
+            if (event.key.keysym.sym == SDLK_F11) 
+              SDL_SaveBMP(screen, "screenshot.bmp");
+
+            if (event.key.keysym.sym == SDLK_F6)
+            {
+              settings.o_lives = settings.o_lives - 10;
+              curlives = curlives - 10;
+            }
+
+            if (event.key.keysym.sym == SDLK_F7)
+            {
+              settings.o_lives = settings.o_lives + 10;
+              curlives = curlives + 10;
+            }
+
+            if (event.key.keysym.sym == SDLK_F10)
+              SwitchScreenMode();
+
+            if (event.key.keysym.sym == SDLK_F12) 
+//              SNOW_toggle();
+
+            if (event.key.keysym.sym == SDLK_ESCAPE)
+            {
+              /* Pause() returns 1 if quitting, */
+              /* 0 if returning to game:        */
+              if (Pause() == 1)
+              {
+                playing_level = 0;
+                still_playing = 0;
+                quitting = 1;
+              }
+              else  /* Returning to game */
+                DrawBackground();
+            }
+
+            /*----------------------------------------------------*/
+            /* Some other key - player is actually typing!!!!!!!! */
+            /*----------------------------------------------------*/
+
+            /* See what Unicode value was typed: */
+            key_unicode = event.key.keysym.unicode;
+
+            DEBUGCODE
+            {
+              fprintf(stderr,
+                      "\nkey_unicode = %d\twchar_t = %lc\t\n",
+                      key_unicode, key_unicode);
+            }
+
+            /* For now, the cascade game is case-insensitive for input, */
+            /* with only uppercase for answers:                         */
+            if (key_unicode >= 97 && key_unicode <= 122)
+              key_unicode -= 32;  //convert lowercase to uppercase
+            if (key_unicode >= 224 && key_unicode <= 255)
+              key_unicode -= 32; //same for non-US chars
+
+            LOG ("After checking for lower case:\n");
+            DEBUGCODE
+            {
+              fprintf(stderr,
+                      "key_unicode = %d\twchar_t = %lc\\n\n",
+                      key_unicode, key_unicode);
+            }
+
+            /* Now update with case-folded value: */
+            UpdateTux(key_unicode, fishies, frame);
+          }
+
+      /* ---------- Done handling user input ----------- */
+
+      /* --- fishy updates --- */
+      if ((frame % 10) == 0)
+        NEXT_FRAME(fishy);
+
+      if (fishies < local_max_fishies)
+        SpawnFishies( diflevel, &fishies, &frame );
+
+      MoveTux(frame, fishies);
+      CheckCollision(fishies, &fish_left, frame);
+      DrawSprite(tux_object.spr[tux_object.state][tux_object.facing], tux_object.x, tux_object.y);
+      MoveFishies(&fishies, &splats, &curlives, &frame);
+      CheckFishies(&fishies, &splats);
+//      SNOW_update();
+
+      /* --- update top score/info bar --- */
+
+      if (diflevel != INF_PRACT)
+      {
+        draw_bar(curlevel, diflevel, curlives, oldlives, fish_left, oldfish_left);
+
+        if (curlives <= 0)
+        {
+          playing_level = 0;
+          still_playing = 0;
+        }
+      }
+      else
+        fish_left = 1; // in practice there is always 1 fish left!
+
+      if (fish_left <= 0)
+      {
+        won_level = 1;
+        playing_level = 0;
+        curlevel++;
+        setup_new_level = 1;
+        still_playing = 1;
+      }
+
+      if (!quitting) 
+      {
+        UpdateScreen(&frame);
+
+        if (!settings.speed_up)
+          WaitFrame();
+      }
+    }  /* End per-frame game loop - level completed */
+
+
+    if (settings.sys_sound)
+      Mix_FadeOutMusic(MUSIC_FADE_OUT_MS);
+
+    DrawBackground();
+
+    /* Victory sequence, defeat sequence, or go to next level: */
+    if (quitting == 0)
+    {
+      /* Level completed successfully: */
+      if (won_level) 
+      {
+        if (curlevel < 4)  /* Advance to next level */
+        {
+          LOG( "--->NEXT LEVEL!\n" );
+          done_frames = MAX_END_FRAMES_BETWEEN_LEVELS;
+          playing_level = 1;
+          xamp = 0;
+          yamp = 0;
+          won_level = 0;
+        }
+        else
+        {
+          LOG( "--->WINNER!\n" );
+          done_frames = MAX_END_FRAMES_WIN_GAME;
+          still_playing = 0;
+          xamp = WIN_GAME_XAMP;
+          yamp = WIN_GAME_YAMP;
+
+          if (settings.sys_sound) 
+            Mix_PlayChannel(WINFINAL_WAV, sound[WINFINAL_WAV], 0);
+        }
+
+        if (settings.sys_sound) 
+          Mix_PlayChannel(WIN_WAV, sound[WIN_WAV], 0);
+
+        for (i = 0; i < CONGRATS_FRAMES; i++)
+          temp_text[i] = congrats[i];
+
+        temp_text_frames = CONGRATS_FRAMES;
+        tux_object.state = TUX_WINNING;
+
+      }
+      else  /* Did not win the level  :-(     */
+      {
+        LOG( "--->LOST :(\n" );
+        done_frames = MAX_END_FRAMES_GAMEOVER;
+        xamp = 0;
+        yamp = 0;
+
+        if (settings.sys_sound)
+          Mix_PlayChannel(LOSE_WAV, sound[LOSE_WAV], 0);
+
+        for (i = 0; i < OH_NO_FRAMES; i++)
+          temp_text[i] = ohno[i];
+
+        temp_text_frames = OH_NO_FRAMES;
+        tux_object.state = TUX_YIPING;
+      }
+
+      /* --- draw the animation here --- */
+
+      temp_text_count = 0;
+      text_y_end = (screen->h / 2) - (temp_text[0]->h / 2);
+      text_rect.x = (screen->w / 2) - (temp_text[0]->w / 2);
+      text_rect.y = screen->h - temp_text[0]->h - 1;
+      x_not = text_rect.x;
+
+      LOG( "--->Starting Ending Animation\n" );
+
+      for ( i=0; i<= done_frames; i++ ) 
+      {
+        temp_text_count = (temp_text_count+1) % temp_text_frames;
+
+        text_rect.y -= END_FRAME_DY;
+        y_not = text_rect.y;
+
+        if (text_rect.y < text_y_end)
+        {
+          y_not = text_y_end + yamp * sin(i / WIN_GAME_ANGLE_MULT);
+          text_rect.y = text_y_end;
+          text_rect.x = x_not + xamp * cos(i / WIN_GAME_ANGLE_MULT);
+        }
+
+        DrawSprite( tux_object.spr[tux_object.state][tux_object.facing], tux_object.x, tux_object.y );
+        DrawObject(temp_text[temp_text_count], text_rect.x, y_not);
+        DrawObject(level[diflevel], 1, 1);
+        draw_bar(curlevel - 1, diflevel, curlives, oldlives, fish_left, oldfish_left);
+
+        next_tux_frame();
+//        SNOW_update();
+        /* Do all pending blits and increment frame counter: */
+        UpdateScreen(&frame);
+
+        EraseSprite( tux_object.spr[tux_object.state][tux_object.facing], tux_object.x, tux_object.y );
+        EraseObject(temp_text[temp_text_count], text_rect.x, y_not);
+
+        if (!settings.speed_up)
+          WaitFrame();
+      }  /* End of animation for end of game */
+
+    }  /* End of post-level wrap-up  */
+
+  }  /*   -------- End outer game loop -------------- */
+
+//  SNOW_on = 0;
+
+  LOG( "->Done with level... cleaning up\n" );
+
+  FreeGame();
+
+  LOG( "->PlayCascade(): END\n" );
+
+  return 1;
 }
 
 
@@ -775,27 +830,42 @@ UpdateScreen : Update the screen and increment the frame num
 static void UpdateScreen(int* frame)
 {
   int i;
+
   LOG("Entering UpdateScreen()\n");
-	/* -- First erase everything we need to -- */
-	for (i = 0; i < numupdates; i++)
-		if (blits[i].type == 'E') 
-			SDL_LowerBlit(blits[i].src, blits[i].srcrect, screen, blits[i].dstrect);
-	SNOW_erase();
 
-	/* -- then draw -- */ 
-	for (i = 0; i < numupdates; i++)
-		if (blits[i].type == 'D') 
-			SDL_BlitSurface(blits[i].src, blits[i].srcrect, screen, blits[i].dstrect);
-	SNOW_draw();
+  /* -- First erase everything we need to -- */
+  for (i = 0; i < numupdates; i++)
+  {
+    if (blits[i].type == 'E') 
+      SDL_LowerBlit(blits[i].src, blits[i].srcrect, screen, blits[i].dstrect);
+  }
 
-	/* -- update the screen only where we need to! -- */
-	if (SNOW_on) 
-		SDL_UpdateRects(screen, SNOW_add( (SDL_Rect*)&dstupdate, numupdates ), SNOW_rects);
-	else 
-		SDL_UpdateRects(screen, numupdates, dstupdate);
+  LOG("Done erasing\n");
 
-	numupdates = 0;
-	*frame = *frame + 1;
+//  SNOW_erase();
+
+  /* -- then draw -- */ 
+  for (i = 0; i < numupdates; i++)
+  {
+    if (blits[i].type == 'D') 
+      SDL_BlitSurface(blits[i].src, blits[i].srcrect, screen, blits[i].dstrect);
+  }
+
+  LOG("Done drawing\n");
+
+//  SNOW_draw();
+
+  /* -- update the screen only where we need to! -- */
+//  if (SNOW_on) 
+//    SDL_UpdateRects(screen, SNOW_add( (SDL_Rect*)&dstupdate, numupdates ), SNOW_rects);
+//  else 
+//    SDL_UpdateRects(screen, numupdates, dstupdate);
+
+  /* try something simpler for now: */
+  SDL_UpdateRect(screen, 0, 0, 0, 0);
+
+  numupdates = 0;
+  *frame = *frame + 1;
 
   LOG("Leaving UpdateScreen()\n");
 }

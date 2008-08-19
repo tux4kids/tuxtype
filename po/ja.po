@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tux Typing 1.5.16\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2008-08-18 15:29-0500\n"
+"POT-Creation-Date: 2008-08-18 21:04-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -39,39 +39,39 @@ msgstr ""
 msgid "Press space bar to return to game"
 msgstr ""
 
-#: src/playgame.c:947
+#: src/playgame.c:963
 msgid "Level"
 msgstr ""
 
-#: src/playgame.c:948
+#: src/playgame.c:964
 msgid "Lives"
 msgstr ""
 
-#: src/playgame.c:949
+#: src/playgame.c:965
 msgid "Fish"
 msgstr ""
 
-#: src/playgame.c:951 src/titlescreen.c:91
+#: src/playgame.c:967 src/titlescreen.c:91
 msgid "Easy"
 msgstr ""
 
-#: src/playgame.c:952 src/titlescreen.c:92
+#: src/playgame.c:968 src/titlescreen.c:92
 msgid "Medium"
 msgstr ""
 
-#: src/playgame.c:953 src/titlescreen.c:93
+#: src/playgame.c:969 src/titlescreen.c:93
 msgid "Hard"
 msgstr ""
 
-#: src/playgame.c:954 src/titlescreen.c:92
+#: src/playgame.c:970 src/titlescreen.c:92
 msgid "Practice"
 msgstr ""
 
-#: src/playgame.c:965
+#: src/playgame.c:981
 msgid "Congratulations"
 msgstr ""
 
-#: src/playgame.c:969
+#: src/playgame.c:985
 msgid "Oh No!"
 msgstr ""
 
