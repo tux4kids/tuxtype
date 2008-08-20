@@ -12,11 +12,11 @@
 #include <math.h>
 
 #include "SDL_extras.h"
-//#include "tuxmath.h"
 #include "globals.h"
 #include "pixels.h"
 
-#ifdef SDL_Pango
+
+#ifdef HAVE_LIBSDL_PANGO
 #include "SDL_Pango.h"
 #endif
 
@@ -320,12 +320,12 @@ SDL_Surface* Blend(SDL_Surface *S1,SDL_Surface *S2,float gamma)
 
   return ret;
 }
+#ifdef HAVE_LIBSDL_PANGO
 
-#ifdef SDL_Pango
 SDLPango_Context *context = NULL;
 void init_SDLPango_Context()
 {
-   context =  SDLPango_CreateContext_GivenFontDesc(DEFAULT_FONT_NAME);
+   context =  SDLPango_CreateContext_GivenFontDesc(settings.theme_font_name);
 }
 void free_SDLPango_Context()
 {
@@ -356,7 +356,7 @@ SDL_Surface* BlackOutline(const char *t, TTF_Font *font, SDL_Color *c)
     return NULL;
   }
  
-#ifndef SDL_Pango
+#ifndef HAVE_LIBSDL_PANGO
   black_letters = TTF_RenderUTF8_Blended(font, t, black);
 #else
   if( context != NULL)
@@ -398,7 +398,7 @@ SDL_Surface* BlackOutline(const char *t, TTF_Font *font, SDL_Color *c)
   SDL_FreeSurface(black_letters);
 
   /* --- Put the color version of the text on top! --- */
-#ifndef SDL_Pango
+#ifndef HAVE_LIBSDL_PANGO
   white_letters = TTF_RenderUTF8_Blended(font, t, *c);
 #else
   if( context != NULL)

@@ -28,8 +28,8 @@
 #define amask 0xff000000
 #endif
 
-#ifdef SDL_Pango
-
+#ifdef HAVE_LIBSDL_PANGO
+//#ifdef SDL_Pango
 #include "SDL_Pango.h"
 
 extern SDLPango_Context *context;
