@@ -132,7 +132,9 @@ int main(int argc, char *argv[])
 
   LibInit(lib_flags); /* calls SDL_Init(), TTF_Init(), some other settings */
   GraphicsInit(); /* calls SDL_SetVideoMode(), a few others     */
-
+  #ifdef HAVE_LIBSDL_PANGO
+  void init_SDLPango_Context();
+  #endif
   if (settings.sys_sound)
   {
     Mix_VolumeMusic(settings.mus_volume);

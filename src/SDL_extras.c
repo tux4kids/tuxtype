@@ -325,7 +325,10 @@ SDL_Surface* Blend(SDL_Surface *S1,SDL_Surface *S2,float gamma)
 SDLPango_Context *context = NULL;
 void init_SDLPango_Context()
 {
-   context =  SDLPango_CreateContext_GivenFontDesc(settings.theme_font_name);
+   if((context =  SDLPango_CreateContext_GivenFontDesc(settings.theme_font_name))==NULL)
+	   context =  SDLPango_CreateContext();
+   SDLPango_SetBaseDirection(context, SDLPANGO_DIRECTION_LTR);
+   SDLPango_SetDpi(context, 125.0, 125.0);
 }
 void free_SDLPango_Context()
 {
