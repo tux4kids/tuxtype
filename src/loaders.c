@@ -64,36 +64,12 @@ int CheckFile(const char* file)
 /* also should have return value reflect success or failure.     */
 void LoadLang(void)
 {
-  char fn[FNLEN];
 
-  /* we only need to load a lang.po file if we
-   * are actually using a theme, so this is a little
-   * different than the other loaders 
-   */ 
+	setlocale(LC_ALL,settings.theme_locale_name);
+	bindtextdomain(PACKAGE,"/usr/local/share/locale");
+        textdomain(PACKAGE);
+	return;
 
-  if (settings.use_english)
-  {
-    /* We need to set the locale to something supporting UTF-8: */
-    if (!setlocale(LC_CTYPE, "en_US.UTF-8"))
-      fprintf(stderr, "Cannot support UTF-8, ASCII-only words will be used\n");
-    return;
-  }
-
-  /* --- create full path to the lang.po file --- */
-  sprintf( fn, "%s/lang.po", settings.theme_data_path);
-
-  /* FIXME should have program try to setlocale() to lang-specific locale -  */
-  /* for now, at least get a default UTF-8 encoding set: */
-  if (!setlocale(LC_CTYPE, "en_US.UTF-8"))
-    fprintf(stderr, "Cannot support UTF-8, ASCII-only words will be used\n");
-
-  /* This function confusingly returns 0 if successful! */
-  if (0 != Load_PO_File( fn ))  /* Meaning it failed! */
-  {
-    /* failed to find a lang.po file, clear gettext & return */
-    fprintf(stderr, "LoadLang() - could not load lang.po file for %s\n", fn);
-    return;
-  }
 }
 
 int max(int n1, int n2)

@@ -57,6 +57,7 @@ void GenerateKeyboard(SDL_Surface* keyboard);
 void updatekeylist(int key,char ch);
 void savekeyboard(void);
 wchar_t GetLastKey(void);
+SDL_Surface* BlackOutline_w(wchar_t* t, const TTF_Font* font, const SDL_Color* c, int size);
 
 //void UseAlphabet(void);
 
@@ -69,8 +70,8 @@ void MusicPlay(Mix_Music* musicData, int repeatQty);
 
 
 /* In gettext.c:  */
-unsigned char* gettext(const unsigned char* in);
-int Load_PO_File(const char* file);
+//unsigned char* gettext(const unsigned char* in);
+//int Load_PO_File(const char* file);
 
 
 /* In laser.c:        */

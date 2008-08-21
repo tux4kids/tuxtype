@@ -29,4 +29,10 @@ EXTRA_DIST = titlescreen.h \
 	funcs.h 	\
 	scripting.h	\
 	snow.h		\
-	ConvertUTF.h
+	ConvertUTF.h	\
+	i18n.h
+
+tuxtype_LDFLAGS = $(LTLIBINTL)
+
+localedir = $(datadir)/locale
+DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@

@@ -75,11 +75,12 @@ int Phrases(wchar_t* pphrase )
       total = 0,
       state = 0;
   int key[100] = {0};
-  SDL_Rect dst, dst2, dst3, dst4;
+  int next_line=0;
+  SDL_Rect dst, dst2, dst4, mydest;
   char keytime[20],
        totaltime[20];
   SDL_Surface* srfc = NULL;
-  
+  SDL_Surface* tmpsurf = NULL;  
   
   if (!practice_load_media())
   {
@@ -88,8 +89,9 @@ int Phrases(wchar_t* pphrase )
   }
 
   SDL_BlitSurface(bg, NULL, screen, NULL);
-  SDL_BlitSurface(hands, NULL, screen, &hand_loc);
   SDL_BlitSurface(keyboard, NULL, screen, &keyboard_loc);
+  SDL_BlitSurface(screen, NULL, bg, NULL);
+  SDL_BlitSurface(hands, NULL, screen, &hand_loc);
   SDL_Flip(screen);
 
   wp = get_phrase(pphrase);
@@ -115,17 +117,17 @@ int Phrases(wchar_t* pphrase )
   dst2.w = srfc->w;
   dst2.h = srfc->h;
 
-  dst3.x = 0;
-  dst3.y = 400;
-  dst3.w = screen->w;
-  dst3.h = bg->h-dst3.y;
-
   dst4.x = 480;
   dst4.y = 400;
   dst4.w = 240;
   dst4.h = 50;
 
   dst.x = 40;
+
+  mydest.x = 0;
+  mydest.y = dst.y;
+  mydest.w = screen->w;
+  mydest.h = screen->h-mydest.y;
 
   start = SDL_GetTicks();
 
@@ -233,11 +235,11 @@ int Phrases(wchar_t* pphrase )
 
         if (event.key.keysym.sym == SDLK_ESCAPE)
           quit = 1;
-
+	else
         if (event.key.keysym.sym == SDLK_DOWN) 
         {
           //practice next phase in list
-          //a=a;
+          quit = 2;
         }
         else
         {
@@ -433,61 +435,46 @@ int Phrases(wchar_t* pphrase )
 /****************************************************/
           if (pphrase[c]==event.key.keysym.unicode)
           {
-            state = 0;
-            dst2.x = 40;
-            dst4.x = 480;
-            SDL_BlitSurface(bg, &dst3, screen, &dst2);
-            //SDL_BlitSurface(bg, &dst5, screen, &dst4);
-            SDL_Flip(screen);
-
-            srfc = GetWhiteGlyph(event.key.keysym.unicode);
-            if (srfc)
-            { 
-              SDL_BlitSurface(srfc, NULL, screen, &dst);
-              dst.x = (dst.x + srfc->w) - 5;
-            }
- 
-            for (z = 0; z < strlen(keytime); z++)
-            {
-              srfc = GetWhiteGlyph((int)keytime[z]);
-              if (srfc)
-              {
-                SDL_BlitSurface(srfc, NULL, screen, &dst2);
-                dst2.x = dst2.x + srfc->w - 2;
-              }
-            }
-
-            for (z = 0;z < strlen(totaltime); z++)
-            {
-              srfc = GetWhiteGlyph((int)totaltime[z]);
-              if (srfc)
-              {
-                SDL_BlitSurface(srfc, NULL, screen, &dst4);
-                dst4.x = dst4.x + srfc->w - 2;
-              }
-            }
-
-
-            if (c == (wcslen(pphrase) - 1))
-            {
-		//print_string_at(_("Great!"), 275, 200);
-              wchar_t buf[10];
-              ConvertFromUTF8(buf, _("Great!"));
-              print_at(buf,6 ,275 ,200);
-              SDL_Flip(screen);
-              SDL_Delay(2500);
-              quit = 1;
-            }
-
-            if (c == wp)
-            {
-              c++;
-              dst.x = 40;
-              dst.y = 142;
-            }
-
-            c++;
-          }
+		c++;
+		state = 0;
+		dst2.x = 40;
+		dst4.x = 480;
+		
+		if (c==wp+2){
+			//c++;
+			dst.x=40;
+			dst.y=dst.y+dst.h;
+			mydest.y=dst.y;
+			mydest.h=screen->h-mydest.y;
+			next_line=1;
+		}
+		SDL_BlitSurface(bg, &mydest, screen, &mydest);
+		SDL_Flip(screen);
+		if(!next_line)
+			tmpsurf = BlackOutline_w(pphrase, font, &white, c);
+		else
+			tmpsurf = BlackOutline_w(pphrase+wp+1, font, &white, c-(wp+1));
+		SDL_BlitSurface(tmpsurf, NULL, screen, &dst);
+		SDL_FreeSurface(tmpsurf);
+		tmpsurf = NULL;
+		tmpsurf = BlackOutline(keytime, font, &white);
+		SDL_BlitSurface(tmpsurf, NULL, screen, &dst2);
+		SDL_FreeSurface(tmpsurf);
+		tmpsurf = NULL;	
+		tmpsurf = BlackOutline(totaltime, font, &white);
+		SDL_BlitSurface(tmpsurf, NULL, screen, &dst4);
+		SDL_FreeSurface(tmpsurf);
+		tmpsurf = NULL;
+		if (c==(wcslen(pphrase))){
+				wchar_t buf[10];
+				ConvertFromUTF8(buf, gettext("Great!"));
+				print_at(buf, wcslen(buf), 275, 200);
+				SDL_Flip(screen);
+				SDL_Delay(2500);
+				next_line=0;
+				quit=2;
+		}
+	}
           else
           {
 		int key = GetIndex((wchar_t)event.key.keysym.unicode);
@@ -504,7 +491,7 @@ int Phrases(wchar_t* pphrase )
       }
     }
     SDL_Flip(screen);
-    SDL_Delay(30);
+    SDL_Delay(15);
 
   }while (!quit);
 
@@ -512,7 +499,7 @@ int Phrases(wchar_t* pphrase )
 
   practice_unload_media();
 
-  return 1;
+  return quit;
 }
 
 
@@ -581,8 +568,8 @@ static int practice_load_media(void)
 
   /* Now render letters for glyphs in alphabet: */
   RenderLetters(font);
-  TTF_CloseFont(font);  /* Don't need it after rendering done */
-  font = NULL;
+  //TTF_CloseFont(font);  /* Don't need it after rendering done */
+  //font = NULL;
   GenerateKeyboard(keyboard);
 
   LOG("DONE - Loading practice media\n");
@@ -606,8 +593,8 @@ static void practice_unload_media(void)
 	}
 	SDL_FreeSurface(keyboard);
         keyboard = NULL;
-	//TTF_CloseFont(font);
-
+	TTF_CloseFont(font);
+	font = NULL;
 	for (i=0; i<10; i++) 
         {
           SDL_FreeSurface(hand[i]);
@@ -780,79 +767,43 @@ static int get_phrase(const wchar_t* phr)
 
 static void print_at(const wchar_t *pphrase, int wrap, int x, int y)
 {
-  int z = 0;
-  SDL_Surface* surf = NULL;
-  letter_loc.x = x;
-  letter_loc.y = y;
-  letter_loc.w = GetWhiteGlyph(GetLastKey())->w;
-  letter_loc.h = GetWhiteGlyph(GetLastKey())->h;
-
-  LOG("Entering print_at()\n");
-
-  if (wrap >= wcslen(pphrase)) // I think this means it fits on a single line
-  {
-    for (z = 0; z <wcslen(pphrase); z++)
-    {
-      surf = GetWhiteGlyph(pphrase[z]);
-      if (surf)
-      {
-        DEBUGCODE{printf("surf not NULL for %C\n", pphrase[z]);}
-        SDL_BlitSurface(surf, NULL, screen, &letter_loc);
-        letter_loc.x = (letter_loc.x + surf->w) - 5;
-      }
-      else
-      {
-        fprintf(stderr, "print_at(): needed glyph for %C not found\n",
-                pphrase[z]);
-      }
-    }
-  }
-  else  /* Another line required - code only seems to support 1 or 2 lines! */
-  {
-    for (z = 0; z <= wrap; z++) 
-    {
-      surf = GetWhiteGlyph(pphrase[z]);
-      if (surf)
-      {
-        DEBUGCODE{printf("surf not NULL for %C\n", pphrase[z]);}
-        SDL_BlitSurface(surf, NULL, screen, &letter_loc);
-        letter_loc.x = (letter_loc.x + surf->w) - 5;      }
-      else
-      {
-        fprintf(stderr, "print_at(): needed glyph for %C not found\n",
-                pphrase[z]);
-      }
-    }
-
-    /* Move 'cursor' back to left and down one line: */
-    letter_loc.x = 40;
-    // - (letter_loc.h/4) to account for free space at top and bottom of rendered letters
-    letter_loc.y = letter_loc.y + letter_loc.h - (letter_loc.h/4);
-
-    for (z = wrap + 2; z <wcslen(pphrase); z++)
-    {
-      surf = GetWhiteGlyph(pphrase[z]);
-      if (surf)
-      {
-        DEBUGCODE{printf("surf not NULL for %c\n", pphrase[z]);}
-        SDL_BlitSurface(surf, NULL, screen, &letter_loc);
-        letter_loc.x = (letter_loc.x + surf->w) - 5;
-      }
-      else
-      {
-        fprintf(stderr, "print_at(): needed glyph for %c not found",
-                pphrase[z]);
-      }
-    }
-  }
-  LOG("Leaving print_at()\n");
+	int z=0;
+	SDL_Surface *tmp;
+	letter_loc.x = x;
+	letter_loc.y = y;
+	//font = LoadFont(settings.theme_font_name, 30);
+	DEBUGCODE { printf("\n\n\nEntering print_at with : %S\n",pphrase); }
+	if ( wrap == wcslen(pphrase) ){
+		tmp = BlackOutline_w(pphrase, font, &white, wrap);
+		letter_loc.w = tmp->w+5;
+		letter_loc.h = tmp->h+5;
+		SDL_BlitSurface(tmp, NULL, screen, &letter_loc);
+		SDL_FreeSurface(tmp);
+	}else{
+		tmp = BlackOutline_w(pphrase, font, &white, wrap+1);
+		letter_loc.w = tmp->w+5;
+		letter_loc.h = tmp->h+5;
+		SDL_BlitSurface(tmp, NULL, screen, &letter_loc);
+		SDL_FreeSurface(tmp);
+		letter_loc.x = 40;
+                // - (letter_loc.h/4) to account for free space at top and bottom of rendered letters
+		//SDL_FreeSurface(tmp);
+		letter_loc.y = letter_loc.y + letter_loc.h - (letter_loc.h/4);
+		tmp = BlackOutline_w(pphrase+wrap+1, font, &white, wcslen(pphrase));
+		letter_loc.w = tmp->w+5;
+		letter_loc.h = tmp->h+5;
+		SDL_BlitSurface(tmp, NULL, screen, &letter_loc);
+		SDL_FreeSurface(tmp);
+	}
+	//TTF_CloseFont(font);
+	// DEBUGCODE { exit(-1); }
+	DEBUGCODE { printf("Leaving print_at \n\n\n"); }
 }
-
 static void next_letter(wchar_t *t, int c)
 {
 	int i;
 	wchar_t buf[30];
-        i=ConvertFromUTF8(buf, _("Next letter "));
+        i=ConvertFromUTF8(buf, gettext("Next letter "));
 	buf[i]=t[c];
 	buf[i+1]=0;
         print_at(buf,wcslen(buf),215 ,420);

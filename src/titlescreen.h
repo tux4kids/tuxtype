@@ -18,14 +18,6 @@ const int menu_item[][6]= {{0, 0,         0,         0,          0},
 			   {0, OPTIONS,   INSTRUCT,  LEVEL4,  SET_LANGUAGE},
 			   {0, QUIT_GAME, MAIN,      MAIN,    MAIN}};
 
-/* --- menu text --- */
-const unsigned char *menu_text[][6]= 
-{{"", "",            "",             "",            ""    },
- {"", gettext_noop("Fish Cascade"), gettext_noop("Easy"),         gettext_noop("Space Cadet"), gettext_noop("Edit Word Lists")},
- {"", gettext_noop("Comet Zap"),    gettext_noop("Medium"),       gettext_noop("Pilot"),       gettext_noop("Practice")},
- {"", gettext_noop("Lessons"),     gettext_noop("Hard"),         gettext_noop("Ace"),         gettext_noop("Project Info")},
- {"", gettext_noop("Options"),      gettext_noop("Instructions"), gettext_noop("Commander"),   gettext_noop("Setup Language")},
- {"", gettext_noop("Quit"),         gettext_noop("Main Menu"),    gettext_noop("Main Menu"),   gettext_noop("Main Menu")}};
 
 /* --- menu icons --- */
 const unsigned char *menu_icon[][6]= 

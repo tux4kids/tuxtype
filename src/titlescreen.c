@@ -65,6 +65,31 @@ static void load_menu(void);
 static void unload_media(void);
 static void unload_menu(void);
 
+/* --- menu text --- */
+
+
+     
+static const char *menu_text[]= 
+{"", "",            "",             "",            ""    ,
+ "",gettext_noop("Fish Cascade"),gettext_noop("Easy"),gettext_noop("Space Cadet"),gettext_noop("Edit Word Lists"),
+ "",gettext_noop("Comet Zap"),gettext_noop("Medium"),gettext_noop("Pilot"),gettext_noop("Practice"),
+ "",gettext_noop("Lessons"),gettext_noop("Hard"), gettext_noop("Ace"),gettext_noop("Project Info"),
+ "", gettext_noop("Options"),gettext_noop("Instructions"),gettext_noop("Commander"),gettext_noop("Setup Language"),
+ "", gettext_noop("Quit"),gettext_noop("Main Menu"),gettext_noop("Main Menu"),gettext_noop("Main Menu")};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /************************************************************************/
 /*                                                                      */ 
 /*         "Public" functions (callable throughout program)             */
@@ -701,12 +726,14 @@ void TitleScreen(void)
 	{
 		fscanf( fp, "%[^\n]\n", str);
 		ConvertFromUTF8(phrase, str);
-		Phrases( phrase );
+		if(Phrases( phrase )==1)
+			break;
       		//Practice();
-      		load_media();
-      		redraw = 1;
-	} while (0);
+
+	} while (!feof(fp));
 	fclose(fp);
+  	load_media();
+      	redraw = 1;
       //Phrases( phrase );
       //Practice();
       //load_media();
@@ -970,12 +997,12 @@ static void load_menu(void)
       DEBUGCODE
       {
         fprintf(stderr, "i = '%d'\tj = '%d'\ttext = '%s'\n",
-                i, j,  _((unsigned char*)menu_text[i][j]));
+                i, j,  gettext((unsigned char*)menu_text[j+5*i]));
       }
 
       /* --- create text surfaces --- */
-      reg_text[i][j] = BlackOutline( _((unsigned char*)menu_text[i][j]), font, &white);
-      sel_text[i][j] = BlackOutline( _((unsigned char*)menu_text[i][j]), font, &yellow);
+      reg_text[i][j] = BlackOutline( gettext((unsigned char*)menu_text[j+5*i]), font, &white);
+      sel_text[i][j] = BlackOutline( gettext((unsigned char*)menu_text[j+5*i]), font, &yellow);
 
       /* (first make sure ptr valid to avoid segfault) */
       if (sel_text[i][j] && sel_text[i][j]->w > max)
@@ -1191,9 +1218,9 @@ static void not_implemented(void)
 
   LOG( "NotImplemented() - creating text\n" );
 
-  s1 = BlackOutline( _("Work In Progress!"), font, &white);
-  s2 = BlackOutline( _("This feature is not ready yet"), font, &white);
-  s3 = BlackOutline( _("Discuss the future of TuxTyping at"), font, &white);
+  s1 = BlackOutline( gettext_noop("Work In Progress!"), font, &white);
+  s2 = BlackOutline( gettext_noop("This feature is not ready yet"), font, &white);
+  s3 = BlackOutline( gettext_noop("Discuss the future of TuxTyping at"), font, &white);
 
   /* we always want the URL in english */
   /* NOTE: all fonts are almost certain to include glyphs for ASCII, */

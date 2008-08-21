@@ -180,7 +180,7 @@ static int load_settings_filename(const char* fn)
 
   if (!fp)
   {
-    fprintf(stderr, "load_settings_filename(): no theme-specific settings found\n");
+    fprintf(stderr, "load_settings_filename(): no theme-specific settings found%s\n",fn);
     return;
   }
 	
@@ -260,6 +260,13 @@ static int load_settings_fp(FILE* fp)
       DEBUGCODE {fprintf(stderr, "load_settings_fp(): Setting theme font to %s", value);}
       strncpy(settings.theme_font_name, value, FNLEN - 1);
       setting_found = 1;
+    }
+    else if (strncmp( setting, "theme_locale_name", FNLEN ) == 0 )
+    {
+      DEBUGCODE {fprintf(stderr, "load_settings_fp(): Setting theme locale to %s", value);}
+      strncpy(settings.theme_locale_name, value, FNLEN - 1);
+      setting_found = 1;
+      fprintf(stderr, "load_settings_fp(): Setting theme locale to %s", value);
     }
     else
       DEBUGCODE {fprintf(stderr, "load_settings_fp(): unrecognized string: %s", value);}
@@ -404,6 +411,7 @@ int SetupPaths(const char* theme_dir)
       /* a special font to a theme that uses the default, but lacks */
       /* an explicit statement to use the default(                  */
       strncpy(settings.theme_font_name, DEFAULT_MENU_FONT, FNLEN);
+      
 
       /* Load fontname or any other theme-specific settings: */
       sprintf(theme_settings_path, "%s/settings.txt", full_theme_path);
@@ -420,6 +428,7 @@ int SetupPaths(const char* theme_dir)
       settings.use_english = 1; // default is to use English if we cannot find theme
       strcpy(settings.theme_name, "");
       strncpy(settings.theme_font_name, DEFAULT_MENU_FONT, FNLEN);
+      strncpy(settings.theme_locale_name, DEFAULT_LOCALE,FNLEN);
       fprintf(stderr, "SetupPaths(): could not find '%s'\n", full_theme_path);
     }
   }
@@ -427,6 +436,7 @@ int SetupPaths(const char* theme_dir)
   {
     settings.use_english = 1; // default is to use English if we cannot find theme
     strcpy(settings.theme_name, "");
+    strncpy(settings.theme_locale_name, DEFAULT_LOCALE,FNLEN);
   }
 
 

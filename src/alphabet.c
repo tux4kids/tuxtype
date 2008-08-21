@@ -612,6 +612,17 @@ SDL_Surface* BlackOutline_Unicode(const Uint16* t, const TTF_Font* font, const S
   return out;
 }
 
+SDL_Surface* BlackOutline_w(wchar_t* t, const TTF_Font* font, const SDL_Color* c, int size)
+{
+	wchar_t wchar_tmp[512];
+	char tmp[512];
+	int i;
+	wcsncpy( wchar_tmp, t, size);
+	wchar_tmp[size]=0;
+	i=ConvertToUTF8( wchar_tmp, tmp);
+	tmp[i]=0;
+	return BlackOutline(tmp, font, c);
+}
 
 /* FIXME dead code but could be useful*/
 static void show_letters(void)
@@ -1114,28 +1125,27 @@ int ConvertFromUTF8(wchar_t* wide_word, const unsigned char* UTF8_word)
 
 /******************To be used for savekeyboard*************/
 /***Converts wchar_t string to char string*****************/
-int ConvertToUTF8(wchar_t* UTF32_word, char* word)
+int ConvertToUTF8(wchar_t* wide_word, char* UTF8_word)
 {
   int i = 0;
   ConversionResult result;
   UTF8 temp_UTF8[FNLEN];
   UTF32 temp_UTF32[FNLEN];
 
-  const UTF8* UTF8_Start = temp_UTF8;
-  const UTF8* UTF8_End = &temp_UTF8[FNLEN-1];
-  UTF32* UTF32_Start = temp_UTF32;
-  UTF32* UTF32_End = &temp_UTF32[FNLEN-1];
+  UTF8* UTF8_Start = temp_UTF8;
+  UTF8* UTF8_End = &temp_UTF8[FNLEN-1];
+  const UTF32* UTF32_Start = temp_UTF32;
+  const UTF32* UTF32_End = &temp_UTF32[FNLEN-1];
 
-  strncpy(temp_UTF32, UTF32_word, FNLEN);
+  wcsncpy(temp_UTF32, wide_word, FNLEN);
 
-  ConvertUTF32toUTF8(&UTF32_Start, UTF32_End,
-                     &UTF8_Start, UTF8_End, 0);
+  ConvertUTF32toUTF8(&UTF32_Start, UTF32_End, &UTF8_Start, UTF8_End, 0);
 
-  word[0] = '\0';
+  UTF8_word[0] = 0;
 
-  while ((i < FNLEN) && (temp_UTF8[i] != '\0'))
+  while ((i < FNLEN) && (temp_UTF8[i] != 0))
   {
-    word[i] = temp_UTF8[i];
+    UTF8_word[i] = temp_UTF8[i];
     i++; 
   }
 
@@ -1146,12 +1156,13 @@ int ConvertToUTF8(wchar_t* UTF32_word, char* word)
   }
   else  //need terminating null:
   {
-    word[i] = '\0';
+	for(i;i<FNLEN;i++)
+	    UTF8_word[i] = 0;
   }
 
-  DEBUGCODE {fprintf(stderr, "word = %s\n", word);}
+  DEBUGCODE {fprintf(stderr, "UTF8_word = %s\n", UTF8_word);}
 
-  return strlen(word);
+  return strlen(UTF8_word);
 }
 
 /******************************************************************/
@@ -1584,7 +1595,7 @@ void GenerateKeyboard(SDL_Surface* keyboard)
 		}
 		if(!render)
 			continue;
-		new.x+=30*col;
+		new.x+=31*col;
 		if(keyboard_list[i].shift>0)
 		{
 					new.x-=9;
@@ -1615,15 +1626,16 @@ void updatekeylist(int key,char ch)
 void savekeyboard(void)
 {
 	unsigned char fn[FNLEN];
+	FILE *fp;
+	int i;
+	wchar_t tmp[2];
+	char buf[FNLEN];
+	tmp[1]=0;
 	if(!settings.use_english)
 		sprintf(fn , "%s/keyboard.lst", settings.theme_data_path);
 	else
 		sprintf(fn , "%s/keyboard.lst", settings.default_data_path);
-	FILE *fp;
-	int i;
-	wchar_t tmp[2];
-	char buf[10];
-	tmp[1]='\0';
+
 	fp=fopen(fn,"w");
 	if (fp == NULL)
 	{
