@@ -133,6 +133,7 @@ int main(int argc, char *argv[])
 	
 	LibInit(lib_flags); /* calls SDL_Init(), TTF_Init(), some other settings */
 	GraphicsInit(video_flags); /* calls SDL_SetVideoMode(), a few others     */
+	init_context();
 
 	if (settings.sys_sound)
         {
@@ -153,6 +154,7 @@ int main(int argc, char *argv[])
 
 	/* Release heap: */
 	Cleanup();
+	free_Context();
 
 
 	LOG( "---GAME DONE, EXIT---- Thank you.\n" );

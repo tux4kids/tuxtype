@@ -416,6 +416,9 @@ return BlackOutline_SDLPango(t, font, c);
 
 #ifndef WIN32
 #ifndef MACOSX
+/* Create a context which contains Pango objects.*/
+SDLPango_Context* context = NULL;
+
 /*Convert SDL_Colour to SDLPango_Matrix*/
 
 SDLPango_Matrix* SDL_Colour_to_SDLPango_Matrix(const SDL_Color *cl)
@@ -435,8 +438,20 @@ SDLPango_Matrix* SDL_Colour_to_SDLPango_Matrix(const SDL_Color *cl)
 
   return colour;
 }
-
-
+void init_context()
+{
+	/* Create the context */
+	if((context =  SDLPango_CreateContext_GivenFontDesc(settings.theme_font_name))==NULL)
+	   context =  SDLPango_CreateContext();
+   SDLPango_SetBaseDirection(context, SDLPANGO_DIRECTION_LTR);
+   SDLPango_SetDpi(context, 125.0, 125.0);
+}
+void free_Context()
+{
+  if(context != NULL)
+    SDLPango_FreeContext(context);
+  context = NULL;
+}
 
 /* This version basically uses the SDLPango lib instead of */
 /* TTF_RenderUTF*_Blended() to properly render Indic text. */
@@ -450,8 +465,6 @@ SDL_Surface* BlackOutline_SDLPango(const unsigned char* t, const TTF_Font* font,
   Uint32 color_key;
   /* To covert SDL_Colour to SDLPango_Matrix */
   SDLPango_Matrix* colour = NULL;
-  /* Create a context which contains Pango objects.*/
-  SDLPango_Context* context = NULL;
 
   LOG("\nEntering BlackOutline_SDLPango()\n");
   DEBUGCODE{ fprintf(stderr, "will attempt to render: %s\n", t); }
@@ -471,12 +484,9 @@ SDL_Surface* BlackOutline_SDLPango(const unsigned char* t, const TTF_Font* font,
 
   colour = SDL_Colour_to_SDLPango_Matrix(c);
   
-  /* Create the context */
-  context = SDLPango_CreateContext();	
-  SDLPango_SetDpi(context, 125.0, 125.0);
+
   /* Set the color */
   SDLPango_SetDefaultColor(context, MATRIX_TRANSPARENT_BACK_BLACK_LETTER );
-  SDLPango_SetBaseDirection(context, SDLPANGO_DIRECTION_LTR);
   /* Set text to context */ 
   SDLPango_SetMarkup(context, t, -1); 
 

@@ -31,6 +31,7 @@ SDL_Surface* BlackOutline_Unicode(const Uint16* t, const TTF_Font* font, const S
 
 #ifndef WIN32
 SDL_Surface* BlackOutline_SDLPango(const unsigned char* t, const TTF_Font* font, const SDL_Color* c);
+void init_context();
 #endif
 
 /* (still in alphabet.c:) */
@@ -58,6 +59,7 @@ void updatekeylist(int key,char ch);
 void savekeyboard(void);
 wchar_t GetLastKey(void);
 SDL_Surface* BlackOutline_w(wchar_t* t, const TTF_Font* font, const SDL_Color* c, int size);
+void free_Context();
 
 //void UseAlphabet(void);
 
