@@ -323,6 +323,7 @@ SDL_Surface* Blend(SDL_Surface *S1,SDL_Surface *S2,float gamma)
 #ifdef HAVE_LIBSDL_PANGO
 
 SDLPango_Context *context = NULL;
+
 void init_SDLPango_Context()
 {
    if((context =  SDLPango_CreateContext_GivenFontDesc(settings.theme_font_name))==NULL)

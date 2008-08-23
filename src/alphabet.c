@@ -1112,23 +1112,38 @@ int ConvertFromUTF8(wchar_t* wide_word, const unsigned char* UTF8_word)
   return wcslen(wide_word);
 }
 
+
+/* Now this uses GNU iconv and works correctly!   */
+/* This probably could be simplified - not certain */
+/* we have to copy into and out of the buffers     */
+
 /******************To be used for savekeyboard*************/
 /***Converts wchar_t string to char string*****************/
-int ConvertToUTF8(wchar_t* wide_word, char* UTF8_word)
+int ConvertToUTF8(wchar_t* wide_word, unsigned char* UTF8_word)
 {
   int i = 0;
-  ConversionResult result;
   UTF8 temp_UTF8[FNLEN];
   UTF32 temp_UTF32[FNLEN];
 
-  UTF8* UTF8_Start = temp_UTF8;
-  UTF8* UTF8_End = &temp_UTF8[FNLEN-1];
-  const UTF32* UTF32_Start = temp_UTF32;
-  const UTF32* UTF32_End = &temp_UTF32[FNLEN-1];
-
+  UTF8* UTF8_Start = &temp_UTF8[0];
+  UTF8* UTF8_End = &temp_UTF8[FNLEN - 1];
+  const UTF32* UTF32_Start = &temp_UTF32[0];
+  const UTF32* UTF32_End = &temp_UTF32[FNLEN - 1];
+  
+  iconv_t conv_descr;
+  size_t bytes_converted;
+  size_t in_length = (size_t)FNLEN;
+  size_t out_length = (size_t)FNLEN;
   wcsncpy(temp_UTF32, wide_word, FNLEN);
 
-  ConvertUTF32toUTF8(&UTF32_Start, UTF32_End, &UTF8_Start, UTF8_End, 0);
+  DEBUGCODE {fprintf(stderr, "ConvertToUTF8(): wide_word = %S\n", wide_word);}
+  DEBUGCODE {fprintf(stderr, "ConvertToUTF8(): temp_UTF32 = %S\n", temp_UTF32);}
+
+  conv_descr = iconv_open ("UTF-8", "UTF-32");
+  bytes_converted = iconv(conv_descr,
+                          &UTF32_Start, &in_length,
+                          &UTF8_Start, &out_length);
+  iconv_close(conv_descr);
 
   UTF8_word[0] = 0;
 
@@ -1140,19 +1155,21 @@ int ConvertToUTF8(wchar_t* wide_word, char* UTF8_word)
 
   if (i >= FNLEN)
   {
-    fprintf(stderr, "convert_from_UTF8(): buffer overflow\n");
+    fprintf(stderr, "ConvertToUTF8(): buffer overflow\n");
     return -1;
   }
   else  //need terminating null:
   {
-	for(i;i<FNLEN;i++)
-	    UTF8_word[i] = 0;
+    UTF8_word[i] = '\0';
   }
 
-  DEBUGCODE {fprintf(stderr, "UTF8_word = %s\n", UTF8_word);}
+  DEBUGCODE {fprintf(stderr, "ConvertToUTF8(): UTF8_word = %s\n", UTF8_word);}
+  DEBUGCODE {fprintf(stderr, "ConvertToUTF8(): temp_UTF8 = %s\n", temp_UTF8);}
 
   return strlen(UTF8_word);
 }
+
+
 
 /******************************************************************/
 int map_keys(wchar_t wide_char,kbd_char* keyboard_entry)

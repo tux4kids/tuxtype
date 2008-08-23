@@ -282,8 +282,10 @@ int PlayCascade(int diflevel)
             if (event.key.keysym.sym == SDLK_F10)
               SwitchScreenMode();
 
-            if (event.key.keysym.sym == SDLK_F12) 
+            if (event.key.keysym.sym == SDLK_F12)
+            {
 //              SNOW_toggle();
+            }
 
             if (event.key.keysym.sym == SDLK_ESCAPE)
             {

@@ -33,6 +33,7 @@ static SDL_Surface* keypress2 = NULL;
 static SDL_Surface* hand[11] = {NULL};
 static SDL_Rect hand_loc, letter_loc,keyboard_loc;
 static TTF_Font* font = NULL;
+
 static wchar_t phrase[255][FNLEN];
 
 static Mix_Chunk* wrong = NULL;
@@ -632,6 +633,11 @@ static int get_phrase(const wchar_t* phr)
   int wp = 0, i = 0, c = 0, z = 0;
   char fn[FNLEN];
 
+  int old_debug_on = settings.debug_on;
+  settings.debug_on = 1;
+
+  LOG("Entering get_phrase()\n");
+
   /* If we didn't receive a phrase get the first one from the file...*/
   if (wcsncmp((wchar_t*)"", phr, 40) == 0)
   {
@@ -711,6 +717,9 @@ static int get_phrase(const wchar_t* phr)
       }
     }
   }
+
+  settings.debug_on = old_debug_on;
+
   LOG("Leaving get_phrase()\n");
   return(wp);
 }
@@ -722,14 +731,23 @@ static void print_at(const wchar_t *pphrase, int wrap, int x, int y)
 	letter_loc.x = x;
 	letter_loc.y = y;
 	//font = LoadFont(settings.theme_font_name, 30);
-	DEBUGCODE { printf("\n\n\nEntering print_at with : %S\n",pphrase); }
+	DEBUGCODE {
+                    printf("\n\n\nEntering print_at with : %S\n",pphrase);
+                    printf("wrap = %d\t wsclen() = %d\n", wrap, wcslen(pphrase));
+                  }
+
+
 	if ( wrap == wcslen(pphrase) ){
+                LOG("Wrap not needed\n");
+
 		tmp = BlackOutline_w(pphrase, font, &white, wrap);
 		letter_loc.w = tmp->w+5;
 		letter_loc.h = tmp->h+5;
 		SDL_BlitSurface(tmp, NULL, screen, &letter_loc);
 		SDL_FreeSurface(tmp);
 	}else{
+                LOG("Line length exceeded - wrap required\n");
+
 		tmp = BlackOutline_w(pphrase, font, &white, wrap+1);
 		letter_loc.w = tmp->w+5;
 		letter_loc.h = tmp->h+5;
