@@ -34,7 +34,7 @@ static int number_max_w;                 // the max width of a number image
 //int o_lives; // something cal is working on
 //int sound_vol;
 static TTF_Font* font = NULL;
-static SDL_Surface* background = NULL;
+//static SDL_Surface* background = NULL;
 static SDL_Surface* level[NUM_LEVELS] = {NULL};
 static SDL_Surface* number[NUM_NUMS] = {NULL};
 static SDL_Surface* curlev = NULL;
@@ -76,7 +76,7 @@ static void DrawNumbers(int num, int x, int y, int places);
 static int DrawObject(SDL_Surface* surf, int x, int y);
 static int DrawSprite(sprite* gfx, int x, int y);
 static void EraseNumbers(int num, int x, int y, int places);
-static int EraseObject(SDL_Surface* sprite, int x, int y);
+static int EraseObject(SDL_Surface* surf, int x, int y);
 static int EraseSprite(sprite* img, int x, int y);
 static float float_restrict(float a, float x, float b);
 static void FreeGame(void);
@@ -208,7 +208,8 @@ int PlayCascade(int diflevel)
 
       if (curlevel != 0)
       {
-        SDL_FreeSurface(background);
+        FreeBothBkgds();
+        //SDL_FreeSurface(background);
       }
 
       if (diflevel == INF_PRACT)
@@ -225,8 +226,8 @@ int PlayCascade(int diflevel)
       {
         fprintf(stderr, "->>Loading background: %s\n", filename);
       }
-
-      background = LoadImage( filename, IMG_REGULAR );
+        LoadBothBkgds(filename);
+//      background = LoadImage( filename, IMG_REGULAR );
 //			SNOW_setBkg( background );
 
       DrawBackground();
@@ -257,11 +258,13 @@ int PlayCascade(int diflevel)
 
       /* --- Poll input queue, get keyboard info --- */
       while (SDL_PollEvent(&event))
+      {
         if ( event.type == SDL_QUIT )
         {
           exit(0); /* FIXME does memory get cleaned up properly if we do this? */
         }
         else
+        {
           if (event.type == SDL_KEYDOWN)
           {
             if (event.key.keysym.sym == SDLK_F11) 
@@ -333,8 +336,10 @@ int PlayCascade(int diflevel)
             /* Now update with case-folded value: */
             UpdateTux(key_unicode, fishies, frame);
           }
+        }
+      }   /* ------ End of 'while' loop for handling user input ------- */
 
-      /* ---------- Done handling user input ----------- */
+
 
       /* --- fishy updates --- */
       if ((frame % 10) == 0)
@@ -376,6 +381,7 @@ int PlayCascade(int diflevel)
 
       if (!quitting) 
       {
+        /* This does all the blits that we have queued up this frame: */
         UpdateScreen(&frame);
 
         if (!settings.speed_up)
@@ -734,29 +740,32 @@ void WaitFrame(void) {
  ResetObjects : Clear and reset all objects to dead
 ****************************************************/
 
-static void ResetObjects( void ) {
-	int i;
+static void ResetObjects(void)
+{
+  int i;
 
-	LOG( "RESETTING OBJECTS\n" );
+  LOG("RESETTING OBJECTS\n");
 
-	for (i = 0; i < MAX_FISHIES_HARD + 1; i++) {
-		fish_object[i] = null_fishy;
-		splat_object[i] = null_splat;
-	}
+  for (i = 0; i < MAX_FISHIES_HARD + 1; i++)
+  {
+    fish_object[i] = null_fishy;
+    splat_object[i] = null_splat;
+  }
 
-	tux_object.facing = RIGHT;
-	tux_object.x = screen->w / 2;
-	tux_object.y = screen->h - tux_object.spr[0][RIGHT]->frame[0]->h - 1;
-	tux_object.dx = 0;
-	tux_object.dy = 0;
-	tux_object.endx = tux_object.x;
-	tux_object.endy = tux_object.y;
-	tux_object.state = TUX_STANDING;
-	tux_object.word[0] = 0;
-	tux_object.wordlen = 0;
+  tux_object.facing = RIGHT;
+  tux_object.x = screen->w/2;
+  tux_object.y = screen->h - tux_object.spr[0][RIGHT]->frame[0]->h - 1;
+  tux_object.dx = 0;
+  tux_object.dy = 0;
+  tux_object.endx = tux_object.x;
+  tux_object.endy = tux_object.y;
+  tux_object.state = TUX_STANDING;
+  tux_object.word[0] = 0;
+  tux_object.wordlen = 0;
 
-	LOG( "OBJECTS RESET\n" );
+  LOG( "OBJECTS RESET\n" );
 }
+
 
 static int DrawSprite(sprite* gfx, int x, int y)
 {
@@ -872,45 +881,26 @@ static void UpdateScreen(int* frame)
   LOG("Leaving UpdateScreen()\n");
 }
 
+
+/* basically puts in an order to overdraw sprite with corresponding */
+/* rect of bkgd img                                                 */
 static int EraseSprite(sprite* img, int x, int y)
 {
   struct blit* update;
 
-  if(!img)
+  if( !img 
+   || img->cur < 0
+   || img->cur > MAX_SPRITE_FRAMES
+   || !img->frame[img->cur])
   {
     fprintf(stderr, "EraseSprite() - invalid 'img' arg!\n");
     return 0;
   }
 
-  update = &blits[numupdates++];
-
-  if(!update || !update->srcrect || !update->dstrect)
-  {
-    fprintf(stderr, "EraseSprite() - 'update' ptr invalid!\n");
-    return 0;
-  }
-
-  update->src = background;
-  update->srcrect->x = x;
-  update->srcrect->y = y;
-  update->srcrect->w = img->frame[img->cur]->w;
-  update->srcrect->h = img->frame[img->cur]->h;
-
-  /* check to see if we are trying blit data that doesn't exist!!! */
-
-  if (update->srcrect->x + update->srcrect->w > background->w)
-    update->srcrect->w = background->w - update->srcrect->x;
-  if (update->srcrect->y + update->srcrect->h > background->h)
-    update->srcrect->h = background->h - update->srcrect->y;
-
-  update->dstrect->x = x;
-  update->dstrect->y = y;
-  update->dstrect->w = update->srcrect->w;
-  update->dstrect->h = update->srcrect->h;
-  update->type = 'E';
-
-  return 1;
+  return EraseObject(img->frame[img->cur], x, y);
 }
+
+
 
 /*************************
 EraseObject : Erase an object from the screen
@@ -933,18 +923,19 @@ static int EraseObject(SDL_Surface* surf, int x, int y)
     return 0;
   }
 
-  update->src = background;
+  update->src = CurrentBkgd();
+//  update->src = background;
   update->srcrect->x = x;
   update->srcrect->y = y;
   update->srcrect->w = surf->w;
   update->srcrect->h = surf->h;
 
-  /* check to see if we are trying blit data that doesn't exist!!! */
+  /* (reduce width or height of srcrect so it doesn't go past bkgd) */
+  if (update->srcrect->x + update->srcrect->w > CurrentBkgd()->w)
+    update->srcrect->w = CurrentBkgd()->w - update->srcrect->x;
+  if (update->srcrect->y + update->srcrect->h > CurrentBkgd()->h)
+    update->srcrect->h = CurrentBkgd()->h - update->srcrect->y;
 
-  if (update->srcrect->x + update->srcrect->w > background->w)
-    update->srcrect->w = background->w - update->srcrect->x;
-  if (update->srcrect->y + update->srcrect->h > background->h)
-    update->srcrect->h = background->h - update->srcrect->y;
 
   update->dstrect->x = x;
   update->dstrect->y = y;
@@ -1205,69 +1196,85 @@ the game elements
 ***********************/
 static void FreeGame(void)
 {
-	int i;
+  int i;
 
-	FreeLetters();
+  FreeLetters();
 
-	TTF_CloseFont(font);
-        font = NULL;
+  if (font)
+    TTF_CloseFont(font);
+  font = NULL;
 
-	LOG( "FreeGame():\n-Freeing Tux Animations\n" );
+  LOG( "FreeGame():\n-Freeing Tux Animations\n" );
 
-	for ( i=0; i < TUX_NUM_STATES; i++ ) {
-		FreeSprite(tux_object.spr[i][RIGHT]);
-		FreeSprite(tux_object.spr[i][LEFT]);
-		tux_object.spr[i][RIGHT] = NULL;
-		tux_object.spr[i][LEFT] = NULL;
-	}
+  for (i = 0; i < TUX_NUM_STATES; i++ )
+  {
+    if (tux_object.spr[i][RIGHT])
+      FreeSprite(tux_object.spr[i][RIGHT]);
+    tux_object.spr[i][RIGHT] = NULL;
 
-	LOG( "-Freeing fishies\n" );
+    if (tux_object.spr[i][LEFT])
+      FreeSprite(tux_object.spr[i][LEFT]);
+    tux_object.spr[i][LEFT] = NULL;
+  }
 
-	FreeSprite( fishy );
-	FreeSprite( splat );
-        fishy = splat = NULL;
+  LOG( "-Freeing fishies\n" );
 
-	LOG( "-Freeing other game graphics\n" );
+  if (fishy)
+    FreeSprite(fishy);
+  if (splat)
+    FreeSprite(splat);
+  fishy = splat = NULL;
 
-	SDL_FreeSurface(background);
-	SDL_FreeSurface(curlev);
-	SDL_FreeSurface(fish);
-	SDL_FreeSurface(lives);
-        background = curlev = fish = lives = NULL;
+  LOG( "-Freeing other game graphics\n" );
 
-	for (i = 0; i < NUM_LEVELS; i++)
-	{
-          SDL_FreeSurface(level[i]);
-	  level[i] = NULL;
-        }
-	for (i = 0; i < NUM_NUMS; i++)
-	{
-	  SDL_FreeSurface(number[i]);
-	  number[i] = NULL;
-	}
-	for (i = 0; i < CONGRATS_FRAMES; i++)
-	{
-	  SDL_FreeSurface(congrats[i]);
-	  congrats[i] = NULL;
-	}
-	for (i = 0; i < OH_NO_FRAMES; i++)
-	{
-	  SDL_FreeSurface(ohno[i]);
-	  ohno[i] = NULL;
-	}
-	if (settings.sys_sound) {
-	  LOG( "-Freeing sound\n" );
-	  for (i = 0; i < NUM_WAVES; ++i)
-          {
-	    Mix_FreeChunk(sound[i]);
-            sound[i] = NULL;
-	  }
-	}
+  FreeBothBkgds();
 
-//	PauseUnloadMedia();
+  if (curlev)
+    SDL_FreeSurface(curlev);
+  if (fish)
+    SDL_FreeSurface(fish);
+  if (lives)
+    SDL_FreeSurface(lives);
+  curlev = fish = lives = NULL;
 
+  for (i = 0; i < NUM_LEVELS; i++)
+  {
+    if (level[i])
+      SDL_FreeSurface(level[i]);
+    level[i] = NULL;
+  }
+  for (i = 0; i < NUM_NUMS; i++)
+  {
+    if (number[i])
+      SDL_FreeSurface(number[i]);
+    number[i] = NULL;
+  }
+  for (i = 0; i < CONGRATS_FRAMES; i++)
+  {
+    if (congrats[i])
+      SDL_FreeSurface(congrats[i]);
+    congrats[i] = NULL;
+  }
+  for (i = 0; i < OH_NO_FRAMES; i++)
+  {
+    if (ohno[i])
+      SDL_FreeSurface(ohno[i]);
+    ohno[i] = NULL;
+  }
+  if (settings.sys_sound)
+  {
+    LOG( "-Freeing sound\n" );
+    for (i = 0; i < NUM_WAVES; ++i)
+    {
+      if (sound[i])
+        Mix_FreeChunk(sound[i]);
+      sound[i] = NULL;
+    }
+  }
 
-	LOG( "FreeGame(): END\n" );
+//  PauseUnloadMedia();
+
+  LOG( "FreeGame(): END\n" );
 }
 
 /***************************
@@ -1286,12 +1293,12 @@ static void DrawBackground(void)
     numupdates=0;  // drawing entire background writes over all other stuff, so don't draw them
 
     update = &blits[numupdates++];
-    update->src = background;
+    update->src = CurrentBkgd();
 
     update->srcrect->x = update->dstrect->x = 0;
     update->srcrect->y = update->dstrect->y = 0;
-    update->srcrect->w = update->dstrect->w = background->w;
-    update->srcrect->h = update->dstrect->h = background->h;
+    update->srcrect->w = update->dstrect->w = update->src->w;
+    update->srcrect->h = update->dstrect->h = update->src->h;
 
     update->type = 'D';
 }

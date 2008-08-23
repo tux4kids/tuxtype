@@ -1,3 +1,12 @@
+22 Aug 2008 - svn revision 668
+[ David Bruce <davidstuartbruce@gmail.com> ]
+        - Extensive revision to support fullscreen mode at resolution of OS rather than only 640x480.
+          Menu system and comet zap work, fish cascade now works in fullscreen but cannot handle
+          toggle of resolution in midstream; practice and lessons still need to be fixed to 
+          handle new fullscreen mode.
+        - Using GNU iconv() instead of Unicode Inc.'s conversion code
+        - SDL_extras brought in from tuxmath for DrawButton(), streamlined BlackOutline(), etc.
+
 18 Aug 2008 - svn revision 647
 [ Sreyas Kurumanghat <k.sreyas@gmail.com ]
 	- Added features to practice game. Now pressing the down arrow presents the next phrase for practice and the escape key quits from the game.

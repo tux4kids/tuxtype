@@ -332,7 +332,7 @@ int LoadBothBkgds(const char* datafile)
   SDL_Surface* orig = NULL;
   
   //Avoid memory leak in case something else already loaded:
-  UnloadBkgds();
+  FreeBothBkgds();
 
   LOG("Entering LoadBothBkgds()\n");
 
@@ -385,7 +385,7 @@ SDL_Surface* CurrentBkgd(void)
     return win_bkgd;
 }
 
-void UnloadBkgds(void)
+void FreeBothBkgds(void)
 {
   if (win_bkgd)
     SDL_FreeSurface(win_bkgd);

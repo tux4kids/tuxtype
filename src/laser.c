@@ -624,7 +624,7 @@ int PlayLaserGame(int diff_level)
 
   
   /* Free backgrounds: */
-  UnloadBkgds();
+  FreeBothBkgds();
 
 	/* Stop music: */
 	if ((settings.sys_sound) && (Mix_PlayingMusic()))
@@ -776,7 +776,7 @@ static void laser_reset_level(int diff_level)
   LOG("Will try to load file:");
   LOG(fname);
 
-  UnloadBkgds();
+  FreeBothBkgds(); // LoadBothBkgds() actually does this just in case
 
   LoadBothBkgds(fname);
 

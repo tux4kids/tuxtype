@@ -86,7 +86,7 @@ TTF_Font* LoadFont(const char* fontfile, int fontsize);
 SDL_Surface* LoadImage(const char* datafile, int mode);
 int LoadBothBkgds(const char* datafile);
 SDL_Surface* CurrentBkgd(void);
-void UnloadBkgds(void);
+void FreeBothBkgds(void);
 void LoadLang(void);
 Mix_Music* LoadMusic(const char* datafile);
 Mix_Chunk* LoadSound(const char* datafile);

@@ -1143,7 +1143,7 @@ static void unload_media(void)
     speakeroff = NULL;
   }
 
-  UnloadBkgds();
+  FreeBothBkgds();
 
   if (Tux)
   {
