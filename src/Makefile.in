@@ -37,7 +37,11 @@ bin_PROGRAMS = tuxtype$(EXEEXT)
 subdir = src
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
-am__aclocal_m4_deps = $(top_srcdir)/acinclude.m4 \
+am__aclocal_m4_deps = $(top_srcdir)/m4/gettext.m4 \
+	$(top_srcdir)/m4/iconv.m4 $(top_srcdir)/m4/lib-ld.m4 \
+	$(top_srcdir)/m4/lib-link.m4 $(top_srcdir)/m4/lib-prefix.m4 \
+	$(top_srcdir)/m4/nls.m4 $(top_srcdir)/m4/po.m4 \
+	$(top_srcdir)/m4/progtest.m4 $(top_srcdir)/acinclude.m4 \
 	$(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
@@ -53,7 +57,7 @@ am_tuxtype_OBJECTS = playgame.$(OBJEXT) main.$(OBJEXT) \
 	practice.$(OBJEXT) audio.$(OBJEXT) gettext.$(OBJEXT) \
 	snow.$(OBJEXT) scripting.$(OBJEXT) SDL_extras.$(OBJEXT) \
 	pixels.$(OBJEXT) pause.$(OBJEXT) ConvertUTF.$(OBJEXT) \
-	options.$(OBJEXT)
+	options.$(OBJEXT) iconv_string.$(OBJEXT)
 tuxtype_OBJECTS = $(am_tuxtype_OBJECTS)
 tuxtype_LDADD = $(LDADD)
 tuxtype_LINK = $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(tuxtype_LDFLAGS) \
@@ -89,7 +93,6 @@ ECHO_N = @ECHO_N@
 ECHO_T = @ECHO_T@
 EGREP = @EGREP@
 EXEEXT = @EXEEXT@
-GETTEXT_MACRO_VERSION = @GETTEXT_MACRO_VERSION@
 GMSGFMT = @GMSGFMT@
 GMSGFMT_015 = @GMSGFMT_015@
 GREP = @GREP@
@@ -137,7 +140,6 @@ VERSION = @VERSION@
 WINDRES = @WINDRES@
 XGETTEXT = @XGETTEXT@
 XGETTEXT_015 = @XGETTEXT_015@
-XGETTEXT_EXTRA_OPTIONS = @XGETTEXT_EXTRA_OPTIONS@
 abs_builddir = @abs_builddir@
 abs_srcdir = @abs_srcdir@
 abs_top_builddir = @abs_top_builddir@
@@ -209,7 +211,8 @@ tuxtype_SOURCES = \
 	pixels.c	\
 	pause.c		\
 	ConvertUTF.c	\
-	options.c
+	options.c	\
+	iconv_string.c
 
 EXTRA_DIST = titlescreen.h \
 	playgame.h 	\
@@ -221,7 +224,9 @@ EXTRA_DIST = titlescreen.h \
 	SDL_extras.h	\
 	snow.h		\
 	ConvertUTF.h	\
-	i18n.h
+	iconv_string.h  \
+	gettext.h	\
+	compiler.h
 
 tuxtype_LDFLAGS = $(LTLIBINTL)
 all: all-am
@@ -295,6 +300,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/alphabet.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/audio.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gettext.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/iconv_string.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/laser.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/loaders.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/main.Po@am__quote@

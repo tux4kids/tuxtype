@@ -3,7 +3,7 @@ MAKENSIS=@NSIS@
 
 SUBDIRS = po data doc src
 
-EXTRA_DIST =  src/gettext.h config.rpath m4/ChangeLog  AUTHORS COPYING ChangeLog INSTALL README TODO tuxtype.lsm tuxtype.spec tuxtype.spec.in config.h autorun.inf tuxtype.ico
+EXTRA_DIST = config.rpath AUTHORS COPYING ChangeLog INSTALL README TODO tuxtype.lsm tuxtype.spec tuxtype.spec.in config.h autorun.inf tuxtype.ico
 
 install-data-local:
 	$(MKDIR_P) $(DESTDIR)$(prefix)/doc/$(PACKAGE)

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tux Typing 1.5.16\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2008-08-23 06:45-0500\n"
+"POT-Creation-Date: 2008-08-26 16:04-0500\n"
 "PO-Revision-Date: 2003-05-08 17:58+0200\n"
 "Last-Translator: Nikolai Beier <beier@ofir.dk>\n"
 "Language-Team: Danish\n"
@@ -40,41 +40,41 @@ msgstr "Tryk escape igen for at komme tilbage til menuen"
 msgid "Press space bar to return to game"
 msgstr "Tryk på mellemrumstasten for at spille videre"
 
-#: src/playgame.c:1040
+#: src/playgame.c:1044
 msgid "Level"
 msgstr "Niveau"
 
-#: src/playgame.c:1041
+#: src/playgame.c:1045
 msgid "Lives"
 msgstr "Liv"
 
-#: src/playgame.c:1042
+#: src/playgame.c:1046
 msgid "Fish"
 msgstr "Fisk"
 
 # levels for Cascade game:
-#: src/playgame.c:1044 src/titlescreen.c:91
+#: src/playgame.c:1048 src/titlescreen.c:91
 msgid "Easy"
 msgstr "Let"
 
-#: src/playgame.c:1045 src/titlescreen.c:92
+#: src/playgame.c:1049 src/titlescreen.c:92
 msgid "Medium"
 msgstr "Mellem"
 
-#: src/playgame.c:1046 src/titlescreen.c:93
+#: src/playgame.c:1050 src/titlescreen.c:93
 msgid "Hard"
 msgstr "Hård"
 
 # general stuff
-#: src/playgame.c:1047 src/titlescreen.c:92
+#: src/playgame.c:1051 src/titlescreen.c:92
 msgid "Practice"
 msgstr "Øv dig!"
 
-#: src/playgame.c:1058
+#: src/playgame.c:1062
 msgid "Congratulations"
 msgstr "Tillykke!"
 
-#: src/playgame.c:1062
+#: src/playgame.c:1066
 msgid "Oh No!"
 msgstr "Åh nej!"
 

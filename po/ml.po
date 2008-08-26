@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tuxtype\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2008-08-23 06:45-0500\n"
+"POT-Creation-Date: 2008-08-26 16:04-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Mobin M <mobinmohan@gmail.com>\n"
 "Language-Team: Swathanthra|സ്വതന്ത്ര Malayalam|മലയാളം Computing|കമ്പ്യൂട്ടിങ്ങ് <smc-"
@@ -41,39 +41,39 @@ msgstr "പുറത്തോട്ടുപോകാന്‍ വീണ്ട�
 msgid "Press space bar to return to game"
 msgstr "കളിയില്‍ തിരിച്ചെത്താന്‍ സ്പെയ്സ് കീ അടിക്കുക"
 
-#: src/playgame.c:1040
+#: src/playgame.c:1044
 msgid "Level"
 msgstr "തട്ട്"
 
-#: src/playgame.c:1041
+#: src/playgame.c:1045
 msgid "Lives"
 msgstr "ആയുസ്സ്"
 
-#: src/playgame.c:1042
+#: src/playgame.c:1046
 msgid "Fish"
 msgstr "മത്സ്യം"
 
-#: src/playgame.c:1044 src/titlescreen.c:91
+#: src/playgame.c:1048 src/titlescreen.c:91
 msgid "Easy"
 msgstr "എളുപ്പം"
 
-#: src/playgame.c:1045 src/titlescreen.c:92
+#: src/playgame.c:1049 src/titlescreen.c:92
 msgid "Medium"
 msgstr "ഇടത്തരം"
 
-#: src/playgame.c:1046 src/titlescreen.c:93
+#: src/playgame.c:1050 src/titlescreen.c:93
 msgid "Hard"
 msgstr "ബുദ്ധിമുട്ടുള്ളത്"
 
-#: src/playgame.c:1047 src/titlescreen.c:92
+#: src/playgame.c:1051 src/titlescreen.c:92
 msgid "Practice"
 msgstr "പരിശീലനം"
 
-#: src/playgame.c:1058
+#: src/playgame.c:1062
 msgid "Congratulations"
 msgstr "കൊള്ളാലോ!!!"
 
-#: src/playgame.c:1062
+#: src/playgame.c:1066
 msgid "Oh No!"
 msgstr "അയ്യോ!.."
 

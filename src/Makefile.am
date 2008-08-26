@@ -22,7 +22,8 @@ tuxtype_SOURCES = 	\
 	pixels.c	\
 	pause.c		\
 	ConvertUTF.c	\
-	options.c
+	options.c	\
+	iconv_string.c
 
 EXTRA_DIST = titlescreen.h \
 	playgame.h 	\
@@ -34,7 +35,9 @@ EXTRA_DIST = titlescreen.h \
 	SDL_extras.h	\
 	snow.h		\
 	ConvertUTF.h	\
-	i18n.h
+	iconv_string.h  \
+	gettext.h	\
+	compiler.h
 
 tuxtype_LDFLAGS = $(LTLIBINTL)
 

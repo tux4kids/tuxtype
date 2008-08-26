@@ -282,8 +282,20 @@ int PlayCascade(int diflevel)
               curlives = curlives + 10;
             }
 
+            /* FIXME could be improved - currently clears out all words    */
+            /* in play at time of switch, so could be used to avoid losing */
             if (event.key.keysym.sym == SDLK_F10)
+            {
+              /* first wipe out old blits because screen size is changing */
+              /* and otherwise we would segfault:                         */
+              numupdates = 0;
+
               SwitchScreenMode();
+
+              DrawBackground();
+              ResetObjects();
+
+            }
 
             if (event.key.keysym.sym == SDLK_F12)
             {
@@ -848,7 +860,18 @@ static void UpdateScreen(int* frame)
   for (i = 0; i < numupdates; i++)
   {
     if (blits[i].type == 'E') 
+    {
+      DEBUGCODE
+      {
+        fprintf(stderr, "Erasing blits[%d]\n", i);
+        fprintf(stderr, "srcrect->x = %d\t srcrect->y = %d\t srcrect->w = %d\t srcrect->h = %d\n",
+              blits[i].srcrect->x, blits[i].srcrect->y, blits[i].srcrect->w, blits[i].srcrect->h);
+        fprintf(stderr, "dstrect->x = %d\t dstrect->y = %d\t dstrect->w = %d\t dstrect->h = %d\n",
+              blits[i].dstrect->x, blits[i].dstrect->y, blits[i].dstrect->w, blits[i].dstrect->h);
+      }
+
       SDL_LowerBlit(blits[i].src, blits[i].srcrect, screen, blits[i].dstrect);
+    }
   }
 
   LOG("Done erasing\n");
@@ -859,7 +882,18 @@ static void UpdateScreen(int* frame)
   for (i = 0; i < numupdates; i++)
   {
     if (blits[i].type == 'D') 
+    {
+      DEBUGCODE
+      {
+        fprintf(stderr, "drawing blits[%d]\n", i);
+        fprintf(stderr, "srcrect->x = %d\t srcrect->y = %d\t srcrect->w = %d\t srcrect->h = %d\n",
+              blits[i].srcrect->x, blits[i].srcrect->y, blits[i].srcrect->w, blits[i].srcrect->h);
+        fprintf(stderr, "dstrect->x = %d\t dstrect->y = %d\t dstrect->w = %d\t dstrect->h = %d\n",
+              blits[i].dstrect->x, blits[i].dstrect->y, blits[i].dstrect->w, blits[i].dstrect->h);
+      } 
+
       SDL_BlitSurface(blits[i].src, blits[i].srcrect, screen, blits[i].dstrect);
+    } 
   }
 
   LOG("Done drawing\n");

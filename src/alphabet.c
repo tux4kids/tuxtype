@@ -27,7 +27,8 @@ Sreyas Kurumanghat <k.sreyas@gmail.com>
 #endif
 
 /* Needed to convert UTF-8 under Windows because we don't have glibc: */
-#include "ConvertUTF.h"  
+#include "ConvertUTF.h"
+#include "iconv_string.h"
 
 #include "globals.h"
 #include "funcs.h"
@@ -1067,6 +1068,10 @@ int check_needed_unicodes_str(const wchar_t* s)
   return 1;
 }
 
+/* FIXME should be able to use iconv() for this one but have not */
+/* gotten it to work properly - staying with Unicode Inc.        */
+/* implementation for now.
+
 /* This function just tidies up all the ptr args needed for      */
 /* ConvertUTF8toUTF32() from Unicode, Inc. into a neat wrapper.  */
 /* It returns -1 on error, otherwise returns the length of the   */
@@ -1107,7 +1112,8 @@ int ConvertFromUTF8(wchar_t* wide_word, const unsigned char* UTF8_word)
     wide_word[i] = '\0';
   }
 
-  DEBUGCODE {fprintf(stderr, "wide_word = %ls\n", wide_word);}
+  DEBUGCODE {fprintf(stderr, "wide_word = %ls\t", wide_word);}
+  DEBUGCODE {fprintf(stderr, "wcslen(wide_word) = %d\n", wcslen(wide_word));}
 
   return wcslen(wide_word);
 }
