@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tux Typing 1.5.16\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2008-08-13 19:23+0530\n"
+"POT-Creation-Date: 2008-08-26 12:22+0530\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Mobin M <mobinmohan@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -59,22 +59,22 @@ msgid "Fish"
 msgstr "माछा"
 
 #
-#: src/playgame.c:949 src/titlescreen.c:74
+#: src/playgame.c:949 src/titlescreen.c:75
 msgid "Easy"
 msgstr "सजिलो"
 
 #
-#: src/playgame.c:950 src/titlescreen.c:75
+#: src/playgame.c:950 src/titlescreen.c:76
 msgid "Medium"
 msgstr "मध्यम"
 
 #
-#: src/playgame.c:951 src/titlescreen.c:76
+#: src/playgame.c:951 src/titlescreen.c:77
 msgid "Hard"
 msgstr "कठिन"
 
 #
-#: src/playgame.c:952 src/titlescreen.c:75
+#: src/playgame.c:952 src/titlescreen.c:76
 msgid "Practice"
 msgstr "प्रशिक्षण"
 
@@ -89,98 +89,98 @@ msgid "Oh No!"
 msgstr "हेत्तेरिका!.."
 
 #
-#: src/practice.c:239
+#: src/practice.c:475
 msgid "Great!"
 msgstr "उत्तम अति उत्तम ‍!"
 
 #
-#: src/practice.c:589
+#: src/practice.c:855
 #, fuzzy
 msgid "Next letter "
 msgstr "आगामी अक्षर"
 
 #
-#: src/titlescreen.c:74
+#: src/titlescreen.c:75
 msgid "Fish Cascade"
 msgstr "माछा क्यास्केड ‍"
 
 #
-#: src/titlescreen.c:74
+#: src/titlescreen.c:75
 msgid "Space Cadet"
 msgstr "‍ स्पेस क्याडेट"
 
 #
-#: src/titlescreen.c:74
+#: src/titlescreen.c:75
 msgid "Edit Word Lists"
 msgstr "शब्द शुचिहरुलाई सम्पादन गर्नुहोस ।"
 
 #
-#: src/titlescreen.c:75
+#: src/titlescreen.c:76
 msgid "Comet Zap"
 msgstr "कमेट ज्याप"
 
 #
-#: src/titlescreen.c:75
+#: src/titlescreen.c:76
 msgid "Pilot"
 msgstr "पाइलट"
 
 #
-#: src/titlescreen.c:76
+#: src/titlescreen.c:77
 msgid "Lessons"
 msgstr "पाठ्य‍क्रमहरु"
 
 #
-#: src/titlescreen.c:76
+#: src/titlescreen.c:77
 msgid "Ace"
 msgstr "एस"
 
 #
-#: src/titlescreen.c:76
+#: src/titlescreen.c:77
 msgid "Project Info"
 msgstr "‍परियोजनाको बारेमा"
 
 #
-#: src/titlescreen.c:77
+#: src/titlescreen.c:78
 msgid "Options"
 msgstr "विकल्पहरु‍"
 
 #
-#: src/titlescreen.c:77
+#: src/titlescreen.c:78
 msgid "Instructions"
 msgstr "निर्देशनहरु "
 
 #
-#: src/titlescreen.c:77
+#: src/titlescreen.c:78
 msgid "Commander"
 msgstr "कमान्डर‍"
 
 #
-#: src/titlescreen.c:77
+#: src/titlescreen.c:78
 msgid "Setup Language"
 msgstr "भाषा समाबिष्ट गर्नुहोस ।"
 
 #
-#: src/titlescreen.c:78
+#: src/titlescreen.c:79
 msgid "Quit"
 msgstr "बन्द गर्नुहोस ।"
 
 #
-#: src/titlescreen.c:78
+#: src/titlescreen.c:79
 msgid "Main Menu"
 msgstr "मुख्य मेनु"
 
 #
-#: src/titlescreen.c:1156
+#: src/titlescreen.c:1220
 msgid "Work In Progress!"
 msgstr "काम हुदैछ!!!!!!!!"
 
 #
-#: src/titlescreen.c:1157
+#: src/titlescreen.c:1221
 msgid "This feature is not ready yet"
 msgstr "यो सुबिधा अहिले उपलब्ध हुनसक्दैन!!!!"
 
 #
-#: src/titlescreen.c:1158
+#: src/titlescreen.c:1222
 msgid "Discuss the future of TuxTyping at"
 msgstr " टक्शटाइप को भविष्य बारेमा छलफल गर्नुहोस ।"
 

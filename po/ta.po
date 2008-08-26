@@ -1,14 +1,14 @@
 # translation of tuxtype.po to Tamil
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Felix I <ifelix25@gmail.com>, 2008.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: tuxtype\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2008-08-13 19:23+0530\n"
+"POT-Creation-Date: 2008-08-26 12:22+0530\n"
 "PO-Revision-Date: 2008-08-22 12:41+0530\n"
-"Last-Translator: \n"
+"Last-Translator: Felix I <ifelix25@gmail.com>, 2008\n"
 "Language-Team:  <en@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -51,19 +51,19 @@ msgstr "லைவ்ஸ்"
 msgid "Fish"
 msgstr "ஃபிஷ்"
 
-#: src/playgame.c:949 src/titlescreen.c:74
+#: src/playgame.c:949 src/titlescreen.c:75
 msgid "Easy"
 msgstr "எளியது"
 
-#: src/playgame.c:950 src/titlescreen.c:75
+#: src/playgame.c:950 src/titlescreen.c:76
 msgid "Medium"
 msgstr "நடுத்தரம்"
 
-#: src/playgame.c:951 src/titlescreen.c:76
+#: src/playgame.c:951 src/titlescreen.c:77
 msgid "Hard"
 msgstr "கடினம்"
 
-#: src/playgame.c:952 src/titlescreen.c:75
+#: src/playgame.c:952 src/titlescreen.c:76
 msgid "Practice"
 msgstr "பயிற்சி"
 
@@ -75,91 +75,90 @@ msgstr "வாழ்த்துக்கள்"
 msgid "Oh No!"
 msgstr "இல்லை!"
 
-#: src/practice.c:239
+#: src/practice.c:475
 msgid "Great!"
 msgstr "சபாஷ்!"
 
-#: src/practice.c:589
+#: src/practice.c:855
 msgid "Next letter "
 msgstr "அடுத்த எழுத்து"
 
-#: src/titlescreen.c:74
+#: src/titlescreen.c:75
 msgid "Fish Cascade"
 msgstr "ஃபிஷ் கேஸ்கேட்"
 
-#: src/titlescreen.c:74
+#: src/titlescreen.c:75
 msgid "Space Cadet"
 msgstr "ஸ்பேஸ் கேடெட்"
 
-#: src/titlescreen.c:74
+#: src/titlescreen.c:75
 msgid "Edit Word Lists"
 msgstr "சொல் பட்டியல்களை திருத்து"
 
-#: src/titlescreen.c:75
+#: src/titlescreen.c:76
 msgid "Comet Zap"
 msgstr "கமெட் ஸெப்"
 
-#: src/titlescreen.c:75
+#: src/titlescreen.c:76
 msgid "Pilot"
 msgstr "பைலட்"
 
-#: src/titlescreen.c:76
+#: src/titlescreen.c:77
 msgid "Lessons"
 msgstr "பாடங்கள்"
 
-#: src/titlescreen.c:76
+#: src/titlescreen.c:77
 msgid "Ace"
 msgstr "ஏஸ்"
 
-#: src/titlescreen.c:76
+#: src/titlescreen.c:77
 msgid "Project Info"
 msgstr "திட்ட விவரம்"
 
-#: src/titlescreen.c:77
+#: src/titlescreen.c:78
 msgid "Options"
 msgstr "விருப்பங்கள்"
 
-#: src/titlescreen.c:77
+#: src/titlescreen.c:78
 msgid "Instructions"
 msgstr "தகவல்கள்"
 
-#: src/titlescreen.c:77
+#: src/titlescreen.c:78
 msgid "Commander"
 msgstr "கமெண்டர்"
 
-#: src/titlescreen.c:77
+#: src/titlescreen.c:78
 msgid "Setup Language"
 msgstr "அமைவு மொழி"
 
-#: src/titlescreen.c:78
+#: src/titlescreen.c:79
 msgid "Quit"
 msgstr "வெளியேறு"
 
-#: src/titlescreen.c:78
+#: src/titlescreen.c:79
 msgid "Main Menu"
 msgstr "முதன்மை மெனு"
 
-#: src/titlescreen.c:1156
+#: src/titlescreen.c:1220
 msgid "Work In Progress!"
 msgstr "பணி நடைபெறுகிறது!"
 
-#: src/titlescreen.c:1157
+#: src/titlescreen.c:1221
 msgid "This feature is not ready yet"
 msgstr "இந்த வசதி இதுவரை இல்லை"
 
-#: src/titlescreen.c:1158
+#: src/titlescreen.c:1222
 msgid "Discuss the future of TuxTyping at"
 msgstr "TuxTyping எதிர்கால திட்டத்தை இங்கு விவாதிக்கவும்"
 
-msgid "Short Words"
-msgstr "குறைந்த சொற்கள்"
+#~ msgid "Short Words"
+#~ msgstr "குறைந்த சொற்கள்"
 
-msgid "Medium Words"
-msgstr "நடுத்தர சொற்கள்"
+#~ msgid "Medium Words"
+#~ msgstr "நடுத்தர சொற்கள்"
 
-msgid "Long Words"
-msgstr "நீண்ட சொற்கள்"
+#~ msgid "Long Words"
+#~ msgstr "நீண்ட சொற்கள்"
 
-msgid "Alphabet"
-msgstr "எழுத்து"
-
+#~ msgid "Alphabet"
+#~ msgstr "எழுத்து"

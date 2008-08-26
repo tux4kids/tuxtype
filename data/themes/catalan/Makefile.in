@@ -189,7 +189,7 @@ top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 SUBDIRS = words
 themes_catalandir = $(pkgdatadir)/data/themes/catalan
-dist_themes_catalan_DATA = lang.po keyboard.lst settings.txt
+dist_themes_catalan_DATA = keyboard.lst settings.txt
 all: all-recursive
 
 .SUFFIXES:

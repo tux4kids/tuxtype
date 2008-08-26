@@ -189,8 +189,7 @@ top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 SUBDIRS = words 
 themes_nederlandsdir = $(pkgdatadir)/data/themes/nederlands
-dist_themes_nederlands_DATA = lang.po \
-  keyboard.lst \
+dist_themes_nederlands_DATA = keyboard.lst \
   nederlands.txt	\
   settings.txt
 

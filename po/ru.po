@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tux Typing 1.5.16\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2008-08-13 19:23+0530\n"
+"POT-Creation-Date: 2008-08-26 12:22+0530\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Mobin M <mobinmohan@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -52,19 +52,19 @@ msgstr "Жизней"
 msgid "Fish"
 msgstr "Рыб"
 
-#: src/playgame.c:949 src/titlescreen.c:74
+#: src/playgame.c:949 src/titlescreen.c:75
 msgid "Easy"
 msgstr "Легкий"
 
-#: src/playgame.c:950 src/titlescreen.c:75
+#: src/playgame.c:950 src/titlescreen.c:76
 msgid "Medium"
 msgstr "Средний"
 
-#: src/playgame.c:951 src/titlescreen.c:76
+#: src/playgame.c:951 src/titlescreen.c:77
 msgid "Hard"
 msgstr "Сложный"
 
-#: src/playgame.c:952 src/titlescreen.c:75
+#: src/playgame.c:952 src/titlescreen.c:76
 msgid "Practice"
 msgstr "Практика"
 
@@ -76,78 +76,78 @@ msgstr "Поздравляем"
 msgid "Oh No!"
 msgstr "О, нет!"
 
-#: src/practice.c:239
+#: src/practice.c:475
 msgid "Great!"
 msgstr ""
 
-#: src/practice.c:589
+#: src/practice.c:855
 msgid "Next letter "
 msgstr ""
 
-#: src/titlescreen.c:74
+#: src/titlescreen.c:75
 msgid "Fish Cascade"
 msgstr "Каскад рыб"
 
-#: src/titlescreen.c:74
+#: src/titlescreen.c:75
 msgid "Space Cadet"
 msgstr "Космический кадет"
 
-#: src/titlescreen.c:74
+#: src/titlescreen.c:75
 msgid "Edit Word Lists"
 msgstr "Редактирование списка слов"
 
-#: src/titlescreen.c:75
+#: src/titlescreen.c:76
 msgid "Comet Zap"
 msgstr "Падение комет"
 
-#: src/titlescreen.c:75
+#: src/titlescreen.c:76
 msgid "Pilot"
 msgstr "Пилот"
 
-#: src/titlescreen.c:76
+#: src/titlescreen.c:77
 msgid "Lessons"
 msgstr "Уроки"
 
-#: src/titlescreen.c:76
+#: src/titlescreen.c:77
 msgid "Ace"
 msgstr "Ас"
 
-#: src/titlescreen.c:76
+#: src/titlescreen.c:77
 msgid "Project Info"
 msgstr ""
 
-#: src/titlescreen.c:77
+#: src/titlescreen.c:78
 msgid "Options"
 msgstr "Параметры"
 
-#: src/titlescreen.c:77
+#: src/titlescreen.c:78
 msgid "Instructions"
 msgstr "Инструкции"
 
-#: src/titlescreen.c:77
+#: src/titlescreen.c:78
 msgid "Commander"
 msgstr "Капитан"
 
-#: src/titlescreen.c:77
+#: src/titlescreen.c:78
 msgid "Setup Language"
 msgstr "Выбор языка"
 
-#: src/titlescreen.c:78
+#: src/titlescreen.c:79
 msgid "Quit"
 msgstr "Выход"
 
-#: src/titlescreen.c:78
+#: src/titlescreen.c:79
 msgid "Main Menu"
 msgstr "Главное меню"
 
-#: src/titlescreen.c:1156
+#: src/titlescreen.c:1220
 msgid "Work In Progress!"
 msgstr "Работа продолжается!"
 
-#: src/titlescreen.c:1157
+#: src/titlescreen.c:1221
 msgid "This feature is not ready yet"
 msgstr "Эта функция еще не готова"
 
-#: src/titlescreen.c:1158
+#: src/titlescreen.c:1222
 msgid "Discuss the future of TuxTyping at"
 msgstr "Обсудите будущее TuxTyping на"

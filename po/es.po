@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tux Typing 1.5.16\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2008-08-13 19:23+0530\n"
+"POT-Creation-Date: 2008-08-26 12:22+0530\n"
 "PO-Revision-Date: 2007-09-16 19:00+0000\n"
 "Last-Translator: Amaya Rodrigo <amaya@debian.org>\n"
 "Language-Team: Spanish\n"
@@ -52,20 +52,20 @@ msgid "Fish"
 msgstr "Pescado"
 
 # niveles para juego de cascada:
-#: src/playgame.c:949 src/titlescreen.c:74
+#: src/playgame.c:949 src/titlescreen.c:75
 msgid "Easy"
 msgstr "Fácil"
 
-#: src/playgame.c:950 src/titlescreen.c:75
+#: src/playgame.c:950 src/titlescreen.c:76
 msgid "Medium"
 msgstr "Medio"
 
-#: src/playgame.c:951 src/titlescreen.c:76
+#: src/playgame.c:951 src/titlescreen.c:77
 msgid "Hard"
 msgstr "Difícil"
 
 # Cosas generales
-#: src/playgame.c:952 src/titlescreen.c:75
+#: src/playgame.c:952 src/titlescreen.c:76
 msgid "Practice"
 msgstr "Practicar"
 
@@ -77,86 +77,86 @@ msgstr "¡Felicidades!"
 msgid "Oh No!"
 msgstr "¡Oh, no!"
 
-#: src/practice.c:239
+#: src/practice.c:475
 msgid "Great!"
 msgstr ""
 
-#: src/practice.c:589
+#: src/practice.c:855
 msgid "Next letter "
 msgstr ""
 
-#: src/titlescreen.c:74
+#: src/titlescreen.c:75
 msgid "Fish Cascade"
 msgstr "Cascada de Pescado"
 
 # "Cadete de espacio" es nivel 1 en zapea cometa
-#: src/titlescreen.c:74
+#: src/titlescreen.c:75
 msgid "Space Cadet"
 msgstr "Cadete Espacial"
 
-#: src/titlescreen.c:74
+#: src/titlescreen.c:75
 msgid "Edit Word Lists"
 msgstr "Revisar las listas de palabras"
 
 # Tipos de juegos
-#: src/titlescreen.c:75
+#: src/titlescreen.c:76
 msgid "Comet Zap"
 msgstr "Cometas"
 
 # "Piloto" es nivel 2 en zapea cometas
-#: src/titlescreen.c:75
+#: src/titlescreen.c:76
 msgid "Pilot"
 msgstr "Piloto"
 
-#: src/titlescreen.c:76
+#: src/titlescreen.c:77
 msgid "Lessons"
 msgstr "Lecciones"
 
 # "As" es nivel 3 en zapea cometas
-#: src/titlescreen.c:76
+#: src/titlescreen.c:77
 msgid "Ace"
 msgstr "As"
 
-#: src/titlescreen.c:76
+#: src/titlescreen.c:77
 msgid "Project Info"
 msgstr ""
 
-#: src/titlescreen.c:77
+#: src/titlescreen.c:78
 msgid "Options"
 msgstr "Opciones"
 
-#: src/titlescreen.c:77
+#: src/titlescreen.c:78
 msgid "Instructions"
 msgstr "Instrucciones"
 
 # "Commandante" es nivel 4 en zapea cometas
-#: src/titlescreen.c:77
+#: src/titlescreen.c:78
 msgid "Commander"
 msgstr "Comandante"
 
-#: src/titlescreen.c:77
+#: src/titlescreen.c:78
 msgid "Setup Language"
 msgstr "Idioma"
 
-#: src/titlescreen.c:78
+#: src/titlescreen.c:79
 msgid "Quit"
 msgstr "Salir"
 
-#: src/titlescreen.c:78
+#: src/titlescreen.c:79
 msgid "Main Menu"
 msgstr "Menú Principal"
 
 # work Cosas que estan abajo de construccion.
-#: src/titlescreen.c:1156
+#: src/titlescreen.c:1220
 msgid "Work In Progress!"
 msgstr "¡Trabajo en Curso!"
 
-#: src/titlescreen.c:1157
+#: src/titlescreen.c:1221
 #, fuzzy
 msgid "This feature is not ready yet"
 msgstr "Esta función no esta lista todavía"
 
-#: src/titlescreen.c:1158
+#: src/titlescreen.c:1222
 msgid "Discuss the future of TuxTyping at"
 msgstr "Charlar del futuro de TuxTyping en"
 

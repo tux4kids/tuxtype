@@ -2,6 +2,7 @@
 ## Process with Automake to create Makefile.in
 
 SUBDIRS = armenian \
+  assamese \
   bengali \
   bokmal \
   brazilian-portuguese \

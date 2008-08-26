@@ -118,6 +118,8 @@ data/sounds/Makefile
 data/themes/Makefile
 data/themes/armenian/Makefile
 data/themes/armenian/images/Makefile
+data/themes/assamese/Makefile
+data/themes/assamese/words/Makefile
 data/themes/bokmal/Makefile
 data/themes/bokmal/words/Makefile
 data/themes/bokmal/images/Makefile
@@ -177,6 +179,8 @@ data/themes/svenska/Makefile
 data/themes/svenska/words/Makefile
 data/themes/swahili/Makefile
 data/themes/swahili/words/Makefile
+data/themes/tamil/Makefile
+data/themes/tamil/words/Makefile
 data/themes/wolof/Makefile
 data/themes/wolof/images/Makefile
 data/themes/wolof/words/Makefile
