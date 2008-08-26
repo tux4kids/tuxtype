@@ -1619,8 +1619,11 @@ static void ChooseFile(void)
   old_use_english = settings.use_english;
   strncpy(old_theme_path, settings.theme_data_path, FNLEN - 1);
 
-  sprintf(fn , "%s/words", settings.theme_data_path);
-
+  if(settings.use_english)
+        sprintf(fn , "%s/words", settings.default_data_path);
+  else
+        sprintf(fn , "%s/words", settings.theme_data_path);
+  
   themesDir = opendir(fn);
 
   if (!themesDir)
@@ -1631,33 +1634,34 @@ static void ChooseFile(void)
 
   do
   {
-	themesFile = readdir(themesDir);
-	if (!themesFile)
-		break;
+        themesFile = readdir(themesDir);
+        if (!themesFile)
+                break;
 
-		/* we ignore any hidden file and CVS */
+                /* we ignore any hidden file and CVS */
 
-	if (themesFile->d_name[0] == '.') 
-		continue;
+        if (themesFile->d_name[0] == '.') 
+                continue;
 
-	if (strcmp("CVS", themesFile->d_name)==0)
-		continue;
+        if (strcmp("CVS", themesFile->d_name)==0)
+                continue;
 
-		
-	sprintf(fn, "%s/words/%s", settings.theme_data_path, themesFile->d_name);
+        if(settings.use_english)
+                sprintf(fn, "%s/words/%s",settings.default_data_path, themesFile->d_name);
+        else	
+                sprintf(fn, "%s/words/%s", settings.theme_data_path, themesFile->d_name);
 
-
-		/* CheckFile() returns 2 if dir, 1 if file, 0 if neither: */
-	if (CheckFile(fn) == 1) {
-		fp=fopen(fn,"r");
-		    /* HACK: we should get the names from file :) */
-		fscanf(fp, "%[^\n]\n", wordTypes[themes]);
-		    /* Make sure theme name is capitalized: */
+                /* CheckFile() returns 2 if dir, 1 if file, 0 if neither: */
+        if (CheckFile(fn) == 1) {
+                fp=fopen(fn,"r");
+                    /* HACK: we should get the names from file :) */
+                fscanf(fp, "%[^\n]\n", wordTypes[themes]);
+                    /* Make sure theme name is capitalized: */
                 wordTypes[themes][0] = toupper(wordTypes[themes][0]);
-		fclose(fp);
-		strncpy( fileNames[themes++], themesFile->d_name, FNLEN-1 );
-		    
-	}
+                fclose(fp);
+                strncpy( fileNames[themes++], themesFile->d_name, FNLEN-1 );
+                    
+        }
   } while (1);
 
   closedir(themesDir);
@@ -1666,13 +1670,13 @@ static void ChooseFile(void)
         // HACK: is font empty now???
   font = LoadFont(settings.theme_font_name, MENU_FONT_SIZE);
 
-	
+        
   for (i = 0; i<themes; i++) {
-	titles[i] = BlackOutline( wordTypes[i], font, &white );
-	select[i] = BlackOutline( wordTypes[i], font, &yellow);
+        titles[i] = BlackOutline( wordTypes[i], font, &white );
+        select[i] = BlackOutline( wordTypes[i], font, &yellow);
   }
 
-	
+        
   TTF_CloseFont(font);
   font = NULL;
 
@@ -1680,94 +1684,94 @@ static void ChooseFile(void)
 
   bkg = LoadImage("main_bkg.png", IMG_REGULAR);
 
-	
-	/* set initial rect sizes */
+        
+        /* set initial rect sizes */
   titleRects[0].y = 150;
   titleRects[0].w = titleRects[0].h = titleRects[0].x = 0;
   for (i = 1; i<8; i++) {
-	titleRects[i].y = titleRects[i-1].y + 50;
-	titleRects[i].w = titleRects[i].h = titleRects[i].x = 0;
+        titleRects[i].y = titleRects[i-1].y + 50;
+        titleRects[i].w = titleRects[i].h = titleRects[i].x = 0;
   }
-	
+        
 
   while (!stop) {
-	while (SDL_PollEvent(&event)) 
-		switch (event.type) {
-			case SDL_QUIT:
-				exit(0);
-				break;
-			case SDL_MOUSEMOTION: 
-				for (i=0; (i<8) && (loc-(loc%8)+i<themes); i++)
-					if (inRect( titleRects[i], event.motion.x, event.motion.y )) {
-						loc = loc-(loc%8)+i;
-						break;
-					}
-				
-				break;
-			case SDL_MOUSEBUTTONDOWN: 
-				
-				for (i=0; (i<8) && (loc-(loc%8)+i<themes); i++) 
-					if (inRect(titleRects[i], event.button.x, event.button.y)) {
-						loc = loc-(loc%8)+i;
-						ChooseWord(fileNames[loc]);
-						break;
-					}
-					break;
-			case SDL_KEYDOWN:
-				if (event.key.keysym.sym == SDLK_ESCAPE) { 
-					settings.use_english = old_use_english;
-					strncpy(settings.theme_data_path, old_theme_path, FNLEN - 1);
-					stop = 1; 
-					break; 
-				}
-				if (event.key.keysym.sym == SDLK_RETURN) { 
-					ChooseWord(fileNames[loc]);
-					loc=0;
-					break;
-				
-	}
+        while (SDL_PollEvent(&event)) 
+                switch (event.type) {
+                        case SDL_QUIT:
+                                exit(0);
+                                break;
+                        case SDL_MOUSEMOTION: 
+                                for (i=0; (i<8) && (loc-(loc%8)+i<themes); i++)
+                                        if (inRect( titleRects[i], event.motion.x, event.motion.y )) {
+                                                loc = loc-(loc%8)+i;
+                                                break;
+                                        }
+                                
+                                break;
+                        case SDL_MOUSEBUTTONDOWN: 
+                                
+                                for (i=0; (i<8) && (loc-(loc%8)+i<themes); i++) 
+                                        if (inRect(titleRects[i], event.button.x, event.button.y)) {
+                                                loc = loc-(loc%8)+i;
+                                                ChooseWord(fileNames[loc]);
+                                                break;
+                                        }
+                                        break;
+                        case SDL_KEYDOWN:
+                                if (event.key.keysym.sym == SDLK_ESCAPE) { 
+                                        settings.use_english = old_use_english;
+                                        strncpy(settings.theme_data_path, old_theme_path, FNLEN - 1);
+                                        stop = 1; 
+                                        break; 
+                                }
+                                if (event.key.keysym.sym == SDLK_RETURN) { 
+                                        ChooseWord(fileNames[loc]);
+                                        loc=0;
+                                        break;
+                                
+        }
 
-				if ((event.key.keysym.sym == SDLK_LEFT) || (event.key.keysym.sym == SDLK_PAGEUP)) {
-					if (loc-(loc%8)-8 >= 0) 
-						loc=loc-(loc%8)-8;
-				}
+                                if ((event.key.keysym.sym == SDLK_LEFT) || (event.key.keysym.sym == SDLK_PAGEUP)) {
+                                        if (loc-(loc%8)-8 >= 0) 
+                                                loc=loc-(loc%8)-8;
+                                }
 
-				if ((event.key.keysym.sym == SDLK_RIGHT) || (event.key.keysym.sym == SDLK_PAGEDOWN)) {
-					if (loc-(loc%8)+8 < themes)
-						loc=(loc-(loc%8)+8);
-				}
+                                if ((event.key.keysym.sym == SDLK_RIGHT) || (event.key.keysym.sym == SDLK_PAGEDOWN)) {
+                                        if (loc-(loc%8)+8 < themes)
+                                                loc=(loc-(loc%8)+8);
+                                }
 
-				if (event.key.keysym.sym == SDLK_UP) {
-					if (loc > 0)
-						loc--;
-				}
+                                if (event.key.keysym.sym == SDLK_UP) {
+                                        if (loc > 0)
+                                                loc--;
+                                }
 
-				if (event.key.keysym.sym == SDLK_DOWN) {
-					if (loc+1<themes)
-						loc++;
-				}
-		}
+                                if (event.key.keysym.sym == SDLK_DOWN) {
+                                        if (loc+1<themes)
+                                                loc++;
+                                }
+                }
 
-	if (old_loc != loc) {
-		int start;
+        if (old_loc != loc) {
+                int start;
 
-		SDL_BlitSurface( bkg, NULL, screen, NULL );
+                SDL_BlitSurface( bkg, NULL, screen, NULL );
   
-		//if (loc) SetupPaths(fileNames[loc]); else SetupPaths(NULL);
+                //if (loc) SetupPaths(fileNames[loc]); else SetupPaths(NULL);
 
-		start = loc - (loc % 8);
-		for (i = start; i<MIN(start+8,themes); i++) {
-			titleRects[i%8].x = 320 - (titles[i]->w/2);
-			if (i == loc)
-				SDL_BlitSurface(select[loc], NULL, screen, &titleRects[i%8]);
-			else
-				SDL_BlitSurface(titles[i], NULL, screen, &titleRects[i%8]);
-		}
+                start = loc - (loc % 8);
+                for (i = start; i<MIN(start+8,themes); i++) {
+                        titleRects[i%8].x = 320 - (titles[i]->w/2);
+                        if (i == loc)
+                                SDL_BlitSurface(select[loc], NULL, screen, &titleRects[i%8]);
+                        else
+                                SDL_BlitSurface(titles[i], NULL, screen, &titleRects[i%8]);
+                }
 
-		SDL_UpdateRect(screen, 0, 0, 0 ,0);
-	}
-	SDL_Delay(40);
-	old_loc = loc;
+                SDL_UpdateRect(screen, 0, 0, 0 ,0);
+        }
+        SDL_Delay(40);
+        old_loc = loc;
   }
 
   /* --- clear graphics before quitting --- */ 
@@ -1821,16 +1825,19 @@ static void ChooseWord(char *words_file)
   old_use_english = settings.use_english;
   strncpy(old_theme_path, settings.theme_data_path, FNLEN - 1);
 
-  sprintf(fn , "%s/words/%s", settings.theme_data_path,words_file);
-	
+  if(settings.use_english)
+        sprintf(fn , "%s/words/%s", settings.default_data_path,words_file);
+  else
+          sprintf(fn , "%s/words/%s", settings.theme_data_path,words_file);
+                
   fp=fopen(fn,"r");
   fscanf(fp, "%[^\n]\n", str);
 
   while(!feof(fp))
   {
-	/* HACK: we should get the strings from file :) */
-	fscanf(fp, "%[^\n]\n", editWordW[themes]);
-	strcpy(editWordY[themes++],editWordW[themes]);
+        /* HACK: we should get the strings from file :) */
+        fscanf(fp, "%[^\n]\n", editWordW[themes]);
+        strcpy(editWordY[themes++],editWordW[themes]);
   }
   
   fclose(fp); 
@@ -1840,9 +1847,9 @@ static void ChooseWord(char *words_file)
   font = LoadFont(settings.theme_font_name, MENU_FONT_SIZE);
 
   for (i = 0; i<themes; i++) {
-	titles[i] = BlackOutline( editWordW[i], font, &white );
-	strcat(editWordY[i],"|");
-	select[i] = BlackOutline( editWordY[i], font, &yellow);
+        titles[i] = BlackOutline( editWordW[i], font, &white );
+        strcat(editWordY[i],"|");
+        select[i] = BlackOutline( editWordY[i], font, &yellow);
   }
 
   TTF_CloseFont(font);
@@ -1861,146 +1868,147 @@ static void ChooseWord(char *words_file)
   rightRect.w = right->w; rightRect.h = right->h;
   rightRect.x = 320 + 100 - (rightRect.w/2); rightRect.y = 430;
 
-	/* set initial rect sizes */ 
+        /* set initial rect sizes */ 
   titleRects[0].y = 30;
   titleRects[0].w = titleRects[0].h = titleRects[0].x = 0;
   for (i = 1; i<8; i++) {
-	titleRects[i].y = titleRects[i-1].y + 50;
-	titleRects[i].w = titleRects[i].h = titleRects[i].x = 0;
+        titleRects[i].y = titleRects[i-1].y + 50;
+        titleRects[i].w = titleRects[i].h = titleRects[i].x = 0;
   }
-	
+        
 
   while (!stop) {
-	while (SDL_PollEvent(&event)) 
-		switch (event.type) {
-			case SDL_QUIT:
-				exit(0);
-				break;
-			case SDL_MOUSEMOTION: 
-				if (inRect( leftRect, event.button.x, event.button.y )) 
-						if (loc-(loc%8)-8 >= 0) {
-							loc=loc-(loc%8)-8;
-							break;
-						}
-					if (inRect( rightRect, event.button.x, event.button.y )) 
-						if (loc-(loc%8)+8 < themes) {
-							loc=loc-(loc%8)+8;
-							break;
-						}
-				for (i=0; (i<8) && (loc-(loc%8)+i<themes); i++)
-					if (inRect( titleRects[i], event.motion.x, event.motion.y )) {
-						loc = loc-(loc%8)+i;
-						break;
-					}
-					
-				break;
-				
-			case SDL_KEYDOWN:
-				i=1;
-				if (event.key.keysym.sym == SDLK_BACKSPACE) {
-					font = LoadFont(settings.theme_font_name, MENU_FONT_SIZE);						
-					
-					len=ConvertFromUTF8(temp,editWordW[loc]);
-					temp[len-1]=temp[len];
-					len=ConvertToUTF8(temp,editWordW[loc]);
-					titles[loc] = BlackOutline(editWordW[loc], font, &white );						
-					len=ConvertFromUTF8(temp,editWordY[loc]);
-					temp[len-2]=temp[len-1];
-					temp[len-1]=temp[len];
-					len=ConvertToUTF8(temp,editWordY[loc]);
-					select[loc] = BlackOutline(editWordY[loc], font, &yellow);
-					TTF_CloseFont(font);
-        				font = NULL;
-					break;
-				}
+        while (SDL_PollEvent(&event)) 
+                switch (event.type) {
+                        case SDL_QUIT:
+                                exit(0);
+                                break;
+                        case SDL_MOUSEMOTION: 
+                                if (inRect( leftRect, event.button.x, event.button.y )) 
+                                                if (loc-(loc%8)-8 >= 0) {
+                                                        loc=loc-(loc%8)-8;
+                                                        break;
+                                                }
+                                        if (inRect( rightRect, event.button.x, event.button.y )) 
+                                                if (loc-(loc%8)+8 < themes) {
+                                                        loc=loc-(loc%8)+8;
+                                                        break;
+                                                }
+                                for (i=0; (i<8) && (loc-(loc%8)+i<themes); i++)
+                                        if (inRect( titleRects[i], event.motion.x, event.motion.y )) {
+                                                loc = loc-(loc%8)+i;
+                                                break;
+                                        }
+                                        
+                                break;
+                                
+                        case SDL_KEYDOWN:
+                                i=1;
+                                if (event.key.keysym.sym == SDLK_BACKSPACE) {
+                                        font = LoadFont(settings.theme_font_name, MENU_FONT_SIZE);						
+                                        
+                                        len=ConvertFromUTF8(temp,editWordW[loc]);
+                                        temp[len-1]=temp[len];
+                                        len=ConvertToUTF8(temp,editWordW[loc]);
+                                        titles[loc] = BlackOutline(editWordW[loc], font, &white );						
+                                        len=ConvertFromUTF8(temp,editWordY[loc]);
+                                        temp[len-2]=temp[len-1];
+                                        temp[len-1]=temp[len];
+                                        len=ConvertToUTF8(temp,editWordY[loc]);
+                                        select[loc] = BlackOutline(editWordY[loc], font, &yellow);
+                                        TTF_CloseFont(font);
+                                        font = NULL;
+                                        break;
+                                }
 
-				if (event.key.keysym.sym == SDLK_ESCAPE) { 
-					settings.use_english = old_use_english;
-					strncpy(settings.theme_data_path, old_theme_path, FNLEN - 1);					
-					stop = 1; 
-					break; 
-				}
-					
-				if ((event.key.keysym.sym == SDLK_LEFT) || (event.key.keysym.sym == SDLK_PAGEUP)) {
-						if (loc-(loc%8)-8 >= 0) 
-							loc=loc-(loc%8)-8;
-						break;
-					}
+                                if (event.key.keysym.sym == SDLK_ESCAPE) { 
+                                        settings.use_english = old_use_english;
+                                        strncpy(settings.theme_data_path, old_theme_path, FNLEN - 1);					
+                                        stop = 1; 
+                                        break; 
+                                }
+                                        
+                                if ((event.key.keysym.sym == SDLK_LEFT) || (event.key.keysym.sym == SDLK_PAGEUP)) {
+                                                if (loc-(loc%8)-8 >= 0) 
+                                                        loc=loc-(loc%8)-8;
+                                                break;
+                                        }
 
-				if ((event.key.keysym.sym == SDLK_RIGHT) || (event.key.keysym.sym == SDLK_PAGEDOWN)) {
-					if (loc-(loc%8)+8 < themes)
-						loc=(loc-(loc%8)+8);
-					break;
-				}
+                                if ((event.key.keysym.sym == SDLK_RIGHT) || (event.key.keysym.sym == SDLK_PAGEDOWN)) {
+                                        if (loc-(loc%8)+8 < themes)
+                                                loc=(loc-(loc%8)+8);
+                                        break;
+                                }
 
 
-				if (event.key.keysym.sym == SDLK_UP) {
-					if (loc > 0)
-						loc--;
-					break;
-				}
-					
-				if (event.key.keysym.sym == SDLK_DOWN) {
-					if (loc+1<themes)
-						loc++;
-					break;
-				}
-				switch (event.key.keysym.sym){
-					case SDLK_RALT:
-					case SDLK_LALT:
-					case SDLK_RSHIFT:
-					case SDLK_LSHIFT:
-					case SDLK_RCTRL:
-					case SDLK_LCTRL:i=0;
-							break;
-				}
-				if(i){
-					
-					font = LoadFont(settings.theme_font_name, MENU_FONT_SIZE);						
-					
-					len=ConvertFromUTF8(temp,editWordW[loc]);
-					temp[len]=event.key.keysym.unicode;
-					temp[len+1]=0;
-					ConvertToUTF8(temp,editWordW[loc]);
-					titles[loc] = BlackOutline(editWordW[loc], font, &white );					
-						
-					len=ConvertFromUTF8(temp,editWordY[loc]);
-					temp[len+1]=0;
-					temp[len]=temp[len-1];
-					temp[len-1]=event.key.keysym.unicode;
-					ConvertToUTF8(temp,editWordY[loc]);
-					select[loc] = BlackOutline(editWordY[loc], font, &yellow);
-					TTF_CloseFont(font);
-        				font = NULL;
-					i=0;
-					break;
-				}	
-		}
-	if(!stop){
-	SDL_BlitSurface( bkg, NULL, screen, NULL );
+                                if (event.key.keysym.sym == SDLK_UP) {
+                                        if (loc > 0)
+                                                loc--;
+                                        break;
+                                }
+                                        
+                                if (event.key.keysym.sym == SDLK_DOWN) {
+                                        if (loc+1<themes)
+                                                loc++;
+                                        break;
+                                }
+                                switch (event.key.keysym.sym){
+					case SDLK_CAPSLOCK:
+                                        case SDLK_RALT:
+                                        case SDLK_LALT:
+                                        case SDLK_RSHIFT:
+                                        case SDLK_LSHIFT:
+                                        case SDLK_RCTRL:
+                                        case SDLK_LCTRL:i=0;
+                                                        break;
+                                }
+                                if(i){
+                                        
+                                        font = LoadFont(settings.theme_font_name, MENU_FONT_SIZE);						
+                                        
+                                        len=ConvertFromUTF8(temp,editWordW[loc]);
+                                        temp[len]=event.key.keysym.unicode;
+                                        temp[len+1]=0;
+                                        ConvertToUTF8(temp,editWordW[loc]);
+                                        titles[loc] = BlackOutline(editWordW[loc], font, &white );					
+                                                
+                                        len=ConvertFromUTF8(temp,editWordY[loc]);
+                                        temp[len+1]=0;
+                                        temp[len]=temp[len-1];
+                                        temp[len-1]=event.key.keysym.unicode;
+                                        ConvertToUTF8(temp,editWordY[loc]);
+                                        select[loc] = BlackOutline(editWordY[loc], font, &yellow);
+                                        TTF_CloseFont(font);
+                                        font = NULL;
+                                        i=0;
+                                        break;
+                                }	
+                }
+        if(!stop){
+        SDL_BlitSurface( bkg, NULL, screen, NULL );
 
 //	if (loc) SetupPaths(fileNames[loc]); else SetupPaths(NULL);	
 
-	start = loc - (loc % 8);
-	for (i = start; i<MIN(start+8,themes); i++) {
-		titleRects[i%8].x = 320 - (titles[i]->w/2);
-		if (i == loc)
-			SDL_BlitSurface(select[loc], NULL, screen, &titleRects[i%8]);
-		else
-			SDL_BlitSurface(titles[i], NULL, screen, &titleRects[i%8]);
-	}
+        start = loc - (loc % 8);
+        for (i = start; i<MIN(start+8,themes); i++) {
+                titleRects[i%8].x = 320 - (titles[i]->w/2);
+                if (i == loc)
+                        SDL_BlitSurface(select[loc], NULL, screen, &titleRects[i%8]);
+                else
+                        SDL_BlitSurface(titles[i], NULL, screen, &titleRects[i%8]);
+        }
 
-		/* --- draw buttons --- */
+                /* --- draw buttons --- */
 
-	if (start>0) 
-		SDL_BlitSurface( left, NULL, screen, &leftRect );
+        if (start>0) 
+                SDL_BlitSurface( left, NULL, screen, &leftRect );
 
-	if (start+8<themes) 
-		SDL_BlitSurface( right, NULL, screen, &rightRect );
+        if (start+8<themes) 
+                SDL_BlitSurface( right, NULL, screen, &rightRect );
 
-	SDL_UpdateRect(screen, 0, 0, 0 ,0);
-	}		
-	//SDL_Delay(40);
+        SDL_UpdateRect(screen, 0, 0, 0 ,0);
+        }		
+        //SDL_Delay(40);
 	old_loc = loc;
   }
 
@@ -2012,8 +2020,8 @@ static void ChooseWord(char *words_file)
 
   while(i<themes)
   {
-	fprintf(fp, "%s\n", editWordW[i++]);
-	i++;
+        fprintf(fp, "%s\n", editWordW[i++]);
+        i++;
   }
   
   fclose(fp); 
