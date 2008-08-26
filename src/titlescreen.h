@@ -12,7 +12,7 @@
 /* --- define menu structure --- */
 /* (these values are all in the Game_Type enum in globals.h) */
 const int menu_item[][6]= {{0, 0,         0,         0,          0},
-			   {0, CASCADE,   LEVEL1,    LEVEL1,  NOT_CODED },
+			   {0, CASCADE,   LEVEL1,    LEVEL1,  EDIT_WORDLIST },
 			   {0, LASER,     LEVEL2,    LEVEL2,  FREETYPE   },
 			   {0, LESSONS,  LEVEL3,    LEVEL3,  PROJECT_INFO },
 			   {0, OPTIONS,   INSTRUCT,  LEVEL4,  SET_LANGUAGE},

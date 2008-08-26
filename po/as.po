@@ -1,0 +1,165 @@
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Amitakhya Phukan <aphukan@redhat.com>, 2008.
+msgid ""
+msgstr ""
+"Project-Id-Version: Tux Typing 1.5.16\n"
+"Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
+"POT-Creation-Date: 2008-08-13 19:23+0530\n"
+"PO-Revision-Date: 2008-08-22 12:36+0530\n"
+"Last-Translator: Amitakhya Phukan <aphukan@redhat.com>\n"
+"Language-Team: American English <kde-i18n-doc@lists.kde.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KAider 0.1\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: src/pause.c:286
+msgid "Sound Effects Volume"
+msgstr "ধ্বনিৰ ফলাফল উচ্চতা"
+
+#: src/pause.c:295
+msgid "Music Volume"
+msgstr "সঙ্গিতৰ ধ্বনিৰ উচ্চতা"
+
+#: src/pause.c:306
+msgid "Sound & Music Disabled"
+msgstr "ধ্বনি & সঙ্গিত নিষ্ক্ৰীয়"
+
+#: src/pause.c:316
+msgid "Paused!"
+msgstr "ৰখোৱা হ'ল!"
+
+#: src/pause.c:325
+msgid "Press escape again to return to menu"
+msgstr "তালিকালৈ ঘূৰি যাবলৈ পুনঃ escape টিপক"
+
+#: src/pause.c:334
+msgid "Press space bar to return to game"
+msgstr "খেললৈ ঘূৰি যাবলৈ space bar টিপক"
+
+#: src/playgame.c:945
+msgid "Level"
+msgstr "স্তৰ"
+
+#: src/playgame.c:946
+msgid "Lives"
+msgstr "জীৱন"
+
+#: src/playgame.c:947
+msgid "Fish"
+msgstr "Fish"
+
+#: src/playgame.c:949 src/titlescreen.c:74
+msgid "Easy"
+msgstr "সহজ"
+
+#: src/playgame.c:950 src/titlescreen.c:75
+msgid "Medium"
+msgstr "মাধ্যম"
+
+#: src/playgame.c:951 src/titlescreen.c:76
+msgid "Hard"
+msgstr "কঠোৰ"
+
+#: src/playgame.c:952 src/titlescreen.c:75
+msgid "Practice"
+msgstr "অভ্যাস"
+
+#: src/playgame.c:963
+msgid "Congratulations"
+msgstr "অভিনন্দন"
+
+#: src/playgame.c:967
+msgid "Oh No!"
+msgstr "অঃ নহয়!"
+
+#: src/practice.c:239
+msgid "Great!"
+msgstr "বঢ়িয়া!"
+
+#: src/practice.c:589
+msgid "Next letter "
+msgstr "পিছৰ আখৰ"
+
+#: src/titlescreen.c:74
+msgid "Fish Cascade"
+msgstr "Fish Cascade"
+
+#: src/titlescreen.c:74
+msgid "Space Cadet"
+msgstr "Space Cadet"
+
+#: src/titlescreen.c:74
+msgid "Edit Word Lists"
+msgstr "শব্দৰ তালিকা সম্পাদন কৰক"
+
+#: src/titlescreen.c:75
+msgid "Comet Zap"
+msgstr "Comet Zap"
+
+#: src/titlescreen.c:75
+msgid "Pilot"
+msgstr "পাইলট"
+
+#: src/titlescreen.c:76
+msgid "Lessons"
+msgstr "পাঠ"
+
+#: src/titlescreen.c:76
+msgid "Ace"
+msgstr "Ace"
+
+#: src/titlescreen.c:76
+msgid "Project Info"
+msgstr "পৰিকল্পনাৰ তথ্য"
+
+#: src/titlescreen.c:77
+msgid "Options"
+msgstr "বিকল্প"
+
+#: src/titlescreen.c:77
+msgid "Instructions"
+msgstr "নিৰ্দেশ"
+
+#: src/titlescreen.c:77
+msgid "Commander"
+msgstr "কামান্ডাৰ"
+
+#: src/titlescreen.c:77
+msgid "Setup Language"
+msgstr "প্ৰতিষ্ঠাৰ ভাষা"
+
+#: src/titlescreen.c:78
+msgid "Quit"
+msgstr "বাহিৰ হওক"
+
+#: src/titlescreen.c:78
+msgid "Main Menu"
+msgstr "মূখ্য তালিকা"
+
+#: src/titlescreen.c:1156
+msgid "Work In Progress!"
+msgstr "কাম চলি আছে‌!"
+
+#: src/titlescreen.c:1157
+msgid "This feature is not ready yet"
+msgstr "এই গুণ এতিয়া প্ৰস্তুত নহয়"
+
+#: src/titlescreen.c:1158
+msgid "Discuss the future of TuxTyping at"
+msgstr "TuxTyping ৰ গুণৰ আলোচনা ইয়াত কৰক"
+
+msgid "Short Words"
+msgstr "সৰু শব্দ"
+
+msgid "Medium Words"
+msgstr "মধ্যম শব্দ"
+
+msgid "Long Words"
+msgstr "দীঘল শব্দ"
+
+msgid "Alphabet"
+msgstr "বৰ্ণমালা"
+
