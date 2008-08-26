@@ -1,0 +1,55 @@
+<script title="LESSON FOUR" bgcolor="#3f4f1f">
+   <page title="Introduction to Eample Lesson">
+   <text align="center" y="200">പാഠം നാല്</text>
+   <text align="center" y="250">തുടങ്ങാന്‍ സ്പേസ് അമര്‍ത്തൂ!</text>
+  <waitforinput/>
+   </page>
+   <page title="Home Row Keys" bgcolor="#3f7f3f">
+   <img src="/keyboard/keyboard-us.png" x="30" y="200"/>
+   <text align="center">ഇവിടെ നാം പഠിക്കുന്ന അക്ഷരങ്ങള്‍.</text>
+   <text align="center"> ൊ ൂ ബ ഡ </text>
+   <text align="center">തുടങ്ങാന്‍ സ്പേസ് അമര്‍ത്തു</text>
+   <text color="#ffffff" x="30" y="215">ൊ</text>
+   <text color="#ffffff" x="250" y="250">ൂ</text>
+   <text color="#ffffff" x="290" y="250">ബ</text>
+   <text color="#ffffff" x="480" y="250">ഡ</text>
+  <waitforchar/>
+   <prac goal="15">ബൂ ബൊ ഡൂ ഡൊ ബൂ ഡൊ ഡൂ</prac>
+   <prac>ബൂ ബൊ ഡൂ ഡൊ ബൂ ഡൊ ഡൂ</prac>
+   <prac>ബൂ ബൊ ഡൂ ഡൊ ബൂ ഡൊ ഡൂ</prac>
+   </page>
+ <page>
+   <img src="keyboard/space.png" x="200" y="160"/>
+   <img src="keyboard/larrow.png" x="460" y="18"/>
+   <img src="keyboard/esc.png" x="515" y="50"/>
+   <text align="center">അഭിനന്ദനങ്ങള്‍!</text>
+   <text align="left">         To repeat the last exercise, press</text>
+   <text align="center">To go back to the main menu hit</text>
+   <text align="center">To continue on to the next exercise,</text>
+   <text align="center">press</text>
+   <text align="center">Space</text>
+   <text></text>
+   <text></text>
+   <text></text>
+   <text align="center">Next Exercise:</text>
+   <text align="center">ബൂ ബൊ ഡൂ ഡൊ ബൂഡൊ ഡൂബൊ ഡൂബ</text> 
+   <waitforinput/>
+ </page>
+ <page title="Home Row Keys" bgcolor="#b07bc6">
+   <img src="keyboard/keyboard-us.png" x="30" y="200"/>
+   <text align="center">In this exercise we practice the .....keys,</text>
+   <text align="center">but, a little bit differently!</text>
+   <text align="center">See how fast you are at this one!</text>   
+   <text align="center">ബൂഡൊ ഡൂബൊ ഡൂബ </text>
+   <text align="center">തുടങ്ങാന്‍ സ്പേസ് അമര്‍ത്തു</text>
+   <text color="#ffffff" x="30" y="215">ൊ</text>
+   <text color="#ffffff" x="250" y="250">ൂ</text>
+   <text color="#ffffff" x="290" y="250">ബ</text>
+   <text color="#ffffff" x="480" y="250">ഡ</text>
+   <waitforchar/>
+   <prac>ഡൂബൊ ഡൂബ ബൂ ബൊ ഡൂ ബൊ ഡൂ ഡൊ</prac>
+   <prac>ബൂഡൊ ഡൂബൊ ഡൂബ ബൂഡൊ ഡൂബൊ ഡൂബ </prac>
+   <prac>ബൂഡൊ ഡൂബൊ ഡൂബ ബൂ ബൊ ഡൂ ഡൊ</prac>
+ </page>
+</script>
+ര

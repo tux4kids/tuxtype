@@ -1,0 +1,34 @@
+Tux Typing for Windows
+----------------------
+
+Updated Aug 25 2007
+
+2006-present Lead Developer:
+	David Bruce <dbruce@tampabay.rr.com>
+
+Previous Project Manager:
+	Sam Hart <hart@geekcomix.com>
+Developers:
+	Jacob Greig <bombastic@firstlinux.net>
+	Jesse Andrews <jdandr2@sheffield.cslab.uky.edu>
+Original Windows Port by:
+	Olivier Dagenais <olivier_dagenais@canada.com>
+Windows Crossbuild by
+	David Bruce <dbruce@tampabay.rr.com>
+	(based on TuxMath Windows crossbuild by Yves Combe)
+
+To install the binary package for Tux Typing for Windows:
+
+1. Run the nsis installer file (e.g. tuxtype-1.5.11-win32-installer.exe)
+2. Click to accept the terms of the GPL
+3. Click OK to install in default path (C:\Program Files\TuxType) or
+select alternate location (perhaps if you are logged in as a user
+without privileges to write to C:\Program Files).
+4. The installer will create menu entries and a desktop icon for Tux
+Typing if permissions allow.
+
+Please read the COPYING.TXT file for the copyright for Tux Typing,
+and read the SDL-COPYING.TXT file for the copyright information for
+SDL. Basically, this software is open-source and free-software.
+
+Enjoy!

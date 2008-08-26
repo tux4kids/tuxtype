@@ -1,0 +1,60 @@
+<script title="LESSON FIFTEEN" bgcolor="#3f4f9f">
+   <page title="Malayalam Lesson">
+   <text color="#ffff00" align="center" y="200">പാഠം പതിനഞ്ച്</text>
+   <text color="#00ffff" align="center" y="300">തുടങ്ങാന്‍ സ്പേസ് അമര്‍ത്തൂ!</text>
+  <waitforinput/>
+   </page>
+   <page title="Keys" bgcolor="#3f7f3f">
+   <img src="/keyboard/keyboard-us.png" x="30" y="200"/>
+   <text align="center">ഇവിടെ നാം പഠിക്കുന്നത് </text>
+   <text align="center">ചില്ലക്ഷരങ്ങളാണ്.</text>
+   <text align="center" color="#ffff00">ര്‍  ന്‍  ല്‍  ള്‍  ണ്‍</text>
+   <text align="center">ഉദാഹരണം- ര + ് + ] =ര്‍</text>
+   <text color="#00ffff" align="center">തുടങ്ങാന്‍ സ്പേസ് അമര്‍ത്തുക</text>
+   <text color="#ffff00" x="181" y="282">്</text>
+   <text color="#ffff00" x="338" y="282">ര</text>
+   <text color="#ffff00" x="235" y="325">ന</text>
+   <text color="#ffff00" x="305" y="330">ല</text>
+   <text color="#ffff00" x="320" y="317">ള</text>
+   <text color="#ffff00" x="197" y="325">ണ</text>
+   <text color="#ffff00" x="520" y="242">]</text>
+  <waitforchar/>
+   <prac goal="15">ര്‍ ന്‍ ല്‍ ള്‍ ണ്‍ ല്‍ ള്‍ ണ്‍ ണ്‍</prac>
+   <prac>ര്‍ ന്‍ ല്‍ ള്‍ ണ്‍ ണ്‍ ല്‍ ള്‍ ണ്‍ ര്‍</prac>
+   </page>
+ <page>
+   <img src="keyboard/space.png" x="200" y="160"/>
+   <img src="keyboard/larrow.png" x="460" y="18"/>
+   <img src="keyboard/esc.png" x="515" y="50"/>
+   <text align="center">അഭിനന്ദനങ്ങള്‍!</text>
+   <text align="left">         To repeat the last exercise, press</text>
+   <text align="center">To go back to the main menu hit</text>
+   <text align="center">To continue on to the next exercise,</text>
+   <text align="center">press</text>
+   <text align="center">Space</text>
+   <text></text>
+   <text></text>
+   <text></text>
+   <text align="center">Next Exercise:</text>
+   <text align="center">കിണര്‍ മണ്‍ചട്ടി കവിള്‍</text> 
+   <waitforinput/>
+ </page>
+ <page title="Keys" bgcolor="#b07bc6">
+   <img src="keyboard/keyboard-us.png" x="30" y="200"/>
+   <text align="center" y="20">അഭ്യാസം</text>
+   <text color="#ffff00" align="center" y="50">കിണര്‍ മണ്‍ചട്ടി കവിള്‍ വെയില്‍</text>
+   <text color="#00ffff" align="center" y="140">തുടങ്ങാന്‍ സ്പേസ് അമര്‍ത്തുക</text>
+   <text color="#ffff00" x="181" y="282">്</text>
+   <text color="#ffff00" x="338" y="282">ര</text>
+   <text color="#ffff00" x="235" y="325">ന</text>
+   <text color="#ffff00" x="305" y="330">ല</text>
+   <text color="#ffff00" x="320" y="317">ള</text>
+   <text color="#ffff00" x="197" y="325">ണ</text>
+   <text color="#ffff00" x="520" y="242">]</text>
+   <waitforchar/>
+   <prac>കിണര്‍ മണ്‍ചട്ടി കവിള്‍ വെയില്‍ മീന്‍</prac>
+   <prac>കവിള്‍ വെയില്‍ കവിള്‍ മണ്‍ചട്ടി കവിള്‍</prac>
+   <prac>മണ്‍ചട്ടി കവിള്‍ കവിള്‍ വെയില്‍ മീന്‍</prac>
+ </page>
+</script>
+
