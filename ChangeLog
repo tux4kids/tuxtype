@@ -7,6 +7,10 @@
         - Using GNU iconv() instead of Unicode Inc.'s conversion code
         - SDL_extras brought in from tuxmath for DrawButton(), streamlined BlackOutline(), etc.
 
+18 Aug 2008 -svn revision 652
+[ Mobin Mohan <mobinmohan@gmail.com> ]
+	-GUI for editing wordlist Implemented
+
 18 Aug 2008 - svn revision 647
 [ Sreyas Kurumanghat <k.sreyas@gmail.com ]
 	- Added features to practice game. Now pressing the down arrow presents the next phrase for practice and the escape key quits from the game.
@@ -15,12 +19,15 @@
 [ Sreyas Kurumanghat <k.sreyas@gmail.com ]
 	- Added pango support and rendering to practice game.
 
+14 Aug 2008 -svn revision 622
+[ Mobin Mohan <mobinmohan@gmail.com> ]
+	-gettextize  <bug-gnu-gettext@gnu.org>
+	-Added GNU Gettext Support
+	-Removed lang.po and created .po file for each theme in po directory
+
 3 Aug 2008 - svn revision 599
 [ Sreyas Kurumanghat <k.sreyas@gmail.com ]
 	- Added keypress details for wrong key pressed in practice.
-
-2008-07-09  gettextize  <bug-gnu-gettext@gnu.org>
-
 
 3 Aug 2008 - svn revision 580
 [ Sreyas Kurumanghat <k.sreyas@gmail.com ]
