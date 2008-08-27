@@ -6,4 +6,5 @@ SUBDIRS = words
 themes_hindidir = $(pkgdatadir)/data/themes/hindi
 
 dist_themes_hindi_DATA = keyboard.lst \
+  alphabet.txt \
   settings.txt

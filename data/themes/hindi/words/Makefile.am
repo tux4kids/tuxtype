@@ -3,7 +3,6 @@
 
 themes_hindi_wordsdir = $(pkgdatadir)/data/themes/hindi/words
 
-dist_themes_hindi_words_DATA = alphabet.txt \
-  words1.txt \
+dist_themes_hindi_words_DATA = words1.txt \
   words2.txt \
   words3.txt

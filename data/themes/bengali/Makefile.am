@@ -6,5 +6,6 @@ SUBDIRS = words
 themes_bengalidir = $(pkgdatadir)/data/themes/bengali
 
 dist_themes_bengali_DATA = keyboard.lst \
+	alphabet.txt \
 	phrases.txt \
 	settings.txt
