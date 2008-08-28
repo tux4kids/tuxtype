@@ -189,6 +189,8 @@ data/themes/swahili/Makefile
 data/themes/swahili/words/Makefile
 data/themes/tamil/Makefile
 data/themes/tamil/words/Makefile
+data/themes/telugu/Makefile
+data/themes/telugu/words/Makefile
 data/themes/wolof/Makefile
 data/themes/wolof/images/Makefile
 data/themes/wolof/words/Makefile
