@@ -146,6 +146,10 @@ data/themes/french/Makefile
 data/themes/french/words/Makefile
 data/themes/greek/Makefile
 data/themes/greek/words/Makefile
+data/themes/gujarati/Makefile
+data/themes/gujarati/words/Makefile
+data/themes/hindi/Makefile
+data/themes/hindi/words/Makefile
 data/themes/italian/Makefile
 data/themes/italian/images/Makefile
 data/themes/italian/words/Makefile

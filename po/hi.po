@@ -1,0 +1,168 @@
+# translation of tuxtype.po to Hindi
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Rajesh Ranjan <rranjan@redhat.com>, 2008.
+msgid ""
+msgstr ""
+"Project-Id-Version: tuxtype\n"
+"Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
+"POT-Creation-Date: 2008-08-13 19:23+0530\n"
+"PO-Revision-Date: 2008-08-28 16:08+0530\n"
+"Last-Translator: Rajesh Ranjan <rranjan@redhat.com>\n"
+"Language-Team: Hindi <hindi.sf.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n\n\n"
+"\n"
+"\n"
+
+#: src/pause.c:286
+msgid "Sound Effects Volume"
+msgstr "आवाज प्रभाव "
+
+#: src/pause.c:295
+msgid "Music Volume"
+msgstr "संगीत आवाज"
+
+#: src/pause.c:306
+msgid "Sound & Music Disabled"
+msgstr "आवाज व संगीत निष्क्रियकृत"
+
+#: src/pause.c:316
+msgid "Paused!"
+msgstr "ठहरा हुआ!"
+
+#: src/pause.c:325
+msgid "Press escape again to return to menu"
+msgstr "मेन्यू में वापस जाने के लिए escape फिर दबाएँ"
+
+#: src/pause.c:334
+msgid "Press space bar to return to game"
+msgstr "खेल में वापस जाने के लिए स्थान पट्टी दबाएँ"
+
+#: src/playgame.c:945
+msgid "Level"
+msgstr "स्तर"
+
+#: src/playgame.c:946
+msgid "Lives"
+msgstr "जीवनदान"
+
+#: src/playgame.c:947
+msgid "Fish"
+msgstr "मछली"
+
+#: src/playgame.c:949 src/titlescreen.c:74
+msgid "Easy"
+msgstr "आसान"
+
+#: src/playgame.c:950 src/titlescreen.c:75
+msgid "Medium"
+msgstr "थोड़ा कठिन"
+
+#: src/playgame.c:951 src/titlescreen.c:76
+msgid "Hard"
+msgstr "कठिन"
+
+#: src/playgame.c:952 src/titlescreen.c:75
+msgid "Practice"
+msgstr "अभ्यास"
+
+#: src/playgame.c:963
+msgid "Congratulations"
+msgstr "बधाई"
+
+#: src/playgame.c:967
+msgid "Oh No!"
+msgstr "अरे नहीं!"
+
+#: src/practice.c:239
+msgid "Great!"
+msgstr "बढ़िया!"
+
+#: src/practice.c:589
+msgid "Next letter "
+msgstr "अगला अक्षर"
+
+#: src/titlescreen.c:74
+msgid "Fish Cascade"
+msgstr "प्रपाती मछली"
+
+#: src/titlescreen.c:74
+msgid "Space Cadet"
+msgstr "स्पेस कैडेट"
+
+#: src/titlescreen.c:74
+msgid "Edit Word Lists"
+msgstr "शब्द सूची संपादित करें"
+
+#: src/titlescreen.c:75
+msgid "Comet Zap"
+msgstr "पुच्छल तारा पकड़ें"
+
+#: src/titlescreen.c:75
+msgid "Pilot"
+msgstr "पाइलट"
+
+#: src/titlescreen.c:76
+msgid "Lessons"
+msgstr "पाठ"
+
+#: src/titlescreen.c:76
+msgid "Ace"
+msgstr "एक्का"
+
+#: src/titlescreen.c:76
+msgid "Project Info"
+msgstr "परियोजना सूचना"
+
+#: src/titlescreen.c:77
+msgid "Options"
+msgstr "विकल्प"
+
+#: src/titlescreen.c:77
+msgid "Instructions"
+msgstr "निर्देश"
+
+#: src/titlescreen.c:77
+msgid "Commander"
+msgstr "कमांडर"
+
+#: src/titlescreen.c:77
+msgid "Setup Language"
+msgstr "सेटअप भाषा"
+
+#: src/titlescreen.c:78
+msgid "Quit"
+msgstr "छोड़ें"
+
+#: src/titlescreen.c:78
+msgid "Main Menu"
+msgstr "मुख्य मेन्यू"
+
+#: src/titlescreen.c:1156
+msgid "Work In Progress!"
+msgstr "काम प्रगति पर है!"
+
+#: src/titlescreen.c:1157
+msgid "This feature is not ready yet"
+msgstr "यह विशेषता अबतक तैयार नहीं है"
+
+#: src/titlescreen.c:1158
+msgid "Discuss the future of TuxTyping at"
+msgstr "टक्स टाइपिंग के भविष्य के बारे में यहाँ चर्चा करें"
+
+msgid "Short Words"
+msgstr "छोटे शब्द"
+
+msgid "Medium Words"
+msgstr "मझौले शब्द"
+
+msgid "Long Words"
+msgstr "लंबे शब्द"
+
+msgid "Alphabet"
+msgstr "वर्णमाला"
+
