@@ -21,6 +21,7 @@ SUBDIRS = armenian \
   nepali \
   nederlands \
   nynorsk \
+  oriya \
   russian \
   svenska \
   swahili \

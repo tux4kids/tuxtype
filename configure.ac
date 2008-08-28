@@ -173,6 +173,8 @@ data/themes/nynorsk/Makefile
 data/themes/nynorsk/images/Makefile
 data/themes/nynorsk/images/status/Makefile
 data/themes/nynorsk/words/Makefile
+data/themes/oriya/Makefile
+data/themes/oriya/words/Makefile
 data/themes/russian/Makefile
 data/themes/russian/images/Makefile
 data/themes/russian/images/status/Makefile
