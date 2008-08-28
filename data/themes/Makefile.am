@@ -13,6 +13,8 @@ SUBDIRS = armenian \
   euskara \
   french \
   greek \
+  gujarati \
+  hindi \
   italian \
   jamaican \
   kannada \

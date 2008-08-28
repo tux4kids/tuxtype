@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tuxtype\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2008-08-13 19:23+0530\n"
+"POT-Creation-Date: 2008-08-26 12:22+0530\n"
 "PO-Revision-Date: 2008-08-28 16:08+0530\n"
 "Last-Translator: Rajesh Ranjan <rranjan@redhat.com>\n"
 "Language-Team: Hindi <hindi.sf.net>\n"
@@ -14,7 +14,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
-"Plural-Forms: nplurals=2; plural=(n!=1);\n\n\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+"\n"
+"\n"
 "\n"
 "\n"
 
@@ -54,19 +56,19 @@ msgstr "जीवनदान"
 msgid "Fish"
 msgstr "मछली"
 
-#: src/playgame.c:949 src/titlescreen.c:74
+#: src/playgame.c:949 src/titlescreen.c:75
 msgid "Easy"
 msgstr "आसान"
 
-#: src/playgame.c:950 src/titlescreen.c:75
+#: src/playgame.c:950 src/titlescreen.c:76
 msgid "Medium"
 msgstr "थोड़ा कठिन"
 
-#: src/playgame.c:951 src/titlescreen.c:76
+#: src/playgame.c:951 src/titlescreen.c:77
 msgid "Hard"
 msgstr "कठिन"
 
-#: src/playgame.c:952 src/titlescreen.c:75
+#: src/playgame.c:952 src/titlescreen.c:76
 msgid "Practice"
 msgstr "अभ्यास"
 
@@ -78,91 +80,90 @@ msgstr "बधाई"
 msgid "Oh No!"
 msgstr "अरे नहीं!"
 
-#: src/practice.c:239
+#: src/practice.c:475
 msgid "Great!"
 msgstr "बढ़िया!"
 
-#: src/practice.c:589
+#: src/practice.c:855
 msgid "Next letter "
 msgstr "अगला अक्षर"
 
-#: src/titlescreen.c:74
+#: src/titlescreen.c:75
 msgid "Fish Cascade"
 msgstr "प्रपाती मछली"
 
-#: src/titlescreen.c:74
+#: src/titlescreen.c:75
 msgid "Space Cadet"
 msgstr "स्पेस कैडेट"
 
-#: src/titlescreen.c:74
+#: src/titlescreen.c:75
 msgid "Edit Word Lists"
 msgstr "शब्द सूची संपादित करें"
 
-#: src/titlescreen.c:75
+#: src/titlescreen.c:76
 msgid "Comet Zap"
 msgstr "पुच्छल तारा पकड़ें"
 
-#: src/titlescreen.c:75
+#: src/titlescreen.c:76
 msgid "Pilot"
 msgstr "पाइलट"
 
-#: src/titlescreen.c:76
+#: src/titlescreen.c:77
 msgid "Lessons"
 msgstr "पाठ"
 
-#: src/titlescreen.c:76
+#: src/titlescreen.c:77
 msgid "Ace"
 msgstr "एक्का"
 
-#: src/titlescreen.c:76
+#: src/titlescreen.c:77
 msgid "Project Info"
 msgstr "परियोजना सूचना"
 
-#: src/titlescreen.c:77
+#: src/titlescreen.c:78
 msgid "Options"
 msgstr "विकल्प"
 
-#: src/titlescreen.c:77
+#: src/titlescreen.c:78
 msgid "Instructions"
 msgstr "निर्देश"
 
-#: src/titlescreen.c:77
+#: src/titlescreen.c:78
 msgid "Commander"
 msgstr "कमांडर"
 
-#: src/titlescreen.c:77
+#: src/titlescreen.c:78
 msgid "Setup Language"
 msgstr "सेटअप भाषा"
 
-#: src/titlescreen.c:78
+#: src/titlescreen.c:79
 msgid "Quit"
 msgstr "छोड़ें"
 
-#: src/titlescreen.c:78
+#: src/titlescreen.c:79
 msgid "Main Menu"
 msgstr "मुख्य मेन्यू"
 
-#: src/titlescreen.c:1156
+#: src/titlescreen.c:1220
 msgid "Work In Progress!"
 msgstr "काम प्रगति पर है!"
 
-#: src/titlescreen.c:1157
+#: src/titlescreen.c:1221
 msgid "This feature is not ready yet"
 msgstr "यह विशेषता अबतक तैयार नहीं है"
 
-#: src/titlescreen.c:1158
+#: src/titlescreen.c:1222
 msgid "Discuss the future of TuxTyping at"
 msgstr "टक्स टाइपिंग के भविष्य के बारे में यहाँ चर्चा करें"
 
-msgid "Short Words"
-msgstr "छोटे शब्द"
+#~ msgid "Short Words"
+#~ msgstr "छोटे शब्द"
 
-msgid "Medium Words"
-msgstr "मझौले शब्द"
+#~ msgid "Medium Words"
+#~ msgstr "मझौले शब्द"
 
-msgid "Long Words"
-msgstr "लंबे शब्द"
+#~ msgid "Long Words"
+#~ msgstr "लंबे शब्द"
 
-msgid "Alphabet"
-msgstr "वर्णमाला"
-
+#~ msgid "Alphabet"
+#~ msgstr "वर्णमाला"
