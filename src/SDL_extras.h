@@ -13,8 +13,18 @@
 #ifndef SDL_EXTRAS_H
 #define SDL_EXTRAS_H
 
+// Need this so the #ifdef HAVE_LIBSDL_PANGO will work:
+#include "../config.h"
+
 #include "SDL.h"
 #include "SDL_ttf.h"
+
+#ifdef HAVE_LIBSDL_PANGO
+//#include "SDL_Pango.h"
+//extern SDLPango_Context *context;
+void init_SDLPango_Context();
+void free_SDLPango_Context();
+#endif
 
 #if SDL_BYTEORDER == SDL_BIG_ENDIAN
 #define rmask 0xff000000
@@ -28,15 +38,7 @@
 #define amask 0xff000000
 #endif
 
-#ifdef HAVE_LIBSDL_PANGO
-//#ifdef SDL_Pango
-#include "SDL_Pango.h"
-
-extern SDLPango_Context *context;
-void init_SDLPango_Context();
-void free_SDLPango_Context();
-#endif
-
+/* "Public" function prototypes: */
 void DrawButton(SDL_Rect* target_rect, int radius, Uint8 r, Uint8 g, Uint8 b, Uint8 a);
 void RoundCorners(SDL_Surface* s, Uint16 radius);
 SDL_Surface* Flip(SDL_Surface *in, int x, int y);

@@ -15,9 +15,9 @@
 #include "globals.h"
 #include "pixels.h"
 
-
 #ifdef HAVE_LIBSDL_PANGO
 #include "SDL_Pango.h"
+static SDLPango_Matrix* SDL_Colour_to_SDLPango_Matrix(const SDL_Color* cl);
 #endif
 
 
@@ -336,6 +336,25 @@ void free_SDLPango_Context()
   if(context != NULL)
     SDLPango_FreeContext(context);
   context = NULL;
+}
+
+
+SDLPango_Matrix* SDL_Colour_to_SDLPango_Matrix(const SDL_Color *cl)
+{
+  SDLPango_Matrix *colour;
+  colour=malloc(sizeof(SDLPango_Matrix));
+  int k;
+  for(k=0;k<4;k++){
+  	(*colour).m[0][k]=(*cl).r;
+  	(*colour).m[1][k]=(*cl).g;
+  	(*colour).m[2][k]=(*cl).b;
+  }
+  (*colour).m[3][0]=0;
+  (*colour).m[3][1]=255;
+  (*colour).m[3][2]=0;
+  (*colour).m[3][3]=0;
+
+  return colour;
 }
 #endif
 

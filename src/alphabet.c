@@ -20,11 +20,11 @@ Sreyas Kurumanghat <k.sreyas@gmail.com>
 
 
 /* Needed to handle rendering issues for Indic languages*/
-#ifndef WIN32
-#ifndef MACOSX
-#include <SDL_Pango.h>
-#endif
-#endif
+//#ifndef WIN32
+//#ifndef MACOSX
+//#include <SDL_Pango.h>
+//#endif
+//#endif
 
 /* Needed to convert UTF-8 under Windows because we don't have glibc: */
 #include "ConvertUTF.h"
@@ -97,11 +97,11 @@ static int unicode_in_key_list(wchar_t uni_char);
 int check_needed_unicodes_str(const wchar_t* s);
 int map_keys(wchar_t wide_char,kbd_char* keyboard_entry);
 
-#ifndef WIN32
-#ifndef MACOSX
-static SDLPango_Matrix* SDL_Colour_to_SDLPango_Matrix(const SDL_Color* cl);
-#endif
-#endif
+//#ifndef WIN32
+//#ifndef MACOSX
+//static SDLPango_Matrix* SDL_Colour_to_SDLPango_Matrix(const SDL_Color* cl);
+//#endif
+//#endif
 
 
 
@@ -415,27 +415,27 @@ int unicode_in_key_list(wchar_t uni_char)
 
 
 
-#ifndef WIN32
-#ifndef MACOSX
+//#ifndef WIN32
+//#ifndef MACOSX
 /*Convert SDL_Colour to SDLPango_Matrix*/
 
-SDLPango_Matrix* SDL_Colour_to_SDLPango_Matrix(const SDL_Color *cl)
-{
-  SDLPango_Matrix *colour;
-  colour=malloc(sizeof(SDLPango_Matrix));
-  int k;
-  for(k=0;k<4;k++){
-  	(*colour).m[0][k]=(*cl).r;
-  	(*colour).m[1][k]=(*cl).g;
-  	(*colour).m[2][k]=(*cl).b;
-  }
-  (*colour).m[3][0]=0;
-  (*colour).m[3][1]=255;
-  (*colour).m[3][2]=0;
-  (*colour).m[3][3]=0;
-
-  return colour;
-}
+// SDLPango_Matrix* SDL_Colour_to_SDLPango_Matrix(const SDL_Color *cl)
+// {
+//   SDLPango_Matrix *colour;
+//   colour=malloc(sizeof(SDLPango_Matrix));
+//   int k;
+//   for(k=0;k<4;k++){
+//   	(*colour).m[0][k]=(*cl).r;
+//   	(*colour).m[1][k]=(*cl).g;
+//   	(*colour).m[2][k]=(*cl).b;
+//   }
+//   (*colour).m[3][0]=0;
+//   (*colour).m[3][1]=255;
+//   (*colour).m[3][2]=0;
+//   (*colour).m[3][3]=0;
+// 
+//   return colour;
+// }
 
 
 
@@ -544,8 +544,8 @@ SDLPango_Matrix* SDL_Colour_to_SDLPango_Matrix(const SDL_Color *cl)
 //   return out;
 // }
 
-#endif
-#endif
+//#endif
+//#endif
 /* End of win32-excluded coded */
 
 

@@ -29,9 +29,9 @@
 //SDL_Surface* BlackOutline(const unsigned char* t, const TTF_Font* font, const SDL_Color* c);
 //SDL_Surface* BlackOutline_Unicode(const Uint16* t, const TTF_Font* font, const SDL_Color* c);
 
-#ifndef WIN32
+//#ifndef WIN32
 //SDL_Surface* BlackOutline_SDLPango(const unsigned char* t, const TTF_Font* font, const SDL_Color* c);
-#endif
+//#endif
 
 /* (still in alphabet.c:) */
 int CheckNeededGlyphs(void);
