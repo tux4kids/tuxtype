@@ -15,7 +15,6 @@ tuxtype_SOURCES = 	\
 	theme.c		\
 	practice.c	\
 	audio.c		\
-	gettext.c	\
 	snow.c		\
 	scripting.c	\
 	SDL_extras.c	\

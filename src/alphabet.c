@@ -19,12 +19,6 @@ Sreyas Kurumanghat <k.sreyas@gmail.com>
  ***************************************************************************/
 
 
-/* Needed to handle rendering issues for Indic languages*/
-//#ifndef WIN32
-//#ifndef MACOSX
-//#include <SDL_Pango.h>
-//#endif
-//#endif
 
 /* Needed to convert UTF-8 under Windows because we don't have glibc: */
 #include "ConvertUTF.h"
@@ -96,12 +90,6 @@ static void clear_keyboard(void);
 static int unicode_in_key_list(wchar_t uni_char);
 int check_needed_unicodes_str(const wchar_t* s);
 int map_keys(wchar_t wide_char,kbd_char* keyboard_entry);
-
-//#ifndef WIN32
-//#ifndef MACOSX
-//static SDLPango_Matrix* SDL_Colour_to_SDLPango_Matrix(const SDL_Color* cl);
-//#endif
-//#endif
 
 
 
@@ -302,10 +290,12 @@ void GetKeyPos(int index, char *buf)
 	sprintf(buf,"keyboard/keyboard_%s.png", keyboard_list[index].keyname);	
 }
 
+
 void GetWrongKeyPos(int index, char *buf)
 {
 	sprintf(buf,"keyboard/keyboardN_%s.png", keyboard_list[index].keyname);
 }
+
 
 void GetKeyShift(int index, char *buf)
 {
@@ -317,13 +307,17 @@ void GetKeyShift(int index, char *buf)
 				else
 							sprintf(buf,"keyboard/keyboard_D12.png", settings.default_data_path);			
 }
+
+
 wchar_t GetLastKey()
 {
-	if(!num_chars_used)
-		return -1;
-	else
-		return keyboard_list[num_chars_used-1].unicode_value;
+  if(!num_chars_used)
+    return -1;
+  else
+    return keyboard_list[num_chars_used - 1].unicode_value;
 } 
+
+
 int unicode_in_key_list(wchar_t uni_char)
 {
   int i = 0;
@@ -338,280 +332,7 @@ int unicode_in_key_list(wchar_t uni_char)
     return 1;
 }
 
-// /* NOTE if we can consistently use SDLPango on all platforms, we can simply */
-// /* rename the pango version to BlackOutline() and get rid of this one.      */
-// /* The input for this function should be UTF-8.                             */
-// SDL_Surface* BlackOutline(const unsigned char* t, const TTF_Font* font, const SDL_Color* c)
-// {
-//   SDL_Surface* out = NULL;
-//   SDL_Surface* black_letters = NULL;
-//   SDL_Surface* white_letters = NULL;
-//   SDL_Surface* bg = NULL;
-//   SDL_Rect dstrect;
-//   Uint32 color_key;
-// 
-//   LOG("Entering BlackOutline()\n");
-// 
-// /* Simply passthrough to SDLPango version if available (i.e. not under Windows):*/
-// #ifndef WIN32
-// #ifndef MACOSX
-// return BlackOutline_SDLPango(t, font, c);
-// #endif
-// #endif
-// 
-// 
-//   if (!t || !font || !c)
-//   {
-//     fprintf(stderr, "BlackOutline(): invalid ptr parameter, returning.");
-//     return NULL;
-//   }
-// 
-//   black_letters = TTF_RenderUTF8_Blended((TTF_Font*)font, t, black);
-// 
-//   if (!black_letters)
-//   {
-//     fprintf (stderr, "Warning - BlackOutline() could not create image for %s\n", t);
-//     return NULL;
-//   }
-// 
-//   bg = SDL_CreateRGBSurface(SDL_SWSURFACE,
-//                             (black_letters->w) + 5,
-//                             (black_letters->h) + 5,
-//                              32,
-//                              RMASK, GMASK, BMASK, AMASK);
-//   /* Use color key for eventual transparency: */
-//   color_key = SDL_MapRGB(bg->format, 10, 10, 10);
-//   SDL_FillRect(bg, NULL, color_key);
-// 
-//   /* Now draw black outline/shadow 2 pixels on each side: */
-//   dstrect.w = black_letters->w;
-//   dstrect.h = black_letters->h;
-// 
-//   /* NOTE: can make the "shadow" more or less pronounced by */
-//   /* changing the parameters of these loops.                */
-//   for (dstrect.x = 1; dstrect.x < 4; dstrect.x++)
-//     for (dstrect.y = 1; dstrect.y < 3; dstrect.y++)
-//       SDL_BlitSurface(black_letters , NULL, bg, &dstrect );
-// 
-//   SDL_FreeSurface(black_letters);
-// 
-//   /* --- Put the color version of the text on top! --- */
-//   /* NOTE we cast away the 'const-ness' to keep compliler from complaining: */
-//   white_letters = TTF_RenderUTF8_Blended((TTF_Font*)font, t, *c);
-//   dstrect.x = 1;
-//   dstrect.y = 1;
-//   SDL_BlitSurface(white_letters, NULL, bg, &dstrect);
-//   SDL_FreeSurface(white_letters);
-// 
-//   /* --- Convert to the screen format for quicker blits --- */
-//   SDL_SetColorKey(bg, SDL_SRCCOLORKEY|SDL_RLEACCEL, color_key);
-//   out = SDL_DisplayFormatAlpha(bg);
-//   SDL_FreeSurface(bg);
-// 
-//   LOG("Leaving BlackOutline()\n");
-// 
-//   return out;
-// }
 
-
-
-//#ifndef WIN32
-//#ifndef MACOSX
-/*Convert SDL_Colour to SDLPango_Matrix*/
-
-// SDLPango_Matrix* SDL_Colour_to_SDLPango_Matrix(const SDL_Color *cl)
-// {
-//   SDLPango_Matrix *colour;
-//   colour=malloc(sizeof(SDLPango_Matrix));
-//   int k;
-//   for(k=0;k<4;k++){
-//   	(*colour).m[0][k]=(*cl).r;
-//   	(*colour).m[1][k]=(*cl).g;
-//   	(*colour).m[2][k]=(*cl).b;
-//   }
-//   (*colour).m[3][0]=0;
-//   (*colour).m[3][1]=255;
-//   (*colour).m[3][2]=0;
-//   (*colour).m[3][3]=0;
-// 
-//   return colour;
-// }
-
-
-
-// /* This version basically uses the SDLPango lib instead of */
-// /* TTF_RenderUTF*_Blended() to properly render Indic text. */
-// SDL_Surface* BlackOutline_SDLPango(const unsigned char* t, const TTF_Font* font, const SDL_Color* c)
-// {
-//   SDL_Surface* out = NULL;
-//   SDL_Surface* black_letters = NULL;
-//   SDL_Surface* white_letters = NULL;
-//   SDL_Surface* bg = NULL;
-//   SDL_Rect dstrect;
-//   Uint32 color_key;
-//   /* To covert SDL_Colour to SDLPango_Matrix */
-//   SDLPango_Matrix* colour = NULL;
-//   /* Create a context which contains Pango objects.*/
-//   SDLPango_Context* context = NULL;
-// 
-//   LOG("\nEntering BlackOutline_SDLPango()\n");
-//   DEBUGCODE{ fprintf(stderr, "will attempt to render: %s\n", t); }
-// 
-//   if (!t || !font || !c)
-//   {
-//     fprintf(stderr, "BlackOutline_SDLPango(): invalid ptr parameter, returning.");
-//     return NULL;
-//   }
-// 
-//   /* SDLPango crashes on 64 bit machines if passed empty string - Debian Bug#439071 */
-//   if (*t == '\0')
-//   {
-//     fprintf(stderr, "BlackOutline_SDLPango(): empty string arg - must return to avoid segfault.");
-//     return NULL;
-//   }
-// 
-//   colour = SDL_Colour_to_SDLPango_Matrix(c);
-//   
-//   /* Create the context */
-//   context = SDLPango_CreateContext();	
-//   SDLPango_SetDpi(context, 125.0, 125.0);
-//   /* Set the color */
-//   SDLPango_SetDefaultColor(context, MATRIX_TRANSPARENT_BACK_BLACK_LETTER );
-//   SDLPango_SetBaseDirection(context, SDLPANGO_DIRECTION_LTR);
-//   /* Set text to context */ 
-//   SDLPango_SetMarkup(context, t, -1); 
-// 
-//   if (!context)
-//   {
-//     fprintf (stderr, "In BlackOutline_SDLPango(), could not create context for %s", t);
-//     return NULL;
-//   }
-// 
-//   black_letters = SDLPango_CreateSurfaceDraw(context);
-// 
-//   if (!black_letters)
-//   {
-//     fprintf (stderr, "Warning - BlackOutline_SDLPango() could not create image for %s\n", t);
-//     return NULL;
-//   }
-// 
-//   bg = SDL_CreateRGBSurface(SDL_SWSURFACE,
-//                             (black_letters->w) + 5,
-//                             (black_letters->h) + 5,
-//                              32,
-//                              RMASK, GMASK, BMASK, AMASK);
-//   if (!bg)
-//   {
-//     fprintf (stderr, "Warning - BlackOutline()_SDLPango - bg creation failed\n");
-//     SDL_FreeSurface(black_letters);
-//     return NULL;
-//   }
-// 
-//   /* Draw text on a existing surface */
-//   SDLPango_Draw(context, bg, 0, 0);
-// 
-//   /* Use color key for eventual transparency: */
-//   color_key = SDL_MapRGB(bg->format, 10, 10, 10);
-//   SDL_FillRect(bg, NULL, color_key);
-// 
-//   /* Now draw black outline/shadow 2 pixels on each side: */
-//   dstrect.w = black_letters->w;
-//   dstrect.h = black_letters->h;
-// 
-//   /* NOTE: can make the "shadow" more or less pronounced by */
-//   /* changing the parameters of these loops.                */
-//   for (dstrect.x = 1; dstrect.x < 4; dstrect.x++)
-//     for (dstrect.y = 1; dstrect.y < 3; dstrect.y++)
-//       SDL_BlitSurface(black_letters , NULL, bg, &dstrect );
-// 
-//   SDL_FreeSurface(black_letters);
-// 
-//   /* --- Put the color version of the text on top! --- */
-//   SDLPango_SetDefaultColor(context, colour);
-//   white_letters = SDLPango_CreateSurfaceDraw(context);
-//   dstrect.x = 1;
-//   dstrect.y = 1;
-//   SDL_BlitSurface(white_letters, NULL, bg, &dstrect);
-//   SDL_FreeSurface(white_letters);
-// 
-//   /* --- Convert to the screen format for quicker blits --- */
-//   SDL_SetColorKey(bg, SDL_SRCCOLORKEY|SDL_RLEACCEL, color_key);
-//   out = SDL_DisplayFormatAlpha(bg);
-//   SDL_FreeSurface(bg);
-// 
-//   LOG("Leaving BlackOutline_SDLPango()\n\n");
-// 
-//   return out;
-// }
-
-//#endif
-//#endif
-/* End of win32-excluded coded */
-
-
-
-
-// /* This version takes a wide character string and renders it with the */
-// /* Unicode string versions of the SDL_ttf functions:                  */
-// SDL_Surface* BlackOutline_Unicode(const Uint16* t, const TTF_Font* font, const SDL_Color* c)
-// {
-//   SDL_Surface* out = NULL;
-//   SDL_Surface* black_letters = NULL;
-//   SDL_Surface* white_letters = NULL;
-//   SDL_Surface* bg = NULL;
-//   SDL_Rect dstrect;
-//   Uint32 color_key;
-// 
-//   if (!font || !c)
-//   {
-//     fprintf(stderr, "BlackOutline_wchar(): invalid ptr parameter, returning.");
-//     return NULL;
-//   }
-//                                         /* (cast to stop compiler complaint) */
-//   black_letters = TTF_RenderUNICODE_Blended((TTF_Font*)font, t, black);
-// 
-//   if (!black_letters)
-//   {
-//     fprintf (stderr, "Warning - BlackOutline_wchar() could not create image for %S\n", t);
-//     return NULL;
-//   }
-// 
-//   bg = SDL_CreateRGBSurface(SDL_SWSURFACE,
-//                             (black_letters->w) + 5,
-//                             (black_letters->h) + 5,
-//                              32,
-//                              RMASK, GMASK, BMASK, AMASK);
-//   /* Use color key for eventual transparency: */
-//   color_key = SDL_MapRGB(bg->format, 10, 10, 10);
-//   SDL_FillRect(bg, NULL, color_key);
-// 
-//   /* Now draw black outline/shadow 2 pixels on each side: */
-//   dstrect.w = black_letters->w;
-//   dstrect.h = black_letters->h;
-// 
-//   /* NOTE: can make the "shadow" more or less pronounced by */
-//   /* changing the parameters of these loops.                */
-//   for (dstrect.x = 1; dstrect.x < 4; dstrect.x++)
-//     for (dstrect.y = 1; dstrect.y < 3; dstrect.y++)
-//       SDL_BlitSurface(black_letters , NULL, bg, &dstrect );
-// 
-//   SDL_FreeSurface(black_letters);
-// 
-//   /* --- Put the color version of the text on top! --- */
-//                                        /* (cast to stop compiler complaint) */
-//   white_letters = TTF_RenderUNICODE_Blended((TTF_Font*)font, t, *c);
-//   dstrect.x = 1;
-//   dstrect.y = 1;
-//   SDL_BlitSurface(white_letters, NULL, bg, &dstrect);
-//   SDL_FreeSurface(white_letters);
-// 
-//   /* --- Convert to the screen format for quicker blits --- */
-//   SDL_SetColorKey(bg, SDL_SRCCOLORKEY|SDL_RLEACCEL, color_key);
-//   out = SDL_DisplayFormatAlpha(bg);
-//   SDL_FreeSurface(bg);
-// 
-//   return out;
-// }
 
 
 /* FIXME dead code but could be useful*/
@@ -664,6 +385,7 @@ static void show_letters(void)
 }
 
 
+
 /* Returns a random Unicode char from the char_glyphs list: */
 /* --- get a letter --- */
 wchar_t GetRandLetter(void)
@@ -708,38 +430,7 @@ void ClearWordList(void)
   num_words = 0;
 }
 
-/* FIXME need a better i18n-compatible way to do this: */
-/* UseAlphabet(): setups the word_list so that it really
- * returns a LETTER when GetWord() is called
- */
-// void UseAlphabet(void)
-// {
-// 	int i;
-// 
-// 	LOG("Entering UseAlphabet()\n");
-// 
-// 	num_words = 0;
-// 	/* This totally mucks up i18n abilities :( */
-// 	for (i=65; i<90; i++) 
-// 	{
-// 		//if (ALPHABET[i])
-//                 {
-// 			word_list[num_words][0] = (unsigned char)i;
-// 			word_list[num_words][1] = '\0';
-// 			num_words++;
-// 
-// 			DEBUGCODE { fprintf(stderr, "Adding %c\n", (unsigned char)i); }
-// 		}
-// 	}
-// 	/* Make sure list is terminated with null character */
-// 	word_list[num_words][0] = '\0';
-// 
-// 	/* Make list of all unicode characters used in word list: */
-// 	gen_char_list();
-// 
-// 	DOUT(num_words);
-// 	LOG("Leaving UseAlphabet()\n");
-// }
+
 
 /* GetWord: returns a random word that wasn't returned
  * the previous time (unless there is only 1 word!!!)
@@ -1224,23 +915,23 @@ int map_keys(wchar_t wide_char,kbd_char* keyboard_entry)
 			break;
 		case '5':strcpy(keyboard_entry->keyname,"A05");
 			keyboard_entry->shift=0;
-			keyboard_entry->finger=4;
+			keyboard_entry->finger=3;
 			break;
 		case '%':strcpy(keyboard_entry->keyname,"A05");
 			keyboard_entry->shift=2;
-			keyboard_entry->finger=4;
+			keyboard_entry->finger=3;
 			break;
 		case '6':strcpy(keyboard_entry->keyname,"A06");
 			keyboard_entry->shift=0;
-			keyboard_entry->finger=5;
+			keyboard_entry->finger=6;
 			break;
 		case '^':strcpy(keyboard_entry->keyname,"A06");
 			keyboard_entry->shift=1;
-			keyboard_entry->finger=5;
+			keyboard_entry->finger=6;
 			break;
 		case '7':strcpy(keyboard_entry->keyname,"A07");
 			keyboard_entry->shift=0;
-			keyboard_entry->finger=7;
+			keyboard_entry->finger=6;
 			break;
 		case '&':strcpy(keyboard_entry->keyname,"A07");
 			keyboard_entry->shift=1;
@@ -1328,19 +1019,19 @@ int map_keys(wchar_t wide_char,kbd_char* keyboard_entry)
 			break;
 		case 't':strcpy(keyboard_entry->keyname,"B05");
 			keyboard_entry->shift=0;
-			keyboard_entry->finger=4;
+			keyboard_entry->finger=3;
 			break;
 		case 'T':strcpy(keyboard_entry->keyname,"B05");
 			keyboard_entry->shift=2;
-			keyboard_entry->finger=4;
+			keyboard_entry->finger=3;
 			break;
 		case 'y':strcpy(keyboard_entry->keyname,"B06");
 			keyboard_entry->shift=0;
-			keyboard_entry->finger=5;
+			keyboard_entry->finger=6;
 			break;
 		case 'Y':strcpy(keyboard_entry->keyname,"B06");
 			keyboard_entry->shift=1;
-			keyboard_entry->finger=5;
+			keyboard_entry->finger=6;
 			break;
 		case 'u':strcpy(keyboard_entry->keyname,"B07");
 			keyboard_entry->shift=0;
@@ -1424,19 +1115,19 @@ int map_keys(wchar_t wide_char,kbd_char* keyboard_entry)
 			break;
 		case 'g':strcpy(keyboard_entry->keyname,"C05");
 			keyboard_entry->shift=0;
-			keyboard_entry->finger=4;
+			keyboard_entry->finger=3;
 			break;
 		case 'G':strcpy(keyboard_entry->keyname,"C05");
 			keyboard_entry->shift=1;
-			keyboard_entry->finger=4;
+			keyboard_entry->finger=3;
 			break;
 		case 'h':strcpy(keyboard_entry->keyname,"C06");
 			keyboard_entry->shift=0;
-			keyboard_entry->finger=5;
+			keyboard_entry->finger=6;
 			break;
 		case 'H':strcpy(keyboard_entry->keyname,"C06");
 			keyboard_entry->shift=1;
-			keyboard_entry->finger=5;
+			keyboard_entry->finger=6;
 			break;
 		case 'j':strcpy(keyboard_entry->keyname,"C07");
 			keyboard_entry->shift=0;
@@ -1512,19 +1203,19 @@ int map_keys(wchar_t wide_char,kbd_char* keyboard_entry)
 			break;
 		case 'b':strcpy(keyboard_entry->keyname,"D05");
 			keyboard_entry->shift=0;
-			keyboard_entry->finger=4;
+			keyboard_entry->finger=3;
 			break;
 		case 'B':strcpy(keyboard_entry->keyname,"D05");
 			keyboard_entry->shift=2;
-			keyboard_entry->finger=4;
+			keyboard_entry->finger=3;
 			break;
 		case 'n':strcpy(keyboard_entry->keyname,"D06");
 			keyboard_entry->shift=0;
-			keyboard_entry->finger=5;
+			keyboard_entry->finger=6;
 			break;
 		case 'N':strcpy(keyboard_entry->keyname,"D06");
 			keyboard_entry->shift=1;
-			keyboard_entry->finger=5;
+			keyboard_entry->finger=6;
 			break;
 		case 'm':strcpy(keyboard_entry->keyname,"D07");
 			keyboard_entry->shift=0;
@@ -1628,6 +1319,8 @@ void GenerateKeyboard(SDL_Surface* keyboard)
 	TTF_CloseFont(smallfont);
 	DEBUGCODE { printf("Leaving GenerateKeyboard\n"); }
 }
+
+
 void updatekeylist(int key,char ch)
 {
 	wchar_t;
@@ -1635,6 +1328,8 @@ void updatekeylist(int key,char ch)
 	wchar_t wtmp=ch;
 	map_keys(wtmp,&keyboard_list[key]);
 }
+
+
 void savekeyboard(void)
 {
 	unsigned char fn[FNLEN];
@@ -1818,6 +1513,3 @@ static void clear_keyboard(void)
     keyboard_list[i].finger = -1;
   }
 }
-
-
-

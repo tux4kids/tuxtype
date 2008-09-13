@@ -54,10 +54,10 @@ PROGRAMS = $(bin_PROGRAMS)
 am_tuxtype_OBJECTS = playgame.$(OBJEXT) main.$(OBJEXT) \
 	titlescreen.$(OBJEXT) loaders.$(OBJEXT) setup.$(OBJEXT) \
 	laser.$(OBJEXT) alphabet.$(OBJEXT) theme.$(OBJEXT) \
-	practice.$(OBJEXT) audio.$(OBJEXT) gettext.$(OBJEXT) \
-	snow.$(OBJEXT) scripting.$(OBJEXT) SDL_extras.$(OBJEXT) \
-	pixels.$(OBJEXT) pause.$(OBJEXT) ConvertUTF.$(OBJEXT) \
-	options.$(OBJEXT) iconv_string.$(OBJEXT)
+	practice.$(OBJEXT) audio.$(OBJEXT) snow.$(OBJEXT) \
+	scripting.$(OBJEXT) SDL_extras.$(OBJEXT) pixels.$(OBJEXT) \
+	pause.$(OBJEXT) ConvertUTF.$(OBJEXT) options.$(OBJEXT) \
+	iconv_string.$(OBJEXT)
 tuxtype_OBJECTS = $(am_tuxtype_OBJECTS)
 tuxtype_LDADD = $(LDADD)
 tuxtype_LINK = $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(tuxtype_LDFLAGS) \
@@ -204,7 +204,6 @@ tuxtype_SOURCES = \
 	theme.c		\
 	practice.c	\
 	audio.c		\
-	gettext.c	\
 	snow.c		\
 	scripting.c	\
 	SDL_extras.c	\
@@ -299,7 +298,6 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/SDL_extras.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/alphabet.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/audio.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gettext.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/iconv_string.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/laser.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/loaders.Po@am__quote@

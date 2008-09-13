@@ -24,7 +24,7 @@ Sreyas Kurumanghat <k.sreyas@gmail.com>
 #include "globals.h"
 #include "funcs.h"
 
-static SDL_Surface* bg = NULL;
+//static SDL_Surface* bg = NULL;
 static SDL_Surface* hands = NULL;
 static SDL_Surface* hand_shift[3] = {NULL};
 static SDL_Surface* keyboard = NULL;
@@ -56,7 +56,6 @@ SDL_Surface* GetWrongKeypress(int index);
 /************************************************************************/
 
 
-/* FIXME this is not UTF-8/Unicode compatible */
 int Phrases(wchar_t* pphrase )
 {
 
@@ -70,32 +69,41 @@ int Phrases(wchar_t* pphrase )
   Uint32 start = 0, a = 0;
   int quit = 0,
       i = 0,
-      c = 0,
-      wp = 0,
+      cursor = 0,
+      wrap_pt = 0,
       z = 0,
       total = 0,
       state = 0;
-  int key[100] = {0};
-  int next_line=0;
-  SDL_Rect dst, dst2, dst4, mydest;
-  char keytime[20],
-       totaltime[20];
+  int keytimes[100] = {0};
+  int next_line = 0;
+
+  /* Locations to draw strings: */
+  SDL_Rect user_text_rect;
+  SDL_Rect keytime_rect;
+  SDL_Rect totaltime_rect;
+  SDL_Rect congrats_rect;
+  SDL_Rect mydest;
+
+  char keytime_str[20],
+       totaltime_str[20];
   SDL_Surface* srfc = NULL;
-  SDL_Surface* tmpsurf = NULL;  
-  
+  SDL_Surface* tmpsurf = NULL;
+
+
   if (!practice_load_media())
   {
     fprintf(stderr, "Phrases() - practice_load_media() failed, returning.\n");
     return 0;
   }
 
-  SDL_BlitSurface(bg, NULL, screen, NULL);
+  SDL_BlitSurface(CurrentBkgd(), NULL, screen, NULL);
   SDL_BlitSurface(keyboard, NULL, screen, &keyboard_loc);
-  SDL_BlitSurface(screen, NULL, bg, NULL);
   SDL_BlitSurface(hands, NULL, screen, &hand_loc);
   SDL_Flip(screen);
 
-  wp = get_phrase(pphrase);
+  /* FIXME get_phrase() does the blitting of the phrase to the screen - this */
+  /* is utterly perverse!                                                    */
+  wrap_pt = get_phrase(pphrase);
 
   if (!wcsncmp(phrase[0], (wchar_t*)"", 1))
     wcsncpy(pphrase, phrase[0], 80);
@@ -108,30 +116,35 @@ int Phrases(wchar_t* pphrase )
     return 0;
   }
 
-  dst.x = 320 - (srfc->w/2);
-  dst.y = 100;
-  dst.w = srfc->w;
-  dst.h = srfc->h;
+  /* FIXME Do these locations even need w and h???????? */
+  user_text_rect.x = 40;
+  user_text_rect.y = 100;
+//  user_text_rect.w = srfc->w;
+//  user_text_rect.h = srfc->h;
 
-  dst2.x = 50;
-  dst2.y = 400;
-  dst2.w = srfc->w;
-  dst2.h = srfc->h;
+  keytime_rect.x = 50;
+  keytime_rect.y = screen->h - 80;
+//  keytime_rect.w = srfc->w;
+//  keytime_rect.h = srfc->h;
 
-  dst4.x = 480;
-  dst4.y = 400;
-  dst4.w = 240;
-  dst4.h = 50;
+  totaltime_rect.x = screen->w - 160;
+  totaltime_rect.y = screen->h - 80;
+//  totaltime_rect.w = 240;
+//  totaltime_rect.h = 50;
 
-  dst.x = 40;
+  congrats_rect.x = screen->w/2;
+  congrats_rect.y = 200;//screen->h - 80;
 
+  /* This is just a rectangle to redraw everything from the user's text on down: */
   mydest.x = 0;
-  mydest.y = dst.y;
+  mydest.y = user_text_rect.y;
   mydest.w = screen->w;
   mydest.h = screen->h-mydest.y;
 
   start = SDL_GetTicks();
 
+
+  /* Begin main event loop for "Practice" activity:  -------- */
   do
   {
     switch (state)
@@ -149,21 +162,24 @@ int Phrases(wchar_t* pphrase )
           /* Show finger hint, if available. Note that GetFinger() */
           /* returns negative values on error and never returns a  */
           /* value greater than 9.                                 */
-          int key = GetIndex(pphrase[c]);
+          int key = GetIndex(pphrase[cursor]);
           int fing = GetFinger(key);
           int shift = GetShift(key);
           keypress1= GetKeypress1(key);
           keypress2= GetKeypress2(key);
+
           if (!keypress1)
           {
-				fprintf(stderr, "Phrases() - GetKeypress1 failed, returning.\n");
-				return 0;
+            fprintf(stderr, "Phrases() - GetKeypress1 failed, returning.\n");
+            return 0;
           }
+
           if(!keypress2)
           {
-				fprintf(stderr, "Phrases() - GetKeypress2 failed, returning.\n");
-				return 0;
+            fprintf(stderr, "Phrases() - GetKeypress2 failed, returning.\n");
+            return 0;
           }
+
           SDL_BlitSurface(hands, NULL, screen, &hand_loc);
           if (fing >= 0) 
             SDL_BlitSurface(hand[fing], NULL, screen, &hand_loc);
@@ -184,317 +200,360 @@ int Phrases(wchar_t* pphrase )
         break;
 
       case 3:
-       SDL_BlitSurface(hands, NULL, screen, &hand_loc);
-       SDL_BlitSurface(keyboard, NULL, screen, &keyboard_loc);
-       state = 12;
-       break;  
+        SDL_BlitSurface(hands, NULL, screen, &hand_loc);
+        SDL_BlitSurface(keyboard, NULL, screen, &keyboard_loc);
+        state = 12;
+        break;
 
       case 4:
+      {
+        int key = GetIndex(pphrase[cursor]);
+        int fing = GetFinger(key);
+        int shift = GetShift(key);
+        keypress1= GetKeypress1(key);
+        keypress2= GetKeypress2(key);
+
+        if (!keypress1)
         {
-          int key = GetIndex(pphrase[c]);
-          int fing = GetFinger(key);
-          int shift = GetShift(key);
-          keypress1= GetKeypress1(key);
-          keypress2= GetKeypress2(key);
-                    if (!keypress1)
-          {
-				fprintf(stderr, "Phrases() - GetKeypress1 failed, returning.\n");
-				return 0;
-          }
-          if(!keypress2)
-          {
-				fprintf(stderr, "Phrases() - GetKeypress2 failed, returning.\n");
-				return 0;
-          }
-          SDL_BlitSurface(hands, NULL, screen, &hand_loc);
-          if (fing >= 0) 
-            SDL_BlitSurface(hand[fing], NULL, screen, &hand_loc);
-          SDL_BlitSurface(hand_shift[shift], NULL, screen, &hand_loc);
-          SDL_BlitSurface(keypress1, NULL, screen, &keyboard_loc);
-          SDL_BlitSurface(keypress2, NULL, screen, &keyboard_loc);
-          SDL_FreeSurface(keypress1);
-          SDL_FreeSurface(keypress2);
-          state = 11;
-          break;
+          fprintf(stderr, "Phrases() - GetKeypress1 failed, returning.\n");
+          return 0;
         }
+
+        if(!keypress2)
+        {
+          fprintf(stderr, "Phrases() - GetKeypress2 failed, returning.\n");
+          return 0;
+        }
+
+        SDL_BlitSurface(hands, NULL, screen, &hand_loc);
+        if (fing >= 0) 
+          SDL_BlitSurface(hand[fing], NULL, screen, &hand_loc);
+        SDL_BlitSurface(hand_shift[shift], NULL, screen, &hand_loc);
+        SDL_BlitSurface(keypress1, NULL, screen, &keyboard_loc);
+        SDL_BlitSurface(keypress2, NULL, screen, &keyboard_loc);
+        SDL_FreeSurface(keypress1);
+        SDL_FreeSurface(keypress2);
+        state = 11;
+        break;
+      }
 
       default:
         state -= 2; // this is to make the flashing slower
-    }
-	next_letter(pphrase, c);
+
+    }  /*  ----------- End of switch(state) statement-------------- */
+
+    /* This blits "Next letter %c" onto the screen - confusing! */
+    next_letter(pphrase, cursor);
 
     while  (SDL_PollEvent(&event))
     {
       if (event.type == SDL_KEYDOWN)
       {
+        int key = GetIndex((wchar_t)event.key.keysym.unicode);
+        int shift_pressed = event.key.keysym.mod&KMOD_SHIFT;
+        char tmp = -1;
+
+        /* TODO I must be missing something - why aren't we just looking at */
+        /* the event.key.keysym.unicode value instead of going through this */
+        /* giant switch statement?                                          */
+
+        switch(event.key.keysym.sym)
+        {
+          case  SDLK_ESCAPE:
+            quit = 1;
+            break;
+
+          case  SDLK_DOWN: //practice next phase in list
+            quit = 2;
+            break;
+
+          case  SDLK_BACKQUOTE:
+            if(shift_pressed)
+              tmp='~';
+            else
+              tmp='`';
+            break;
+
+          case SDLK_COMMA:
+            if(shift_pressed)
+              tmp='<';
+            else
+              tmp=',';
+            break;
+
+          case SDLK_MINUS:
+            if(shift_pressed)
+              tmp='_';
+            else
+              tmp='-';
+            break;
+
+          case SDLK_PERIOD:
+            if(shift_pressed)
+              tmp='>';
+            else
+              tmp='.';
+            break;
+
+          case SDLK_SLASH:
+            if(shift_pressed)
+              tmp='?';
+            else
+              tmp='/';
+            break;
+
+          case SDLK_0:
+            if(shift_pressed)
+              tmp=')';
+            else
+              tmp='0';
+            break;
+
+          case SDLK_1:
+            if(shift_pressed)
+              tmp='!';
+            else
+              tmp='1';
+            break;
+
+          case SDLK_2:
+            if(shift_pressed)
+              tmp='@';
+            else
+              tmp='2';
+            break;
+
+          case SDLK_3:
+            if(shift_pressed)
+              tmp='#';
+            else
+              tmp='3';
+            break;
+
+          case SDLK_4:
+            if(shift_pressed)
+              tmp='$';
+            else
+              tmp='4';
+            break;
+
+          case SDLK_5:
+            if(shift_pressed)
+              tmp='%';
+            else
+              tmp='5';
+            break;
+
+          case SDLK_6:
+            if(shift_pressed)
+              tmp='^';
+            else
+              tmp='6';
+            break;
+
+          case SDLK_7:
+            if(shift_pressed)
+              tmp='&';
+            else
+              tmp='7';
+            break;
+
+          case SDLK_8:
+            if(shift_pressed)
+              tmp='*';
+            else
+              tmp='8';
+            break;
+
+          case SDLK_9:
+            if(shift_pressed)
+              tmp='(';
+            else
+              tmp='9';
+            break;
+
+          case SDLK_SEMICOLON:
+            if(shift_pressed)
+              tmp=':';
+            else
+              tmp=';';
+            break;
+
+          case SDLK_EQUALS:
+            if(shift_pressed)
+              tmp='+';
+            else
+              tmp='=';
+            break;
+
+          case SDLK_LEFTBRACKET:
+            if(shift_pressed)
+              tmp='{';
+            else
+              tmp='[';
+            break;
+
+          case SDLK_BACKSLASH:
+            if(shift_pressed)
+              tmp='|';
+            else
+              tmp='\\';
+            break;
+
+          case SDLK_RIGHTBRACKET:
+            if(shift_pressed)
+              tmp='}';
+            else
+              tmp=']';
+            break;
+
+          case SDLK_QUOTE:
+            if(shift_pressed)
+              tmp='"';
+            else
+              tmp='\'';
+            break;
+
+          case SDLK_SPACE:  tmp=' ';  break;
+          case SDLK_a:      tmp='a';  break;
+          case SDLK_b:      tmp='b';  break;
+          case SDLK_c:      tmp='c';  break;
+          case SDLK_d:      tmp='d';  break;
+          case SDLK_e:      tmp='e';  break;
+          case SDLK_f:      tmp='f';  break;
+          case SDLK_g:      tmp='g';  break;
+          case SDLK_h:      tmp='h';  break;
+          case SDLK_i:      tmp='i';  break;
+          case SDLK_j:      tmp='j';  break;
+          case SDLK_k:      tmp='k';  break;
+          case SDLK_l:      tmp='l';  break;
+          case SDLK_m:      tmp='m';  break;
+          case SDLK_n:      tmp='n';  break;
+          case SDLK_o:      tmp='o';  break;
+          case SDLK_p:      tmp='p';  break;
+          case SDLK_q:      tmp='q';  break;
+          case SDLK_r:      tmp='r';  break;
+          case SDLK_s:      tmp='s';  break;
+          case SDLK_t:      tmp='t';  break;
+          case SDLK_u:      tmp='u';  break;
+          case SDLK_v:      tmp='v';  break;
+          case SDLK_w:      tmp='w';  break;
+          case SDLK_x:      tmp='x';  break;
+          case SDLK_y:      tmp='y';  break;
+          case SDLK_z:      tmp='z';  break;
+        }
+
+        /* Change to uppercase if shift used */
+        if(shift_pressed)
+          tmp=toupper(tmp);
+        updatekeylist(key,tmp);
+
+        /* Record elapsed time for this keypress and update running total: */
         a = SDL_GetTicks();
-        key[c] = a - start;
-        total += key[c];
-        sprintf(keytime, "%.2f", (float) key[c] / 1000);
-        sprintf(totaltime, "%.2f", (float) total / 1000);
+        keytimes[cursor] = a - start;
+        total += keytimes[cursor];
+        sprintf(keytime_str, "%.2f", (float) keytimes[cursor] / 1000);
+        sprintf(totaltime_str, "%.2f", (float) total / 1000);
         start = a;
 
-        if (event.key.keysym.sym == SDLK_ESCAPE)
-          quit = 1;
-	else
-        if (event.key.keysym.sym == SDLK_DOWN) 
+
+        /****************************************************/
+        /*  ---------- If user typed correct character, handle it: --------------- */
+        if (pphrase[cursor] == event.key.keysym.unicode)
         {
-          //practice next phase in list
-          quit = 2;
-        }
-        else
-        {
-/**************************************************/
-		int key=GetIndex((wchar_t)event.key.keysym.unicode);
-		char tmp=-1;
-		switch(event.key.keysym.sym)
-		{
-			case  SDLK_BACKQUOTE:
-				if(event.key.keysym.mod&KMOD_SHIFT)
-					tmp='~';
-				else
-					tmp='`';
-				break;
-			case SDLK_COMMA:
-				if(event.key.keysym.mod&KMOD_SHIFT)
-					tmp='<';
-				else
-					tmp=',';
-				break;
-			case SDLK_MINUS:
-				if(event.key.keysym.mod&KMOD_SHIFT)
-					tmp='_';
-				else
-					tmp='-';
-				break;
-			case SDLK_PERIOD:
-				if(event.key.keysym.mod&KMOD_SHIFT)
-					tmp='>';
-				else
-					tmp='.';
-				break;
-			case SDLK_SLASH:
-				if(event.key.keysym.mod&KMOD_SHIFT)
-					tmp='?';
-				else
-					tmp='/';
-				break;
-			case SDLK_0:
-				if(event.key.keysym.mod&KMOD_SHIFT)
-					tmp=')';
-				else
-					tmp='0';
-				break;
-			case SDLK_1:
-				if(event.key.keysym.mod&KMOD_SHIFT)
-					tmp='!';
-				else
-					tmp='1';
-				break;
-			case SDLK_2:
-					if(event.key.keysym.mod&KMOD_SHIFT)
-						tmp='@';
-					else
-						tmp='2';
-				break;
-			case SDLK_3:
-				if(event.key.keysym.mod&KMOD_SHIFT)
-					tmp='#';
-				else
-					tmp='3';
-				break;
-			case SDLK_4:
-				if(event.key.keysym.mod&KMOD_SHIFT)
-					tmp='$';
-				else
-					tmp='4';
-				break;
-			case SDLK_5:
-				if(event.key.keysym.mod&KMOD_SHIFT)
-					tmp='%';
-				else
-					tmp='5';
-				break;
-			case SDLK_6:
-				if(event.key.keysym.mod&KMOD_SHIFT)
-					tmp='^';
-				else
-					tmp='6';
-				break;
-			case SDLK_7:
-				if(event.key.keysym.mod&KMOD_SHIFT)
-					tmp='&';
-				else
-					tmp='7';
-				break;
-			case SDLK_8:
-				if(event.key.keysym.mod&KMOD_SHIFT)
-					tmp='*';
-				else
-					tmp='8';
-				break;
-			case SDLK_9:
-				if(event.key.keysym.mod&KMOD_SHIFT)
-					tmp='(';
-				else
-					tmp='9';
-				break;
-			case SDLK_SEMICOLON:
-				if(event.key.keysym.mod&KMOD_SHIFT)
-					tmp=':';
-				else
-					tmp=';';
-				break;
-			case SDLK_EQUALS:
-				if(event.key.keysym.mod&KMOD_SHIFT)
-					tmp='+';
-				else
-					tmp='=';
-				break;
-			case SDLK_LEFTBRACKET:
-				if(event.key.keysym.mod&KMOD_SHIFT)
-					tmp='{';
-				else
-					tmp='[';
-				break;
-			case SDLK_BACKSLASH:
-				if(event.key.keysym.mod&KMOD_SHIFT)
-					tmp='|';
-				else
-					tmp='\\';
-				break;
-			case SDLK_RIGHTBRACKET:
-				if(event.key.keysym.mod&KMOD_SHIFT)
-					tmp='}';
-				else
-					tmp=']';
-				break;
-			case SDLK_QUOTE:
-				if(event.key.keysym.mod&KMOD_SHIFT)
-					tmp='"';
-				else
-					tmp='\'';
-				break;
-			case SDLK_SPACE:tmp=' ';
-				break;
-			case SDLK_a:tmp='a';
-				break;
-			case SDLK_b:tmp='b';
-				break;
-			case SDLK_c:tmp='c';
-				break;
-			case SDLK_d:tmp='d';
-				break;
-			case SDLK_e:tmp='e';
-				break;
-			case SDLK_f:tmp='f';
-				break;
-			case SDLK_g:tmp='g';
-				break;
-			case SDLK_h:tmp='h';
-				break;
-			case SDLK_i:tmp='i';
-				break;
-			case SDLK_j:tmp='j';
-				break;
-			case SDLK_k:tmp='k';
-				break;
-			case SDLK_l:tmp='l';
-				break;
-			case SDLK_m:tmp='m';
-				break;
-			case SDLK_n:tmp='n';
-				break;
-			case SDLK_o:tmp='o';
-				break;
-			case SDLK_p:tmp='p';
-				break;
-			case SDLK_q:tmp='q';
-				break;
-			case SDLK_r:tmp='r';
-				break;
-			case SDLK_s:tmp='s';
-				break;
-			case SDLK_t:tmp='t';
-				break;
-			case SDLK_u:tmp='u';
-				break;
-			case SDLK_v:tmp='v';
-				break;
-			case SDLK_w:tmp='w';
-				break;
-			case SDLK_x:tmp='x';
-				break;
-			case SDLK_y:tmp='y';
-				break;
-			case SDLK_z:tmp='z';
-				break;
-		}
-		if(event.key.keysym.mod&KMOD_SHIFT)
-			tmp=toupper(tmp);
-		updatekeylist(key,tmp);
-/****************************************************/
-          if (pphrase[c]==event.key.keysym.unicode)
+          cursor++;
+          state = 0;
+
+          if (cursor == wrap_pt + 2) /* wrap onto next line */
           {
-		c++;
-		state = 0;
-		dst2.x = 40;
-		dst4.x = 480;
-		
-		if (c==wp+2){
-			//c++;
-			dst.x=40;
-			dst.y=dst.y+dst.h;
-			mydest.y=dst.y;
-			mydest.h=screen->h-mydest.y;
-			next_line=1;
-		}
-		SDL_BlitSurface(bg, &mydest, screen, &mydest);
-		SDL_Flip(screen);
-		if(!next_line)
-			tmpsurf = BlackOutline_w(pphrase, font, &white, c);
-		else
-			tmpsurf = BlackOutline_w(pphrase+wp+1, font, &white, c-(wp+1));
-		SDL_BlitSurface(tmpsurf, NULL, screen, &dst);
-		SDL_FreeSurface(tmpsurf);
-		tmpsurf = NULL;
-		tmpsurf = BlackOutline(keytime, font, &white);
-		SDL_BlitSurface(tmpsurf, NULL, screen, &dst2);
-		SDL_FreeSurface(tmpsurf);
-		tmpsurf = NULL;	
-		tmpsurf = BlackOutline(totaltime, font, &white);
-		SDL_BlitSurface(tmpsurf, NULL, screen, &dst4);
-		SDL_FreeSurface(tmpsurf);
-		tmpsurf = NULL;
-		if (c==(wcslen(pphrase))){
-				wchar_t buf[10];
-				ConvertFromUTF8(buf, gettext("Great!"));
-				print_at(buf, wcslen(buf), 275, 200);
-				SDL_Flip(screen);
-				SDL_Delay(2500);
-				next_line=0;
-				quit=2;
-		}
-	}
+            user_text_rect.x = 40;
+            user_text_rect.y = user_text_rect.y + user_text_rect.h;
+            mydest.y = user_text_rect.y;
+            mydest.h = screen->h - mydest.y;
+            next_line = 1;
+          }
+
+          /* Redraw everything below any "completed" lines of input text: */
+          SDL_BlitSurface(CurrentBkgd(), &mydest, screen, &mydest);
+          SDL_Flip(screen);
+
+          if(!next_line)
+            tmpsurf = BlackOutline_w(pphrase, font, &white, cursor);
           else
+            tmpsurf = BlackOutline_w(pphrase + wrap_pt + 1,
+                                     font, &white,
+                                     cursor - (wrap_pt + 1));
+          if (tmpsurf)
           {
-		int key = GetIndex((wchar_t)event.key.keysym.unicode);
-		keypress1= GetWrongKeypress(key);
-		SDL_BlitSurface(keypress1, NULL, screen, &keyboard_loc);
-		SDL_FreeSurface(keypress1);
-		state=0;
-		
-            if (event.key.keysym.sym != SDLK_RSHIFT
-             && event.key.keysym.sym != SDLK_LSHIFT)
-             PlaySound(wrong);
+            SDL_BlitSurface(tmpsurf, NULL, screen, &user_text_rect);
+            SDL_FreeSurface(tmpsurf);
+            tmpsurf = NULL;
+          }
+
+
+          /* Draw strings for time displays: */
+          tmpsurf = BlackOutline(keytime_str, font, &white);
+          if (tmpsurf)
+          {
+            SDL_BlitSurface(tmpsurf, NULL, screen, &keytime_rect);
+            SDL_FreeSurface(tmpsurf);
+            tmpsurf = NULL;	
+          }
+
+          tmpsurf = BlackOutline(totaltime_str, font, &white);
+          if (tmpsurf)
+          {
+            SDL_BlitSurface(tmpsurf, NULL, screen, &totaltime_rect);
+            SDL_FreeSurface(tmpsurf);
+            tmpsurf = NULL;
+          }
+
+          if (cursor==(wcslen(pphrase)))
+          {
+            tmpsurf = BlackOutline(gettext("Great!"), font, &white);
+            if (tmpsurf)
+            {
+              /* Center message on intended point: */
+              int save_x = congrats_rect.x;
+              congrats_rect.x -= tmpsurf->w/2;
+              SDL_BlitSurface(tmpsurf, NULL, screen, &congrats_rect);
+              SDL_FreeSurface(tmpsurf);
+              tmpsurf = NULL;
+              /* reset rect to prior value: */
+              congrats_rect.x = save_x;
+            }
+
+            SDL_Flip(screen);
+            SDL_Delay(2500);
+            next_line = 0;
+            quit = 2;
           }
         }
-      }
-    }
-    SDL_Flip(screen);
-    SDL_Delay(30);
+        else  /* -------- handle incorrect key press: -------------*/
+        {
+          int key = GetIndex((wchar_t)event.key.keysym.unicode);
+          keypress1= GetWrongKeypress(key);
 
-  }while (!quit);
+          if (keypress1) // avoid segfault if NULL
+          {
+            SDL_BlitSurface(keypress1, NULL, screen, &keyboard_loc);
+            SDL_FreeSurface(keypress1);
+          }
+          state=0;
+
+          if (event.key.keysym.sym != SDLK_RSHIFT
+           && event.key.keysym.sym != SDLK_LSHIFT)
+            PlaySound(wrong);
+        }
+        
+      } /* End of "if(event.type == SDL_KEYDOWN)" block  --*/
+
+    }  /* ----- End of SDL_PollEvent() loop -------------- */
+
+    SDL_Flip(screen);
+    SDL_Delay(30); /* FIXME should keep frame rate constant */
+
+  }while (!quit);  /* ------- End of main event loop ------------- */
 
   savekeyboard();
 
@@ -521,13 +580,14 @@ static int practice_load_media(void)
   DEBUGCODE { printf("Entering practice_load_media\n"); }
   LOG("Loading practice media\n");
 
+  LoadBothBkgds("main_bkg.png");
 
   hands = LoadImage("hands/hands.png", IMG_ALPHA);
-	hand_shift[0] = LoadImage("hands/none.png", IMG_ALPHA);
-	hand_shift[1] = LoadImage("hands/lshift.png", IMG_ALPHA);
-	hand_shift[2] = LoadImage("hands/rshift.png", IMG_ALPHA);
-	keyboard = LoadImage("keyboard/keyboard.png", IMG_ALPHA);
-	bg = LoadImage("main_bkg.png", IMG_ALPHA);
+  hand_shift[0] = LoadImage("hands/none.png", IMG_ALPHA);
+  hand_shift[1] = LoadImage("hands/lshift.png", IMG_ALPHA);
+  hand_shift[2] = LoadImage("hands/rshift.png", IMG_ALPHA);
+  keyboard = LoadImage("keyboard/keyboard.png", IMG_ALPHA);
+//  bg = LoadImage("main_bkg.png", IMG_ALPHA);
   wrong = LoadSound("tock.wav");
   font = LoadFont(settings.theme_font_name, 30);
 
@@ -542,7 +602,7 @@ static int practice_load_media(void)
   /* Get out if anything failed to load: */
   if (load_failed
     ||!hands
-    ||!bg
+    ||!CurrentBkgd()
     ||!wrong
     ||!font
     ||!keyboard
@@ -582,46 +642,59 @@ static int practice_load_media(void)
 
 static void practice_unload_media(void)
 {
-	int i;
-	SDL_FreeSurface(bg);
-        bg = NULL;
-	SDL_FreeSurface(hands);
-        hands = NULL;
-	for(i=0;i<3;i++)
-	{
-		SDL_FreeSurface(hand_shift[i]);
-	        hand_shift[i] = NULL;
-	}
-	SDL_FreeSurface(keyboard);
-        keyboard = NULL;
-	TTF_CloseFont(font);
-	font = NULL;
-	for (i=0; i<10; i++) 
-        {
-          SDL_FreeSurface(hand[i]);
-          hand[i] = NULL;
-        }
-	
+  int i;
 
-	Mix_FreeChunk(wrong);
-	wrong = NULL;
+  FreeBothBkgds();  
+//  SDL_FreeSurface(bg);
+//  bg = NULL;
+
+  if (hands)
+    SDL_FreeSurface(hands);
+  hands = NULL;
+
+  for(i = 0; i < 3; i++)
+  {
+    if (hand_shift[i])
+      SDL_FreeSurface(hand_shift[i]);
+    hand_shift[i] = NULL;
+  }
+
+  if (keyboard)
+    SDL_FreeSurface(keyboard);
+  keyboard = NULL;
+
+  if (font)
+    TTF_CloseFont(font);
+  font = NULL;
+
+  for (i = 0; i < 10; i++) 
+  {
+    if (hand[i])
+      SDL_FreeSurface(hand[i]);
+    hand[i] = NULL;
+  }
+
+  if (wrong)
+    Mix_FreeChunk(wrong);
+  wrong = NULL;
 }
 
 
 /* looks like dead code: */
 static void show(unsigned char t)
 {
-	SDL_Rect dst;
-        SDL_Surface* s = NULL;
+  SDL_Rect dst;
+  SDL_Surface* s = NULL;
 
-        s= GetWhiteGlyph((int)t);
-        if (!s)
-          return; 
-	dst.x = 320 - (s->w/2);
-	dst.y = 100;
-	dst.w = s->w;
-	dst.h = s->h;
-	SDL_BlitSurface(s, NULL, screen, &dst);
+  s = GetWhiteGlyph((int)t);
+  if (!s)
+    return; 
+
+  dst.x = 320 - (s->w/2);
+  dst.y = 100;
+  dst.w = s->w;
+  dst.h = s->h;
+  SDL_BlitSurface(s, NULL, screen, &dst);
 }
 
 
@@ -630,7 +703,7 @@ static int get_phrase(const wchar_t* phr)
 {
   int pc = 0;  // 'phrase count' (?)
   int pw[256] = { 0 };
-  int wp = 0, i = 0, c = 0, z = 0;
+  int wrap_pt = 0, i = 0, cursor = 0, z = 0;
   char fn[FNLEN];
 
   int old_debug_on = settings.debug_on;
@@ -654,7 +727,7 @@ static int get_phrase(const wchar_t* phr)
     LOG("get_phrases(): trying to open phrases file\n");
     pf = fopen( fn, "r" );
     if (pf == NULL) 
-      return(wp);  /* why not just 'return 0;' ??? */
+      return(wrap_pt);  /* why not just 'return 0;' ??? */
 
     /* So now copy each line into phrases array: */
     while (!feof(pf) && pc < 256) 
@@ -676,44 +749,44 @@ static int get_phrase(const wchar_t* phr)
   }
 
   //Find wrapping point
-  for (c = 0; c <= pc; c++)
+  for (cursor = 0; cursor <= pc; cursor++)
   {
-    if (pw[c] < 50)  // If the phrase is less than 598 pixels wide
+    if (pw[cursor] < 50)  // If the phrase is less than 598 pixels wide
     {
-      if (c == 0)
+      if (cursor == 0)
       {
-        wp = wcslen(phrase[c]);
-        print_at(phrase[0], wp, 40, 10);
+        wrap_pt = wcslen(phrase[cursor]);
+        print_at(phrase[0], wrap_pt, 40, 10);
       }
     }
     else
     {
       z = 0;
-      wp = 0;
+      wrap_pt = 0;
 
-      for (i = 0; i < wcslen(phrase[c]); i++)
+      for (i = 0; i < wcslen(phrase[cursor]); i++)
       {
         /* Should be safe (if no glyph, will have returned above) */
         z ++;
-        if (wp == 0 && z > 50)
+        if (wrap_pt == 0 && z > 50)
         {
-          wp = i - 1;
+          wrap_pt = i - 1;
           break;
         }
       }
 
-      for (i = wp; i >= 0; i--)
+      for (i = wrap_pt; i >= 0; i--)
       {
-        if (wcsncmp((wchar_t*)" ", &phrase[c][i], 1) == 0)
+        if (wcsncmp((wchar_t*)" ", &phrase[cursor][i], 1) == 0)
         {
-          wp = i-1;
+          wrap_pt = i-1;
           break;
         }
       }
 
-      if (c == 0)
+      if (cursor == 0)
       {
-        print_at(phrase[0], wp, 40, 10);
+        print_at(phrase[0], wrap_pt, 40, 10);
       }
     }
   }
@@ -721,7 +794,7 @@ static int get_phrase(const wchar_t* phr)
   settings.debug_on = old_debug_on;
 
   LOG("Leaving get_phrase()\n");
-  return(wp);
+  return(wrap_pt);
 }
 
 static void print_at(const wchar_t *pphrase, int wrap, int x, int y)

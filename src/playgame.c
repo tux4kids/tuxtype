@@ -134,6 +134,7 @@ int PlayCascade(int diflevel)
   int temp_text_frames;
   int temp_text_count;
   Uint16 key_unicode;
+  Uint32 last_time, now_time;
 
   DEBUGCODE
   {
@@ -251,6 +252,8 @@ int PlayCascade(int diflevel)
 
     while (playing_level)
     {
+      last_time = SDL_GetTicks();
+
       oldlives = curlives;
       oldfish_left = fish_left;
 
@@ -395,9 +398,30 @@ int PlayCascade(int diflevel)
       {
         /* This does all the blits that we have queued up this frame: */
         UpdateScreen(&frame);
+      }
 
-        if (!settings.speed_up)
-          WaitFrame();
+      /* Pause (keep frame-rate event) */
+      now_time = SDL_GetTicks();
+
+      DEBUGCODE
+      {
+        fprintf(stderr, "now_time = %d\tlast_time = %d, elapsed time = %d\n",
+                now_time, last_time, now_time - last_time);
+      }
+
+      if (now_time < last_time + 1000/FRAMES_PER_SEC)
+      {
+        //Prevent any possibility of a time wrap-around
+        // (this is a very unlikely problem unless there is an SDL bug
+        //  or you leave tuxmath running for 49 days...)
+        now_time = (last_time + 1000/FRAMES_PER_SEC) - now_time;  // this holds the delay
+        if (now_time > 1000/FRAMES_PER_SEC)
+          now_time = 1000/FRAMES_PER_SEC;
+        SDL_Delay(now_time);
+      }
+      else
+      {
+        fprintf(stderr, "Did not achieve desired frame rate!\n");
       }
     }  /* End per-frame game loop - level completed */
 
@@ -861,14 +885,14 @@ static void UpdateScreen(int* frame)
   {
     if (blits[i].type == 'E') 
     {
-      DEBUGCODE
-      {
-        fprintf(stderr, "Erasing blits[%d]\n", i);
-        fprintf(stderr, "srcrect->x = %d\t srcrect->y = %d\t srcrect->w = %d\t srcrect->h = %d\n",
-              blits[i].srcrect->x, blits[i].srcrect->y, blits[i].srcrect->w, blits[i].srcrect->h);
-        fprintf(stderr, "dstrect->x = %d\t dstrect->y = %d\t dstrect->w = %d\t dstrect->h = %d\n",
-              blits[i].dstrect->x, blits[i].dstrect->y, blits[i].dstrect->w, blits[i].dstrect->h);
-      }
+//       DEBUGCODE
+//       {
+//         fprintf(stderr, "Erasing blits[%d]\n", i);
+//         fprintf(stderr, "srcrect->x = %d\t srcrect->y = %d\t srcrect->w = %d\t srcrect->h = %d\n",
+//               blits[i].srcrect->x, blits[i].srcrect->y, blits[i].srcrect->w, blits[i].srcrect->h);
+//         fprintf(stderr, "dstrect->x = %d\t dstrect->y = %d\t dstrect->w = %d\t dstrect->h = %d\n",
+//               blits[i].dstrect->x, blits[i].dstrect->y, blits[i].dstrect->w, blits[i].dstrect->h);
+//       }
 
       SDL_LowerBlit(blits[i].src, blits[i].srcrect, screen, blits[i].dstrect);
     }
@@ -883,14 +907,14 @@ static void UpdateScreen(int* frame)
   {
     if (blits[i].type == 'D') 
     {
-      DEBUGCODE
-      {
-        fprintf(stderr, "drawing blits[%d]\n", i);
-        fprintf(stderr, "srcrect->x = %d\t srcrect->y = %d\t srcrect->w = %d\t srcrect->h = %d\n",
-              blits[i].srcrect->x, blits[i].srcrect->y, blits[i].srcrect->w, blits[i].srcrect->h);
-        fprintf(stderr, "dstrect->x = %d\t dstrect->y = %d\t dstrect->w = %d\t dstrect->h = %d\n",
-              blits[i].dstrect->x, blits[i].dstrect->y, blits[i].dstrect->w, blits[i].dstrect->h);
-      } 
+//       DEBUGCODE
+//       {
+//         fprintf(stderr, "drawing blits[%d]\n", i);
+//         fprintf(stderr, "srcrect->x = %d\t srcrect->y = %d\t srcrect->w = %d\t srcrect->h = %d\n",
+//               blits[i].srcrect->x, blits[i].srcrect->y, blits[i].srcrect->w, blits[i].srcrect->h);
+//         fprintf(stderr, "dstrect->x = %d\t dstrect->y = %d\t dstrect->w = %d\t dstrect->h = %d\n",
+//               blits[i].dstrect->x, blits[i].dstrect->y, blits[i].dstrect->w, blits[i].dstrect->h);
+//       } 
 
       SDL_BlitSurface(blits[i].src, blits[i].srcrect, screen, blits[i].dstrect);
     } 

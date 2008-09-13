@@ -615,24 +615,29 @@ int PlayLaserGame(int diff_level)
 			MusicPlay(musics[MUS_GAME + (rand() % NUM_MUSICS)], 0);
       
 		/* Pause (keep frame-rate event) */
-      
+                DEBUGCODE
+                {
+                  fprintf(stderr, "now_time = %d\tlast_time = %d, elapsed time = %d\n",
+                          now_time, last_time, now_time - last_time);
+                }
+
 		now_time = SDL_GetTicks();
 		if (now_time < last_time + FPS)
 			SDL_Delay(last_time + FPS - now_time);
 	}
-		while (!done && !quit);
+	while (!done && !quit);
 
   
   /* Free backgrounds: */
   FreeBothBkgds();
 
-	/* Stop music: */
-	if ((settings.sys_sound) && (Mix_PlayingMusic()))
-		Mix_HaltMusic();
- 
-	laser_unload_data();
- 
-	return 1;
+  /* Stop music: */
+  if ((settings.sys_sound) && (Mix_PlayingMusic()))
+    Mix_HaltMusic();
+
+  laser_unload_data();
+
+  return 1;
 }
 
 
