@@ -879,6 +879,7 @@ static void UpdateScreen(int* frame)
   int i;
 
   LOG("Entering UpdateScreen()\n");
+  DOUT(numupdates);
 
   /* -- First erase everything we need to -- */
   for (i = 0; i < numupdates; i++)
@@ -928,10 +929,7 @@ static void UpdateScreen(int* frame)
 //  if (SNOW_on) 
 //    SDL_UpdateRects(screen, SNOW_add( (SDL_Rect*)&dstupdate, numupdates ), SNOW_rects);
 //  else 
-//    SDL_UpdateRects(screen, numupdates, dstupdate);
-
-  /* try something simpler for now: */
-  SDL_UpdateRect(screen, 0, 0, 0, 0);
+    SDL_UpdateRects(screen, numupdates, dstupdate);
 
   numupdates = 0;
   *frame = *frame + 1;

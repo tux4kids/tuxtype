@@ -819,19 +819,19 @@ int ConvertFromUTF8(wchar_t* wide_word, const unsigned char* UTF8_word)
 int ConvertToUTF8(wchar_t* wide_word, unsigned char* UTF8_word)
 {
   int i = 0;
-  UTF8 temp_UTF8[FNLEN];
-  UTF32 temp_UTF32[FNLEN];
+  UTF8 temp_UTF8[1024];
+  UTF32 temp_UTF32[1024];
 
   UTF8* UTF8_Start = &temp_UTF8[0];
-  UTF8* UTF8_End = &temp_UTF8[FNLEN - 1];
+  UTF8* UTF8_End = &temp_UTF8[1024 - 1];
   const UTF32* UTF32_Start = &temp_UTF32[0];
-  const UTF32* UTF32_End = &temp_UTF32[FNLEN - 1];
+  const UTF32* UTF32_End = &temp_UTF32[1024 - 1];
   
   iconv_t conv_descr;
   size_t bytes_converted;
-  size_t in_length = (size_t)FNLEN;
-  size_t out_length = (size_t)FNLEN;
-  wcsncpy(temp_UTF32, wide_word, FNLEN);
+  size_t in_length = (size_t)1024;
+  size_t out_length = (size_t)1024;
+  wcsncpy(temp_UTF32, wide_word, 1024);
 
   DEBUGCODE {fprintf(stderr, "ConvertToUTF8(): wide_word = %S\n", wide_word);}
   DEBUGCODE {fprintf(stderr, "ConvertToUTF8(): temp_UTF32 = %S\n", temp_UTF32);}
@@ -844,13 +844,13 @@ int ConvertToUTF8(wchar_t* wide_word, unsigned char* UTF8_word)
 
   UTF8_word[0] = 0;
 
-  while ((i < FNLEN) && (temp_UTF8[i] != 0))
+  while ((i < 1024) && (temp_UTF8[i] != 0))
   {
     UTF8_word[i] = temp_UTF8[i];
     i++; 
   }
 
-  if (i >= FNLEN)
+  if (i >= 1024)
   {
     fprintf(stderr, "ConvertToUTF8(): buffer overflow\n");
     return -1;

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tux Typing 1.5.16\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2008-08-26 16:04-0500\n"
+"POT-Creation-Date: 2008-09-22 21:17-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -40,123 +40,123 @@ msgstr "Πάτα ξανά το Esc για να γυρίσεις στις επι�
 msgid "Press space bar to return to game"
 msgstr "Πάτα το κενό για να γυρίσεις στο παιχνίδι"
 
-#: src/playgame.c:1044
+#: src/playgame.c:1068
 msgid "Level"
 msgstr "Επίπεδο"
 
-#: src/playgame.c:1045
+#: src/playgame.c:1069
 msgid "Lives"
 msgstr "Ζωές"
 
-#: src/playgame.c:1046
+#: src/playgame.c:1070
 msgid "Fish"
 msgstr "Ψάρια"
 
 # levels for Cascade game:
-#: src/playgame.c:1048 src/titlescreen.c:91
+#: src/playgame.c:1072 src/titlescreen.c:92
 msgid "Easy"
 msgstr "1. Εύκολο"
 
-#: src/playgame.c:1049 src/titlescreen.c:92
+#: src/playgame.c:1073 src/titlescreen.c:93
 msgid "Medium"
 msgstr "2. Κανονικό"
 
-#: src/playgame.c:1050 src/titlescreen.c:93
+#: src/playgame.c:1074 src/titlescreen.c:94
 msgid "Hard"
 msgstr "3. Δύσκολο"
 
 # general stuff
-#: src/playgame.c:1051 src/titlescreen.c:92
+#: src/playgame.c:1075 src/titlescreen.c:93
 msgid "Practice"
 msgstr "Εξάσκηση"
 
-#: src/playgame.c:1062
+#: src/playgame.c:1086
 msgid "Congratulations"
 msgstr "Συγχαρητήρια"
 
-#: src/playgame.c:1066
+#: src/playgame.c:1090
 msgid "Oh No!"
 msgstr "Ωχ! Όχι"
 
-#: src/practice.c:471
+#: src/practice.c:590
 msgid "Great!"
 msgstr "Μπράβο!"
 
-#: src/practice.c:774
+#: src/practice.c:1160
 msgid "Next letter "
 msgstr ""
 
-#: src/titlescreen.c:91
+#: src/titlescreen.c:92
 msgid "Fish Cascade"
 msgstr "Φάε τα Ψαράκια"
 
 # "Space Cadet" is level 1 in comet zap
-#: src/titlescreen.c:91
+#: src/titlescreen.c:92
 msgid "Space Cadet"
 msgstr "1. Μαθητευόμενος"
 
-#: src/titlescreen.c:91
+#: src/titlescreen.c:92
 msgid "Edit Word Lists"
 msgstr "Διόρθωσε τις Λίστες Λέξεων"
 
 # types of games
-#: src/titlescreen.c:92
+#: src/titlescreen.c:93
 msgid "Comet Zap"
 msgstr "Κομήτες"
 
 # "Pilot" is level 2 in comet zap
-#: src/titlescreen.c:92
+#: src/titlescreen.c:93
 msgid "Pilot"
 msgstr "2. Πιλότος"
 
-#: src/titlescreen.c:93
+#: src/titlescreen.c:94
 msgid "Lessons"
 msgstr "Μαθήματα"
 
 # "Ace" is level 3 in comet zap
-#: src/titlescreen.c:93
+#: src/titlescreen.c:94
 msgid "Ace"
 msgstr "3. Άσσος"
 
-#: src/titlescreen.c:93
+#: src/titlescreen.c:94
 msgid "Project Info"
 msgstr "Πληροφορίες προγράμματος"
 
-#: src/titlescreen.c:94
+#: src/titlescreen.c:95
 msgid "Options"
 msgstr "Επιλογές"
 
-#: src/titlescreen.c:94
+#: src/titlescreen.c:95
 msgid "Instructions"
 msgstr "Οδηγίες"
 
 # "Commander" is level 4 in comet zap
-#: src/titlescreen.c:94
+#: src/titlescreen.c:95
 msgid "Commander"
 msgstr "4. Βετεράνος"
 
-#: src/titlescreen.c:94
+#: src/titlescreen.c:95
 msgid "Setup Language"
 msgstr "Ρύθμιση Γλώσσας"
 
-#: src/titlescreen.c:95
+#: src/titlescreen.c:96
 msgid "Quit"
 msgstr "Τέλος"
 
-#: src/titlescreen.c:95
+#: src/titlescreen.c:96
 msgid "Main Menu"
 msgstr "Βασικό Μενού"
 
 # work in progress stuff
-#: src/titlescreen.c:1175
+#: src/titlescreen.c:1176
 msgid "Work In Progress!"
 msgstr "Εργασία σε εξέλιξη"
 
-#: src/titlescreen.c:1176
+#: src/titlescreen.c:1177
 msgid "This feature is not ready yet"
 msgstr "Αυτό το κομμάτι δεν είναι ακόμη έτοιμο"
 
-#: src/titlescreen.c:1177
+#: src/titlescreen.c:1178
 msgid "Discuss the future of TuxTyping at"
 msgstr "Σχόλια για το TuxTyping"
 

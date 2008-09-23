@@ -513,8 +513,8 @@ SDL_Surface* BlackOutline_Unicode(const Uint16* t, const TTF_Font* font, const S
 
 SDL_Surface* BlackOutline_w(wchar_t* t, const TTF_Font* font, const SDL_Color* c, int size)
 {
-	wchar_t wchar_tmp[512];
-	char tmp[512];
+	wchar_t wchar_tmp[1024];
+	char tmp[1024];
 	int i;
 	wcsncpy( wchar_tmp, t, size);
 	wchar_tmp[size]=0;
