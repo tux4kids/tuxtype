@@ -461,7 +461,7 @@ SDL_Surface* BlackOutline_Unicode(const Uint16* t, const TTF_Font* font, const S
 
   if (!font || !c)
   {
-    fprintf(stderr, "BlackOutline_wchar(): invalid ptr parameter, returning.");
+    fprintf(stderr, "BlackOutline_Unicode(): invalid ptr parameter, returning.");
     return NULL;
   }
                                         /* (cast to stop compiler complaint) */
@@ -469,7 +469,7 @@ SDL_Surface* BlackOutline_Unicode(const Uint16* t, const TTF_Font* font, const S
 
   if (!black_letters)
   {
-    fprintf (stderr, "Warning - BlackOutline_wchar() could not create image for %S\n", t);
+    fprintf (stderr, "Warning - BlackOutline_Unicode() could not create image for %S\n", t);
     return NULL;
   }
 

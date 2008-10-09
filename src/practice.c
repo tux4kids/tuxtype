@@ -36,6 +36,7 @@ static SDL_Surface* keypress1 = NULL;
 static SDL_Surface* keypress2 = NULL;
 static SDL_Surface* hand[11] = {NULL};
 static TTF_Font* font = NULL;
+static TTF_Font* bigfont = NULL;
 
 static wchar_t phrases[MAX_PHRASES][MAX_PHRASE_LENGTH];
 static Mix_Chunk* wrong = NULL;
@@ -47,6 +48,7 @@ static SDL_Rect user_text_rect;
 static SDL_Rect keytime_rect;
 static SDL_Rect totaltime_rect;
 static SDL_Rect congrats_rect;
+static SDL_Rect nextletter_rect;
 static SDL_Rect mydest;
 static SDL_Rect hand_loc;
 static SDL_Rect letter_loc;
@@ -685,9 +687,9 @@ static int practice_load_media(void)
 
   wrong = LoadSound("tock.wav");
 
-  /* load needed font: */
+  /* load needed fonts: */
   font = LoadFont(settings.theme_font_name, 30);
-
+  bigfont = LoadFont(settings.theme_font_name, 80);
 
   /* Get out if anything failed to load: */
   if (load_failed
@@ -696,6 +698,7 @@ static int practice_load_media(void)
     ||!CurrentBkgd()
     ||!wrong
     ||!font
+    ||!bigfont
     ||!keyboard
     ||!hand_shift[0]
     ||!hand_shift[1]
@@ -722,16 +725,18 @@ static int practice_load_media(void)
 
 static void recalc_positions(void)
 {
-  /* we can't just use phr_text_rect.w because SDL_BlitSurface() clobbers it: */
-  phrase_draw_width = screen->w - 80;
+  /* we can't just use phr_text_rect.w to calc wrap */
+  /* because SDL_BlitSurface() clobbers it: */
+  phrase_draw_width = screen->w * 0.9;
 
-  phr_text_rect.x = 40;
-  phr_text_rect.y = 10;
+  phr_text_rect.x = screen->w * 0.1;
+  phr_text_rect.y = screen->h * 0.1;
 
-  user_text_rect.x = 40;
-  user_text_rect.y = 100;
-  user_text_rect.w = screen->w;
+  user_text_rect.x = screen->w * 0.1;
+  user_text_rect.y = phr_text_rect.y + 60;
+  user_text_rect.w = screen->w * 0.8;
   user_text_rect.h = 30;    /* FIXME ideally should calculate from font height */
+
 
   keytime_rect.x = 50;
   keytime_rect.y = screen->h - 80;
@@ -753,15 +758,20 @@ static void recalc_positions(void)
   mydest.h = screen->h-mydest.y;
 
   hand_loc.x = (screen->w/2) - (hand[0]->w/2);
-  hand_loc.y = screen->h - (hand[0]->h);
+  hand_loc.y = screen->h - (hand[0]->h) - 20;
   hand_loc.w = (hand[0]->w);
   hand_loc.h = (hand[0]->h);
 
   /****     Position of keyboard image       */
-  keyboard_loc.x = screen->w/2 -keyboard->w/2; 
-  keyboard_loc.y = screen->h/2;
+  keyboard_loc.x = screen->w/2 -keyboard->w/2 - 50;
+  keyboard_loc.y = screen->h * 0.4;
   keyboard_loc.w = screen->w/8;
   keyboard_loc.h = screen->h/8;
+
+  nextletter_rect.x = keyboard_loc.x + keyboard->w + 20;
+  nextletter_rect.y = keyboard_loc.y;
+  nextletter_rect.w = 80;
+  nextletter_rect.h = 80;
 
 }
 
@@ -790,6 +800,10 @@ static void practice_unload_media(void)
   if (font)
     TTF_CloseFont(font);
   font = NULL;
+
+  if (bigfont)
+    TTF_CloseFont(bigfont);
+  bigfont = NULL;
 
   for (i = 0; i < 10; i++) 
   {
@@ -1155,12 +1169,22 @@ static void print_at(const wchar_t *pphrase, int wrap, int x, int y)
 
 static void next_letter(wchar_t *t, int c)
 {
-	int i;
-	wchar_t buf[30];
-        i=ConvertFromUTF8(buf, gettext("Next letter "));
-	buf[i]=t[c];
-	buf[i+1]=0;
-        print_at(buf,wcslen(buf),215 ,420);
+  int i;
+  Uint16 ltr[2];
+  SDL_Surface* s = NULL;
+
+  ltr[0] = t[c];
+  ltr[1] = '\0';
+
+  s = BlackOutline_Unicode(ltr, bigfont, &white);
+
+  if (s)
+  {
+    SDL_BlitSurface(CurrentBkgd(), &nextletter_rect, screen, &nextletter_rect);
+    SDL_BlitSurface(s, NULL, screen, &nextletter_rect);
+    SDL_FreeSurface(s);
+    s = NULL;
+  }
 }
 
 SDL_Surface* GetKeypress1(int index)
