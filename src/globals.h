@@ -62,6 +62,7 @@
 
 #endif //  __GLOBALS_H__
 
+/* FIXME get rid of these 'evil' macros */
 #define NEXT_FRAME(SPRITE) if ((SPRITE)->num_frames) (SPRITE)->cur = (((SPRITE)->cur)+1) % (SPRITE)->num_frames;
 #define REWIND(SPRITE) (SPRITE)->cur = 0;
 

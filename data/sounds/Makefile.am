@@ -7,6 +7,7 @@ dist_sounds_DATA = tuxi.ogg \
   alarm.wav \
   bite.wav \
   buzz.wav \
+  cheer.wav \
   click.wav \
   excuseme.wav \
   explosion.wav \

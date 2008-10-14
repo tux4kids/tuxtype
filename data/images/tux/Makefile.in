@@ -214,6 +214,7 @@ walk1.png\
 walk2.png\
 walk3.png\
 win0.png\
+win1.png\
 yipe0.png
 
 all: all-am

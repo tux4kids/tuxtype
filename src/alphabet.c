@@ -28,16 +28,6 @@ Sreyas Kurumanghat <k.sreyas@gmail.com>
 #include "funcs.h"
 
 
-/* NOTE these are externed in globals.h so not static */
-/* the colors we use throughout the game */
-SDL_Color black;
-SDL_Color gray;
-SDL_Color dark_blue;
-SDL_Color red;
-SDL_Color white;
-SDL_Color yellow;
-
-
 
 /* An individual item in the list of cached unicode characters that are rendered at   */
 /* the start of each game.                                                            */

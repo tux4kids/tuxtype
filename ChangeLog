@@ -1,3 +1,10 @@
+13 Oct 2008 - svn revision 760
+[ David Bruce <davidstuartbruce@gmail.com> ]
+        - Lots more work on fullscreen mode with Fish Cascade working but a little slow
+        - Practice activity extensively reworked - wrapping of arbitrary length phrases,
+          rearrangement of screen layout, fullscreen mode supported, animated Tux icons,
+          onscreen display of time, chars, words per min, accuracy with gettext support.
+
 22 Aug 2008 - svn revision 668
 [ David Bruce <davidstuartbruce@gmail.com> ]
         - Extensive revision to support fullscreen mode at resolution of OS rather than only 640x480.

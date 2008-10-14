@@ -448,8 +448,12 @@ void FreeSprite(sprite* gfx )
     return;
  
   for (x = 0; x < gfx->num_frames; x++)
-    SDL_FreeSurface(gfx->frame[x]);
-  SDL_FreeSurface(gfx->default_img);
+  {
+    if (gfx->frame[x])
+      SDL_FreeSurface(gfx->frame[x]);
+  }
+  if (gfx->default_img)
+    SDL_FreeSurface(gfx->default_img);
   free(gfx);
 }
 

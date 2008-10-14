@@ -324,6 +324,7 @@ SDL_Surface* Blend(SDL_Surface *S1,SDL_Surface *S2,float gamma)
 
 SDLPango_Context *context = NULL;
 
+
 void init_SDLPango_Context()
 {
    if((context =  SDLPango_CreateContext_GivenFontDesc(settings.theme_font_name))==NULL)
@@ -331,6 +332,8 @@ void init_SDLPango_Context()
    SDLPango_SetBaseDirection(context, SDLPANGO_DIRECTION_LTR);
    SDLPango_SetDpi(context, 125.0, 125.0);
 }
+
+
 void free_SDLPango_Context()
 {
   if(context != NULL)
@@ -426,10 +429,18 @@ SDL_Surface* BlackOutline(const char *t, TTF_Font *font, SDL_Color *c)
 #else
   if( context != NULL)
   {
-    SDLPango_SetDefaultColor(context, MATRIX_TRANSPARENT_BACK_WHITE_LETTER);
+    /* convert color arg: */
+    SDLPango_Matrix* color_matrix = SDL_Colour_to_SDLPango_Matrix(c);
+
+    if (color_matrix)
+      SDLPango_SetDefaultColor(context, color_matrix);
+    else  /* fall back to just using white if conversion fails: */
+      SDLPango_SetDefaultColor(context, MATRIX_TRANSPARENT_BACK_WHITE_LETTER);
+
     white_letters = SDLPango_CreateSurfaceDraw(context);
   }
-  else {
+  else
+  {
     white_letters = TTF_RenderUTF8_Blended(font, t, *c);
   }
 #endif

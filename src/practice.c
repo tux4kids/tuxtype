@@ -6,8 +6,8 @@ begin                : Friday Jan 25, 2003
 copyright            : (C) 2003 by Jesse Andrews
 email                : jdandr2@uky.edu
 
-Revised extensively: 2007
-David Bruce <dbruce@tampabay.rr.com>
+Revised extensively: 2007 and 2008
+David Bruce <davidstuartbruce@gmail.com>
 Revised extensively: 2008
 Sreyas Kurumanghat <k.sreyas@gmail.com>
 ***************************************************************************/
@@ -27,39 +27,79 @@ Sreyas Kurumanghat <k.sreyas@gmail.com>
 #define MAX_PHRASES 256
 #define MAX_PHRASE_LENGTH 256
 #define MAX_WRAP_LINES 10
-
+#define TEXT_HEIGHT 28
+#define SPRITE_FRAME_TIME 200
 /* "Local globals" for practice.c */
+static int fontsize = 0;
+static int bigfontsize = 0;
+
+/* Surfaces for things we want to pre-render: */
 static SDL_Surface* hands = NULL;
 static SDL_Surface* hand_shift[3] = {NULL};
 static SDL_Surface* keyboard = NULL;
 static SDL_Surface* keypress1 = NULL;
 static SDL_Surface* keypress2 = NULL;
 static SDL_Surface* hand[11] = {NULL};
-static TTF_Font* font = NULL;
+static sprite* tux_stand = NULL;
+static sprite* tux_win = NULL;
+static TTF_Font* smallfont = NULL;
 static TTF_Font* bigfont = NULL;
+static SDL_Surface* time_label_srfc = NULL;
+static SDL_Surface* chars_label_srfc = NULL;
+static SDL_Surface* cpm_label_srfc = NULL;
+static SDL_Surface* wpm_label_srfc = NULL;
+static SDL_Surface* errors_label_srfc = NULL;
+static SDL_Surface* accuracy_label_srfc = NULL;
+
 
 static wchar_t phrases[MAX_PHRASES][MAX_PHRASE_LENGTH];
 static Mix_Chunk* wrong = NULL;
+static Mix_Chunk* cheer = NULL;
+
+
+static int phrase_draw_width = 0; /* How wide before text needs wrapping */
+static int num_phrases = 0;
+
 
 /* Locations for blitting  */
-static int phrase_draw_width = 0; /* How wide before text needs wrapping */
+
+/* Three main areas within window: */
+static SDL_Rect left_pane;
+static SDL_Rect top_pane;
+static SDL_Rect bottom_pane;
+
+/* Locations within left pane: */
+static SDL_Rect tux_loc;
+static SDL_Rect time_label;
+static SDL_Rect time_rect;
+static SDL_Rect chars_typed_label;
+static SDL_Rect chars_typed_rect;
+static SDL_Rect cpm_label;
+static SDL_Rect cpm_rect;
+static SDL_Rect wpm_label;
+static SDL_Rect wpm_rect;
+static SDL_Rect errors_label;
+static SDL_Rect errors_rect;
+static SDL_Rect accuracy_label;
+static SDL_Rect accuracy_rect;
+
+/* Locations within top pane: */
 static SDL_Rect phr_text_rect;
 static SDL_Rect user_text_rect;
-static SDL_Rect keytime_rect;
-static SDL_Rect totaltime_rect;
-static SDL_Rect congrats_rect;
-static SDL_Rect nextletter_rect;
-static SDL_Rect mydest;
+
+/* Locations within bottom pane: */
 static SDL_Rect hand_loc;
-static SDL_Rect letter_loc;
+static SDL_Rect nextletter_rect;
+//static SDL_Rect letter_loc;
 static SDL_Rect keyboard_loc;
+
 
 /*local function prototypes: */
 static int load_phrases(const char* phrase_file);
-static int num_phrases = 0;
 static int find_next_wrap(const wchar_t* wstr, const TTF_Font* font, int width);
 static int get_phrase(const wchar_t* phr);
 static void recalc_positions(void);
+static void calc_font_sizes(void);
 static int practice_load_media(void);
 static void practice_unload_media(void);
 static void print_at(const wchar_t* pphrase, int wrap, int x, int y);
@@ -86,20 +126,26 @@ int Phrases(wchar_t* pphrase )
   */
 
   /* FIXME make variable names more descriptive */
-  Uint32 start = 0, a = 0;
+  Uint32 start = 0, a = 0, tuxtime = 0;
   int quit = 0,
       i = 0,
       cursor = 0,
       wrap_pt = 0,
       prev_wrap = 0,
-      z = 0,
       total = 0,
       state = 0;
+  int correct_chars = 0;
+  int wrong_chars = 0;
+  float accuracy = 0;
   int cur_phrase = 0;
   int keytimes[MAX_PHRASE_LENGTH] = {0};
   int next_line = 0;
-  char keytime_str[20],
-       totaltime_str[20];
+  char time_str[20];
+  char chars_typed_str[20];
+  char cpm_str[20];
+  char wpm_str[20];
+  char errors_str[20];
+  char accuracy_str[20];
   SDL_Surface* tmpsurf = NULL;
 
   /* Load all needed graphics, strings, sounds.... */
@@ -112,7 +158,7 @@ int Phrases(wchar_t* pphrase )
   /* Set up positions for blitting: */
   recalc_positions();
 
-  start = SDL_GetTicks();
+  start = tuxtime = SDL_GetTicks();
 
 
   /* Begin main event loop for "Practice" activity:  -------- */
@@ -127,13 +173,18 @@ int Phrases(wchar_t* pphrase )
        /* reset other variables related to progress within phrase: */
         for (i = 0; i < MAX_PHRASE_LENGTH; i++)
           keytimes[i] = 0;
-        keytime_str[0] = '\0';
-        totaltime_str[0] = '\0';
+        time_str[0] = '\0';
+        chars_typed_str[0] = '\0';
+        cpm_str[0] = '\0';
+        wpm_str[0] = '\0';
+        errors_str[0] = '\0';
+        accuracy_str[0] = '\0';
         total = 0;
         cursor = 0;
         wrap_pt = 0;
         prev_wrap = 0;
-
+        correct_chars = 0;
+        wrong_chars = 0;
         /* No 'break;' so we drop through to do case 1 as well : */
 
       /* state == 1 means complete redraw needed                          */
@@ -144,13 +195,25 @@ int Phrases(wchar_t* pphrase )
         /* Draw bkgd before we start */
         /* NOTE the keyboard and hands will get drawn when we drop through to case 2: */
         SDL_BlitSurface(CurrentBkgd(), NULL, screen, NULL);
-//        SDL_BlitSurface(keyboard, NULL, screen, &keyboard_loc);
-//        SDL_BlitSurface(hands, NULL, screen, &hand_loc);
+        /* Note - the validity of all these surfaces is tested */
+        /* in Practice_Load_Media(), so we should be safe.     */
+
+        /* Draw Tux:   */
+        SDL_BlitSurface(tux_stand->frame[tux_stand->cur], NULL, screen, &tux_loc);
+        /* Draw all the labels for the typing stats: */
+        SDL_BlitSurface(time_label_srfc, NULL, screen, &time_label);
+        SDL_BlitSurface(chars_label_srfc, NULL, screen, &chars_typed_label);
+        SDL_BlitSurface(cpm_label_srfc, NULL, screen, &cpm_label);
+        SDL_BlitSurface(wpm_label_srfc, NULL, screen, &wpm_label);
+        SDL_BlitSurface(errors_label_srfc, NULL, screen, &errors_label);
+        SDL_BlitSurface(accuracy_label_srfc, NULL, screen, &accuracy_label);
+
+
         /* Draw the phrase to be typed up to the next wrapping point: */
         wrap_pt = find_next_wrap(&phrases[cur_phrase][prev_wrap],
-                                  font, phrase_draw_width);
+                                  smallfont, phrase_draw_width);
         tmpsurf = BlackOutline_w(&phrases[cur_phrase][prev_wrap],
-                                  font, &white, wrap_pt + 1);
+                                  smallfont, &white, wrap_pt + 1);
         if (tmpsurf)
         {
           SDL_BlitSurface(tmpsurf, NULL, screen, &phr_text_rect);
@@ -159,7 +222,7 @@ int Phrases(wchar_t* pphrase )
         }
         /* Draw the text the player has typed so far: */
         tmpsurf = BlackOutline_w(&phrases[cur_phrase][prev_wrap],
-                                  font, &white,
+                                  smallfont, &white,
                                   cursor - prev_wrap);
         if (tmpsurf)
         {
@@ -168,22 +231,13 @@ int Phrases(wchar_t* pphrase )
           tmpsurf = NULL;
         }
 
-        /* Draw strings for time displays: */
-        tmpsurf = BlackOutline(keytime_str, font, &white);
+        tmpsurf = BlackOutline(time_str, smallfont, &white);
         if (tmpsurf)
         {
-          SDL_BlitSurface(tmpsurf, NULL, screen, &keytime_rect);
-          SDL_FreeSurface(tmpsurf);
-          tmpsurf = NULL;	
-        }
-        tmpsurf = BlackOutline(totaltime_str, font, &white);
-        if (tmpsurf)
-        {
-          SDL_BlitSurface(tmpsurf, NULL, screen, &totaltime_rect);
+          SDL_BlitSurface(tmpsurf, NULL, screen, &time_rect);
           SDL_FreeSurface(tmpsurf);
           tmpsurf = NULL;
         }
-//        SDL_BlitSurface(keyboard, NULL, screen, &keyboard_loc);
 
       /* state == 2 means user has pressed key, either correct or incorrect */
       case 2:
@@ -523,10 +577,21 @@ int Phrases(wchar_t* pphrase )
         /* Record elapsed time for this keypress and update running total: */
         a = SDL_GetTicks();
         keytimes[cursor] = a - start;
-        total += keytimes[cursor];
-        sprintf(keytime_str, "%.2f", (float) keytimes[cursor] / 1000);
-        sprintf(totaltime_str, "%.2f", (float) total / 1000);
         start = a;
+
+        total += keytimes[cursor];
+        sprintf(time_str, "%.2f sec", (float) total / 1000);
+        sprintf(chars_typed_str, "%d", correct_chars);
+        sprintf(cpm_str, "%.1f", (float) correct_chars /((float)total/60000));
+        sprintf(wpm_str, "%.1f", (float) ((float) correct_chars/5) /((float) total/60000));
+        sprintf(errors_str, "%d", wrong_chars);
+
+        /* Calculate accuracy, avoiding divide-by-zero error: */
+        if (correct_chars + wrong_chars == 0)
+          accuracy = 1;
+        else
+          accuracy = (float)correct_chars/((float) (correct_chars + wrong_chars));
+        sprintf(accuracy_str, "%.1f%%", accuracy * 100); 
 
 
         /****************************************************/
@@ -534,20 +599,25 @@ int Phrases(wchar_t* pphrase )
         if (phrases[cur_phrase][cursor] == event.key.keysym.unicode)
         {
           cursor++;
+          correct_chars++;
 
- //         state = 2;
-
+          /* Handle wrapping if we are at the end of the current display. */
+          /* NOTE now also checking for space at end of line so we wrap   */
+          /* automatically without waiting for user to type invisible     */
+          /* space                                                        */
           if (cursor >= prev_wrap + wrap_pt + 2) /* wrap onto next line */
           {
             /* This will cause the next line of the phrase to be drawn: */
             prev_wrap = prev_wrap + wrap_pt + 2;
             state = 1;
-
-/*            user_text_rect.x = 40;
-            user_text_rect.y = user_text_rect.y + user_text_rect.h;
-            mydest.y = user_text_rect.y;
-            mydest.h = screen->h - mydest.y;
-            next_line = 1;*/
+          }
+          else if ((cursor == prev_wrap + wrap_pt + 1) /* skip terminal space */
+               && (phrases[cur_phrase][cursor] == ' '))
+          {
+            /* Need to increment cursor another time in this case: */
+            cursor ++;
+            prev_wrap = prev_wrap + wrap_pt + 2;
+            state = 1;
           }
           else
             state = 2;
@@ -556,7 +626,7 @@ int Phrases(wchar_t* pphrase )
           /* except we don't want to redraw keyboard to avoid flicker:    */
 
           tmpsurf = BlackOutline_w(&phrases[cur_phrase][prev_wrap],
-                                   font, &white,
+                                   smallfont, &white,
                                    cursor - prev_wrap);
 
           if (tmpsurf)
@@ -568,44 +638,94 @@ int Phrases(wchar_t* pphrase )
           }
 
 
-          /* Draw strings for time displays: */
-          tmpsurf = BlackOutline(keytime_str, font, &white);
+          tmpsurf = BlackOutline(time_str, smallfont, &white);
           if (tmpsurf)
           {
-            SDL_BlitSurface(CurrentBkgd(), &keytime_rect, screen, &keytime_rect);
-            SDL_BlitSurface(tmpsurf, NULL, screen, &keytime_rect);
-            SDL_FreeSurface(tmpsurf);
-            tmpsurf = NULL;	
-          }
-
-          tmpsurf = BlackOutline(totaltime_str, font, &white);
-          if (tmpsurf)
-          {
-            SDL_BlitSurface(CurrentBkgd(), &totaltime_rect, screen, &totaltime_rect);
-            SDL_BlitSurface(tmpsurf, NULL, screen, &totaltime_rect);
+            SDL_BlitSurface(CurrentBkgd(), &time_rect, screen, &time_rect);
+            SDL_BlitSurface(tmpsurf, NULL, screen, &time_rect);
             SDL_FreeSurface(tmpsurf);
             tmpsurf = NULL;
           }
 
+          tmpsurf = BlackOutline(chars_typed_str, smallfont, &white);
+          if (tmpsurf)
+          {
+            SDL_BlitSurface(CurrentBkgd(), &chars_typed_rect, screen, &chars_typed_rect);
+            SDL_BlitSurface(tmpsurf, NULL, screen, &chars_typed_rect);
+            SDL_FreeSurface(tmpsurf);
+            tmpsurf = NULL;
+          }
+
+          tmpsurf = BlackOutline(cpm_str, smallfont, &white);
+          if (tmpsurf)
+          {
+            SDL_BlitSurface(CurrentBkgd(), &cpm_rect, screen, &cpm_rect);
+            SDL_BlitSurface(tmpsurf, NULL, screen, &cpm_rect);
+            SDL_FreeSurface(tmpsurf);
+            tmpsurf = NULL;
+          }
+
+          tmpsurf = BlackOutline(wpm_str, smallfont, &white);
+          if (tmpsurf)
+          {
+            SDL_BlitSurface(CurrentBkgd(), &wpm_rect, screen, &wpm_rect);
+            SDL_BlitSurface(tmpsurf, NULL, screen, &wpm_rect);
+            SDL_FreeSurface(tmpsurf);
+            tmpsurf = NULL;
+          }
+
+          tmpsurf = BlackOutline(errors_str, smallfont, &white);
+          if (tmpsurf)
+          {
+            SDL_BlitSurface(CurrentBkgd(), &errors_rect, screen, &errors_rect);
+            SDL_BlitSurface(tmpsurf, NULL, screen, &errors_rect);
+            SDL_FreeSurface(tmpsurf);
+            tmpsurf = NULL;
+          }
+
+          tmpsurf = BlackOutline(accuracy_str, smallfont, &white);
+          if (tmpsurf)
+          {
+            SDL_BlitSurface(CurrentBkgd(), &accuracy_rect, screen, &accuracy_rect);
+            SDL_BlitSurface(tmpsurf, NULL, screen, &accuracy_rect);
+            SDL_FreeSurface(tmpsurf);
+            tmpsurf = NULL;
+          }
+
+          SDL_Flip(screen);
+
+          /* If player has completed phrase, celebrate! */
           if (cursor == wcslen(phrases[cur_phrase]))
           {
-            tmpsurf = BlackOutline(gettext("Great!"), font, &white);
-            if (tmpsurf)
+            /* Draw Tux celebrating: */
             {
-              /* Center message on intended point: */
-              int save_x = congrats_rect.x;
-              congrats_rect.x -= tmpsurf->w/2;
-              SDL_BlitSurface(tmpsurf, NULL, screen, &congrats_rect);
-              SDL_FreeSurface(tmpsurf);
-              tmpsurf = NULL;
-              /* reset rect to prior value: */
-              congrats_rect.x = save_x;
+              int i = 0;
+              int done = 0;
+
+              PlaySound(cheer);
+
+              while (!done)
+              {
+                while (SDL_PollEvent(&event))
+                {
+                  if ((event.type == SDL_KEYDOWN)
+                    ||(event.type == SDL_MOUSEBUTTONDOWN))
+                    done = 1;
+                }
+
+                /* Draw Tux: */
+                SDL_BlitSurface(CurrentBkgd(), &tux_loc, screen, &tux_loc);
+                if (tux_win && tux_win->frame[tux_win->cur])
+                  SDL_BlitSurface(tux_win->frame[tux_win->cur], NULL, screen, &tux_loc);
+                SDL_UpdateRect(screen, tux_loc.x, tux_loc.y, tux_loc.w, tux_loc.h);
+                NEXT_FRAME(tux_win);
+                SDL_Delay(200);
+              }
             }
 
-            SDL_Flip(screen);
-            SDL_Delay(1200);
-  //          next_line = 0;
-  //          quit = 2;
+//            SDL_Flip(screen);
+//            SDL_Delay(1200);
+
             /* Go on to next phrase, or back to first one if all done */
             if (cur_phrase < num_phrases)
               cur_phrase++;
@@ -627,14 +747,31 @@ int Phrases(wchar_t* pphrase )
           }
           state = 2;
 
+          /* Don't count shift keys as wrong: */
           if (event.key.keysym.sym != SDLK_RSHIFT
            && event.key.keysym.sym != SDLK_LSHIFT)
+          {
+            wrong_chars++;
             PlaySound(wrong);
+          }
         }
         
       } /* End of "if(event.type == SDL_KEYDOWN)" block  --*/
 
     }  /* ----- End of SDL_PollEvent() loop -------------- */
+
+    /* Draw next tux frame if appropriate: */
+    if ((SDL_GetTicks() - tuxtime) > SPRITE_FRAME_TIME)
+    {
+      tuxtime = SDL_GetTicks();
+
+      SDL_BlitSurface(CurrentBkgd(), &tux_loc, screen, &tux_loc);
+
+      if (tux_stand && tux_stand->frame[tux_stand->cur])
+        SDL_BlitSurface(tux_stand->frame[tux_stand->cur], NULL, screen, &tux_loc);
+      NEXT_FRAME(tux_stand);
+    }
+
     SDL_UpdateRect(screen, 0, 0, 0, 0);
 //    SDL_Flip(screen);
     SDL_Delay(30); /* FIXME should keep frame rate constant */
@@ -656,6 +793,12 @@ int Phrases(wchar_t* pphrase )
 /*                                                                      */
 /************************************************************************/
 
+/* Select appropriate font sizes based on the screen we're working with: */
+static void calc_font_sizes(void)
+{
+  fontsize = (screen->h)/18;
+  bigfontsize = fontsize * 3;
+}
 
 static int practice_load_media(void)
 {
@@ -683,26 +826,48 @@ static int practice_load_media(void)
     hand[i] = LoadImage(fn, IMG_ALPHA);
     if (!hand[i])
       load_failed = 1;
-  }  /* load needed sounds: */
+  }
 
-  wrong = LoadSound("tock.wav");
+  /* load tux sprites: */
+  tux_win = LoadSprite("tux/win", IMG_COLORKEY);
+  tux_stand = LoadSprite("tux/stand", IMG_COLORKEY);
+  /* load needed sounds: */
+  wrong = LoadSound("buzz.wav");
+  cheer = LoadSound("cheer.wav");
 
   /* load needed fonts: */
-  font = LoadFont(settings.theme_font_name, 30);
-  bigfont = LoadFont(settings.theme_font_name, 80);
+  calc_font_sizes();
+  smallfont = LoadFont(settings.theme_font_name, fontsize);
+  bigfont = LoadFont(settings.theme_font_name, bigfontsize);
+
+  /* create labels: */
+  time_label_srfc = BlackOutline(_("Time"), smallfont, &yellow);
+  chars_label_srfc = BlackOutline(_("Chars"), smallfont, &yellow);
+  cpm_label_srfc = BlackOutline(_("CPM"), smallfont, &yellow);
+  wpm_label_srfc = BlackOutline(_("WPM"), smallfont, &yellow);
+  errors_label_srfc = BlackOutline(_("Errors"), smallfont, &yellow);
+  accuracy_label_srfc = BlackOutline(_("Accuracy"), smallfont, &yellow);
 
   /* Get out if anything failed to load: */
   if (load_failed
     ||!num_phrases
     ||!hands
     ||!CurrentBkgd()
+    ||!tux_win
+    ||!tux_stand
     ||!wrong
-    ||!font
+    ||!smallfont
     ||!bigfont
     ||!keyboard
     ||!hand_shift[0]
     ||!hand_shift[1]
-    ||!hand_shift[2])
+    ||!hand_shift[2]
+    ||!time_label_srfc
+    ||!chars_label_srfc
+    ||!cpm_label_srfc
+    ||!wpm_label_srfc
+    ||!errors_label_srfc
+    ||!accuracy_label_srfc)
   {
     fprintf(stderr, "practice_load_media() - failed to load needed media \n");
     practice_unload_media;
@@ -712,7 +877,7 @@ static int practice_load_media(void)
 
   /* Now render letters for glyphs in alphabet: */
   /* FIXME do we need this? */
-  RenderLetters(font);
+//  RenderLetters(font);
   //TTF_CloseFont(font);  /* Don't need it after rendering done */
   //font = NULL;
   GenerateKeyboard(keyboard);
@@ -725,62 +890,175 @@ static int practice_load_media(void)
 
 static void recalc_positions(void)
 {
+  if (!keyboard
+    ||!tux_win
+    ||!tux_win->frame[0]
+    ||!hand[0])
+  {
+    fprintf(stderr, "recalc_positions() - needed ptr invalid - returning\n");
+  } 
+
+  /* Screen is divided into three areas or 'panes' : */
+  /*
+        *************************************
+        *        *                          *
+        * left   *           top            *
+        *        *                          *
+        *        ****************************
+        *        *                          *
+        *        *                          *
+        *        *          bottom          *
+        *        *                          *
+        *        *                          *
+        *************************************
+  */
+
+  left_pane.x = 0;
+  left_pane.y = 0;
+  left_pane.w = screen->w * 0.25;
+  left_pane.h = screen->h;
+
+  top_pane.x = screen->w * 0.25;
+  top_pane.y = 0;
+  top_pane.w = screen->w * 0.75;
+  top_pane.h = screen->h * 0.4;
+
+  bottom_pane.x = screen->w * 0.25;
+  bottom_pane.y = screen->h * 0.4;
+  bottom_pane.w = screen->w * 0.75;
+  bottom_pane.h = screen->h * 0.6;
+
+  /* Set up all the locations within the left pane: */
+  tux_loc.x = left_pane.x + 5;
+  tux_loc.y = left_pane.y + 5;
+  tux_loc.w = tux_stand->frame[0]->w;
+  tux_loc.h = tux_stand->frame[0]->h;
+
+  time_label.x = left_pane.x + 5;
+  time_label.y = tux_loc.y + tux_loc.h + 5;
+  time_label.w = left_pane.w - 5;
+  time_label.h = fontsize;
+
+  time_rect.x = left_pane.x + 5;
+  time_rect.y = time_label.y + time_label.h;
+  time_rect.w = left_pane.w - 5;
+  time_rect.h = fontsize;
+
+  chars_typed_label.x = left_pane.x + 5;
+  chars_typed_label.y = time_rect.y + time_rect.h;
+  chars_typed_label.w = left_pane.w - 5;
+  chars_typed_label.h = fontsize;
+
+  chars_typed_rect.x = left_pane.x + 5;
+  chars_typed_rect.y = chars_typed_label.y + chars_typed_label.h;
+  chars_typed_rect.w = left_pane.w - 5;
+  chars_typed_rect.h = fontsize;
+
+  cpm_label.x = left_pane.x + 5;
+  cpm_label.y = chars_typed_rect.y + chars_typed_rect.h;
+  cpm_label.w = left_pane.w - 5;
+  cpm_label.h = fontsize;
+
+  cpm_rect.x = left_pane.x + 5;
+  cpm_rect.y = cpm_label.y + cpm_label.h;
+  cpm_rect.w = left_pane.w - 5;
+  cpm_rect.h = fontsize;
+
+  wpm_label.x = left_pane.x + 5;
+  wpm_label.y = cpm_rect.y + cpm_rect.h;
+  wpm_label.w = left_pane.w - 5;
+  wpm_label.h = fontsize;
+
+  wpm_rect.x = left_pane.x + 5;
+  wpm_rect.y = wpm_label.y + wpm_label.h;
+  wpm_rect.w = left_pane.w - 5;
+  wpm_rect.h = fontsize;
+
+  errors_label.x = left_pane.x + 5;
+  errors_label.y = wpm_rect.y + wpm_rect.h;
+  errors_label.w = left_pane.w - 5;
+  errors_label.h = fontsize;
+
+  errors_rect.x = left_pane.x + 5;
+  errors_rect.y = errors_label.y + errors_label.h;
+  errors_rect.w = left_pane.w - 5;
+  errors_rect.h = fontsize;
+
+  accuracy_label.x = left_pane.x + 5;
+  accuracy_label.y = errors_rect.y + errors_rect.h;
+  accuracy_label.w = left_pane.w - 5;
+  accuracy_label.h = fontsize;
+
+  accuracy_rect.x = left_pane.x + 5;
+  accuracy_rect.y = accuracy_label.y + accuracy_label.h;
+  accuracy_rect.w = left_pane.w - 5;
+  accuracy_rect.h = fontsize;
+
+  /* Set up all the locations within the top pane: */
+  phr_text_rect.x = top_pane.x + 5;
+  phr_text_rect.y = top_pane.y + top_pane.h * 0.3;
+  phr_text_rect.w = top_pane.w - 5;
+  phr_text_rect.h = fontsize;
+
   /* we can't just use phr_text_rect.w to calc wrap */
   /* because SDL_BlitSurface() clobbers it: */
-  phrase_draw_width = screen->w * 0.9;
+  phrase_draw_width = phr_text_rect.w;
 
-  phr_text_rect.x = screen->w * 0.1;
-  phr_text_rect.y = screen->h * 0.1;
+  user_text_rect.x = top_pane.x + 5;
+  user_text_rect.y = top_pane.y + top_pane.h * 0.6;
+  user_text_rect.w = top_pane.w - 5;
+  user_text_rect.h = fontsize;
 
-  user_text_rect.x = screen->w * 0.1;
-  user_text_rect.y = phr_text_rect.y + 60;
-  user_text_rect.w = screen->w * 0.8;
-  user_text_rect.h = 30;    /* FIXME ideally should calculate from font height */
+  /* Set up all the locations within the bottom pane: */
+  keyboard_loc.x = bottom_pane.x + bottom_pane.w/4 - keyboard->w/4;
+  keyboard_loc.y = bottom_pane.y + 5;
+  keyboard_loc.w = keyboard->w;
+  keyboard_loc.h = keyboard->h;
 
-
-  keytime_rect.x = 50;
-  keytime_rect.y = screen->h - 80;
-  keytime_rect.w = 100;
-  keytime_rect.h = 30;
-
-  totaltime_rect.x = screen->w - 160;
-  totaltime_rect.y = screen->h - 80;
-  totaltime_rect.w = 100;
-  totaltime_rect.h = 30;
-
-  congrats_rect.x = screen->w/2;
-  congrats_rect.y = 200;//screen->h - 80;
-
-  /* This is just a rectangle to redraw everything from the user's text on down: */
-  mydest.x = 0;
-  mydest.y = user_text_rect.y;
-  mydest.w = screen->w;
-  mydest.h = screen->h-mydest.y;
-
-  hand_loc.x = (screen->w/2) - (hand[0]->w/2);
-  hand_loc.y = screen->h - (hand[0]->h) - 20;
+  hand_loc.x = keyboard_loc.x;
+  hand_loc.y = keyboard_loc.y + keyboard_loc.h + 20;
   hand_loc.w = (hand[0]->w);
   hand_loc.h = (hand[0]->h);
 
-  /****     Position of keyboard image       */
-  keyboard_loc.x = screen->w/2 -keyboard->w/2 - 50;
-  keyboard_loc.y = screen->h * 0.4;
-  keyboard_loc.w = screen->w/8;
-  keyboard_loc.h = screen->h/8;
 
-  nextletter_rect.x = keyboard_loc.x + keyboard->w + 20;
-  nextletter_rect.y = keyboard_loc.y;
-  nextletter_rect.w = 80;
-  nextletter_rect.h = 80;
+  nextletter_rect.x = keyboard_loc.x + keyboard_loc.w - 80;
+  nextletter_rect.y = keyboard_loc.y + keyboard_loc.h;
+  nextletter_rect.w = bigfontsize * 1.5;
+  nextletter_rect.h = bigfontsize;
 
 }
+
 
 static void practice_unload_media(void)
 {
   int i;
 
   FreeBothBkgds();
-  FreeLetters(); 
+//  FreeLetters(); 
+
+  if (time_label_srfc)
+    SDL_FreeSurface(time_label_srfc);
+  time_label_srfc = NULL;
+
+  if (chars_label_srfc)
+    SDL_FreeSurface(chars_label_srfc);
+  chars_label_srfc = NULL;
+
+  if (cpm_label_srfc)
+    SDL_FreeSurface(cpm_label_srfc);
+  cpm_label_srfc = NULL;
+
+  if (wpm_label_srfc)
+    SDL_FreeSurface(wpm_label_srfc);
+  wpm_label_srfc = NULL;
+
+  if (errors_label_srfc)
+    SDL_FreeSurface(errors_label_srfc);
+  errors_label_srfc = NULL;
+
+  if (accuracy_label_srfc)
+    SDL_FreeSurface(accuracy_label_srfc);
+  accuracy_label_srfc = NULL;
 
   if (hands)
     SDL_FreeSurface(hands);
@@ -797,9 +1075,9 @@ static void practice_unload_media(void)
     SDL_FreeSurface(keyboard);
   keyboard = NULL;
 
-  if (font)
-    TTF_CloseFont(font);
-  font = NULL;
+  if (smallfont)
+    TTF_CloseFont(smallfont);
+  smallfont = NULL;
 
   if (bigfont)
     TTF_CloseFont(bigfont);
@@ -811,6 +1089,22 @@ static void practice_unload_media(void)
       SDL_FreeSurface(hand[i]);
     hand[i] = NULL;
   }
+
+  if (tux_stand)
+  {
+    FreeSprite(tux_stand);
+    tux_stand = NULL;
+  }
+
+  if (tux_win)
+  {
+    FreeSprite(tux_win);
+    tux_win = NULL;
+  }
+
+  if (cheer)
+    Mix_FreeChunk(cheer);
+  cheer = NULL;
 
   if (wrong)
     Mix_FreeChunk(wrong);
@@ -970,7 +1264,7 @@ static int find_next_wrap(const wchar_t* wstr, const TTF_Font* font, int width)
     /* Need to convert to UTF8 because couldn't get UNICODE version to work: */
     ConvertToUTF8(buf, UTF8buf);
     /*  Now check width of string: */
-    if (-1 == TTF_SizeUTF8(font, UTF8buf, &test_w, NULL))
+    if (-1 == TTF_SizeUTF8(smallfont, UTF8buf, &test_w, NULL))
     {
       /* An error occurred: */
       return -1;
@@ -1134,7 +1428,7 @@ static void print_at(const wchar_t *pphrase, int wrap, int x, int y)
   {
     LOG("Wrap not needed\n");
 
-    tmp = BlackOutline_w(pphrase, font, &white, wrap);
+    tmp = BlackOutline_w(pphrase, smallfont, &white, wrap);
     if (tmp)
     {
       SDL_BlitSurface(tmp, NULL, screen, &dst);
@@ -1146,7 +1440,7 @@ static void print_at(const wchar_t *pphrase, int wrap, int x, int y)
   {
     LOG("Line length exceeded - wrap required\n");
 
-    tmp = BlackOutline_w(pphrase, font, &white, wrap + 1);
+    tmp = BlackOutline_w(pphrase, smallfont, &white, wrap + 1);
     if (tmp)
     {
       SDL_BlitSurface(tmp, NULL, screen, &dst);
@@ -1155,7 +1449,7 @@ static void print_at(const wchar_t *pphrase, int wrap, int x, int y)
       tmp = NULL;
     }
 
-    tmp = BlackOutline_w(pphrase+wrap+1, font, &white, wcslen(pphrase));
+    tmp = BlackOutline_w(pphrase+wrap+1, smallfont, &white, wcslen(pphrase));
     if (tmp)
     {
       SDL_BlitSurface(tmp, NULL, screen, &dst);
