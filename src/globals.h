@@ -170,7 +170,7 @@ typedef struct {
 #define MAX_UNICODES    1024
 
 #define WAIT_MS		2500
-#define	FRAMES_PER_SEC	50
+#define	FRAMES_PER_SEC	15
 #define FULL_CIRCLE	140
 
 /* Menu Prototypes */
@@ -208,10 +208,11 @@ extern game_option_type settings;
 /* FIXME get rid of as much global data as possible, esp. pointers */
 
 extern SDL_Surface* screen;
+
 /* these will store the resolution used by the OS when we start, so we */
 /* can run fullscreen at the user's preferred resolution:              */
-extern uint fs_res_x;
-extern uint fs_res_y;
+extern int fs_res_x;
+extern int fs_res_y;
 
 //extern TTF_Font* font;
 extern SDL_Event  event;

@@ -33,7 +33,9 @@ static int number_max_w;                 // the max width of a number image
 
 //int o_lives; // something cal is working on
 //int sound_vol;
-static TTF_Font* font = NULL;
+static TTF_Font* label_font = NULL;
+static TTF_Font* fishy_font = NULL;
+
 //static SDL_Surface* background = NULL;
 static SDL_Surface* level[NUM_LEVELS] = {NULL};
 static SDL_Surface* number[NUM_NUMS] = {NULL};
@@ -149,8 +151,6 @@ int PlayCascade(int diflevel)
   LoadTuxAnims(); 
   LoadFishies();
   LoadOthers();
-  RenderLetters(font);
-  LOG( " Done rendering letters \n ");
 
   /* Make sure everything in the word list is "typable" according to the current */
   /* theme's keyboard.lst:                                                       */
@@ -230,6 +230,7 @@ int PlayCascade(int diflevel)
         LoadBothBkgds(filename);
 //      background = LoadImage( filename, IMG_REGULAR );
 //			SNOW_setBkg( background );
+
 
       DrawBackground();
 
@@ -357,7 +358,8 @@ int PlayCascade(int diflevel)
 
 
       /* --- fishy updates --- */
-      if ((frame % 10) == 0)
+      if ((frame% 3) == 0) 
+//      if ((frame % 10) == 0)
         NEXT_FRAME(fishy);
 
       if (fishies < local_max_fishies)
@@ -1061,16 +1063,22 @@ static void LoadOthers(void)
 	  fprintf(stderr, "settings.theme_font_name is %s\n",
                   settings.theme_font_name);
 	}
-	font = LoadFont(settings.theme_font_name, GAME_FONT_SIZE);
 
-	curlev = BlackOutline(gettext("Level"), font, &white);
-	lives  = BlackOutline(gettext("Lives"), font, &white);
-	fish   = BlackOutline(gettext("Fish"), font, &white);
+        fishy_font = LoadFont(settings.theme_font_name, FISHY_FONT_SIZE);
+	label_font = LoadFont(settings.theme_font_name, LABEL_FONT_SIZE);
 
-	level[0] = BlackOutline(gettext("Easy"), font, &white);
-	level[1] = BlackOutline(gettext("Medium"), font, &white);
-	level[2] = BlackOutline(gettext("Hard"), font, &white);
-	level[3] = BlackOutline(gettext("Practice"), font, &white);
+        RenderLetters(fishy_font);
+        LOG( " Done rendering letters \n ");
+
+
+	curlev = BlackOutline(gettext("Level"), label_font, &white);
+	lives  = BlackOutline(gettext("Lives"), label_font, &white);
+	fish   = BlackOutline(gettext("Fish"), label_font, &white);
+
+	level[0] = BlackOutline(gettext("Easy"), label_font, &white);
+	level[1] = BlackOutline(gettext("Medium"), label_font, &white);
+	level[2] = BlackOutline(gettext("Hard"), label_font, &white);
+	level[3] = BlackOutline(gettext("Practice"), label_font, &white);
 
 	number_max_w = 0;
 	for (i = 0; i < NUM_NUMS; i++) {
@@ -1081,11 +1089,11 @@ static void LoadOthers(void)
 	}
 
 	for (i = 0; i < CONGRATS_FRAMES; i++) {
-		congrats[i] = BlackOutline(gettext("Congratulations"), font, &white);
+		congrats[i] = BlackOutline(gettext("Congratulations"), label_font, &white);
 	}
 
 	for (i = 0; i < OH_NO_FRAMES; i++) {
-		ohno[i] = BlackOutline(gettext("Oh No!"), font, &white);
+		ohno[i] = BlackOutline(gettext("Oh No!"), label_font, &white);
 	}
 	
 	if (settings.sys_sound) {
@@ -1124,7 +1132,7 @@ static void LoadOthers(void)
 static void display_msg(const unsigned char* msg, int x, int y)
 {
 	SDL_Surface* m;
-	m = TTF_RenderUTF8_Shaded(font, msg, white, white);
+	m = TTF_RenderUTF8_Shaded(label_font, msg, white, white);
 	EraseObject(m, x, y);
 	DrawObject(m, x, y);
 	SDL_FreeSurface(m);
@@ -1256,9 +1264,13 @@ static void FreeGame(void)
 
   FreeLetters();
 
-  if (font)
-    TTF_CloseFont(font);
-  font = NULL;
+  if (fishy_font)
+    TTF_CloseFont(fishy_font);
+  fishy_font = NULL;
+
+  if (label_font)
+    TTF_CloseFont(label_font);
+  label_font = NULL;
 
   LOG( "FreeGame():\n-Freeing Tux Animations\n" );
 
@@ -1404,7 +1416,7 @@ static void SpawnFishies(int diflevel, int* fishies, int* frame)
 	fish_object[*fishies].y = 0;
 
 	/* set the percentage of the speed based on length */
-	fish_object[*fishies].dy = pow(0.92,fish_object[*fishies].len-1);
+	fish_object[*fishies].dy = pow(0.92, fish_object[*fishies].len - 1);
 	/* ex: a 9 letter word will be roughly twice as slow! 0.92^8 */
 
 	/* give it a random variance so the fish "crunch" isn't constant */
@@ -1424,7 +1436,7 @@ static void SpawnFishies(int diflevel, int* fishies, int* frame)
 			break;
    	}
 
-	fish_object[*fishies].splat_time = *frame + (480 - fishy->frame[0]->h - tux_object.spr[TUX_STANDING][0]->frame[0]->h)/fish_object[*fishies].dy;
+	fish_object[*fishies].splat_time = *frame + (screen->h - fishy->frame[0]->h - tux_object.spr[TUX_STANDING][0]->frame[0]->h)/fish_object[*fishies].dy;
 
 	DEBUGCODE {
 		/* NOTE need %S rather than %s because of wide characters */
@@ -1548,8 +1560,8 @@ static void DrawFish(int which)
 	int current_letter;
 	/* 'x_inset' and 'y_inset' are where the glyph to be drawn relative        */
 	/* the fishy graphic:                                                      */
-	const int x_inset = 10;
-        const int y_inset = 10;
+	const int x_inset = 5;
+        const int y_inset = 0;
 	/* letter_x and letter_y are where the upper left corner of the glyph needs */
         /* to be located - (e.g. how SDL blitting understands locations)           */
         int letter_x = 0;
@@ -1824,8 +1836,9 @@ static void MoveTux( int frame, int fishies ) {
 			tux_object.x = tux_object.endx;
 		}
 	}
-
-	if ((frame % 8) == 0) next_tux_frame();
+//	if ((frame % 8) == 0) next_tux_frame();
+        /* Changed from 8 to 3 because throttling frame rate down to 15 */
+	if ((frame % 3) == 0) next_tux_frame();
 }
 
 static void draw_bar(int curlevel, int diflevel, int curlives, int oldlives, int fish_left, int oldfish_left) {

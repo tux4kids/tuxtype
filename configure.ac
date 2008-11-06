@@ -1,5 +1,5 @@
 # Process this file with autoconf to produce a configure script.
-AC_INIT([Tux Typing],[1.6.0],[tux4kids-tuxtype-dev@lists.alioth.debian.org],[tuxtype])
+AC_INIT([Tux Typing],[1.7.0],[tux4kids-tuxtype-dev@lists.alioth.debian.org],[tuxtype])
 
 AC_CANONICAL_BUILD
 AC_CANONICAL_HOST
@@ -42,12 +42,26 @@ AM_PATH_SDL($SDL_VERSION,
             :,
             AC_MSG_ERROR([*** SDL version $SDL_VERSION not found!]))
 
-AC_CHECK_LIB([SDL_mixer], [Mix_PlayMusic], ,[AC_MSG_ERROR(SDL_mixer not found http://www.libsdl.org/projects/SDL_mixer, )])
-AC_CHECK_LIB([SDL_ttf], [TTF_Init], ,[AC_MSG_ERROR(SDL_ttf not found http://www.libsdl.org/projects/SDL_ttf, )])
-AC_CHECK_LIB([SDL_image], [IMG_Load], ,[AC_MSG_ERROR(SDL_image not found http://www.libsdl.org/projects/SDL_image, )])
+AC_CHECK_LIB([SDL_mixer],
+             [Mix_PlayMusic],
+             ,
+             [AC_MSG_ERROR(SDL_mixer not found http://www.libsdl.org/projects/SDL_mixer, )])
+
+AC_CHECK_LIB([SDL_ttf], 
+             [TTF_Init],
+             ,
+             [AC_MSG_ERROR(SDL_ttf not found http://www.libsdl.org/projects/SDL_ttf, )])
+
+AC_CHECK_LIB([SDL_image], 
+             [IMG_Load], 
+             ,
+             [AC_MSG_ERROR(SDL_image not found http://www.libsdl.org/projects/SDL_image, )])
 
 # FIXME would be better to skip check for win32 build
-AC_CHECK_LIB([SDL_Pango], [SDLPango_Init], ,[AC_MSG_WARN(SDL_Pango not found http://sdlpango.sourceforge.net/)])
+AC_CHECK_LIB([SDL_Pango], 
+             [SDLPango_Init],
+             ,
+             [AC_MSG_WARN(SDL_Pango not found http://sdlpango.sourceforge.net/)])
 
 
 #

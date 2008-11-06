@@ -19,12 +19,6 @@
 #include "SDL.h"
 #include "SDL_ttf.h"
 
-#ifdef HAVE_LIBSDL_PANGO
-//#include "SDL_Pango.h"
-//extern SDLPango_Context *context;
-void init_SDLPango_Context();
-void free_SDLPango_Context();
-#endif
 
 #if SDL_BYTEORDER == SDL_BIG_ENDIAN
 #define rmask 0xff000000
@@ -52,5 +46,10 @@ int WaitForKeypress(void);
 SDL_Surface* Blend(SDL_Surface *S1, SDL_Surface *S2,float gamma);
 SDL_Surface *zoom(SDL_Surface * src, int new_w, int new_h);
 
+#ifdef HAVE_LIBSDL_PANGO
+void init_SDLPango_Context();
+void free_SDLPango_Context();
+void reset_DPI_SDLPango_Context(float dpi_x, float dpi_y);
+#endif
 
 #endif

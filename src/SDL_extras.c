@@ -18,6 +18,7 @@
 #ifdef HAVE_LIBSDL_PANGO
 #include "SDL_Pango.h"
 static SDLPango_Matrix* SDL_Colour_to_SDLPango_Matrix(const SDL_Color* cl);
+SDLPango_Context* context;
 #endif
 
 
@@ -320,15 +321,13 @@ SDL_Surface* Blend(SDL_Surface *S1,SDL_Surface *S2,float gamma)
 
   return ret;
 }
+
 #ifdef HAVE_LIBSDL_PANGO
-
-SDLPango_Context *context = NULL;
-
 
 void init_SDLPango_Context()
 {
    if((context =  SDLPango_CreateContext_GivenFontDesc(settings.theme_font_name))==NULL)
-	   context =  SDLPango_CreateContext();
+     context =  SDLPango_CreateContext();
    SDLPango_SetBaseDirection(context, SDLPANGO_DIRECTION_LTR);
    SDLPango_SetDpi(context, 125.0, 125.0);
 }
@@ -339,6 +338,12 @@ void free_SDLPango_Context()
   if(context != NULL)
     SDLPango_FreeContext(context);
   context = NULL;
+}
+
+
+void reset_DPI_SDLPango_Context(float dpi_x, float dpi_y)
+{
+  SDLPango_SetDpi(context, dpi_x, dpi_y);
 }
 
 

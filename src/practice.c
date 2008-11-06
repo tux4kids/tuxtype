@@ -23,6 +23,7 @@ Sreyas Kurumanghat <k.sreyas@gmail.com>
 
 #include "globals.h"
 #include "funcs.h"
+#include "SDL_extras.h"
 
 #define MAX_PHRASES 256
 #define MAX_PHRASE_LENGTH 256
@@ -134,6 +135,7 @@ int Phrases(wchar_t* pphrase )
       prev_wrap = 0,
       total = 0,
       state = 0;
+  int once_only = 0;
   int correct_chars = 0;
   int wrong_chars = 0;
   float accuracy = 0;
@@ -155,6 +157,19 @@ int Phrases(wchar_t* pphrase )
     return 0;
   }
 
+  /* If we got a phrase string arg, use it, otherwise we */
+  /* load practice phrases from  the default file:       */
+  if (pphrase != NULL
+    && wcslen(pphrase) > 0)
+  {
+    wcsncpy(phrases[0], pphrase, MAX_PHRASE_LENGTH);
+    num_phrases = 1;
+    once_only = 1;
+  }
+  else
+  {
+    num_phrases = load_phrases("phrases.txt");
+  }
   /* Set up positions for blitting: */
   recalc_positions();
 
@@ -723,15 +738,18 @@ int Phrases(wchar_t* pphrase )
               }
             }
 
-//            SDL_Flip(screen);
-//            SDL_Delay(1200);
-
-            /* Go on to next phrase, or back to first one if all done */
-            if (cur_phrase < num_phrases)
-              cur_phrase++;
-            else
-              cur_phrase = 0;
-
+            /* if we are just doing a single phrase passed as arg to function, */
+            /* we stop here:                                                   */
+            if (once_only)
+              quit = 1;
+            else  /* means we are using the phrases from the file */
+            {
+              /* Go on to next phrase, or back to first one if all done */
+              if (cur_phrase < num_phrases)
+                cur_phrase++;
+              else
+                cur_phrase = 0;
+            }
             state = 0;
           }
         }
@@ -751,8 +769,14 @@ int Phrases(wchar_t* pphrase )
           if (event.key.keysym.sym != SDLK_RSHIFT
            && event.key.keysym.sym != SDLK_LSHIFT)
           {
-            wrong_chars++;
-            PlaySound(wrong);
+            /* Also, don't count spacebar as wrong on first char */
+            /* after wrap because we automatically skip it above */
+            if((cursor != prev_wrap) 
+             ||(event.key.keysym.sym != SDLK_SPACE))
+            {
+              wrong_chars++;
+              PlaySound(wrong);
+            }
           }
         }
         
@@ -798,6 +822,17 @@ static void calc_font_sizes(void)
 {
   fontsize = (screen->h)/18;
   bigfontsize = fontsize * 3;
+
+  /* When SDL_Pango is used, the above font sizes are ignored    */
+  /* by BlackOutline(), so we adjust dpi to scale the fonts:     */
+  /* HACK this isn't quite the intended use of SDLPango_SetDpi() */
+#ifdef HAVE_LIBSDL_PANGO
+  {
+   float dpi_x, dpi_y;
+   dpi_x = dpi_y = 125 * ((float)screen->h/(float)480);
+   reset_DPI_SDLPango_Context(dpi_x, dpi_y);
+  }
+#endif
 }
 
 static int practice_load_media(void)
@@ -809,8 +844,6 @@ static int practice_load_media(void)
 
   DEBUGCODE { printf("Entering practice_load_media\n"); }
 
-  /* load practice phrases from file */
-  num_phrases = load_phrases("phrases.txt");
 
   /* load needed SDL_Surfaces: */
   LoadBothBkgds("main_bkg.png");
@@ -850,7 +883,6 @@ static int practice_load_media(void)
 
   /* Get out if anything failed to load: */
   if (load_failed
-    ||!num_phrases
     ||!hands
     ||!CurrentBkgd()
     ||!tux_win
@@ -876,10 +908,8 @@ static int practice_load_media(void)
 
 
   /* Now render letters for glyphs in alphabet: */
-  /* FIXME do we need this? */
-//  RenderLetters(font);
-  //TTF_CloseFont(font);  /* Don't need it after rendering done */
-  //font = NULL;
+  /* This is used for keyboard graphic */
+  RenderLetters(smallfont);
   GenerateKeyboard(keyboard);
 
   LOG("DONE - Loading practice media\n");
@@ -1034,7 +1064,7 @@ static void practice_unload_media(void)
   int i;
 
   FreeBothBkgds();
-//  FreeLetters(); 
+  FreeLetters(); 
 
   if (time_label_srfc)
     SDL_FreeSurface(time_label_srfc);
@@ -1109,6 +1139,12 @@ static void practice_unload_media(void)
   if (wrong)
     Mix_FreeChunk(wrong);
   wrong = NULL;
+
+/* Set the dpi back to default: */
+#ifdef HAVE_LIBSDL_PANGO
+  reset_DPI_SDLPango_Context(125, 125);
+#endif
+
 }
 
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tux Typing 1.5.16\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2008-09-22 21:17-0500\n"
+"POT-Creation-Date: 2008-10-16 21:12-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Mobin M <mobinmohan@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -44,60 +44,49 @@ msgid "Press space bar to return to game"
 msgstr "खेलमा फर्कन स्पेस बार  थिच्नुहोस । "
 
 #
-#: src/playgame.c:1068
+#: src/playgame.c:1074
 msgid "Level"
 msgstr "श्रेणी"
 
 #
-#: src/playgame.c:1069
+#: src/playgame.c:1075
 msgid "Lives"
 msgstr "जिवनहरु"
 
 #
-#: src/playgame.c:1070
+#: src/playgame.c:1076
 msgid "Fish"
 msgstr "माछा"
 
 #
-#: src/playgame.c:1072 src/titlescreen.c:92
+#: src/playgame.c:1078 src/titlescreen.c:92
 msgid "Easy"
 msgstr "सजिलो"
 
 #
-#: src/playgame.c:1073 src/titlescreen.c:93
+#: src/playgame.c:1079 src/titlescreen.c:93
 msgid "Medium"
 msgstr "मध्यम"
 
 #
-#: src/playgame.c:1074 src/titlescreen.c:94
+#: src/playgame.c:1080 src/titlescreen.c:94
 msgid "Hard"
 msgstr "कठिन"
 
 #
-#: src/playgame.c:1075 src/titlescreen.c:93
+#: src/playgame.c:1081 src/titlescreen.c:93
 msgid "Practice"
 msgstr "प्रशिक्षण"
 
 #
-#: src/playgame.c:1086
+#: src/playgame.c:1092
 msgid "Congratulations"
 msgstr "तपाइलाई बधाई छ!!!"
 
 #
-#: src/playgame.c:1090
+#: src/playgame.c:1096
 msgid "Oh No!"
 msgstr "हेत्तेरिका!.."
-
-#
-#: src/practice.c:590
-msgid "Great!"
-msgstr "उत्तम अति उत्तम ‍!"
-
-#
-#: src/practice.c:1160
-#, fuzzy
-msgid "Next letter "
-msgstr "आगामी अक्षर"
 
 #
 #: src/titlescreen.c:92
@@ -183,6 +172,15 @@ msgstr "यो सुबिधा अहिले उपलब्ध हुन�
 #: src/titlescreen.c:1178
 msgid "Discuss the future of TuxTyping at"
 msgstr " टक्शटाइप को भविष्य बारेमा छलफल गर्नुहोस ।"
+
+#
+#~ msgid "Great!"
+#~ msgstr "उत्तम अति उत्तम ‍!"
+
+#
+#, fuzzy
+#~ msgid "Next letter "
+#~ msgstr "आगामी अक्षर"
 
 #
 #~ msgid "Alphabet"

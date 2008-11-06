@@ -20,7 +20,6 @@
 #include "funcs.h"
 
 SDL_Surface* screen;
-
 SDL_Event  event;
 
 /* the colors we use throughout the game */

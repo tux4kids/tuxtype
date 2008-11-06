@@ -6,7 +6,4 @@ scriptsdir = $(pkgdatadir)/data/scripts
 dist_scripts_DATA = projectInfo.xml \
   cascade.xml \
   laser.xml \
-  Lesson_1.xml \
-  Lesson_2.xml \
-  Lesson_3.xml \
-  Lesson_4.xml
+  Lesson_1.xml

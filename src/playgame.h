@@ -20,6 +20,9 @@
 #define __PLAYGAME_H__
 
 //definitions
+#define FISHY_FONT_SIZE 32
+#define LABEL_FONT_SIZE 20
+
 #define GRAPHIC_SPACE 4 //space between each status bar element in cascade
 
 #define NUM_NUMS 10	//"Mmmmm....Num-Nums...."
@@ -40,7 +43,7 @@
 #define STAND_ONSCREEN	15
 #define GULP_ONSCREEN	10
 //tux default walking & running speeds
-#define WALKING_SPEED	1.5
+#define WALKING_SPEED	5
 //#define WALKING_SPEED         1
 #define MIN_RUNNING_SPEED		4 * WALKING_SPEED
 #define MAX_RUNNING_SPEED		10 * WALKING_SPEED
@@ -57,11 +60,12 @@
 #define FISHY_ONSCREEN	10
 #define SPLAT_FRAMES	1
 #define SPLAT_ONSCREEN	4
-#define DEFAULT_SPEED	.3
+#define DEFAULT_SPEED	1
 
-#define MAX_SPEED_EASY       0.4
-#define MAX_SPEED_MEDIUM     0.9
-#define MAX_SPEED_HARD       1.2
+/* These aren't maxes - they are multipliers to determine how fast the fish fall */
+#define MAX_SPEED_EASY       1.3
+#define MAX_SPEED_MEDIUM     3
+#define MAX_SPEED_HARD       5
 
 #define FISH_SPACING_EASY    90
 #define FISH_SPACING_MEDIUM  40

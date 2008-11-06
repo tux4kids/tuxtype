@@ -34,8 +34,8 @@ const char PATHS[NUM_PATHS][FNLEN] =
   "./data"
 };
 
-uint fs_res_x = 0;
-uint fs_res_y = 0;
+int fs_res_x = 0;
+int fs_res_y = 0;
 
 /* Local function prototypes: */
 static int load_settings_fp(FILE* fp);
@@ -101,29 +101,6 @@ void GraphicsInit(void)
           "%s\n\n", SDL_GetError());
     exit(2);
   }
-
-// 	LOG( "GraphicsInit - Initialize graphic system\n" );
-// 
-// 	DEBUGCODE {
-// 		fprintf(stderr, "-SDL Setting VidMode to %ix%ix%i\n", RES_X, RES_Y, BPP);
-// 	}
-// 
-// 	/* NOTE fullscreen vs. windowed is indicated by video_flags: */
-// 	if (settings.fullscreen)
-//         {
-// 	  video_flags = (SDL_FULLSCREEN | SDL_SWSURFACE | SDL_HWPALETTE);
-// 	} 
-//         else
-//         {
-// 	  video_flags = (SDL_SWSURFACE | SDL_HWPALETTE);
-// 	}
-// 
-// 	screen = SDL_SetVideoMode(RES_X, RES_Y, BPP, video_flags);
-// 
-// 	if (screen == NULL) {
-// 		fprintf(stderr, "Couldn't set %ix%i video mode: %s\n", RES_X, RES_Y, SDL_GetError());
-// 		exit(2);
-// 	}
 
 
 	LOG( "SDL_SetClipRect(screen, NULL):\n" );

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tux Typing 1.5.16\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2008-09-22 21:17-0500\n"
+"POT-Creation-Date: 2008-10-16 21:12-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -40,51 +40,43 @@ msgstr "Πάτα ξανά το Esc για να γυρίσεις στις επι�
 msgid "Press space bar to return to game"
 msgstr "Πάτα το κενό για να γυρίσεις στο παιχνίδι"
 
-#: src/playgame.c:1068
+#: src/playgame.c:1074
 msgid "Level"
 msgstr "Επίπεδο"
 
-#: src/playgame.c:1069
+#: src/playgame.c:1075
 msgid "Lives"
 msgstr "Ζωές"
 
-#: src/playgame.c:1070
+#: src/playgame.c:1076
 msgid "Fish"
 msgstr "Ψάρια"
 
 # levels for Cascade game:
-#: src/playgame.c:1072 src/titlescreen.c:92
+#: src/playgame.c:1078 src/titlescreen.c:92
 msgid "Easy"
 msgstr "1. Εύκολο"
 
-#: src/playgame.c:1073 src/titlescreen.c:93
+#: src/playgame.c:1079 src/titlescreen.c:93
 msgid "Medium"
 msgstr "2. Κανονικό"
 
-#: src/playgame.c:1074 src/titlescreen.c:94
+#: src/playgame.c:1080 src/titlescreen.c:94
 msgid "Hard"
 msgstr "3. Δύσκολο"
 
 # general stuff
-#: src/playgame.c:1075 src/titlescreen.c:93
+#: src/playgame.c:1081 src/titlescreen.c:93
 msgid "Practice"
 msgstr "Εξάσκηση"
 
-#: src/playgame.c:1086
+#: src/playgame.c:1092
 msgid "Congratulations"
 msgstr "Συγχαρητήρια"
 
-#: src/playgame.c:1090
+#: src/playgame.c:1096
 msgid "Oh No!"
 msgstr "Ωχ! Όχι"
-
-#: src/practice.c:590
-msgid "Great!"
-msgstr "Μπράβο!"
-
-#: src/practice.c:1160
-msgid "Next letter "
-msgstr ""
 
 #: src/titlescreen.c:92
 msgid "Fish Cascade"
@@ -159,6 +151,9 @@ msgstr "Αυτό το κομμάτι δεν είναι ακόμη έτοιμο"
 #: src/titlescreen.c:1178
 msgid "Discuss the future of TuxTyping at"
 msgstr "Σχόλια για το TuxTyping"
+
+#~ msgid "Great!"
+#~ msgstr "Μπράβο!"
 
 #~ msgid "Alphabet"
 #~ msgstr "Αλφάβητο"
