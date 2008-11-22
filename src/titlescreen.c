@@ -1436,92 +1436,115 @@ static int chooseWordlist(void)
           break;
 
         case SDL_MOUSEBUTTONDOWN:
-                                        if (inRect( leftRect, event.button.x, event.button.y ))
-                                                if (loc-(loc%8)-8 >= 0) {
-                                                        loc=loc-(loc%8)-8;
-                                                        break;
-                                                }
-                                        if (inRect( rightRect, event.button.x, event.button.y ))
-                                                if (loc-(loc%8)+8 < lists) {
-                                                        loc=loc-(loc%8)+8;
-                                                        break;
-                                                }
-                                        for (i=0; (i<8) && (loc-(loc%8)+i<lists); i++)
-                                                if (inRect(titleRects[i], event.button.x, event.button.y)) {
-                                                        loc = loc-(loc%8)+i;
-							ClearWordList(); /* clear old selection */
-							//if (loc==0)
-							//  UseAlphabet(); 
-							//else
-							GenerateWordList(wordlistFile[loc]); 
-                                                        stop = 1;
-                                                        break;
-                                                }
-                                        break;
-                                case SDL_KEYDOWN:
-                                        if (event.key.keysym.sym == SDLK_ESCAPE) { stop = 2; break; }
-                                        if (event.key.keysym.sym == SDLK_RETURN) {
-						ClearWordList(); /* clear old selection */
-						//if (loc==0)
-						//  UseAlphabet(); 
-						//else
-						GenerateWordList(wordlistFile[loc]); 
-                                                stop = 1;
-                                                break;
-                                        }
+          if (inRect( leftRect, event.button.x, event.button.y ))
+          {
+            if (loc - (loc % 8) - 8 >= 0)
+            {
+              loc = loc - (loc % 8) - 8;
+              break;
+            }
+          }
 
-                                        if ((event.key.keysym.sym == SDLK_LEFT) || (event.key.keysym.sym == SDLK_PAGEUP)) {
-                                                if (loc-(loc%8)-8 >= 0)
-                                                        loc=loc-(loc%8)-8;
-                                        }
+          if (inRect(rightRect, event.button.x, event.button.y))
+          {
+            if (loc - (loc % 8) + 8 < lists)
+            {
+              loc = loc - (loc % 8) + 8;
+              break;
+            }
+          }
 
-                                        if ((event.key.keysym.sym == SDLK_RIGHT) || (event.key.keysym.sym == SDLK_PAGEDOWN)) {
-                                                if (loc-(loc%8)+8 < lists)
-                                                        loc=(loc-(loc%8)+8);
-                                        }
+          for (i = 0; (i < 8) && (loc - (loc % 8) + i < lists); i++)
+          {
+            if (inRect(titleRects[i], event.button.x, event.button.y))
+            {
+              loc = loc - (loc % 8) + i;
+              ClearWordList(); /* clear old selection */
+              GenerateWordList(wordlistFile[loc]); 
+              stop = 1;
+              break;
+            }
+          }
 
-                                        if (event.key.keysym.sym == SDLK_UP) {
-                                                if (loc > 0)
-                                                        loc--;
-                                        }
+          break;
 
-                                        if (event.key.keysym.sym == SDLK_DOWN) {
-                                                if (loc+1<lists)
-                                                        loc++;
-                                        }
+        case SDL_KEYDOWN:
+          if (event.key.keysym.sym == SDLK_ESCAPE)
+          {
+            stop = 2;
+            break;
+          }
+
+          if (event.key.keysym.sym == SDLK_RETURN)
+          {
+            ClearWordList(); /* clear old selection */
+            GenerateWordList(wordlistFile[loc]); 
+            stop = 1;
+            break;
+          }
+
+          if ((event.key.keysym.sym == SDLK_LEFT)
+           || (event.key.keysym.sym == SDLK_PAGEUP))
+          {
+            if (loc - (loc % 8) - 8 >= 0)
+              loc = loc - (loc % 8) - 8;
+          }
+
+          if ((event.key.keysym.sym == SDLK_RIGHT)
+           || (event.key.keysym.sym == SDLK_PAGEDOWN))
+          {
+            if (loc - (loc % 8) + 8 < lists)
+              loc = (loc - (loc % 8) + 8);
+          }
+
+          if (event.key.keysym.sym == SDLK_UP)
+          {
+            if (loc > 0)
+              loc--;
+          }
+
+          if (event.key.keysym.sym == SDLK_DOWN)
+          {
+            if (loc+1<lists)
+              loc++;
+          }
       }
     }
 
-    if (old_loc != loc) {
-                        int start;
+    /* Redraw if we have changed location: */
+    if (old_loc != loc)
+    {
+      int start;
 
-                        SDL_BlitSurface(CurrentBkgd(), NULL, screen, NULL );
+      SDL_BlitSurface(CurrentBkgd(), NULL, screen, NULL );
 
-                        start = loc - (loc % 8);
-                        for (i = start; i<MIN(start+8,lists); i++) {
-                                titleRects[i%8].x = screen->w/2 - (titles[i]->w/2);
-                                if (i == loc)
-                                        SDL_BlitSurface(select[loc], NULL, screen, &titleRects[i%8]);
-                                else
-                                        SDL_BlitSurface(titles[i], NULL, screen, &titleRects[i%8]);
-                        }
+      start = loc - (loc % 8);
 
-                        /* --- draw buttons --- */
+      for (i = start; i< MIN(start + 8,lists); i++) 
+      {
+        titleRects[i % 8].x = screen->w/2 - (titles[i]->w/2);
+        if (i == loc)   /* Draw selected text in yellow:  */
+          SDL_BlitSurface(select[loc], NULL, screen, &titleRects[i%8]);
+        else            /* Draw unselected text in white: */
+          SDL_BlitSurface(titles[i], NULL, screen, &titleRects[i%8]);
+      }
 
-                        if (start>0)
-                                SDL_BlitSurface( left, NULL, screen, &leftRect );
+      /* --- draw arrow buttons --- */
+      if (start > 0)
+        SDL_BlitSurface(left, NULL, screen, &leftRect);
 
-                        if (start+8<lists)
-                                SDL_BlitSurface( right, NULL, screen, &rightRect );
+      if (start + 8 < lists)
+        SDL_BlitSurface(right, NULL, screen, &rightRect);
 
-                        SDL_UpdateRect(screen, 0, 0, 0 ,0);
-                }
-                SDL_Delay(40);
-                old_loc = loc;
+      SDL_UpdateRect(screen, 0, 0, 0 ,0);
+    }
+
+    SDL_Delay(40);
+    old_loc = loc;
   }
 
   /* --- clear graphics before leaving function --- */ 
-  for (i = 0; i<lists; i++)
+  for (i = 0; i < lists; i++)
   {
     SDL_FreeSurface(titles[i]);
     SDL_FreeSurface(select[i]);
