@@ -23,7 +23,7 @@ email                : tuxtype-dev@tux4kids.net
 #include "snow.h"
 #include "SDL_extras.h"
 
-#define _(String) gettext(String)
+//#define _(String) gettext(String)
 
 //void add_words( int level );
 

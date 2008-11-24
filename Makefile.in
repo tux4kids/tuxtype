@@ -13,6 +13,8 @@
 # PARTICULAR PURPOSE.
 
 @SET_MAKE@
+
+# Modified to include support for NSIS Windows installer - David Bruce <dbruce@tampabay.rr.com>
 VPATH = @srcdir@
 pkgdatadir = $(datadir)/@PACKAGE@
 pkglibdir = $(libdir)/@PACKAGE@
@@ -36,15 +38,27 @@ subdir = .
 DIST_COMMON = README $(am__configure_deps) $(srcdir)/Makefile.am \
 	$(srcdir)/Makefile.in $(srcdir)/config.h.in \
 	$(srcdir)/tuxtype.spec.in $(top_srcdir)/configure \
+	$(top_srcdir)/intl/Makefile.in \
 	$(top_srcdir)/nsis/tuxtype.nsi.in ABOUT-NLS AUTHORS COPYING \
 	ChangeLog INSTALL TODO config.guess config.rpath config.sub \
 	depcomp install-sh missing mkinstalldirs
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
-am__aclocal_m4_deps = $(top_srcdir)/m4/gettext.m4 \
-	$(top_srcdir)/m4/iconv.m4 $(top_srcdir)/m4/lib-ld.m4 \
-	$(top_srcdir)/m4/lib-link.m4 $(top_srcdir)/m4/lib-prefix.m4 \
-	$(top_srcdir)/m4/nls.m4 $(top_srcdir)/m4/po.m4 \
-	$(top_srcdir)/m4/progtest.m4 $(top_srcdir)/acinclude.m4 \
+am__aclocal_m4_deps = $(top_srcdir)/m4/codeset.m4 \
+	$(top_srcdir)/m4/gettext.m4 $(top_srcdir)/m4/glibc2.m4 \
+	$(top_srcdir)/m4/glibc21.m4 $(top_srcdir)/m4/iconv.m4 \
+	$(top_srcdir)/m4/intdiv0.m4 $(top_srcdir)/m4/intl.m4 \
+	$(top_srcdir)/m4/intldir.m4 $(top_srcdir)/m4/intlmacosx.m4 \
+	$(top_srcdir)/m4/intmax.m4 $(top_srcdir)/m4/inttypes-pri.m4 \
+	$(top_srcdir)/m4/inttypes_h.m4 $(top_srcdir)/m4/lcmessage.m4 \
+	$(top_srcdir)/m4/lib-ld.m4 $(top_srcdir)/m4/lib-link.m4 \
+	$(top_srcdir)/m4/lib-prefix.m4 $(top_srcdir)/m4/lock.m4 \
+	$(top_srcdir)/m4/longlong.m4 $(top_srcdir)/m4/nls.m4 \
+	$(top_srcdir)/m4/po.m4 $(top_srcdir)/m4/printf-posix.m4 \
+	$(top_srcdir)/m4/progtest.m4 $(top_srcdir)/m4/size_max.m4 \
+	$(top_srcdir)/m4/stdint_h.m4 $(top_srcdir)/m4/uintmax_t.m4 \
+	$(top_srcdir)/m4/ulonglong.m4 $(top_srcdir)/m4/visibility.m4 \
+	$(top_srcdir)/m4/wchar_t.m4 $(top_srcdir)/m4/wint_t.m4 \
+	$(top_srcdir)/m4/xsize.m4 $(top_srcdir)/acinclude.m4 \
 	$(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
@@ -52,7 +66,7 @@ am__CONFIG_DISTCLEAN_FILES = config.status config.cache config.log \
  configure.lineno config.status.lineno
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
 CONFIG_HEADER = config.h
-CONFIG_CLEAN_FILES = nsis/tuxtype.nsi tuxtype.spec
+CONFIG_CLEAN_FILES = intl/Makefile nsis/tuxtype.nsi tuxtype.spec
 SOURCES =
 DIST_SOURCES =
 RECURSIVE_TARGETS = all-recursive check-recursive dvi-recursive \
@@ -79,17 +93,22 @@ GZIP_ENV = --best
 distuninstallcheck_listfiles = find . -type f -print
 distcleancheck_listfiles = find . -type f -print
 ACLOCAL = @ACLOCAL@
+ALLOCA = @ALLOCA@
 AMTAR = @AMTAR@
 AUTOCONF = @AUTOCONF@
 AUTOHEADER = @AUTOHEADER@
 AUTOMAKE = @AUTOMAKE@
 AWK = @AWK@
+BUILD_INCLUDED_LIBINTL = @BUILD_INCLUDED_LIBINTL@
+CATOBJEXT = @CATOBJEXT@
 CC = @CC@
 CCDEPMODE = @CCDEPMODE@
 CFLAGS = @CFLAGS@
+CFLAG_VISIBILITY = @CFLAG_VISIBILITY@
 CPP = @CPP@
 CPPFLAGS = @CPPFLAGS@
 CYGPATH_W = @CYGPATH_W@
+DATADIRNAME = @DATADIRNAME@
 DEFS = @DEFS@
 DEPDIR = @DEPDIR@
 ECHO_C = @ECHO_C@
@@ -97,53 +116,84 @@ ECHO_N = @ECHO_N@
 ECHO_T = @ECHO_T@
 EGREP = @EGREP@
 EXEEXT = @EXEEXT@
+GENCAT = @GENCAT@
+GETTEXT_MACRO_VERSION = @GETTEXT_MACRO_VERSION@
+GLIBC2 = @GLIBC2@
+GLIBC21 = @GLIBC21@
 GMSGFMT = @GMSGFMT@
 GMSGFMT_015 = @GMSGFMT_015@
 GREP = @GREP@
+HAVE_ASPRINTF = @HAVE_ASPRINTF@
+HAVE_POSIX_PRINTF = @HAVE_POSIX_PRINTF@
+HAVE_SNPRINTF = @HAVE_SNPRINTF@
+HAVE_VISIBILITY = @HAVE_VISIBILITY@
+HAVE_WPRINTF = @HAVE_WPRINTF@
 INSTALL = @INSTALL@
 INSTALL_DATA = @INSTALL_DATA@
 INSTALL_PROGRAM = @INSTALL_PROGRAM@
 INSTALL_SCRIPT = @INSTALL_SCRIPT@
 INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_PROGRAM@
+INSTOBJEXT = @INSTOBJEXT@
+INTLBISON = @INTLBISON@
 INTLLIBS = @INTLLIBS@
+INTLOBJS = @INTLOBJS@
+INTL_LIBTOOL_SUFFIX_PREFIX = @INTL_LIBTOOL_SUFFIX_PREFIX@
 INTL_MACOSX_LIBS = @INTL_MACOSX_LIBS@
 LDFLAGS = @LDFLAGS@
 LIBICONV = @LIBICONV@
 LIBINTL = @LIBINTL@
+LIBMULTITHREAD = @LIBMULTITHREAD@
 LIBOBJS = @LIBOBJS@
+LIBPTH = @LIBPTH@
+LIBPTH_PREFIX = @LIBPTH_PREFIX@
 LIBS = @LIBS@
-LN_S = @LN_S@
+LIBTHREAD = @LIBTHREAD@
+LTLIBC = @LTLIBC@
 LTLIBICONV = @LTLIBICONV@
 LTLIBINTL = @LTLIBINTL@
+LTLIBMULTITHREAD = @LTLIBMULTITHREAD@
 LTLIBOBJS = @LTLIBOBJS@
+LTLIBPTH = @LTLIBPTH@
+LTLIBTHREAD = @LTLIBTHREAD@
 MAKEINFO = @MAKEINFO@
 MKDIR_P = @MKDIR_P@
 MSGFMT = @MSGFMT@
 MSGFMT_015 = @MSGFMT_015@
 MSGMERGE = @MSGMERGE@
+NAME_VERSION = @NAME_VERSION@
 NSIS = @NSIS@
 NSI_DLL_DIR = @NSI_DLL_DIR@
 NSI_INSTALL_DIR = @NSI_INSTALL_DIR@
 OBJEXT = @OBJEXT@
 PACKAGE = @PACKAGE@
 PACKAGE_BUGREPORT = @PACKAGE_BUGREPORT@
+PACKAGE_DATA_DIR = @PACKAGE_DATA_DIR@
 PACKAGE_NAME = @PACKAGE_NAME@
 PACKAGE_STRING = @PACKAGE_STRING@
 PACKAGE_TARNAME = @PACKAGE_TARNAME@
 PACKAGE_VERSION = @PACKAGE_VERSION@
 PATH_SEPARATOR = @PATH_SEPARATOR@
 POSUB = @POSUB@
+POW_LIB = @POW_LIB@
+PRI_MACROS_BROKEN = @PRI_MACROS_BROKEN@
+RANLIB = @RANLIB@
 SDL_CFLAGS = @SDL_CFLAGS@
 SDL_CONFIG = @SDL_CONFIG@
 SDL_LIBS = @SDL_LIBS@
 SET_MAKE = @SET_MAKE@
 SHELL = @SHELL@
 STRIP = @STRIP@
+USE_INCLUDED_LIBINTL = @USE_INCLUDED_LIBINTL@
 USE_NLS = @USE_NLS@
 VERSION = @VERSION@
 WINDRES = @WINDRES@
+WOE32 = @WOE32@
+WOE32DLL = @WOE32DLL@
 XGETTEXT = @XGETTEXT@
 XGETTEXT_015 = @XGETTEXT_015@
+XGETTEXT_EXTRA_OPTIONS = @XGETTEXT_EXTRA_OPTIONS@
+YACC = @YACC@
+YFLAGS = @YFLAGS@
 abs_builddir = @abs_builddir@
 abs_srcdir = @abs_srcdir@
 abs_top_builddir = @abs_top_builddir@
@@ -177,7 +227,7 @@ infodir = @infodir@
 install_sh = @install_sh@
 libdir = @libdir@
 libexecdir = @libexecdir@
-localedir = @localedir@
+localedir = $(datadir)/locale
 localstatedir = @localstatedir@
 mandir = @mandir@
 mkdir_p = @mkdir_p@
@@ -197,12 +247,18 @@ target_os = @target_os@
 target_vendor = @target_vendor@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
+SUBDIRS = doc	\
+	intl	\
+	po	\
+	src	\
+	data
 
-# Modified to include support for NSIS Windows installer - David Bruce <dbruce@tampabay.rr.com>
-MAKENSIS = @NSIS@
-SUBDIRS = po data doc src
-EXTRA_DIST = config.rpath AUTHORS COPYING ChangeLog INSTALL README TODO tuxtype.lsm tuxtype.spec tuxtype.spec.in config.h autorun.inf tuxtype.ico
 ACLOCAL_AMFLAGS = -I m4
+EXTRA_DIST = config.rpath tuxtype.ico
+MAKENSIS = @NSIS@
+NSIS_FOUND = @NSIS_FOUND@
+NSI_TEMP_INSTALL_DIR = $(abs_top_builddir)/_instw32
+data_fonts = AndikaDesRevG.ttf DoulosSILR.ttf lohit_hi.ttf Rachana_w01.ttf
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-recursive
 
@@ -257,6 +313,8 @@ $(srcdir)/config.h.in:  $(am__configure_deps)
 
 distclean-hdr:
 	-rm -f config.h stamp-h1
+intl/Makefile: $(top_builddir)/config.status $(top_srcdir)/intl/Makefile.in
+	cd $(top_builddir) && $(SHELL) ./config.status $@
 nsis/tuxtype.nsi: $(top_builddir)/config.status $(top_srcdir)/nsis/tuxtype.nsi.in
 	cd $(top_builddir) && $(SHELL) ./config.status $@
 tuxtype.spec: $(top_builddir)/config.status $(srcdir)/tuxtype.spec.in
@@ -497,6 +555,7 @@ distcheck: dist
 	  && dc_destdir="$${TMPDIR-/tmp}/am-dc-$$$$/" \
 	  && cd $(distdir)/_build \
 	  && ../configure --srcdir=.. --prefix="$$dc_install_base" \
+	    --with-included-gettext \
 	    $(DISTCHECK_CONFIGURE_FLAGS) \
 	  && $(MAKE) $(AM_MAKEFLAGS) \
 	  && $(MAKE) $(AM_MAKEFLAGS) dvi \
@@ -649,21 +708,14 @@ uninstall-am: uninstall-local
 install-data-local:
 	$(MKDIR_P) $(DESTDIR)$(prefix)/doc/$(PACKAGE)
 	$(INSTALL_DATA) $(srcdir)/ChangeLog $(DESTDIR)$(prefix)/doc/$(PACKAGE)/ChangeLog
-	$(INSTALL_DATA) $(srcdir)/tuxtype.lsm $(DESTDIR)$(prefix)/doc/$(PACKAGE)/tuxtype.lsm
 	$(MKDIR_P) $(DESTDIR)$(prefix)/share/$(PACKAGE)
 	$(INSTALL_DATA) $(srcdir)/tuxtype.ico $(DESTDIR)$(prefix)/share/$(PACKAGE)/tuxtype.ico
-	$(INSTALL_DATA) $(srcdir)/autorun.inf $(DESTDIR)$(prefix)/share/$(PACKAGE)/autorun.inf
 
 uninstall-local:
 	-rm -f $(DESTDIR)$(prefix)/doc/$(PACKAGE)/ChangeLog
-	-rm -f $(DESTDIR)$(prefix)/doc/$(PACKAGE)/tuxtype.lsm
 	-rm -rf $(DESTDIR)$(prefix)/doc/$(PACKAGE)
-	-rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/autorun.inf
 	-rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/tuxtype.ico
 	-rm -rf $(DESTDIR)$(prefix)/share/$(PACKAGE)
-
-# Now doing this in preferred way via AM_INIT_AUTOMAKE in configure.ac:
-#AUTOMAKE_OPTIONS = foreign 
 
 # Rule to build tar-gzipped distribution package
 $(PACKAGE)-$(VERSION).tar.gz: distcheck
@@ -671,34 +723,49 @@ $(PACKAGE)-$(VERSION).tar.gz: distcheck
 # Rule to build RPM distribution package
 rpm: $(PACKAGE)-$(VERSION).tar.gz
 	rpmbuild -ta $(PACKAGE)-$(VERSION).tar.gz
-
-# Rules needed to cross-build nsis Win32 installer under Linux
-# Taken from tuxmath's Makefile.am - David Bruce
-# This rule probably kludgy (hardcoded)- DSB
-install-nsi-local: all
-	$(INSTALL) -d $(top_srcdir)/$(NSI_INSTALL_DIR)/data;
-	$(INSTALL) -d $(top_srcdir)/$(NSI_INSTALL_DIR)/docs;
-
-	(cd $(top_srcdir)/tuxtype/data ; tar cf -  --exclude "Makefile.in" --exclude "*.in" --exclude "*~" --exclude \ "Makefile" --exclude "Makefile.am" --exclude CVS --exclude .xvpics --exclude "1[1-9].ogg"  --exclude "2?.ogg" --exclude "*.svn*" * ) \
-         | ( cd $(top_srcdir)/$(NSI_INSTALL_DIR)/data ; tar xf -) ; \
-	(cd $(top_srcdir)/tuxtype/docs ; tar cf -  --exclude "Makefile.in" --exclude "*.in" --exclude "*~" --exclude \ "Makefile" --exclude "Makefile.am" --exclude CVS --exclude .xvpics --exclude "1[1-9].ogg"  --exclude "2?.ogg" --exclude "*.svn*" * ) \
-         | ( cd $(top_srcdir)/$(NSI_INSTALL_DIR)/docs ; tar xf -) ; \
-	cp $(top_srcdir)/COPYING $(top_srcdir)/$(NSI_INSTALL_DIR)/docs/COPYING.txt ; \
-	cp $(top_srcdir)/AUTHORS $(top_srcdir)/$(NSI_INSTALL_DIR)/docs/AUTHORS.txt ; \
-	cp $(top_srcdir)/INSTALL $(top_srcdir)/$(NSI_INSTALL_DIR)/docs/INSTALL.txt ; \
-	cp $(top_srcdir)/README $(top_srcdir)/$(NSI_INSTALL_DIR)/docs/README.txt ; \
-	cp $(NSI_DLL_DIR)/*.dll $(top_srcdir)/$(NSI_INSTALL_DIR) ; \
-	cp $(SUBDIRS)/tuxtype.exe $(top_srcdir)/$(NSI_INSTALL_DIR)/TuxType.exe ;
-
-#	cp $(NSI_DLL_DIR)/*.ttf $(top_srcdir)/$(NSI_INSTALL_DIR)/data/fonts ;
-
 dist_with_fonts:
-	$(MAKE) $(AM_MAKEFLAGS) distdir=$(PACKAGE)_w_fonts-$(VERSION) dist_fonts='AndikaDesRevG.ttf DoulosSILR.ttf lohit_hi.ttf Rachana_w01.ttf' dist
+	$(MAKE) $(AM_MAKEFLAGS) distdir=$(PACKAGE)_w_fonts-$(VERSION) \
+  dist_fonts=$(data_fonts) dist
+
+install-nsi-local: all
+	$(INSTALL) -d $(NSI_TEMP_INSTALL_DIR)
+	$(MAKE) $(AM_MAKEFLAGS) DESTDIR=$(NSI_TEMP_INSTALL_DIR) install
+	$(INSTALL) -d $(top_builddir)/$(NSI_INSTALL_DIR)/data;
+	(cd $(NSI_TEMP_INSTALL_DIR)/$(pkgdatadir); \
+           tar cf -  * ) \
+           | ( cd $(top_builddir)/$(NSI_INSTALL_DIR)/$(PACKAGE_DATA_DIR); \
+           tar xf -)
+	$(INSTALL) -d $(top_builddir)/$(NSI_INSTALL_DIR)/doc;
+	(cd $(NSI_TEMP_INSTALL_DIR)/$(docdir); \
+           tar cf -  * ) \
+           | ( cd $(top_builddir)/$(NSI_INSTALL_DIR)/doc; \
+           tar xf -)
+	$(INSTALL) -d $(top_builddir)/$(NSI_INSTALL_DIR)/locale;
+	(cd $(NSI_TEMP_INSTALL_DIR)/$(localedir); \
+           tar cf -  * ) \
+           | ( cd $(top_builddir)/$(NSI_INSTALL_DIR)/locale; \
+           tar xf -)
+	(cd $(NSI_TEMP_INSTALL_DIR)/$(bindir); \
+           mv *TuxType.exe TuxType.exe; \
+           tar cf - TuxType.exe  ) \
+           | ( cd $(top_builddir)/$(NSI_INSTALL_DIR); \
+           tar xf -)
+	$(MAKE) $(AM_MAKEFLAGS) DESTDIR=$(NSI_TEMP_INSTALL_DIR) uninstall
+	rm -rf $(NSI_TEMP_INSTALL_DIR)
+	-cp $(NSI_DLL_DIR)/*.dll $(top_builddir)/$(NSI_INSTALL_DIR);
 
 install-nsi-am: install-nsi-local
 
-nsis: install-nsi-local
-	$(MAKENSIS) -NOCD nsis/tuxtype.nsi
+nsis:
+	if test "x$(MAKENSIS)" = "x"; then \
+	  echo "\nError - makensis program not found!"; \
+          echo "It is needed to build the NSIS executable installer for Windows."; \
+          echo "Install it from your distribution's repository, or" ; \
+          echo "download it from: http://nsis.sourceforge.net/Download\n"; \
+	else \
+	$(MAKE) $(AM_MAKEFLAGS) install-nsi-local; \
+	  $(MAKENSIS) -NOCD nsis/tuxtype.nsi; \
+	fi
 
 clean-local:
 	@$(NORMAL_CLEAN)
@@ -732,7 +799,7 @@ force-update-gmo-%: check-gettext
 	touch po/$$language.po ; \
 	cd po && $(MAKE) $(AM_MAKEFLAGS) update-gmo
 
-.PHONY: check-gettext update-po update-gmo force-update-gmo
+.PHONY: check-gettext update-po update-gmo force-update-gmo nsis
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:

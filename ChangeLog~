@@ -1,3 +1,8 @@
+05 Nov 2008 - svn revision 765
+[ David Bruce <davidstuartbruce@gmail.com> ]
+        - Practice activity revised to get it to handle single phrase passed as function
+          argument so it again plays nicely with "Lessons"
+
 13 Oct 2008 - svn revision 760
 [ David Bruce <davidstuartbruce@gmail.com> ]
         - Lots more work on fullscreen mode with Fish Cascade working but a little slow

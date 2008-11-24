@@ -37,6 +37,14 @@
 
 
 //#define LOCALEDIR "/usr/local/share"
+#include "../config.h"
+
+// Translation stuff (now works for Mac and Win too!): 
+#include "gettext.h"
+#include <locale.h>
+#define _(String) gettext (String)
+#define gettext_noop(String) String
+#define N_(String) gettext_noop (String)
 
 #include <string.h>
 #include <wchar.h>
@@ -48,7 +56,6 @@
 #include <dirent.h>
 #include <locale.h>
 
-#include "../config.h"
 
 #include <SDL/SDL.h>
 #include <SDL/SDL_image.h>
@@ -56,7 +63,9 @@
 #include <SDL/SDL_ttf.h>
 
 //#include "i18n.h"
-#include <libintl.h>
+//#include <libintl.h>
+//#define _(String) gettext(String)
+//#define gettext_noop(String) (String)
 
 
 
@@ -123,8 +132,6 @@ typedef struct {
   int cur;
 } sprite;
 
-#define _(String) gettext(String)
-#define gettext_noop(String) (String)
 
 
 /* LOGGING works as such:

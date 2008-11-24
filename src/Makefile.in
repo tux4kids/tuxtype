@@ -33,15 +33,27 @@ POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
 target_triplet = @target@
-bin_PROGRAMS = tuxtype$(EXEEXT)
+@BUILD_MINGW32_FALSE@bin_PROGRAMS = tuxtype$(EXEEXT)
+@BUILD_MINGW32_TRUE@bin_PROGRAMS = TuxType$(EXEEXT)
 subdir = src
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
-am__aclocal_m4_deps = $(top_srcdir)/m4/gettext.m4 \
-	$(top_srcdir)/m4/iconv.m4 $(top_srcdir)/m4/lib-ld.m4 \
-	$(top_srcdir)/m4/lib-link.m4 $(top_srcdir)/m4/lib-prefix.m4 \
-	$(top_srcdir)/m4/nls.m4 $(top_srcdir)/m4/po.m4 \
-	$(top_srcdir)/m4/progtest.m4 $(top_srcdir)/acinclude.m4 \
+am__aclocal_m4_deps = $(top_srcdir)/m4/codeset.m4 \
+	$(top_srcdir)/m4/gettext.m4 $(top_srcdir)/m4/glibc2.m4 \
+	$(top_srcdir)/m4/glibc21.m4 $(top_srcdir)/m4/iconv.m4 \
+	$(top_srcdir)/m4/intdiv0.m4 $(top_srcdir)/m4/intl.m4 \
+	$(top_srcdir)/m4/intldir.m4 $(top_srcdir)/m4/intlmacosx.m4 \
+	$(top_srcdir)/m4/intmax.m4 $(top_srcdir)/m4/inttypes-pri.m4 \
+	$(top_srcdir)/m4/inttypes_h.m4 $(top_srcdir)/m4/lcmessage.m4 \
+	$(top_srcdir)/m4/lib-ld.m4 $(top_srcdir)/m4/lib-link.m4 \
+	$(top_srcdir)/m4/lib-prefix.m4 $(top_srcdir)/m4/lock.m4 \
+	$(top_srcdir)/m4/longlong.m4 $(top_srcdir)/m4/nls.m4 \
+	$(top_srcdir)/m4/po.m4 $(top_srcdir)/m4/printf-posix.m4 \
+	$(top_srcdir)/m4/progtest.m4 $(top_srcdir)/m4/size_max.m4 \
+	$(top_srcdir)/m4/stdint_h.m4 $(top_srcdir)/m4/uintmax_t.m4 \
+	$(top_srcdir)/m4/ulonglong.m4 $(top_srcdir)/m4/visibility.m4 \
+	$(top_srcdir)/m4/wchar_t.m4 $(top_srcdir)/m4/wint_t.m4 \
+	$(top_srcdir)/m4/xsize.m4 $(top_srcdir)/acinclude.m4 \
 	$(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
@@ -51,6 +63,17 @@ CONFIG_CLEAN_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 binPROGRAMS_INSTALL = $(INSTALL_PROGRAM)
 PROGRAMS = $(bin_PROGRAMS)
+am__objects_1 = playgame.$(OBJEXT) main.$(OBJEXT) \
+	titlescreen.$(OBJEXT) loaders.$(OBJEXT) setup.$(OBJEXT) \
+	laser.$(OBJEXT) alphabet.$(OBJEXT) theme.$(OBJEXT) \
+	practice.$(OBJEXT) audio.$(OBJEXT) snow.$(OBJEXT) \
+	scripting.$(OBJEXT) SDL_extras.$(OBJEXT) pixels.$(OBJEXT) \
+	pause.$(OBJEXT) ConvertUTF.$(OBJEXT) options.$(OBJEXT) \
+	iconv_string.$(OBJEXT)
+am_TuxType_OBJECTS = $(am__objects_1)
+TuxType_OBJECTS = $(am_TuxType_OBJECTS)
+TuxType_LDADD = $(LDADD)
+TuxType_DEPENDENCIES =
 am_tuxtype_OBJECTS = playgame.$(OBJEXT) main.$(OBJEXT) \
 	titlescreen.$(OBJEXT) loaders.$(OBJEXT) setup.$(OBJEXT) \
 	laser.$(OBJEXT) alphabet.$(OBJEXT) theme.$(OBJEXT) \
@@ -60,6 +83,7 @@ am_tuxtype_OBJECTS = playgame.$(OBJEXT) main.$(OBJEXT) \
 	iconv_string.$(OBJEXT)
 tuxtype_OBJECTS = $(am_tuxtype_OBJECTS)
 tuxtype_LDADD = $(LDADD)
+tuxtype_DEPENDENCIES =
 tuxtype_LINK = $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(tuxtype_LDFLAGS) \
 	$(LDFLAGS) -o $@
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
@@ -69,23 +93,28 @@ COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
 CCLD = $(CC)
 LINK = $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
-SOURCES = $(tuxtype_SOURCES)
-DIST_SOURCES = $(tuxtype_SOURCES)
+SOURCES = $(TuxType_SOURCES) $(tuxtype_SOURCES)
+DIST_SOURCES = $(TuxType_SOURCES) $(tuxtype_SOURCES)
 ETAGS = etags
 CTAGS = ctags
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 ACLOCAL = @ACLOCAL@
+ALLOCA = @ALLOCA@
 AMTAR = @AMTAR@
 AUTOCONF = @AUTOCONF@
 AUTOHEADER = @AUTOHEADER@
 AUTOMAKE = @AUTOMAKE@
 AWK = @AWK@
+BUILD_INCLUDED_LIBINTL = @BUILD_INCLUDED_LIBINTL@
+CATOBJEXT = @CATOBJEXT@
 CC = @CC@
 CCDEPMODE = @CCDEPMODE@
 CFLAGS = @CFLAGS@
+CFLAG_VISIBILITY = @CFLAG_VISIBILITY@
 CPP = @CPP@
 CPPFLAGS = @CPPFLAGS@
 CYGPATH_W = @CYGPATH_W@
+DATADIRNAME = @DATADIRNAME@
 DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@
 DEPDIR = @DEPDIR@
 ECHO_C = @ECHO_C@
@@ -93,53 +122,84 @@ ECHO_N = @ECHO_N@
 ECHO_T = @ECHO_T@
 EGREP = @EGREP@
 EXEEXT = @EXEEXT@
+GENCAT = @GENCAT@
+GETTEXT_MACRO_VERSION = @GETTEXT_MACRO_VERSION@
+GLIBC2 = @GLIBC2@
+GLIBC21 = @GLIBC21@
 GMSGFMT = @GMSGFMT@
 GMSGFMT_015 = @GMSGFMT_015@
 GREP = @GREP@
+HAVE_ASPRINTF = @HAVE_ASPRINTF@
+HAVE_POSIX_PRINTF = @HAVE_POSIX_PRINTF@
+HAVE_SNPRINTF = @HAVE_SNPRINTF@
+HAVE_VISIBILITY = @HAVE_VISIBILITY@
+HAVE_WPRINTF = @HAVE_WPRINTF@
 INSTALL = @INSTALL@
 INSTALL_DATA = @INSTALL_DATA@
 INSTALL_PROGRAM = @INSTALL_PROGRAM@
 INSTALL_SCRIPT = @INSTALL_SCRIPT@
 INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_PROGRAM@
+INSTOBJEXT = @INSTOBJEXT@
+INTLBISON = @INTLBISON@
 INTLLIBS = @INTLLIBS@
+INTLOBJS = @INTLOBJS@
+INTL_LIBTOOL_SUFFIX_PREFIX = @INTL_LIBTOOL_SUFFIX_PREFIX@
 INTL_MACOSX_LIBS = @INTL_MACOSX_LIBS@
 LDFLAGS = @LDFLAGS@
 LIBICONV = @LIBICONV@
 LIBINTL = @LIBINTL@
+LIBMULTITHREAD = @LIBMULTITHREAD@
 LIBOBJS = @LIBOBJS@
+LIBPTH = @LIBPTH@
+LIBPTH_PREFIX = @LIBPTH_PREFIX@
 LIBS = @LIBS@
-LN_S = @LN_S@
+LIBTHREAD = @LIBTHREAD@
+LTLIBC = @LTLIBC@
 LTLIBICONV = @LTLIBICONV@
 LTLIBINTL = @LTLIBINTL@
+LTLIBMULTITHREAD = @LTLIBMULTITHREAD@
 LTLIBOBJS = @LTLIBOBJS@
+LTLIBPTH = @LTLIBPTH@
+LTLIBTHREAD = @LTLIBTHREAD@
 MAKEINFO = @MAKEINFO@
 MKDIR_P = @MKDIR_P@
 MSGFMT = @MSGFMT@
 MSGFMT_015 = @MSGFMT_015@
 MSGMERGE = @MSGMERGE@
+NAME_VERSION = @NAME_VERSION@
 NSIS = @NSIS@
 NSI_DLL_DIR = @NSI_DLL_DIR@
 NSI_INSTALL_DIR = @NSI_INSTALL_DIR@
 OBJEXT = @OBJEXT@
 PACKAGE = @PACKAGE@
 PACKAGE_BUGREPORT = @PACKAGE_BUGREPORT@
+PACKAGE_DATA_DIR = @PACKAGE_DATA_DIR@
 PACKAGE_NAME = @PACKAGE_NAME@
 PACKAGE_STRING = @PACKAGE_STRING@
 PACKAGE_TARNAME = @PACKAGE_TARNAME@
 PACKAGE_VERSION = @PACKAGE_VERSION@
 PATH_SEPARATOR = @PATH_SEPARATOR@
 POSUB = @POSUB@
+POW_LIB = @POW_LIB@
+PRI_MACROS_BROKEN = @PRI_MACROS_BROKEN@
+RANLIB = @RANLIB@
 SDL_CFLAGS = @SDL_CFLAGS@
 SDL_CONFIG = @SDL_CONFIG@
 SDL_LIBS = @SDL_LIBS@
 SET_MAKE = @SET_MAKE@
 SHELL = @SHELL@
 STRIP = @STRIP@
+USE_INCLUDED_LIBINTL = @USE_INCLUDED_LIBINTL@
 USE_NLS = @USE_NLS@
 VERSION = @VERSION@
 WINDRES = @WINDRES@
+WOE32 = @WOE32@
+WOE32DLL = @WOE32DLL@
 XGETTEXT = @XGETTEXT@
 XGETTEXT_015 = @XGETTEXT_015@
+XGETTEXT_EXTRA_OPTIONS = @XGETTEXT_EXTRA_OPTIONS@
+YACC = @YACC@
+YFLAGS = @YFLAGS@
 abs_builddir = @abs_builddir@
 abs_srcdir = @abs_srcdir@
 abs_top_builddir = @abs_top_builddir@
@@ -157,6 +217,8 @@ build_cpu = @build_cpu@
 build_os = @build_os@
 build_vendor = @build_vendor@
 builddir = @builddir@
+
+# Support for gettext:
 datadir = @datadir@
 datarootdir = @datarootdir@
 docdir = @docdir@
@@ -193,6 +255,15 @@ target_os = @target_os@
 target_vendor = @target_vendor@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
+AM_CFLAGS = -Wall -g -DDATA_PREFIX=\"${DATA_PREFIX}\" -DDEBUG \
+	-DVERSION=\"@NAME_VERSION@\" -D$(SOUND)SOUND
+
+AM_CPPFLAGS = -DLOCALEDIR=\"$(localedir)\" \
+	-I../intl -I$(top_srcdir)/intl
+
+LDADD = @LIBINTL@
+tuxtype_LDFLAGS = $(LTLIBINTL)
+@BUILD_MINGW32_FALSE@TUXTYPERC = 
 tuxtype_SOURCES = \
 	playgame.c	\
 	main.c		\
@@ -213,6 +284,9 @@ tuxtype_SOURCES = \
 	options.c	\
 	iconv_string.c
 
+TuxType_SOURCES = $(tuxtype_SOURCES)
+# The rc file has something to do with the icon in Windows, IIRC
+#TuxType_SOURCES  = $(tuxtype_SOURCES) tuxtyperc.rc
 EXTRA_DIST = titlescreen.h \
 	playgame.h 	\
 	laser.h		\
@@ -227,7 +301,6 @@ EXTRA_DIST = titlescreen.h \
 	gettext.h	\
 	compiler.h
 
-tuxtype_LDFLAGS = $(LTLIBINTL)
 all: all-am
 
 .SUFFIXES:
@@ -284,6 +357,9 @@ uninstall-binPROGRAMS:
 
 clean-binPROGRAMS:
 	-test -z "$(bin_PROGRAMS)" || rm -f $(bin_PROGRAMS)
+TuxType$(EXEEXT): $(TuxType_OBJECTS) $(TuxType_DEPENDENCIES) 
+	@rm -f TuxType$(EXEEXT)
+	$(LINK) $(TuxType_OBJECTS) $(TuxType_LDADD) $(LIBS)
 tuxtype$(EXEEXT): $(tuxtype_OBJECTS) $(tuxtype_DEPENDENCIES) 
 	@rm -f tuxtype$(EXEEXT)
 	$(tuxtype_LINK) $(tuxtype_OBJECTS) $(tuxtype_LDADD) $(LIBS)

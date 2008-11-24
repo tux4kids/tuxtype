@@ -1,3 +1,22 @@
+2008-11-22  gettextize  <bug-gnu-gettext@gnu.org>
+
+	* m4/gettext.m4: Upgrade to gettext-0.17.
+	* m4/iconv.m4: Upgrade to gettext-0.17.
+	* m4/lib-link.m4: Upgrade to gettext-0.17.
+	* m4/po.m4: Upgrade to gettext-0.17.
+	* m4/intdiv0.m4: Upgrade to gettext-0.17.
+	* m4/intl.m4: Upgrade to gettext-0.17.
+	* m4/intlmacosx.m4: New file, from gettext-0.17.
+	* m4/lock.m4: Upgrade to gettext-0.17.
+	* m4/longlong.m4: Upgrade to gettext-0.17.
+	* m4/printf-posix.m4: Upgrade to gettext-0.17.
+	* m4/size_max.m4: Upgrade to gettext-0.17.
+	* m4/uintmax_t.m4: Upgrade to gettext-0.17.
+	* m4/wint_t.m4: Upgrade to gettext-0.17.
+	* Makefile.am (SUBDIRS): Add intl.
+	* configure.ac (AC_CONFIG_FILES): Add intl/Makefile.
+	(AM_GNU_GETTEXT_VERSION): Bump to 0.17.
+
 05 Nov 2008 - svn revision 765
 [ David Bruce <davidstuartbruce@gmail.com> ]
         - Practice activity revised to get it to handle single phrase passed as function

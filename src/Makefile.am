@@ -2,7 +2,27 @@
 
 ##DATA_PREFIX=${pkgdatadir}
 
+# Support for gettext:
+datadir = @datadir@
+localedir = $(datadir)/locale
+DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@
+
+AM_CFLAGS=-Wall -g -DDATA_PREFIX=\"${DATA_PREFIX}\" -DDEBUG \
+	-DVERSION=\"@NAME_VERSION@\" -D$(SOUND)SOUND
+
+AM_CPPFLAGS = -DLOCALEDIR=\"$(localedir)\" \
+	-I../intl -I$(top_srcdir)/intl
+
+LDADD = @LIBINTL@
+tuxtype_LDFLAGS = $(LTLIBINTL)
+
+if BUILD_MINGW32
+bin_PROGRAMS = TuxType
+else
+TUXTYPERC =
 bin_PROGRAMS = tuxtype
+endif
+
 
 tuxtype_SOURCES = 	\
 	playgame.c	\
@@ -24,6 +44,10 @@ tuxtype_SOURCES = 	\
 	options.c	\
 	iconv_string.c
 
+TuxType_SOURCES  = $(tuxtype_SOURCES)
+# The rc file has something to do with the icon in Windows, IIRC
+#TuxType_SOURCES  = $(tuxtype_SOURCES) tuxtyperc.rc
+
 EXTRA_DIST = titlescreen.h \
 	playgame.h 	\
 	laser.h		\
@@ -38,7 +62,4 @@ EXTRA_DIST = titlescreen.h \
 	gettext.h	\
 	compiler.h
 
-tuxtype_LDFLAGS = $(LTLIBINTL)
 
-localedir = $(datadir)/locale
-DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@

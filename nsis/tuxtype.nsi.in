@@ -31,8 +31,8 @@ InstallDir  "$PROGRAMFILES\${APP_PREFIX}"
 InstallDirRegKey HKLM SOFTWARE\${APP_PREFIX} "Install_Dir"
 
 # Licence text
-LicenseText "You must agree to this license before installing ${APP_NAME}"
-LicenseData "mingw32\docs\COPYING.txt"
+LicenseText "Please read the terms of the General Public License before installing ${APP_NAME}"
+LicenseData "mingw32\doc\COPYING"
 
 # Directory browsing
 # DirShow           show
@@ -50,8 +50,8 @@ Section
   File "mingw32\*.dll"
   SetOutPath $INSTDIR\data
   File /r "mingw32\data\*.*"
-  SetOutPath $INSTDIR\docs
-  File /r "mingw32\docs\*.*"
+  SetOutPath $INSTDIR\doc
+  File /r "mingw32\doc\*.*"
 
   WriteRegStr HKLM SOFTWARE\${APP_PREFIX} "Install_Dir" "$INSTDIR"
   WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APP_PREFIX}" "DisplayName" "${APP_NAME} (remove only)"
@@ -97,7 +97,7 @@ Section "Uninstall"
   DeleteRegKey HKLM SOFTWARE\${APP_PREFIX}
 
   RMDir  /r "$INSTDIR\data"
-  RMDir  /r "$INSTDIR\docs"
+  RMDir  /r "$INSTDIR\doc"
   Delete    "$INSTDIR\*.*"
 
   Delete "$DESKTOP\${APP_NAME}.lnk"
