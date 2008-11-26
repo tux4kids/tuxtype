@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tux Typing 1.5.16\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2008-11-22 06:36-0600\n"
+"POT-Creation-Date: 2008-11-25 21:41-0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -51,19 +51,19 @@ msgstr ""
 msgid "Fish"
 msgstr ""
 
-#: src/playgame.c:1078 src/titlescreen.c:92
+#: src/playgame.c:1078 src/titlescreen.c:93
 msgid "Easy"
 msgstr ""
 
-#: src/playgame.c:1079 src/titlescreen.c:93
+#: src/playgame.c:1079 src/titlescreen.c:94
 msgid "Medium"
 msgstr ""
 
-#: src/playgame.c:1080 src/titlescreen.c:94
+#: src/playgame.c:1080 src/titlescreen.c:95
 msgid "Hard"
 msgstr ""
 
-#: src/playgame.c:1081 src/titlescreen.c:93
+#: src/playgame.c:1081 src/titlescreen.c:94
 msgid "Practice"
 msgstr ""
 
@@ -75,70 +75,70 @@ msgstr ""
 msgid "Oh No!"
 msgstr ""
 
-#: src/titlescreen.c:92
+#: src/titlescreen.c:93
 msgid "Fish Cascade"
 msgstr ""
 
-#: src/titlescreen.c:92
+#: src/titlescreen.c:93
 msgid "Space Cadet"
 msgstr ""
 
-#: src/titlescreen.c:92
+#: src/titlescreen.c:93
 msgid "Edit Word Lists"
 msgstr ""
 
-#: src/titlescreen.c:93
+#: src/titlescreen.c:94
 msgid "Comet Zap"
 msgstr ""
 
-#: src/titlescreen.c:93
+#: src/titlescreen.c:94
 msgid "Pilot"
 msgstr ""
 
-#: src/titlescreen.c:94
+#: src/titlescreen.c:95
 msgid "Lessons"
 msgstr ""
 
-#: src/titlescreen.c:94
+#: src/titlescreen.c:95
 msgid "Ace"
 msgstr ""
 
-#: src/titlescreen.c:94
+#: src/titlescreen.c:95
 msgid "Project Info"
 msgstr ""
 
-#: src/titlescreen.c:95
+#: src/titlescreen.c:96
 msgid "Options"
 msgstr ""
 
-#: src/titlescreen.c:95
+#: src/titlescreen.c:96
 msgid "Instructions"
 msgstr ""
 
-#: src/titlescreen.c:95
+#: src/titlescreen.c:96
 msgid "Commander"
 msgstr ""
 
-#: src/titlescreen.c:95
+#: src/titlescreen.c:96
 msgid "Setup Language"
 msgstr ""
 
-#: src/titlescreen.c:96
+#: src/titlescreen.c:97
 msgid "Quit"
 msgstr ""
 
-#: src/titlescreen.c:96
+#: src/titlescreen.c:97
 msgid "Main Menu"
 msgstr ""
 
-#: src/titlescreen.c:1176
+#: src/titlescreen.c:1178
 msgid "Work In Progress!"
 msgstr ""
 
-#: src/titlescreen.c:1177
+#: src/titlescreen.c:1179
 msgid "This feature is not ready yet"
 msgstr ""
 
-#: src/titlescreen.c:1178
+#: src/titlescreen.c:1180
 msgid "Discuss the future of TuxTyping at"
 msgstr ""

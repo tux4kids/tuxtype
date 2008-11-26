@@ -258,7 +258,7 @@ EXTRA_DIST = config.rpath tuxtype.ico
 MAKENSIS = @NSIS@
 NSIS_FOUND = @NSIS_FOUND@
 NSI_TEMP_INSTALL_DIR = $(abs_top_builddir)/_instw32
-data_fonts = AndikaDesRevG.ttf DoulosSILR.ttf lohit_hi.ttf Rachana_w01.ttf
+data_fonts = 'AndikaDesRevG.ttf DoulosSILR.ttf lohit_hi.ttf Rachana_w01.ttf'
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-recursive
 

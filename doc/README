@@ -5,7 +5,7 @@ An Educational Typing Tutor Game Starring Tux, the Linux Penguin
 (To install the game on your system, please read the INSTALL file.)
 
     If you are interested in Translation/moving this game to another 
-    language, please send a mail to David Bruce <dbruce@tampabay.rr.com>, 
+    language, please send a mail to David Bruce <davidstuartbruce@gmail.com>, 
     Holger Levsen <debian@layer-acht.org>,  or to:
 
     <tux4kids-tuxtype-dev@lists.alioth.debian.org>
@@ -13,7 +13,7 @@ An Educational Typing Tutor Game Starring Tux, the Linux Penguin
     Additional information on this subject is covered in "HowToTheme.html"
     in the "docs" directory of this package.
 
-This is version 1.5.15 of Tux Typing.
+This is version 1.7.0 of Tux Typing.
 
 In Fish Cascade you control Tux as he searches for fish to eat. Fish fall
 from the top of the screen. These fish have letters on them.  Unforunately
@@ -27,9 +27,13 @@ protect a city from a comet, type the letter on the comet and it will
 cause Tux to destroy it with a laser! (In case you wondered, Comet Zap
 is an adaptation of the *great* math drill game, "Tux, of Math Command").
 
-"Lessons" and "Practice" are additional typing activities that we have
-not yet completed. You will find other menu entries for planned features
-that still need to be implemented.
+"Lessons" and "Practice" are additional typing activities. "Practice" 
+involves typing phrases or complete sentences, with measurment of accuracy
+and typing speed. "Lessons" uses XML-based scripting to run various other
+parts of the program in a specified order, including the "Practice" activity.
+These features are not yet completed, but represent ways to add additional
+"content" without requiring more programming per se. You will find other
+menu entries for planned features that still need to be implemented.
 
 Tux Typing is Free-Software, distributable under the GNU General Public
 License. Please read COPYING for more info.

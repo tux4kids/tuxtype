@@ -228,6 +228,8 @@ top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 wordsdir = $(pkgdatadir)/data/words
 dist_words_DATA = alphabet.txt \
+  animals.txt \
+  astronomy.txt \
   fingers.txt \
   plants.txt \
   words1.txt \

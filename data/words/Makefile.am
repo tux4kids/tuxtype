@@ -4,6 +4,8 @@
 wordsdir = $(pkgdatadir)/data/words
 
 dist_words_DATA = alphabet.txt \
+  animals.txt \
+  astronomy.txt \
   fingers.txt \
   plants.txt \
   words1.txt \

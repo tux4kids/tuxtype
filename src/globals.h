@@ -108,7 +108,7 @@ typedef struct game_option_type{
 /* They can be changed in the struct to other values at run-time */
 #define DEFAULT_MENU_FONT       "AndikaDesRevG.ttf"
 #define DEFAULT_GAME_FONT       "AndikaDesRevG.ttf" 
-#define DEFAULT_LOCALE		"en_GB.UTF-8"
+#define DEFAULT_LOCALE	        "en_US.UTF-8"
 #define DEFAULT_USE_ENGLISH 1
 #define DEFAULT_FULLSCREEN 1
 #define DEFAULT_SYS_SOUND 1

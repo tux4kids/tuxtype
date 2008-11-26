@@ -1,6 +1,14 @@
+Tux Typing Original Author:
+----------
+Sam Hart <hart@geekcomix.com>
+
+Current Maintainer and Lead Coder:
+-------
+David Bruce <davidstuartbruce@gmail.com>
+
 Coders:
 -------
-David Bruce <dbruce@tampabay.rr.com>
+David Bruce <davidstuartbruce@gmail.com>
 Jesse Andrews <jdandr2@uky.edu>
 Calvin Arndt <calarndt@tux4kids.org>
 Sam Hart <hart@geekcomix.com>  --- Sam started it all with TuxType 1!!!
@@ -14,11 +22,12 @@ Mobin Mohan <mobinmohan@gmail.com>
 Packaging & Ports:
 ------------------
 Holger Levsen <holger@debian.org> - (Debian packager, project maintainer)
-David Bruce <dbruce@tampabay.rr.com> - (Windows crossbuild using Linux host)
+David Bruce <davidstuartbruce@gmail.com> - (Windows crossbuild using Linux host)
 David Marshman <marshy@silvan.demon.co.uk> - (BeOS port/packages)
 Calvin Arndt <calarndt@yahoo.com> - (Red Hat 7.1+ RPMs)
 Olivier Dagenais <olivier_dagenais@canada.com> - (Windows port/packages)
 Jesse Andrews <jdandr2@uky.edu> - (Mac OS port)
+Alex Shorthouse <ashorthouse@rsd13.org>  - (more recent Mac OSX port)
 
 Special thanks to:
 ------------------
@@ -35,7 +44,7 @@ Vimal Ravi <vimal_ravi@rediff.com> - (for Indic language support)
 Prince K. Antony <prince.kantony@gmail.com> - (for Indic language support)
 Mobin Mohan <mobinmohan@gmail.com> - (for Indic language support)
 Ralf Wildenhues <Ralf.Wildenhues@gmx.de> - (for Autotools help via mailing lists)
-
+Bruno Haible <bruno@haible.de> - (for invaluable help with Gettext)
 
 Note: ConvertUTF.c/.h are from Unicode, Inc. and are released under a very free (BSD-like) license:
 

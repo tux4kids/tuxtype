@@ -1,21 +1,33 @@
-## Process with Automake to create Makefile.in
+## Makefile.am for tuxtype - data/fonts:
 
-## Support building with or without bundled fonts:
-## (see also 'dist_with_fonts' target in top-level Makefile.am)
+## A little explanation - these variables allow building of the dist tarball
+## either without the fonts ("make dist") or with the fonts ("make dist_with_fonts"),
+## see also top level Makefile.am.
+## 'data_fonts' is a list of the font files in this directory.
+## 'dist_fonts' determines what fonts get bundled in. It is empty by default,
+## but gets set to 'data_fonts' in the "make dist_with_fonts" target in the
+## top-level Makefile.am.
+
 EXTRA_DIST = $(dist_fonts)
 
 
+## Handle install "manually" because otherwise it fails on package without fonts.
 ## The INSTALL_DATA lines are prefixed with '-' because the fonts may or may not be
-## included (depending if package build with "make dist" or "make dist_with_fonts"
+## included (depending if package built with "make dist" or "make dist_with_fonts"
+## 'fontsdir' is where the fonts are installed.
+
+fontsdir = $(pkgdatadir)/fonts
+
 install-data-local:
-	$(MKDIR_P) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/fonts
-	-$(INSTALL_DATA) $(srcdir)/AndikaDesRevG.ttf $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/fonts
-	-$(INSTALL_DATA) $(srcdir)/DoulosSILR.ttf $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/fonts
-	-$(INSTALL_DATA) $(srcdir)/lohit_hi.ttf $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/fonts
-	-$(INSTALL_DATA) $(srcdir)/Rachana_w01.ttf $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/fonts
+	$(MKDIR_P) $(DESTDIR)$(fontsdir)
+	-$(INSTALL_DATA) $(srcdir)/AndikaDesRevG.ttf $(DESTDIR)$(fontsdir)
+	-$(INSTALL_DATA) $(srcdir)/DoulosSILR.ttf $(DESTDIR)$(fontsdir)
+	-$(INSTALL_DATA) $(srcdir)/lohit_hi.ttf $(DESTDIR)$(fontsdir)
+	-$(INSTALL_DATA) $(srcdir)/Rachana_w01.ttf $(DESTDIR)$(fontsdir)
 
 uninstall-local:
-	-rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/fonts/AndikaDesRevG.ttf
-	-rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/fonts/DoulosSILR.ttf
-	-rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/fonts/lohit_hi.ttf
-	-rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/fonts/Rachana_w01.ttf
+	-rm -f $(DESTDIR)$(fontsdir)/AndikaDesRevG.ttf
+	-rm -f $(DESTDIR)$(fontsdir)/DoulosSILR.ttf
+	-rm -f $(DESTDIR)$(fontsdir)/lohit_hi.ttf
+	-rm -f $(DESTDIR)$(fontsdir)/Rachana_w01.ttf
+	-rm -f $(DESTDIR)$(fontsdir)

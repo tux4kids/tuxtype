@@ -65,6 +65,7 @@ static void ChooseWord(char *words_file);
 static void ChooseFile(void);
 static void unload_media(void);
 static void unload_menu(void);
+static void not_implemented(void);
 
 /* --- menu text --- */
 
@@ -498,7 +499,8 @@ void TitleScreen(void)
 
     if (menu_opt == EDIT_WORDLIST)
     {
-      ChooseFile();
+      not_implemented();
+//      ChooseFile();
       redraw = 1;
     }
 

@@ -216,6 +216,7 @@ target_vendor = @target_vendor@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 EXTRA_DIST = $(dist_fonts)
+fontsdir = $(pkgdatadir)/fonts
 all: all-am
 
 .SUFFIXES:
@@ -378,17 +379,18 @@ uninstall-am: uninstall-local
 
 
 install-data-local:
-	$(MKDIR_P) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/fonts
-	-$(INSTALL_DATA) $(srcdir)/AndikaDesRevG.ttf $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/fonts
-	-$(INSTALL_DATA) $(srcdir)/DoulosSILR.ttf $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/fonts
-	-$(INSTALL_DATA) $(srcdir)/lohit_hi.ttf $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/fonts
-	-$(INSTALL_DATA) $(srcdir)/Rachana_w01.ttf $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/fonts
+	$(MKDIR_P) $(DESTDIR)$(fontsdir)
+	-$(INSTALL_DATA) $(srcdir)/AndikaDesRevG.ttf $(DESTDIR)$(fontsdir)
+	-$(INSTALL_DATA) $(srcdir)/DoulosSILR.ttf $(DESTDIR)$(fontsdir)
+	-$(INSTALL_DATA) $(srcdir)/lohit_hi.ttf $(DESTDIR)$(fontsdir)
+	-$(INSTALL_DATA) $(srcdir)/Rachana_w01.ttf $(DESTDIR)$(fontsdir)
 
 uninstall-local:
-	-rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/fonts/AndikaDesRevG.ttf
-	-rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/fonts/DoulosSILR.ttf
-	-rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/fonts/lohit_hi.ttf
-	-rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/fonts/Rachana_w01.ttf
+	-rm -f $(DESTDIR)$(fontsdir)/AndikaDesRevG.ttf
+	-rm -f $(DESTDIR)$(fontsdir)/DoulosSILR.ttf
+	-rm -f $(DESTDIR)$(fontsdir)/lohit_hi.ttf
+	-rm -f $(DESTDIR)$(fontsdir)/Rachana_w01.ttf
+	-rm -f $(DESTDIR)$(fontsdir)
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:
