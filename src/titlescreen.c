@@ -1918,61 +1918,71 @@ static void ChooseWord(char *words_file)
       case SDL_KEYDOWN:
         i = 1;
 
+        if (event.key.keysym.sym == SDLK_BACKSPACE)
+        {
+          font = LoadFont(settings.theme_font_name, MENU_FONT_SIZE);
+          len = ConvertFromUTF8(temp, editWordW[loc]);
+          temp[len - 1] = temp[len];
+          len = ConvertToUTF8(temp, editWordW[loc]);
+          titles[loc] = BlackOutline(editWordW[loc], font, &white );
+          len = ConvertFromUTF8(temp, editWordY[loc]);
+          temp[len - 2] = temp[len - 1];
+          temp[len - 1] = temp[len];
+          len = ConvertToUTF8(temp, editWordY[loc]);
+          select[loc] = BlackOutline(editWordY[loc], font, &yellow);
+          TTF_CloseFont(font);
+          font = NULL;
+          break;
+        }
+
+        if (event.key.keysym.sym == SDLK_ESCAPE) 
+        {
+          settings.use_english = old_use_english;
+          strncpy(settings.theme_data_path, old_theme_path, FNLEN - 1);
+          stop = 1;
+          break; 
+        }
+
+        if ((event.key.keysym.sym == SDLK_LEFT)
+         || (event.key.keysym.sym == SDLK_PAGEUP))
+        {
+          if (loc - (loc % 8) - 8 >= 0)
+            loc = loc - (loc % 8) - 8;
+          break;
+        }
+
+        if ((event.key.keysym.sym == SDLK_RIGHT)
+         || (event.key.keysym.sym == SDLK_PAGEDOWN))
+        {
+          if (loc - (loc % 8) + 8 < themes)
+            loc = (loc - (loc % 8) + 8);
+          break;
+        }
+
+        if (event.key.keysym.sym == SDLK_UP)
+        {
+          if (loc > 0)
+            loc--;
+          break;
+        }
+
+        if (event.key.keysym.sym == SDLK_DOWN)
+        {
+          if (loc + 1 < themes)
+            loc++;
+          break;
+        }
+
         switch (event.key.keysym.sym)
         {
-          case SDLK_ESCAPE:
-            settings.use_english = old_use_english;
-            strncpy(settings.theme_data_path, old_theme_path, FNLEN - 1);
-            stop = 1; 
-            break;
-
-          case SDLK_LEFT:
-          case SDLK_PAGEUP:
-            if (loc - (loc % 8) - 8 >= 0) 
-              loc = loc - (loc % 8) - 8;
-            break;
-
-          case SDLK_RIGHT:
-          case SDLK_PAGEDOWN:
-            if (loc - (loc % 8) + 8 < themes)
-              loc = (loc - (loc % 8) + 8);
-            break;
-
-          case SDLK_UP:
-            if (loc > 0)
-              loc--;
-            break;
-
-          case SDLK_DOWN:
-            if (loc + 1 < themes)
-              loc++;
-            break;
-
-          case SDLK_BACKSPACE:
-            font = LoadFont(settings.theme_font_name, MENU_FONT_SIZE);
-            len = ConvertFromUTF8(temp, editWordW[loc]);
-            temp[len - 1] = temp[len];
-            len = ConvertToUTF8(temp, editWordW[loc]);
-            titles[loc] = BlackOutline(editWordW[loc], font, &white);
-            len = ConvertFromUTF8(temp,editWordY[loc]);
-            temp[len - 2] = temp[len - 1];
-            temp[len - 1] = temp[len];
-            len = ConvertToUTF8(temp,editWordY[loc]);
-            select[loc] = BlackOutline(editWordY[loc], font, &yellow);
-            TTF_CloseFont(font);
-            font = NULL;
-            break;
-
+          case SDLK_CAPSLOCK:
           case SDLK_RALT:
           case SDLK_LALT:
           case SDLK_RSHIFT:
           case SDLK_LSHIFT:
           case SDLK_RCTRL:
           case SDLK_LCTRL:
-            i = 0;
-            break;
-
-          default:
+            i=0;
             break;
         }
 
