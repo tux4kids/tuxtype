@@ -2,6 +2,7 @@
 ## Process with Automake to create Makefile.in
 
 SUBDIRS = armenian \
+  assamese \
   bokmal \
   brazilian-portuguese \
   catalan \
@@ -12,16 +13,22 @@ SUBDIRS = armenian \
   euskara \
   french \
   greek \
+  gujarati \
+  hindi \
   italian \
   jamaican \
+  kannada \
   lithuanian \
   malayalam \
   nepali \
   nederlands \
   nynorsk \
+  oriya \
   russian \
   svenska \
   swahili \
+  tamil \
+  telugu \
   wolof
 
 themesdir = $(pkgdatadir)/data/themes
