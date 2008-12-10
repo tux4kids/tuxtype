@@ -1,0 +1,164 @@
+# translation of tuxtype.po to Oriya
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Manoj Kumar Giri <mgiri@redhat.com>, 2008.
+msgid ""
+msgstr ""
+"Project-Id-Version: tuxtype\n"
+"Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
+"POT-Creation-Date: 2008-11-25 21:41-0600\n"
+"PO-Revision-Date: 2008-08-27 17:56+0530\n"
+"Last-Translator: Manoj Kumar Giri <mgiri@redhat.com>\n"
+"Language-Team: Oriya\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=2; plural=(n!=1)\n"
+"\n"
+
+#: src/pause.c:279
+msgid "Sound Effects Volume"
+msgstr "ଧ୍ୱନୀ ପ୍ରଭାବର ତିବ୍ରତା"
+
+#: src/pause.c:288
+msgid "Music Volume"
+msgstr "ସଙ୍ଗୀତ ପ୍ରବଳତା"
+
+#: src/pause.c:299
+msgid "Sound & Music Disabled"
+msgstr "ଧ୍ୱନୀ ଏବଂ ସଙ୍ଗୀତ ନିଷ୍କ୍ରିୟ ହୋଇଯାଇଛି"
+
+#: src/pause.c:309
+msgid "Paused!"
+msgstr "ବିରତି!"
+
+#: src/pause.c:318
+msgid "Press escape again to return to menu"
+msgstr "ତାଲିକାକୁ ଫେରିବା ପାଇଁ escapeକୁ ପୁଣିଥରେ ଦବାନ୍ତୁ"
+
+#: src/pause.c:327
+msgid "Press space bar to return to game"
+msgstr "ଖେଳକୁ ଫେରିବା ପାଇଁ space bar ଦବାନ୍ତୁ"
+
+#: src/playgame.c:1074
+msgid "Level"
+msgstr "ସ୍ତର"
+
+#: src/playgame.c:1075
+msgid "Lives"
+msgstr "ଜୀବନଗୁଡ଼ିକ"
+
+#: src/playgame.c:1076
+msgid "Fish"
+msgstr "ମାଛ"
+
+#: src/playgame.c:1078 src/titlescreen.c:93
+msgid "Easy"
+msgstr "ସହଜ"
+
+#: src/playgame.c:1079 src/titlescreen.c:94
+msgid "Medium"
+msgstr "ମଧ୍ଯମ"
+
+#: src/playgame.c:1080 src/titlescreen.c:95
+msgid "Hard"
+msgstr "କଠିନ"
+
+#: src/playgame.c:1081 src/titlescreen.c:94
+msgid "Practice"
+msgstr "ଅଭ୍ୟାସ"
+
+#: src/playgame.c:1092
+msgid "Congratulations"
+msgstr "ଅଭିନନ୍ଦନ"
+
+#: src/playgame.c:1096
+msgid "Oh No!"
+msgstr "ହେ ଭଗବାନ!"
+
+#: src/titlescreen.c:93
+msgid "Fish Cascade"
+msgstr "ମାଛ ସୋପାନୀ"
+
+#: src/titlescreen.c:93
+msgid "Space Cadet"
+msgstr "ମହାକାଶ ଛାତ୍ରସୈନିକ"
+
+#: src/titlescreen.c:93
+msgid "Edit Word Lists"
+msgstr "ଶବ୍ଦ ତାଲିକାଗୁଡ଼ିକୁ ସମ୍ପାଦନ କରନ୍ତୁ"
+
+#: src/titlescreen.c:94
+msgid "Comet Zap"
+msgstr "Comet Zap"
+
+#: src/titlescreen.c:94
+msgid "Pilot"
+msgstr "ଚାଳକ"
+
+#: src/titlescreen.c:95
+msgid "Lessons"
+msgstr "ଶିକ୍ଷା"
+
+#: src/titlescreen.c:95
+msgid "Ace"
+msgstr "ଉତ୍କୃଷ୍ଟ"
+
+#: src/titlescreen.c:95
+msgid "Project Info"
+msgstr "ପ୍ରକଳ୍ପ ସୂଚନା"
+
+#: src/titlescreen.c:96
+msgid "Options"
+msgstr "ବିକଳ୍ପଗୁଡ଼ିକ"
+
+#: src/titlescreen.c:96
+msgid "Instructions"
+msgstr "ନିର୍ଦ୍ଦେଶ"
+
+#: src/titlescreen.c:96
+msgid "Commander"
+msgstr "ସେନାପତି"
+
+#: src/titlescreen.c:96
+msgid "Setup Language"
+msgstr "ଭାଷା ବିନ୍ୟାସ କରନ୍ତୁ"
+
+#: src/titlescreen.c:97
+msgid "Quit"
+msgstr "ବିଦାୟ ନିଅନ୍ତୁ"
+
+#: src/titlescreen.c:97
+msgid "Main Menu"
+msgstr "ମୂଖ୍ୟ ତାଲିକା"
+
+#: src/titlescreen.c:1178
+msgid "Work In Progress!"
+msgstr "କାର୍ଯ୍ୟ ଚାଲୁଅଛି!"
+
+#: src/titlescreen.c:1179
+msgid "This feature is not ready yet"
+msgstr "ଏହି ଅଂଶଟି ଏପର୍ଯ୍ୟନ୍ତ ପ୍ରସ୍ତୁତ ହୋଇନାହିଁ"
+
+#: src/titlescreen.c:1180
+msgid "Discuss the future of TuxTyping at"
+msgstr "ରେ TuxTyping ର ଭବିଷ୍ୟତ ଆଲୋଚନା କରନ୍ତୁ"
+
+#~ msgid "Great!"
+#~ msgstr "ଉତ୍ତମ!"
+
+#~ msgid "Next letter "
+#~ msgstr "ପରବର୍ତ୍ତୀ ଅକ୍ଷର"
+
+#~ msgid "Short Words"
+#~ msgstr "ସଂକ୍ଷିପ୍ତ ଶବ୍ଦଗୁଡ଼ିକ"
+
+#~ msgid "Medium Words"
+#~ msgstr "ମଧ୍ଯମ ଶବ୍ଦଗୁଡ଼ିକ"
+
+#~ msgid "Long Words"
+#~ msgstr "ବୃହତ ଶବ୍ଦଗୁଡ଼ିକ"
+
+#~ msgid "Alphabet"
+#~ msgstr "ବର୍ଣ୍ଣ"

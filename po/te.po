@@ -1,0 +1,164 @@
+# translation of tuxtype.po to Telugu
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Krishna Babu K <kkrothap@redhat.com>, 2008.
+msgid ""
+msgstr ""
+"Project-Id-Version: tuxtype\n"
+"Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
+"POT-Creation-Date: 2008-11-25 21:41-0600\n"
+"PO-Revision-Date: 2008-08-28 17:58+0530\n"
+"Last-Translator: Krishna Babu K <kkrothap@redhat.com>\n"
+"Language-Team: Telugu <en@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+"\n"
+
+#: src/pause.c:279
+msgid "Sound Effects Volume"
+msgstr "ధ్వని ప్రభావాల శబ్ధం"
+
+#: src/pause.c:288
+msgid "Music Volume"
+msgstr "సంగీతపు శబ్ధం"
+
+#: src/pause.c:299
+msgid "Sound & Music Disabled"
+msgstr "ధ్వని & సంగీతం అచేతనంచేయబడింది"
+
+#: src/pause.c:309
+msgid "Paused!"
+msgstr "నిలువరించు!"
+
+#: src/pause.c:318
+msgid "Press escape again to return to menu"
+msgstr "ప్రధాన మెనూకు తిరిగివ్రాయుటకు ఎస్కేప్‌ను వత్తండి"
+
+#: src/pause.c:327
+msgid "Press space bar to return to game"
+msgstr "ఆటకు తిరిగివచ్చుటకు స్పేస్‌బార్‌ను వత్తండి"
+
+#: src/playgame.c:1074
+msgid "Level"
+msgstr "స్థాయి"
+
+#: src/playgame.c:1075
+msgid "Lives"
+msgstr "అవకాశాలు"
+
+#: src/playgame.c:1076
+msgid "Fish"
+msgstr "చాప"
+
+#: src/playgame.c:1078 src/titlescreen.c:93
+msgid "Easy"
+msgstr "తేలికైన"
+
+#: src/playgame.c:1079 src/titlescreen.c:94
+msgid "Medium"
+msgstr "మధ్యతరగతి"
+
+#: src/playgame.c:1080 src/titlescreen.c:95
+msgid "Hard"
+msgstr "కష్టమైన"
+
+#: src/playgame.c:1081 src/titlescreen.c:94
+msgid "Practice"
+msgstr "సాధన"
+
+#: src/playgame.c:1092
+msgid "Congratulations"
+msgstr "అభినందనలు"
+
+#: src/playgame.c:1096
+msgid "Oh No!"
+msgstr "ఒహ్ కాదు!"
+
+#: src/titlescreen.c:93
+msgid "Fish Cascade"
+msgstr "చాప నీటిగుంట"
+
+#: src/titlescreen.c:93
+msgid "Space Cadet"
+msgstr "వింహగ పక్షులు"
+
+#: src/titlescreen.c:93
+msgid "Edit Word Lists"
+msgstr "పదముల జాబితాను సరిచేయి"
+
+#: src/titlescreen.c:94
+msgid "Comet Zap"
+msgstr "కామెట్ జాప్"
+
+#: src/titlescreen.c:94
+msgid "Pilot"
+msgstr "చోదకుడు(పైలెట్)"
+
+#: src/titlescreen.c:95
+msgid "Lessons"
+msgstr "పాఠములు"
+
+#: src/titlescreen.c:95
+msgid "Ace"
+msgstr "ఏస్"
+
+#: src/titlescreen.c:95
+msgid "Project Info"
+msgstr "ప్రాజక్ట్‍ సమాచారం"
+
+#: src/titlescreen.c:96
+msgid "Options"
+msgstr "ఐచ్చికాలు"
+
+#: src/titlescreen.c:96
+msgid "Instructions"
+msgstr "సూచనలు"
+
+#: src/titlescreen.c:96
+msgid "Commander"
+msgstr "ఆదేశకుడు"
+
+#: src/titlescreen.c:96
+msgid "Setup Language"
+msgstr "భాషను అమర్చు"
+
+#: src/titlescreen.c:97
+msgid "Quit"
+msgstr "నిష్క్రమించు"
+
+#: src/titlescreen.c:97
+msgid "Main Menu"
+msgstr "ప్రధాన మెనూ"
+
+#: src/titlescreen.c:1178
+msgid "Work In Progress!"
+msgstr "పని జరుగుతోంది!"
+
+#: src/titlescreen.c:1179
+msgid "This feature is not ready yet"
+msgstr "ఈ సౌలభ్యం యింకా సిద్ధము కాలేదు"
+
+#: src/titlescreen.c:1180
+msgid "Discuss the future of TuxTyping at"
+msgstr "TuxTyping యొక్క భవిష్యత్తు యిక్కడ చర్చించండి"
+
+#~ msgid "Great!"
+#~ msgstr "చాలా గొప్ప!"
+
+#~ msgid "Next letter "
+#~ msgstr "తరువాత అక్షరము "
+
+#~ msgid "Short Words"
+#~ msgstr "పొట్టి పదాలు"
+
+#~ msgid "Medium Words"
+#~ msgstr "కొద్దిగాపెద్ద పదాలు"
+
+#~ msgid "Long Words"
+#~ msgstr "పెద్ద పదాలు"
+
+#~ msgid "Alphabet"
+#~ msgstr "అక్షరమాల"

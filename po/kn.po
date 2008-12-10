@@ -1,0 +1,163 @@
+# translation of tuxtype.po to Kannada
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Shankar Prasad <svenkate@redhat.com>, 2008.
+msgid ""
+msgstr ""
+"Project-Id-Version: tuxtype\n"
+"Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
+"POT-Creation-Date: 2008-11-25 21:41-0600\n"
+"PO-Revision-Date: 2008-08-27 13:58+0530\n"
+"Last-Translator: Shankar Prasad <svenkate@redhat.com>\n"
+"Language-Team: Kannada <en@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms:  nplurals=2; plural=(n != 1);\n"
+
+#: src/pause.c:279
+msgid "Sound Effects Volume"
+msgstr "ಶಬ್ಧ ಪರಿಣಾಮಗಳ ವಾಲ್ಯೂಮ್"
+
+#: src/pause.c:288
+msgid "Music Volume"
+msgstr "ಸಂಗೀತದ ವಾಲ್ಯೂಮ್"
+
+#: src/pause.c:299
+msgid "Sound & Music Disabled"
+msgstr "ಶಬ್ಧ ಹಾಗು ಸಂಗೀತವನ್ನು ನಿಷ್ಕ್ರಿಯಗೊಳಿಸಲಾಗಿದೆ"
+
+#: src/pause.c:309
+msgid "Paused!"
+msgstr "ತಾತ್ಕಾಲಿಕ ಸ್ಥಗಿತ!"
+
+#: src/pause.c:318
+msgid "Press escape again to return to menu"
+msgstr "ಮೆನುವಿಗೆ ಹಿಂತಿರುಗಲು ಎಸ್ಕೇಪನ್ನು ಒತ್ತಿ"
+
+#: src/pause.c:327
+msgid "Press space bar to return to game"
+msgstr "ಆಟಕ್ಕೆ ಹಿಂತಿರುಗಲು ಸ್ಪೇಸ್‌ ಬಾರನ್ನು ಒತ್ತಿ"
+
+#: src/playgame.c:1074
+msgid "Level"
+msgstr "ಮಟ್ಟ"
+
+#: src/playgame.c:1075
+msgid "Lives"
+msgstr "ಜೀವಗಳು"
+
+#: src/playgame.c:1076
+msgid "Fish"
+msgstr "ಮೀನು"
+
+#: src/playgame.c:1078 src/titlescreen.c:93
+msgid "Easy"
+msgstr "ಸುಲಭ"
+
+#: src/playgame.c:1079 src/titlescreen.c:94
+msgid "Medium"
+msgstr "ಮಧ್ಯಮ"
+
+#: src/playgame.c:1080 src/titlescreen.c:95
+msgid "Hard"
+msgstr "ಕಷ್ಟಕರ"
+
+#: src/playgame.c:1081 src/titlescreen.c:94
+msgid "Practice"
+msgstr "ತರಬೇತಿ"
+
+#: src/playgame.c:1092
+msgid "Congratulations"
+msgstr "ಶುಭಾಶಯಗಳು"
+
+#: src/playgame.c:1096
+msgid "Oh No!"
+msgstr "ಒಹ್ ಇಲ್ಲ!"
+
+#: src/titlescreen.c:93
+msgid "Fish Cascade"
+msgstr "ಮೀನಿನ ಕ್ಯಾಸ್ಕೇಡ್"
+
+#: src/titlescreen.c:93
+msgid "Space Cadet"
+msgstr "ಸ್ಪೇಸ್ ಕ್ಯಾಡೆಟ್"
+
+#: src/titlescreen.c:93
+msgid "Edit Word Lists"
+msgstr "ಪದಗಳ ಪಟ್ಟಿಯನ್ನು ಸಂಪಾದಿಸು"
+
+#: src/titlescreen.c:94
+msgid "Comet Zap"
+msgstr "ಧೂಮಕೇತು ಧಾಳಿ"
+
+#: src/titlescreen.c:94
+msgid "Pilot"
+msgstr "ಪೈಲೆಟ್"
+
+#: src/titlescreen.c:95
+msgid "Lessons"
+msgstr "ಪಾಠಗಳು"
+
+#: src/titlescreen.c:95
+msgid "Ace"
+msgstr "ಏಸ್"
+
+#: src/titlescreen.c:95
+msgid "Project Info"
+msgstr "ಪರಿಯೋಜನೆಯ ಮಾಹಿತಿ"
+
+#: src/titlescreen.c:96
+msgid "Options"
+msgstr "ಆಯ್ಕೆಗಳು"
+
+#: src/titlescreen.c:96
+msgid "Instructions"
+msgstr "ಸೂಚನೆಗಳು"
+
+#: src/titlescreen.c:96
+msgid "Commander"
+msgstr "ಕಮಾಂಡರ್"
+
+#: src/titlescreen.c:96
+msgid "Setup Language"
+msgstr "ಸೆಟ್‌ಅಪ್ ಭಾಷೆ"
+
+#: src/titlescreen.c:97
+msgid "Quit"
+msgstr "ಹೊರನಡೆ"
+
+#: src/titlescreen.c:97
+msgid "Main Menu"
+msgstr "ಮುಖ್ಯ ಮೆನು"
+
+#: src/titlescreen.c:1178
+msgid "Work In Progress!"
+msgstr "ಕೆಲಸವು ಪ್ರಗತಿಯಲ್ಲಿದೆ!"
+
+#: src/titlescreen.c:1179
+msgid "This feature is not ready yet"
+msgstr "ಈ ಸವಲತ್ತು ಇನ್ನೂ ತಯಾರಾಗಿಲ್ಲ"
+
+#: src/titlescreen.c:1180
+msgid "Discuss the future of TuxTyping at"
+msgstr "TuxTyping ನ ಮುಂದಿನ ಭವಿಷ್ಯವನ್ನು ಇಲ್ಲಿ ಚರ್ಚಿಸಿ"
+
+#~ msgid "Great!"
+#~ msgstr "ಅದ್ಭುತ!"
+
+#~ msgid "Next letter "
+#~ msgstr "ಮುಂದಿನ ಅಕ್ಷರ "
+
+#~ msgid "Short Words"
+#~ msgstr "ಚಿಕ್ಕ ಪದಗಳು"
+
+#~ msgid "Medium Words"
+#~ msgstr "ಮಧ್ಯಮ ಪದಗಳು"
+
+#~ msgid "Long Words"
+#~ msgstr "ಉದ್ದನೆಯ ಪದಗಳು"
+
+#~ msgid "Alphabet"
+#~ msgstr "ಅಕ್ಷರಮಾಲೆ"
