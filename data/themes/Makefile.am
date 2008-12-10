@@ -32,5 +32,3 @@ SUBDIRS = armenian \
   wolof
 
 themesdir = $(pkgdatadir)/data/themes
-
-dist_themes_DATA = lang.po

@@ -210,6 +210,8 @@ data/sounds/Makefile
 data/themes/Makefile
 data/themes/armenian/Makefile
 data/themes/armenian/images/Makefile
+data/themes/assamese/Makefile
+data/themes/assamese/words/Makefile
 data/themes/bokmal/Makefile
 data/themes/bokmal/words/Makefile
 data/themes/bokmal/images/Makefile
@@ -236,12 +238,18 @@ data/themes/french/Makefile
 data/themes/french/words/Makefile
 data/themes/greek/Makefile
 data/themes/greek/words/Makefile
+data/themes/gujarati/Makefile
+data/themes/gujarati/words/Makefile
+data/themes/hindi/Makefile
+data/themes/hindi/words/Makefile
 data/themes/italian/Makefile
 data/themes/italian/images/Makefile
 data/themes/italian/words/Makefile
 data/themes/jamaican/Makefile
 data/themes/jamaican/images/Makefile
 data/themes/jamaican/words/Makefile
+data/themes/kannada/Makefile
+data/themes/kannada/words/Makefile
 data/themes/lithuanian/Makefile
 data/themes/lithuanian/images/Makefile
 data/themes/lithuanian/images/status/Makefile
@@ -261,6 +269,8 @@ data/themes/nynorsk/Makefile
 data/themes/nynorsk/images/Makefile
 data/themes/nynorsk/images/status/Makefile
 data/themes/nynorsk/words/Makefile
+data/themes/oriya/Makefile
+data/themes/oriya/words/Makefile
 data/themes/russian/Makefile
 data/themes/russian/images/Makefile
 data/themes/russian/images/status/Makefile
@@ -269,6 +279,10 @@ data/themes/svenska/Makefile
 data/themes/svenska/words/Makefile
 data/themes/swahili/Makefile
 data/themes/swahili/words/Makefile
+data/themes/tamil/Makefile
+data/themes/tamil/words/Makefile
+data/themes/telugu/Makefile
+data/themes/telugu/words/Makefile
 data/themes/wolof/Makefile
 data/themes/wolof/images/Makefile
 data/themes/wolof/words/Makefile

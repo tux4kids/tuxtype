@@ -13,7 +13,6 @@
 # PARTICULAR PURPOSE.
 
 @SET_MAKE@
-
 VPATH = @srcdir@
 pkgdatadir = $(datadir)/@PACKAGE@
 pkglibdir = $(libdir)/@PACKAGE@
@@ -34,8 +33,7 @@ build_triplet = @build@
 host_triplet = @host@
 target_triplet = @target@
 subdir = data/themes
-DIST_COMMON = $(dist_themes_DATA) $(srcdir)/Makefile.am \
-	$(srcdir)/Makefile.in
+DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/m4/codeset.m4 \
 	$(top_srcdir)/m4/gettext.m4 $(top_srcdir)/m4/glibc2.m4 \
@@ -68,15 +66,6 @@ RECURSIVE_TARGETS = all-recursive check-recursive dvi-recursive \
 	install-pdf-recursive install-ps-recursive install-recursive \
 	installcheck-recursive installdirs-recursive pdf-recursive \
 	ps-recursive uninstall-recursive
-am__vpath_adj_setup = srcdirstrip=`echo "$(srcdir)" | sed 's|.|.|g'`;
-am__vpath_adj = case $$p in \
-    $(srcdir)/*) f=`echo "$$p" | sed "s|^$$srcdirstrip/||"`;; \
-    *) f=$$p;; \
-  esac;
-am__strip_dir = `echo $$p | sed -e 's|^.*/||'`;
-am__installdirs = "$(DESTDIR)$(themesdir)"
-dist_themesDATA_INSTALL = $(INSTALL_DATA)
-DATA = $(dist_themes_DATA)
 RECURSIVE_CLEAN_TARGETS = mostlyclean-recursive clean-recursive	\
   distclean-recursive maintainer-clean-recursive
 ETAGS = etags
@@ -269,7 +258,6 @@ SUBDIRS = armenian \
   wolof
 
 themesdir = $(pkgdatadir)/data/themes
-dist_themes_DATA = lang.po
 all: all-recursive
 
 .SUFFIXES:
@@ -302,23 +290,6 @@ $(top_srcdir)/configure:  $(am__configure_deps)
 	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh
 $(ACLOCAL_M4):  $(am__aclocal_m4_deps)
 	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh
-install-dist_themesDATA: $(dist_themes_DATA)
-	@$(NORMAL_INSTALL)
-	test -z "$(themesdir)" || $(MKDIR_P) "$(DESTDIR)$(themesdir)"
-	@list='$(dist_themes_DATA)'; for p in $$list; do \
-	  if test -f "$$p"; then d=; else d="$(srcdir)/"; fi; \
-	  f=$(am__strip_dir) \
-	  echo " $(dist_themesDATA_INSTALL) '$$d$$p' '$(DESTDIR)$(themesdir)/$$f'"; \
-	  $(dist_themesDATA_INSTALL) "$$d$$p" "$(DESTDIR)$(themesdir)/$$f"; \
-	done
-
-uninstall-dist_themesDATA:
-	@$(NORMAL_UNINSTALL)
-	@list='$(dist_themes_DATA)'; for p in $$list; do \
-	  f=$(am__strip_dir) \
-	  echo " rm -f '$(DESTDIR)$(themesdir)/$$f'"; \
-	  rm -f "$(DESTDIR)$(themesdir)/$$f"; \
-	done
 
 # This directory's subdirectories are mostly independent; you can cd
 # into them and run `make' without going through this Makefile.
@@ -495,12 +466,9 @@ distdir: $(DISTFILES)
 	done
 check-am: all-am
 check: check-recursive
-all-am: Makefile $(DATA)
+all-am: Makefile
 installdirs: installdirs-recursive
 installdirs-am:
-	for dir in "$(DESTDIR)$(themesdir)"; do \
-	  test -z "$$dir" || $(MKDIR_P) "$$dir"; \
-	done
 install: install-recursive
 install-exec: install-exec-recursive
 install-data: install-data-recursive
@@ -543,7 +511,7 @@ info: info-recursive
 
 info-am:
 
-install-data-am: install-dist_themesDATA
+install-data-am:
 
 install-dvi: install-dvi-recursive
 
@@ -577,7 +545,7 @@ ps: ps-recursive
 
 ps-am:
 
-uninstall-am: uninstall-dist_themesDATA
+uninstall-am:
 
 .MAKE: $(RECURSIVE_CLEAN_TARGETS) $(RECURSIVE_TARGETS) install-am \
 	install-strip
@@ -586,15 +554,14 @@ uninstall-am: uninstall-dist_themesDATA
 	all all-am check check-am clean clean-generic ctags \
 	ctags-recursive distclean distclean-generic distclean-tags \
 	distdir dvi dvi-am html html-am info info-am install \
-	install-am install-data install-data-am \
-	install-dist_themesDATA install-dvi install-dvi-am \
-	install-exec install-exec-am install-html install-html-am \
-	install-info install-info-am install-man install-pdf \
-	install-pdf-am install-ps install-ps-am install-strip \
-	installcheck installcheck-am installdirs installdirs-am \
-	maintainer-clean maintainer-clean-generic mostlyclean \
-	mostlyclean-generic pdf pdf-am ps ps-am tags tags-recursive \
-	uninstall uninstall-am uninstall-dist_themesDATA
+	install-am install-data install-data-am install-dvi \
+	install-dvi-am install-exec install-exec-am install-html \
+	install-html-am install-info install-info-am install-man \
+	install-pdf install-pdf-am install-ps install-ps-am \
+	install-strip installcheck installcheck-am installdirs \
+	installdirs-am maintainer-clean maintainer-clean-generic \
+	mostlyclean mostlyclean-generic pdf pdf-am ps ps-am tags \
+	tags-recursive uninstall uninstall-am
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
