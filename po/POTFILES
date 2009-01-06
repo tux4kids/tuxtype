@@ -1,7 +1,6 @@
      .././src/ConvertUTF.c \
      .././src/alphabet.c \
      .././src/audio.c \
-     .././src/gettext.c \
      .././src/laser.c \
      .././src/loaders.c \
      .././src/main.c \

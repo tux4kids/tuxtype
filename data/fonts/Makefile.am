@@ -16,7 +16,7 @@ EXTRA_DIST = $(dist_fonts)
 ## included (depending if package built with "make dist" or "make dist_with_fonts"
 ## 'fontsdir' is where the fonts are installed.
 
-fontsdir = $(pkgdatadir)/fonts
+fontsdir = $(pkgdatadir)/data/fonts
 
 install-data-local:
 	$(MKDIR_P) $(DESTDIR)$(fontsdir)

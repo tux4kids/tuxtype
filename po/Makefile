@@ -1,5 +1,5 @@
 # Makefile for PO directory in any package using GNU gettext.
-# Copyright (C) 1995-1997, 2000-2006 by Ulrich Drepper <drepper@gnu.ai.mit.edu>
+# Copyright (C) 1995-1997, 2000-2007 by Ulrich Drepper <drepper@gnu.ai.mit.edu>
 #
 # This file can be copied and used freely without restrictions.  It can
 # be used in projects which are not available under the GNU General Public
@@ -8,10 +8,11 @@
 # Please note that the actual code of GNU gettext is covered by the GNU
 # General Public License and is *not* in the public domain.
 #
-# Origin: gettext-0.16
+# Origin: gettext-0.17
+GETTEXT_MACRO_VERSION = 0.17
 
 PACKAGE = tuxtype
-VERSION = 1.5.16
+VERSION = 1.7.0
 PACKAGE_BUGREPORT = tux4kids-tuxtype-dev@lists.alioth.debian.org
 
 SHELL = /bin/sh
@@ -34,12 +35,12 @@ INSTALL_DATA = ${INSTALL} -m 644
 # We use $(mkdir_p).
 # In automake <= 1.9.x, $(mkdir_p) is defined either as "mkdir -p --" or as
 # "$(mkinstalldirs)" or as "$(install_sh) -d". For these automake versions,
-# $(SHELL) /root/tuxtype/trunk/install-sh does not start with $(SHELL), so we add it.
+# $(SHELL) /home/dbruce/tux4kids/tuxtype/trunk/install-sh does not start with $(SHELL), so we add it.
 # In automake >= 1.10, /bin/mkdir -p is derived from ${MKDIR_P}, which is defined
 # either as "/path/to/mkdir -p" or ".../install-sh -c -d". For these automake
 # versions, $(mkinstalldirs) and $(install_sh) are unused.
-mkinstalldirs = $(SHELL) $(SHELL) /root/tuxtype/trunk/install-sh -d
-install_sh = $(SHELL) $(SHELL) /root/tuxtype/trunk/install-sh
+mkinstalldirs = $(SHELL) $(SHELL) /home/dbruce/tux4kids/tuxtype/trunk/install-sh -d
+install_sh = $(SHELL) $(SHELL) /home/dbruce/tux4kids/tuxtype/trunk/install-sh
 MKDIR_P = /bin/mkdir -p
 mkdir_p = /bin/mkdir -p
 
@@ -61,10 +62,10 @@ MSGINIT = msginit
 MSGCONV = msgconv
 MSGFILTER = msgfilter
 
-POFILES =  en@quot.po en@boldquot.po en_GB.po ml.po ru.po ar.po ne.po nb.po pt.po ca.po cs.po da.po de.po es.po eu.po fr.po el.po it.po ja.po lt.po nl.po nn.po sv.po sw.po wo.po
-GMOFILES =  en@quot.gmo en@boldquot.gmo en_GB.gmo ml.gmo ru.gmo ar.gmo ne.gmo nb.gmo pt.gmo ca.gmo cs.gmo da.gmo de.gmo es.gmo eu.gmo fr.gmo el.gmo it.gmo ja.gmo lt.gmo nl.gmo nn.gmo sv.gmo sw.gmo wo.gmo
-UPDATEPOFILES =  en@quot.po-update en@boldquot.po-update en_GB.po-update ml.po-update ru.po-update ar.po-update ne.po-update nb.po-update pt.po-update ca.po-update cs.po-update da.po-update de.po-update es.po-update eu.po-update fr.po-update el.po-update it.po-update ja.po-update lt.po-update nl.po-update nn.po-update sv.po-update sw.po-update wo.po-update
-DUMMYPOFILES =  en@quot.nop en@boldquot.nop en_GB.nop ml.nop ru.nop ar.nop ne.nop nb.nop pt.nop ca.nop cs.nop da.nop de.nop es.nop eu.nop fr.nop el.nop it.nop ja.nop lt.nop nl.nop nn.nop sv.nop sw.nop wo.nop
+POFILES =  en@quot.po en@boldquot.po en_GB.po ml.po ru.po ar.po as.po ne.po nb.po pt.po ca.po cs.po da.po de.po es.po eu.po fr.po el.po gu.po hi.po it.po ja.po kn.po lt.po nl.po nn.po or.po sv.po sw.po ta.po te.po tr.po wo.po
+GMOFILES =  en@quot.gmo en@boldquot.gmo en_GB.gmo ml.gmo ru.gmo ar.gmo as.gmo ne.gmo nb.gmo pt.gmo ca.gmo cs.gmo da.gmo de.gmo es.gmo eu.gmo fr.gmo el.gmo gu.gmo hi.gmo it.gmo ja.gmo kn.gmo lt.gmo nl.gmo nn.gmo or.gmo sv.gmo sw.gmo ta.gmo te.gmo tr.gmo wo.gmo
+UPDATEPOFILES =  en@quot.po-update en@boldquot.po-update en_GB.po-update ml.po-update ru.po-update ar.po-update as.po-update ne.po-update nb.po-update pt.po-update ca.po-update cs.po-update da.po-update de.po-update es.po-update eu.po-update fr.po-update el.po-update gu.po-update hi.po-update it.po-update ja.po-update kn.po-update lt.po-update nl.po-update nn.po-update or.po-update sv.po-update sw.po-update ta.po-update te.po-update tr.po-update wo.po-update
+DUMMYPOFILES =  en@quot.nop en@boldquot.nop en_GB.nop ml.nop ru.nop ar.nop as.nop ne.nop nb.nop pt.nop ca.nop cs.nop da.nop de.nop es.nop eu.nop fr.nop el.nop gu.nop hi.nop it.nop ja.nop kn.nop lt.nop nl.nop nn.nop or.nop sv.nop sw.nop ta.nop te.nop tr.nop wo.nop
 DISTFILES.common = Makefile.in.in remove-potcdate.sin \
 $(DISTFILES.common.extra1) $(DISTFILES.common.extra2) $(DISTFILES.common.extra3)
 DISTFILES = $(DISTFILES.common) Makevars POTFILES.in \
@@ -75,7 +76,6 @@ POTFILES = \
      .././src/ConvertUTF.c \
      .././src/alphabet.c \
      .././src/audio.c \
-     .././src/gettext.c \
      .././src/laser.c \
      .././src/loaders.c \
      .././src/main.c \
@@ -89,7 +89,7 @@ POTFILES = \
      .././src/theme.c \
      .././src/titlescreen.c
 
-CATALOGS =  en@quot.gmo en@boldquot.gmo en_GB.gmo ml.gmo ru.gmo ar.gmo ne.gmo nb.gmo pt.gmo ca.gmo cs.gmo da.gmo de.gmo es.gmo eu.gmo fr.gmo el.gmo it.gmo ja.gmo lt.gmo nl.gmo nn.gmo sv.gmo sw.gmo wo.gmo
+CATALOGS =  en@quot.gmo en@boldquot.gmo en_GB.gmo ml.gmo ru.gmo ar.gmo as.gmo ne.gmo nb.gmo pt.gmo ca.gmo cs.gmo da.gmo de.gmo es.gmo eu.gmo fr.gmo el.gmo gu.gmo hi.gmo it.gmo ja.gmo kn.gmo lt.gmo nl.gmo nn.gmo or.gmo sv.gmo sw.gmo ta.gmo te.gmo tr.gmo wo.gmo
 
 # Makevars gets inserted here. (Don't remove this line!)
 # Makefile variables for PO directory in any package using GNU gettext.
@@ -152,10 +152,17 @@ EXTRA_LOCALE_CATEGORIES =
 	mv t-$@ $@
 
 
-all: all-yes
+all: check-macro-version all-yes
 
 all-yes: stamp-po
 all-no:
+
+# Ensure that the gettext macros and this Makefile.in.in are in sync.
+check-macro-version:
+	@test "$(GETTEXT_MACRO_VERSION)" = "0.17" \
+	  || { echo "*** error: gettext infrastructure mismatch: using a Makefile.in.in from gettext version $(GETTEXT_MACRO_VERSION) but the autoconf macros are from gettext version 0.17" 1>&2; \
+	       exit 1; \
+	     }
 
 # $(srcdir)/$(DOMAIN).pot is only created when needed. When xgettext finds no
 # internationalized messages, no $(srcdir)/$(DOMAIN).pot is created (because
@@ -187,16 +194,34 @@ stamp-po: $(srcdir)/$(DOMAIN).pot
 # This target rebuilds $(DOMAIN).pot; it is an expensive operation.
 # Note that $(DOMAIN).pot is not touched if it doesn't need to be changed.
 $(DOMAIN).pot-update: $(POTFILES) $(srcdir)/POTFILES.in remove-potcdate.sed
+	if LC_ALL=C grep 'GNU tuxtype' $(top_srcdir)/* 2>/dev/null | grep -v 'libtool:' >/dev/null; then \
+	  package_gnu='GNU '; \
+	else \
+	  package_gnu=''; \
+	fi; \
 	if test -n '$(MSGID_BUGS_ADDRESS)' || test '$(PACKAGE_BUGREPORT)' = '@'PACKAGE_BUGREPORT'@'; then \
 	  msgid_bugs_address='$(MSGID_BUGS_ADDRESS)'; \
 	else \
 	  msgid_bugs_address='$(PACKAGE_BUGREPORT)'; \
 	fi; \
-	$(XGETTEXT) --default-domain=$(DOMAIN) --directory=$(top_srcdir) \
-	  --add-comments=TRANSLATORS: $(XGETTEXT_OPTIONS) \
-	  --files-from=$(srcdir)/POTFILES.in \
-	  --copyright-holder='$(COPYRIGHT_HOLDER)' \
-	  --msgid-bugs-address="$$msgid_bugs_address"
+	case `$(XGETTEXT) --version | sed 1q | sed -e 's,^[^0-9]*,,'` in \
+	  '' | 0.[0-9] | 0.[0-9].* | 0.1[0-5] | 0.1[0-5].* | 0.16 | 0.16.[0-1]*) \
+	    $(XGETTEXT) --default-domain=$(DOMAIN) --directory=$(top_srcdir) \
+	      --add-comments=TRANSLATORS: $(XGETTEXT_OPTIONS)  \
+	      --files-from=$(srcdir)/POTFILES.in \
+	      --copyright-holder='$(COPYRIGHT_HOLDER)' \
+	      --msgid-bugs-address="$$msgid_bugs_address" \
+	    ;; \
+	  *) \
+	    $(XGETTEXT) --default-domain=$(DOMAIN) --directory=$(top_srcdir) \
+	      --add-comments=TRANSLATORS: $(XGETTEXT_OPTIONS)  \
+	      --files-from=$(srcdir)/POTFILES.in \
+	      --copyright-holder='$(COPYRIGHT_HOLDER)' \
+	      --package-name="$${package_gnu}tuxtype" \
+	      --package-version='1.7.0' \
+	      --msgid-bugs-address="$$msgid_bugs_address" \
+	    ;; \
+	esac
 	test ! -f $(DOMAIN).po || { \
 	  if test -f $(srcdir)/$(DOMAIN).pot; then \
 	    sed -f remove-potcdate.sed < $(srcdir)/$(DOMAIN).pot > $(DOMAIN).1po && \
@@ -231,7 +256,7 @@ $(POFILES): $(srcdir)/$(DOMAIN).pot
 	fi
 
 
-install: update-po install-exec install-data
+install: install-exec install-data
 install-exec:
 install-data: install-data-yes
 	if test "$(PACKAGE)" = "gettext-tools"; then \

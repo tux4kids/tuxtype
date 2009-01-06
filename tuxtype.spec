@@ -1,7 +1,7 @@
-# Spec-file for TuxType version 1.5.16
+# Spec-file for TuxType version 1.7.0
 
 %define name  tuxtype
-%define version 1.5.16
+%define version 1.7.0
 %define release 1
 
 Summary: An educational typing tutor game starring Tux
