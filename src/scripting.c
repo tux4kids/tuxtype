@@ -380,7 +380,7 @@ int TestLesson(void)
   /* Getting to here means "stop == 1", try to run chosen script: */
   if (load_script(fn) != 0)
   {
-    fprintf(stderr, "load_script() failed to load '%s'\n");
+    fprintf(stderr, "load_script() failed to load '%s'\n",fn);
     return 0; // bail if any errors occur
   }
 

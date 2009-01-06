@@ -1811,7 +1811,7 @@ static void ChooseWord(char *words_file)
 
   FILE *fp;
 
-  int start,themes = 0;
+  int start,themes,themest = 0;
   int i,len;
   unsigned char fn[FNLEN];
   unsigned char str[FNLEN];
@@ -1843,7 +1843,8 @@ static void ChooseWord(char *words_file)
   {
     /* HACK: we should get the strings from file :) */
     fscanf(fp, "%[^\n]\n", editWordW[themes]);
-    strcpy(editWordY[themes++],editWordW[themes]);
+    themest=themes;
+    strcpy(editWordY[themes++],editWordW[themest]);
   }
 
   fclose(fp); 

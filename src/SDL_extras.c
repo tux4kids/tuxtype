@@ -381,11 +381,20 @@ SDL_Surface* BlackOutline(const char *t, TTF_Font *font, SDL_Color *c)
   SDL_Rect dstrect;
   Uint32 color_key;
 
+  LOG("Entering BlackOutline()\n");
+
   if (!t || !font || !c)
   {
     fprintf(stderr, "BlackOutline(): invalid ptr parameter, returning.");
     return NULL;
   }
+
+  if (t[0] == '\0')
+  {
+    fprintf(stderr, "BlackOutline(): empty string, returning");
+    return NULL;
+  }
+
  
 #ifndef HAVE_LIBSDL_PANGO
   black_letters = TTF_RenderUTF8_Blended(font, t, black);
@@ -460,6 +469,8 @@ SDL_Surface* BlackOutline(const char *t, TTF_Font *font, SDL_Color *c)
   out = SDL_DisplayFormatAlpha(bg);
   SDL_FreeSurface(bg);
 
+  LOG("Leaving BlackOutline()\n");
+
   return out;
 }
 
@@ -529,14 +540,14 @@ SDL_Surface* BlackOutline_Unicode(const Uint16* t, const TTF_Font* font, const S
 
 SDL_Surface* BlackOutline_w(wchar_t* t, const TTF_Font* font, const SDL_Color* c, int size)
 {
-	wchar_t wchar_tmp[1024];
-	char tmp[1024];
-	int i;
-	wcsncpy( wchar_tmp, t, size);
-	wchar_tmp[size]=0;
-	i=ConvertToUTF8( wchar_tmp, tmp);
-	tmp[i]=0;
-	return BlackOutline(tmp, font, c);
+  wchar_t wchar_tmp[1024];
+  char tmp[1024];
+  int i;
+  wcsncpy( wchar_tmp, t, size);
+  wchar_tmp[size] = 0;
+  i = ConvertToUTF8( wchar_tmp, tmp);
+  tmp[i] = 0;
+  return BlackOutline(tmp, font, c);
 }
 
 

@@ -37,7 +37,7 @@ int CheckFile(const char* file)
   if (!file)
   {
     fprintf(stderr, "CheckFile(): invalid char* argument!");
-    return;
+    return -1;
   }
 
   DEBUGCODE {fprintf(stderr, "CheckFile() - checking: %s\n", file);} 
@@ -481,6 +481,8 @@ Mix_Chunk* LoadSound(const char* datafile )
     tempChunk = Mix_LoadWAV(fn);
     return tempChunk;
   }
+  // We never want to get here...
+  return tempChunk;
 }
 
 
@@ -509,4 +511,6 @@ Mix_Music* LoadMusic(const char* datafile )
     temp_music = Mix_LoadMUS(fn);
     return temp_music;
   }
+  // We never want to get here...
+  return temp_music;
 }

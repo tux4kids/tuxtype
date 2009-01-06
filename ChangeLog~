@@ -1,3 +1,12 @@
+06 Jan 2009 - svn revision 822
+[ David Bruce <davidstuartbruce@gmail.com> ]
+        - Bugfix to prevent BlackOutline() from segfault if passed empty string
+
+05 Jan 2009 - svn revision 821
+[ David Bruce <davidstuartbruce@gmail.com> ]
+        - Bugfix for path for bundled fonts - caused error when run on non-Debian
+          systems.
+
 2008-11-22  gettextize  <bug-gnu-gettext@gnu.org>
 
 	* m4/gettext.m4: Upgrade to gettext-0.17.

@@ -24,6 +24,7 @@ Sreyas Kurumanghat <k.sreyas@gmail.com>
 #include "globals.h"
 #include "funcs.h"
 #include "SDL_extras.h"
+#include "ConvertUTF.h"
 
 #define MAX_PHRASES 256
 #define MAX_PHRASE_LENGTH 256
@@ -98,7 +99,6 @@ static SDL_Rect keyboard_loc;
 /*local function prototypes: */
 static int load_phrases(const char* phrase_file);
 static int find_next_wrap(const wchar_t* wstr, const TTF_Font* font, int width);
-static int get_phrase(const wchar_t* phr);
 static void recalc_positions(void);
 static void calc_font_sizes(void);
 static int practice_load_media(void);
@@ -229,16 +229,19 @@ int Phrases(wchar_t* pphrase )
                                   smallfont, phrase_draw_width);
         tmpsurf = BlackOutline_w(&phrases[cur_phrase][prev_wrap],
                                   smallfont, &white, wrap_pt + 1);
+
         if (tmpsurf)
         {
           SDL_BlitSurface(tmpsurf, NULL, screen, &phr_text_rect);
           SDL_FreeSurface(tmpsurf);
           tmpsurf = NULL;
         }
+
         /* Draw the text the player has typed so far: */
         tmpsurf = BlackOutline_w(&phrases[cur_phrase][prev_wrap],
                                   smallfont, &white,
                                   cursor - prev_wrap);
+
         if (tmpsurf)
         {
           SDL_BlitSurface(tmpsurf, NULL, screen, &user_text_rect);
@@ -575,6 +578,8 @@ int Phrases(wchar_t* pphrase )
           case SDLK_x:      tmp='x';  break;
           case SDLK_y:      tmp='y';  break;
           case SDLK_z:      tmp='z';  break;
+          /* ignore other keys: */
+          default: break;
         }
 
         /* If state has changed as direct result of keypress (e.g. F10), leave */
@@ -1244,7 +1249,6 @@ static int find_next_wrap(const wchar_t* wstr, const TTF_Font* font, int width)
   int phr_length = 0;
   int test_w = 0;      /* The width in pixels of the SDL-rendered string */
 
-  settings.debug_on = 1;
   LOG("Entering find__next_wrap\n");
 
   /* Make sure args OK: */
@@ -1316,8 +1320,8 @@ static int find_next_wrap(const wchar_t* wstr, const TTF_Font* font, int width)
       {
         fprintf(stderr, "width exceeded, returning end of previous word as wrap point\n");
         fprintf(stderr, "prev_word_end is %d\n", prev_word_end); 
+        fprintf(stderr, "leaving find_next_wrap()\n");
       }
-      settings.debug_on = 0;
       return prev_word_end; 
     }
     else
@@ -1331,7 +1335,6 @@ static int find_next_wrap(const wchar_t* wstr, const TTF_Font* font, int width)
         }
         /* We reached the end of the phrase without exceeding the width, */
         /* so just return our current position: */ 
-        settings.debug_on = 0;
         return word_end;
       }
       else
@@ -1343,107 +1346,6 @@ static int find_next_wrap(const wchar_t* wstr, const TTF_Font* font, int width)
   }
 }
 
-
-static int get_phrase(const wchar_t* phr)
-{
-  int pc = 0;  // 'phrase count' (?)
-  int phr_widths[MAX_PHRASES] = { 0 };
-  int wrap_pt = 0, i = 0, c = 0, z = 0;
-  char fn[FNLEN];
-  int old_debug_on = settings.debug_on;
-  settings.debug_on = 1;
-
-  LOG("Entering get_phrase()\n");
-
-  /* If we didn't receive a phrase get the first one from the file...*/
-  if (wcsncmp((wchar_t*)"", phr, 40) == 0)
-  {
-    FILE* phrase_file;
-    /* set the phrases directory/file */
-    /* FIXME I think the phrases should be under data or the theme */
-#ifdef WIN32
-    snprintf(fn, FNLEN - 1, "userdata/phrases.txt");
-#else
-    snprintf(fn, FNLEN - 1, (const char*)"%s/.tuxtype/phrases.txt", getenv("HOME"));
-#endif
-
-    DEBUGCODE { printf("get_phrases(): phrases file is '%s'\n", fn ); }
-    LOG("get_phrases(): trying to open phrases file\n");
-    phrase_file = fopen( fn, "r" );
-    if (phrase_file == NULL) 
-      return(wrap_pt);  /* why not just 'return 0;' ??? */
-
-    /* So now copy each line into phrases array: */
-    while (!feof(phrase_file) && pc < 256) 
-    {
-      fscanf( phrase_file, "%[^\n]\n", phrases[pc] );
-      pc++;
-      DEBUGCODE {printf("%s", phrases[pc]);}
-    }
-    if (pc == MAX_PHRASES)
-      LOG("File contains more than MAX_PHRASES - stopping\n");
-
-    fclose(phrase_file);
-    pc--;
-  } 
-  else
-  {
-    LOG("get_phrase() in else clause\n");
-    pc = 1;
-    wcsncpy(phrases[0], phr, MAX_PHRASE_LENGTH); 
-  }
-
-  /* FIXME this seems to be broken - phr_widths[] has not yet been calculated! */
-  //Find wrapping point
-  for (c = 0; c <= pc; c++)
-  {
-    if (phr_widths[c] < 50)  // If the phrase is less than 598 pixels wide
-    {
-      if (c == 0)
-      {
-        wrap_pt = wcslen(phrases[c]);
-        print_at(phrases[0], wrap_pt, 40, 10);
-      }
-    }
-    else
-    {
-      z = 0;
-      wrap_pt = 0;
-
-      for (i = 0; i < wcslen(phrases[c]); i++)
-      {
-        /* Should be safe (if no glyph, will have returned above) */
-        z ++;
-        if (wrap_pt == 0 && z > 50)
-        {
-          wrap_pt = i - 1;
-          break;
-        }
-      }
-
-      for (i = wrap_pt; i >= 0; i--)
-      {
-        if (wcsncmp((wchar_t*)" ", &phrases[c][i], 1) == 0)
-        {
-          wrap_pt = i-1;
-          break;
-        }
-      }
-
-      if (c == 0)
-      {
-        LOG("about to call print_at() near bottom\n");
-        print_at(phrases[0], wrap_pt, 40, 10);
-      }
-    }
-  }
-
-  LOG("Leaving get_phrase()\n");
-
-  settings.debug_on = old_debug_on;
-
-  return(wrap_pt);
-}
 
 static void print_at(const wchar_t *pphrase, int wrap, int x, int y)
 {
@@ -1496,6 +1398,7 @@ static void print_at(const wchar_t *pphrase, int wrap, int x, int y)
   // DEBUGCODE { exit(-1); }
   DEBUGCODE { printf("Leaving print_at \n\n\n"); }
 }
+
 
 static void next_letter(wchar_t *t, int c)
 {

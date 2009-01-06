@@ -230,7 +230,7 @@ static int load_settings_filename(const char* fn)
   if (!fp)
   {
     fprintf(stderr, "load_settings_filename(): no theme-specific settings found%s\n",fn);
-    return;
+    return -1;
   }
 	
   if (!load_settings_fp(fp))

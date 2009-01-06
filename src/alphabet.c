@@ -26,6 +26,7 @@ Sreyas Kurumanghat <k.sreyas@gmail.com>
 
 #include "globals.h"
 #include "funcs.h"
+#include "SDL_extras.h"
 
 
 
@@ -237,14 +238,14 @@ int GetFinger(int i)
 {
   if (i == -1)
   {
-    fprintf(stderr, "GetFinger() - Unicode char '%C' not found in list.\n");
+    fprintf(stderr, "GetFinger() - Unicode char '%C' not found in list.\n",i);
     return -2;
   }
 
   if ((keyboard_list[i].finger < 0)
    || (keyboard_list[i].finger > 9))
   {
-    fprintf(stderr, "GetFinger() - Unicode char '%C' has no valid finger.\n");
+    fprintf(stderr, "GetFinger() - Unicode char '%C' has no valid finger.\n",i);
     return -1;
   }  
 
@@ -1248,6 +1249,7 @@ int map_keys(wchar_t wide_char,kbd_char* keyboard_entry)
 			keyboard_entry->finger=-1;
 			break;
 	}
+  return 0;
 }
 
 void GenerateKeyboard(SDL_Surface* keyboard)
@@ -1490,6 +1492,8 @@ static int add_char(wchar_t uc)
     LOG ("Unable to add unicode - list at max capacity");
     return -1;
   }
+  // We never want to get here...
+  return -1;
 }
 
 

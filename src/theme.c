@@ -18,6 +18,7 @@
 
 #include "globals.h"
 #include "funcs.h"
+#include "SDL_extras.h"
 
 
 SDL_Surface* letters[255] = {NULL}; //get rid of this

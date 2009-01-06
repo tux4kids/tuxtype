@@ -1,3 +1,8 @@
+06 Jan 2009 - svn revision 822
+[ David Bruce <davidstuartbruce@gmail.com> ]
+        - Bugfix to prevent BlackOutline() from segfault if passed empty string
+        - incorporation of several small patches from OpenSuse (thanks Lars Vogdt)
+
 05 Jan 2009 - svn revision 821
 [ David Bruce <davidstuartbruce@gmail.com> ]
         - Bugfix for path for bundled fonts - caused error when run on non-Debian
