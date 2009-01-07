@@ -385,13 +385,13 @@ SDL_Surface* BlackOutline(const char *t, TTF_Font *font, SDL_Color *c)
 
   if (!t || !font || !c)
   {
-    fprintf(stderr, "BlackOutline(): invalid ptr parameter, returning.");
+    fprintf(stderr, "BlackOutline(): invalid ptr parameter, returning.\n");
     return NULL;
   }
 
   if (t[0] == '\0')
   {
-    fprintf(stderr, "BlackOutline(): empty string, returning");
+    fprintf(stderr, "BlackOutline(): empty string, returning\n");
     return NULL;
   }
 
@@ -486,12 +486,18 @@ SDL_Surface* BlackOutline_Unicode(const Uint16* t, const TTF_Font* font, const S
   SDL_Rect dstrect;
   Uint32 color_key;
 
-  if (!font || !c)
+  if (!t || !font || !c)
   {
-    fprintf(stderr, "BlackOutline_Unicode(): invalid ptr parameter, returning.");
+    fprintf(stderr, "BlackOutline_Unicode(): invalid ptr parameter, returning.\n");
     return NULL;
   }
-                                        /* (cast to stop compiler complaint) */
+
+  if (t[0] == '\0')
+  {
+    fprintf(stderr, "BlackOutline_Unicode(): empty string, returning\n");
+    return NULL;
+  }
+                                 /* (cast to stop compiler complaint) */
   black_letters = TTF_RenderUNICODE_Blended((TTF_Font*)font, t, black);
 
   if (!black_letters)
@@ -543,6 +549,20 @@ SDL_Surface* BlackOutline_w(wchar_t* t, const TTF_Font* font, const SDL_Color* c
   wchar_t wchar_tmp[1024];
   char tmp[1024];
   int i;
+
+  // Safety checks:
+  if (!t || !font || !c)
+  {
+    fprintf(stderr, "BlackOutline_Unicode(): invalid ptr parameter, returning.\n");
+    return NULL;
+  }
+
+  if (t[0] == '\0')
+  {
+    fprintf(stderr, "BlackOutline_Unicode(): empty string, returning\n");
+    return NULL;
+  }
+
   wcsncpy( wchar_tmp, t, size);
   wchar_tmp[size] = 0;
   i = ConvertToUTF8( wchar_tmp, tmp);
