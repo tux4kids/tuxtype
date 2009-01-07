@@ -52,6 +52,9 @@ Section
   File /r "mingw32\data\*.*"
   SetOutPath $INSTDIR\doc
   File /r "mingw32\doc\*.*"
+  SetOutPath $INSTDIR\locale
+  File /r "mingw32\locale\*.*"
+
 
   WriteRegStr HKLM SOFTWARE\${APP_PREFIX} "Install_Dir" "$INSTDIR"
   WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APP_PREFIX}" "DisplayName" "${APP_NAME} (remove only)"

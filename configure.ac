@@ -271,6 +271,8 @@ data/themes/nynorsk/images/status/Makefile
 data/themes/nynorsk/words/Makefile
 data/themes/oriya/Makefile
 data/themes/oriya/words/Makefile
+data/themes/punjabi/Makefile
+data/themes/punjabi/words/Makefile
 data/themes/russian/Makefile
 data/themes/russian/images/Makefile
 data/themes/russian/images/status/Makefile
