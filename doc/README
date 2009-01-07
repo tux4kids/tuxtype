@@ -1,3 +1,7 @@
+NOTE - this document is reasonably correct but not completely current.
+It will updated as the maintainer's time allows - DSB
+
+
 Tux Typing:
 An Educational Typing Tutor Game Starring Tux, the Linux Penguin
 ----------------------------------------------------------------
@@ -11,7 +15,7 @@ An Educational Typing Tutor Game Starring Tux, the Linux Penguin
     <tux4kids-tuxtype-dev@lists.alioth.debian.org>
 
     Additional information on this subject is covered in "HowToTheme.html"
-    in the "docs" directory of this package.
+    in the "doc/en" directory of this package.
 
 This is version 1.7.0 of Tux Typing.
 
@@ -44,5 +48,8 @@ figure out what it is... ;)
 
 Enjoy!
 
--Jesse Andrews -- jdandr2@uky.edu
- http://tux4kids.net/~jdandr2
+David Bruce
+davidstuartbruce@gmail.com
+
+(previous maintainer -Jesse Andrews -- jdandr2@uky.edu
+ http://tux4kids.net/~jdandr2)

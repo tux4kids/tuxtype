@@ -1,3 +1,24 @@
+Tux Typing 1.7.0
+December 10, 2008
+
+NOTE - this document is reasonably correct but not completely current.
+It will updated as the maintainer's time allows. For GNU/Linux users, you
+need the "*dev" files for the SDL libs listed below, and should have the
+dev file for SDL_Pango if you want to display non-Western text.  TuxType
+will build successfully, but without SDL_Pango support, if this header/lib
+is not found.
+
+Most GNU/Linux users can install Tux Typing with their distribution's 
+package manager (such as apt or yum).  To build from source, you can grab
+the tuxtype_w_fonts*tar.gz, untar it, and build with "./configure; make;
+make install".  You do not need Autotools unless you are building from
+a Subversion repository checkout.  MacOSX users and Windows users can
+install with very user-friendly binary installer packages - DSB.
+
+The current web site is http://www.tux4kids.com.
+The developer mailing list is tux4kids-tuxtype-dev@lists.alioth.debian.org.
+Feel free to email with any feedback or questions. 
+
 Quick Installation
 ==================
 

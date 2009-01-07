@@ -23,11 +23,13 @@ Packaging & Ports:
 ------------------
 Holger Levsen <holger@debian.org> - (Debian packager, project maintainer)
 David Bruce <davidstuartbruce@gmail.com> - (Windows crossbuild using Linux host)
+Alex Shorthouse <ashorthouse@rsd13.org>  - (more recent Mac OSX port)
+
+(previous packagers:)
 David Marshman <marshy@silvan.demon.co.uk> - (BeOS port/packages)
 Calvin Arndt <calarndt@yahoo.com> - (Red Hat 7.1+ RPMs)
 Olivier Dagenais <olivier_dagenais@canada.com> - (Windows port/packages)
 Jesse Andrews <jdandr2@uky.edu> - (Mac OS port)
-Alex Shorthouse <ashorthouse@rsd13.org>  - (more recent Mac OSX port)
 
 Special thanks to:
 ------------------

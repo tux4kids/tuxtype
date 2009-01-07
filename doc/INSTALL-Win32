@@ -1,13 +1,16 @@
 Tux Typing for Windows
 ----------------------
 
-Updated Aug 25 2007
+Updated Dec 10 2008
 
 2006-present Lead Developer:
-	David Bruce <dbruce@tampabay.rr.com>
+	David Bruce <davidstuartbruce@gmail.com>
 
 Previous Project Manager:
 	Sam Hart <hart@geekcomix.com>
+
+*** See AUTHORS for more complete list of contributors
+
 Developers:
 	Jacob Greig <bombastic@firstlinux.net>
 	Jesse Andrews <jdandr2@sheffield.cslab.uky.edu>
@@ -19,8 +22,13 @@ Windows Crossbuild by
 
 To install the binary package for Tux Typing for Windows:
 
-1. Run the nsis installer file (e.g. tuxtype-1.5.11-win32-installer.exe)
+1. Run the nsis installer file (e.g. tuxtype-1.7.10-win32-installer.exe)
 2. Click to accept the terms of the GPL
+(you actually have the legal right to install and run the program
+irrespective of what you think of the GPL, but the NSIS installer
+program needs a click to proceed with installation.  The GPL covers
+copying, not use.  You no more need a license to simply *use* software
+than you need a license to read a book or newspaper!).
 3. Click OK to install in default path (C:\Program Files\TuxType) or
 select alternate location (perhaps if you are logged in as a user
 without privileges to write to C:\Program Files).
