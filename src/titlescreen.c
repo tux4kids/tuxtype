@@ -72,11 +72,11 @@ static void not_implemented(void);
 /* --- define menu structure --- */
 /* (these values are all in the Game_Type enum in globals.h) */
 const int menu_item[][6]= {{0, 0,         0,         0,          0},
-			   {0, CASCADE,   LEVEL1,    LEVEL1,  EDIT_WORDLIST },
-			   {0, LASER,     LEVEL2,    LEVEL2,  FREETYPE   },
-			   {0, LESSONS,  LEVEL3,    LEVEL3,  PROJECT_INFO },
-			   {0, OPTIONS,   INSTRUCT,  LEVEL4,  SET_LANGUAGE},
-			   {0, QUIT_GAME, MAIN,      MAIN,    MAIN}};
+			   {0, CASCADE,   LEVEL1,    LEVEL1,  EDIT_WORDLIST   },
+			   {0, LASER,     LEVEL2,    LEVEL2,  PHRASE_PRACTICE },
+			   {0, LESSONS,   LEVEL3,    LEVEL3,  PROJECT_INFO    },
+			   {0, OPTIONS,   INSTRUCT,  LEVEL4,  SET_LANGUAGE    },
+			   {0, QUIT_GAME, MAIN,      MAIN,    MAIN            }};
 
 /* --- menu icons --- */
 const unsigned char *menu_icon[][6]= 
@@ -655,64 +655,18 @@ void TitleScreen(void)
 
 
 
-    if (menu_opt == FREETYPE)
+    if (menu_opt == PHRASE_PRACTICE)
     {
       unload_media();
-      found = 0;
 
-      if (!settings.use_english)
-      {
-        sprintf(fn , "%s/phrases.txt", settings.theme_data_path);
-        if (CheckFile(fn))
-          found = 1;
+      Phrases(NULL);
 
-        /* Now look in default path if desired or needed: */
-        if (!found)
-        {
-          sprintf(fn , "%s/words/words3.txt", settings.theme_data_path);
-          if (CheckFile(fn))
-            found = 1;
-        }
+      load_media();
 
-        if (!found)
-        {
-          sprintf(fn , "%s/words/words2.txt", settings.theme_data_path);
-          if (CheckFile(fn))
-            found = 1;
-        }
+      if (settings.menu_music)
+        MusicLoad( "tuxi.ogg", -1 );
 
-        if (!found)
-        {
-          sprintf(fn , "%s/words/words1.txt", settings.theme_data_path);
-          if (CheckFile(fn))
-            found = 1;
-        }
-      }
-
-      /* Now checking English: */
-      if (!found)
-      {
-        sprintf(fn , "%s/phrases.txt", settings.default_data_path);
-        if (CheckFile(fn))
-          found = 1;
-      }
-
-      /* Now do Phrases activity if phrase loaded successfully: */
-      if (found)
-      {
-        fp=fopen(fn,"r");
-        fscanf( fp, "%[^\n]\n", str);
-        ConvertFromUTF8(phrase, str);
-        Phrases( phrase );
-        //Practice();
-        load_media();
-        redraw = 1;
-        fclose(fp);
-      }
-      else
-      {
-        fprintf(stderr, "LoadKeyboard(): Error finding file for keyboard setup!\n");
-      }
+      redraw = 1;
     }
 
     /* ------ End menu_opt processing ----------- */
