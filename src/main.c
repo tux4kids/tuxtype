@@ -138,9 +138,9 @@ int main(int argc, char *argv[])
   LibInit(lib_flags); /* calls SDL_Init(), TTF_Init(), some other settings */
   GraphicsInit(); /* calls SDL_SetVideoMode(), a few others     */
 
-  #ifdef HAVE_LIBSDL_PANGO
+  /* Initialize SDL_Pango, if we are using it. Note that our wrapper function */
+  /* being called here is just a no-op if SDL_Pango not enabled.              */
   init_SDLPango_Context();
-  #endif
 
   if (settings.sys_sound)
   {

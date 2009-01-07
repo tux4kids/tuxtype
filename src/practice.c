@@ -33,6 +33,7 @@ Sreyas Kurumanghat <k.sreyas@gmail.com>
 #define SPRITE_FRAME_TIME 200
 /* "Local globals" for practice.c */
 static int fontsize = 0;
+static int medfontsize = 0;
 static int bigfontsize = 0;
 
 /* Surfaces for things we want to pre-render: */
@@ -45,6 +46,7 @@ static SDL_Surface* hand[11] = {NULL};
 static sprite* tux_stand = NULL;
 static sprite* tux_win = NULL;
 static TTF_Font* smallfont = NULL;
+static TTF_Font* medfont = NULL;
 static TTF_Font* bigfont = NULL;
 static SDL_Surface* time_label_srfc = NULL;
 static SDL_Surface* chars_label_srfc = NULL;
@@ -226,9 +228,9 @@ int Phrases(wchar_t* pphrase )
 
         /* Draw the phrase to be typed up to the next wrapping point: */
         wrap_pt = find_next_wrap(&phrases[cur_phrase][prev_wrap],
-                                  smallfont, phrase_draw_width);
+                                  medfont, phrase_draw_width);
         tmpsurf = BlackOutline_w(&phrases[cur_phrase][prev_wrap],
-                                  smallfont, &white, wrap_pt + 1);
+                                  medfont, &white, wrap_pt + 1);
 
         if (tmpsurf)
         {
@@ -239,9 +241,8 @@ int Phrases(wchar_t* pphrase )
 
         /* Draw the text the player has typed so far: */
         tmpsurf = BlackOutline_w(&phrases[cur_phrase][prev_wrap],
-                                  smallfont, &white,
+                                  medfont, &white,
                                   cursor - prev_wrap);
-
         if (tmpsurf)
         {
           SDL_BlitSurface(tmpsurf, NULL, screen, &user_text_rect);
@@ -646,7 +647,7 @@ int Phrases(wchar_t* pphrase )
           /* except we don't want to redraw keyboard to avoid flicker:    */
 
           tmpsurf = BlackOutline_w(&phrases[cur_phrase][prev_wrap],
-                                   smallfont, &white,
+                                   medfont, &white,
                                    cursor - prev_wrap);
 
           if (tmpsurf)
@@ -825,19 +826,19 @@ int Phrases(wchar_t* pphrase )
 /* Select appropriate font sizes based on the screen we're working with: */
 static void calc_font_sizes(void)
 {
-  fontsize = (screen->h)/18;
-  bigfontsize = fontsize * 3;
+  fontsize = (screen->h)/28;
+  medfontsize = fontsize * 1.5;
+  bigfontsize = fontsize * 4;
 
   /* When SDL_Pango is used, the above font sizes are ignored    */
   /* by BlackOutline(), so we adjust dpi to scale the fonts:     */
   /* HACK this isn't quite the intended use of SDLPango_SetDpi() */
-#ifdef HAVE_LIBSDL_PANGO
+  /* NOTE this code has no effect if SDL_Pango not being used    */
   {
    float dpi_x, dpi_y;
    dpi_x = dpi_y = 125 * ((float)screen->h/(float)480);
    reset_DPI_SDLPango_Context(dpi_x, dpi_y);
   }
-#endif
 }
 
 static int practice_load_media(void)
@@ -876,6 +877,7 @@ static int practice_load_media(void)
   /* load needed fonts: */
   calc_font_sizes();
   smallfont = LoadFont(settings.theme_font_name, fontsize);
+  medfont = LoadFont(settings.theme_font_name, medfontsize);
   bigfont = LoadFont(settings.theme_font_name, bigfontsize);
 
   /* create labels: */
@@ -894,6 +896,7 @@ static int practice_load_media(void)
     ||!tux_stand
     ||!wrong
     ||!smallfont
+    ||!medfont
     ||!bigfont
     ||!keyboard
     ||!hand_shift[0]
@@ -925,6 +928,8 @@ static int practice_load_media(void)
 
 static void recalc_positions(void)
 {
+  int text_height = TTF_FontHeight(smallfont);
+
   if (!keyboard
     ||!tux_win
     ||!tux_win->frame[0]
@@ -970,70 +975,70 @@ static void recalc_positions(void)
   tux_loc.h = tux_stand->frame[0]->h;
 
   time_label.x = left_pane.x + 5;
-  time_label.y = tux_loc.y + tux_loc.h + 5;
+  time_label.y = tux_loc.y + tux_loc.h;
   time_label.w = left_pane.w - 5;
-  time_label.h = fontsize;
+  time_label.h = text_height;
 
   time_rect.x = left_pane.x + 5;
   time_rect.y = time_label.y + time_label.h;
   time_rect.w = left_pane.w - 5;
-  time_rect.h = fontsize;
+  time_rect.h = text_height;
 
   chars_typed_label.x = left_pane.x + 5;
   chars_typed_label.y = time_rect.y + time_rect.h;
   chars_typed_label.w = left_pane.w - 5;
-  chars_typed_label.h = fontsize;
+  chars_typed_label.h = text_height;
 
   chars_typed_rect.x = left_pane.x + 5;
   chars_typed_rect.y = chars_typed_label.y + chars_typed_label.h;
   chars_typed_rect.w = left_pane.w - 5;
-  chars_typed_rect.h = fontsize;
+  chars_typed_rect.h = text_height;
 
   cpm_label.x = left_pane.x + 5;
   cpm_label.y = chars_typed_rect.y + chars_typed_rect.h;
   cpm_label.w = left_pane.w - 5;
-  cpm_label.h = fontsize;
+  cpm_label.h = text_height;
 
   cpm_rect.x = left_pane.x + 5;
   cpm_rect.y = cpm_label.y + cpm_label.h;
   cpm_rect.w = left_pane.w - 5;
-  cpm_rect.h = fontsize;
+  cpm_rect.h = text_height;
 
   wpm_label.x = left_pane.x + 5;
   wpm_label.y = cpm_rect.y + cpm_rect.h;
   wpm_label.w = left_pane.w - 5;
-  wpm_label.h = fontsize;
+  wpm_label.h = text_height;
 
   wpm_rect.x = left_pane.x + 5;
   wpm_rect.y = wpm_label.y + wpm_label.h;
   wpm_rect.w = left_pane.w - 5;
-  wpm_rect.h = fontsize;
+  wpm_rect.h = text_height;
 
   errors_label.x = left_pane.x + 5;
   errors_label.y = wpm_rect.y + wpm_rect.h;
   errors_label.w = left_pane.w - 5;
-  errors_label.h = fontsize;
+  errors_label.h = text_height;
 
   errors_rect.x = left_pane.x + 5;
   errors_rect.y = errors_label.y + errors_label.h;
   errors_rect.w = left_pane.w - 5;
-  errors_rect.h = fontsize;
+  errors_rect.h = text_height;
 
   accuracy_label.x = left_pane.x + 5;
   accuracy_label.y = errors_rect.y + errors_rect.h;
   accuracy_label.w = left_pane.w - 5;
-  accuracy_label.h = fontsize;
+  accuracy_label.h = text_height;
 
   accuracy_rect.x = left_pane.x + 5;
   accuracy_rect.y = accuracy_label.y + accuracy_label.h;
   accuracy_rect.w = left_pane.w - 5;
-  accuracy_rect.h = fontsize;
+  accuracy_rect.h = text_height;
 
   /* Set up all the locations within the top pane: */
   phr_text_rect.x = top_pane.x + 5;
   phr_text_rect.y = top_pane.y + top_pane.h * 0.3;
   phr_text_rect.w = top_pane.w - 5;
-  phr_text_rect.h = fontsize;
+  phr_text_rect.h = TTF_FontHeight(medfont);
 
   /* we can't just use phr_text_rect.w to calc wrap */
   /* because SDL_BlitSurface() clobbers it: */
@@ -1042,7 +1047,7 @@ static void recalc_positions(void)
   user_text_rect.x = top_pane.x + 5;
   user_text_rect.y = top_pane.y + top_pane.h * 0.6;
   user_text_rect.w = top_pane.w - 5;
-  user_text_rect.h = fontsize;
+  user_text_rect.h = TTF_FontHeight(medfont);
 
   /* Set up all the locations within the bottom pane: */
   keyboard_loc.x = bottom_pane.x + bottom_pane.w/4 - keyboard->w/4;
@@ -1058,8 +1063,8 @@ static void recalc_positions(void)
 
   nextletter_rect.x = keyboard_loc.x + keyboard_loc.w - 80;
   nextletter_rect.y = keyboard_loc.y + keyboard_loc.h;
-  nextletter_rect.w = bigfontsize * 1.5;
-  nextletter_rect.h = bigfontsize;
+  nextletter_rect.w = TTF_FontHeight(bigfont) * 1.5;
+  nextletter_rect.h = TTF_FontHeight(bigfont);
 
 }
 
@@ -1114,6 +1119,10 @@ static void practice_unload_media(void)
     TTF_CloseFont(smallfont);
   smallfont = NULL;
 
+  if (medfont)
+    TTF_CloseFont(medfont);
+  medfont = NULL;
+
   if (bigfont)
     TTF_CloseFont(bigfont);
   bigfont = NULL;
@@ -1145,11 +1154,9 @@ static void practice_unload_media(void)
     Mix_FreeChunk(wrong);
   wrong = NULL;
 
-/* Set the dpi back to default: */
-#ifdef HAVE_LIBSDL_PANGO
+/* Set the dpi back to default as our SDL_Pango font-scaling hack: */
+/* NOTE this is a no-op if we aren't using SDL_Pango */
   reset_DPI_SDLPango_Context(125, 125);
-#endif
-
 }
 
 
@@ -1304,7 +1311,7 @@ static int find_next_wrap(const wchar_t* wstr, const TTF_Font* font, int width)
     /* Need to convert to UTF8 because couldn't get UNICODE version to work: */
     ConvertToUTF8(buf, UTF8buf);
     /*  Now check width of string: */
-    if (-1 == TTF_SizeUTF8(smallfont, UTF8buf, &test_w, NULL))
+    if (-1 == TTF_SizeUTF8(font, UTF8buf, &test_w, NULL))
     {
       /* An error occurred: */
       return -1;
@@ -1366,7 +1373,7 @@ static void print_at(const wchar_t *pphrase, int wrap, int x, int y)
   {
     LOG("Wrap not needed\n");
 
-    tmp = BlackOutline_w(pphrase, smallfont, &white, wrap);
+    tmp = BlackOutline_w(pphrase, medfont, &white, wrap);
     if (tmp)
     {
       SDL_BlitSurface(tmp, NULL, screen, &dst);
@@ -1378,7 +1385,7 @@ static void print_at(const wchar_t *pphrase, int wrap, int x, int y)
   {
     LOG("Line length exceeded - wrap required\n");
 
-    tmp = BlackOutline_w(pphrase, smallfont, &white, wrap + 1);
+    tmp = BlackOutline_w(pphrase, medfont, &white, wrap + 1);
     if (tmp)
     {
       SDL_BlitSurface(tmp, NULL, screen, &dst);
@@ -1387,7 +1394,7 @@ static void print_at(const wchar_t *pphrase, int wrap, int x, int y)
       tmp = NULL;
     }
 
-    tmp = BlackOutline_w(pphrase+wrap+1, smallfont, &white, wcslen(pphrase));
+    tmp = BlackOutline_w(pphrase+wrap+1, medfont, &white, wcslen(pphrase));
     if (tmp)
     {
       SDL_BlitSurface(tmp, NULL, screen, &dst);

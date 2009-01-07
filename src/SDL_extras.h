@@ -36,20 +36,24 @@
 void DrawButton(SDL_Rect* target_rect, int radius, Uint8 r, Uint8 g, Uint8 b, Uint8 a);
 void RoundCorners(SDL_Surface* s, Uint16 radius);
 SDL_Surface* Flip(SDL_Surface *in, int x, int y);
-SDL_Surface* BlackOutline(const char *t, TTF_Font* font, SDL_Color* c);
-SDL_Surface* BlackOutline_Unicode(const Uint16* t, const TTF_Font* font, const SDL_Color* c);
-SDL_Surface* BlackOutline_w(wchar_t* t, const TTF_Font* font, const SDL_Color* c, int size);
+
 int  inRect(SDL_Rect r, int x, int y);
 void DarkenScreen(Uint8 bits);
 void SwitchScreenMode(void);
 int WaitForKeypress(void);
 SDL_Surface* Blend(SDL_Surface *S1, SDL_Surface *S2,float gamma);
 SDL_Surface *zoom(SDL_Surface * src, int new_w, int new_h);
+void ScaleDPIforFS(void);
+void ResetDPI(void);
 
-#ifdef HAVE_LIBSDL_PANGO
+/* These functions are the only code in the program that directly use SDL_Pango */
+/* If SDL_Pango not available, they fall back to SDL_ttf or do nothing,         */
+/* as appropriate.                                                              */
+SDL_Surface* BlackOutline(const char *t, TTF_Font* font, SDL_Color* c);
+SDL_Surface* BlackOutline_Unicode(const Uint16* t, const TTF_Font* font, const SDL_Color* c);
+SDL_Surface* BlackOutline_w(wchar_t* t, const TTF_Font* font, const SDL_Color* c, int size);
 void init_SDLPango_Context();
 void free_SDLPango_Context();
 void reset_DPI_SDLPango_Context(float dpi_x, float dpi_y);
-#endif
 
 #endif

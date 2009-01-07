@@ -15,6 +15,11 @@
 #include "globals.h"
 #include "pixels.h"
 
+/* Uncomment this line to test how the program will run if */
+/* SDL_Pango not available.                                */
+//#undef HAVE_LIBSDL_PANGO
+
+
 #ifdef HAVE_LIBSDL_PANGO
 #include "SDL_Pango.h"
 static SDLPango_Matrix* SDL_Colour_to_SDLPango_Matrix(const SDL_Color* cl);
@@ -322,30 +327,37 @@ SDL_Surface* Blend(SDL_Surface *S1,SDL_Surface *S2,float gamma)
   return ret;
 }
 
-#ifdef HAVE_LIBSDL_PANGO
 
 void init_SDLPango_Context()
 {
+#ifdef HAVE_LIBSDL_PANGO
+
    if((context =  SDLPango_CreateContext_GivenFontDesc(settings.theme_font_name))==NULL)
      context =  SDLPango_CreateContext();
    SDLPango_SetBaseDirection(context, SDLPANGO_DIRECTION_LTR);
    SDLPango_SetDpi(context, 125.0, 125.0);
+#endif
 }
 
 
 void free_SDLPango_Context()
 {
+#ifdef HAVE_LIBSDL_PANGO
   if(context != NULL)
     SDLPango_FreeContext(context);
   context = NULL;
+#endif
 }
 
 
 void reset_DPI_SDLPango_Context(float dpi_x, float dpi_y)
 {
+#ifdef HAVE_LIBSDL_PANGO
   SDLPango_SetDpi(context, dpi_x, dpi_y);
+#endif
 }
 
+#ifdef HAVE_LIBSDL_PANGO
 
 SDLPango_Matrix* SDL_Colour_to_SDLPango_Matrix(const SDL_Color *cl)
 {
@@ -786,3 +798,16 @@ SDL_Surface* zoom(SDL_Surface* src, int new_w, int new_h)
   return s;
 }
 
+/* When SDL_Pango is used, the ttf font sizes are ignored    */
+/* by BlackOutline(), so we adjust dpi to scale the fonts:     */
+/* HACK this isn't quite the intended use of SDLPango_SetDpi() */
+void ScaleDPIforFS(void)
+{
+#ifdef HAVE_LIBSDL_PANGO
+  {
+   float dpi_x, dpi_y;
+   dpi_x = dpi_y = 125 * ((float)screen->h/(float)480);
+   reset_DPI_SDLPango_Context(dpi_x, dpi_y);
+  }
+#endif
+}
