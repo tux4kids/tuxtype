@@ -239,9 +239,9 @@ target_vendor = @target_vendor@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 SUBDIRS = images scripts sounds themes words fonts
-tuxtypedatadir = $(pkgdatadir)/data
+tuxtypedatadir = $(pkgdatadir)
 dist_tuxtypedata_DATA = keyboard.lst \
-			phrases.txt
+  phrases.txt
 
 all: all-recursive
 

@@ -236,11 +236,10 @@ target_alias = @target_alias@
 target_cpu = @target_cpu@
 target_os = @target_os@
 target_vendor = @target_vendor@
-top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 SUBDIRS = status 
-themes_russian_imagesdir = $(pkgdatadir)/data/themes/russian/images
+themes_russian_imagesdir = $(pkgdatadir)/themes/russian/images
 dist_themes_russian_images_DATA = splat0.png
 all: all-recursive
 

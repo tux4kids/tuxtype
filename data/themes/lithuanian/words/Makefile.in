@@ -224,10 +224,9 @@ target_alias = @target_alias@
 target_cpu = @target_cpu@
 target_os = @target_os@
 target_vendor = @target_vendor@
-top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-themes_lithuanian_wordsdir = $(pkgdatadir)/data/themes/lithuanian/words
+themes_lithuanian_wordsdir = $(pkgdatadir)/themes/lithuanian/words
 dist_themes_lithuanian_words_DATA = 1-pamoka.txt \
   2-pamoka.txt \
   3-pamoka.txt \

@@ -24,6 +24,7 @@ SUBDIRS = armenian \
   nederlands \
   nynorsk \
   oriya \
+  punjabi \
   russian \
   svenska \
   swahili \
@@ -31,4 +32,4 @@ SUBDIRS = armenian \
   telugu \
   wolof
 
-themesdir = $(pkgdatadir)/data/themes
+themesdir = $(pkgdatadir)/themes

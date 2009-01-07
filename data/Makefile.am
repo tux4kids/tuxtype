@@ -3,7 +3,7 @@
 
 SUBDIRS = images scripts sounds themes words fonts
 
-tuxtypedatadir = $(pkgdatadir)/data
+tuxtypedatadir = $(pkgdatadir)
 
 dist_tuxtypedata_DATA = keyboard.lst \
-			phrases.txt
+  phrases.txt

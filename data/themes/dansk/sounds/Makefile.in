@@ -224,10 +224,9 @@ target_alias = @target_alias@
 target_cpu = @target_cpu@
 target_os = @target_os@
 target_vendor = @target_vendor@
-top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-themes_dansk_soundsdir = $(pkgdatadir)/data/themes/dansk/sounds
+themes_dansk_soundsdir = $(pkgdatadir)/themes/dansk/sounds
 dist_themes_dansk_sounds_DATA = excuseme.wav
 all: all-am
 

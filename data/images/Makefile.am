@@ -11,7 +11,7 @@ SUBDIRS = backgrounds \
   status \
   tux
 
-imagesdir = $(pkgdatadir)/data/images
+imagesdir = $(pkgdatadir)/images
 
 dist_images_DATA = README_IMAGES.TXT \
   down.png \

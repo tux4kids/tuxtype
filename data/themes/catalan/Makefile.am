@@ -2,6 +2,6 @@
 ## Process with Automake to create Makefile.in
 SUBDIRS = words
 
-themes_catalandir = $(pkgdatadir)/data/themes/catalan
+themes_catalandir = $(pkgdatadir)/themes/catalan
 
 dist_themes_catalan_DATA = keyboard.lst settings.txt

@@ -3,7 +3,7 @@
 
 SUBDIRS = images words 
 
-themes_nynorskdir = $(pkgdatadir)/data/themes/nynorsk
+themes_nynorskdir = $(pkgdatadir)/themes/nynorsk
 
 dist_themes_nynorsk_DATA = keyboard.lst	\
   settings.txt

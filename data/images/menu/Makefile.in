@@ -226,7 +226,7 @@ target_os = @target_os@
 target_vendor = @target_vendor@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-images_menudir = $(pkgdatadir)/data/images/menu
+images_menudir = $(pkgdatadir)/images/menu
 dist_images_menu_DATA = cascade0.png\
 cascade1.png\
 cascade10.png\

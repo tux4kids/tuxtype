@@ -1,6 +1,6 @@
 # English translations for Tux Typing package.
 # This file is put in the public domain.
-# Automatically generated, 2008.
+# Automatically generated, 2009.
 #
 # All this catalog "translates" are quotation characters.
 # The msgids must be ASCII and therefore cannot contain real quotation

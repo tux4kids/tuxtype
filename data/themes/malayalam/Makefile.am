@@ -3,7 +3,7 @@
 
 SUBDIRS = images scripts words 
 
-themes_malayalamdir = $(pkgdatadir)/data/themes/malayalam
+themes_malayalamdir = $(pkgdatadir)/themes/malayalam
 
 dist_themes_malayalam_DATA = keyboard.lst \
   phrases.txt \

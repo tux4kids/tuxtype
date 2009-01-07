@@ -3,7 +3,7 @@
 
 SUBDIRS = images words 
 
-themes_wolofdir = $(pkgdatadir)/data/themes/wolof
+themes_wolofdir = $(pkgdatadir)/themes/wolof
 
 dist_themes_wolof_DATA = keyboard.lst	\
   settings.txt

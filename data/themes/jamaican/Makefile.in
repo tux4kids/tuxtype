@@ -236,11 +236,10 @@ target_alias = @target_alias@
 target_cpu = @target_cpu@
 target_os = @target_os@
 target_vendor = @target_vendor@
-top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 SUBDIRS = images words
-themes_jamaicandir = $(pkgdatadir)/data/themes/jamaican
+themes_jamaicandir = $(pkgdatadir)/themes/jamaican
 dist_themes_jamaican_DATA = keyboard.lst settings.txt
 all: all-recursive
 

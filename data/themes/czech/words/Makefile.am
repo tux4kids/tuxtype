@@ -1,7 +1,7 @@
 ## Makefile.am for tuxtype - data/themes/czech/words:
 ## Process with Automake to create Makefile.in
 
-themes_czech_wordsdir = $(pkgdatadir)/data/themes/czech/words
+themes_czech_wordsdir = $(pkgdatadir)/themes/czech/words
 
 dist_themes_czech_words_DATA = prsty.txt \
   rostliny.txt \

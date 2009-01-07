@@ -1,7 +1,7 @@
-## Makefile.am for tuxtype - data/images/hands:
+## Makefile.am for tuxtype - images/hands:
 ## Process with Automake to create Makefile.in
 
-images_handsdir = $(pkgdatadir)/data/images/hands
+images_handsdir = $(pkgdatadir)/images/hands
 
 dist_images_hands_DATA = hands.png \
   0.png \

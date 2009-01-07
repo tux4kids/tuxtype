@@ -226,7 +226,7 @@ target_os = @target_os@
 target_vendor = @target_vendor@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-images_citiesdir = $(pkgdatadir)/data/images/cities
+images_citiesdir = $(pkgdatadir)/images/cities
 dist_images_cities_DATA = cdead-blue.png\
 cdead-green.png\
 cdead-orange.png\

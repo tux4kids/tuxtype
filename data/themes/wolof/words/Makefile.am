@@ -1,7 +1,7 @@
 ## Makefile.am for tuxtype - data/themes/wolof/words:
 ## Process with Automake to create Makefile.in
 
-themes_wolof_wordsdir = $(pkgdatadir)/data/themes/wolof/words
+themes_wolof_wordsdir = $(pkgdatadir)/themes/wolof/words
 
 dist_themes_wolof_words_DATA = names.txt \
   plants.txt \

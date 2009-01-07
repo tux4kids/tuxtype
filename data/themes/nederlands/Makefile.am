@@ -3,7 +3,7 @@
 
 SUBDIRS = words 
 
-themes_nederlandsdir = $(pkgdatadir)/data/themes/nederlands
+themes_nederlandsdir = $(pkgdatadir)/themes/nederlands
 
 dist_themes_nederlands_DATA = keyboard.lst \
   nederlands.txt	\

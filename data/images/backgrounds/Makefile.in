@@ -226,7 +226,7 @@ target_os = @target_os@
 target_vendor = @target_vendor@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-images_backgroundsdir = $(pkgdatadir)/data/images/backgrounds
+images_backgroundsdir = $(pkgdatadir)/images/backgrounds
 dist_images_backgrounds_DATA = 0.jpg \
   1.jpg \
   2.jpg \

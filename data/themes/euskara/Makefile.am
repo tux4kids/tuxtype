@@ -3,7 +3,7 @@
 
 SUBDIRS = images words
 
-themes_euskaradir = $(pkgdatadir)/data/themes/euskara
+themes_euskaradir = $(pkgdatadir)/themes/euskara
 
 dist_themes_euskara_DATA = AUTHOR \
   keyboard.lst	\

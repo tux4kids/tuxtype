@@ -1,7 +1,7 @@
 ## Makefile.am for tuxtype - data/themes/italian/words:
 ## Process with Automake to create Makefile.in
 
-themes_italian_wordsdir = $(pkgdatadir)/data/themes/italian/words
+themes_italian_wordsdir = $(pkgdatadir)/themes/italian/words
 
 dist_themes_italian_words_DATA = freq.txt \
   word1.txt \

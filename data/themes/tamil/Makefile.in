@@ -236,11 +236,10 @@ target_alias = @target_alias@
 target_cpu = @target_cpu@
 target_os = @target_os@
 target_vendor = @target_vendor@
-top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 SUBDIRS = words 
-themes_tamildir = $(pkgdatadir)/data/themes/tamil
+themes_tamildir = $(pkgdatadir)/themes/tamil
 dist_themes_tamil_DATA = keyboard.lst \
   phrases.txt \
   settings.txt

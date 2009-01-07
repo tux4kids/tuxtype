@@ -1,7 +1,7 @@
 ## Makefile.am for tuxtype - data/words:
 ## Process with Automake to create Makefile.in
 
-wordsdir = $(pkgdatadir)/data/words
+wordsdir = $(pkgdatadir)/words
 
 dist_words_DATA = alphabet.txt \
   animals.txt \

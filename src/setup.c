@@ -28,9 +28,13 @@
 /* subdir */
 const char PATHS[NUM_PATHS][FNLEN] = 
 {
-  DATA_PREFIX"/share/"PACKAGE"/data",
+/*  DATA_PREFIX"/share/"PACKAGE"/data",
   "/usr/share/"PACKAGE"/data",
   "/usr/local/share/"PACKAGE"/data",
+  "./data"*/
+  DATA_PREFIX"/share/"PACKAGE,
+  "/usr/share/"PACKAGE,
+  "/usr/local/share/"PACKAGE,
   "./data"
 };
 

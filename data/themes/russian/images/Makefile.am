@@ -3,6 +3,6 @@
 
 SUBDIRS = status 
 
-themes_russian_imagesdir = $(pkgdatadir)/data/themes/russian/images
+themes_russian_imagesdir = $(pkgdatadir)/themes/russian/images
 
 dist_themes_russian_images_DATA = splat0.png

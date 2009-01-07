@@ -3,6 +3,6 @@
 
 SUBDIRS = images words
 
-themes_jamaicandir = $(pkgdatadir)/data/themes/jamaican
+themes_jamaicandir = $(pkgdatadir)/themes/jamaican
 
 dist_themes_jamaican_DATA = keyboard.lst settings.txt

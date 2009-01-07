@@ -224,10 +224,9 @@ target_alias = @target_alias@
 target_cpu = @target_cpu@
 target_os = @target_os@
 target_vendor = @target_vendor@
-top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-themes_espanol_wordsdir = $(pkgdatadir)/data/themes/espanol/words
+themes_espanol_wordsdir = $(pkgdatadir)/themes/espanol/words
 dist_themes_espanol_words_DATA = words1.txt \
   words2.txt \
   words3.txt

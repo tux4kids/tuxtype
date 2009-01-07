@@ -3,6 +3,6 @@
 
 SUBDIRS = keyboard status
 
-themes_malayalam_imagesdir = $(pkgdatadir)/data/themes/malayalam/images
+themes_malayalam_imagesdir = $(pkgdatadir)/themes/malayalam/images
 
 dist_themes_malayalam_images_DATA = splat0.png

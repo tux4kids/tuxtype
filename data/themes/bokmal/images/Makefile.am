@@ -2,6 +2,6 @@
 ## Process with Automake to create Makefile.in
 SUBDIRS = status
 
-themes_bokmal_imagesdir = $(pkgdatadir)/data/themes/bokmal/images
+themes_bokmal_imagesdir = $(pkgdatadir)/themes/bokmal/images
 
 dist_themes_bokmal_images_DATA = splat0.png map.png

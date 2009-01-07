@@ -226,7 +226,7 @@ target_os = @target_os@
 target_vendor = @target_vendor@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-images_statusdir = $(pkgdatadir)/data/images/status
+images_statusdir = $(pkgdatadir)/images/status
 dist_images_status_DATA = gameover.png \
   numbers.png \
   score.png \

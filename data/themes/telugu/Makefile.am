@@ -3,7 +3,7 @@
 
 SUBDIRS = words 
 
-themes_telugudir = $(pkgdatadir)/data/themes/telugu
+themes_telugudir = $(pkgdatadir)/themes/telugu
 
 dist_themes_telugu_DATA = keyboard.lst \
 	settings.txt

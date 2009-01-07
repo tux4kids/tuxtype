@@ -3,7 +3,7 @@
 
 SUBDIRS = status 
 
-themes_nynorsk_imagesdir = $(pkgdatadir)/data/themes/nynorsk/images
+themes_nynorsk_imagesdir = $(pkgdatadir)/themes/nynorsk/images
 
 dist_themes_nynorsk_images_DATA = splat0.png \
   map.png

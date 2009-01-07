@@ -1,7 +1,7 @@
-## Makefile.am for tuxtype - data/images/cities:
+## Makefile.am for tuxtype - images/cities:
 ## Process with Automake to create Makefile.in
 
-images_citiesdir = $(pkgdatadir)/data/images/cities
+images_citiesdir = $(pkgdatadir)/images/cities
 
 dist_images_cities_DATA = cdead-blue.png\
 cdead-green.png\

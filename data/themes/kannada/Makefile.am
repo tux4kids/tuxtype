@@ -3,7 +3,7 @@
 
 SUBDIRS = words 
 
-themes_kannadadir = $(pkgdatadir)/data/themes/kannada
+themes_kannadadir = $(pkgdatadir)/themes/kannada
 
 dist_themes_kannada_DATA = keyboard.lst \
   	alphabet.txt \

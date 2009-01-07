@@ -224,10 +224,9 @@ target_alias = @target_alias@
 target_cpu = @target_cpu@
 target_os = @target_os@
 target_vendor = @target_vendor@
-top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-themes_swahili_wordsdir = $(pkgdatadir)/data/themes/swahili/words
+themes_swahili_wordsdir = $(pkgdatadir)/themes/swahili/words
 dist_themes_swahili_words_DATA = words1.txt
 all: all-am
 

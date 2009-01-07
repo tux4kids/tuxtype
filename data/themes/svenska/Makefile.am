@@ -3,7 +3,7 @@
 
 SUBDIRS = words 
 
-themes_svenskadir = $(pkgdatadir)/data/themes/svenska
+themes_svenskadir = $(pkgdatadir)/themes/svenska
 
 dist_themes_svenska_DATA = keyboard.lst	\
   settings.txt

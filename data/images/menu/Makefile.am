@@ -1,7 +1,7 @@
-## Makefile.am for tuxtype - data/images/menu:
+## Makefile.am for tuxtype - images/menu:
 ## Process with Automake to create Makefile.in
 
-images_menudir = $(pkgdatadir)/data/images/menu
+images_menudir = $(pkgdatadir)/images/menu
 
 dist_images_menu_DATA = cascade0.png\
 cascade1.png\

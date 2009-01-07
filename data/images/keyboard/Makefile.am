@@ -1,7 +1,7 @@
-## Makefile.am for tuxtype - data/images/keyboard:
+## Makefile.am for tuxtype - images/keyboard:
 ## Process with Automake to create Makefile.in
 
-images_keyboarddir = $(pkgdatadir)/data/images/keyboard
+images_keyboarddir = $(pkgdatadir)/images/keyboard
 
 dist_images_keyboard_DATA = esc.png \
   keyboard_A00.png \

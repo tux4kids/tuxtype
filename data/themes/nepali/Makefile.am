@@ -3,7 +3,7 @@
 
 SUBDIRS = words 
 
-themes_nepalidir = $(pkgdatadir)/data/themes/nepali
+themes_nepalidir = $(pkgdatadir)/themes/nepali
 
 dist_themes_nepali_DATA = authors.txt \
   keyboard.lst \

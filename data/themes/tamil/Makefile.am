@@ -3,7 +3,7 @@
 
 SUBDIRS = words 
 
-themes_tamildir = $(pkgdatadir)/data/themes/tamil
+themes_tamildir = $(pkgdatadir)/themes/tamil
 
 dist_themes_tamil_DATA = keyboard.lst \
   phrases.txt \

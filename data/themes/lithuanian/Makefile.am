@@ -3,7 +3,7 @@
 
 SUBDIRS = images sounds words 
 
-themes_lithuaniandir = $(pkgdatadir)/data/themes/lithuanian
+themes_lithuaniandir = $(pkgdatadir)/themes/lithuanian
 
 dist_themes_lithuanian_DATA = keyboard.lst	\
   settings.txt

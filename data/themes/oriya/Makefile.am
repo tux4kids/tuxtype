@@ -3,7 +3,7 @@
 
 SUBDIRS = words 
 
-themes_oriyadir = $(pkgdatadir)/data/themes/oriya
+themes_oriyadir = $(pkgdatadir)/themes/oriya
 
 dist_themes_oriya_DATA = keyboard.lst \
   alphabet.txt \

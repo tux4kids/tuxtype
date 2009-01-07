@@ -236,11 +236,10 @@ target_alias = @target_alias@
 target_cpu = @target_cpu@
 target_os = @target_os@
 target_vendor = @target_vendor@
-top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 SUBDIRS = words
-themes_czechdir = $(pkgdatadir)/data/themes/czech
+themes_czechdir = $(pkgdatadir)/themes/czech
 dist_themes_czech_DATA = keyboard.lst \
   settings.txt
 

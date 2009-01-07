@@ -3,7 +3,7 @@
 
 SUBDIRS = words 
 
-themes_assamesedir = $(pkgdatadir)/data/themes/assamese
+themes_assamesedir = $(pkgdatadir)/themes/assamese
 
 dist_themes_assamese_DATA = keyboard.lst \
   alphabet.txt \

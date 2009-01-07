@@ -3,7 +3,7 @@
 
 SUBDIRS = words images
 
-themes_italiandir = $(pkgdatadir)/data/themes/italian
+themes_italiandir = $(pkgdatadir)/themes/italian
 
 dist_themes_italian_DATA = keyboard.lst	\
   settings.txt

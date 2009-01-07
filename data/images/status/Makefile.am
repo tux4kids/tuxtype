@@ -1,7 +1,7 @@
-## Makefile.am for tuxtype - data/images/status:
+## Makefile.am for tuxtype - images/status:
 ## Process with Automake to create Makefile.in
 
-images_statusdir = $(pkgdatadir)/data/images/status
+images_statusdir = $(pkgdatadir)/images/status
 
 dist_images_status_DATA = gameover.png \
   numbers.png \

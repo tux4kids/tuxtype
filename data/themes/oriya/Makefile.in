@@ -236,11 +236,10 @@ target_alias = @target_alias@
 target_cpu = @target_cpu@
 target_os = @target_os@
 target_vendor = @target_vendor@
-top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 SUBDIRS = words 
-themes_oriyadir = $(pkgdatadir)/data/themes/oriya
+themes_oriyadir = $(pkgdatadir)/themes/oriya
 dist_themes_oriya_DATA = keyboard.lst \
   alphabet.txt \
   settings.txt

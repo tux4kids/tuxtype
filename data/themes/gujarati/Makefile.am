@@ -3,7 +3,7 @@
 
 SUBDIRS = words 
 
-themes_gujaratidir = $(pkgdatadir)/data/themes/gujarati
+themes_gujaratidir = $(pkgdatadir)/themes/gujarati
 
 dist_themes_gujarati_DATA = keyboard.lst \
   alphabet.txt \

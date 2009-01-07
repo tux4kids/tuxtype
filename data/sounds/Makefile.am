@@ -1,7 +1,7 @@
 ## Makefile.am for tuxtype - data/sounds:
 ## Process with Automake to create Makefile.in
 
-soundsdir = $(pkgdatadir)/data/sounds
+soundsdir = $(pkgdatadir)/sounds
 
 dist_sounds_DATA = tuxi.ogg \
   alarm.wav \
