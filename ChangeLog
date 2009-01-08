@@ -1,5 +1,8 @@
+08 Jan 2009 - svn revision 830
+[ David Bruce <davidstuartbruce@gmail.com> ]
+        - adaptation of menu code for lessons activity so as to be consistent with
+          rest of menus.
 
-=======
 06 Jan 2009 - svn revision 822
 [ David Bruce <davidstuartbruce@gmail.com> ]
         - Bugfix to prevent BlackOutline() from segfault if passed empty string

@@ -1,15 +1,3 @@
-<<<<<<< .mine
-10 Dec 2008 - svn revision 795
-Version 1.7.0
-[ David Bruce <davidstuartbruce@gmail.com> ]
-        - First release following 2008 Google Summer of Code.
-        - Several major enhancements:
-        - GNU gettext used for internationalization (M. Mohan)
-        - Themes and translations for multiple additional
-          Indic languages (M. Mohan)
-        - Graphical keyboard hint system (Sreyas K.)
-        - Rewritten phrase practice activity (D. Bruce)
-        - Fullscreen mode at native resolution (D. Bruce)
 
 =======
 06 Jan 2009 - svn revision 822
@@ -22,7 +10,18 @@ Version 1.7.0
         - Bugfix for path for bundled fonts - caused error when run on non-Debian
           systems.
 
->>>>>>> .r825
+10 Dec 2008 - svn revision 795
+Version 1.7.0
+[ David Bruce <davidstuartbruce@gmail.com> ]
+        - First release following 2008 Google Summer of Code.
+        - Several major enhancements:
+        - GNU gettext used for internationalization (M. Mohan)
+        - Themes and translations for multiple additional
+          Indic languages (M. Mohan)
+        - Graphical keyboard hint system (Sreyas K.)
+        - Rewritten phrase practice activity (D. Bruce)
+        - Fullscreen mode at native resolution (D. Bruce)
+
 2008-11-22  gettextize  <bug-gnu-gettext@gnu.org>
 
 	* m4/gettext.m4: Upgrade to gettext-0.17.
