@@ -226,9 +226,19 @@ int Phrases(wchar_t* pphrase )
         SDL_BlitSurface(accuracy_label_srfc, NULL, screen, &accuracy_label);
 
 
-        /* Draw the phrase to be typed up to the next wrapping point: */
+        /* Find wrapping point: */
         wrap_pt = find_next_wrap(&phrases[cur_phrase][prev_wrap],
                                   medfont, phrase_draw_width);
+
+        /* Draw the phrase to be typed up to the next wrapping point: */
+        DEBUGCODE
+        {
+          wchar_t buf[200];
+          wcsncpy(buf, &phrases[cur_phrase][prev_wrap], wrap_pt + 1); 
+          buf[wrap_pt + 1]= '\0';
+          fprintf(stderr, "Phrase to be typed is: %S\n", buf);
+        }
+
         tmpsurf = BlackOutline_w(&phrases[cur_phrase][prev_wrap],
                                   medfont, &white, wrap_pt + 1);
 
@@ -243,6 +253,14 @@ int Phrases(wchar_t* pphrase )
         tmpsurf = BlackOutline_w(&phrases[cur_phrase][prev_wrap],
                                   medfont, &white,
                                   cursor - prev_wrap);
+        DEBUGCODE
+        {
+          wchar_t buf[200];
+          wcsncpy(buf, &phrases[cur_phrase][prev_wrap], cursor - prev_wrap); 
+          buf[cursor - prev_wrap + 1]= '\0';
+          fprintf(stderr, "Phrase to be typed is: %S\n", buf);
+        }
+
         if (tmpsurf)
         {
           SDL_BlitSurface(tmpsurf, NULL, screen, &user_text_rect);
@@ -250,6 +268,7 @@ int Phrases(wchar_t* pphrase )
           tmpsurf = NULL;
         }
 
+        /* Update timer: */
         tmpsurf = BlackOutline(time_str, smallfont, &white);
         if (tmpsurf)
         {

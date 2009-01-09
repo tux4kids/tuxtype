@@ -149,6 +149,9 @@ int main(int argc, char *argv[])
   }
 
   /* FIXME: we should check config files/environment variables like LANG! */
+  /* NOTE what should we do if LANG is something without a theme - should */
+  /* we then default to English?                                          */
+
   LoadLang();
   LoadKeyboard();
 

@@ -68,11 +68,26 @@ int CheckFile(const char* file)
 /* also should have return value reflect success or failure.     */
 void LoadLang(void)
 {
+  const char *s1, *s2, *s3, *s4;
 
-	setlocale(LC_ALL,settings.theme_locale_name);
-	bindtextdomain(PACKAGE,"/usr/local/share/locale");
-        textdomain(PACKAGE);
-	return;
+  s1 = setlocale(LC_ALL, settings.theme_locale_name);
+  s2 = bindtextdomain(PACKAGE, TUXLOCALE);
+  s3 = bind_textdomain_codeset(PACKAGE, "UTF-8");
+  s4 = textdomain(PACKAGE);
+
+  DEBUGCODE
+  {
+    fprintf(stderr, "PACKAGE = %s\n", PACKAGE);
+    fprintf(stderr, "TUXLOCALE = %s\n", TUXLOCALE);
+    fprintf(stderr, "setlocale(LC_ALL, %s) returned: %s\n", settings.theme_locale_name, s1);
+    fprintf(stderr, "bindtextdomain(PACKAGE, TUXLOCALE) returned: %s\n", s2);
+    fprintf(stderr, "bind_textdomain_codeset(PACKAGE, \"UTF-8\") returned: %s\n", s3);
+    fprintf(stderr, "textdomain(PACKAGE) returned: %s\n", s4);
+    fprintf(stderr, "gettext(\"Help\"): %s\n\n", gettext("Help"));
+    fprintf(stderr, "After gettext() call\n");
+  }
+
+  return;
 
 }
 

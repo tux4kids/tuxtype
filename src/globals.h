@@ -46,6 +46,12 @@
 #define gettext_noop(String) String
 #define N_(String) gettext_noop (String)
 
+#ifdef WIN32
+#define TUXLOCALE "./locale"
+#else
+#define TUXLOCALE LOCALEDIR
+#endif
+
 #include <string.h>
 #include <wchar.h>
 #include <math.h>

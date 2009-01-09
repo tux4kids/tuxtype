@@ -514,6 +514,7 @@ void TitleScreen(void)
 
     if (menu_opt == LESSONS)
     {
+//      not_implemented();
       SDL_BlitSurface(CurrentBkgd(), NULL, screen, NULL);
       SDL_Flip( screen );
       unload_media();
@@ -657,6 +658,8 @@ void TitleScreen(void)
 
     if (menu_opt == PHRASE_PRACTICE)
     {
+//      not_implemented();
+
       unload_media();
 
       Phrases(NULL);
