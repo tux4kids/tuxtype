@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tuxtype\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2008-11-25 21:41-0600\n"
+"POT-Creation-Date: 2009-01-09 13:55-0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Mobin M <mobinmohan@gmail.com>\n"
 "Language-Team: Swathanthra|സ്വതന്ത്ര Malayalam|മലയാളം Computing|കമ്പ്യൂട്ടിങ്ങ് <smc-"
@@ -16,6 +16,10 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: src/loaders.c:86
+msgid "Help"
+msgstr ""
 
 #: src/pause.c:279
 msgid "Sound Effects Volume"
@@ -65,7 +69,7 @@ msgstr "ഇടത്തരം"
 msgid "Hard"
 msgstr "ബുദ്ധിമുട്ടുള്ളത്"
 
-#: src/playgame.c:1081 src/titlescreen.c:94
+#: src/playgame.c:1081
 msgid "Practice"
 msgstr "പരിശീലനം"
 
@@ -96,6 +100,11 @@ msgstr "വാല്‍ നക്ഷത്രത്തെ പിടിക്ക�
 #: src/titlescreen.c:94
 msgid "Pilot"
 msgstr "ആദ്യ പരിശീലനം"
+
+#: src/titlescreen.c:94
+#, fuzzy
+msgid "Phrase Practice"
+msgstr "പരിശീലനം"
 
 #: src/titlescreen.c:95
 msgid "Lessons"
@@ -133,15 +142,15 @@ msgstr "പുറത്തു കടക്കുക"
 msgid "Main Menu"
 msgstr "പ്രധാന മെനു"
 
-#: src/titlescreen.c:1178
+#: src/titlescreen.c:1136
 msgid "Work In Progress!"
 msgstr "പണി നടക്കുന്നുണ്ടല്ലോ"
 
-#: src/titlescreen.c:1179
+#: src/titlescreen.c:1137
 msgid "This feature is not ready yet"
 msgstr "ഇത് ഇതുവരെ ശരിയാക്കിയിട്ടില്ല."
 
-#: src/titlescreen.c:1180
+#: src/titlescreen.c:1138
 msgid "Discuss the future of TuxTyping at"
 msgstr "ടക്സ് ടൈപ്പിന്റെ  ഭാവി ചര്‍ച്ചചെയ്യാനായി ഇവിടെ പോകുക"
 

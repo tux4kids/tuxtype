@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tuxtype\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2008-11-25 21:41-0600\n"
+"POT-Creation-Date: 2009-01-09 13:55-0600\n"
 "PO-Revision-Date: 2008-08-28 16:17+0530\n"
 "Last-Translator: Sweta Kothari <swkothar@redhat.com>\n"
 "Language-Team: Gujarati\n"
@@ -15,6 +15,10 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n"
+
+#: src/loaders.c:86
+msgid "Help"
+msgstr ""
 
 #: src/pause.c:279
 msgid "Sound Effects Volume"
@@ -64,7 +68,7 @@ msgstr "માધ્યમ"
 msgid "Hard"
 msgstr "સખત"
 
-#: src/playgame.c:1081 src/titlescreen.c:94
+#: src/playgame.c:1081
 msgid "Practice"
 msgstr "પ્રયાસ"
 
@@ -95,6 +99,11 @@ msgstr "ધૂમકેતુ ને મારવો"
 #: src/titlescreen.c:94
 msgid "Pilot"
 msgstr "પાઇલોટ"
+
+#: src/titlescreen.c:94
+#, fuzzy
+msgid "Phrase Practice"
+msgstr "પ્રયાસ"
 
 #: src/titlescreen.c:95
 msgid "Lessons"
@@ -132,15 +141,15 @@ msgstr "બહાર નીકળો"
 msgid "Main Menu"
 msgstr "મુખ્ય મેનુ"
 
-#: src/titlescreen.c:1178
+#: src/titlescreen.c:1136
 msgid "Work In Progress!"
 msgstr "પ્રગતિમાં કામ છે!"
 
-#: src/titlescreen.c:1179
+#: src/titlescreen.c:1137
 msgid "This feature is not ready yet"
 msgstr "આ લક્ષણ હજુ તૈયાર નથી"
 
-#: src/titlescreen.c:1180
+#: src/titlescreen.c:1138
 msgid "Discuss the future of TuxTyping at"
 msgstr "TuxTyping ને ભવિષ્યમાં ચર્ચા કરો"
 

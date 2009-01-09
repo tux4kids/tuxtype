@@ -811,25 +811,33 @@ int ConvertToUTF8(wchar_t* wide_word, unsigned char* UTF8_word)
 {
   int i = 0;
   UTF8 temp_UTF8[1024];
-  UTF32 temp_UTF32[1024];
+  wchar_t temp_wchar_t[1024];
 
   UTF8* UTF8_Start = &temp_UTF8[0];
   UTF8* UTF8_End = &temp_UTF8[1024 - 1];
-  const UTF32* UTF32_Start = &temp_UTF32[0];
-  const UTF32* UTF32_End = &temp_UTF32[1024 - 1];
+  const wchar_t* wchar_t_Start = &temp_wchar_t[0];
+  const wchar_t* wchar_t_End = &temp_wchar_t[1024 - 1];
   
   iconv_t conv_descr;
   size_t bytes_converted;
   size_t in_length = (size_t)1024;
   size_t out_length = (size_t)1024;
-  wcsncpy(temp_UTF32, wide_word, 1024);
+  wcsncpy(temp_wchar_t, wide_word, 1024);
 
   DEBUGCODE {fprintf(stderr, "ConvertToUTF8(): wide_word = %S\n", wide_word);}
-  DEBUGCODE {fprintf(stderr, "ConvertToUTF8(): temp_UTF32 = %S\n", temp_UTF32);}
+  DEBUGCODE {fprintf(stderr, "ConvertToUTF8(): temp_wchar_t = %S\n", temp_wchar_t);}
 
-  conv_descr = iconv_open ("UTF-8", "UTF-32");
+  if (sizeof(wchar_t) == 2)  // Windows wchar_t is 16 bytes
+  {
+    conv_descr = iconv_open ("UTF-8", "UTF-16");
+  }
+  else                       // Other platforms, wchar_t 32 bytes
+  {
+    conv_descr = iconv_open ("UTF-8", "UTF-32");
+  }
+
   bytes_converted = iconv(conv_descr,
-                          &UTF32_Start, &in_length,
+                          &wchar_t_Start, &in_length,
                           &UTF8_Start, &out_length);
   iconv_close(conv_descr);
 

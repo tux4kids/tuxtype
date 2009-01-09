@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tr\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2008-11-25 21:41-0600\n"
+"POT-Creation-Date: 2009-01-09 13:55-0600\n"
 "PO-Revision-Date: 2008-12-11 15:08+0200\n"
 "Last-Translator: Doruk Fisek <dfisek@fisek.com.tr>\n"
 "Language-Team: Turkish <gnu-tr-u12a@lists.sourceforge.net>\n"
@@ -14,6 +14,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
+
+#: src/loaders.c:86
+msgid "Help"
+msgstr ""
 
 #: src/pause.c:279
 msgid "Sound Effects Volume"
@@ -63,7 +67,7 @@ msgstr "Orta"
 msgid "Hard"
 msgstr "Zor"
 
-#: src/playgame.c:1081 src/titlescreen.c:94
+#: src/playgame.c:1081
 msgid "Practice"
 msgstr "Alıştırma"
 
@@ -94,6 +98,11 @@ msgstr "Kuyruklu Yıldız Vur"
 #: src/titlescreen.c:94
 msgid "Pilot"
 msgstr "Pilot"
+
+#: src/titlescreen.c:94
+#, fuzzy
+msgid "Phrase Practice"
+msgstr "Alıştırma"
 
 #: src/titlescreen.c:95
 msgid "Lessons"
@@ -131,15 +140,14 @@ msgstr "Çıkış"
 msgid "Main Menu"
 msgstr "Ana Menü"
 
-#: src/titlescreen.c:1178
+#: src/titlescreen.c:1136
 msgid "Work In Progress!"
 msgstr "Çalışmalar Sürüyor!"
 
-#: src/titlescreen.c:1179
+#: src/titlescreen.c:1137
 msgid "This feature is not ready yet"
 msgstr "Bu özellik henüz hazır değil"
 
-#: src/titlescreen.c:1180
+#: src/titlescreen.c:1138
 msgid "Discuss the future of TuxTyping at"
 msgstr "Tuxtyping'in geleceğinin tartışıldığı liste :"
-

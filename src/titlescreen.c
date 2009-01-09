@@ -525,6 +525,7 @@ void TitleScreen(void)
       TestLesson();
 
       load_media();
+
       redraw = 1;
 
       if (settings.menu_music)

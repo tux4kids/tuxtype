@@ -8,13 +8,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tux Typing 1.5.16\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2008-11-25 21:41-0600\n"
+"POT-Creation-Date: 2009-01-09 13:55-0600\n"
 "PO-Revision-Date: 2003-06-14 19:00+0000\n"
 "Last-Translator: Andreas Ramm <ace1@gmx.net>\n"
 "Language-Team: German\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 0.9.6\n"
+
+#: src/loaders.c:86
+msgid "Help"
+msgstr ""
 
 #: src/pause.c:279
 msgid "Sound Effects Volume"
@@ -66,7 +70,7 @@ msgid "Hard"
 msgstr "Schwer"
 
 # general stuff
-#: src/playgame.c:1081 src/titlescreen.c:94
+#: src/playgame.c:1081
 msgid "Practice"
 msgstr "Fingerübung"
 
@@ -100,6 +104,12 @@ msgstr "Kometenabwehr"
 #: src/titlescreen.c:94
 msgid "Pilot"
 msgstr "Pilot"
+
+# general stuff
+#: src/titlescreen.c:94
+#, fuzzy
+msgid "Phrase Practice"
+msgstr "Fingerübung"
 
 #: src/titlescreen.c:95
 msgid "Lessons"
@@ -140,15 +150,15 @@ msgid "Main Menu"
 msgstr "Hauptmenü"
 
 # work in progress stuff
-#: src/titlescreen.c:1178
+#: src/titlescreen.c:1136
 msgid "Work In Progress!"
 msgstr "In Arbeit!"
 
-#: src/titlescreen.c:1179
+#: src/titlescreen.c:1137
 msgid "This feature is not ready yet"
 msgstr "Diese Option ist noch nicht fertig"
 
-#: src/titlescreen.c:1180
+#: src/titlescreen.c:1138
 msgid "Discuss the future of TuxTyping at"
 msgstr "Diskutiere die Zukunft von TuxTyping auf"
 

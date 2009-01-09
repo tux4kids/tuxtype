@@ -28,14 +28,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tuxtype 1.7.0\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2008-11-25 21:41-0600\n"
-"PO-Revision-Date: 2008-11-25 21:41-0600\n"
+"POT-Creation-Date: 2009-01-09 13:55-0600\n"
+"PO-Revision-Date: 2009-01-09 13:55-0600\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: src/loaders.c:86
+msgid "Help"
+msgstr "Help"
 
 #: src/pause.c:279
 msgid "Sound Effects Volume"
@@ -85,7 +89,7 @@ msgstr "Medium"
 msgid "Hard"
 msgstr "Hard"
 
-#: src/playgame.c:1081 src/titlescreen.c:94
+#: src/playgame.c:1081
 msgid "Practice"
 msgstr "Practice"
 
@@ -116,6 +120,10 @@ msgstr "Comet Zap"
 #: src/titlescreen.c:94
 msgid "Pilot"
 msgstr "Pilot"
+
+#: src/titlescreen.c:94
+msgid "Phrase Practice"
+msgstr "Phrase Practice"
 
 #: src/titlescreen.c:95
 msgid "Lessons"
@@ -153,14 +161,14 @@ msgstr "Quit"
 msgid "Main Menu"
 msgstr "Main Menu"
 
-#: src/titlescreen.c:1178
+#: src/titlescreen.c:1136
 msgid "Work In Progress!"
 msgstr "Work In Progress!"
 
-#: src/titlescreen.c:1179
+#: src/titlescreen.c:1137
 msgid "This feature is not ready yet"
 msgstr "This feature is not ready yet"
 
-#: src/titlescreen.c:1180
+#: src/titlescreen.c:1138
 msgid "Discuss the future of TuxTyping at"
 msgstr "Discuss the future of TuxTyping at"

@@ -228,8 +228,6 @@ top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 scriptsdir = $(pkgdatadir)/scripts
 dist_scripts_DATA = projectInfo.xml \
-  cascade.xml \
-  laser.xml \
   Lesson_1.xml
 
 all: all-am

@@ -4,6 +4,8 @@
 scriptsdir = $(pkgdatadir)/scripts
 
 dist_scripts_DATA = projectInfo.xml \
-  cascade.xml \
-  laser.xml \
   Lesson_1.xml
+
+## NOTE put these back in if we write them into a usable state
+##  cascade.xml \
+##  laser.xml

@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tux Typing 1.5.16\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2008-11-25 21:41-0600\n"
+"POT-Creation-Date: 2009-01-09 13:55-0600\n"
 "PO-Revision-Date: 2008-08-22 12:36+0530\n"
 "Last-Translator: Amitakhya Phukan <aphukan@redhat.com>\n"
 "Language-Team: American English <kde-i18n-doc@lists.kde.org>\n"
@@ -14,6 +14,10 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KAider 0.1\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: src/loaders.c:86
+msgid "Help"
+msgstr ""
 
 #: src/pause.c:279
 msgid "Sound Effects Volume"
@@ -63,7 +67,7 @@ msgstr "মাধ্যম"
 msgid "Hard"
 msgstr "কঠোৰ"
 
-#: src/playgame.c:1081 src/titlescreen.c:94
+#: src/playgame.c:1081
 msgid "Practice"
 msgstr "অভ্যাস"
 
@@ -94,6 +98,11 @@ msgstr "Comet Zap"
 #: src/titlescreen.c:94
 msgid "Pilot"
 msgstr "পাইলট"
+
+#: src/titlescreen.c:94
+#, fuzzy
+msgid "Phrase Practice"
+msgstr "অভ্যাস"
 
 #: src/titlescreen.c:95
 msgid "Lessons"
@@ -131,15 +140,15 @@ msgstr "বাহিৰ হওক"
 msgid "Main Menu"
 msgstr "মূখ্য তালিকা"
 
-#: src/titlescreen.c:1178
+#: src/titlescreen.c:1136
 msgid "Work In Progress!"
 msgstr "কাম চলি আছে‌!"
 
-#: src/titlescreen.c:1179
+#: src/titlescreen.c:1137
 msgid "This feature is not ready yet"
 msgstr "এই গুণ এতিয়া প্ৰস্তুত নহয়"
 
-#: src/titlescreen.c:1180
+#: src/titlescreen.c:1138
 msgid "Discuss the future of TuxTyping at"
 msgstr "TuxTyping ৰ গুণৰ আলোচনা ইয়াত কৰক"
 

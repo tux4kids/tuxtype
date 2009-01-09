@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tux Typing 1.5.16\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2008-11-25 21:41-0600\n"
+"POT-Creation-Date: 2009-01-09 13:55-0600\n"
 "PO-Revision-Date: 2007-11-10 16:36+0100\n"
 "Last-Translator: JardaK <krejci@zstenis.com>\n"
 "Language-Team: czech <cs@li.org>\n"
@@ -17,6 +17,10 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
 "Plural-Forms:  nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+
+#: src/loaders.c:86
+msgid "Help"
+msgstr ""
 
 #
 #: src/pause.c:279
@@ -79,7 +83,7 @@ msgid "Hard"
 msgstr "Těžká"
 
 #
-#: src/playgame.c:1081 src/titlescreen.c:94
+#: src/playgame.c:1081
 msgid "Practice"
 msgstr "Procvičování"
 
@@ -117,6 +121,12 @@ msgstr "Sestřelování komet"
 #: src/titlescreen.c:94
 msgid "Pilot"
 msgstr "Pilot"
+
+#
+#: src/titlescreen.c:94
+#, fuzzy
+msgid "Phrase Practice"
+msgstr "Procvičování"
 
 #
 #: src/titlescreen.c:95
@@ -164,17 +174,17 @@ msgid "Main Menu"
 msgstr "Hlavní menu"
 
 #
-#: src/titlescreen.c:1178
+#: src/titlescreen.c:1136
 msgid "Work In Progress!"
 msgstr "Ve výstavbě!"
 
 #
-#: src/titlescreen.c:1179
+#: src/titlescreen.c:1137
 msgid "This feature is not ready yet"
 msgstr "Tato vlastnost ještě nefunguje"
 
 #
-#: src/titlescreen.c:1180
+#: src/titlescreen.c:1138
 msgid "Discuss the future of TuxTyping at"
 msgstr "Diskutuj o budoucnosti TuxTyping na"
 
