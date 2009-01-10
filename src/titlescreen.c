@@ -73,7 +73,7 @@ static void not_implemented(void);
 /* (these values are all in the Game_Type enum in globals.h) */
 const int menu_item[][6]= {{0, 0,         0,         0,          0},
 			   {0, CASCADE,   LEVEL1,    LEVEL1,  EDIT_WORDLIST   },
-			   {0, LASER,     LEVEL2,    LEVEL2,  PHRASE_PRACTICE },
+			   {0, LASER,     LEVEL2,    LEVEL2,  PHRASE_TYPING },
 			   {0, LESSONS,   LEVEL3,    LEVEL3,  PROJECT_INFO    },
 			   {0, OPTIONS,   INSTRUCT,  LEVEL4,  SET_LANGUAGE    },
 			   {0, QUIT_GAME, MAIN,      MAIN,    MAIN            }};
@@ -91,7 +91,7 @@ const unsigned char *menu_icon[][6]=
 static const char *menu_text[]= 
 {"", "",            "",             "",            ""    ,
  "",gettext_noop("Fish Cascade"),gettext_noop("Easy"),gettext_noop("Space Cadet"),gettext_noop("Edit Word Lists"),
- "",gettext_noop("Comet Zap"),gettext_noop("Medium"),gettext_noop("Pilot"),gettext_noop("Phrase Practice"),
+ "",gettext_noop("Comet Zap"),gettext_noop("Medium"),gettext_noop("Pilot"),gettext_noop("Phrase Typing"),
  "",gettext_noop("Lessons"),gettext_noop("Hard"), gettext_noop("Ace"),gettext_noop("Project Info"),
  "", gettext_noop("Options"),gettext_noop("Instructions"),gettext_noop("Commander"),gettext_noop("Setup Language"),
  "", gettext_noop("Quit"),gettext_noop("Main Menu"),gettext_noop("Main Menu"),gettext_noop("Main Menu")};
@@ -657,7 +657,7 @@ void TitleScreen(void)
 
 
 
-    if (menu_opt == PHRASE_PRACTICE)
+    if (menu_opt == PHRASE_TYPING)
     {
 //      not_implemented();
 

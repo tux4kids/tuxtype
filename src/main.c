@@ -39,6 +39,25 @@ int main(int argc, char *argv[])
   Uint32 lib_flags = 0;
   int i;
 
+  const char *s1, *s2, *s3, *s4;
+
+  s1 = setlocale(LC_ALL, "");
+  s2 = bindtextdomain(PACKAGE, TUXLOCALE);
+  s3 = bind_textdomain_codeset(PACKAGE, "UTF-8");
+  s4 = textdomain(PACKAGE);
+
+  DEBUGCODE
+  {
+    fprintf(stderr, "PACKAGE = %s\n", PACKAGE);
+    fprintf(stderr, "TUXLOCALE = %s\n", TUXLOCALE);
+    fprintf(stderr, "setlocale(LC_ALL, \"\") returned: %s\n", s1);
+    fprintf(stderr, "bindtextdomain(PACKAGE, TUXLOCALE) returned: %s\n", s2);
+    fprintf(stderr, "bind_textdomain_codeset(PACKAGE, \"UTF-8\") returned: %s\n", s3);
+    fprintf(stderr, "textdomain(PACKAGE) returned: %s\n", s4);
+    fprintf(stderr, "gettext(\"Help\"): %s\n\n", gettext("Help"));
+    fprintf(stderr, "After gettext() call\n");
+  }
+
   /* Initialize settings with hard-coded defaults: */ 
   Opts_Initialize();
 
