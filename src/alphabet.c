@@ -753,6 +753,8 @@ int check_needed_unicodes_str(const wchar_t* s)
 /* FIXME should be able to use iconv() for this one but have not */
 /* gotten it to work properly - staying with Unicode Inc.        */
 /* implementation for now.
+/* FIXME this doesn't take into account the difference in wchar_t */
+/* between Windows (16 bits) and the rest of the world (32 bits)  */
 
 /* This function just tidies up all the ptr args needed for      */
 /* ConvertUTF8toUTF32() from Unicode, Inc. into a neat wrapper.  */
@@ -827,14 +829,12 @@ int ConvertToUTF8(wchar_t* wide_word, unsigned char* UTF8_word)
   DEBUGCODE {fprintf(stderr, "ConvertToUTF8(): wide_word = %S\n", wide_word);}
   DEBUGCODE {fprintf(stderr, "ConvertToUTF8(): temp_wchar_t = %S\n", temp_wchar_t);}
 
-  if (sizeof(wchar_t) == 2)  // Windows wchar_t is 16 bytes
-  {
-    conv_descr = iconv_open ("UTF-8", "UTF-16");
-  }
-  else                       // Other platforms, wchar_t 32 bytes
-  {
-    conv_descr = iconv_open ("UTF-8", "UTF-32");
-  }
+  //Microsoft uses a different wchar_t from the rest of the world - grrr... 
+#ifdef WIN32
+  conv_descr = iconv_open("UTF8", "UTF16LE");
+#else
+  conv_descr = iconv_open("UTF8", "UTF32");
+#endif
 
   bytes_converted = iconv(conv_descr,
                           &wchar_t_Start, &in_length,
