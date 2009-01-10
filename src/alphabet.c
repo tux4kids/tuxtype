@@ -831,14 +831,16 @@ int ConvertToUTF8(wchar_t* wide_word, unsigned char* UTF8_word)
 
   //Microsoft uses a different wchar_t from the rest of the world - grrr... 
 #ifdef WIN32
-  conv_descr = iconv_open("UTF8", "UTF16LE");
+  conv_descr = iconv_open("UTF-8", "UTF-16LE");
 #else
-  conv_descr = iconv_open("UTF8", "UTF32");
+  conv_descr = iconv_open("UTF-8", "UTF-32");
 #endif
 
   bytes_converted = iconv(conv_descr,
                           &wchar_t_Start, &in_length,
                           &UTF8_Start, &out_length);
+  LOG("completed iconv()\n");
+ 
   iconv_close(conv_descr);
 
   UTF8_word[0] = 0;
@@ -1329,7 +1331,8 @@ void updatekeylist(int key,char ch)
 	map_keys(wtmp,&keyboard_list[key]);
 }
 
-
+/* FIXME get rid of UTF8 conversion - the unicode value is just a uint16, we should */
+/* definitely be able to figure out how to get it written into a file -DSB          */
 void savekeyboard(void)
 {
 	unsigned char fn[FNLEN];
