@@ -87,7 +87,7 @@ void LoadLang(void)
     fprintf(stderr, "After gettext() call\n");
   }
 
-#ifdef WIN_32
+#ifdef WIN32
   snprintf(buf, "LANG=%s", settings.theme_locale_name);
   buf[10] = '\0';  //terminate after location e.g. "LANG=en_US" rather than "LANG=en_US.utf8"
   putenv(buf);
