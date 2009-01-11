@@ -1,1 +1,1 @@
-theme_locale_name=fr_FR.ISO8859-1
+theme_locale_name=fr_FR.utf8

@@ -69,7 +69,7 @@ int CheckFile(const char* file)
 void LoadLang(void)
 {
   char *s1, *s2, *s3, *s4;
-
+  char buf [30];
   s1 = setlocale(LC_ALL, settings.theme_locale_name);
   s2 = bindtextdomain(PACKAGE, TUXLOCALE);
   s3 = bind_textdomain_codeset(PACKAGE, "UTF-8");
@@ -86,6 +86,19 @@ void LoadLang(void)
     fprintf(stderr, "gettext(\"Fish\"): %s\n\n", gettext("Fish"));
     fprintf(stderr, "After gettext() call\n");
   }
+
+#ifdef WIN_32
+  snprintf(buf, "LANG=%s", settings.theme_locale_name);
+  buf[10] = '\0';  //terminate after location e.g. "LANG=en_US" rather than "LANG=en_US.utf8"
+  putenv(buf);
+
+  DEBUGCODE
+  {
+    fprintf(stderr, "buf is %s\n", buf);
+  }
+  
+#endif
+
   return;
 }
 
