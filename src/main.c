@@ -39,41 +39,14 @@ int main(int argc, char *argv[])
   Uint32 lib_flags = 0;
   int i;
 
-  const char *s1, *s2, *s3, *s4;
 
-  s1 = setlocale(LC_ALL, "");
-  s2 = bindtextdomain(PACKAGE, TUXLOCALE);
-  s3 = bind_textdomain_codeset(PACKAGE, "UTF-8");
-  s4 = textdomain(PACKAGE);
-
-  DEBUGCODE
-  {
-    fprintf(stderr, "PACKAGE = %s\n", PACKAGE);
-    fprintf(stderr, "TUXLOCALE = %s\n", TUXLOCALE);
-    fprintf(stderr, "setlocale(LC_ALL, \"\") returned: %s\n", s1);
-    fprintf(stderr, "bindtextdomain(PACKAGE, TUXLOCALE) returned: %s\n", s2);
-    fprintf(stderr, "bind_textdomain_codeset(PACKAGE, \"UTF-8\") returned: %s\n", s3);
-    fprintf(stderr, "textdomain(PACKAGE) returned: %s\n", s4);
-    fprintf(stderr, "gettext(\"Help\"): %s\n\n", gettext("Help"));
-    fprintf(stderr, "After gettext() call\n");
-  }
-
-  /* Initialize settings with hard-coded defaults: */ 
-  Opts_Initialize();
 
   srand(time(NULL));
 
-  // This sets settings.default_data_path to the default theme file path:
-  SetupPaths(NULL);
-
-  LoadSettings();
-  DEBUGCODE { printf("Window setting from config file is: %d\n", settings.fullscreen);}
-
-  lib_flags = SDL_INIT_VIDEO;
-
-  /* FIXME this could go into something like HandleCommandArgs() */
-  // check command line args
-  if (argc > 1)
+  Opts_Initialize(); // First, initialize settings with hard-coded defaults 
+  LoadSettings();    // Second, read saved any saved settings
+  // Third, check command line args as these should override saved settings
+  if (argc > 1) /* FIXME this could go into something like HandleCommandArgs() */
   { 
     for (i = 1; i < argc; i++)
     {
@@ -151,6 +124,38 @@ int main(int argc, char *argv[])
   {
     fprintf(stderr, "\n%s, version %s BEGIN\n", PACKAGE, VERSION);
   }
+
+  //Now initialize locale/gettext system.
+  //This is done after reading settings just so we can print
+  //if the "-d" debug flag is set.
+  {
+    char *s1, *s2, *s3, *s4;
+
+    s1 = setlocale(LC_ALL, "");
+    s2 = bindtextdomain(PACKAGE, TUXLOCALE);
+    s3 = bind_textdomain_codeset(PACKAGE, "UTF-8");
+    s4 = textdomain(PACKAGE);
+
+    DEBUGCODE
+    {
+      fprintf(stderr, "PACKAGE = %s\n", PACKAGE);
+      fprintf(stderr, "TUXLOCALE = %s\n", TUXLOCALE);
+      fprintf(stderr, "setlocale(LC_ALL, \"\") returned: %s\n", s1);
+      fprintf(stderr, "bindtextdomain(PACKAGE, TUXLOCALE) returned: %s\n", s2);
+      fprintf(stderr, "bind_textdomain_codeset(PACKAGE, \"UTF-8\") returned: %s\n", s3);
+      fprintf(stderr, "textdomain(PACKAGE) returned: %s\n", s4);
+      fprintf(stderr, "gettext(\"Fish\"): %s\n\n", gettext("Fish"));
+      fprintf(stderr, "After gettext() call\n");
+    }
+  }
+
+
+  // This sets settings.default_data_path to the default theme file path:
+  SetupPaths(NULL);
+
+
+
+  lib_flags = SDL_INIT_VIDEO;
 
   lib_flags |= SDL_INIT_AUDIO;
 
