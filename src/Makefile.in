@@ -69,7 +69,7 @@ am__objects_1 = playgame.$(OBJEXT) main.$(OBJEXT) \
 	practice.$(OBJEXT) audio.$(OBJEXT) snow.$(OBJEXT) \
 	scripting.$(OBJEXT) SDL_extras.$(OBJEXT) pixels.$(OBJEXT) \
 	pause.$(OBJEXT) ConvertUTF.$(OBJEXT) options.$(OBJEXT) \
-	iconv_string.$(OBJEXT)
+	iconv_string.$(OBJEXT) mysetenv.$(OBJEXT)
 am_TuxType_OBJECTS = $(am__objects_1)
 TuxType_OBJECTS = $(am_TuxType_OBJECTS)
 TuxType_LDADD = $(LDADD)
@@ -80,7 +80,7 @@ am_tuxtype_OBJECTS = playgame.$(OBJEXT) main.$(OBJEXT) \
 	practice.$(OBJEXT) audio.$(OBJEXT) snow.$(OBJEXT) \
 	scripting.$(OBJEXT) SDL_extras.$(OBJEXT) pixels.$(OBJEXT) \
 	pause.$(OBJEXT) ConvertUTF.$(OBJEXT) options.$(OBJEXT) \
-	iconv_string.$(OBJEXT)
+	iconv_string.$(OBJEXT) mysetenv.$(OBJEXT)
 tuxtype_OBJECTS = $(am_tuxtype_OBJECTS)
 tuxtype_LDADD = $(LDADD)
 tuxtype_DEPENDENCIES =
@@ -282,7 +282,8 @@ tuxtype_SOURCES = \
 	pause.c		\
 	ConvertUTF.c	\
 	options.c	\
-	iconv_string.c
+	iconv_string.c  \
+	mysetenv.c
 
 TuxType_SOURCES = $(tuxtype_SOURCES)
 # The rc file has something to do with the icon in Windows, IIRC
@@ -299,7 +300,8 @@ EXTRA_DIST = titlescreen.h \
 	ConvertUTF.h	\
 	iconv_string.h  \
 	gettext.h	\
-	compiler.h
+	compiler.h	\
+	mysetenv.h
 
 all: all-am
 
@@ -378,6 +380,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/laser.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/loaders.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/main.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mysetenv.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/options.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pause.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pixels.Po@am__quote@

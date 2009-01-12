@@ -20,6 +20,7 @@
 #include "globals.h"
 #include "funcs.h"
 #include "SDL_extras.h"
+#include "mysetenv.h"
 
 static SDL_Surface* win_bkgd = NULL;
 static SDL_Surface* fullscr_bkgd = NULL;
@@ -63,7 +64,7 @@ int CheckFile(const char* file)
   return 0;
 }
 
-
+/* FIXME not sure we need to call *textdomain() functions again here  */
 /* FIXME need to read language's font name, if needed - e.g. Russian. */
 /* also should have return value reflect success or failure.     */
 void LoadLang(void)
@@ -87,17 +88,16 @@ void LoadLang(void)
     fprintf(stderr, "After gettext() call\n");
   }
 
-#ifdef WIN32
-  snprintf(buf, "LANG=%s", settings.theme_locale_name);
-  buf[10] = '\0';  //terminate after location e.g. "LANG=en_US" rather than "LANG=en_US.utf8"
-  putenv(buf);
+  /* Also set LANG as fallback because setlocale() unreliable */
+  /* on some Windows versions, AFAICT                         */
+  snprintf(buf, 30, "%s", settings.theme_locale_name);
+  buf[5] = '\0';  //en_US" rather than "en_US.utf8"
+  DEBUGCODE { fprintf(stderr, "buf is: %s\n", buf); }
 
-  DEBUGCODE
+  if (my_setenv("LANG", buf) == -1)
   {
-    fprintf(stderr, "buf is %s\n", buf);
+    fprintf(stderr, "Warning - could not set LANG to %s\n\n", buf);
   }
-  
-#endif
 
   return;
 }
@@ -262,17 +262,17 @@ SDL_Surface* LoadImage(const char* datafile, int mode)
 //  oldDebug = settings.debug_on;  // suppress output for now
 //  settings.debug_on = 0;
 
-  DEBUGCODE { fprintf(stderr, "LoadImage: loading %s\n", datafile ); }
+//  DEBUGCODE { fprintf(stderr, "LoadImage: loading %s\n", datafile ); }
 
   /* Look for image under theme path if desired: */
   if (!settings.use_english && !(mode & IMG_NO_THEME))
   {
     sprintf(fn, "%s/images/%s", settings.theme_data_path, datafile);
-    DEBUGCODE { fprintf(stderr, "LoadImage: looking in %s\n", fn); }
+//    DEBUGCODE { fprintf(stderr, "LoadImage: looking in %s\n", fn); }
 
     tmp_pic = IMG_Load(fn);
-    if (tmp_pic != NULL)
-      DEBUGCODE { fprintf(stderr, "Graphics file %s successfully loaded\n", fn);}
+    if (tmp_pic != NULL){}
+//      DEBUGCODE { fprintf(stderr, "Graphics file %s successfully loaded\n", fn);}
     else
       DEBUGCODE { fprintf(stderr, "Warning: graphics file %s could not be loaded\n", fn);}
   }
@@ -281,11 +281,11 @@ SDL_Surface* LoadImage(const char* datafile, int mode)
   if (!tmp_pic)
   {
     sprintf(fn, "%s/images/%s", settings.default_data_path, datafile);
-    DEBUGCODE { fprintf(stderr, "LoadImage: looking in %s\n", fn); }
+//    DEBUGCODE { fprintf(stderr, "LoadImage: looking in %s\n", fn); }
 
     tmp_pic = IMG_Load(fn);
-    if (tmp_pic != NULL)
-      DEBUGCODE { fprintf(stderr, "Graphics file %s successfully loaded\n", fn);}
+    if (tmp_pic != NULL){}
+//      DEBUGCODE { fprintf(stderr, "Graphics file %s successfully loaded\n", fn);}
     else
       DEBUGCODE { fprintf(stderr, "Warning: graphics file %s could not be loaded\n", fn);}
   }
@@ -340,7 +340,7 @@ SDL_Surface* LoadImage(const char* datafile, int mode)
     }
   }
 
-  LOG( "LoadImage(): Done\n" );
+//  LOG( "LoadImage(): Done\n" );
 
 //  settings.debug_on = oldDebug;
 

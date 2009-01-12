@@ -271,15 +271,16 @@ static int load_settings_fp(FILE* fp)
     fscanf(fp, "%[^=]=%[^\n]\n", setting, value );
 
     DEBUGCODE {fprintf(stderr, "%s = %s", setting, value );}
-
-    if (strncmp( setting, "lang", FNLEN ) == 0 )
-    {
-      DEBUGCODE {fprintf(stderr, "LoadSettings: Setting language to %s\n", value);}
-      strncpy(settings.lang, value, FNLEN - 1);
-      setting_found = 1;
-      SetupPaths(value); /* Does this really belong here? */ 
-    }
-    else if (strncmp( setting, "o_lives", FNLEN ) == 0 )
+      //For now we are not reading or saving the language selection: 
+//    if (strncmp( setting, "lang", FNLEN ) == 0 )
+//    {
+//      DEBUGCODE {fprintf(stderr, "LoadSettings: Setting language to %s\n", value);}
+//      strncpy(settings.lang, value, FNLEN - 1);
+//      setting_found = 1;
+//      SetupPaths(value); /* Does this really belong here? */ 
+//    }
+//    else
+    if (strncmp( setting, "o_lives", FNLEN ) == 0 )
     {
       DEBUGCODE {fprintf(stderr, "LoadSettings: Setting lives to %s\n", value);}
       settings.o_lives = atoi(value);
@@ -370,8 +371,10 @@ void SaveSettings(void)
 	}
 	
 	/* Save all the settings here! */
-	if (strncmp(settings.theme_name, "", FNLEN) != 0)
-		fprintf( settingsFile, "lang=%s\n", settings.theme_name );
+//NOTE for now, don't save theme because things get screwed up if the language
+// doesn't match the LANG environmental variable - DSB
+//	if (strncmp(settings.theme_name, "", FNLEN) != 0)
+//		fprintf( settingsFile, "lang=%s\n", settings.theme_name );
 	if (settings.o_lives > 9)
 		fprintf( settingsFile, "o_lives=%d\n", settings.o_lives );
 

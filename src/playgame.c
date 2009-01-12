@@ -1131,11 +1131,18 @@ static void LoadOthers(void)
 
 static void display_msg(const unsigned char* msg, int x, int y)
 {
-	SDL_Surface* m;
-	m = TTF_RenderUTF8_Shaded(label_font, msg, white, white);
-	EraseObject(m, x, y);
-	DrawObject(m, x, y);
-	SDL_FreeSurface(m);
+  if (msg == NULL || msg[0] == '\0')
+    return;
+
+  SDL_Surface* m;
+  m = TTF_RenderUTF8_Shaded(label_font, msg, white, white);
+
+  if (m)
+  {
+    EraseObject(m, x, y);
+    DrawObject(m, x, y);
+    SDL_FreeSurface(m);
+  }
 }
 
 /***************************
@@ -1202,21 +1209,26 @@ static void DrawNumbers(int num, int x, int y, int places)
     i = 0;
     needed_places = strlen(numnuts);
 
-    if (needed_places < FNLEN && needed_places <= places) {
-        if (places > 0) {
-            for (i = 1; i <= (places - needed_places); i++) {
+    if (needed_places < FNLEN && needed_places <= places)
+    {
+        if (places > 0)
+        {
+            for (i = 1; i <= (places - needed_places); i++)
+            {
                 DrawObject(number[0], x, y);
                 x += number[0]->w;
             }
         }
     }
-    for (i = 0; i < needed_places; i++) {
-        uddernumber = numnuts[i] - '0';
 
-        DrawObject(number[uddernumber], x, y);
-        x += number[uddernumber]->w;
+    for (i = 0; i < needed_places; i++)
+    {
+      uddernumber = numnuts[i] - '0';
+      DrawObject(number[uddernumber], x, y);
+      x += number[uddernumber]->w;
     }
 }
+
 
 /*************************
 EraseNumbers: Erase numbers
@@ -1626,7 +1638,8 @@ static void DrawFish(int which)
 		  letter_x = fish_object[which].x + (j * fishy->frame[0]->w) + x_inset;
 		  letter_y = fish_object[which].y + y_inset;
 
-		  DrawObject(letter_surface, letter_x, letter_y);
+                  if(letter_surface != NULL)
+		    DrawObject(letter_surface, letter_x, letter_y);
 		}
 	}
 /*        LOG ("Leaving DrawFish()\n");*/

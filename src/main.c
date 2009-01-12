@@ -44,7 +44,10 @@ int main(int argc, char *argv[])
   srand(time(NULL));
 
   Opts_Initialize(); // First, initialize settings with hard-coded defaults 
+  // This sets settings.default_data_path to the default theme file path:
+  SetupPaths(NULL);
   LoadSettings();    // Second, read saved any saved settings
+
   // Third, check command line args as these should override saved settings
   if (argc > 1) /* FIXME this could go into something like HandleCommandArgs() */
   { 
@@ -148,11 +151,6 @@ int main(int argc, char *argv[])
       fprintf(stderr, "After gettext() call\n");
     }
   }
-
-
-  // This sets settings.default_data_path to the default theme file path:
-  SetupPaths(NULL);
-
 
 
   lib_flags = SDL_INIT_VIDEO;
