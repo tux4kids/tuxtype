@@ -63,9 +63,9 @@
 #define DEFAULT_SPEED	1
 
 /* These aren't maxes - they are multipliers to determine how fast the fish fall */
-#define MAX_SPEED_EASY       1.3
-#define MAX_SPEED_MEDIUM     3
-#define MAX_SPEED_HARD       5
+#define EASY_SPEED_FACTOR       1.3
+#define MEDIUM_SPEED_FACTOR     3
+#define HARD_SPEED_FACTOR       5
 
 #define FISH_SPACING_EASY    90
 #define FISH_SPACING_MEDIUM  40
@@ -75,7 +75,9 @@
 #define LIVES_INIT_MEDIUM    7
 #define LIVES_INIT_HARD      9
 
-#define MAX_UPDATES	3*(20+MAX_FISHIES_HARD)	//20 to account for text updates (I hope)
+//#define MAX_UPDATES	3*(20+MAX_FISHIES_HARD)	//20 to account for text updates (I hope)
+//With fullscreen, we need more updates - 180 wasn't enough
+#define MAX_UPDATES 512
 
 /* The default alpha for slow moving words,
  note that 128 is optimized for speed! */

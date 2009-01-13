@@ -46,8 +46,8 @@ static SDL_Surface* congrats[CONGRATS_FRAMES] = {NULL};
 static SDL_Surface* ohno[OH_NO_FRAMES] = {NULL};
 static Mix_Chunk* sound[NUM_WAVES];
 
-static sprite* fishy = NULL;
-static sprite* splat = NULL;
+static sprite* fish_sprite = NULL;
+static sprite* splat_sprite = NULL;
 
 /* --- Data Structure for Dirty Blitting --- */
 static SDL_Rect srcupdate[MAX_UPDATES];
@@ -360,7 +360,7 @@ int PlayCascade(int diflevel)
       /* --- fishy updates --- */
       if ((frame% 3) == 0) 
 //      if ((frame % 10) == 0)
-        NEXT_FRAME(fishy);
+        NEXT_FRAME(fish_sprite);
 
       if (fishies < local_max_fishies)
         SpawnFishies( diflevel, &fishies, &frame );
@@ -807,34 +807,19 @@ static void ResetObjects(void)
 
 static int DrawSprite(sprite* gfx, int x, int y)
 {
-  struct blit* update;
+  LOG("Entering DrawSprite()\n");
 
-  if (!gfx)
+  if (!gfx || !gfx->frame[gfx->cur])
   {
     fprintf(stderr, "DrawSprite() - 'gfx' arg invalid!\n");
+    LOG("Leaving DrawSprite()\n");
     return 0;
   }
 
-  update = &blits[numupdates++];
+  LOG("Leaving DrawSprite()\n");
 
-  if(!update || !update->srcrect || !update->dstrect)
-  {
-    fprintf(stderr, "DrawSprite() - 'update' ptr invalid!\n");
-    return 0;
-  }
+  return DrawObject(gfx->frame[gfx->cur], x, y);
 
-  update->src = gfx->frame[gfx->cur];
-  update->srcrect->x = 0;
-  update->srcrect->y = 0;
-  update->srcrect->w = gfx->frame[gfx->cur]->w;
-  update->srcrect->h = gfx->frame[gfx->cur]->h;
-  update->dstrect->x = x;
-  update->dstrect->y = y;
-  update->dstrect->w = gfx->frame[gfx->cur]->w;
-  update->dstrect->h = gfx->frame[gfx->cur]->h;
-  update->type = 'D';
-
-  return 1;
 }
 
 /**********************
@@ -845,9 +830,19 @@ static int DrawObject(SDL_Surface* surf, int x, int y)
 {
   struct blit *update;
 
+  LOG("Entering DrawObject()\n");
+
   if (!surf)
   {
     fprintf(stderr, "DrawObject() - invalid 'surf' arg!\n");
+    return 0;
+  }
+
+  DOUT(numupdates);
+
+  if(numupdates >= MAX_UPDATES)
+  {
+    fprintf(stderr, "Warning - MAX_UPDATES exceeded, cannot add blit to queue\n");
     return 0;
   }
 
@@ -869,6 +864,8 @@ static int DrawObject(SDL_Surface* surf, int x, int y)
   update->dstrect->w = surf->w;
   update->dstrect->h = surf->h;
   update->type = 'D';
+
+  LOG("Leaving DrawObject()\n");
 
   return 1;
 }
@@ -944,7 +941,9 @@ static void UpdateScreen(int* frame)
 /* rect of bkgd img                                                 */
 static int EraseSprite(sprite* img, int x, int y)
 {
-  struct blit* update;
+//  struct blit* update;
+
+  LOG("Entering EraseSprite()\n");
 
   if( !img 
    || img->cur < 0
@@ -952,8 +951,11 @@ static int EraseSprite(sprite* img, int x, int y)
    || !img->frame[img->cur])
   {
     fprintf(stderr, "EraseSprite() - invalid 'img' arg!\n");
+    LOG("Leaving EraseSprite()\n");
     return 0;
   }
+
+  LOG("Leaving EraseSprite()\n");
 
   return EraseObject(img->frame[img->cur], x, y);
 }
@@ -965,7 +967,9 @@ EraseObject : Erase an object from the screen
 **************************/
 static int EraseObject(SDL_Surface* surf, int x, int y)
 {
-  struct blit *update;
+  struct blit* update = NULL;
+
+  LOG("Entering EraseObject()\n");
 
   if(!surf)
   {
@@ -1000,6 +1004,8 @@ static int EraseObject(SDL_Surface* surf, int x, int y)
   update->dstrect->w = update->srcrect->w;
   update->dstrect->h = update->srcrect->h; 
   update->type = 'E';
+
+  LOG("Leaving EraseObject()\n");
 
   return 1;
 }
@@ -1154,8 +1160,8 @@ static void LoadFishies(void)
 
 	LOG( "=LoadFishies()\n" );
 
-	fishy = LoadSprite( "fishy", IMG_COLORKEY );
-	splat = LoadSprite( "splat", IMG_COLORKEY );
+	fish_sprite = LoadSprite( "fishy", IMG_COLORKEY );
+	splat_sprite = LoadSprite( "splat", IMG_COLORKEY );
 
 	for (i = 0; i < MAX_FISHIES_HARD; i++) {
 		fish_object[i].alive = 1;
@@ -1194,6 +1200,8 @@ below
 *******************************/
 static void DrawNumbers(int num, int x, int y, int places)
 {
+  LOG("\nEntering DrawNumbers()\n");
+
 //usage:
 //      num    = number to draw onscreen
 //      x, y   = coords to place number (starting upper left)
@@ -1227,6 +1235,7 @@ static void DrawNumbers(int num, int x, int y, int places)
       DrawObject(number[uddernumber], x, y);
       x += number[uddernumber]->w;
     }
+  LOG("\nLeaving DrawNumbers()\n");
 }
 
 
@@ -1236,6 +1245,7 @@ from the screen. See "usage"
 *****************************/
 static void EraseNumbers(int num, int x, int y, int places)
 {
+  LOG("\nEntering EraseNumbers()\n");
 //usage:
 //      num    = number to draw onscreen
 //      x, y   = coords to place number (starting upper left)
@@ -1264,6 +1274,8 @@ static void EraseNumbers(int num, int x, int y, int places)
         EraseObject(number[uddernumber], x, y);
         x += number[uddernumber]->w;
     }
+
+  LOG("\nLeaving EraseNumbers()\n");
 }
 
 /**********************
@@ -1299,11 +1311,11 @@ static void FreeGame(void)
 
   LOG( "-Freeing fishies\n" );
 
-  if (fishy)
-    FreeSprite(fishy);
-  if (splat)
-    FreeSprite(splat);
-  fishy = splat = NULL;
+  if (fish_sprite)
+    FreeSprite(fish_sprite);
+  if (splat_sprite)
+    FreeSprite(splat_sprite);
+  fish_sprite = splat_sprite = NULL;
 
   LOG( "-Freeing other game graphics\n" );
 
@@ -1389,76 +1401,119 @@ in the key cascade game
 *****************************/
 static void SpawnFishies(int diflevel, int* fishies, int* frame)
 {
-	int i, spacing;
-	wchar_t* new_word;
+  int i, spacing;
+  wchar_t* new_word;
 
-	switch (diflevel) {
-		case INF_PRACT:
-		case EASY:   spacing = FISH_SPACING_EASY; break;
-		case MEDIUM: spacing = FISH_SPACING_MEDIUM; break;
-		case HARD:   spacing = FISH_SPACING_HARD; break;
-	}
+  LOG("Enter SpawnFishies()\n");
 
-	/* --- return without spawn if there isn't room yet --- */
+  /* Some safety checks: */
 
-	for (i = 0; i < *fishies; i++)
-		if (fish_object[i].y < (fishy->frame[0]->h + spacing))
-			return;
+  if(!fishies || !frame)
+  {
+    fprintf(stderr, "SpawnFishies() - invalid ptr arg, returning");
+    return;
+  }
 
-	/* See if we get a valid UTF-8 word from WORDS_get before we move on: */
-	/* Now that we are using UTF-8, some characters may be more than one byte, */
-	/* so we can't just use strlen() anymore - DSB.*/		
-	LOG( "=>Spawning fishy\n" );
+  /* Ensure that *fishies is a valid index for fish_object[]: */
+  if(*fishies < 0 || *fishies > MAX_FISHIES_HARD)
+  {
+    fprintf(stderr, "SpawnFishies() - invalid *fishies: %d - returning", *fishies);
+    return;
+  }
 
-	new_word = GetWord();
+  /* prevent segfault if for some reason fish_sprite invalid: */
+  if (!fish_sprite || !fish_sprite->frame[0])
+  {
+    fprintf(stderr, "SpawnFishies() - invalid fish_sprite - returning");
+    return;
+  }
 
-	if (!new_word)
-	{
-	  fprintf(stderr, "SpawnFishies() - could not get word - returning.\n");
-          return;
-	}
 
-	/* If we get to here, it should be OK to actually spawn the fishy: */
-	fish_object[*fishies].word = new_word;
-        fish_object[*fishies].len = wcslen(new_word);
-	fish_object[*fishies].alive = 1;
-	fish_object[*fishies].can_eat = 0;
-	fish_object[*fishies].w = fishy->frame[0]->w * fish_object[*fishies].len;
-	fish_object[*fishies].x = rand() % (screen->w - fish_object[*fishies].w);
-	fish_object[*fishies].y = 0;
 
-	/* set the percentage of the speed based on length */
-	fish_object[*fishies].dy = pow(0.92, fish_object[*fishies].len - 1);
-	/* ex: a 9 letter word will be roughly twice as slow! 0.92^8 */
+  switch (diflevel)
+  {
+    case INF_PRACT:
+    case EASY:
+      spacing = FISH_SPACING_EASY; break;
+    case MEDIUM:
+      spacing = FISH_SPACING_MEDIUM; break;
+    case HARD:
+      spacing = FISH_SPACING_HARD; break;
+    default:
+      spacing = FISH_SPACING_EASY;
+      fprintf(stderr, "SpawnFishies() - invalid diflevel: %d\n", diflevel);
+  }
 
-	/* give it a random variance so the fish "crunch" isn't constant */
-	fish_object[*fishies].dy *= ((75 + rand() % 25)/100.0);
-	switch (diflevel) {
-		case INF_PRACT:
-			fish_object[*fishies].dy = DEFAULT_SPEED;
-			break;
-		case EASY:
-			fish_object[*fishies].dy *= MAX_SPEED_EASY;
-			break;
-		case MEDIUM:
-			fish_object[*fishies].dy *= MAX_SPEED_MEDIUM;
-			break;
-		case HARD:
-			fish_object[*fishies].dy *= MAX_SPEED_HARD;
-			break;
-   	}
+  /* --- return without spawn if there isn't room yet --- */
 
-	fish_object[*fishies].splat_time = *frame + (screen->h - fishy->frame[0]->h - tux_object.spr[TUX_STANDING][0]->frame[0]->h)/fish_object[*fishies].dy;
+  for (i = 0; i < *fishies; i++)
+  {
+    if (fish_object[i].y < (fish_sprite->frame[0]->h + spacing))
+      return;
+  }
 
-	DEBUGCODE {
-		/* NOTE need %S rather than %s because of wide characters */
-		fprintf(stderr, "Spawn fishy with word '%S'\n", fish_object[*fishies].word);
-		fprintf(stderr, "Byte length is: %d\n", wcslen(fish_object[*fishies].word));
-		fprintf(stderr, "UTF-8 char length is: %d\n", fish_object[*fishies].len);
-	}
+  /* See if we get a valid word before we move on: */
+  new_word = GetWord();
 
-	*fishies = *fishies + 1;
+  if (!new_word)
+  {
+    fprintf(stderr, "SpawnFishies() - could not get word - returning.\n");
+    return;
+  }
+
+  /* If we get to here, it should be OK to actually spawn the fishy: */
+  fish_object[*fishies].word = new_word;
+  fish_object[*fishies].len = wcslen(new_word); //using wchar_t[] now
+  fish_object[*fishies].alive = 1;
+  fish_object[*fishies].can_eat = 0;
+  fish_object[*fishies].w = fish_sprite->frame[0]->w * fish_object[*fishies].len;
+  fish_object[*fishies].x = rand() % (screen->w - fish_object[*fishies].w);
+  fish_object[*fishies].y = 0;
+
+  /* set the percentage of the speed based on length */
+  fish_object[*fishies].dy = pow(0.92, fish_object[*fishies].len - 1);
+  /* ex: a 9 letter word will be roughly twice as slow! 0.92^8 */
+
+  /* give it a random variance so the fish "crunch" isn't constant */
+  fish_object[*fishies].dy *= ((75 + rand() % 25)/100.0);
+
+  switch (diflevel)
+  {
+    case INF_PRACT:
+      fish_object[*fishies].dy = DEFAULT_SPEED;
+      break;
+    case EASY:
+      fish_object[*fishies].dy *= EASY_SPEED_FACTOR;
+      break;
+    case MEDIUM:
+      fish_object[*fishies].dy *= MEDIUM_SPEED_FACTOR;
+      break;
+    case HARD:
+      fish_object[*fishies].dy *= HARD_SPEED_FACTOR;
+      break;
+    default:
+      fprintf(stderr, "SpawnFishies() - invalid diflevel: %d\n", diflevel);
+  }
+
+  /* Calculate the frame number at which the bottom of the fish will reach the top of Tux */
+  fish_object[*fishies].splat_time = *frame + 
+           (screen->h - fish_sprite->frame[0]->h - tux_object.spr[TUX_STANDING][0]->frame[0]->h)
+           /
+           (fish_object[*fishies].dy);
+
+  DEBUGCODE 
+  {
+    /* NOTE need %S rather than %s because of wide characters */
+    fprintf(stderr, "Spawn fishy with word '%S'\n", fish_object[*fishies].word);
+    fprintf(stderr, "Byte length is: %d\n", wcslen(fish_object[*fishies].word));
+    fprintf(stderr, "UTF-8 char length is: %d\n", fish_object[*fishies].len);
+  }
+
+  *fishies = *fishies + 1;
+
+  LOG( "Leave SpawnFishies()\n" );
 }
+
 
 /***************************
 CheckFishies : Check all the fishies and splats.
@@ -1466,11 +1521,11 @@ CheckFishies : Check all the fishies and splats.
 ****************************/
 static void CheckFishies(int* fishies, int* splats)
 {
-	int forward, backward;
-	struct fishypoo fish_temp;
-	struct splatter splat_temp;
+  int forward, backward;
+  struct fishypoo fish_temp;
+  struct splatter splat_temp;
 
-//	LOG( "CheckFishies\n" );
+  LOG( "Entering CheckFishies()\n" );
 
 	/* move any fish from the rear to fill up gaps in the
 	 * front
@@ -1522,6 +1577,8 @@ static void CheckFishies(int* fishies, int* splats)
 			*splats+=1;
 		else
 			break;
+
+  LOG("Leaving CheckFishies()\n");
 }
 
 // Restrict x to a value in the range from a ... b
@@ -1541,24 +1598,31 @@ static float float_restrict(float a, float x, float b)
 /***************************
 AddSplat: A fish has died, add a splat where he used to be
 ****************************/
-static void AddSplat(int* splats, struct fishypoo* f, int* curlives, int* frame) {
-	int i;
+static void AddSplat(int* splats, struct fishypoo* f, int* curlives, int* frame)
+{
+  int i;
 
-	for ( i = 0; i < f->len; i++ ) {
-		splat_object[*splats].x = int_restrict( 0, f->x+(fishy->frame[0]->w*i) + ((fishy->frame[fishy->cur]->w)>>1)-((splat->frame[0]->w)>>1), screen->w-splat->frame[0]->h-1 );
-		splat_object[*splats].y = screen->h - splat->frame[0]->h - 1;
-		splat_object[*splats].alive = 10; // JA tweak here! frames of live of the splat
-		*splats = *splats + 1;
-	}
+  LOG("Enterint AddSplat()\n");
 
-	f->alive = 0;
+  for ( i = 0; i < f->len; i++ )
+  {
+	splat_object[*splats].x = int_restrict( 0, f->x+(fish_sprite->frame[0]->w*i) + ((fish_sprite->frame[fish_sprite->cur]->w)>>1)-((splat_sprite->frame[0]->w)>>1), screen->w-splat_sprite->frame[0]->h-1 );
+	splat_object[*splats].y = screen->h - splat_sprite->frame[0]->h - 1;
+	splat_object[*splats].alive = 10; // JA tweak here! frames of live of the splat
+	*splats = *splats + 1;
+  }
 
-	*curlives = *curlives - 1;
-	if (*curlives <= 0)
-		*curlives = 0;
+  f->alive = 0;
 
-	if ( settings.sys_sound ) 
-		Mix_PlayChannel(SPLAT_WAV, sound[SPLAT_WAV], 0);
+  *curlives = *curlives - 1;
+
+  if (*curlives <= 0)
+    *curlives = 0;
+
+  if (settings.sys_sound) 
+    Mix_PlayChannel(SPLAT_WAV, sound[SPLAT_WAV], 0);
+
+  LOG("Enterint AddSplat()\n");
 }
 
 
@@ -1566,83 +1630,85 @@ static void AddSplat(int* splats, struct fishypoo* f, int* curlives, int* frame)
 
 static void DrawFish(int which)
 {
-/*        LOG ("Entering DrawFish()\n");*/
-	int j = 0;
-	int red_letters = 0;
-	int current_letter;
-	/* 'x_inset' and 'y_inset' are where the glyph to be drawn relative        */
-	/* the fishy graphic:                                                      */
-	const int x_inset = 5;
-        const int y_inset = 0;
-	/* letter_x and letter_y are where the upper left corner of the glyph needs */
-        /* to be located - (e.g. how SDL blitting understands locations)           */
-        int letter_x = 0;
-        int letter_y = 0;
+  int j = 0;
+  int red_letters = 0;
+  int current_letter;
+  /* 'x_inset' and 'y_inset' are where the glyph to be drawn relative        */
+  /* the fish_sprite graphic:                                                      */
+  const int x_inset = 5;
+  const int y_inset = 0;
+  /* letter_x and letter_y are where the upper left corner of the glyph needs */
+  /* to be located - (e.g. how SDL blitting understands locations)           */
+  int letter_x = 0;
+  int letter_y = 0;
 
-        SDL_Surface* letter_surface;
+  LOG ("Entering DrawFish()\n\n");
 
-	/* Make sure needed pointers are valid - if not, return: */
-        if (!fishy || !fishy->frame[0])
-	{
-          fprintf(stderr, "DrawFish() - returning, needed pointer invalid\n");
-          return;
-	}
+  SDL_Surface* letter_surface;
+
+  /* Make sure needed pointers are valid - if not, return: */
+  if (!fish_sprite || !fish_sprite->frame[0])
+  {
+    fprintf(stderr, "DrawFish() - returning, needed pointer invalid\n");
+    return;
+  }
 	    
 
+  LOG ("DrawFish() - drawing fishies:\n");
 
-	/* Draw the fishies: */
-	for (j = 0; j < fish_object[which].len; j++)
-        {
-	  DrawSprite( fishy,
-                      fish_object[which].x + (fishy->frame[0]->w*j),
-                      fish_object[which].y);
-        }
+  /* Draw the fishies: */
+  for (j = 0; j < fish_object[which].len; j++)
+  {
+    DrawSprite( fish_sprite,
+                fish_object[which].x + (fish_sprite->frame[0]->w * j),
+                fish_object[which].y);
+  }
 
+  LOG ("DrawFish() - drawing letters:\n");
 
-	/* Now we draw the letters on top of the fish: */
-	/* we only draw the letter if tux cannot eat it yet */
-	if (!fish_object[which].can_eat)
-	{
-		red_letters = -1;
-		j = 0;
+  /* Now we draw the letters on top of the fish: */
+  /* we only draw the letter if tux cannot eat it yet */
+  if (!fish_object[which].can_eat)
+  {
+    red_letters = -1;
+    j = 0;
 
-		/* figure out how many letters are red: */
-		while (j < tux_object.wordlen && red_letters == -1)
-		{
-		  int k;
-		  for (k = 0; k < tux_object.wordlen - j; k++)
-                  {
-                    if (fish_object[which].word[k] != tux_object.word[j + k]) 
-                      k = 100000;
-                  }
+    LOG("figure out how many letters are red:\n");
+    while (j < tux_object.wordlen && red_letters == -1)
+    {
+      int k;
+      for (k = 0; k < tux_object.wordlen - j; k++)
+      {
+        if (fish_object[which].word[k] != tux_object.word[j + k]) 
+          k = 100000;
+      }
 
-                  if (k < 100000)
-                    red_letters = tux_object.wordlen - j;	
-                  else
-                    j++;
-		}
-	
-// 		LOG ("Preparing to draw letters:\n");
+      if (k < 100000)
+        red_letters = tux_object.wordlen - j;	
+      else
+        j++;
+    }
 
-		/* Now draw each letter: */
-		for (j = 0; j < wcslen(fish_object[which].word); j++)
-		{
-		  current_letter = (int)fish_object[which].word[j];
+    LOG ("Now draw each letter:\n");
 
-		  if (j < red_letters)
-                    letter_surface = GetRedGlyph(current_letter);
-                  else
-                    letter_surface = GetWhiteGlyph(current_letter);
+    for (j = 0; j < wcslen(fish_object[which].word); j++)
+    {
+      current_letter = (int)fish_object[which].word[j];
 
-		  /* Set "letter_x" and "letter_y to where we want the letter drawn: */
-		  letter_x = fish_object[which].x + (j * fishy->frame[0]->w) + x_inset;
-		  letter_y = fish_object[which].y + y_inset;
+      if (j < red_letters)
+        letter_surface = GetRedGlyph(current_letter);
+      else
+        letter_surface = GetWhiteGlyph(current_letter);
 
-                  if(letter_surface != NULL)
-		    DrawObject(letter_surface, letter_x, letter_y);
-		}
-	}
-/*        LOG ("Leaving DrawFish()\n");*/
+      /* Set "letter_x" and "letter_y to where we want the letter drawn: */
+      letter_x = fish_object[which].x + (j * fish_sprite->frame[0]->w) + x_inset;
+      letter_y = fish_object[which].y + y_inset;
+
+      if(letter_surface != NULL)
+        DrawObject(letter_surface, letter_x, letter_y);
+    }
+  }
+        LOG ("Leaving DrawFish()\n");
 }
 
 /****************************
@@ -1650,22 +1716,26 @@ MoveFishies : Display and
 move the fishies according
 to their settings
 *****************************/
-static void MoveFishies(int *fishies, int *splats, int *lifes, int *frame) {
-	int i, j;
+static void MoveFishies(int *fishies, int *splats, int *lifes, int *frame)
+{
+  int i, j;
 
-//	LOG("start MoveFishies\n");
+  LOG("\nEntering MoveFishies()\n");
 
-	for (i = 0; i < *fishies; i++)
-		if (fish_object[i].alive) {
-			for (j=0; j < fish_object[i].len; j++)
-				EraseSprite( fishy, fish_object[i].x + (fishy->frame[0]->w*j), fish_object[i].y );
+  for (i = 0; i < *fishies; i++)
+  {
+    if (fish_object[i].alive) 
+    {
+      for (j = 0; j < fish_object[i].len; j++)
+        EraseSprite( fish_sprite, fish_object[i].x + (fish_sprite->frame[0]->w*j), fish_object[i].y );
 	            
-			fish_object[i].y += fish_object[i].dy;
+      fish_object[i].y += fish_object[i].dy;
 	
-			if (fish_object[i].y >= (screen->h) - fishy->frame[fishy->cur]->h - 1) 
-				AddSplat( splats, &fish_object[i], lifes, frame );
-		}
-	
+      if (fish_object[i].y >= (screen->h) - fish_sprite->frame[fish_sprite->cur]->h - 1) 
+         AddSplat( splats, &fish_object[i], lifes, frame );
+    }
+  }	
+
 	for (i = 0; i < *fishies; i++)
 		if (fish_object[i].alive && fish_object[i].can_eat) 
 			DrawFish( i );
@@ -1678,12 +1748,12 @@ static void MoveFishies(int *fishies, int *splats, int *lifes, int *frame) {
 		if (splat_object[i].alive) {
 			splat_object[i].alive--;
 			if (splat_object[i].alive>1)
-					DrawSprite( splat, splat_object[i].x, splat_object[i].y);
+					DrawSprite( splat_sprite, splat_object[i].x, splat_object[i].y);
 				else 
-					EraseSprite( splat, splat_object[i].x, splat_object[i].y);
+					EraseSprite( splat_sprite, splat_object[i].x, splat_object[i].y);
 		}
 
-//	LOG("end MoveFishies\n");
+	LOG("Leaving MoveFishies()\n\n");
 }
 
 /* UpdateTux : anytime a key is pressed, we need check to
@@ -1732,15 +1802,16 @@ for collisions between Tux
 and Fishies. If collided,
 perform appropriate action
 ***************************/
-static void CheckCollision(int fishies, int *fish_left, int frame ) {
-	int i, j;
+static void CheckCollision(int fishies, int *fish_left, int frame )
+{
+  int i, j;
 
-//	LOG( "start CheckCollision\n" );
+  LOG("\nEntering CheckCollision()\n");
 
 	for (i = 0; i < fishies; i++) {
-		if ((fish_object[i].y >= tux_object.y - fishy->frame[0]->h) &&
-		    (fish_object[i].x + (fish_object[i].w-fishy->frame[0]->w)/2 >= tux_object.x) &&
-		    (fish_object[i].x + (fish_object[i].w+fishy->frame[0]->w)/2 <= tux_object.x + tux_max_width)) {
+		if ((fish_object[i].y >= tux_object.y - fish_sprite->frame[0]->h) &&
+		    (fish_object[i].x + (fish_object[i].w-fish_sprite->frame[0]->w)/2 >= tux_object.x) &&
+		    (fish_object[i].x + (fish_object[i].w+fish_sprite->frame[0]->w)/2 <= tux_object.x + tux_max_width)) {
 
 			if (fish_object[i].can_eat) {
                 		LOG( "**EATING A FISHY** - in CheckCollision()\n" );
@@ -1749,7 +1820,7 @@ static void CheckCollision(int fishies, int *fish_left, int frame ) {
 				fish_object[i].can_eat = 0;
 
 				for (j = 0; j < fish_object[i].len; j++) 
-					EraseSprite(fishy, (fish_object[i].x + (j * fishy->frame[0]->w)), fish_object[i].y);
+					EraseSprite(fish_sprite, (fish_object[i].x + (j * fish_sprite->frame[0]->w)), fish_object[i].y);
 
 				*fish_left = *fish_left - 1;
 
@@ -1768,28 +1839,33 @@ static void CheckCollision(int fishies, int *fish_left, int frame ) {
 			}
 		}
 	}
-//	LOG( "end CheckCollision\n" );
+  LOG("Leaving CheckCollision()\n");
 }
 
-static void next_tux_frame(void) {
 
-	if ( tux_object.state != TUX_GULPING ) {
-		NEXT_FRAME(tux_object.spr[tux_object.state][tux_object.facing]);
-	} else {
-		NEXT_FRAME(tux_object.spr[TUX_GULPING][tux_object.facing]);
-		if (tux_object.spr[TUX_GULPING][tux_object.facing]->cur==0) 
-			tux_object.state = TUX_STANDING;
-	}
+static void next_tux_frame(void)
+{
+  if (tux_object.state != TUX_GULPING)
+  {
+    NEXT_FRAME(tux_object.spr[tux_object.state][tux_object.facing]);
+  }
+  else
+  {
+    NEXT_FRAME(tux_object.spr[TUX_GULPING][tux_object.facing]);
+    if (tux_object.spr[TUX_GULPING][tux_object.facing]->cur==0) 
+      tux_object.state = TUX_STANDING;
+  }
 }
 
 /***********************************
 MoveTux : Update Tux's location & then blit him!
 ************************************/
-static void MoveTux( int frame, int fishies ) {
+static void MoveTux( int frame, int fishies ) 
+{
 	int i;
 	int which=-1, time_to_splat=0;
 
-//	LOG( "MoveTux\n" );
+	LOG( "Entering MoveTux()\n" );
 
 	EraseSprite( tux_object.spr[tux_object.state][tux_object.facing], tux_object.x, tux_object.y );
 
@@ -1851,35 +1927,59 @@ static void MoveTux( int frame, int fishies ) {
 	}
 //	if ((frame % 8) == 0) next_tux_frame();
         /* Changed from 8 to 3 because throttling frame rate down to 15 */
-	if ((frame % 3) == 0) next_tux_frame();
+  if ((frame % 3) == 0)
+    next_tux_frame();
+
+  LOG( "Leaving MoveTux()\n" );
 }
 
-static void draw_bar(int curlevel, int diflevel, int curlives, int oldlives, int fish_left, int oldfish_left) {
-	/* --- draw difficulty --- */
+static void draw_bar(int curlevel, int diflevel, int curlives, int oldlives, int fish_left, int oldfish_left)
+{
+  LOG("Entering draw_bar()\n");
 
-	DrawObject(level[diflevel], 1, 1);
+  /* --- draw difficulty --- */
+  DrawObject(level[diflevel], 1, 1);
 
-	/* --- draw level --- */
-	DrawObject(curlev, 1 + GRAPHIC_SPACE + level[diflevel]->w, 1);
-	DrawNumbers(curlevel + 1, 1 + 2 * GRAPHIC_SPACE + level[diflevel]->w + curlev->w, 1, 0);
+  LOG("about to draw level()\n");
 
-	/* --- draw lives --- */
-	DrawObject(lives, (screen->w) - (1+lives->w+fish->w+((MAX_FISHIES_DIGITS+1)*2*number_max_w)+GRAPHIC_SPACE), 1);
+  /* --- draw level --- */
+  DrawObject(curlev, 1 + GRAPHIC_SPACE + level[diflevel]->w, 1);
+  DrawNumbers(curlevel + 1, 1 + 2 * GRAPHIC_SPACE + level[diflevel]->w + curlev->w, 1, 0);
 
-	if (oldlives != curlives) {
-		EraseNumbers(oldlives, (screen->w) - (1+fish->w+((MAX_FISHIES_DIGITS+1)*2*number_max_w)+GRAPHIC_SPACE), 1, 0);
-		oldlives = curlives;
-	}
+  LOG("about to draw lives()\n");
 
-	DrawNumbers(curlives, (screen->w) - (1 + fish->w + ((MAX_FISHIES_DIGITS + 1) * 2 * number_max_w) + GRAPHIC_SPACE), 1, 0);
+  /* --- draw lives --- */
+  DrawObject(lives, 
+            (screen->w) - 
+            (1 + lives->w + fish->w + ((MAX_FISHIES_DIGITS + 1) * 2 * number_max_w) + GRAPHIC_SPACE), 1);
 
-	/* --- draw fish left --- */
-	DrawObject(fish, (screen->w) - (1 + fish->w + (MAX_FISHIES_DIGITS * number_max_w)), 1);
-	if (oldfish_left != fish_left) {
-		EraseNumbers(oldfish_left, (screen->w) - (1 + (MAX_FISHIES_DIGITS * number_max_w)), 1, MAX_FISHIES_DIGITS);
-		oldfish_left = fish_left;
-	}
-	DrawNumbers(fish_left, (screen->w) - (1 + (MAX_FISHIES_DIGITS * number[4]->w)), 1, MAX_FISHIES_DIGITS);
+  if (oldlives != curlives)
+  {
+    EraseNumbers(oldlives, (screen->w) - (1 + fish->w + ((MAX_FISHIES_DIGITS + 1) * 2 * number_max_w) + GRAPHIC_SPACE), 1, 0);
+
+    oldlives = curlives;
+  }
+
+  DrawNumbers(curlives, (screen->w) - (1 + fish->w + ((MAX_FISHIES_DIGITS + 1) * 2 * number_max_w) + GRAPHIC_SPACE), 1, 0);
+
+  LOG("about to draw fish left()\n");
+
+  /* --- draw fish left --- */ /* Drawing text label "Fish" */
+  DrawObject(fish, (screen->w) - (1 + fish->w + (MAX_FISHIES_DIGITS * number_max_w)), 1);
+
+  if (oldfish_left != fish_left)
+  {
+  LOG("about to erase numbers\n");
+
+    EraseNumbers(oldfish_left, (screen->w) - (1 + (MAX_FISHIES_DIGITS * number_max_w)), 1, MAX_FISHIES_DIGITS);
+    oldfish_left = fish_left;
+  }
+
+  LOG("about to draw numbers\n");
+
+  DrawNumbers(fish_left, (screen->w) - (1 + (MAX_FISHIES_DIGITS * number[4]->w)), 1, MAX_FISHIES_DIGITS);
+
+  LOG("Leaving draw_bar()\n");
 }
 
 
