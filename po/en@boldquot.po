@@ -29,10 +29,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: tuxtype 1.7.0\n"
+"Project-Id-Version: tuxtype 1.7.1\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2009-01-09 13:55-0600\n"
-"PO-Revision-Date: 2009-01-09 13:55-0600\n"
+"POT-Creation-Date: 2009-01-12 13:39-0600\n"
+"PO-Revision-Date: 2009-01-12 13:39-0600\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -40,9 +40,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: src/loaders.c:86
-msgid "Help"
-msgstr "Help"
+#: src/loaders.c:87 src/main.c:150 src/playgame.c:1076
+msgid "Fish"
+msgstr "Fish"
 
 #: src/pause.c:279
 msgid "Sound Effects Volume"
@@ -75,10 +75,6 @@ msgstr "Level"
 #: src/playgame.c:1075
 msgid "Lives"
 msgstr "Lives"
-
-#: src/playgame.c:1076
-msgid "Fish"
-msgstr "Fish"
 
 #: src/playgame.c:1078 src/titlescreen.c:93
 msgid "Easy"
@@ -125,8 +121,8 @@ msgid "Pilot"
 msgstr "Pilot"
 
 #: src/titlescreen.c:94
-msgid "Phrase Practice"
-msgstr "Phrase Practice"
+msgid "Phrase Typing"
+msgstr "Phrase Typing"
 
 #: src/titlescreen.c:95
 msgid "Lessons"

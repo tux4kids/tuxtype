@@ -18,6 +18,7 @@
 
 #include "scripting.h"
 #define MAX_LESSONS 100
+#include "SDL_extras.h"
 
 /* Local function prototypes: */
 static void clear_items(itemType* i);
@@ -450,10 +451,10 @@ static char* get_quote(const char* in)
 
     if (finish >= strlen(in)) return 0; // return null string if no " found
     
-    out = malloc(finish-start+2);
+    out = malloc(finish - start + 2);
     
-    snprintf(out, finish-start+1, &in[start]);
-    out[finish-start]=0;
+    snprintf(out, finish - start + 1, "%s", &in[start]);
+    out[finish-start] = 0;
     
     return out;
 }

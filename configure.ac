@@ -1,5 +1,5 @@
 # Process this file with autoconf to produce a configure script.
-AC_INIT([Tux Typing],[1.7.0],[tux4kids-tuxtype-dev@lists.alioth.debian.org],[tuxtype])
+AC_INIT([Tux Typing],[1.7.1],[tux4kids-tuxtype-dev@lists.alioth.debian.org],[tuxtype])
 AC_CONFIG_SRCDIR([src/playgame.c])
 
 AC_PREREQ(2.61)
@@ -110,7 +110,6 @@ AC_CHECK_LIB([SDL_Pango],
 
 
 
-
 # --------------------------------------------------------------------------------------
 # Checks for header files.
 # --------------------------------------------------------------------------------------
@@ -148,7 +147,7 @@ AC_FUNC_STAT
 AC_FUNC_STRCOLL
 AC_FUNC_STRTOD
 AC_FUNC_VPRINTF
-AC_CHECK_FUNCS([__argz_count __argz_next __argz_stringify atexit bcopy getcwd localtime_r memmove mempcpy memset mkdir munmap nl_langinfo scandir setlocale stpcpy strcasecmp strchr strcspn strdup strncasecmp strndup strstr strtoul])
+AC_CHECK_FUNCS([__argz_count __argz_next __argz_stringify atexit bcopy getcwd getenv localtime_r memmove mempcpy memset mkdir munmap nl_langinfo putenv scandir setenv setlocale stpcpy strcasecmp strchr strcspn strdup strncasecmp strndup strstr strtoul])
 
 # Set PACKAGE_DATA_DIR
 PACKAGE_DATA_DIR="data"

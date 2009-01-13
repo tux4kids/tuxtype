@@ -977,6 +977,12 @@ static int EraseObject(SDL_Surface* surf, int x, int y)
     return 0;
   }
 
+  if(numupdates >= MAX_UPDATES)
+  {
+    fprintf(stderr, "Warning - MAX_UPDATES exceeded, cannot add blit to queue\n");
+    return 0;
+  }
+
   update = &blits[numupdates++];
 
   if(!update || !update->srcrect || !update->dstrect)
@@ -986,21 +992,43 @@ static int EraseObject(SDL_Surface* surf, int x, int y)
   }
 
   update->src = CurrentBkgd();
-//  update->src = background;
+
+  /* take dimentsions from src surface: */
   update->srcrect->x = x;
   update->srcrect->y = y;
   update->srcrect->w = surf->w;
   update->srcrect->h = surf->h;
 
-  /* (reduce width or height of srcrect so it doesn't go past bkgd) */
+  /* NOTE this is needed because the letters may go beyond the size of */
+  /* the fish, and we only erase the fish image before we redraw the   */
+  /* fish followed by the letter - DSB                                 */
+  /* add margin of a few pixels on each side: */
+  update->srcrect->x -= ERASE_MARGIN;
+  update->srcrect->y -= ERASE_MARGIN;
+  update->srcrect->w += (ERASE_MARGIN * 2);
+  update->srcrect->h += (ERASE_MARGIN * 2);
+
+
+  /* Adjust srcrect so it doesn't go past bkgd: */
+  if (update->srcrect->x < 0)
+  {
+    update->srcrect->w += update->srcrect->x; //so right edge stays correct
+    update->srcrect->x = 0;
+  }
+  if (update->srcrect->y < 0)
+  {
+    update->srcrect->h += update->srcrect->y; //so bottom edge stays correct
+    update->srcrect->y = 0;
+  }
+
   if (update->srcrect->x + update->srcrect->w > CurrentBkgd()->w)
     update->srcrect->w = CurrentBkgd()->w - update->srcrect->x;
   if (update->srcrect->y + update->srcrect->h > CurrentBkgd()->h)
     update->srcrect->h = CurrentBkgd()->h - update->srcrect->y;
 
 
-  update->dstrect->x = x;
-  update->dstrect->y = y;
+  update->dstrect->x = update->srcrect->x;
+  update->dstrect->y = update->srcrect->y;
   update->dstrect->w = update->srcrect->w;
   update->dstrect->h = update->srcrect->h; 
   update->type = 'E';
@@ -1034,6 +1062,12 @@ static int AddRect(SDL_Rect* src, SDL_Rect* dst)
     return 0;
   }
 
+  if(numupdates >= MAX_UPDATES)
+  {
+    fprintf(stderr, "Warning - MAX_UPDATES exceeded, cannot add blit to queue\n");
+    return 0;
+  }
+
   update = &blits[numupdates++];
 
   if(!update || !update->srcrect || !update->dstrect)
@@ -1054,6 +1088,7 @@ static int AddRect(SDL_Rect* src, SDL_Rect* dst)
 
   return 1;
 }
+
 
 /*********************
 LoadOthers : Load all other graphics

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tr\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2009-01-09 13:55-0600\n"
+"POT-Creation-Date: 2009-01-12 13:39-0600\n"
 "PO-Revision-Date: 2008-12-11 15:08+0200\n"
 "Last-Translator: Doruk Fisek <dfisek@fisek.com.tr>\n"
 "Language-Team: Turkish <gnu-tr-u12a@lists.sourceforge.net>\n"
@@ -15,9 +15,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
 
-#: src/loaders.c:86
-msgid "Help"
-msgstr ""
+#: src/loaders.c:87 src/main.c:150 src/playgame.c:1076
+msgid "Fish"
+msgstr "Balık"
 
 #: src/pause.c:279
 msgid "Sound Effects Volume"
@@ -50,10 +50,6 @@ msgstr "Düzey"
 #: src/playgame.c:1075
 msgid "Lives"
 msgstr "Yaşamlar"
-
-#: src/playgame.c:1076
-msgid "Fish"
-msgstr "Balık"
 
 #: src/playgame.c:1078 src/titlescreen.c:93
 msgid "Easy"
@@ -100,9 +96,8 @@ msgid "Pilot"
 msgstr "Pilot"
 
 #: src/titlescreen.c:94
-#, fuzzy
-msgid "Phrase Practice"
-msgstr "Alıştırma"
+msgid "Phrase Typing"
+msgstr ""
 
 #: src/titlescreen.c:95
 msgid "Lessons"
@@ -151,3 +146,7 @@ msgstr "Bu özellik henüz hazır değil"
 #: src/titlescreen.c:1138
 msgid "Discuss the future of TuxTyping at"
 msgstr "Tuxtyping'in geleceğinin tartışıldığı liste :"
+
+#, fuzzy
+#~ msgid "Phrase Practice"
+#~ msgstr "Alıştırma"

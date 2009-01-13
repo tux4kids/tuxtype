@@ -1,5 +1,5 @@
-Tux Typing 1.7.0
-December 10, 2008
+Tux Typing 1.7.1
+January 12, 2009
 
 NOTE - this document is reasonably correct but not completely current.
 It will updated as the maintainer's time allows. For GNU/Linux users, you
@@ -34,31 +34,44 @@ Notes:
 freetype2 is required for SDL_ttf
 SDL_2.0.6 is known not to compile on RH9
 
-For most people using Linux
+For most people using Linux:
 
-./configure --prefix=[your prefix here]
+./configure
 make
-make install
+make install (or "sudo make install", if needed to install to default location).
 
-if you run into problems rerun:
+You can install to a different location by setting a prefix with:
+ 
+./configure --prefix=[your desired location]
+
+instead of just "./configure".  The default prefix is /usr/local
+
+
+If you run into problems, run:
 
 autoreconf --install
 
+This will re-generate the configure script from configure.ac, and all the Makefile.in's from
+the corresponding Makefile.am's.  You should not need to do this if you are building from
+a tuxtype*.tar.gz (but will need to do this if building from a Subversion checkout).
+
+Note - you almost certainly want the tarball with the bundled fonts, e.g. tuxtype_w_fonts-1.7.1.tar.gz.
+The tarballs without fonts are for making Debian packages that will be installed by a package 
+manager that will take care of installing the needed fonts.
+
 We want this to work for everybody, everywhere, if it doesn't
-work for you please contact calarndt@tux4kids.org
+work for you please contact: tux4kids-tuxtype-dev@lists.alioth.debian.org
 
-While I've made every attempt to get build system right,
-I am an autoconf/automake newbie. If you encounter issues
-please feel free to contact me directly at:
-
-Calvin Arndt <calarndt@tux4kids.net>
+You may also contact me directly at:
+davidstuartbruce@gmail.com
 
 
+(below are reproduced some generic instructions on how to build and
+install packages that require "./configure; make; make install". They
+were not written specifically for tuxtype).
 
 Basic Installation
 ==================
-
-   These are generic installation instructions.
 
    The `configure' shell script attempts to guess correct values for
 various system-dependent variables used during compilation.  It uses

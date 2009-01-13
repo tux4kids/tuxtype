@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tux Typing 1.5.16\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2009-01-09 13:55-0600\n"
+"POT-Creation-Date: 2009-01-12 13:39-0600\n"
 "PO-Revision-Date: 2003-06-14 19:00+0000\n"
 "Last-Translator: Andreas Ramm <ace1@gmx.net>\n"
 "Language-Team: German\n"
@@ -16,9 +16,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 0.9.6\n"
 
-#: src/loaders.c:86
-msgid "Help"
-msgstr ""
+#: src/loaders.c:87 src/main.c:150 src/playgame.c:1076
+msgid "Fish"
+msgstr "Fisch"
 
 #: src/pause.c:279
 msgid "Sound Effects Volume"
@@ -51,10 +51,6 @@ msgstr "Runde"
 #: src/playgame.c:1075
 msgid "Lives"
 msgstr "Leben"
-
-#: src/playgame.c:1076
-msgid "Fish"
-msgstr "Fisch"
 
 # levels for Cascade game:
 #: src/playgame.c:1078 src/titlescreen.c:93
@@ -105,11 +101,9 @@ msgstr "Kometenabwehr"
 msgid "Pilot"
 msgstr "Pilot"
 
-# general stuff
 #: src/titlescreen.c:94
-#, fuzzy
-msgid "Phrase Practice"
-msgstr "Fingerübung"
+msgid "Phrase Typing"
+msgstr ""
 
 #: src/titlescreen.c:95
 msgid "Lessons"
@@ -161,6 +155,11 @@ msgstr "Diese Option ist noch nicht fertig"
 #: src/titlescreen.c:1138
 msgid "Discuss the future of TuxTyping at"
 msgstr "Diskutiere die Zukunft von TuxTyping auf"
+
+# general stuff
+#, fuzzy
+#~ msgid "Phrase Practice"
+#~ msgstr "Fingerübung"
 
 #~ msgid "Setup"
 #~ msgstr "Einrichten"

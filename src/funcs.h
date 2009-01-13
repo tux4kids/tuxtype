@@ -107,7 +107,6 @@ int TransWipe(SDL_Surface* newbkg, int type, int var1, int var2);
 
 /* In practice.c: */
 int Phrases(wchar_t* practice_phrase);
-static void next_letter(wchar_t *t, int c);
 
 
 /* In scripting.c: */

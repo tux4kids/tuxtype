@@ -22,8 +22,10 @@
 //definitions
 #define FISHY_FONT_SIZE 32
 #define LABEL_FONT_SIZE 20
-
-#define GRAPHIC_SPACE 4 //space between each status bar element in cascade
+//space between each status bar element in cascade
+#define GRAPHIC_SPACE 4
+//extra bkgd border around "erased" images.
+#define ERASE_MARGIN 5
 
 #define NUM_NUMS 10	//"Mmmmm....Num-Nums...."
 

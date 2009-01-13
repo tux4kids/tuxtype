@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tux Typing 1.5.16\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2009-01-09 13:55-0600\n"
+"POT-Creation-Date: 2009-01-12 13:39-0600\n"
 "PO-Revision-Date: 2005-10-20 21:24+0200\n"
 "Last-Translator: Trond Mæhlum <trondm@skolelinux.no>\n"
 "Language-Team: Norwegian Bokmål <i18n-nb@lister.ping.uio.no>\n"
@@ -17,9 +17,9 @@ msgstr ""
 "X-Generator: KBabel 1.11\n"
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
 
-#: src/loaders.c:86
-msgid "Help"
-msgstr ""
+#: src/loaders.c:87 src/main.c:150 src/playgame.c:1076
+msgid "Fish"
+msgstr "Fisk"
 
 #: src/pause.c:279
 msgid "Sound Effects Volume"
@@ -52,10 +52,6 @@ msgstr "Nivå"
 #: src/playgame.c:1075
 msgid "Lives"
 msgstr "Liv"
-
-#: src/playgame.c:1076
-msgid "Fish"
-msgstr "Fisk"
 
 #: src/playgame.c:1078 src/titlescreen.c:93
 msgid "Easy"
@@ -102,9 +98,8 @@ msgid "Pilot"
 msgstr "Erfaren"
 
 #: src/titlescreen.c:94
-#, fuzzy
-msgid "Phrase Practice"
-msgstr "Øving"
+msgid "Phrase Typing"
+msgstr ""
 
 #: src/titlescreen.c:95
 msgid "Lessons"
@@ -153,6 +148,10 @@ msgstr "Denne funksjonen er ikke klar ennå."
 #: src/titlescreen.c:1138
 msgid "Discuss the future of TuxTyping at"
 msgstr "Diskuter neste versjon av Tux Typing på"
+
+#, fuzzy
+#~ msgid "Phrase Practice"
+#~ msgstr "Øving"
 
 #~ msgid "Alphabet"
 #~ msgstr "Alfabetet"

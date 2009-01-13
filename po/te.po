@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tuxtype\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2009-01-09 13:55-0600\n"
+"POT-Creation-Date: 2009-01-12 13:39-0600\n"
 "PO-Revision-Date: 2008-08-28 17:58+0530\n"
 "Last-Translator: Krishna Babu K <kkrothap@redhat.com>\n"
 "Language-Team: Telugu <en@li.org>\n"
@@ -17,9 +17,9 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n!=1);\n"
 "\n"
 
-#: src/loaders.c:86
-msgid "Help"
-msgstr ""
+#: src/loaders.c:87 src/main.c:150 src/playgame.c:1076
+msgid "Fish"
+msgstr "చాప"
 
 #: src/pause.c:279
 msgid "Sound Effects Volume"
@@ -52,10 +52,6 @@ msgstr "స్థాయి"
 #: src/playgame.c:1075
 msgid "Lives"
 msgstr "అవకాశాలు"
-
-#: src/playgame.c:1076
-msgid "Fish"
-msgstr "చాప"
 
 #: src/playgame.c:1078 src/titlescreen.c:93
 msgid "Easy"
@@ -102,9 +98,8 @@ msgid "Pilot"
 msgstr "చోదకుడు(పైలెట్)"
 
 #: src/titlescreen.c:94
-#, fuzzy
-msgid "Phrase Practice"
-msgstr "సాధన"
+msgid "Phrase Typing"
+msgstr ""
 
 #: src/titlescreen.c:95
 msgid "Lessons"
@@ -153,6 +148,10 @@ msgstr "ఈ సౌలభ్యం యింకా సిద్ధము కా�
 #: src/titlescreen.c:1138
 msgid "Discuss the future of TuxTyping at"
 msgstr "TuxTyping యొక్క భవిష్యత్తు యిక్కడ చర్చించండి"
+
+#, fuzzy
+#~ msgid "Phrase Practice"
+#~ msgstr "సాధన"
 
 #~ msgid "Great!"
 #~ msgstr "చాలా గొప్ప!"

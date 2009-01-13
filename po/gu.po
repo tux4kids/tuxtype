@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tuxtype\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2009-01-09 13:55-0600\n"
+"POT-Creation-Date: 2009-01-12 13:39-0600\n"
 "PO-Revision-Date: 2008-08-28 16:17+0530\n"
 "Last-Translator: Sweta Kothari <swkothar@redhat.com>\n"
 "Language-Team: Gujarati\n"
@@ -16,9 +16,9 @@ msgstr ""
 "X-Generator: KBabel 1.11.4\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n"
 
-#: src/loaders.c:86
-msgid "Help"
-msgstr ""
+#: src/loaders.c:87 src/main.c:150 src/playgame.c:1076
+msgid "Fish"
+msgstr "માછલી"
 
 #: src/pause.c:279
 msgid "Sound Effects Volume"
@@ -51,10 +51,6 @@ msgstr "સ્તર"
 #: src/playgame.c:1075
 msgid "Lives"
 msgstr "જીવો"
-
-#: src/playgame.c:1076
-msgid "Fish"
-msgstr "માછલી"
 
 #: src/playgame.c:1078 src/titlescreen.c:93
 msgid "Easy"
@@ -101,9 +97,8 @@ msgid "Pilot"
 msgstr "પાઇલોટ"
 
 #: src/titlescreen.c:94
-#, fuzzy
-msgid "Phrase Practice"
-msgstr "પ્રયાસ"
+msgid "Phrase Typing"
+msgstr ""
 
 #: src/titlescreen.c:95
 msgid "Lessons"
@@ -152,6 +147,10 @@ msgstr "આ લક્ષણ હજુ તૈયાર નથી"
 #: src/titlescreen.c:1138
 msgid "Discuss the future of TuxTyping at"
 msgstr "TuxTyping ને ભવિષ્યમાં ચર્ચા કરો"
+
+#, fuzzy
+#~ msgid "Phrase Practice"
+#~ msgstr "પ્રયાસ"
 
 #~ msgid "Great!"
 #~ msgstr "મહાન!"

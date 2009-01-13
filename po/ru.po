@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tux Typing 1.5.16\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2009-01-09 13:55-0600\n"
+"POT-Creation-Date: 2009-01-12 13:39-0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Mobin M <mobinmohan@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,9 +16,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/loaders.c:86
-msgid "Help"
-msgstr ""
+#: src/loaders.c:87 src/main.c:150 src/playgame.c:1076
+msgid "Fish"
+msgstr "Рыб"
 
 #: src/pause.c:279
 msgid "Sound Effects Volume"
@@ -51,10 +51,6 @@ msgstr "Уровень"
 #: src/playgame.c:1075
 msgid "Lives"
 msgstr "Жизней"
-
-#: src/playgame.c:1076
-msgid "Fish"
-msgstr "Рыб"
 
 #: src/playgame.c:1078 src/titlescreen.c:93
 msgid "Easy"
@@ -101,9 +97,8 @@ msgid "Pilot"
 msgstr "Пилот"
 
 #: src/titlescreen.c:94
-#, fuzzy
-msgid "Phrase Practice"
-msgstr "Практика"
+msgid "Phrase Typing"
+msgstr ""
 
 #: src/titlescreen.c:95
 msgid "Lessons"
@@ -152,3 +147,7 @@ msgstr "Эта функция еще не готова"
 #: src/titlescreen.c:1138
 msgid "Discuss the future of TuxTyping at"
 msgstr "Обсудите будущее TuxTyping на"
+
+#, fuzzy
+#~ msgid "Phrase Practice"
+#~ msgstr "Практика"

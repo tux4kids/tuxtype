@@ -1,3 +1,15 @@
+12 Jan 2009 - svn revision 841
+Version 1.7.1
+[ David Bruce <davidstuartbruce@gmail.com> ]
+        - additional code to work around unreliability of setlocale() under 
+          Windows. We now set LANG for both the C compiler and OS as well, using
+          Bruno Haible's my_setenv() function from the GNU Gettext FAQ. Tuxtype
+          now starts in the correct language for the underlying OS, and also
+          switches translations with theme changes. It does not yet automatically
+          pick the correct theme on startup to match the current LANG.
+        - additional code in ConvertToUTF8() to handle Windows' 16-bit wchar_t vs.
+          unix's 32-bit wchar_t.
+
 10 Jan 2009 - svn revision 830
 [ David Bruce <davidstuartbruce@gmail.com> ]
         - adaptation of menu code for lessons activity so as to be consistent with

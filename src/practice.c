@@ -103,6 +103,7 @@ static int load_phrases(const char* phrase_file);
 static int find_next_wrap(const wchar_t* wstr, const TTF_Font* font, int width);
 static void recalc_positions(void);
 static void calc_font_sizes(void);
+static void next_letter(wchar_t *t, int c);
 static int practice_load_media(void);
 static void practice_unload_media(void);
 static void print_at(const wchar_t* pphrase, int wrap, int x, int y);
@@ -258,7 +259,7 @@ int Phrases(wchar_t* pphrase )
           wchar_t buf[200];
           wcsncpy(buf, &phrases[cur_phrase][prev_wrap], cursor - prev_wrap); 
           buf[cursor - prev_wrap + 1]= '\0';
-          fprintf(stderr, "Phrase to be typed is: %S\n", buf);
+          fprintf(stderr, "Text typed so far is: %S\n", buf);
         }
 
         if (tmpsurf)
@@ -1425,7 +1426,7 @@ static void print_at(const wchar_t *pphrase, int wrap, int x, int y)
   DEBUGCODE { printf("Leaving print_at \n\n\n"); }
 }
 
-
+/* Displays the next letter to be typed in a large font */
 static void next_letter(wchar_t *t, int c)
 {
   int i;
