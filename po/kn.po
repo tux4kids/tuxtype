@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tuxtype\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2009-01-12 13:39-0600\n"
+"POT-Creation-Date: 2009-01-14 09:48-0600\n"
 "PO-Revision-Date: 2008-08-27 13:58+0530\n"
 "Last-Translator: Shankar Prasad <svenkate@redhat.com>\n"
 "Language-Team: Kannada <en@li.org>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "X-Generator: KBabel 1.11.4\n"
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
 
-#: src/loaders.c:87 src/main.c:150 src/playgame.c:1076
+#: src/loaders.c:88 src/main.c:150 src/playgame.c:1117
 msgid "Fish"
 msgstr "ಮೀನು"
 
@@ -44,35 +44,35 @@ msgstr "ಮೆನುವಿಗೆ ಹಿಂತಿರುಗಲು ಎಸ್ಕೇ�
 msgid "Press space bar to return to game"
 msgstr "ಆಟಕ್ಕೆ ಹಿಂತಿರುಗಲು ಸ್ಪೇಸ್‌ ಬಾರನ್ನು ಒತ್ತಿ"
 
-#: src/playgame.c:1074
+#: src/playgame.c:1115
 msgid "Level"
 msgstr "ಮಟ್ಟ"
 
-#: src/playgame.c:1075
+#: src/playgame.c:1116
 msgid "Lives"
 msgstr "ಜೀವಗಳು"
 
-#: src/playgame.c:1078 src/titlescreen.c:93
+#: src/playgame.c:1119 src/titlescreen.c:93
 msgid "Easy"
 msgstr "ಸುಲಭ"
 
-#: src/playgame.c:1079 src/titlescreen.c:94
+#: src/playgame.c:1120 src/titlescreen.c:94
 msgid "Medium"
 msgstr "ಮಧ್ಯಮ"
 
-#: src/playgame.c:1080 src/titlescreen.c:95
+#: src/playgame.c:1121 src/titlescreen.c:95
 msgid "Hard"
 msgstr "ಕಷ್ಟಕರ"
 
-#: src/playgame.c:1081
+#: src/playgame.c:1122
 msgid "Practice"
 msgstr "ತರಬೇತಿ"
 
-#: src/playgame.c:1092
+#: src/playgame.c:1133
 msgid "Congratulations"
 msgstr "ಶುಭಾಶಯಗಳು"
 
-#: src/playgame.c:1096
+#: src/playgame.c:1137
 msgid "Oh No!"
 msgstr "ಒಹ್ ಇಲ್ಲ!"
 

@@ -20,14 +20,28 @@ fontsdir = $(pkgdatadir)/fonts
 
 install-data-local:
 	$(MKDIR_P) $(DESTDIR)$(fontsdir)
-	-$(INSTALL_DATA) $(srcdir)/AndikaDesRevG.ttf $(DESTDIR)$(fontsdir)
-	-$(INSTALL_DATA) $(srcdir)/DoulosSILR.ttf $(DESTDIR)$(fontsdir)
-	-$(INSTALL_DATA) $(srcdir)/lohit_hi.ttf $(DESTDIR)$(fontsdir)
-	-$(INSTALL_DATA) $(srcdir)/Rachana_w01.ttf $(DESTDIR)$(fontsdir)
+	-$(INSTALL_DATA) $(srcdir)/AndikaDesRevG.ttf 	$(DESTDIR)$(fontsdir)
+	-$(INSTALL_DATA) $(srcdir)/DoulosSILR.ttf 	$(DESTDIR)$(fontsdir)
+	-$(INSTALL_DATA) $(srcdir)/Kedage-n.ttf 	$(DESTDIR)$(fontsdir)
+	-$(INSTALL_DATA) $(srcdir)/lohit_bn.ttf 	$(DESTDIR)$(fontsdir)
+	-$(INSTALL_DATA) $(srcdir)/lohit_gu.ttf 	$(DESTDIR)$(fontsdir)
+	-$(INSTALL_DATA) $(srcdir)/lohit_hi.ttf 	$(DESTDIR)$(fontsdir)
+	-$(INSTALL_DATA) $(srcdir)/lohit_ta.ttf 	$(DESTDIR)$(fontsdir)
+	-$(INSTALL_DATA) $(srcdir)/lohit_pa.ttf 	$(DESTDIR)$(fontsdir)
+	-$(INSTALL_DATA) $(srcdir)/Rachana_w01.ttf 	$(DESTDIR)$(fontsdir)
+	-$(INSTALL_DATA) $(srcdir)/utkal.ttf 		$(DESTDIR)$(fontsdir)
+	-$(INSTALL_DATA) $(srcdir)/Vemana.ttf 		$(DESTDIR)$(fontsdir)
 
 uninstall-local:
 	-rm -f $(DESTDIR)$(fontsdir)/AndikaDesRevG.ttf
 	-rm -f $(DESTDIR)$(fontsdir)/DoulosSILR.ttf
+	-rm -f $(DESTDIR)$(fontsdir)/Kedage-n.ttf
+	-rm -f $(DESTDIR)$(fontsdir)/lohit_bn.ttf
+	-rm -f $(DESTDIR)$(fontsdir)/lohit_gu.ttf
 	-rm -f $(DESTDIR)$(fontsdir)/lohit_hi.ttf
+	-rm -f $(DESTDIR)$(fontsdir)/lohit_ta.ttf
+	-rm -f $(DESTDIR)$(fontsdir)/lohit_pa.ttf
 	-rm -f $(DESTDIR)$(fontsdir)/Rachana_w01.ttf
+	-rm -f $(DESTDIR)$(fontsdir)/utkal.ttf
+	-rm -f $(DESTDIR)$(fontsdir)/Vemana.ttf
 	-rm -f $(DESTDIR)$(fontsdir)

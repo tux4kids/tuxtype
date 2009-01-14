@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tr\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2009-01-12 13:39-0600\n"
+"POT-Creation-Date: 2009-01-14 09:48-0600\n"
 "PO-Revision-Date: 2008-12-11 15:08+0200\n"
 "Last-Translator: Doruk Fisek <dfisek@fisek.com.tr>\n"
 "Language-Team: Turkish <gnu-tr-u12a@lists.sourceforge.net>\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
 
-#: src/loaders.c:87 src/main.c:150 src/playgame.c:1076
+#: src/loaders.c:88 src/main.c:150 src/playgame.c:1117
 msgid "Fish"
 msgstr "Balık"
 
@@ -43,35 +43,35 @@ msgstr "Menüye dönmek için tekrar esc'ye basın"
 msgid "Press space bar to return to game"
 msgstr "Oyuna dönmek için boşluk tuşuna basın"
 
-#: src/playgame.c:1074
+#: src/playgame.c:1115
 msgid "Level"
 msgstr "Düzey"
 
-#: src/playgame.c:1075
+#: src/playgame.c:1116
 msgid "Lives"
 msgstr "Yaşamlar"
 
-#: src/playgame.c:1078 src/titlescreen.c:93
+#: src/playgame.c:1119 src/titlescreen.c:93
 msgid "Easy"
 msgstr "Kolay"
 
-#: src/playgame.c:1079 src/titlescreen.c:94
+#: src/playgame.c:1120 src/titlescreen.c:94
 msgid "Medium"
 msgstr "Orta"
 
-#: src/playgame.c:1080 src/titlescreen.c:95
+#: src/playgame.c:1121 src/titlescreen.c:95
 msgid "Hard"
 msgstr "Zor"
 
-#: src/playgame.c:1081
+#: src/playgame.c:1122
 msgid "Practice"
 msgstr "Alıştırma"
 
-#: src/playgame.c:1092
+#: src/playgame.c:1133
 msgid "Congratulations"
 msgstr "Tebrikler"
 
-#: src/playgame.c:1096
+#: src/playgame.c:1137
 msgid "Oh No!"
 msgstr "Oo Hayır!"
 

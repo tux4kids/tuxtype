@@ -57,7 +57,8 @@ rpm: $(PACKAGE)-$(VERSION).tar.gz
 ## in this Makefile.am before the 'dist_with_fonts' target for that target
 ## to work - if it is in data/fonts/Makefile.am, it does not get expanded
 ## before the 'dist' target starts:
-data_fonts='AndikaDesRevG.ttf DoulosSILR.ttf lohit_hi.ttf Rachana_w01.ttf'
+data_fonts='AndikaDesRevG.ttf DoulosSILR.ttf Kedage-n.ttf lohit_bn.ttf lohit_gu.ttf lohit_hi.ttf lohit_ta.ttf lohit_pa.ttf Rachana_w01.ttf utkal.ttf Vemana.ttf'
+
 dist_with_fonts:
 	$(MAKE) $(AM_MAKEFLAGS) distdir=$(PACKAGE)_w_fonts-$(VERSION) \
   dist_fonts=$(data_fonts) dist
