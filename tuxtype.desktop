@@ -1,0 +1,15 @@
+[Desktop Entry]
+Name=TuxType
+GenericName=Kids game
+GenericName[ru]=Игра для детей
+GenericName[tr]=Daktilo Öğretmeni
+Comment=Educational typing tutor game starring Tux
+Comment[de]=Tastatur-Lernspielprogramm mit Tux
+Comment[ru]=Kлавиатурный тренажер с пингвином в главной роли
+Comment[tr]=Daktilo Öğretmeni
+Exec=tuxtype
+Icon=tuxtype
+Terminal=false
+Type=Application
+StartupNotify=true
+Categories=Education;X-Teaching;
