@@ -265,20 +265,14 @@ SDL_Surface* LoadImage(const char* datafile, int mode)
   SDL_Surface* tmp_pic = NULL, *final_pic = NULL;
   char fn[FNLEN];
 
-//  oldDebug = settings.debug_on;  // suppress output for now
-//  settings.debug_on = 0;
-
-//  DEBUGCODE { fprintf(stderr, "LoadImage: loading %s\n", datafile ); }
-
   /* Look for image under theme path if desired: */
   if (!settings.use_english && !(mode & IMG_NO_THEME))
   {
     sprintf(fn, "%s/images/%s", settings.theme_data_path, datafile);
-//    DEBUGCODE { fprintf(stderr, "LoadImage: looking in %s\n", fn); }
 
     tmp_pic = IMG_Load(fn);
-    if (tmp_pic != NULL){}
-//      DEBUGCODE { fprintf(stderr, "Graphics file %s successfully loaded\n", fn);}
+    if (tmp_pic != NULL)
+      {}
     else
       DEBUGCODE { fprintf(stderr, "Warning: graphics file %s could not be loaded\n", fn);}
   }
@@ -287,11 +281,10 @@ SDL_Surface* LoadImage(const char* datafile, int mode)
   if (!tmp_pic)
   {
     sprintf(fn, "%s/images/%s", settings.default_data_path, datafile);
-//    DEBUGCODE { fprintf(stderr, "LoadImage: looking in %s\n", fn); }
 
     tmp_pic = IMG_Load(fn);
-    if (tmp_pic != NULL){}
-//      DEBUGCODE { fprintf(stderr, "Graphics file %s successfully loaded\n", fn);}
+    if (tmp_pic != NULL)
+      {}
     else
       DEBUGCODE { fprintf(stderr, "Warning: graphics file %s could not be loaded\n", fn);}
   }
@@ -300,10 +293,8 @@ SDL_Surface* LoadImage(const char* datafile, int mode)
   /* Couldn't load image - action depends on whether image is essential: */
   if (!tmp_pic)
   {
-//    if (mode & IMG_NOT_REQUIRED)
     { 
-//      settings.debug_on = oldDebug;
-      fprintf(stderr, "Warning - could not load graphics file %s\n", datafile);
+      DEBUGCODE { (stderr, "Warning - could not load graphics file %s\n", datafile);}
       return NULL;
     }
 
@@ -347,8 +338,6 @@ SDL_Surface* LoadImage(const char* datafile, int mode)
   }
 
 //  LOG( "LoadImage(): Done\n" );
-
-//  settings.debug_on = oldDebug;
 
   return (final_pic);
 }

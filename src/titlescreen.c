@@ -21,11 +21,12 @@
 #include "funcs.h"
 #include "titlescreen.h"
 #include "SDL_extras.h"
+#include "ConvertUTF.h"
 
 /* --- media for menus --- */
 
 /* images of regular and selected text of menu items: */
-static SDL_Surface* reg_text[TITLE_MENU_ITEMS + 1][TITLE_MENU_DEPTH + 1] = {NULL};
+static SDL_Surface* reg_text[TITLE_MENU_ITEMS + 1][TITLE_MENU_DEPTH + 1] = {{NULL}};
 static SDL_Surface* sel_text[TITLE_MENU_ITEMS + 1][TITLE_MENU_DEPTH + 1] = {NULL};
 /* this will contain pointers to all of the menu 'icons' */
 static sprite* menu_gfx[TITLE_MENU_ITEMS + 1][TITLE_MENU_DEPTH + 1] = {NULL};
@@ -41,6 +42,7 @@ static SDL_Surface* speakeroff = NULL;
 static sprite* Tux = NULL;
 static Mix_Chunk* snd_move = NULL;
 static Mix_Chunk* snd_select = NULL;
+static Mix_Chunk* snd_welcome = NULL; 
 static TTF_Font* font = NULL;
 
 /* --- locations we need --- */
@@ -130,10 +132,10 @@ void TitleScreen(void)
   int redraw = 0;
   int key_menu = 1;
   int old_key_menu = 5;
-  wchar_t phrase[128];
-  FILE *fp;
-  unsigned char fn[FNLEN];
-  int found = 0;
+//  wchar_t phrase[128];
+//  FILE *fp;
+//  unsigned char fn[FNLEN];
+//  int found = 0;
   unsigned char str[1000];
 
 
@@ -146,7 +148,7 @@ void TitleScreen(void)
   
   /* FIXME phrase(s) should come from file */
 
-  ConvertFromUTF8(phrase, "The quick brown fox jumps over the lazy dog.");
+//  ConvertFromUTF8(phrase, "The quick brown fox jumps over the lazy dog.");
 
 //  wcscpy(phrase, "Now is the time for all good men to come to the aid of their country.");
   start = SDL_GetTicks();
@@ -156,6 +158,12 @@ void TitleScreen(void)
   * Display the Standby screen.... 
   */
   show_logo();
+  snd_welcome = LoadSound("harp.wav");
+
+  if (snd_welcome && settings.menu_sound)
+  {
+    PlaySound(snd_welcome);
+  }
 
   /* Load media and menu data: */
   if (!load_media())
@@ -214,8 +222,14 @@ void TitleScreen(void)
     SDL_BlitSurface(CurrentBkgd(), &Tuxdest, screen, &Tuxdest);
     SDL_BlitSurface(CurrentBkgd(), &Titledest, screen, &Titledest);
 
+
     Tuxdest.y -= Tux->frame[0]->h / (PRE_ANIM_FRAMES * PRE_FRAME_MULT);
     Titledest.x -= (screen->w) / (PRE_ANIM_FRAMES * PRE_FRAME_MULT);
+    /* Don't go past 0; */
+    if (Tuxdest.y < 0)
+      Tuxdest.y = 0;
+    if (Titledest.x < 0)
+      Titledest.x = 0;
 
     SDL_BlitSurface(Tux->frame[0], NULL, screen, &Tuxdest);
     SDL_BlitSurface(title, NULL, screen, &Titledest);
@@ -866,7 +880,7 @@ static void show_logo(void)
   {
     SDL_Rect logo_rect;
     SDL_Surface* t4k_logo = LoadImage("standby.png", IMG_REGULAR|IMG_NO_THEME);
-    
+
     if (t4k_logo) /* Avoid segfault */
     { 
       logo_rect.x = screen->w/2 - t4k_logo->w/2;  // Center horizontally
@@ -1073,18 +1087,20 @@ static void unload_media(void)
   LOG("Entering unload_media():\n");
 
   /* --- unload sounds --- */
-  if (settings.menu_sound){
- 
-    if (snd_move)
-    { 
-      Mix_FreeChunk(snd_move);
-      snd_move = NULL;
-    }
-    if (snd_select)
-    { 
-      Mix_FreeChunk(snd_select);
-      snd_select = NULL;
-    }
+  if (snd_move)
+  { 
+    Mix_FreeChunk(snd_move);
+    snd_move = NULL;
+  }
+  if (snd_select)
+  {
+    Mix_FreeChunk(snd_select);
+    snd_select = NULL;
+  }
+  if (snd_welcome)
+  {
+    Mix_FreeChunk(snd_welcome);
+    snd_welcome = NULL; 
   }
 
   /* --- unload graphics --- */

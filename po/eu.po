@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tux Typing 1.5.16\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2009-01-14 09:48-0600\n"
+"POT-Creation-Date: 2009-01-14 17:08-0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -53,15 +53,15 @@ msgid "Lives"
 msgstr "Bizitzak"
 
 # levels for Cascade game:
-#: src/playgame.c:1119 src/titlescreen.c:93
+#: src/playgame.c:1119 src/titlescreen.c:95
 msgid "Easy"
 msgstr "Erreza"
 
-#: src/playgame.c:1120 src/titlescreen.c:94
+#: src/playgame.c:1120 src/titlescreen.c:96
 msgid "Medium"
 msgstr "Ertaina"
 
-#: src/playgame.c:1121 src/titlescreen.c:95
+#: src/playgame.c:1121 src/titlescreen.c:97
 msgid "Hard"
 msgstr "Gaitza"
 
@@ -78,81 +78,81 @@ msgstr "Zorionak"
 msgid "Oh No!"
 msgstr "Oi ez!"
 
-#: src/titlescreen.c:93
+#: src/titlescreen.c:95
 msgid "Fish Cascade"
 msgstr "Arrainak goitik-behera"
 
 # "Space Cadet" is level 1 in comet zap
-#: src/titlescreen.c:93
+#: src/titlescreen.c:95
 msgid "Space Cadet"
 msgstr "Espazioko mutil-txikia"
 
-#: src/titlescreen.c:93
+#: src/titlescreen.c:95
 msgid "Edit Word Lists"
 msgstr "Editatu hitz zerrendak"
 
 # types of games
-#: src/titlescreen.c:94
+#: src/titlescreen.c:96
 msgid "Comet Zap"
 msgstr "Kometen suntsipena"
 
 # "Pilot" is level 2 in comet zap
-#: src/titlescreen.c:94
+#: src/titlescreen.c:96
 msgid "Pilot"
 msgstr "Pilotua"
 
-#: src/titlescreen.c:94
+#: src/titlescreen.c:96
 msgid "Phrase Typing"
 msgstr ""
 
-#: src/titlescreen.c:95
+#: src/titlescreen.c:97
 msgid "Lessons"
 msgstr "Ikasgaiak"
 
 # "Ace" is level 3 in comet zap
-#: src/titlescreen.c:95
+#: src/titlescreen.c:97
 msgid "Ace"
 msgstr "Puntarengoa"
 
-#: src/titlescreen.c:95
+#: src/titlescreen.c:97
 msgid "Project Info"
 msgstr ""
 
-#: src/titlescreen.c:96
+#: src/titlescreen.c:98
 msgid "Options"
 msgstr "Aukerak"
 
-#: src/titlescreen.c:96
+#: src/titlescreen.c:98
 msgid "Instructions"
 msgstr "Instrukzioak"
 
 # "Commander" is level 4 in comet zap
-#: src/titlescreen.c:96
+#: src/titlescreen.c:98
 msgid "Commander"
 msgstr "Komandantea"
 
-#: src/titlescreen.c:96
+#: src/titlescreen.c:98
 msgid "Setup Language"
 msgstr "Konfiguratu hizkuntza"
 
-#: src/titlescreen.c:97
+#: src/titlescreen.c:99
 msgid "Quit"
 msgstr "Itxi"
 
-#: src/titlescreen.c:97
+#: src/titlescreen.c:99
 msgid "Main Menu"
 msgstr "Menu nagusia"
 
 # work in progress stuff
-#: src/titlescreen.c:1136
+#: src/titlescreen.c:1152
 msgid "Work In Progress!"
 msgstr "Lanean dihardugu!"
 
-#: src/titlescreen.c:1137
+#: src/titlescreen.c:1153
 msgid "This feature is not ready yet"
 msgstr "Ezaugarri hau ez dago prest oraindik"
 
-#: src/titlescreen.c:1138
+#: src/titlescreen.c:1154
 msgid "Discuss the future of TuxTyping at"
 msgstr "TuxTyping-en etorkizunaz aritu honekin:"
 

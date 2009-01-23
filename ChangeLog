@@ -1,3 +1,15 @@
+14 Jan 2009 - svn revision 844
+Version 1.7.2
+[ David Bruce <davidstuartbruce@gmail.com> ]
+        - fixed crashing bug in cascade game in fullscreen due to size of blit
+          queue not being big enough.
+        - fixed drawing glitch in cascade game where words with terminal 'W' had
+          not been getting fully erased in redraw
+        - changed title graphic to "TuxType" instead of "TuxType2"
+        - added opening sound "harp.wav" from Tux Paint.
+        - added rest of fonts needed for remaining Indic languages
+        - changed "warning" output from image loader so it only prints if debug on.
+
 12 Jan 2009 - svn revision 841
 Version 1.7.1
 [ David Bruce <davidstuartbruce@gmail.com> ]

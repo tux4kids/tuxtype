@@ -111,7 +111,7 @@ static void show(unsigned char t);
 SDL_Surface* GetKeypress1(int index);
 SDL_Surface* GetKeypress2(int index);
 SDL_Surface* GetWrongKeypress(int index);
-
+static void print_load_results(void);
 
 /************************************************************************/
 /*                                                                      */ 
@@ -122,13 +122,6 @@ SDL_Surface* GetWrongKeypress(int index);
 /*  --------  This is the main function for the 'Practice' activity. ------ */
 int Phrases(wchar_t* pphrase )
 {
-
-  /* TODO 
-  * 
-  * 
-  * 
-  */
-
   /* FIXME make variable names more descriptive */
   Uint32 start = 0, a = 0, tuxtime = 0;
   int quit = 0,
@@ -156,7 +149,7 @@ int Phrases(wchar_t* pphrase )
   /* Load all needed graphics, strings, sounds.... */
   if (!practice_load_media())
   {
-    fprintf(stderr, "Phrases() - practice_load_media() failed, returning.\n");
+    fprintf(stderr, "Phrases() - practice_load_media() failed, returning.\n\n");
     return 0;
   }
 
@@ -930,10 +923,9 @@ static int practice_load_media(void)
     ||!accuracy_label_srfc)
   {
     fprintf(stderr, "practice_load_media() - failed to load needed media \n");
-    practice_unload_media;
+    print_load_results();
     return 0;
   }
-
 
   /* Now render letters for glyphs in alphabet: */
   /* This is used for keyboard graphic */
@@ -945,6 +937,53 @@ static int practice_load_media(void)
   return 1;
 }
 
+
+
+static void print_load_results(void)
+{
+  LOG("\npractice - print_load_results:\n");
+ /* Get out if anything failed to load: */
+  if (!CurrentBkgd())
+    { LOG("CurrentBkgd() did not load\n");}
+  if (!hands)
+    { LOG("hands did not load\n");}
+  if (!tux_win)
+    { LOG("tux_win did not load\n");}
+  if (!tux_stand)
+    { LOG("tux_stand did not load\n");}
+  if (!wrong)
+    { LOG("wrong did not load\n");}
+  if (!smallfont)
+    { LOG("smallfont did not load\n");}
+  if (!medfont)
+    { LOG("medfont did not load\n");}
+  if (!bigfont)
+    { LOG("bigfont did not load\n");}
+  if (!keyboard)
+    { LOG("keyboard did not load\n");}
+  if (!hand_shift[0])
+    { LOG("hand_shift[0] did not load\n");}
+  if (!hand_shift[1])
+    { LOG("hand_shift[1] did not load\n");}
+  if (!hand_shift[2])
+    { LOG("hand_shift[2] did not load\n");}
+  if (!time_label_srfc)
+    { LOG("time_label_srfc did not load\n");}
+  if (!chars_label_srfc)
+    { LOG("chars_label_srfc did not load\n");}
+  if (!cpm_label_srfc)
+    { LOG("cpm_label_srfc did not load\n");}
+  if (!wpm_label_srfc)
+    { LOG("wpm_label_srfc did not load\n");}
+  if (!time_label_srfc)
+    { LOG("time_label_srfc did not load\n");}
+  if (!errors_label_srfc)
+    { LOG("errors_label_srfc did not load\n");}
+  if (!accuracy_label_srfc)
+    { LOG("accuracy_label_srfc did not load\n");}
+
+  LOG("End print_load_results()\n\n");
+}
 
 static void recalc_positions(void)
 {

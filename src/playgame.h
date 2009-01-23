@@ -64,7 +64,6 @@
 #define SPLAT_ONSCREEN	4
 #define DEFAULT_SPEED	1
 
-/* These aren't maxes - they are multipliers to determine how fast the fish fall */
 #define EASY_SPEED_FACTOR       1.3
 #define MEDIUM_SPEED_FACTOR     3
 #define HARD_SPEED_FACTOR       5

@@ -11,6 +11,7 @@ dist_sounds_DATA = tuxi.ogg \
   click.wav \
   excuseme.wav \
   explosion.wav \
+  harp.wav \
   kmus1.wav \
   kmus2.wav \
   kmus3.wav \

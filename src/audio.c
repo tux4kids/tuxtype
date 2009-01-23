@@ -22,35 +22,49 @@
 static Mix_Music* defaultMusic = NULL; // holds music for audioMusicLoad/unload
 
 
-void PlaySound(Mix_Chunk* snd) {
-	if (!settings.sys_sound) return;
+void PlaySound(Mix_Chunk* snd)
+{
+  if(!snd) return;
+  if (!settings.sys_sound) return;
 
-	Mix_PlayChannel(-1, snd, 0);
+  Mix_PlayChannel(-1, snd, 0);
 }
 
 /* MusicLoad attempts to load and play the music file 
  * Note: loops == -1 means forever
  */
-void MusicLoad(const char *musicFilename, int loops ) {
-	if (!settings.sys_sound) return;
+void MusicLoad(const char* musicFilename, int loops)
+{
+  Mix_Music* tmp_music = NULL;
 
-	MusicUnload(); // make sure defaultMusic is clear
+  if (!settings.sys_sound) return;
+  if (!musicFilename) return;
 
-	defaultMusic = LoadMusic( musicFilename );
-	Mix_PlayMusic( defaultMusic, loops );
+  tmp_music = LoadMusic(musicFilename);
+
+  if (tmp_music)
+  {
+    MusicUnload(); //Unload previous defaultMusic
+    defaultMusic = tmp_music;
+    Mix_PlayMusic(defaultMusic, loops);
+  }
 }
+
 
 /* MusicUnload attempts to unload any music data that was
  * loaded using the audioMusicLoad function
  */
-void MusicUnload( void ) {
-	if (!settings.sys_sound) return;
+void MusicUnload(void)
+{
+  if (!settings.sys_sound) return;
 
-	if ( defaultMusic )
-		Mix_FreeMusic( defaultMusic );
-
-	defaultMusic = NULL;
+  if (defaultMusic)
+  {
+    Mix_FreeMusic(defaultMusic);
+    defaultMusic = NULL;
+  }
 }
+
 
 /* audioMusicPlay attempts to play the passed music data. 
  * if a music file was loaded using the audioMusicLoad
@@ -60,6 +74,8 @@ void MusicUnload( void ) {
 void MusicPlay(Mix_Music* musicData, int loops)
 { 
   if (!settings.sys_sound) return;
+  if (!musicData) return;
+
   /* Stop previous music before playing new one: */
   MusicUnload();	
   Mix_PlayMusic(musicData, loops);

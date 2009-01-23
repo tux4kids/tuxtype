@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tuxtype\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2009-01-14 09:48-0600\n"
+"POT-Creation-Date: 2009-01-14 17:08-0600\n"
 "PO-Revision-Date: 2008-08-28 16:08+0530\n"
 "Last-Translator: Rajesh Ranjan <rranjan@redhat.com>\n"
 "Language-Team: Hindi <hindi.sf.net>\n"
@@ -56,15 +56,15 @@ msgstr "स्तर"
 msgid "Lives"
 msgstr "जीवनदान"
 
-#: src/playgame.c:1119 src/titlescreen.c:93
+#: src/playgame.c:1119 src/titlescreen.c:95
 msgid "Easy"
 msgstr "आसान"
 
-#: src/playgame.c:1120 src/titlescreen.c:94
+#: src/playgame.c:1120 src/titlescreen.c:96
 msgid "Medium"
 msgstr "थोड़ा कठिन"
 
-#: src/playgame.c:1121 src/titlescreen.c:95
+#: src/playgame.c:1121 src/titlescreen.c:97
 msgid "Hard"
 msgstr "कठिन"
 
@@ -80,75 +80,75 @@ msgstr "बधाई"
 msgid "Oh No!"
 msgstr "अरे नहीं!"
 
-#: src/titlescreen.c:93
+#: src/titlescreen.c:95
 msgid "Fish Cascade"
 msgstr "प्रपाती मछली"
 
-#: src/titlescreen.c:93
+#: src/titlescreen.c:95
 msgid "Space Cadet"
 msgstr "स्पेस कैडेट"
 
-#: src/titlescreen.c:93
+#: src/titlescreen.c:95
 msgid "Edit Word Lists"
 msgstr "शब्द सूची संपादित करें"
 
-#: src/titlescreen.c:94
+#: src/titlescreen.c:96
 msgid "Comet Zap"
 msgstr "पुच्छल तारा पकड़ें"
 
-#: src/titlescreen.c:94
+#: src/titlescreen.c:96
 msgid "Pilot"
 msgstr "पाइलट"
 
-#: src/titlescreen.c:94
+#: src/titlescreen.c:96
 msgid "Phrase Typing"
 msgstr ""
 
-#: src/titlescreen.c:95
+#: src/titlescreen.c:97
 msgid "Lessons"
 msgstr "पाठ"
 
-#: src/titlescreen.c:95
+#: src/titlescreen.c:97
 msgid "Ace"
 msgstr "एक्का"
 
-#: src/titlescreen.c:95
+#: src/titlescreen.c:97
 msgid "Project Info"
 msgstr "परियोजना सूचना"
 
-#: src/titlescreen.c:96
+#: src/titlescreen.c:98
 msgid "Options"
 msgstr "विकल्प"
 
-#: src/titlescreen.c:96
+#: src/titlescreen.c:98
 msgid "Instructions"
 msgstr "निर्देश"
 
-#: src/titlescreen.c:96
+#: src/titlescreen.c:98
 msgid "Commander"
 msgstr "कमांडर"
 
-#: src/titlescreen.c:96
+#: src/titlescreen.c:98
 msgid "Setup Language"
 msgstr "सेटअप भाषा"
 
-#: src/titlescreen.c:97
+#: src/titlescreen.c:99
 msgid "Quit"
 msgstr "छोड़ें"
 
-#: src/titlescreen.c:97
+#: src/titlescreen.c:99
 msgid "Main Menu"
 msgstr "मुख्य मेन्यू"
 
-#: src/titlescreen.c:1136
+#: src/titlescreen.c:1152
 msgid "Work In Progress!"
 msgstr "काम प्रगति पर है!"
 
-#: src/titlescreen.c:1137
+#: src/titlescreen.c:1153
 msgid "This feature is not ready yet"
 msgstr "यह विशेषता अबतक तैयार नहीं है"
 
-#: src/titlescreen.c:1138
+#: src/titlescreen.c:1154
 msgid "Discuss the future of TuxTyping at"
 msgstr "टक्स टाइपिंग के भविष्य के बारे में यहाँ चर्चा करें"
 
