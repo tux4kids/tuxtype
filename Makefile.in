@@ -37,8 +37,7 @@ target_triplet = @target@
 subdir = .
 DIST_COMMON = README $(am__configure_deps) $(srcdir)/Makefile.am \
 	$(srcdir)/Makefile.in $(srcdir)/config.h.in \
-	$(srcdir)/tuxtype.spec.in $(top_srcdir)/configure \
-	$(top_srcdir)/intl/Makefile.in \
+	$(top_srcdir)/configure $(top_srcdir)/intl/Makefile.in \
 	$(top_srcdir)/nsis/tuxtype.nsi.in ABOUT-NLS AUTHORS COPYING \
 	ChangeLog INSTALL TODO config.guess config.rpath config.sub \
 	depcomp install-sh missing mkinstalldirs
@@ -66,7 +65,7 @@ am__CONFIG_DISTCLEAN_FILES = config.status config.cache config.log \
  configure.lineno config.status.lineno
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
 CONFIG_HEADER = config.h
-CONFIG_CLEAN_FILES = intl/Makefile nsis/tuxtype.nsi tuxtype.spec
+CONFIG_CLEAN_FILES = intl/Makefile nsis/tuxtype.nsi
 SOURCES =
 DIST_SOURCES =
 RECURSIVE_TARGETS = all-recursive check-recursive dvi-recursive \
@@ -316,8 +315,6 @@ distclean-hdr:
 intl/Makefile: $(top_builddir)/config.status $(top_srcdir)/intl/Makefile.in
 	cd $(top_builddir) && $(SHELL) ./config.status $@
 nsis/tuxtype.nsi: $(top_builddir)/config.status $(top_srcdir)/nsis/tuxtype.nsi.in
-	cd $(top_builddir) && $(SHELL) ./config.status $@
-tuxtype.spec: $(top_builddir)/config.status $(srcdir)/tuxtype.spec.in
 	cd $(top_builddir) && $(SHELL) ./config.status $@
 
 # This directory's subdirectories are mostly independent; you can cd

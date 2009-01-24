@@ -291,8 +291,8 @@ data/words/Makefile
 doc/Makefile
 doc/en/Makefile
 src/Makefile
-nsis/tuxtype.nsi
-tuxtype.spec])
+nsis/tuxtype.nsi])
+##tuxtype.spec])
 
 AC_OUTPUT
 
