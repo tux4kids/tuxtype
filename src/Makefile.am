@@ -16,11 +16,14 @@ AM_CPPFLAGS = -DLOCALEDIR=\"$(localedir)\" \
 LDADD = @LIBINTL@
 tuxtype_LDFLAGS = $(LTLIBINTL)
 
+
 if BUILD_MINGW32
-bin_PROGRAMS = TuxType
+  bin_PROGRAMS = TuxType
+  DATA_PREFIX=@PACKAGE_DATA_DIR@
 else
-TUXTYPERC =
-bin_PROGRAMS = tuxtype
+  TUXTYPERC =
+  bin_PROGRAMS = tuxtype
+  DATA_PREFIX=${pkgdatadir}
 endif
 
 

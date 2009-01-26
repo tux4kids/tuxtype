@@ -1,4 +1,4 @@
-12 Jan 2009 - svn revision 844
+14 Jan 2009 - svn revision 844
 Version 1.7.2
 [ David Bruce <davidstuartbruce@gmail.com> ]
         - fixed crashing bug in cascade game in fullscreen due to size of blit

@@ -27,7 +27,7 @@
 
 #ifdef WIN32 
 #undef DATA_PREFIX
-#define DATA_PREFIX ".//"
+#define DATA_PREFIX "./data"
 #endif
 
 #ifndef __GLOBALS_H__

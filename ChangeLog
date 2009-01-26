@@ -1,4 +1,13 @@
+14 Jan 2009 - svn revision 856
+[ David Bruce <davidstuartbruce@gmail.com> ]
+        - fixed SetupPaths() - really, the correct path should _always_ be 
+          DATA_PREFIX, and SetupPaths() should just confirm that and check for
+          the theme data path under it.  There should be no need for the hard-
+          coded choices, which were just covering up the mistake.
+
+
 14 Jan 2009 - svn revision 844
+
 Version 1.7.2
 [ David Bruce <davidstuartbruce@gmail.com> ]
         - fixed crashing bug in cascade game in fullscreen due to size of blit

@@ -23,18 +23,19 @@
 #define NUM_PATHS 4
 
 
-/* FIXME this is a hack that can have unintended results */
-/* if the program is run from a path that has 'data' as a */
-/* subdir */
+/* NOTE the correct path for a unix-type make install _should_ be */
+/* DATA_PREFIX, which is "$(PREFIX)/share/tuxtype". The "./data"  */
+/* path is for the Windows install, but this should really not be */
+/* necessary because DATA_PREFIX gets defined to this #ifdef WIN32 */
+/* So, the path to the default data should always be DATA_PREFIX  */
+/* unless something is screwed up - DSB                           */
 const char PATHS[NUM_PATHS][FNLEN] = 
 {
 /*  DATA_PREFIX"/share/"PACKAGE"/data",
   "/usr/share/"PACKAGE"/data",
   "/usr/local/share/"PACKAGE"/data",
   "./data"*/
-  DATA_PREFIX"/share/"PACKAGE,
-  "/usr/share/"PACKAGE,
-  "/usr/local/share/"PACKAGE,
+  DATA_PREFIX,
   "./data"
 };
 
@@ -403,12 +404,11 @@ int SetupPaths(const char* theme_dir)
 {
   int i;
   settings.use_english = 1; // default is to use English if we cannot find theme
-
   /* First find default data path: */
   for (i = 0; i < NUM_PATHS; i++)
   {
 
-    DEBUGCODE
+ //   DEBUGCODE
     {
       fprintf(stderr, "SetupPaths(): checking for '%s' as default data path\n", PATHS[i]);
     }
@@ -417,7 +417,7 @@ int SetupPaths(const char* theme_dir)
     {
       strncpy(settings.default_data_path, PATHS[i], FNLEN - 1);
 
-      DEBUGCODE
+//      DEBUGCODE
       {
         fprintf(stderr, "path '%s' found, copy to settings.default_data_path\n", PATHS[i]);
       }
@@ -425,7 +425,7 @@ int SetupPaths(const char* theme_dir)
     }
     else
     {
-      DEBUGCODE
+//      DEBUGCODE
       {
         fprintf(stderr, "path '%s' not found.\n", PATHS[i]);
       }

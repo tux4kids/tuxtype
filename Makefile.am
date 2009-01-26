@@ -78,7 +78,7 @@ install-nsi-local: all
 	$(INSTALL) -d $(top_builddir)/$(NSI_INSTALL_DIR)/data;
 	(cd $(NSI_TEMP_INSTALL_DIR)/$(pkgdatadir); \
            tar cf -  * ) \
-           | ( cd $(top_builddir)/$(NSI_INSTALL_DIR)/$(PACKAGE_DATA_DIR); \
+           | ( cd $(top_builddir)/$(NSI_INSTALL_DIR)/data; \
            tar xf -)
 ## create NSI_INSTALL_DIR/doc dir and copy docs to that location:
 	$(INSTALL) -d $(top_builddir)/$(NSI_INSTALL_DIR)/doc;
