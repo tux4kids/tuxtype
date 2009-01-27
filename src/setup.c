@@ -20,7 +20,7 @@
 #include "globals.h"
 #include "funcs.h"
 
-#define NUM_PATHS 4
+#define NUM_PATHS 2
 
 
 /* NOTE the correct path for a unix-type make install _should_ be */
