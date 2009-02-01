@@ -23,6 +23,7 @@ Sreyas Kurumanghat <k.sreyas@gmail.com>
 /* Needed to convert UTF-8 under Windows because we don't have glibc: */
 #include "ConvertUTF.h"
 #include "iconv_string.h"
+#include <iconv.h>
 
 #include "globals.h"
 #include "funcs.h"
