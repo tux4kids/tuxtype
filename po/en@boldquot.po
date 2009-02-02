@@ -29,10 +29,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: tuxtype 1.7.2\n"
+"Project-Id-Version: tuxtype 1.7.3\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2009-01-14 17:08-0600\n"
-"PO-Revision-Date: 2009-01-14 17:08-0600\n"
+"POT-Creation-Date: 2009-01-31 14:28-0600\n"
+"PO-Revision-Date: 2009-01-31 14:28-0600\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"

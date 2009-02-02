@@ -1,5 +1,5 @@
 # Process this file with autoconf to produce a configure script.
-AC_INIT([Tux Typing],[1.7.2],[tux4kids-tuxtype-dev@lists.alioth.debian.org],[tuxtype])
+AC_INIT([Tux Typing],[1.7.3],[tux4kids-tuxtype-dev@lists.alioth.debian.org],[tuxtype])
 AC_CONFIG_SRCDIR([src/playgame.c])
 
 AC_PREREQ(2.61)
@@ -22,8 +22,8 @@ AC_SUBST(NAME_VERSION)
 
 # To link gettext library
 AC_GNU_SOURCE
-AM_GNU_GETTEXT_VERSION([0.17])
 AM_GNU_GETTEXT
+AM_GNU_GETTEXT_VERSION([0.17])
 AM_GNU_GETTEXT_INTL_SUBDIR
 
 # ----------------------------------------------------------------------

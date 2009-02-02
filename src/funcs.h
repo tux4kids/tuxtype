@@ -25,13 +25,6 @@
 /* non-local functions are visible throughout the program.               */ 
 
 
-/* In alphabet.c */
-//SDL_Surface* BlackOutline(const unsigned char* t, const TTF_Font* font, const SDL_Color* c);
-//SDL_Surface* BlackOutline_Unicode(const Uint16* t, const TTF_Font* font, const SDL_Color* c);
-
-//#ifndef WIN32
-//SDL_Surface* BlackOutline_SDLPango(const unsigned char* t, const TTF_Font* font, const SDL_Color* c);
-//#endif
 
 /* (still in alphabet.c:) */
 int CheckNeededGlyphs(void);
@@ -59,19 +52,11 @@ void savekeyboard(void);
 wchar_t GetLastKey(void);
 
 
-//void UseAlphabet(void);
-
-
 /* In audio.c:   */
 void PlaySound(Mix_Chunk* snd);
 void MusicLoad(const char* musicFilename, int repeatQty);
 void MusicUnload(void);
 void MusicPlay(Mix_Music* musicData, int repeatQty);
-
-
-/* In gettext.c:  */
-//unsigned char* gettext(const unsigned char* in);
-//int Load_PO_File(const char* file);
 
 
 /* In laser.c:        */
