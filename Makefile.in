@@ -253,7 +253,7 @@ SUBDIRS = doc	\
 	data
 
 ACLOCAL_AMFLAGS = -I m4
-EXTRA_DIST = config.rpath tuxtype.ico
+EXTRA_DIST = tuxtype.spec tuxtype.desktop tuxtype.ico config.rpath
 MAKENSIS = @NSIS@
 NSIS_FOUND = @NSIS_FOUND@
 NSI_TEMP_INSTALL_DIR = $(abs_top_builddir)/_instw32

@@ -8,7 +8,7 @@ SUBDIRS = doc	\
 
 ACLOCAL_AMFLAGS = -I m4
 
-EXTRA_DIST = config.rpath tuxtype.ico
+EXTRA_DIST = tuxtype.spec tuxtype.desktop tuxtype.ico config.rpath
 datadir = @datadir@
 localedir = $(datadir)/locale
 

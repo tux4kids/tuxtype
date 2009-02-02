@@ -114,104 +114,6 @@ int max(int n1, int n2)
   return (n1 > n2 ? n1 : n2);
 }
 
-// /**********************
-//  Flip:
-//    input: a SDL_Surface, x, y
-//    output: a copy of the SDL_Surface flipped via rules:
-// 
-//      if x is a positive value, then flip horizontally
-//      if y is a positive value, then flip vertically
-// 
-//      note: you can have it flip both
-// **********************/
-// SDL_Surface* flip(SDL_Surface* in, int x, int y ) {
-// 	SDL_Surface *out, *tmp;
-// 	SDL_Rect from_rect, to_rect;
-// 	Uint32	flags;
-// 	Uint32  colorkey=0;
-// 
-// 	/* --- grab the settings for the incoming pixmap --- */
-// 
-// 	SDL_LockSurface(in);
-// 	flags = in->flags;
-// 
-// 	/* --- change in's flags so ignore colorkey & alpha --- */
-// 
-// 	if (flags & SDL_SRCCOLORKEY) {
-// 		in->flags &= ~SDL_SRCCOLORKEY;
-// 		colorkey = in->format->colorkey;
-// 	}
-// 	if (flags & SDL_SRCALPHA) {
-// 		in->flags &= ~SDL_SRCALPHA;
-// 	}
-// 
-// 	SDL_UnlockSurface(in);
-// 
-// 	/* --- create our new surface --- */
-// 
-// 	out = SDL_CreateRGBSurface(
-// 		SDL_SWSURFACE,
-// 		in->w, in->h, 32, RMASK, GMASK, BMASK, AMASK);
-// 
-// 	/* --- flip horizontally if requested --- */
-// 
-// 	if (x) {
-// 		from_rect.h = to_rect.h = in->h;
-// 		from_rect.w = to_rect.w = 1;
-// 		from_rect.y = to_rect.y = 0;
-// 		from_rect.x = 0;
-// 		to_rect.x = in->w - 1;
-// 
-// 		do {
-// 			SDL_BlitSurface(in, &from_rect, out, &to_rect);
-// 			from_rect.x++;
-// 			to_rect.x--;
-// 		} while (to_rect.x >= 0);
-// 	}
-// 
-// 	/* --- flip vertically if requested --- */
-// 
-// 	if (y) {
-// 		from_rect.h = to_rect.h = 1;
-// 		from_rect.w = to_rect.w = in->w;
-// 		from_rect.x = to_rect.x = 0;
-// 		from_rect.y = 0;
-// 		to_rect.y = in->h - 1;
-// 
-// 		do {
-// 			SDL_BlitSurface(in, &from_rect, out, &to_rect);
-// 			from_rect.y++;
-// 			to_rect.y--;
-// 		} while (to_rect.y >= 0);
-// 	}
-// 
-// 	/* --- restore colorkey & alpha on in and setup out the same --- */
-// 
-// 	SDL_LockSurface(in);
-// 
-// 	if (flags & SDL_SRCCOLORKEY) {
-// 		in->flags |= SDL_SRCCOLORKEY;
-// 		in->format->colorkey = colorkey;
-// 		tmp = SDL_DisplayFormat(out);
-// 		SDL_FreeSurface(out);
-// 		out = tmp;
-// 		out->flags |= SDL_SRCCOLORKEY;
-// 		out->format->colorkey = colorkey;
-// 	} else if (flags & SDL_SRCALPHA) {
-// 		in->flags |= SDL_SRCALPHA;
-// 		tmp = SDL_DisplayFormatAlpha(out);
-// 		SDL_FreeSurface(out);
-// 		out = tmp;
-// 	} else {
-// 		tmp = SDL_DisplayFormat(out);
-// 		SDL_FreeSurface(out);
-// 		out = tmp;
-// 	}
-// 
-// 	SDL_UnlockSurface(in);
-// 
-// 	return out;
-// }
 
 
 /* FIXME need code to search for font paths on different platforms */
@@ -238,10 +140,24 @@ TTF_Font* LoadFont(const char* font_name, int font_size )
     sprintf(fn, "/usr/share/fonts/truetype/ttf-sil-andika/AndikaDesRevG.ttf");
   else if (strncmp(font_name, "DoulosSILR.ttf", FNLEN ) == 0)
     sprintf(fn, "/usr/share/fonts/truetype/ttf-sil-doulos/DoulosSILR.ttf");
+  else if (strncmp(font_name, "Kedage-n.ttf", FNLEN ) == 0)
+    sprintf(fn, "/usr/share/fonts/truetype/ttf-kannada-fonts/Kedage-n.ttf");
+  else if (strncmp(font_name, "lohit_bn.ttf", FNLEN ) == 0)
+    sprintf(fn, "/usr/share/fonts/truetype/ttf-bengali-fonts/lohit_bn.ttf");
+  else if (strncmp(font_name, "lohit_gu.ttf", FNLEN ) == 0)
+    sprintf(fn, "/usr/share/fonts/truetype/ttf-indic-fonts-core/lohit_gu.ttf");
   else if (strncmp(font_name, "lohit_hi.ttf", FNLEN ) == 0)
-    sprintf(fn, "/usr/share/fonts/truetype/ttf-devanagari-fonts/lohit_hi.ttf");
+    sprintf(fn, "/usr/share/fonts/truetype/ttf-indic-fonts-core/lohit_hi.ttf");
+  else if (strncmp(font_name, "lohit_pa.ttf", FNLEN ) == 0)
+    sprintf(fn, "/usr/share/fonts/truetype/ttf-indic-fonts-core/lohit_pa.ttf");
+  else if (strncmp(font_name, "lohit_ta.ttf", FNLEN ) == 0)
+    sprintf(fn, "/usr/share/fonts/truetype/ttf-indic-fonts-core/lohit_ta.ttf");
   else if (strncmp(font_name, "Rachana_w01.ttf", FNLEN ) == 0)
     sprintf(fn, "/usr/share/fonts/truetype/ttf-malayalam-fonts/Rachana_w01.ttf");
+  else if (strncmp(font_name, "utkal.ttf", FNLEN ) == 0)
+    sprintf(fn, "/usr/share/fonts/truetype/ttf-indic-fonts-core/utkal.ttf");
+  else if (strncmp(font_name, "Vemana.ttf", FNLEN ) == 0)
+    sprintf(fn, "/usr/share/fonts/truetype/ttf-indic-fonts-core/Vemena.ttf");
 
 
 
@@ -252,10 +168,20 @@ TTF_Font* LoadFont(const char* font_name, int font_size )
   if (loaded_font != NULL)
     return loaded_font;
 
-  fprintf(stderr, "LoadFont(): Error - couldn't load font: %s\n", fn);
-  return NULL;
+  /* We could not find desired font. If we were looking for something other  */
+  /* than default (Andika) font, print warning and try to load default font: */
+  if (strncmp(font_name, DEFAULT_MENU_FONT, FNLEN ) != 0)
+  {
+    fprintf(stderr, "Warning - could not load desired font: %s\n", font_name);
+    fprintf(stderr, "Trying to load default instead: %s\n", DEFAULT_MENU_FONT);
+    return LoadFont(DEFAULT_MENU_FONT, font_size);
+  }
+  else  /* Default failed also - bummer! */
+  {
+    fprintf(stderr, "LoadFont(): Error - couldn't load either selected or default font\n");
+    return NULL;
+  }
 }
-
 /***********************
 	LoadImage : Load an image and set transparent if requested
 ************************/

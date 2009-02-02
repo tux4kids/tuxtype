@@ -20,24 +20,26 @@
 #include "globals.h"
 #include "funcs.h"
 
-#define NUM_PATHS 2
+//NOTE this PATHS[] is an ugly hack which is no longer used.  We
+//now just confirm that DATA_PREFIX is valid, as it should be.
 
+//#define NUM_PATHS 2
 
-/* NOTE the correct path for a unix-type make install _should_ be */
-/* DATA_PREFIX, which is "$(PREFIX)/share/tuxtype". The "./data"  */
-/* path is for the Windows install, but this should really not be */
-/* necessary because DATA_PREFIX gets defined to this #ifdef WIN32 */
-/* So, the path to the default data should always be DATA_PREFIX  */
-/* unless something is screwed up - DSB                           */
-const char PATHS[NUM_PATHS][FNLEN] = 
-{
-/*  DATA_PREFIX"/share/"PACKAGE"/data",
-  "/usr/share/"PACKAGE"/data",
-  "/usr/local/share/"PACKAGE"/data",
-  "./data"*/
-  DATA_PREFIX,
-  "./data"
-};
+///* NOTE the correct path for a unix-type make install _should_ be */
+///* DATA_PREFIX, which is "$(PREFIX)/share/tuxtype". The "./data"  */
+///* path is for the Windows install, but this should really not be */
+///* necessary because DATA_PREFIX gets defined to this #ifdef WIN32 */
+///* So, the path to the default data should always be DATA_PREFIX  */
+///* unless something is screwed up - DSB                           */
+// const char PATHS[NUM_PATHS][FNLEN] = 
+// {
+// /*  DATA_PREFIX"/share/"PACKAGE"/data",
+//   "/usr/share/"PACKAGE"/data",
+//   "/usr/local/share/"PACKAGE"/data",
+//   "./data"*/
+//   DATA_PREFIX,
+//   "./data"
+// };
 
 int fs_res_x = 0;
 int fs_res_y = 0;
@@ -394,6 +396,7 @@ void SaveSettings(void)
 }
 
 
+/* NOTE Now default path is _always_ DATA_PREFIX - hackish workarounds removed. */
 /* Check for default (English) and theme data paths and update settings struct. */
 /* Returns 0 if default data path not found, 1 if successfully located.         */
 /* If theme not found, still returns 1 but settings changed to use English.     */
@@ -404,41 +407,17 @@ int SetupPaths(const char* theme_dir)
 {
   int i;
   settings.use_english = 1; // default is to use English if we cannot find theme
-  /* First find default data path: */
-  for (i = 0; i < NUM_PATHS; i++)
+
+  if (CheckFile(DATA_PREFIX))
   {
-
- //   DEBUGCODE
-    {
-      fprintf(stderr, "SetupPaths(): checking for '%s' as default data path\n", PATHS[i]);
-    }
-
-    if (CheckFile(PATHS[i]))
-    {
-      strncpy(settings.default_data_path, PATHS[i], FNLEN - 1);
-
-//      DEBUGCODE
-      {
-        fprintf(stderr, "path '%s' found, copy to settings.default_data_path\n", PATHS[i]);
-      }
-      break;
-    }
-    else
-    {
-//      DEBUGCODE
-      {
-        fprintf(stderr, "path '%s' not found.\n", PATHS[i]);
-      }
-    }
+    strncpy(settings.default_data_path, DATA_PREFIX, FNLEN - 1);
+    DEBUGCODE {fprintf(stderr, "path '%s' found, copy to settings.default_data_path\n", DATA_PREFIX);}
   }
-
-  /* If we didn't find a data path, print error msg and get out: */
-  if (i >= NUM_PATHS) /* (shouldn't actually ever be > NUM_PATHS) */
+  else
   {
-    fprintf(stderr, "SetupPaths(): Error - could not find data path.\n");
-    return 0;
+    fprintf(stderr, "Error - DATA_PREFIX = '%s' not found!\n", DATA_PREFIX);
+    return;
   }
-
 
   /* Now look for theme directory: */
   if (theme_dir != NULL)
