@@ -1,5 +1,5 @@
-Tux Typing 1.7.2
-January 14, 2009
+Tux Typing 1.7.3
+03 Feb 2009
 
 NOTE - this document is reasonably correct but not completely current.
 It will updated as the maintainer's time allows. For GNU/Linux users, you
@@ -30,9 +30,13 @@ Quick Installation
  SDL_mixer-1.2.5      http://www.libsdl.org/projects/SDL_mixer
  SDL_ttf-2.0.5        http://www.libsdl.org/projects/SDL_ttf
 
+ SDL_Pango will be used if found
+
 Notes:
-freetype2 is required for SDL_ttf
-SDL_2.0.6 is known not to compile on RH9
+ These libraries in turn have other dependencies (jpeg, tiff, smpeg, ogg,
+ freetype, etc.) that your package manager will take care of, unless you
+ are building everything by hand.
+
 
 For most people using Linux:
 
@@ -55,7 +59,7 @@ This will re-generate the configure script from configure.ac, and all the Makefi
 the corresponding Makefile.am's.  You should not need to do this if you are building from
 a tuxtype*.tar.gz (but will need to do this if building from a Subversion checkout).
 
-Note - you almost certainly want the tarball with the bundled fonts, e.g. tuxtype_w_fonts-1.7.1.tar.gz.
+Note - you almost certainly want the tarball with the bundled fonts, e.g. tuxtype_w_fonts-1.7.3.tar.gz.
 The tarballs without fonts are for making Debian packages that will be installed by a package 
 manager that will take care of installing the needed fonts.
 
@@ -65,10 +69,12 @@ work for you please contact: tux4kids-tuxtype-dev@lists.alioth.debian.org
 You may also contact me directly at:
 davidstuartbruce@gmail.com
 
+===============================================================================================
 
 (below are reproduced some generic instructions on how to build and
 install packages that require "./configure; make; make install". They
 were not written specifically for tuxtype).
+
 
 Basic Installation
 ==================

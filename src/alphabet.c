@@ -830,19 +830,15 @@ int ConvertToUTF8(wchar_t* wide_word, unsigned char* UTF8_word)
   DEBUGCODE {fprintf(stderr, "ConvertToUTF8(): wide_word = %S\n", wide_word);}
   DEBUGCODE {fprintf(stderr, "ConvertToUTF8(): temp_wchar_t = %S\n", temp_wchar_t);}
 
+  //FIXME we may not need this now that we use pass "wchar_t" rather 
+  //than "UTF-32" in the default case.
   //Microsoft uses a different wchar_t from the rest of the world - grrr... 
 #ifdef WIN32
   DEBUGCODE {fprintf(stderr, "WIN32, using UTF-16LE for wchar_t\n");}
   conv_descr = iconv_open("UTF-8", "UTF-16LE");
 #else
-//#ifdef __APPLE__
   DEBUGCODE {fprintf(stderr, "Using wchar_t for wchar_t\n");}
   conv_descr = iconv_open("UTF-8", "wchar_t");
-//#else
-//  DEBUGCODE {fprintf(stderr, "Neither WIN32 nor APPLE, using wchar_t 
-//for wchar_t\n");}
-//  conv_descr = iconv_open("UTF-8", "wchar_t");
-//#endif
 #endif
 
   bytes_converted = iconv(conv_descr,

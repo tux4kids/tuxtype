@@ -239,7 +239,8 @@ target_vendor = @target_vendor@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 SUBDIRS = en
-dist_doc_DATA = AUTHORS \
+dist_doc_DATA = ../ABOUT-NLS \
+  AUTHORS \
   COPYING \
   ChangeLog \
   INSTALL \

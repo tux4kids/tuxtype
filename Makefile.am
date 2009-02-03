@@ -23,14 +23,10 @@ NSI_TEMP_INSTALL_DIR=$(abs_top_builddir)/_instw32
 
 ##FIXME redo with proper Automake variables: 
 install-data-local:
-	$(MKDIR_P) $(DESTDIR)$(prefix)/doc/$(PACKAGE)
-	$(INSTALL_DATA) $(srcdir)/ChangeLog $(DESTDIR)$(prefix)/doc/$(PACKAGE)/ChangeLog
 	$(MKDIR_P) $(DESTDIR)$(prefix)/share/$(PACKAGE)
 	$(INSTALL_DATA) $(srcdir)/tuxtype.ico $(DESTDIR)$(prefix)/share/$(PACKAGE)/tuxtype.ico
 
 uninstall-local:
-	-rm -f $(DESTDIR)$(prefix)/doc/$(PACKAGE)/ChangeLog
-	-rm -rf $(DESTDIR)$(prefix)/doc/$(PACKAGE)
 	-rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/tuxtype.ico
 	-rm -rf $(DESTDIR)$(prefix)/share/$(PACKAGE)
 
@@ -39,6 +35,8 @@ uninstall-local:
 # Rule to build tar-gzipped distribution package
 $(PACKAGE)-$(VERSION).tar.gz: distcheck
 
+#FIXME this won't really work.  Build for rpm packages now automated at
+#http://build.opensuse.org in "Education" project - DSB
 # Rule to build RPM distribution package
 rpm: $(PACKAGE)-$(VERSION).tar.gz
 	rpmbuild -ta $(PACKAGE)-$(VERSION).tar.gz

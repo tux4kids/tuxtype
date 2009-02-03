@@ -1,3 +1,151 @@
+03 Feb 2009 - svn revision 856
+Version 1.7.3
+[ David Bruce <davidstuartbruce@gmail.com> ]
+        - updated LoadFont() to include the hard-coded hackery for all of the
+          bundled fonts.  Also, (IMPORTANT), now the function attempts to load
+          the default font if it fails to load the desired font, instead of 
+          just segfaulting.  An appropriate message is printed to stderr.
+        - fix to ConvertToUTF8() to support correct behavior on MacOSX
+        - fix to top-level Makefile.am because a file was going into $prefix/doc/PACKAGE
+          rather than the correct $prefix/share/doc/PACKAGE
+
+14 Jan 2009 - svn revision 856
+[ David Bruce <davidstuartbruce@gmail.com> ]
+        - fixed SetupPaths() - really, the correct path should _always_ be 
+          DATA_PREFIX, and SetupPaths() should just confirm that and check for
+          the theme data path under it.  There should be no need for the hard-
+          coded choices, which were just covering up the mistake.
+
+
+14 Jan 2009 - svn revision 844
+
+Version 1.7.2
+[ David Bruce <davidstuartbruce@gmail.com> ]
+        - fixed crashing bug in cascade game in fullscreen due to size of blit
+          queue not being big enough.
+        - fixed drawing glitch in cascade game where words with terminal 'W' had
+          not been getting fully erased in redraw
+        - changed title graphic to "TuxType" instead of "TuxType2"
+        - added opening sound "harp.wav" from Tux Paint.
+        - added rest of fonts needed for remaining Indic languages
+        - changed "warning" output from image loader so it only prints if debug on.
+
+12 Jan 2009 - svn revision 841
+Version 1.7.1
+[ David Bruce <davidstuartbruce@gmail.com> ]
+        - additional code to work around unreliability of setlocale() under 
+          Windows. We now set LANG for both the C compiler and OS as well, using
+          Bruno Haible's my_setenv() function from the GNU Gettext FAQ. Tuxtype
+          now starts in the correct language for the underlying OS, and also
+          switches translations with theme changes. It does not yet automatically
+          pick the correct theme on startup to match the current LANG.
+        - additional code in ConvertToUTF8() to handle Windows' 16-bit wchar_t vs.
+          unix's 32-bit wchar_t.
+
+10 Jan 2009 - svn revision 830
+[ David Bruce <davidstuartbruce@gmail.com> ]
+        - adaptation of menu code for lessons activity so as to be consistent with
+          rest of menus.
+
+
+08 Jan 2009 - svn revision 830
+[ David Bruce <davidstuartbruce@gmail.com> ]
+        - adaptation of menu code for lessons activity so as to be consistent with
+          rest of menus.
+
+06 Jan 2009 - svn revision 822
+[ David Bruce <davidstuartbruce@gmail.com> ]
+        - Bugfix to prevent BlackOutline() from segfault if passed empty string
+        - incorporation of several small patches from OpenSuse (thanks Lars Vogdt)
+
+05 Jan 2009 - svn revision 821
+[ David Bruce <davidstuartbruce@gmail.com> ]
+        - Bugfix for path for bundled fonts - caused error when run on non-Debian
+          systems.
+
+10 Dec 2008 - svn revision 795
+Version 1.7.0
+[ David Bruce <davidstuartbruce@gmail.com> ]
+        - First release following 2008 Google Summer of Code.
+        - Several major enhancements:
+        - GNU gettext used for internationalization (M. Mohan)
+        - Themes and translations for multiple additional
+          Indic languages (M. Mohan)
+        - Graphical keyboard hint system (Sreyas K.)
+        - Rewritten phrase practice activity (D. Bruce)
+        - Fullscreen mode at native resolution (D. Bruce)
+
+2008-11-22  gettextize  <bug-gnu-gettext@gnu.org>
+
+	* m4/gettext.m4: Upgrade to gettext-0.17.
+	* m4/iconv.m4: Upgrade to gettext-0.17.
+	* m4/lib-link.m4: Upgrade to gettext-0.17.
+	* m4/po.m4: Upgrade to gettext-0.17.
+	* m4/intdiv0.m4: Upgrade to gettext-0.17.
+	* m4/intl.m4: Upgrade to gettext-0.17.
+	* m4/intlmacosx.m4: New file, from gettext-0.17.
+	* m4/lock.m4: Upgrade to gettext-0.17.
+	* m4/longlong.m4: Upgrade to gettext-0.17.
+	* m4/printf-posix.m4: Upgrade to gettext-0.17.
+	* m4/size_max.m4: Upgrade to gettext-0.17.
+	* m4/uintmax_t.m4: Upgrade to gettext-0.17.
+	* m4/wint_t.m4: Upgrade to gettext-0.17.
+	* Makefile.am (SUBDIRS): Add intl.
+	* configure.ac (AC_CONFIG_FILES): Add intl/Makefile.
+	(AM_GNU_GETTEXT_VERSION): Bump to 0.17.
+
+05 Nov 2008 - svn revision 765
+[ David Bruce <davidstuartbruce@gmail.com> ]
+        - Practice activity revised to get it to handle single phrase passed as function
+          argument so it again plays nicely with "Lessons"
+
+13 Oct 2008 - svn revision 760
+[ David Bruce <davidstuartbruce@gmail.com> ]
+        - Lots more work on fullscreen mode with Fish Cascade working but a little slow
+        - Practice activity extensively reworked - wrapping of arbitrary length phrases,
+          rearrangement of screen layout, fullscreen mode supported, animated Tux icons,
+          onscreen display of time, chars, words per min, accuracy with gettext support.
+
+22 Aug 2008 - svn revision 668
+[ David Bruce <davidstuartbruce@gmail.com> ]
+        - Extensive revision to support fullscreen mode at resolution of OS rather than only 640x480.
+          Menu system and comet zap work, fish cascade now works in fullscreen but cannot handle
+          toggle of resolution in midstream; practice and lessons still need to be fixed to 
+          handle new fullscreen mode.
+        - Using GNU iconv() instead of Unicode Inc.'s conversion code
+        - SDL_extras brought in from tuxmath for DrawButton(), streamlined BlackOutline(), etc.
+
+18 Aug 2008 -svn revision 652
+[ Mobin Mohan <mobinmohan@gmail.com> ]
+	-GUI for editing wordlist Implemented
+
+18 Aug 2008 - svn revision 647
+[ Sreyas Kurumanghat <k.sreyas@gmail.com ]
+	- Added features to practice game. Now pressing the down arrow presents the next phrase for practice and the escape key quits from the game.
+
+18 Aug 2008 - svn revision 646
+[ Sreyas Kurumanghat <k.sreyas@gmail.com ]
+	- Added pango support and rendering to practice game.
+
+14 Aug 2008 -svn revision 622
+[ Mobin Mohan <mobinmohan@gmail.com> ]
+	-gettextize  <bug-gnu-gettext@gnu.org>
+	-Added GNU Gettext Support
+	-Removed lang.po and created .po file for each theme in po directory
+
+3 Aug 2008 - svn revision 599
+[ Sreyas Kurumanghat <k.sreyas@gmail.com ]
+	- Added keypress details for wrong key pressed in practice.
+
+3 Aug 2008 - svn revision 580
+[ Sreyas Kurumanghat <k.sreyas@gmail.com ]
+	- Added automatic keyboard layout generation in practice.c.
+	- Modified the keyboard.lst file format. The current format can be any of the three below:
+	- char
+	- finger|char
+	- finger|char|latin character
+	- Features added so that the information about the keyboard gets updated each time the game is run.
+
 13 Apr 2008 - svn revision 460
 [ David Bruce <dbruce@tampabay.rr.com> ]
        - fixed small typo bug in alphabet.c (thanks Patrick Winnertz)
