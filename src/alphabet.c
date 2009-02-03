@@ -813,22 +813,22 @@ int ConvertFromUTF8(wchar_t* wide_word, const unsigned char* UTF8_word)
 int ConvertToUTF8(wchar_t* wide_word, unsigned char* UTF8_word)
 {
   int i = 0;
-  UTF8 temp_UTF8[1024];
-  wchar_t temp_wchar_t[1024];
+  unsigned char temp_UTF8[1024];
+//  wchar_t temp_wchar_t[1024];
 
-  UTF8* UTF8_Start = &temp_UTF8[0];
+  unsigned char* UTF8_Start = temp_UTF8;
   UTF8* UTF8_End = &temp_UTF8[1024 - 1];
-  const wchar_t* wchar_t_Start = &temp_wchar_t[0];
-  const wchar_t* wchar_t_End = &temp_wchar_t[1024 - 1];
+//  const wchar_t* wchar_t_Start = &temp_wchar_t[0];
+//  const wchar_t* wchar_t_End = &temp_wchar_t[1024 - 1];
   
   iconv_t conv_descr;
   size_t bytes_converted;
   size_t in_length = (size_t)1024;
   size_t out_length = (size_t)1024;
-  wcsncpy(temp_wchar_t, wide_word, 1024);
+//  wcsncpy(temp_wchar_t, wide_word, 1024);
 
   DEBUGCODE {fprintf(stderr, "ConvertToUTF8(): wide_word = %S\n", wide_word);}
-  DEBUGCODE {fprintf(stderr, "ConvertToUTF8(): temp_wchar_t = %S\n", temp_wchar_t);}
+//  DEBUGCODE {fprintf(stderr, "ConvertToUTF8(): temp_wchar_t = %S\n", temp_wchar_t);}
 
   //FIXME we may not need this now that we use pass "wchar_t" rather 
   //than "UTF-32" in the default case.
@@ -842,7 +842,8 @@ int ConvertToUTF8(wchar_t* wide_word, unsigned char* UTF8_word)
 #endif
 
   bytes_converted = iconv(conv_descr,
-                          &wchar_t_Start, &in_length,
+                          &wide_word, &in_length,
+//                          &temp_UTF8, &out_length);
                           &UTF8_Start, &out_length);
   LOG("completed iconv()\n");
  
