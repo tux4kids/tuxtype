@@ -107,7 +107,7 @@ static void next_letter(wchar_t *t, int c);
 static int practice_load_media(void);
 static void practice_unload_media(void);
 static void print_at(const wchar_t* pphrase, int wrap, int x, int y);
-static void show(unsigned char t);
+static void show(char t);
 SDL_Surface* GetKeypress1(int index);
 SDL_Surface* GetKeypress2(int index);
 SDL_Surface* GetWrongKeypress(int index);
@@ -857,8 +857,8 @@ static void calc_font_sizes(void)
 static int practice_load_media(void)
 {
   int i;	
-  unsigned char fn[FNLEN];
-  unsigned char let[5];
+  char fn[FNLEN];
+  char let[5];
   int load_failed = 0;
 
   DEBUGCODE { printf("Entering practice_load_media\n"); }
@@ -1220,7 +1220,7 @@ static void practice_unload_media(void)
 
 
 /* looks like dead code: */
-static void show(unsigned char t)
+static void show(char t)
 {
   SDL_Rect dst;
   SDL_Surface* s = NULL;
@@ -1306,7 +1306,7 @@ static int load_phrases(const char* phrase_file)
 static int find_next_wrap(const wchar_t* wstr, const TTF_Font* font, int width)
 {
   wchar_t buf[MAX_PHRASE_LENGTH];
-  unsigned char UTF8buf[MAX_PHRASE_LENGTH];
+  char UTF8buf[MAX_PHRASE_LENGTH];
 
   int word_end = -1;
   int prev_word_end = -1;

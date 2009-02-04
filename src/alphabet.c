@@ -762,7 +762,7 @@ int check_needed_unicodes_str(const wchar_t* s)
 /* It returns -1 on error, otherwise returns the length of the   */
 /* converted, null-terminated wchar_t* string now stored in the  */
 /* location of the 'wide_word' pointer.                          */
-int ConvertFromUTF8(wchar_t* wide_word, const unsigned char* UTF8_word)
+int ConvertFromUTF8(wchar_t* wide_word, const char* UTF8_word)
 {
   int i = 0;
   ConversionResult result;
@@ -810,22 +810,21 @@ int ConvertFromUTF8(wchar_t* wide_word, const unsigned char* UTF8_word)
 
 /******************To be used for savekeyboard*************/
 /***Converts wchar_t string to char string*****************/
-int ConvertToUTF8(wchar_t* wide_word, unsigned char* UTF8_word)
+int ConvertToUTF8(const wchar_t* wide_word, char* UTF8_word)
 {
   int i = 0;
-  unsigned char temp_UTF8[1024];
-//  wchar_t temp_wchar_t[1024];
+  char temp_UTF8[1024];
+  /* NOTE we need this because iconv_open() needs a char**.  We can't   */
+  /* just pass "&temp_UTF8" because "temp_UTF8" is really a shorthand   */
+  /* for "&temp_UTF8[0]", not its own memory location, so it doesn't    */
+  /* have its own address. We ought to be able to do this directly into */
+  /* into the argument UTF8_word string, but so far have had errors.    */
+  char* UTF8_Start = temp_UTF8;
 
-  unsigned char* UTF8_Start = temp_UTF8;
-  UTF8* UTF8_End = &temp_UTF8[1024 - 1];
-//  const wchar_t* wchar_t_Start = &temp_wchar_t[0];
-//  const wchar_t* wchar_t_End = &temp_wchar_t[1024 - 1];
-  
   iconv_t conv_descr;
   size_t bytes_converted;
   size_t in_length = (size_t)1024;
   size_t out_length = (size_t)1024;
-//  wcsncpy(temp_wchar_t, wide_word, 1024);
 
   DEBUGCODE {fprintf(stderr, "ConvertToUTF8(): wide_word = %S\n", wide_word);}
 //  DEBUGCODE {fprintf(stderr, "ConvertToUTF8(): temp_wchar_t = %S\n", temp_wchar_t);}
@@ -843,29 +842,13 @@ int ConvertToUTF8(wchar_t* wide_word, unsigned char* UTF8_word)
 
   bytes_converted = iconv(conv_descr,
                           &wide_word, &in_length,
-//                          &temp_UTF8, &out_length);
+//                          &UTF8_word, &out_length);
                           &UTF8_Start, &out_length);
   LOG("completed iconv()\n");
  
   iconv_close(conv_descr);
 
-  UTF8_word[0] = 0;
-
-  while ((i < 1024) && (temp_UTF8[i] != 0))
-  {
-    UTF8_word[i] = temp_UTF8[i];
-    i++; 
-  }
-
-  if (i >= 1024)
-  {
-    fprintf(stderr, "ConvertToUTF8(): buffer overflow\n");
-    return -1;
-  }
-  else  //need terminating null:
-  {
-    UTF8_word[i] = '\0';
-  }
+  strncpy(UTF8_word, temp_UTF8, 256);
 
   DEBUGCODE {fprintf(stderr, "ConvertToUTF8(): UTF8_word = %s\n", UTF8_word);}
   DEBUGCODE {fprintf(stderr, "ConvertToUTF8(): temp_UTF8 = %s\n", temp_UTF8);}
