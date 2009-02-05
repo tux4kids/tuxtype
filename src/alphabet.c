@@ -827,11 +827,9 @@ int ConvertToUTF8(const wchar_t* wide_word, char* UTF8_word)
   size_t out_length = (size_t)1024;
 
   DEBUGCODE {fprintf(stderr, "ConvertToUTF8(): wide_word = %S\n", wide_word);}
-//  DEBUGCODE {fprintf(stderr, "ConvertToUTF8(): temp_wchar_t = %S\n", temp_wchar_t);}
 
-  //FIXME we may not need this now that we use pass "wchar_t" rather 
-  //than "UTF-32" in the default case.
-  //Microsoft uses a different wchar_t from the rest of the world - grrr... 
+  /* NOTE although we *should* be just able to pass "wchar_t" as the in_type, */
+  /* iconv_open() segfaults on Windows if this is done - grrr....             */
 #ifdef WIN32
   DEBUGCODE {fprintf(stderr, "WIN32, using UTF-16LE for wchar_t\n");}
   conv_descr = iconv_open("UTF-8", "UTF-16LE");
