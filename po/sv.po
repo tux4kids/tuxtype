@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tuxtype2\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2009-02-03 06:51-0600\n"
+"POT-Creation-Date: 2009-02-08 19:09-0600\n"
 "PO-Revision-Date: 2008-12-02 19:51+0100\n"
 "Last-Translator: Göran Uddeborg <goeran@uddeborg.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
@@ -15,71 +15,18 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/loaders.c:88 src/main.c:150 src/playgame.c:1117
+#: src/loaders.c:88 src/main.c:150
 msgid "Fish"
 msgstr "Fisk"
-
-#: src/pause.c:279
-msgid "Sound Effects Volume"
-msgstr "Ljudeffektvolym"
-
-#: src/pause.c:288
-msgid "Music Volume"
-msgstr "Musikvolym"
-
-#: src/pause.c:299
-msgid "Sound & Music Disabled"
-msgstr "Ljud och musik avaktiverade"
-
-#: src/pause.c:309
-msgid "Paused!"
-msgstr "Pausat!"
-
-#: src/pause.c:318
-msgid "Press escape again to return to menu"
-msgstr "Tryck escape igen för att komma tillbaka till menyn"
-
-#: src/pause.c:327
-msgid "Press space bar to return to game"
-msgstr "Tryck mellanslag för att fortsätta spela"
-
-#: src/playgame.c:1115
-msgid "Level"
-msgstr "Nivå"
-
-#: src/playgame.c:1116
-msgid "Lives"
-msgstr "Liv"
-
-# levels for Cascade game:
-#: src/playgame.c:1119 src/titlescreen.c:95
-msgid "Easy"
-msgstr "Lätt"
-
-#: src/playgame.c:1120 src/titlescreen.c:96
-msgid "Medium"
-msgstr "Mellan"
-
-#: src/playgame.c:1121 src/titlescreen.c:97
-msgid "Hard"
-msgstr "Svårt"
-
-# general stuff
-#: src/playgame.c:1122
-msgid "Practice"
-msgstr "Övning"
-
-#: src/playgame.c:1133
-msgid "Congratulations"
-msgstr "Gratulerar"
-
-#: src/playgame.c:1137
-msgid "Oh No!"
-msgstr "Åh nej!"
 
 #: src/titlescreen.c:95
 msgid "Fish Cascade"
 msgstr "Fiskregn"
+
+# levels for Cascade game:
+#: src/titlescreen.c:95
+msgid "Easy"
+msgstr "Lätt"
 
 # "Space Cadet" is level 1 in comet zap
 #: src/titlescreen.c:95
@@ -95,6 +42,10 @@ msgstr "Redigera ordlista"
 msgid "Comet Zap"
 msgstr "Pricka kometer"
 
+#: src/titlescreen.c:96
+msgid "Medium"
+msgstr "Mellan"
+
 # "Pilot" is level 2 in comet zap
 #: src/titlescreen.c:96
 msgid "Pilot"
@@ -107,6 +58,10 @@ msgstr ""
 #: src/titlescreen.c:97
 msgid "Lessons"
 msgstr "Lektioner"
+
+#: src/titlescreen.c:97
+msgid "Hard"
+msgstr "Svårt"
 
 # "Ace" is level 3 in comet zap
 #: src/titlescreen.c:97
@@ -154,6 +109,40 @@ msgstr "Denna funktion är inte färdig än"
 #: src/titlescreen.c:1154
 msgid "Discuss the future of TuxTyping at"
 msgstr "Diskutera TyxeTypes framtid på"
+
+#~ msgid "Sound Effects Volume"
+#~ msgstr "Ljudeffektvolym"
+
+#~ msgid "Music Volume"
+#~ msgstr "Musikvolym"
+
+#~ msgid "Sound & Music Disabled"
+#~ msgstr "Ljud och musik avaktiverade"
+
+#~ msgid "Paused!"
+#~ msgstr "Pausat!"
+
+#~ msgid "Press escape again to return to menu"
+#~ msgstr "Tryck escape igen för att komma tillbaka till menyn"
+
+#~ msgid "Press space bar to return to game"
+#~ msgstr "Tryck mellanslag för att fortsätta spela"
+
+#~ msgid "Level"
+#~ msgstr "Nivå"
+
+#~ msgid "Lives"
+#~ msgstr "Liv"
+
+# general stuff
+#~ msgid "Practice"
+#~ msgstr "Övning"
+
+#~ msgid "Congratulations"
+#~ msgstr "Gratulerar"
+
+#~ msgid "Oh No!"
+#~ msgstr "Åh nej!"
 
 # general stuff
 #, fuzzy

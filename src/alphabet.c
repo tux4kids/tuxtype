@@ -1,6 +1,6 @@
 /***************************************************************************
                           alphabet.c 
- -  description: Init SDL
+
                              -------------------
     begin                : Jan 6 2003
     copyright            : (C) 2003 by Jesse Andrews
@@ -21,9 +21,7 @@ Sreyas Kurumanghat <k.sreyas@gmail.com>
 
 
 /* Needed to convert UTF-8 under Windows because we don't have glibc: */
-#include "ConvertUTF.h"
-#include "iconv_string.h"
-#include <iconv.h>
+#include "convert_utf.h"
 
 #include "globals.h"
 #include "funcs.h"
@@ -152,7 +150,7 @@ int LoadKeyboard(void)
       fscanf( f, "%[^\n]\n", str);
       /* Convert to wcs from UTF-8, if needed; */
       //mbstowcs(wide_str, str, strlen(str) + 1);
-      ConvertFromUTF8(wide_str, str);
+      ConvertFromUTF8(wide_str, str, 255);
 
       /* Line must have 3 chars (if more, rest are ignored) */
       /* Format is: FINGER|Char  e.g   "3|d"                */
@@ -531,7 +529,7 @@ int GenerateWordList(const char* wordFn)
     /* NOTE need to add one to length arg so terminating '\0' gets added: */
     //length = mbstowcs(temp_wide_word, temp_word, strlen(temp_word) + 1);
 
-    length = ConvertFromUTF8(temp_wide_word, temp_word);
+    length = ConvertFromUTF8(temp_wide_word, temp_word, FNLEN);
     DOUT(length);
 
     if (length == -1)  /* Means invalid UTF-8 sequence or conversion failed */
@@ -751,113 +749,11 @@ int check_needed_unicodes_str(const wchar_t* s)
   return 1;
 }
 
-/* FIXME should be able to use iconv() for this one but have not */
-/* gotten it to work properly - staying with Unicode Inc.        */
-/* implementation for now.
-/* FIXME this doesn't take into account the difference in wchar_t */
-/* between Windows (16 bits) and the rest of the world (32 bits)  */
-
-/* This function just tidies up all the ptr args needed for      */
-/* ConvertUTF8toUTF32() from Unicode, Inc. into a neat wrapper.  */
-/* It returns -1 on error, otherwise returns the length of the   */
-/* converted, null-terminated wchar_t* string now stored in the  */
-/* location of the 'wide_word' pointer.                          */
-int ConvertFromUTF8(wchar_t* wide_word, const char* UTF8_word)
-{
-  int i = 0;
-  ConversionResult result;
-  UTF8 temp_UTF8[FNLEN];
-  UTF32 temp_UTF32[FNLEN];
-
-  const UTF8* UTF8_Start = temp_UTF8;
-  const UTF8* UTF8_End = &temp_UTF8[FNLEN-1];
-  UTF32* UTF32_Start = temp_UTF32;
-  UTF32* UTF32_End = &temp_UTF32[FNLEN-1];
-
-  strncpy(temp_UTF8, UTF8_word, FNLEN);
-
-  ConvertUTF8toUTF32(&UTF8_Start, UTF8_End,
-                     &UTF32_Start, UTF32_End, 0);
-
-  wide_word[0] = '\0';
-
-  while ((i < FNLEN) && (temp_UTF32[i] != '\0'))
-  {
-    wide_word[i] = temp_UTF32[i];
-    i++; 
-  }
-
-  if (i >= FNLEN)
-  {
-    fprintf(stderr, "convert_from_UTF8(): buffer overflow\n");
-    return -1;
-  }
-  else  //need terminating null:
-  {
-    wide_word[i] = '\0';
-  }
-
-  DEBUGCODE {fprintf(stderr, "wide_word = %ls\t", wide_word);}
-  DEBUGCODE {fprintf(stderr, "wcslen(wide_word) = %d\n", wcslen(wide_word));}
-
-  return wcslen(wide_word);
-}
-
-
-/* Now this uses GNU iconv and works correctly!   */
-/* This probably could be simplified - not certain */
-/* we have to copy into and out of the buffers     */
-
-/******************To be used for savekeyboard*************/
-/***Converts wchar_t string to char string*****************/
-int ConvertToUTF8(const wchar_t* wide_word, char* UTF8_word)
-{
-  int i = 0;
-  char temp_UTF8[1024];
-  /* NOTE we need this because iconv_open() needs a char**.  We can't   */
-  /* just pass "&temp_UTF8" because "temp_UTF8" is really a shorthand   */
-  /* for "&temp_UTF8[0]", not its own memory location, so it doesn't    */
-  /* have its own address. We ought to be able to do this directly into */
-  /* into the argument UTF8_word string, but so far have had errors.    */
-  char* UTF8_Start = temp_UTF8;
-
-  iconv_t conv_descr;
-  size_t bytes_converted;
-  size_t in_length = (size_t)1024;
-  size_t out_length = (size_t)1024;
-
-  DEBUGCODE {fprintf(stderr, "ConvertToUTF8(): wide_word = %S\n", wide_word);}
-
-  /* NOTE although we *should* be just able to pass "wchar_t" as the in_type, */
-  /* iconv_open() segfaults on Windows if this is done - grrr....             */
-#ifdef WIN32
-  DEBUGCODE {fprintf(stderr, "WIN32, using UTF-16LE for wchar_t\n");}
-  conv_descr = iconv_open("UTF-8", "UTF-16LE");
-#else
-  DEBUGCODE {fprintf(stderr, "Using wchar_t for wchar_t\n");}
-  conv_descr = iconv_open("UTF-8", "wchar_t");
-#endif
-
-  bytes_converted = iconv(conv_descr,
-                          &wide_word, &in_length,
-//                          &UTF8_word, &out_length);
-                          &UTF8_Start, &out_length);
-  LOG("completed iconv()\n");
- 
-  iconv_close(conv_descr);
-
-  strncpy(UTF8_word, temp_UTF8, 256);
-
-  DEBUGCODE {fprintf(stderr, "ConvertToUTF8(): UTF8_word = %s\n", UTF8_word);}
-  DEBUGCODE {fprintf(stderr, "ConvertToUTF8(): temp_UTF8 = %s\n", temp_UTF8);}
-
-  return strlen(UTF8_word);
-}
 
 
 
 /******************************************************************/
-int map_keys(wchar_t wide_char,kbd_char* keyboard_entry)
+int map_keys(wchar_t wide_char, kbd_char* keyboard_entry)
 {
 	switch(wide_char)
 	{
@@ -1343,7 +1239,7 @@ void savekeyboard(void)
 	{
 		tmp[0]=keyboard_list[i].unicode_value;
 		/**********fprintf(fp,"%d|%C\n",keyboard_list[i].finger,keyboard_list[i].unicode_value); doesnt work, so the unicode value is converted into a char string*/
-		ConvertToUTF8(tmp, buf);
+		ConvertToUTF8(tmp, buf, FNLEN);
 		if(keyboard_list[i].finger==-1)
 		{
 			fprintf(fp,"%s\n",buf);
@@ -1419,7 +1315,7 @@ void GenCharListFromString(const unsigned char* UTF8_str)
   int i = 0;
   wchar_t wchar_buf[MAX_UNICODES];
 
-  ConvertFromUTF8(wchar_buf, UTF8_str);
+  ConvertFromUTF8(wchar_buf, UTF8_str, MAX_UNICODES);
 
   /* FNLEN is max length of phrase (I think) */
   while (wchar_buf[i] != '\0' && i < FNLEN) 

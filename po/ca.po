@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tux Typing 1.5.16\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2009-02-03 06:51-0600\n"
+"POT-Creation-Date: 2009-02-08 19:09-0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Mobin M <mobinmohan@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,73 +16,18 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/loaders.c:88 src/main.c:150 src/playgame.c:1117
+#: src/loaders.c:88 src/main.c:150
 msgid "Fish"
 msgstr "Peix"
-
-#: src/pause.c:279
-msgid "Sound Effects Volume"
-msgstr "Volum dels efectes de só"
-
-#: src/pause.c:288
-msgid "Music Volume"
-msgstr "Volum de la música"
-
-#: src/pause.c:299
-msgid "Sound & Music Disabled"
-msgstr "S'ha inhabilitat el só i la música"
-
-#: src/pause.c:309
-msgid "Paused!"
-msgstr "En pausa!"
-
-#: src/pause.c:318
-#, fuzzy
-msgid "Press escape again to return to menu"
-msgstr "Torneu a prèmer escape per tornar al menú"
-
-#: src/pause.c:327
-#, fuzzy
-msgid "Press space bar to return to game"
-msgstr "Premeu 'espai' per tornar al joc"
-
-#: src/playgame.c:1115
-msgid "Level"
-msgstr "Nivell"
-
-#: src/playgame.c:1116
-msgid "Lives"
-msgstr "Vides"
-
-# levels for Cascade game:
-#: src/playgame.c:1119 src/titlescreen.c:95
-msgid "Easy"
-msgstr "Fàcil"
-
-#: src/playgame.c:1120 src/titlescreen.c:96
-msgid "Medium"
-msgstr "Mitg"
-
-#: src/playgame.c:1121 src/titlescreen.c:97
-msgid "Hard"
-msgstr "Difícil"
-
-# general stuff
-#: src/playgame.c:1122
-msgid "Practice"
-msgstr "Practicar"
-
-#: src/playgame.c:1133
-msgid "Congratulations"
-msgstr "L'enhorabona!"
-
-#: src/playgame.c:1137
-msgid "Oh No!"
-msgstr "Oh No!"
 
 #: src/titlescreen.c:95
 msgid "Fish Cascade"
 msgstr "Caiguda de peixos"
+
+# levels for Cascade game:
+#: src/titlescreen.c:95
+msgid "Easy"
+msgstr "Fàcil"
 
 # "Space Cadet" is level 1 in comet zap
 #: src/titlescreen.c:95
@@ -98,6 +43,10 @@ msgstr "Editar les llistes de paraules"
 msgid "Comet Zap"
 msgstr "Caiguda de meteorits"
 
+#: src/titlescreen.c:96
+msgid "Medium"
+msgstr "Mitg"
+
 # "Pilot" is level 2 in comet zap
 #: src/titlescreen.c:96
 msgid "Pilot"
@@ -110,6 +59,10 @@ msgstr ""
 #: src/titlescreen.c:97
 msgid "Lessons"
 msgstr "Llissons"
+
+#: src/titlescreen.c:97
+msgid "Hard"
+msgstr "Difícil"
 
 # "Ace" is level 3 in comet zap
 #: src/titlescreen.c:97
@@ -158,6 +111,42 @@ msgstr "Encara no implementat"
 #: src/titlescreen.c:1154
 msgid "Discuss the future of TuxTyping at"
 msgstr "Podeu parlar sobre el futur de TuxTyping a"
+
+#~ msgid "Sound Effects Volume"
+#~ msgstr "Volum dels efectes de só"
+
+#~ msgid "Music Volume"
+#~ msgstr "Volum de la música"
+
+#~ msgid "Sound & Music Disabled"
+#~ msgstr "S'ha inhabilitat el só i la música"
+
+#~ msgid "Paused!"
+#~ msgstr "En pausa!"
+
+#, fuzzy
+#~ msgid "Press escape again to return to menu"
+#~ msgstr "Torneu a prèmer escape per tornar al menú"
+
+#, fuzzy
+#~ msgid "Press space bar to return to game"
+#~ msgstr "Premeu 'espai' per tornar al joc"
+
+#~ msgid "Level"
+#~ msgstr "Nivell"
+
+#~ msgid "Lives"
+#~ msgstr "Vides"
+
+# general stuff
+#~ msgid "Practice"
+#~ msgstr "Practicar"
+
+#~ msgid "Congratulations"
+#~ msgstr "L'enhorabona!"
+
+#~ msgid "Oh No!"
+#~ msgstr "Oh No!"
 
 # general stuff
 #, fuzzy

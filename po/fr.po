@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tux Typing 1.5.16\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2009-02-03 06:51-0600\n"
+"POT-Creation-Date: 2009-02-08 19:09-0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,73 +16,18 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/loaders.c:88 src/main.c:150 src/playgame.c:1117
+#: src/loaders.c:88 src/main.c:150
 msgid "Fish"
 msgstr "Poissons"
-
-#: src/pause.c:279
-msgid "Sound Effects Volume"
-msgstr "Volume des Effets de Son"
-
-#: src/pause.c:288
-msgid "Music Volume"
-msgstr "Volume de la Musique"
-
-#: src/pause.c:299
-msgid "Sound & Music Disabled"
-msgstr "Son & Musique teints"
-
-#: src/pause.c:309
-msgid "Paused!"
-msgstr "Pause!"
-
-#: src/pause.c:318
-#, fuzzy
-msgid "Press escape again to return to menu"
-msgstr "appuyez encore sur escape pour retourner au menu"
-
-#: src/pause.c:327
-#, fuzzy
-msgid "Press space bar to return to game"
-msgstr "taper la touche espace pour jouer"
-
-#: src/playgame.c:1115
-msgid "Level"
-msgstr "Niveau"
-
-#: src/playgame.c:1116
-msgid "Lives"
-msgstr "Vies"
-
-# levels for Cascade game:
-#: src/playgame.c:1119 src/titlescreen.c:95
-msgid "Easy"
-msgstr "Facile"
-
-#: src/playgame.c:1120 src/titlescreen.c:96
-msgid "Medium"
-msgstr "Moyen"
-
-#: src/playgame.c:1121 src/titlescreen.c:97
-msgid "Hard"
-msgstr "Fort"
-
-# general stuff
-#: src/playgame.c:1122
-msgid "Practice"
-msgstr "Pratique"
-
-#: src/playgame.c:1133
-msgid "Congratulations"
-msgstr "Flicitations"
-
-#: src/playgame.c:1137
-msgid "Oh No!"
-msgstr "Oh Non!"
 
 #: src/titlescreen.c:95
 msgid "Fish Cascade"
 msgstr "Cascade de Poissons"
+
+# levels for Cascade game:
+#: src/titlescreen.c:95
+msgid "Easy"
+msgstr "Facile"
 
 # "Space Cadet" is level 1 in comet zap
 #: src/titlescreen.c:95
@@ -98,6 +43,10 @@ msgstr "Editer la Liste de Mots"
 msgid "Comet Zap"
 msgstr "Destruction de Comtes"
 
+#: src/titlescreen.c:96
+msgid "Medium"
+msgstr "Moyen"
+
 # "Pilot" is level 2 in comet zap
 #: src/titlescreen.c:96
 msgid "Pilot"
@@ -110,6 +59,10 @@ msgstr ""
 #: src/titlescreen.c:97
 msgid "Lessons"
 msgstr "Leons"
+
+#: src/titlescreen.c:97
+msgid "Hard"
+msgstr "Fort"
 
 # "Ace" is level 3 in comet zap
 #: src/titlescreen.c:97
@@ -158,6 +111,42 @@ msgstr "Cette fonctionnalit n'est pas termine"
 #: src/titlescreen.c:1154
 msgid "Discuss the future of TuxTyping at"
 msgstr "Parler du futur de TuxTyping a"
+
+#~ msgid "Sound Effects Volume"
+#~ msgstr "Volume des Effets de Son"
+
+#~ msgid "Music Volume"
+#~ msgstr "Volume de la Musique"
+
+#~ msgid "Sound & Music Disabled"
+#~ msgstr "Son & Musique teints"
+
+#~ msgid "Paused!"
+#~ msgstr "Pause!"
+
+#, fuzzy
+#~ msgid "Press escape again to return to menu"
+#~ msgstr "appuyez encore sur escape pour retourner au menu"
+
+#, fuzzy
+#~ msgid "Press space bar to return to game"
+#~ msgstr "taper la touche espace pour jouer"
+
+#~ msgid "Level"
+#~ msgstr "Niveau"
+
+#~ msgid "Lives"
+#~ msgstr "Vies"
+
+# general stuff
+#~ msgid "Practice"
+#~ msgstr "Pratique"
+
+#~ msgid "Congratulations"
+#~ msgstr "Flicitations"
+
+#~ msgid "Oh No!"
+#~ msgstr "Oh Non!"
 
 # general stuff
 #, fuzzy

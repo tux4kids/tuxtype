@@ -29,10 +29,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: tuxtype 1.7.3\n"
+"Project-Id-Version: tuxtype 1.7.4\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2009-02-03 06:51-0600\n"
-"PO-Revision-Date: 2009-02-03 06:51-0600\n"
+"POT-Creation-Date: 2009-02-08 19:09-0600\n"
+"PO-Revision-Date: 2009-02-08 19:09-0600\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -40,69 +40,17 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: src/loaders.c:88 src/main.c:150 src/playgame.c:1117
+#: src/loaders.c:88 src/main.c:150
 msgid "Fish"
 msgstr "Fish"
-
-#: src/pause.c:279
-msgid "Sound Effects Volume"
-msgstr "Sound Effects Volume"
-
-#: src/pause.c:288
-msgid "Music Volume"
-msgstr "Music Volume"
-
-#: src/pause.c:299
-msgid "Sound & Music Disabled"
-msgstr "Sound & Music Disabled"
-
-#: src/pause.c:309
-msgid "Paused!"
-msgstr "Paused!"
-
-#: src/pause.c:318
-msgid "Press escape again to return to menu"
-msgstr "Press escape again to return to menu"
-
-#: src/pause.c:327
-msgid "Press space bar to return to game"
-msgstr "Press space bar to return to game"
-
-#: src/playgame.c:1115
-msgid "Level"
-msgstr "Level"
-
-#: src/playgame.c:1116
-msgid "Lives"
-msgstr "Lives"
-
-#: src/playgame.c:1119 src/titlescreen.c:95
-msgid "Easy"
-msgstr "Easy"
-
-#: src/playgame.c:1120 src/titlescreen.c:96
-msgid "Medium"
-msgstr "Medium"
-
-#: src/playgame.c:1121 src/titlescreen.c:97
-msgid "Hard"
-msgstr "Hard"
-
-#: src/playgame.c:1122
-msgid "Practice"
-msgstr "Practice"
-
-#: src/playgame.c:1133
-msgid "Congratulations"
-msgstr "Congratulations"
-
-#: src/playgame.c:1137
-msgid "Oh No!"
-msgstr "Oh No!"
 
 #: src/titlescreen.c:95
 msgid "Fish Cascade"
 msgstr "Fish Cascade"
+
+#: src/titlescreen.c:95
+msgid "Easy"
+msgstr "Easy"
 
 #: src/titlescreen.c:95
 msgid "Space Cadet"
@@ -117,6 +65,10 @@ msgid "Comet Zap"
 msgstr "Comet Zap"
 
 #: src/titlescreen.c:96
+msgid "Medium"
+msgstr "Medium"
+
+#: src/titlescreen.c:96
 msgid "Pilot"
 msgstr "Pilot"
 
@@ -127,6 +79,10 @@ msgstr "Phrase Typing"
 #: src/titlescreen.c:97
 msgid "Lessons"
 msgstr "Lessons"
+
+#: src/titlescreen.c:97
+msgid "Hard"
+msgstr "Hard"
 
 #: src/titlescreen.c:97
 msgid "Ace"

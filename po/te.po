@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tuxtype\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2009-02-03 06:51-0600\n"
+"POT-Creation-Date: 2009-02-08 19:09-0600\n"
 "PO-Revision-Date: 2008-08-28 17:58+0530\n"
 "Last-Translator: Krishna Babu K <kkrothap@redhat.com>\n"
 "Language-Team: Telugu <en@li.org>\n"
@@ -17,69 +17,17 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n!=1);\n"
 "\n"
 
-#: src/loaders.c:88 src/main.c:150 src/playgame.c:1117
+#: src/loaders.c:88 src/main.c:150
 msgid "Fish"
 msgstr "చాప"
-
-#: src/pause.c:279
-msgid "Sound Effects Volume"
-msgstr "ధ్వని ప్రభావాల శబ్ధం"
-
-#: src/pause.c:288
-msgid "Music Volume"
-msgstr "సంగీతపు శబ్ధం"
-
-#: src/pause.c:299
-msgid "Sound & Music Disabled"
-msgstr "ధ్వని & సంగీతం అచేతనంచేయబడింది"
-
-#: src/pause.c:309
-msgid "Paused!"
-msgstr "నిలువరించు!"
-
-#: src/pause.c:318
-msgid "Press escape again to return to menu"
-msgstr "ప్రధాన మెనూకు తిరిగివ్రాయుటకు ఎస్కేప్‌ను వత్తండి"
-
-#: src/pause.c:327
-msgid "Press space bar to return to game"
-msgstr "ఆటకు తిరిగివచ్చుటకు స్పేస్‌బార్‌ను వత్తండి"
-
-#: src/playgame.c:1115
-msgid "Level"
-msgstr "స్థాయి"
-
-#: src/playgame.c:1116
-msgid "Lives"
-msgstr "అవకాశాలు"
-
-#: src/playgame.c:1119 src/titlescreen.c:95
-msgid "Easy"
-msgstr "తేలికైన"
-
-#: src/playgame.c:1120 src/titlescreen.c:96
-msgid "Medium"
-msgstr "మధ్యతరగతి"
-
-#: src/playgame.c:1121 src/titlescreen.c:97
-msgid "Hard"
-msgstr "కష్టమైన"
-
-#: src/playgame.c:1122
-msgid "Practice"
-msgstr "సాధన"
-
-#: src/playgame.c:1133
-msgid "Congratulations"
-msgstr "అభినందనలు"
-
-#: src/playgame.c:1137
-msgid "Oh No!"
-msgstr "ఒహ్ కాదు!"
 
 #: src/titlescreen.c:95
 msgid "Fish Cascade"
 msgstr "చాప నీటిగుంట"
+
+#: src/titlescreen.c:95
+msgid "Easy"
+msgstr "తేలికైన"
 
 #: src/titlescreen.c:95
 msgid "Space Cadet"
@@ -94,6 +42,10 @@ msgid "Comet Zap"
 msgstr "కామెట్ జాప్"
 
 #: src/titlescreen.c:96
+msgid "Medium"
+msgstr "మధ్యతరగతి"
+
+#: src/titlescreen.c:96
 msgid "Pilot"
 msgstr "చోదకుడు(పైలెట్)"
 
@@ -104,6 +56,10 @@ msgstr ""
 #: src/titlescreen.c:97
 msgid "Lessons"
 msgstr "పాఠములు"
+
+#: src/titlescreen.c:97
+msgid "Hard"
+msgstr "కష్టమైన"
 
 #: src/titlescreen.c:97
 msgid "Ace"
@@ -148,6 +104,39 @@ msgstr "ఈ సౌలభ్యం యింకా సిద్ధము కా�
 #: src/titlescreen.c:1154
 msgid "Discuss the future of TuxTyping at"
 msgstr "TuxTyping యొక్క భవిష్యత్తు యిక్కడ చర్చించండి"
+
+#~ msgid "Sound Effects Volume"
+#~ msgstr "ధ్వని ప్రభావాల శబ్ధం"
+
+#~ msgid "Music Volume"
+#~ msgstr "సంగీతపు శబ్ధం"
+
+#~ msgid "Sound & Music Disabled"
+#~ msgstr "ధ్వని & సంగీతం అచేతనంచేయబడింది"
+
+#~ msgid "Paused!"
+#~ msgstr "నిలువరించు!"
+
+#~ msgid "Press escape again to return to menu"
+#~ msgstr "ప్రధాన మెనూకు తిరిగివ్రాయుటకు ఎస్కేప్‌ను వత్తండి"
+
+#~ msgid "Press space bar to return to game"
+#~ msgstr "ఆటకు తిరిగివచ్చుటకు స్పేస్‌బార్‌ను వత్తండి"
+
+#~ msgid "Level"
+#~ msgstr "స్థాయి"
+
+#~ msgid "Lives"
+#~ msgstr "అవకాశాలు"
+
+#~ msgid "Practice"
+#~ msgstr "సాధన"
+
+#~ msgid "Congratulations"
+#~ msgstr "అభినందనలు"
+
+#~ msgid "Oh No!"
+#~ msgstr "ఒహ్ కాదు!"
 
 #, fuzzy
 #~ msgid "Phrase Practice"

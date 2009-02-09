@@ -1,3 +1,11 @@
+08 Feb 2009 
+[ David Bruce <davidstuartbruce@gmail.com> ]
+        - cleanup of wchar_t <--> UTF-8 conversion wrapper functions. These are now
+          based on GNU iconv and are in their own file, convert_utf.h/c.  They now
+          take a length parameter for safety against buffer overflows. The Unicode, Inc.
+          implementations in ConvertUTF.h/c have been removed.
+
+
 03 Feb 2009 - svn revision 856
 Version 1.7.3
 [ David Bruce <davidstuartbruce@gmail.com> ]

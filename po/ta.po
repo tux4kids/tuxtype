@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tuxtype\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2009-02-03 06:51-0600\n"
+"POT-Creation-Date: 2009-02-08 19:09-0600\n"
 "PO-Revision-Date: 2008-08-22 12:41+0530\n"
 "Last-Translator: Felix I <ifelix25@gmail.com>, 2008\n"
 "Language-Team:  <en@li.org>\n"
@@ -15,69 +15,17 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
 
-#: src/loaders.c:88 src/main.c:150 src/playgame.c:1117
+#: src/loaders.c:88 src/main.c:150
 msgid "Fish"
 msgstr "ஃபிஷ்"
-
-#: src/pause.c:279
-msgid "Sound Effects Volume"
-msgstr "ஒலி விளைவுகளின் ஒலிஅளவு"
-
-#: src/pause.c:288
-msgid "Music Volume"
-msgstr "இசை ஒலிஅளவு"
-
-#: src/pause.c:299
-msgid "Sound & Music Disabled"
-msgstr "ஒலி & இசை செயல்நீக்கப்பட்டது"
-
-#: src/pause.c:309
-msgid "Paused!"
-msgstr "இடைநிறுத்தப்பட்டது!"
-
-#: src/pause.c:318
-msgid "Press escape again to return to menu"
-msgstr "மெனுவுக்கு செல்ல மீண்டும் escape ஐ அழுத்தவும்"
-
-#: src/pause.c:327
-msgid "Press space bar to return to game"
-msgstr "விளையாட்டுக்கு செல்ல space barஐ அழுத்தவும்"
-
-#: src/playgame.c:1115
-msgid "Level"
-msgstr "நிலை"
-
-#: src/playgame.c:1116
-msgid "Lives"
-msgstr "லைவ்ஸ்"
-
-#: src/playgame.c:1119 src/titlescreen.c:95
-msgid "Easy"
-msgstr "எளியது"
-
-#: src/playgame.c:1120 src/titlescreen.c:96
-msgid "Medium"
-msgstr "நடுத்தரம்"
-
-#: src/playgame.c:1121 src/titlescreen.c:97
-msgid "Hard"
-msgstr "கடினம்"
-
-#: src/playgame.c:1122
-msgid "Practice"
-msgstr "பயிற்சி"
-
-#: src/playgame.c:1133
-msgid "Congratulations"
-msgstr "வாழ்த்துக்கள்"
-
-#: src/playgame.c:1137
-msgid "Oh No!"
-msgstr "இல்லை!"
 
 #: src/titlescreen.c:95
 msgid "Fish Cascade"
 msgstr "ஃபிஷ் கேஸ்கேட்"
+
+#: src/titlescreen.c:95
+msgid "Easy"
+msgstr "எளியது"
 
 #: src/titlescreen.c:95
 msgid "Space Cadet"
@@ -92,6 +40,10 @@ msgid "Comet Zap"
 msgstr "கமெட் ஸெப்"
 
 #: src/titlescreen.c:96
+msgid "Medium"
+msgstr "நடுத்தரம்"
+
+#: src/titlescreen.c:96
 msgid "Pilot"
 msgstr "பைலட்"
 
@@ -102,6 +54,10 @@ msgstr ""
 #: src/titlescreen.c:97
 msgid "Lessons"
 msgstr "பாடங்கள்"
+
+#: src/titlescreen.c:97
+msgid "Hard"
+msgstr "கடினம்"
 
 #: src/titlescreen.c:97
 msgid "Ace"
@@ -146,6 +102,39 @@ msgstr "இந்த வசதி இதுவரை இல்லை"
 #: src/titlescreen.c:1154
 msgid "Discuss the future of TuxTyping at"
 msgstr "TuxTyping எதிர்கால திட்டத்தை இங்கு விவாதிக்கவும்"
+
+#~ msgid "Sound Effects Volume"
+#~ msgstr "ஒலி விளைவுகளின் ஒலிஅளவு"
+
+#~ msgid "Music Volume"
+#~ msgstr "இசை ஒலிஅளவு"
+
+#~ msgid "Sound & Music Disabled"
+#~ msgstr "ஒலி & இசை செயல்நீக்கப்பட்டது"
+
+#~ msgid "Paused!"
+#~ msgstr "இடைநிறுத்தப்பட்டது!"
+
+#~ msgid "Press escape again to return to menu"
+#~ msgstr "மெனுவுக்கு செல்ல மீண்டும் escape ஐ அழுத்தவும்"
+
+#~ msgid "Press space bar to return to game"
+#~ msgstr "விளையாட்டுக்கு செல்ல space barஐ அழுத்தவும்"
+
+#~ msgid "Level"
+#~ msgstr "நிலை"
+
+#~ msgid "Lives"
+#~ msgstr "லைவ்ஸ்"
+
+#~ msgid "Practice"
+#~ msgstr "பயிற்சி"
+
+#~ msgid "Congratulations"
+#~ msgstr "வாழ்த்துக்கள்"
+
+#~ msgid "Oh No!"
+#~ msgstr "இல்லை!"
 
 #, fuzzy
 #~ msgid "Phrase Practice"

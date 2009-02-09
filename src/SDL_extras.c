@@ -11,6 +11,7 @@
 */
 #include <math.h>
 
+#include "convert_utf.h"
 #include "SDL_extras.h"
 #include "globals.h"
 #include "pixels.h"
@@ -583,8 +584,8 @@ SDL_Surface* BlackOutline_w(wchar_t* t, const TTF_Font* font, const SDL_Color* c
     fprintf(stderr, "In BlackOutline_w() - input wchar_t string is: %S\n", wchar_tmp);
   }
 
-  i = ConvertToUTF8(wchar_tmp, tmp);
-  tmp[i] = 0;
+  i = ConvertToUTF8(wchar_tmp, tmp, 1024);
+  //tmp[i] = 0;
 
   DEBUGCODE
   {

@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tux Typing 1.5.16\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2009-02-03 06:51-0600\n"
+"POT-Creation-Date: 2009-02-08 19:09-0600\n"
 "PO-Revision-Date: 2008-08-22 12:36+0530\n"
 "Last-Translator: Amitakhya Phukan <aphukan@redhat.com>\n"
 "Language-Team: American English <kde-i18n-doc@lists.kde.org>\n"
@@ -15,69 +15,17 @@ msgstr ""
 "X-Generator: KAider 0.1\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: src/loaders.c:88 src/main.c:150 src/playgame.c:1117
+#: src/loaders.c:88 src/main.c:150
 msgid "Fish"
 msgstr "Fish"
-
-#: src/pause.c:279
-msgid "Sound Effects Volume"
-msgstr "ধ্বনিৰ ফলাফল উচ্চতা"
-
-#: src/pause.c:288
-msgid "Music Volume"
-msgstr "সঙ্গিতৰ ধ্বনিৰ উচ্চতা"
-
-#: src/pause.c:299
-msgid "Sound & Music Disabled"
-msgstr "ধ্বনি & সঙ্গিত নিষ্ক্ৰীয়"
-
-#: src/pause.c:309
-msgid "Paused!"
-msgstr "ৰখোৱা হ'ল!"
-
-#: src/pause.c:318
-msgid "Press escape again to return to menu"
-msgstr "তালিকালৈ ঘূৰি যাবলৈ পুনঃ escape টিপক"
-
-#: src/pause.c:327
-msgid "Press space bar to return to game"
-msgstr "খেললৈ ঘূৰি যাবলৈ space bar টিপক"
-
-#: src/playgame.c:1115
-msgid "Level"
-msgstr "স্তৰ"
-
-#: src/playgame.c:1116
-msgid "Lives"
-msgstr "জীৱন"
-
-#: src/playgame.c:1119 src/titlescreen.c:95
-msgid "Easy"
-msgstr "সহজ"
-
-#: src/playgame.c:1120 src/titlescreen.c:96
-msgid "Medium"
-msgstr "মাধ্যম"
-
-#: src/playgame.c:1121 src/titlescreen.c:97
-msgid "Hard"
-msgstr "কঠোৰ"
-
-#: src/playgame.c:1122
-msgid "Practice"
-msgstr "অভ্যাস"
-
-#: src/playgame.c:1133
-msgid "Congratulations"
-msgstr "অভিনন্দন"
-
-#: src/playgame.c:1137
-msgid "Oh No!"
-msgstr "অঃ নহয়!"
 
 #: src/titlescreen.c:95
 msgid "Fish Cascade"
 msgstr "Fish Cascade"
+
+#: src/titlescreen.c:95
+msgid "Easy"
+msgstr "সহজ"
 
 #: src/titlescreen.c:95
 msgid "Space Cadet"
@@ -92,6 +40,10 @@ msgid "Comet Zap"
 msgstr "Comet Zap"
 
 #: src/titlescreen.c:96
+msgid "Medium"
+msgstr "মাধ্যম"
+
+#: src/titlescreen.c:96
 msgid "Pilot"
 msgstr "পাইলট"
 
@@ -102,6 +54,10 @@ msgstr ""
 #: src/titlescreen.c:97
 msgid "Lessons"
 msgstr "পাঠ"
+
+#: src/titlescreen.c:97
+msgid "Hard"
+msgstr "কঠোৰ"
 
 #: src/titlescreen.c:97
 msgid "Ace"
@@ -146,6 +102,39 @@ msgstr "এই গুণ এতিয়া প্ৰস্তুত নহয়"
 #: src/titlescreen.c:1154
 msgid "Discuss the future of TuxTyping at"
 msgstr "TuxTyping ৰ গুণৰ আলোচনা ইয়াত কৰক"
+
+#~ msgid "Sound Effects Volume"
+#~ msgstr "ধ্বনিৰ ফলাফল উচ্চতা"
+
+#~ msgid "Music Volume"
+#~ msgstr "সঙ্গিতৰ ধ্বনিৰ উচ্চতা"
+
+#~ msgid "Sound & Music Disabled"
+#~ msgstr "ধ্বনি & সঙ্গিত নিষ্ক্ৰীয়"
+
+#~ msgid "Paused!"
+#~ msgstr "ৰখোৱা হ'ল!"
+
+#~ msgid "Press escape again to return to menu"
+#~ msgstr "তালিকালৈ ঘূৰি যাবলৈ পুনঃ escape টিপক"
+
+#~ msgid "Press space bar to return to game"
+#~ msgstr "খেললৈ ঘূৰি যাবলৈ space bar টিপক"
+
+#~ msgid "Level"
+#~ msgstr "স্তৰ"
+
+#~ msgid "Lives"
+#~ msgstr "জীৱন"
+
+#~ msgid "Practice"
+#~ msgstr "অভ্যাস"
+
+#~ msgid "Congratulations"
+#~ msgstr "অভিনন্দন"
+
+#~ msgid "Oh No!"
+#~ msgstr "অঃ নহয়!"
 
 #, fuzzy
 #~ msgid "Phrase Practice"

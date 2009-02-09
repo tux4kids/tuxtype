@@ -29,8 +29,6 @@
 /* (still in alphabet.c:) */
 int CheckNeededGlyphs(void);
 void ClearWordList(void);
-int ConvertFromUTF8(wchar_t* wide_word, const char* UTF8_word);
-int ConvertToUTF8(const wchar_t* wide_word, char* UTF8_word);
 void FreeLetters(void);
 int GenerateWordList(const char* wordFn);
 void GenCharListFromString(const unsigned char* UTF8_str);

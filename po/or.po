@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tuxtype\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2009-02-03 06:51-0600\n"
+"POT-Creation-Date: 2009-02-08 19:09-0600\n"
 "PO-Revision-Date: 2008-08-27 17:56+0530\n"
 "Last-Translator: Manoj Kumar Giri <mgiri@redhat.com>\n"
 "Language-Team: Oriya\n"
@@ -17,69 +17,17 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n!=1)\n"
 "\n"
 
-#: src/loaders.c:88 src/main.c:150 src/playgame.c:1117
+#: src/loaders.c:88 src/main.c:150
 msgid "Fish"
 msgstr "ମାଛ"
-
-#: src/pause.c:279
-msgid "Sound Effects Volume"
-msgstr "ଧ୍ୱନୀ ପ୍ରଭାବର ତିବ୍ରତା"
-
-#: src/pause.c:288
-msgid "Music Volume"
-msgstr "ସଙ୍ଗୀତ ପ୍ରବଳତା"
-
-#: src/pause.c:299
-msgid "Sound & Music Disabled"
-msgstr "ଧ୍ୱନୀ ଏବଂ ସଙ୍ଗୀତ ନିଷ୍କ୍ରିୟ ହୋଇଯାଇଛି"
-
-#: src/pause.c:309
-msgid "Paused!"
-msgstr "ବିରତି!"
-
-#: src/pause.c:318
-msgid "Press escape again to return to menu"
-msgstr "ତାଲିକାକୁ ଫେରିବା ପାଇଁ escapeକୁ ପୁଣିଥରେ ଦବାନ୍ତୁ"
-
-#: src/pause.c:327
-msgid "Press space bar to return to game"
-msgstr "ଖେଳକୁ ଫେରିବା ପାଇଁ space bar ଦବାନ୍ତୁ"
-
-#: src/playgame.c:1115
-msgid "Level"
-msgstr "ସ୍ତର"
-
-#: src/playgame.c:1116
-msgid "Lives"
-msgstr "ଜୀବନଗୁଡ଼ିକ"
-
-#: src/playgame.c:1119 src/titlescreen.c:95
-msgid "Easy"
-msgstr "ସହଜ"
-
-#: src/playgame.c:1120 src/titlescreen.c:96
-msgid "Medium"
-msgstr "ମଧ୍ଯମ"
-
-#: src/playgame.c:1121 src/titlescreen.c:97
-msgid "Hard"
-msgstr "କଠିନ"
-
-#: src/playgame.c:1122
-msgid "Practice"
-msgstr "ଅଭ୍ୟାସ"
-
-#: src/playgame.c:1133
-msgid "Congratulations"
-msgstr "ଅଭିନନ୍ଦନ"
-
-#: src/playgame.c:1137
-msgid "Oh No!"
-msgstr "ହେ ଭଗବାନ!"
 
 #: src/titlescreen.c:95
 msgid "Fish Cascade"
 msgstr "ମାଛ ସୋପାନୀ"
+
+#: src/titlescreen.c:95
+msgid "Easy"
+msgstr "ସହଜ"
 
 #: src/titlescreen.c:95
 msgid "Space Cadet"
@@ -94,6 +42,10 @@ msgid "Comet Zap"
 msgstr "Comet Zap"
 
 #: src/titlescreen.c:96
+msgid "Medium"
+msgstr "ମଧ୍ଯମ"
+
+#: src/titlescreen.c:96
 msgid "Pilot"
 msgstr "ଚାଳକ"
 
@@ -104,6 +56,10 @@ msgstr ""
 #: src/titlescreen.c:97
 msgid "Lessons"
 msgstr "ଶିକ୍ଷା"
+
+#: src/titlescreen.c:97
+msgid "Hard"
+msgstr "କଠିନ"
 
 #: src/titlescreen.c:97
 msgid "Ace"
@@ -148,6 +104,39 @@ msgstr "ଏହି ଅଂଶଟି ଏପର୍ଯ୍ୟନ୍ତ ପ୍ରସ୍
 #: src/titlescreen.c:1154
 msgid "Discuss the future of TuxTyping at"
 msgstr "ରେ TuxTyping ର ଭବିଷ୍ୟତ ଆଲୋଚନା କରନ୍ତୁ"
+
+#~ msgid "Sound Effects Volume"
+#~ msgstr "ଧ୍ୱନୀ ପ୍ରଭାବର ତିବ୍ରତା"
+
+#~ msgid "Music Volume"
+#~ msgstr "ସଙ୍ଗୀତ ପ୍ରବଳତା"
+
+#~ msgid "Sound & Music Disabled"
+#~ msgstr "ଧ୍ୱନୀ ଏବଂ ସଙ୍ଗୀତ ନିଷ୍କ୍ରିୟ ହୋଇଯାଇଛି"
+
+#~ msgid "Paused!"
+#~ msgstr "ବିରତି!"
+
+#~ msgid "Press escape again to return to menu"
+#~ msgstr "ତାଲିକାକୁ ଫେରିବା ପାଇଁ escapeକୁ ପୁଣିଥରେ ଦବାନ୍ତୁ"
+
+#~ msgid "Press space bar to return to game"
+#~ msgstr "ଖେଳକୁ ଫେରିବା ପାଇଁ space bar ଦବାନ୍ତୁ"
+
+#~ msgid "Level"
+#~ msgstr "ସ୍ତର"
+
+#~ msgid "Lives"
+#~ msgstr "ଜୀବନଗୁଡ଼ିକ"
+
+#~ msgid "Practice"
+#~ msgstr "ଅଭ୍ୟାସ"
+
+#~ msgid "Congratulations"
+#~ msgstr "ଅଭିନନ୍ଦନ"
+
+#~ msgid "Oh No!"
+#~ msgstr "ହେ ଭଗବାନ!"
 
 #, fuzzy
 #~ msgid "Phrase Practice"

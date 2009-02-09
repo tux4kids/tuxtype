@@ -43,7 +43,7 @@ tuxtype_SOURCES = 	\
 	SDL_extras.c	\
 	pixels.c	\
 	pause.c		\
-	ConvertUTF.c	\
+	convert_utf.c	\
 	options.c	\
 	iconv_string.c  \
 	mysetenv.c
@@ -61,7 +61,7 @@ EXTRA_DIST = titlescreen.h \
 	scripting.h	\
 	SDL_extras.h	\
 	snow.h		\
-	ConvertUTF.h	\
+	convert_utf.h	\
 	iconv_string.h  \
 	gettext.h	\
 	compiler.h	\

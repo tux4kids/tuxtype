@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tux Typing 1.5.16\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2009-02-03 06:51-0600\n"
+"POT-Creation-Date: 2009-02-08 19:09-0600\n"
 "PO-Revision-Date: 2007-09-25 09:50-0000\n"
 "Last-Translator: Ousmane Faty Ndongo et Dominique Rochefort <alfanet@anafa."
 "org>\n"
@@ -17,71 +17,18 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/loaders.c:88 src/main.c:150 src/playgame.c:1117
+#: src/loaders.c:88 src/main.c:150
 msgid "Fish"
 msgstr "Jën yi"
-
-#: src/pause.c:279
-msgid "Sound Effects Volume"
-msgstr "Dayo tooke riir gi"
-
-#: src/pause.c:288
-msgid "Music Volume"
-msgstr "Dayo Musik bi"
-
-#: src/pause.c:299
-msgid "Sound & Music Disabled"
-msgstr "Riir & Musik fey nañu"
-
-#: src/pause.c:309
-msgid "Paused!"
-msgstr "Tekkeeral!"
-
-#: src/pause.c:318
-msgid "Press escape again to return to menu"
-msgstr "Bësaatal ci skep ngir dellu ci njël li"
-
-#: src/pause.c:327
-msgid "Press space bar to return to game"
-msgstr "Bësal banqaasu teqale ngir fo"
-
-#: src/playgame.c:1115
-msgid "Level"
-msgstr "Tollu tollu"
-
-#: src/playgame.c:1116
-msgid "Lives"
-msgstr "Dund yi"
-
-# levels for Cascade game:
-#: src/playgame.c:1119 src/titlescreen.c:95
-msgid "Easy"
-msgstr "Yomb"
-
-#: src/playgame.c:1120 src/titlescreen.c:96
-msgid "Medium"
-msgstr "Ci diggante bi"
-
-#: src/playgame.c:1121 src/titlescreen.c:97
-msgid "Hard"
-msgstr "Dëgër"
-
-# general stuff
-#: src/playgame.c:1122
-msgid "Practice"
-msgstr "Jëf ji"
-
-#: src/playgame.c:1133
-msgid "Congratulations"
-msgstr "Waaw góor"
-
-#: src/playgame.c:1137
-msgid "Oh No!"
-msgstr "Déedéet!"
 
 #: src/titlescreen.c:95
 msgid "Fish Cascade"
 msgstr "Jën yu tegloo"
+
+# levels for Cascade game:
+#: src/titlescreen.c:95
+msgid "Easy"
+msgstr "Yomb"
 
 # "Space Cadet" is level 1 in comet zap
 #: src/titlescreen.c:95
@@ -97,6 +44,10 @@ msgstr "Jagal limu baat yi"
 msgid "Comet Zap"
 msgstr "Neenal biddeew yi"
 
+#: src/titlescreen.c:96
+msgid "Medium"
+msgstr "Ci diggante bi"
+
 # "Pilot" is level 2 in comet zap
 #: src/titlescreen.c:96
 msgid "Pilot"
@@ -109,6 +60,10 @@ msgstr ""
 #: src/titlescreen.c:97
 msgid "Lessons"
 msgstr "Njàng"
+
+#: src/titlescreen.c:97
+msgid "Hard"
+msgstr "Dëgër"
 
 # "Ace" is level 3 in comet zap
 #: src/titlescreen.c:97
@@ -157,6 +112,40 @@ msgstr "Pareegul"
 #: src/titlescreen.c:1154
 msgid "Discuss the future of TuxTyping at"
 msgstr "Wax ci ëlëgu TuxTyping ak"
+
+#~ msgid "Sound Effects Volume"
+#~ msgstr "Dayo tooke riir gi"
+
+#~ msgid "Music Volume"
+#~ msgstr "Dayo Musik bi"
+
+#~ msgid "Sound & Music Disabled"
+#~ msgstr "Riir & Musik fey nañu"
+
+#~ msgid "Paused!"
+#~ msgstr "Tekkeeral!"
+
+#~ msgid "Press escape again to return to menu"
+#~ msgstr "Bësaatal ci skep ngir dellu ci njël li"
+
+#~ msgid "Press space bar to return to game"
+#~ msgstr "Bësal banqaasu teqale ngir fo"
+
+#~ msgid "Level"
+#~ msgstr "Tollu tollu"
+
+#~ msgid "Lives"
+#~ msgstr "Dund yi"
+
+# general stuff
+#~ msgid "Practice"
+#~ msgstr "Jëf ji"
+
+#~ msgid "Congratulations"
+#~ msgstr "Waaw góor"
+
+#~ msgid "Oh No!"
+#~ msgstr "Déedéet!"
 
 # general stuff
 #, fuzzy

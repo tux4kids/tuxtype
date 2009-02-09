@@ -24,7 +24,7 @@ Sreyas Kurumanghat <k.sreyas@gmail.com>
 #include "globals.h"
 #include "funcs.h"
 #include "SDL_extras.h"
-#include "ConvertUTF.h"
+#include "convert_utf.h"
 
 #define MAX_PHRASES 256
 #define MAX_PHRASE_LENGTH 256
@@ -1281,7 +1281,7 @@ static int load_phrases(const char* phrase_file)
   while (!feof(fp) && num_phrases <= MAX_PHRASES) 
   {
     fscanf(fp, "%[^\n]\n", buf);
-    ConvertFromUTF8(phrases[num_phrases], buf);
+    ConvertFromUTF8(phrases[num_phrases], buf, MAX_PHRASE_LENGTH);
     DEBUGCODE {printf("phrase %d:\t%S\n", num_phrases, phrases[num_phrases]);}
     num_phrases++;
   }
@@ -1368,7 +1368,7 @@ static int find_next_wrap(const wchar_t* wstr, const TTF_Font* font, int width)
     DEBUGCODE{ fprintf(stderr, "buf = %S\n", buf);}
 
     /* Need to convert to UTF8 because couldn't get UNICODE version to work: */
-    ConvertToUTF8(buf, UTF8buf);
+    ConvertToUTF8(buf, UTF8buf, MAX_PHRASE_LENGTH);
     /*  Now check width of string: */
     if (-1 == TTF_SizeUTF8(font, UTF8buf, &test_w, NULL))
     {

@@ -8,78 +8,25 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tux Typing 1.5.16\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2009-02-03 06:51-0600\n"
+"POT-Creation-Date: 2009-02-08 19:09-0600\n"
 "PO-Revision-Date: 2007-09-16 19:00+0000\n"
 "Last-Translator: Amaya Rodrigo <amaya@debian.org>\n"
 "Language-Team: Spanish\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/loaders.c:88 src/main.c:150 src/playgame.c:1117
+#: src/loaders.c:88 src/main.c:150
 msgid "Fish"
 msgstr "Pescado"
-
-#: src/pause.c:279
-msgid "Sound Effects Volume"
-msgstr "Volumen de los Efectos de Sonido"
-
-#: src/pause.c:288
-msgid "Music Volume"
-msgstr "Volumen de la Música"
-
-#: src/pause.c:299
-msgid "Sound & Music Disabled"
-msgstr "Deshabilitar Sonido y Música"
-
-#: src/pause.c:309
-msgid "Paused!"
-msgstr "¡Pausa!"
-
-#: src/pause.c:318
-msgid "Press escape again to return to menu"
-msgstr "Pulsa Esc para regresar al menú"
-
-#: src/pause.c:327
-msgid "Press space bar to return to game"
-msgstr "Pulsa la barra espaciadora para regresar al juego"
-
-#: src/playgame.c:1115
-msgid "Level"
-msgstr "Nivel"
-
-#: src/playgame.c:1116
-msgid "Lives"
-msgstr "Vidas"
-
-# niveles para juego de cascada:
-#: src/playgame.c:1119 src/titlescreen.c:95
-msgid "Easy"
-msgstr "Fácil"
-
-#: src/playgame.c:1120 src/titlescreen.c:96
-msgid "Medium"
-msgstr "Medio"
-
-#: src/playgame.c:1121 src/titlescreen.c:97
-msgid "Hard"
-msgstr "Difícil"
-
-# Cosas generales
-#: src/playgame.c:1122
-msgid "Practice"
-msgstr "Practicar"
-
-#: src/playgame.c:1133
-msgid "Congratulations"
-msgstr "¡Felicidades!"
-
-#: src/playgame.c:1137
-msgid "Oh No!"
-msgstr "¡Oh, no!"
 
 #: src/titlescreen.c:95
 msgid "Fish Cascade"
 msgstr "Cascada de Pescado"
+
+# niveles para juego de cascada:
+#: src/titlescreen.c:95
+msgid "Easy"
+msgstr "Fácil"
 
 # "Cadete de espacio" es nivel 1 en zapea cometa
 #: src/titlescreen.c:95
@@ -95,6 +42,10 @@ msgstr "Revisar las listas de palabras"
 msgid "Comet Zap"
 msgstr "Cometas"
 
+#: src/titlescreen.c:96
+msgid "Medium"
+msgstr "Medio"
+
 # "Piloto" es nivel 2 en zapea cometas
 #: src/titlescreen.c:96
 msgid "Pilot"
@@ -107,6 +58,10 @@ msgstr ""
 #: src/titlescreen.c:97
 msgid "Lessons"
 msgstr "Lecciones"
+
+#: src/titlescreen.c:97
+msgid "Hard"
+msgstr "Difícil"
 
 # "As" es nivel 3 en zapea cometas
 #: src/titlescreen.c:97
@@ -155,6 +110,40 @@ msgstr "Esta función no esta lista todavía"
 #: src/titlescreen.c:1154
 msgid "Discuss the future of TuxTyping at"
 msgstr "Charlar del futuro de TuxTyping en"
+
+#~ msgid "Sound Effects Volume"
+#~ msgstr "Volumen de los Efectos de Sonido"
+
+#~ msgid "Music Volume"
+#~ msgstr "Volumen de la Música"
+
+#~ msgid "Sound & Music Disabled"
+#~ msgstr "Deshabilitar Sonido y Música"
+
+#~ msgid "Paused!"
+#~ msgstr "¡Pausa!"
+
+#~ msgid "Press escape again to return to menu"
+#~ msgstr "Pulsa Esc para regresar al menú"
+
+#~ msgid "Press space bar to return to game"
+#~ msgstr "Pulsa la barra espaciadora para regresar al juego"
+
+#~ msgid "Level"
+#~ msgstr "Nivel"
+
+#~ msgid "Lives"
+#~ msgstr "Vidas"
+
+# Cosas generales
+#~ msgid "Practice"
+#~ msgstr "Practicar"
+
+#~ msgid "Congratulations"
+#~ msgstr "¡Felicidades!"
+
+#~ msgid "Oh No!"
+#~ msgstr "¡Oh, no!"
 
 # Cosas generales
 #, fuzzy

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tuxtype\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2009-02-03 06:51-0600\n"
+"POT-Creation-Date: 2009-02-08 19:09-0600\n"
 "PO-Revision-Date: 2008-08-27 13:58+0530\n"
 "Last-Translator: Shankar Prasad <svenkate@redhat.com>\n"
 "Language-Team: Kannada <en@li.org>\n"
@@ -16,69 +16,17 @@ msgstr ""
 "X-Generator: KBabel 1.11.4\n"
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
 
-#: src/loaders.c:88 src/main.c:150 src/playgame.c:1117
+#: src/loaders.c:88 src/main.c:150
 msgid "Fish"
 msgstr "ಮೀನು"
-
-#: src/pause.c:279
-msgid "Sound Effects Volume"
-msgstr "ಶಬ್ಧ ಪರಿಣಾಮಗಳ ವಾಲ್ಯೂಮ್"
-
-#: src/pause.c:288
-msgid "Music Volume"
-msgstr "ಸಂಗೀತದ ವಾಲ್ಯೂಮ್"
-
-#: src/pause.c:299
-msgid "Sound & Music Disabled"
-msgstr "ಶಬ್ಧ ಹಾಗು ಸಂಗೀತವನ್ನು ನಿಷ್ಕ್ರಿಯಗೊಳಿಸಲಾಗಿದೆ"
-
-#: src/pause.c:309
-msgid "Paused!"
-msgstr "ತಾತ್ಕಾಲಿಕ ಸ್ಥಗಿತ!"
-
-#: src/pause.c:318
-msgid "Press escape again to return to menu"
-msgstr "ಮೆನುವಿಗೆ ಹಿಂತಿರುಗಲು ಎಸ್ಕೇಪನ್ನು ಒತ್ತಿ"
-
-#: src/pause.c:327
-msgid "Press space bar to return to game"
-msgstr "ಆಟಕ್ಕೆ ಹಿಂತಿರುಗಲು ಸ್ಪೇಸ್‌ ಬಾರನ್ನು ಒತ್ತಿ"
-
-#: src/playgame.c:1115
-msgid "Level"
-msgstr "ಮಟ್ಟ"
-
-#: src/playgame.c:1116
-msgid "Lives"
-msgstr "ಜೀವಗಳು"
-
-#: src/playgame.c:1119 src/titlescreen.c:95
-msgid "Easy"
-msgstr "ಸುಲಭ"
-
-#: src/playgame.c:1120 src/titlescreen.c:96
-msgid "Medium"
-msgstr "ಮಧ್ಯಮ"
-
-#: src/playgame.c:1121 src/titlescreen.c:97
-msgid "Hard"
-msgstr "ಕಷ್ಟಕರ"
-
-#: src/playgame.c:1122
-msgid "Practice"
-msgstr "ತರಬೇತಿ"
-
-#: src/playgame.c:1133
-msgid "Congratulations"
-msgstr "ಶುಭಾಶಯಗಳು"
-
-#: src/playgame.c:1137
-msgid "Oh No!"
-msgstr "ಒಹ್ ಇಲ್ಲ!"
 
 #: src/titlescreen.c:95
 msgid "Fish Cascade"
 msgstr "ಮೀನಿನ ಕ್ಯಾಸ್ಕೇಡ್"
+
+#: src/titlescreen.c:95
+msgid "Easy"
+msgstr "ಸುಲಭ"
 
 #: src/titlescreen.c:95
 msgid "Space Cadet"
@@ -93,6 +41,10 @@ msgid "Comet Zap"
 msgstr "ಧೂಮಕೇತು ಧಾಳಿ"
 
 #: src/titlescreen.c:96
+msgid "Medium"
+msgstr "ಮಧ್ಯಮ"
+
+#: src/titlescreen.c:96
 msgid "Pilot"
 msgstr "ಪೈಲೆಟ್"
 
@@ -103,6 +55,10 @@ msgstr ""
 #: src/titlescreen.c:97
 msgid "Lessons"
 msgstr "ಪಾಠಗಳು"
+
+#: src/titlescreen.c:97
+msgid "Hard"
+msgstr "ಕಷ್ಟಕರ"
 
 #: src/titlescreen.c:97
 msgid "Ace"
@@ -147,6 +103,39 @@ msgstr "ಈ ಸವಲತ್ತು ಇನ್ನೂ ತಯಾರಾಗಿಲ್ಲ
 #: src/titlescreen.c:1154
 msgid "Discuss the future of TuxTyping at"
 msgstr "TuxTyping ನ ಮುಂದಿನ ಭವಿಷ್ಯವನ್ನು ಇಲ್ಲಿ ಚರ್ಚಿಸಿ"
+
+#~ msgid "Sound Effects Volume"
+#~ msgstr "ಶಬ್ಧ ಪರಿಣಾಮಗಳ ವಾಲ್ಯೂಮ್"
+
+#~ msgid "Music Volume"
+#~ msgstr "ಸಂಗೀತದ ವಾಲ್ಯೂಮ್"
+
+#~ msgid "Sound & Music Disabled"
+#~ msgstr "ಶಬ್ಧ ಹಾಗು ಸಂಗೀತವನ್ನು ನಿಷ್ಕ್ರಿಯಗೊಳಿಸಲಾಗಿದೆ"
+
+#~ msgid "Paused!"
+#~ msgstr "ತಾತ್ಕಾಲಿಕ ಸ್ಥಗಿತ!"
+
+#~ msgid "Press escape again to return to menu"
+#~ msgstr "ಮೆನುವಿಗೆ ಹಿಂತಿರುಗಲು ಎಸ್ಕೇಪನ್ನು ಒತ್ತಿ"
+
+#~ msgid "Press space bar to return to game"
+#~ msgstr "ಆಟಕ್ಕೆ ಹಿಂತಿರುಗಲು ಸ್ಪೇಸ್‌ ಬಾರನ್ನು ಒತ್ತಿ"
+
+#~ msgid "Level"
+#~ msgstr "ಮಟ್ಟ"
+
+#~ msgid "Lives"
+#~ msgstr "ಜೀವಗಳು"
+
+#~ msgid "Practice"
+#~ msgstr "ತರಬೇತಿ"
+
+#~ msgid "Congratulations"
+#~ msgstr "ಶುಭಾಶಯಗಳು"
+
+#~ msgid "Oh No!"
+#~ msgstr "ಒಹ್ ಇಲ್ಲ!"
 
 #, fuzzy
 #~ msgid "Phrase Practice"

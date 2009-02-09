@@ -19,7 +19,7 @@
 #define to_upper(c) (((c) >= 'a' && (c) <= 'z') ? (c) -32 : (c))
 #define COL2RGB( col ) SDL_MapRGB( screen->format, col->r, col->g, col->b )
 
-#define FNLEN	200
+#define FNLEN	256
 
 #define RES_X	640
 #define RES_Y	480

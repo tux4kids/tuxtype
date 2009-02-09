@@ -21,7 +21,7 @@
 #include "funcs.h"
 #include "titlescreen.h"
 #include "SDL_extras.h"
-#include "ConvertUTF.h"
+#include "convert_utf.h"
 
 /* --- media for menus --- */
 
@@ -1898,14 +1898,14 @@ static void ChooseWord(char *words_file)
         if (event.key.keysym.sym == SDLK_BACKSPACE)
         {
           font = LoadFont(settings.theme_font_name, MENU_FONT_SIZE);
-          len = ConvertFromUTF8(temp, editWordW[loc]);
+          len = ConvertFromUTF8(temp, editWordW[loc], FNLEN);
           temp[len - 1] = temp[len];
-          len = ConvertToUTF8(temp, editWordW[loc]);
+          len = ConvertToUTF8(temp, editWordW[loc], FNLEN);
           titles[loc] = BlackOutline(editWordW[loc], font, &white );
-          len = ConvertFromUTF8(temp, editWordY[loc]);
+          len = ConvertFromUTF8(temp, editWordY[loc], FNLEN);
           temp[len - 2] = temp[len - 1];
           temp[len - 1] = temp[len];
-          len = ConvertToUTF8(temp, editWordY[loc]);
+          len = ConvertToUTF8(temp, editWordY[loc], FNLEN);
           select[loc] = BlackOutline(editWordY[loc], font, &yellow);
           TTF_CloseFont(font);
           font = NULL;
@@ -1961,21 +1961,23 @@ static void ChooseWord(char *words_file)
           case SDLK_LCTRL:
             i=0;
             break;
+          default:  // ignore any other keys
+            {}
         }
 
         if(i)
         {
           font = LoadFont(settings.theme_font_name, MENU_FONT_SIZE);
-          len = ConvertFromUTF8(temp, editWordW[loc]);
+          len = ConvertFromUTF8(temp, editWordW[loc], FNLEN);
           temp[len] = event.key.keysym.unicode;
           temp[len + 1] = 0;
-          ConvertToUTF8(temp,editWordW[loc]);
+          ConvertToUTF8(temp,editWordW[loc], FNLEN);
           titles[loc] = BlackOutline(editWordW[loc], font, &white );
-          len = ConvertFromUTF8(temp,editWordY[loc]);
+          len = ConvertFromUTF8(temp,editWordY[loc], FNLEN);
           temp[len + 1]=0;
           temp[len] = temp[len-1];
           temp[len - 1] = event.key.keysym.unicode;
-          ConvertToUTF8(temp,editWordY[loc]);
+          ConvertToUTF8(temp,editWordY[loc], FNLEN);
           select[loc] = BlackOutline(editWordY[loc], font, &yellow);
           TTF_CloseFont(font);
           font = NULL;

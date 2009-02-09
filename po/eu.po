@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tux Typing 1.5.16\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2009-02-03 06:51-0600\n"
+"POT-Creation-Date: 2009-02-08 19:09-0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,71 +16,18 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/loaders.c:88 src/main.c:150 src/playgame.c:1117
+#: src/loaders.c:88 src/main.c:150
 msgid "Fish"
 msgstr "Arraina"
-
-#: src/pause.c:279
-msgid "Sound Effects Volume"
-msgstr "Soinu efektuen bolumena"
-
-#: src/pause.c:288
-msgid "Music Volume"
-msgstr "Musikaren bolumena"
-
-#: src/pause.c:299
-msgid "Sound & Music Disabled"
-msgstr "Soinua eta musika ezgaiturik"
-
-#: src/pause.c:309
-msgid "Paused!"
-msgstr "Geldirik!"
-
-#: src/pause.c:318
-msgid "Press escape again to return to menu"
-msgstr "Sakatu berriz eskape menura itzultzeko"
-
-#: src/pause.c:327
-msgid "Press space bar to return to game"
-msgstr "Sakatu berriz bitarte-barra jokora itzultzeko"
-
-#: src/playgame.c:1115
-msgid "Level"
-msgstr "Maila"
-
-#: src/playgame.c:1116
-msgid "Lives"
-msgstr "Bizitzak"
-
-# levels for Cascade game:
-#: src/playgame.c:1119 src/titlescreen.c:95
-msgid "Easy"
-msgstr "Erreza"
-
-#: src/playgame.c:1120 src/titlescreen.c:96
-msgid "Medium"
-msgstr "Ertaina"
-
-#: src/playgame.c:1121 src/titlescreen.c:97
-msgid "Hard"
-msgstr "Gaitza"
-
-# general stuff
-#: src/playgame.c:1122
-msgid "Practice"
-msgstr "Trebakuntza"
-
-#: src/playgame.c:1133
-msgid "Congratulations"
-msgstr "Zorionak"
-
-#: src/playgame.c:1137
-msgid "Oh No!"
-msgstr "Oi ez!"
 
 #: src/titlescreen.c:95
 msgid "Fish Cascade"
 msgstr "Arrainak goitik-behera"
+
+# levels for Cascade game:
+#: src/titlescreen.c:95
+msgid "Easy"
+msgstr "Erreza"
 
 # "Space Cadet" is level 1 in comet zap
 #: src/titlescreen.c:95
@@ -96,6 +43,10 @@ msgstr "Editatu hitz zerrendak"
 msgid "Comet Zap"
 msgstr "Kometen suntsipena"
 
+#: src/titlescreen.c:96
+msgid "Medium"
+msgstr "Ertaina"
+
 # "Pilot" is level 2 in comet zap
 #: src/titlescreen.c:96
 msgid "Pilot"
@@ -108,6 +59,10 @@ msgstr ""
 #: src/titlescreen.c:97
 msgid "Lessons"
 msgstr "Ikasgaiak"
+
+#: src/titlescreen.c:97
+msgid "Hard"
+msgstr "Gaitza"
 
 # "Ace" is level 3 in comet zap
 #: src/titlescreen.c:97
@@ -155,6 +110,40 @@ msgstr "Ezaugarri hau ez dago prest oraindik"
 #: src/titlescreen.c:1154
 msgid "Discuss the future of TuxTyping at"
 msgstr "TuxTyping-en etorkizunaz aritu honekin:"
+
+#~ msgid "Sound Effects Volume"
+#~ msgstr "Soinu efektuen bolumena"
+
+#~ msgid "Music Volume"
+#~ msgstr "Musikaren bolumena"
+
+#~ msgid "Sound & Music Disabled"
+#~ msgstr "Soinua eta musika ezgaiturik"
+
+#~ msgid "Paused!"
+#~ msgstr "Geldirik!"
+
+#~ msgid "Press escape again to return to menu"
+#~ msgstr "Sakatu berriz eskape menura itzultzeko"
+
+#~ msgid "Press space bar to return to game"
+#~ msgstr "Sakatu berriz bitarte-barra jokora itzultzeko"
+
+#~ msgid "Level"
+#~ msgstr "Maila"
+
+#~ msgid "Lives"
+#~ msgstr "Bizitzak"
+
+# general stuff
+#~ msgid "Practice"
+#~ msgstr "Trebakuntza"
+
+#~ msgid "Congratulations"
+#~ msgstr "Zorionak"
+
+#~ msgid "Oh No!"
+#~ msgstr "Oi ez!"
 
 # general stuff
 #, fuzzy

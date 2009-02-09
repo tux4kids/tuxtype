@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tux Typing 1.5.16\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2009-02-03 06:51-0600\n"
+"POT-Creation-Date: 2009-02-08 19:09-0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,71 +16,18 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/loaders.c:88 src/main.c:150 src/playgame.c:1117
+#: src/loaders.c:88 src/main.c:150
 msgid "Fish"
 msgstr "Ψάρια"
-
-#: src/pause.c:279
-msgid "Sound Effects Volume"
-msgstr "Ένταση Ηχητικών Εφφέ"
-
-#: src/pause.c:288
-msgid "Music Volume"
-msgstr "Ένταση Ήχου"
-
-#: src/pause.c:299
-msgid "Sound & Music Disabled"
-msgstr "Χωρίς Ήχο και Μουσική"
-
-#: src/pause.c:309
-msgid "Paused!"
-msgstr "Πάυση"
-
-#: src/pause.c:318
-msgid "Press escape again to return to menu"
-msgstr "Πάτα ξανά το Esc για να γυρίσεις στις επιλογές"
-
-#: src/pause.c:327
-msgid "Press space bar to return to game"
-msgstr "Πάτα το κενό για να γυρίσεις στο παιχνίδι"
-
-#: src/playgame.c:1115
-msgid "Level"
-msgstr "Επίπεδο"
-
-#: src/playgame.c:1116
-msgid "Lives"
-msgstr "Ζωές"
-
-# levels for Cascade game:
-#: src/playgame.c:1119 src/titlescreen.c:95
-msgid "Easy"
-msgstr "1. Εύκολο"
-
-#: src/playgame.c:1120 src/titlescreen.c:96
-msgid "Medium"
-msgstr "2. Κανονικό"
-
-#: src/playgame.c:1121 src/titlescreen.c:97
-msgid "Hard"
-msgstr "3. Δύσκολο"
-
-# general stuff
-#: src/playgame.c:1122
-msgid "Practice"
-msgstr "Εξάσκηση"
-
-#: src/playgame.c:1133
-msgid "Congratulations"
-msgstr "Συγχαρητήρια"
-
-#: src/playgame.c:1137
-msgid "Oh No!"
-msgstr "Ωχ! Όχι"
 
 #: src/titlescreen.c:95
 msgid "Fish Cascade"
 msgstr "Φάε τα Ψαράκια"
+
+# levels for Cascade game:
+#: src/titlescreen.c:95
+msgid "Easy"
+msgstr "1. Εύκολο"
 
 # "Space Cadet" is level 1 in comet zap
 #: src/titlescreen.c:95
@@ -96,6 +43,10 @@ msgstr "Διόρθωσε τις Λίστες Λέξεων"
 msgid "Comet Zap"
 msgstr "Κομήτες"
 
+#: src/titlescreen.c:96
+msgid "Medium"
+msgstr "2. Κανονικό"
+
 # "Pilot" is level 2 in comet zap
 #: src/titlescreen.c:96
 msgid "Pilot"
@@ -108,6 +59,10 @@ msgstr ""
 #: src/titlescreen.c:97
 msgid "Lessons"
 msgstr "Μαθήματα"
+
+#: src/titlescreen.c:97
+msgid "Hard"
+msgstr "3. Δύσκολο"
 
 # "Ace" is level 3 in comet zap
 #: src/titlescreen.c:97
@@ -155,6 +110,40 @@ msgstr "Αυτό το κομμάτι δεν είναι ακόμη έτοιμο"
 #: src/titlescreen.c:1154
 msgid "Discuss the future of TuxTyping at"
 msgstr "Σχόλια για το TuxTyping"
+
+#~ msgid "Sound Effects Volume"
+#~ msgstr "Ένταση Ηχητικών Εφφέ"
+
+#~ msgid "Music Volume"
+#~ msgstr "Ένταση Ήχου"
+
+#~ msgid "Sound & Music Disabled"
+#~ msgstr "Χωρίς Ήχο και Μουσική"
+
+#~ msgid "Paused!"
+#~ msgstr "Πάυση"
+
+#~ msgid "Press escape again to return to menu"
+#~ msgstr "Πάτα ξανά το Esc για να γυρίσεις στις επιλογές"
+
+#~ msgid "Press space bar to return to game"
+#~ msgstr "Πάτα το κενό για να γυρίσεις στο παιχνίδι"
+
+#~ msgid "Level"
+#~ msgstr "Επίπεδο"
+
+#~ msgid "Lives"
+#~ msgstr "Ζωές"
+
+# general stuff
+#~ msgid "Practice"
+#~ msgstr "Εξάσκηση"
+
+#~ msgid "Congratulations"
+#~ msgstr "Συγχαρητήρια"
+
+#~ msgid "Oh No!"
+#~ msgstr "Ωχ! Όχι"
 
 # general stuff
 #, fuzzy
