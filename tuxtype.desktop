@@ -1,12 +1,14 @@
 [Desktop Entry]
-Name=TuxType
+Name=Tux Typing
 GenericName=Kids game
 GenericName[ru]=Игра для детей
 GenericName[tr]=Daktilo Öğretmeni
+GenericName[fr]=Jeu pour les enfants
 Comment=Educational typing tutor game starring Tux
 Comment[de]=Tastatur-Lernspielprogramm mit Tux
 Comment[ru]=Kлавиатурный тренажер с пингвином в главной роли
 Comment[tr]=Daktilo Öğretmeni
+Comment[fr]=Apprenez à taper au clavier avec Tux
 Exec=tuxtype
 Icon=tuxtype
 Terminal=false
