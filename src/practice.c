@@ -103,11 +103,10 @@ static int load_phrases(const char* phrase_file);
 static int find_next_wrap(const wchar_t* wstr, const TTF_Font* font, int width);
 static void recalc_positions(void);
 static void calc_font_sizes(void);
-static void next_letter(wchar_t *t, int c);
+static void display_next_letter(wchar_t* str, Uint16 index);
 static int practice_load_media(void);
 static void practice_unload_media(void);
-static void print_at(const wchar_t* pphrase, int wrap, int x, int y);
-static void show(char t);
+//static void show(char t);
 SDL_Surface* GetKeypress1(int index);
 SDL_Surface* GetKeypress2(int index);
 SDL_Surface* GetWrongKeypress(int index);
@@ -137,7 +136,6 @@ int Phrases(wchar_t* pphrase )
   float accuracy = 0;
   int cur_phrase = 0;
   int keytimes[MAX_PHRASE_LENGTH] = {0};
-  int next_line = 0;
   char time_str[20];
   char chars_typed_str[20];
   char cpm_str[20];
@@ -375,8 +373,8 @@ int Phrases(wchar_t* pphrase )
 
     }  /*  ----------- End of switch(state) statement-------------- */
 
-    /* This blits "Next letter %c" onto the screen - confusing! */
-    next_letter(phrases[cur_phrase], cursor);
+    /* This blits the next character onto the screen in a large font: */
+    display_next_letter(phrases[cur_phrase], cursor);
 
     while  (SDL_PollEvent(&event))
     {
@@ -733,7 +731,6 @@ int Phrases(wchar_t* pphrase )
           {
             /* Draw Tux celebrating: */
             {
-              int i = 0;
               int done = 0;
 
               PlaySound(cheer);
@@ -858,7 +855,6 @@ static int practice_load_media(void)
 {
   int i;	
   char fn[FNLEN];
-  char let[5];
   int load_failed = 0;
 
   DEBUGCODE { printf("Entering practice_load_media\n"); }
@@ -1219,22 +1215,22 @@ static void practice_unload_media(void)
 }
 
 
-/* looks like dead code: */
-static void show(char t)
-{
-  SDL_Rect dst;
-  SDL_Surface* s = NULL;
-
-  s = GetWhiteGlyph((int)t);
-  if (!s)
-    return; 
-
-  dst.x = 320 - (s->w/2);
-  dst.y = 100;
-  dst.w = s->w;
-  dst.h = s->h;
-  SDL_BlitSurface(s, NULL, screen, &dst);
-}
+// /* looks like dead code: */
+// static void show(char t)
+// {
+//   SDL_Rect dst;
+//   SDL_Surface* s = NULL;
+// 
+//   s = GetWhiteGlyph((int)t);
+//   if (!s)
+//     return; 
+// 
+//   dst.x = 320 - (s->w/2);
+//   dst.y = 100;
+//   dst.w = s->w;
+//   dst.h = s->h;
+//   SDL_BlitSurface(s, NULL, screen, &dst);
+// }
 
 
 /* Looks for phrases.txt in theme, then in default if not found, */
@@ -1280,10 +1276,14 @@ static int load_phrases(const char* phrase_file)
   /* NOTE we need to convert to wchar_t so just fscanf won't work! */
   while (!feof(fp) && num_phrases <= MAX_PHRASES) 
   {
-    fscanf(fp, "%[^\n]\n", buf);
-    ConvertFromUTF8(phrases[num_phrases], buf, MAX_PHRASE_LENGTH);
-    DEBUGCODE {printf("phrase %d:\t%S\n", num_phrases, phrases[num_phrases]);}
-    num_phrases++;
+    /* Similar check to above but compiler complains unless we */
+    /* inspect return value of fscanf():                       */
+    if (EOF != fscanf(fp, "%[^\n]\n", buf))
+    {
+      ConvertFromUTF8(phrases[num_phrases], buf, MAX_PHRASE_LENGTH);
+      DEBUGCODE {printf("phrase %d:\t%S\n", num_phrases, phrases[num_phrases]);}
+      num_phrases++;
+    }
   }
 
   if (num_phrases > MAX_PHRASES)
@@ -1370,7 +1370,7 @@ static int find_next_wrap(const wchar_t* wstr, const TTF_Font* font, int width)
     /* Need to convert to UTF8 because couldn't get UNICODE version to work: */
     ConvertToUTF8(buf, UTF8buf, MAX_PHRASE_LENGTH);
     /*  Now check width of string: */
-    if (-1 == TTF_SizeUTF8(font, UTF8buf, &test_w, NULL))
+    if (-1 == TTF_SizeUTF8((TTF_Font*)font, UTF8buf, &test_w, NULL))
     {
       /* An error occurred: */
       return -1;
@@ -1413,66 +1413,18 @@ static int find_next_wrap(const wchar_t* wstr, const TTF_Font* font, int width)
 }
 
 
-static void print_at(const wchar_t *pphrase, int wrap, int x, int y)
-{
-  int z = 0;
-  SDL_Surface* tmp;
-  SDL_Rect dst;
-  dst.x = x;
-  dst.y = y;
-	//font = LoadFont(settings.theme_font_name, 30);
-  DEBUGCODE
-  {
-    printf("\n\n\nEntering print_at with : %S\n",pphrase);
-    printf("wrap = %d\t wsclen() = %d\n", wrap, wcslen(pphrase));
-  }
-
-
-  if (wrap == wcslen(pphrase))
-  {
-    LOG("Wrap not needed\n");
-
-    tmp = BlackOutline_w(pphrase, medfont, &white, wrap);
-    if (tmp)
-    {
-      SDL_BlitSurface(tmp, NULL, screen, &dst);
-      SDL_FreeSurface(tmp);
-      tmp = NULL;
-    }
-  }
-  else
-  {
-    LOG("Line length exceeded - wrap required\n");
-
-    tmp = BlackOutline_w(pphrase, medfont, &white, wrap + 1);
-    if (tmp)
-    {
-      SDL_BlitSurface(tmp, NULL, screen, &dst);
-      dst.y += tmp->h;  // move "cursor" down for next line
-      SDL_FreeSurface(tmp);
-      tmp = NULL;
-    }
-
-    tmp = BlackOutline_w(pphrase+wrap+1, medfont, &white, wcslen(pphrase));
-    if (tmp)
-    {
-      SDL_BlitSurface(tmp, NULL, screen, &dst);
-      SDL_FreeSurface(tmp);
-    }
-  }
-	//TTF_CloseFont(font);
-  // DEBUGCODE { exit(-1); }
-  DEBUGCODE { printf("Leaving print_at \n\n\n"); }
-}
-
+/* FIXME this isn't very safe because index could be out of allocated string, */
+/* and there a very good way to test for this within this function.           */
 /* Displays the next letter to be typed in a large font */
-static void next_letter(wchar_t *t, int c)
+static void display_next_letter(wchar_t *str, Uint16 index)
 {
-  int i;
   Uint16 ltr[2];
   SDL_Surface* s = NULL;
 
-  ltr[0] = t[c];
+  if (!str || (index >= MAX_PHRASE_LENGTH))
+    return;
+
+  ltr[0] = str[index];
   ltr[1] = '\0';
 
   s = BlackOutline_Unicode(ltr, bigfont, &white);
@@ -1486,6 +1438,7 @@ static void next_letter(wchar_t *t, int c)
   }
 }
 
+
 SDL_Surface* GetKeypress1(int index)
 {
 	char buf[50];
@@ -1493,12 +1446,14 @@ SDL_Surface* GetKeypress1(int index)
 	return (LoadImage(buf, IMG_ALPHA));
 }
 
+
 SDL_Surface* GetWrongKeypress(int index)
 {
 	char buf[50];
 	GetWrongKeyPos(index,buf);
 	return (LoadImage(buf, IMG_ALPHA));
 }
+
 
 SDL_Surface* GetKeypress2(int index)
 {

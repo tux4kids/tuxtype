@@ -38,7 +38,7 @@ typedef struct uni_glyph {
 } uni_glyph;
 
 /* These are the arrays for the red and white letters: */
-static uni_glyph char_glyphs[MAX_UNICODES] = {0, NULL, NULL};
+static uni_glyph char_glyphs[MAX_UNICODES] = {{0, NULL, NULL}};
 
 /* An individual item in the list of unicode characters in the keyboard setup.   */
 /* Basically, just the Unicode value for the key and the finger used to type it. */
@@ -57,11 +57,10 @@ typedef struct kbd_char {
 
 /* List with one entry for each typable character in keyboard setup - has the */
 /* Unicode value of the key and the associated fingering.                     */
-static kbd_char keyboard_list[MAX_UNICODES] = {0, -1,0,0,-1};
+static kbd_char keyboard_list[MAX_UNICODES] = {{0, -1, {0}, 0, -1}};
 
 
 
-static TTF_Font* font = NULL;
 
 /* Used for word list functions (see below): */
 static int num_words;
@@ -74,12 +73,12 @@ static int num_chars_used = 0;       // Number of different letters in word list
 /* Local function prototypes: */
 static void gen_char_list(void);
 static int add_char(wchar_t uc);
-static void set_letters(unsigned char* t);
-static void show_letters(void);
+//static void set_letters(signed char* t);
+//static void show_letters(void);
 static void clear_keyboard(void);
 static int unicode_in_key_list(wchar_t uni_char);
 int check_needed_unicodes_str(const wchar_t* s);
-int map_keys(wchar_t wide_char,kbd_char* keyboard_entry);
+int map_keys(wchar_t wide_char, kbd_char* keyboard_entry);
 
 
 
@@ -95,7 +94,7 @@ int map_keys(wchar_t wide_char,kbd_char* keyboard_entry);
 /* all this does now is fiddle with the ALPHABET and FINGER arrays */
 int LoadKeyboard(void)
 {
-  unsigned char fn[FNLEN];
+  char fn[FNLEN];
   int found = 0;
 
   clear_keyboard();
@@ -130,11 +129,11 @@ int LoadKeyboard(void)
   DEBUGCODE{fprintf(stderr, "fn = %s\n", fn);}
 
   {
-    unsigned char str[255];
+    char str[255];
     wchar_t wide_str[255];
 
-    FILE* f;
-    int i = 0, j = 0, k = 0;
+    FILE* f = NULL;
+    int k = 0;
 
     f = fopen( fn, "r" );
 
@@ -144,18 +143,19 @@ int LoadKeyboard(void)
       return 0;
     }
 
-
     do
     {
-      fscanf( f, "%[^\n]\n", str);
+      int fscanf_result = fscanf( f, "%[^\n]\n", str);
+      
+      if (fscanf_result == EOF)
+        break;
       /* Convert to wcs from UTF-8, if needed; */
-      //mbstowcs(wide_str, str, strlen(str) + 1);
       ConvertFromUTF8(wide_str, str, 255);
 
       /* Line must have 3 chars (if more, rest are ignored) */
       /* Format is: FINGER|Char  e.g   "3|d"                */
       /* wide_str[0] == finger used to type char            */
-      /* wide_str[1] =='|'
+      /* wide_str[1] =='|'                                  */
       /* wide_str[2] == Unicode value of character          */
 
       /* FIXME - this might be a good place to use a    */
@@ -170,7 +170,7 @@ int LoadKeyboard(void)
       {
         DEBUGCODE
         {
-          fprintf(stderr, "Adding key: Unicode char = '%C'\tUnicode value = %d\tfinger = %d\n",
+          fprintf(stderr, "Adding key: Unicode char = '%C'\tUnicode value = %d\tfinger = %ld\n",
                   wide_str[2], wide_str[2], wcstol(&wide_str[0], NULL, 0)); 
 	}
 
@@ -287,15 +287,14 @@ void GetWrongKeyPos(int index, char *buf)
 }
 
 
-void GetKeyShift(int index, char *buf)
+void GetKeyShift(int index, char* buf)
 {
-	if(keyboard_list[index].shift==0)
-		sprintf(buf,"keyboard/keyboard_None.png");
-		else
-		 	if(keyboard_list[index].shift==1)
-				sprintf(buf,"keyboard/keyboard_D00.png");
-				else
-							sprintf(buf,"keyboard/keyboard_D12.png", settings.default_data_path);			
+  if(keyboard_list[index].shift == 0)
+    sprintf(buf,"keyboard/keyboard_None.png");
+  else if(keyboard_list[index].shift == 1)
+    sprintf(buf,"keyboard/keyboard_D00.png");
+  else
+    sprintf(buf,"%s/images/keyboard/keyboard_D12.png", settings.default_data_path);
 }
 
 
@@ -325,54 +324,54 @@ int unicode_in_key_list(wchar_t uni_char)
 
 
 
-/* FIXME dead code but could be useful*/
-static void show_letters(void)
-{
-	int i, l = 0;
-	SDL_Surface* abit;
-	SDL_Rect dst;
-	int stop = 0;
-	unsigned char t[255];
-
-	for (i=0; i<256; i++)
-		if (ALPHABET[i])
-			t[l++]=i;
-
-	t[l] = 0;
-
-	abit = BlackOutline(t, font, &white);
-
-	dst.x = 320 - (abit->w / 2);
-	dst.y = 275;
-	dst.w = abit->w;
-	dst.h = abit->h;
-
-	SDL_BlitSurface(abit, NULL, screen, &dst);
-
-	SDL_FreeSurface(abit);
-
-	abit = BlackOutline("Alphabet Set To:", font, &white);
-	dst.x = 320 - (abit->w / 2);
-	dst.y = 200;
-	dst.w = abit->w;
-	dst.h = abit->h;
-
-	SDL_BlitSurface(abit, NULL, screen, &dst);
-
-	SDL_UpdateRect(screen, 0, 0, 0 ,0);
-
-	while (!stop) 
-		while (SDL_PollEvent(&event)) 
-			switch (event.type) {
-				case SDL_QUIT:
-					exit(0);
-				case SDL_KEYDOWN:
-				case SDL_MOUSEBUTTONDOWN:
-					stop = 1;
-			}
-
-	SDL_FreeSurface(abit);
-}
+// /* FIXME dead code but could be useful*/
+// static void show_letters(void)
+// {
+// 	int i, l = 0;
+// 	SDL_Surface* abit;
+// 	SDL_Rect dst;
+// 	int stop = 0;
+// 	unsigned char t[255];
+// 
+// 	for (i=0; i<256; i++)
+// 		if (ALPHABET[i])
+// 			t[l++]=i;
+// 
+// 	t[l] = 0;
+// 
+// 	abit = BlackOutline(t, font, &white);
+// 
+// 	dst.x = 320 - (abit->w / 2);
+// 	dst.y = 275;
+// 	dst.w = abit->w;
+// 	dst.h = abit->h;
+// 
+// 	SDL_BlitSurface(abit, NULL, screen, &dst);
+// 
+// 	SDL_FreeSurface(abit);
+// 
+// 	abit = BlackOutline("Alphabet Set To:", font, &white);
+// 	dst.x = 320 - (abit->w / 2);
+// 	dst.y = 200;
+// 	dst.w = abit->w;
+// 	dst.h = abit->h;
+// 
+// 	SDL_BlitSurface(abit, NULL, screen, &dst);
+// 
+// 	SDL_UpdateRect(screen, 0, 0, 0 ,0);
+// 
+// 	while (!stop) 
+// 		while (SDL_PollEvent(&event)) 
+// 			switch (event.type) {
+// 				case SDL_QUIT:
+// 					exit(0);
+// 				case SDL_KEYDOWN:
+// 				case SDL_MOUSEBUTTONDOWN:
+// 					stop = 1;
+// 			}
+// 
+// 	SDL_FreeSurface(abit);
+// }
 
 
 
@@ -485,7 +484,8 @@ wchar_t* GetWord(void)
 int GenerateWordList(const char* wordFn)
 {
   int j;
-  unsigned char temp_word[FNLEN];
+  int ret;
+  char temp_word[FNLEN];
   wchar_t temp_wide_word[FNLEN];
   size_t length;
 
@@ -512,11 +512,12 @@ int GenerateWordList(const char* wordFn)
   DEBUGCODE { fprintf(stderr, "WORD FILE OPENNED @ %s\n", wordFn); }
 
   /* ignore the title (i.e. first line) */
-  fscanf( wordFile, "%[^\n]\n", temp_word);
+  /* (compiler complains unless we inspect return value) */
+  ret = fscanf( wordFile, "%[^\n]\n", temp_word);
 
   while (!feof(wordFile) && (num_words < MAX_NUM_WORDS))
   {
-    fscanf( wordFile, "%[^\n]\n", temp_word);
+    ret = fscanf( wordFile, "%[^\n]\n", temp_word);
     DEBUGCODE {fprintf(stderr, "temp_word = %s\n", temp_word);}
 
     for (j = 0; j < strlen(temp_word); j++)
@@ -526,10 +527,8 @@ int GenerateWordList(const char* wordFn)
     }
 
     /* Convert from UTF-8 to wcs and make sure word is usable: */
-    /* NOTE need to add one to length arg so terminating '\0' gets added: */
-    //length = mbstowcs(temp_wide_word, temp_word, strlen(temp_word) + 1);
-
     length = ConvertFromUTF8(temp_wide_word, temp_word, FNLEN);
+
     DOUT(length);
 
     if (length == -1)  /* Means invalid UTF-8 sequence or conversion failed */
@@ -582,11 +581,11 @@ int GenerateWordList(const char* wordFn)
 
   DOUT(num_words);
 
-//  if (num_words == 0)
-//    UseAlphabet( );
-
-  fclose(wordFile);
-
+  if (wordFile)
+  {
+    fclose(wordFile);
+    wordFile = NULL;
+  }
   /* Make list of all unicode characters used in word list: */
   /* (we use this to check to make sure all are "typable"); */
   gen_char_list();
@@ -709,7 +708,7 @@ SDL_Surface* GetRedGlyph(wchar_t t)
 /* successfully rendered based on the Unicode values given in keyboard.lst. */
 /* If not, then the list contains characters that will not display and (if  */
 /* keyboard.lst is correct) cannot be typed. Most likely, this means that   */
-/* keyboard.lst is not correct.
+/* keyboard.lst is not correct.                                             */
 /* Returns 1 if all needed chars found, 0 otherwise.                        */
 int CheckNeededGlyphs(void)
 {
@@ -1178,7 +1177,7 @@ void GenerateKeyboard(SDL_Surface* keyboard)
 			case 'B':new.y+=36;new.x+=23;break;
 			case 'C':new.y+=66;new.x+=33;break;
 			case 'D':new.y+=96;new.x+=23;break;
-			case 'E':new.y+126;break;
+			case 'E':new.y+=126; break;
 			default: render=0;break;
 		}
 		if(!render)
@@ -1206,57 +1205,62 @@ void GenerateKeyboard(SDL_Surface* keyboard)
 }
 
 
-void updatekeylist(int key,char ch)
+void updatekeylist(int key, char ch)
 {
-	wchar_t;
-	keyboard_list[key].latin_char=ch;
-	wchar_t wtmp=ch;
-	map_keys(wtmp,&keyboard_list[key]);
+  keyboard_list[key].latin_char = ch;
+  wchar_t wtmp = ch;
+  map_keys(wtmp, &keyboard_list[key]);
 }
 
-/* FIXME get rid of UTF8 conversion - the unicode value is just a uint16, we should */
-/* definitely be able to figure out how to get it written into a file -DSB          */
+
+/* FIXME this is _always_ going to fail - everything in DATA_PREFIX   */
+/* is supposed to be read-only as far as a regular user is concerned. */
+/* Not sure why would want the program to be able to modify the       */
+/* keyboard map, anyway - DSB.                                        */
 void savekeyboard(void)
 {
-	unsigned char fn[FNLEN];
-	FILE *fp;
-	int i;
-	wchar_t tmp[2];
-	char buf[FNLEN];
-	tmp[1]=0;
-	if(!settings.use_english)
-		sprintf(fn , "%s/keyboard.lst", settings.theme_data_path);
-	else
-		sprintf(fn , "%s/keyboard.lst", settings.default_data_path);
+  char fn[FNLEN];
+  FILE* fp = NULL;
+  int i = 0;
+  wchar_t uni;
 
-	fp=fopen(fn,"w");
-	if (fp == NULL)
-	{
-		LOG("savekeyboard() - could not open keyboard.lst\n");
-		return 0;
-	}
-	for(i=0;i<num_chars_used;i++)
-	{
-		tmp[0]=keyboard_list[i].unicode_value;
-		/**********fprintf(fp,"%d|%C\n",keyboard_list[i].finger,keyboard_list[i].unicode_value); doesnt work, so the unicode value is converted into a char string*/
-		ConvertToUTF8(tmp, buf, FNLEN);
-		if(keyboard_list[i].finger==-1)
-		{
-			fprintf(fp,"%s\n",buf);
-		}
-		else
-		if(keyboard_list[i].latin_char==-1)
-		{
-				fprintf(fp,"%d|%s\n",keyboard_list[i].finger,buf);
-		}
-		else
-		{
-			fprintf(fp,"%d|%s|%c\n",keyboard_list[i].finger,buf,keyboard_list[i].latin_char);
-		}
-	}
-	fclose(fp);
+  if(!settings.use_english)
+    sprintf(fn , "%s/keyboard.lst", settings.theme_data_path);
+  else
+    sprintf(fn , "%s/keyboard.lst", settings.default_data_path);
+
+  /* We aren't supposed to be able to modify DATA! */
+  fp = fopen(fn,"w");
+  if (fp == NULL)
+  {
+    LOG("savekeyboard() - could not open keyboard.lst for saving\n");
+    return;
+  }
+
+  for(i = 0; i < num_chars_used; i++)
+  {
+    uni = (wchar_t)keyboard_list[i].unicode_value;
+
+    if(keyboard_list[i].finger == -1)
+    {
+      fprintf(fp,"%C\n", uni);
+    }
+    else if(keyboard_list[i].latin_char == -1)
+    {
+      fprintf(fp,"%d|%C\n",keyboard_list[i].finger, uni);
+    }
+    else
+    {
+      fprintf(fp,"%d|%C|%c\n", keyboard_list[i].finger, uni, keyboard_list[i].latin_char);
+    }
+  }
+  fclose(fp);
 }
+
+
 /****************************************************************/
+
+
 
 /****************************************************/
 /*                                                  */
@@ -1310,7 +1314,7 @@ void ResetCharList(void)
 /* Can be called multiple times on different strings      */
 /* to accumulate entire repertoire - call ResetCharList() */
 /* to start over                                          */
-void GenCharListFromString(const unsigned char* UTF8_str)
+void GenCharListFromString(const char* UTF8_str)
 {
   int i = 0;
   wchar_t wchar_buf[MAX_UNICODES];
@@ -1332,21 +1336,22 @@ void GenCharListFromString(const unsigned char* UTF8_str)
 
 
 
-/* FIXME this function is currently dead code */
-/* --- setup the alphabet --- */
-static void set_letters(unsigned char *t) {
-	int i;
-
-	ALPHABET_SIZE = 0;
-	for (i=0; i<256; i++)
-		ALPHABET[i]=0;
-
-	for (i=0; i<strlen(t); i++)
-		if (t[i]!=' ') {
-			ALPHABET[(int)t[i]]=1;
-			ALPHABET_SIZE++;
-		}
-}
+// /* FIXME this function is currently dead code */
+// /* --- setup the alphabet --- */
+// static void set_letters(char *t)
+// {
+// 	int i;
+// 
+// 	ALPHABET_SIZE = 0;
+// 	for (i=0; i<256; i++)
+// 		ALPHABET[i]=0;
+// 
+// 	for (i=0; i<strlen(t); i++)
+// 		if (t[i]!=' ') {
+// 			ALPHABET[(int)t[i]]=1;
+// 			ALPHABET_SIZE++;
+// 		}
+// }
 
 
 

@@ -255,70 +255,100 @@ SDL_Surface* Flip( SDL_Surface *in, int x, int y ) {
    Currently this works only with RGBA images, but this is largely to
    make the (fast) pointer arithmetic work out; it could be easily
    generalized to other image types. */
-SDL_Surface* Blend(SDL_Surface *S1,SDL_Surface *S2,float gamma)
+SDL_Surface* Blend(SDL_Surface* S1, SDL_Surface* S2, float gamma)
 {
-  SDL_PixelFormat *fmt1,*fmt2;
-  Uint8 r1,r2,g1,g2,b1,b2,a1,a2;
-  SDL_Surface *tmpS,*ret;
-  Uint32 *cpix1,*epix1,*cpix2,*epix2;
+  SDL_PixelFormat *fmt1, *fmt2;
+  Uint8 r1, r2, g1, g2, b1, b2, a1, a2;
+  SDL_Surface *tmpS, *ret;
+  Uint32 *cpix1, *epix1, *cpix2, *epix2;
   float gamflip;
 
-  gamflip = 1.0-gamma;
-  if (gamma < 0 || gamflip < 0) {
+  if (!S1)
+    return NULL;
+
+  fmt1 = fmt2 = NULL;
+  tmpS = ret = NULL;
+
+  gamflip = 1.0 - gamma;
+  if (gamma < 0 || gamflip < 0)
+  {
     perror("gamma must be between 0 and 1");
     exit(0);
   }
+
   fmt1 = S1->format;
-  if (fmt1->BitsPerPixel != 32) {
+
+  if (fmt1 && fmt1->BitsPerPixel != 32)
+  {
     perror("This works only with RGBA images");
     return S1;
   }
-  if (S2 != NULL) {
+  if (S2 != NULL)
+  {
     fmt2 = S2->format;
-    if (fmt2->BitsPerPixel != 32) {
-    perror("This works only with RGBA images");
-    return S1;
+    if (fmt2->BitsPerPixel != 32)
+    {
+      perror("This works only with RGBA images");
+      return S1;
     }
     // Check that both images have the same width dimension
-    if (S1->w != S2->w) {
+    if (S1->w != S2->w)
+    {
       printf("S1->w %d, S2->w %d;  S1->h %d, S2->h %d\n",
-             S1->w,S2->w,S1->h,S2->h);
+             S1->w, S2->w, S1->h, S2->h);
       printf("Both images must have the same width dimensions\n");
       return S1;
     }
   }
 
-  tmpS = SDL_ConvertSurface(S1,fmt1,SDL_SWSURFACE);
-  SDL_LockSurface(tmpS);
+  tmpS = SDL_ConvertSurface(S1, fmt1, SDL_SWSURFACE);
+  if (tmpS == NULL)
+  {
+    perror("SDL_ConvertSurface() failed");
+    return S1; 
+  }
+  if (-1 == SDL_LockSurface(tmpS))
+  {
+    perror("SDL_LockSurface() failed");
+    return S1; 
+  }
+
   // We're going to go through the pixels in reverse order, to start
   // from the bottom of each image. That way, we can blend things that
   // are not of the same height and have them align at the bottom.
   // So the "ending pixel" (epix) will be before the first pixel, and
   // the current pixel (cpix) will be the last pixel.
-  epix1 = (Uint32*) tmpS->pixels-1;
-  cpix1 = epix1 + tmpS->w*tmpS->h;
-  if (S2 != NULL) {
-    SDL_LockSurface(S2);
-    epix2 = (Uint32*) S2->pixels-1;
-    cpix2 = epix2 + S2->w*S2->h;
-  } else {
+  epix1 = (Uint32*) tmpS->pixels - 1;
+  cpix1 = epix1 + tmpS->w * tmpS->h;
+  if (S2 != NULL
+      && (SDL_LockSurface(S2) != -1))
+  {
+    epix2 = (Uint32*) S2->pixels - 1;
+    cpix2 = epix2 + S2->w * S2->h;
+  }
+  else
+  {
     epix2 = epix1;
     cpix2 = cpix1;
   }
 
-  for (; cpix1 > epix1; cpix1--,cpix2--) {
-    SDL_GetRGBA(*cpix1,fmt1,&r1,&g1,&b1,&a1);
-    a1 = gamma*a1;
-    if (S2 != NULL && cpix2 > epix2) {
-      SDL_GetRGBA(*cpix2,fmt2,&r2,&g2,&b2,&a2);
-      r1 = gamma*r1 + gamflip*r2;
-      g1 = gamma*g1 + gamflip*g2;
-      b1 = gamma*b1 + gamflip*b2;
-      a1 += gamflip*a2;
+  for (; cpix1 > epix1; cpix1--, cpix2--)
+  {
+    SDL_GetRGBA(*cpix1, fmt1, &r1, &g1, &b1, &a1);
+    a1 = gamma * a1;
+    if (S2 != NULL && cpix2 > epix2)
+    {
+      SDL_GetRGBA(*cpix2, fmt2, &r2, &g2, &b2, &a2);
+      r1 = gamma * r1 + gamflip * r2;
+      g1 = gamma * g1 + gamflip * g2;
+      b1 = gamma * b1 + gamflip * b2;
+      a1 += gamflip * a2;
     }
     *cpix1 = SDL_MapRGBA(fmt1,r1,g1,b1,a1);
   }
+
   SDL_UnlockSurface(tmpS);
+
   if (S2 != NULL)
     SDL_UnlockSurface(S2);
 
@@ -385,7 +415,7 @@ SDLPango_Matrix* SDL_Colour_to_SDLPango_Matrix(const SDL_Color *cl)
 /* background.  The appearance can be tuned by adjusting the number of */
 /* background copies and the offset where the foreground text is       */
 /* finally written (see below).                                        */
-SDL_Surface* BlackOutline(const char *t, TTF_Font *font, SDL_Color *c)
+SDL_Surface* BlackOutline(const char *t, const TTF_Font *font, const SDL_Color *c)
 {
   SDL_Surface* out = NULL;
   SDL_Surface* black_letters = NULL;
@@ -419,7 +449,7 @@ SDL_Surface* BlackOutline(const char *t, TTF_Font *font, SDL_Color *c)
     black_letters = SDLPango_CreateSurfaceDraw(context);
   }
   else {
-    black_letters = TTF_RenderUTF8_Blended(font, t, black);
+    black_letters = TTF_RenderUTF8_Blended((TTF_Font*)font, t, black);
   }
 #endif
 
@@ -468,7 +498,7 @@ SDL_Surface* BlackOutline(const char *t, TTF_Font *font, SDL_Color *c)
   }
   else
   {
-    white_letters = TTF_RenderUTF8_Blended(font, t, *c);
+    white_letters = TTF_RenderUTF8_Blended((TTF_Font*)font, t, *c);
   }
 #endif
 
@@ -515,7 +545,7 @@ SDL_Surface* BlackOutline_Unicode(const Uint16* t, const TTF_Font* font, const S
 
   if (!black_letters)
   {
-    fprintf (stderr, "Warning - BlackOutline_Unicode() could not create image for %S\n", t);
+    fprintf (stderr, "Warning - BlackOutline_Unicode() could not create image for %S\n", (wchar_t*)t);
     return NULL;
   }
 
@@ -557,7 +587,7 @@ SDL_Surface* BlackOutline_Unicode(const Uint16* t, const TTF_Font* font, const S
 }
 
 
-SDL_Surface* BlackOutline_w(wchar_t* t, const TTF_Font* font, const SDL_Color* c, int size)
+SDL_Surface* BlackOutline_w(const wchar_t* t, const TTF_Font* font, const SDL_Color* c, int size)
 {
   wchar_t wchar_tmp[1024];
   char tmp[1024];

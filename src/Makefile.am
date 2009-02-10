@@ -45,7 +45,6 @@ tuxtype_SOURCES = 	\
 	pause.c		\
 	convert_utf.c	\
 	options.c	\
-	iconv_string.c  \
 	mysetenv.c
 
 TuxType_SOURCES  = $(tuxtype_SOURCES)
@@ -62,7 +61,6 @@ EXTRA_DIST = titlescreen.h \
 	SDL_extras.h	\
 	snow.h		\
 	convert_utf.h	\
-	iconv_string.h  \
 	gettext.h	\
 	compiler.h	\
 	mysetenv.h

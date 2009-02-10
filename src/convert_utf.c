@@ -50,24 +50,18 @@ int ConvertFromUTF8(wchar_t* wide_word, const char* UTF8_word, int max_length)
   /* NOTE although we *should* be just able to pass "wchar_t" as the out_type, */
   /* iconv_open() segfaults on Windows if this is done - grrr....             */
 #ifdef WIN32
-  DEBUGCODE {fprintf(stderr, "WIN32, using UTF-16LE for wchar_t\n");}
   conv_descr = iconv_open("UTF-16LE", "UTF-8");
 #else
-  DEBUGCODE {fprintf(stderr, "Using wchar_t for wchar_t\n");}
   conv_descr = iconv_open("wchar_t", "UTF-8");
 #endif
 
   bytes_converted = iconv(conv_descr,
-                          &UTF8_word, &in_length,
-                          &wchar_start, &out_length);
-  LOG("completed iconv()\n");
- 
+                          (char**) &UTF8_word, &in_length,
+                          (char**) &wchar_start, &out_length);
   iconv_close(conv_descr);
-
   wcsncpy(wide_word, temp_wchar, max_length);
 
   DEBUGCODE {fprintf(stderr, "ConvertToUTF8(): wide_word = %S\n", wide_word);}
-  DEBUGCODE {fprintf(stderr, "ConvertToUTF8(): temp_wchar = %S\n", temp_wchar);}
 
   return wcslen(wide_word);
 }
@@ -106,25 +100,18 @@ int ConvertToUTF8(const wchar_t* wide_word, char* UTF8_word, int max_length)
   /* NOTE although we *should* be just able to pass "wchar_t" as the in_type, */
   /* iconv_open() segfaults on Windows if this is done - grrr....             */
 #ifdef WIN32
-  DEBUGCODE {fprintf(stderr, "WIN32, using UTF-16LE for wchar_t\n");}
   conv_descr = iconv_open("UTF-8", "UTF-16LE");
 #else
-  DEBUGCODE {fprintf(stderr, "Using wchar_t for wchar_t\n");}
   conv_descr = iconv_open("UTF-8", "wchar_t");
 #endif
 
   bytes_converted = iconv(conv_descr,
-                          &wide_word, &in_length,
-//                          &UTF8_word, &out_length);
-                          &UTF8_Start, &out_length);
-  LOG("completed iconv()\n");
- 
+                          (char**) &wide_word, &in_length,
+                          (char**) &UTF8_Start, &out_length);
   iconv_close(conv_descr);
-
   strncpy(UTF8_word, temp_UTF8, max_length);
 
   DEBUGCODE {fprintf(stderr, "ConvertToUTF8(): UTF8_word = %s\n", UTF8_word);}
-  DEBUGCODE {fprintf(stderr, "ConvertToUTF8(): temp_UTF8 = %s\n", temp_UTF8);}
 
   return strlen(UTF8_word);
 }

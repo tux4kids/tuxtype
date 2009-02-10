@@ -19,6 +19,7 @@
 #include "scripting.h"
 #define MAX_LESSONS 100
 #include "SDL_extras.h"
+#include "convert_utf.h"
 
 /* Local function prototypes: */
 static void clear_items(itemType* i);
@@ -132,8 +133,8 @@ int TestLesson(void)
   int num_scripts = 0;
   int found = 0;
   int i;
-  unsigned char script_path[FNLEN];
-  unsigned char script_filenames[MAX_LESSONS][200];
+  char script_path[FNLEN];
+  char script_filenames[MAX_LESSONS][200];
   char fn[FNLEN]; 
 
   DIR* script_dir = NULL;
@@ -537,7 +538,11 @@ static int load_script(const char* fn)
 
   do
   {
-    fscanf(f, "%[^\n]\n", str);
+    /* Compiler complains if we don't inspect result of fscanf() */
+    int fscanf_result = fscanf(f, "%[^\n]\n", str);
+    if (fscanf_result == EOF)
+      break;
+
     if (strncmp("<script", str, 7) == 0)
     {
       /* -- allocate space for the lesson info -- */
@@ -1260,7 +1265,7 @@ static void run_script(void)
         case itemPRAC:
         {
           wchar_t wide_buf[FNLEN];
-          ConvertFromUTF8(wide_buf, curItem->data);
+          ConvertFromUTF8(wide_buf, curItem->data, FNLEN);
           if (curItem->goal > 0)
           {
             //printf( "goal is %d\n", curItem->goal );

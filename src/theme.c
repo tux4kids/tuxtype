@@ -49,9 +49,9 @@ void ChooseTheme(void)
 
   int themes = 1;
   int i;
-  unsigned char fn[FNLEN];
-  unsigned char themeNames[MAX_LANGUAGES][FNLEN];
-  unsigned char themePaths[MAX_LANGUAGES][FNLEN];
+  char fn[FNLEN];
+  char themeNames[MAX_LANGUAGES][FNLEN];
+  char themePaths[MAX_LANGUAGES][FNLEN];
 
   int old_use_english;
   char old_theme_path[FNLEN];
