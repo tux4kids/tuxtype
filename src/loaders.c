@@ -121,7 +121,6 @@ TTF_Font* LoadFont(const char* font_name, int font_size )
 {
   TTF_Font* loaded_font = NULL;
   char fn[FNLEN];
-  int i;
 
   /* try to find font in default data dir: */
   sprintf(fn, "%s/fonts/%s", settings.default_data_path, font_name );
@@ -187,7 +186,6 @@ TTF_Font* LoadFont(const char* font_name, int font_size )
 ************************/
 SDL_Surface* LoadImage(const char* datafile, int mode)
 {
-  int oldDebug;  //so we can turn off debug output for this func only
   SDL_Surface* tmp_pic = NULL, *final_pic = NULL;
   char fn[FNLEN];
 
@@ -215,12 +213,12 @@ SDL_Surface* LoadImage(const char* datafile, int mode)
       DEBUGCODE { fprintf(stderr, "Warning: graphics file %s could not be loaded\n", fn);}
   }
 
-  /* NOTE changed this so we just return NULL instead of exiting - DSB
+  /* NOTE changed this so we just return NULL instead of exiting - DSB   */
   /* Couldn't load image - action depends on whether image is essential: */
   if (!tmp_pic)
   {
     { 
-      DEBUGCODE { (stderr, "Warning - could not load graphics file %s\n", datafile);}
+      DEBUGCODE { fprintf(stderr, "Warning - could not load graphics file %s\n", datafile);}
       return NULL;
     }
 

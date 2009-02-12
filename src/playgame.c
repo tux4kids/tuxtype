@@ -69,7 +69,7 @@ static void AddSplat(int* splats, struct fishypoo* f, int* curlives, int* frame)
 static void CheckCollision(int fishies, int* fish_left, int frame );
 static void CheckFishies(int* fishies, int* splats);
 static int check_word(int f);
-static void display_msg(const unsigned char* msg, int x, int y);
+static void display_msg(const char* msg, int x, int y);
 static void DrawBackground(void);
 static void draw_bar(int curlevel, int diflevel, int curlives,
                      int oldlives, int fish_left, int oldfish_left);
@@ -108,7 +108,7 @@ static void WaitFrame(void);
 *************************************************************************/
 int PlayCascade(int diflevel)
 {
-  unsigned char filename[FNLEN];
+  char filename[FNLEN];
   int still_playing = 1;
   int playing_level = 1;
   int setup_new_level = 1;
@@ -119,7 +119,7 @@ int PlayCascade(int diflevel)
   int curlives;
   int oldlives = 0;
   int oldfish_left = 0;
-  int fish_left;
+  int fish_left = 0;
   int fishies = 0;
   int local_max_fishies = 1;
   int frame = 0;
@@ -1096,7 +1096,7 @@ LoadOthers : Load all other graphics
 static void LoadOthers(void)
 {
 	int i;
-	unsigned char filename[FNLEN];
+	char filename[FNLEN];
 
 	LOG( "=LoadOthers()\n" );
 	DEBUGCODE
@@ -1170,7 +1170,7 @@ static void LoadOthers(void)
 	LOG( "=LoadOthers() END\n" );
 }
 
-static void display_msg(const unsigned char* msg, int x, int y)
+static void display_msg(const char* msg, int x, int y)
 {
   if (msg == NULL || msg[0] == '\0')
     return;
@@ -1244,7 +1244,7 @@ static void DrawNumbers(int num, int x, int y, int places)
 //                                       number = 5 and places = 2, would draw "05")
 //                                       if places = 0, then will simply display as
 //                                       many as necessary
-    unsigned char numnuts[FNLEN];
+    char numnuts[FNLEN];
     int needed_places, i;
     int uddernumber;
 
@@ -1288,7 +1288,7 @@ static void EraseNumbers(int num, int x, int y, int places)
 //                                       number = 5 and places = 2, would draw "05")
 //                                       if places = 0, then will simply display as
 //                                       many as necessary
-    unsigned char numnuts[FNLEN];
+    char numnuts[FNLEN];
     int needed_places, i;
     int uddernumber;
 

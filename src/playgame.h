@@ -112,7 +112,7 @@ enum {
 	TUX_NUM_STATES
 };
 
-static unsigned char* tux_sprite_fns[TUX_NUM_STATES] = {
+static char* tux_sprite_fns[TUX_NUM_STATES] = {
 	"tux/walk",
 	"tux/stand",
 	"tux/run",

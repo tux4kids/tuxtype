@@ -90,7 +90,7 @@ enum {
 };
 
 
-static unsigned char * image_filenames[NUM_IMAGES] = {
+static char* image_filenames[NUM_IMAGES] = {
   "status/tux_helmet1.png",
   "status/tux_helmet2.png",
   "status/tux_helmet3.png", 
@@ -161,7 +161,7 @@ enum {
 };
 
 
-static unsigned char * sound_filenames[NUM_SOUNDS] = {
+static char* sound_filenames[NUM_SOUNDS] = {
   "pop.wav",
   "laser.wav",
   "buzz.wav",
@@ -179,7 +179,7 @@ enum {
   NUM_MUSICS
 };
 
-static unsigned char * music_filenames[NUM_MUSICS] = {
+static char * music_filenames[NUM_MUSICS] = {
   "game.mod",
   "game2.mod",
   "game3.mod"

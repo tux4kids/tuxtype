@@ -19,6 +19,7 @@
 
 #include "globals.h"
 #include "funcs.h"
+#include "SDL_extras.h"
 #include "laser.h"
 
 
@@ -53,7 +54,7 @@ static void laser_add_score(int inc);
 static void laser_draw_console_image(int i);
 static void laser_draw_let(wchar_t c, int x, int y);
 static void laser_draw_line(int x1, int y1, int x2, int y2, int r, int g, int b);
-static void laser_draw_numbers(const unsigned char* str, int x);
+static void laser_draw_numbers(const char* str, int x);
 static void laser_load_data(void);
 static void laser_reset_level(int diff_level);
 static void laser_putpixel(SDL_Surface* surface, int x, int y, Uint32 pixel);
@@ -76,11 +77,12 @@ int PlayLaserGame(int diff_level)
 	Uint16 key_unicode;
 
 	SDL_Event event;
-	Uint32    last_time, now_time;
+	Uint32 last_time = 0;
+        Uint32 now_time = 0;
 	SDLKey    key;
 	SDL_Rect  src, dest;
 	/* str[] is a buffer to draw the scores, waves, etc. (don't need wchar_t) */
-	unsigned char str[64]; 
+	char str[64]; 
 
 	LOG( "starting Comet Zap game\n" );
 	DOUT( diff_level );
@@ -317,7 +319,7 @@ int PlayLaserGame(int diff_level)
 			while (tux_img == old_tux_img)
 				tux_img = IMG_TUX_CONSOLE1 + (rand() % 3);
 
-			playsound(sounds[SND_CLICK]);
+			PlaySound(sounds[SND_CLICK]);
 		}
       
       
@@ -754,7 +756,7 @@ static void laser_unload_data(void) {
 
 static void laser_reset_level(int diff_level)
 {
-  unsigned char fname[1024];
+  char fname[1024];
   static int last_bkgd = -1;
   int i;
   
@@ -778,8 +780,7 @@ static void laser_reset_level(int diff_level)
 
   sprintf(fname, "backgrounds/%d.jpg", i);
 
-  LOG("Will try to load file:");
-  LOG(fname);
+  DEBUGCODE { fprintf(stderr, "Will try to load file:\t%s", fname); }
 
   FreeBothBkgds(); // LoadBothBkgds() actually does this just in case
 
@@ -934,11 +935,10 @@ static void laser_draw_let(wchar_t c, int x, int y)
 
 /* Draw status numbers: */
 
-static void laser_draw_numbers(const unsigned char* str, int x)
+static void laser_draw_numbers(const char* str, int x)
 {
   int i, cur_x, c;
   SDL_Rect src, dest;
-
 
   cur_x = x;
 
@@ -948,7 +948,6 @@ static void laser_draw_numbers(const unsigned char* str, int x)
   for (i = 0; i < strlen(str); i++)
     {
       c = -1;
-
 
       /* Determine which character to display: */
       

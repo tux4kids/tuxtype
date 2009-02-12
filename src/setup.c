@@ -271,7 +271,8 @@ static int load_settings_fp(FILE* fp)
   /* we load all the settings here */
   while (!feof(fp))
   {
-    fscanf(fp, "%[^=]=%[^\n]\n", setting, value );
+    if (EOF == fscanf(fp, "%[^=]=%[^\n]\n", setting, value))
+      break;
 
     DEBUGCODE {fprintf(stderr, "%s = %s", setting, value );}
       //For now we are not reading or saving the language selection: 
@@ -405,7 +406,6 @@ void SaveSettings(void)
 
 int SetupPaths(const char* theme_dir)
 {
-  int i;
   settings.use_english = 1; // default is to use English if we cannot find theme
 
   if (CheckFile(DATA_PREFIX))
@@ -416,7 +416,7 @@ int SetupPaths(const char* theme_dir)
   else
   {
     fprintf(stderr, "Error - DATA_PREFIX = '%s' not found!\n", DATA_PREFIX);
-    return;
+    return 0;
   }
 
   /* Now look for theme directory: */

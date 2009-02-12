@@ -27,13 +27,9 @@
 
 /* images of regular and selected text of menu items: */
 static SDL_Surface* reg_text[TITLE_MENU_ITEMS + 1][TITLE_MENU_DEPTH + 1] = {{NULL}};
-static SDL_Surface* sel_text[TITLE_MENU_ITEMS + 1][TITLE_MENU_DEPTH + 1] = {NULL};
+static SDL_Surface* sel_text[TITLE_MENU_ITEMS + 1][TITLE_MENU_DEPTH + 1] = {{NULL}};
 /* this will contain pointers to all of the menu 'icons' */
-static sprite* menu_gfx[TITLE_MENU_ITEMS + 1][TITLE_MENU_DEPTH + 1] = {NULL};
-
-/* Background images for windowed and fullscreen modes: */
-static SDL_Surface* win_bkgd = NULL; //640x480 background (windowed)
-static SDL_Surface* fullscr_bkgd = NULL; //native resolution (fullscreen)
+static sprite* menu_gfx[TITLE_MENU_ITEMS + 1][TITLE_MENU_DEPTH + 1] = {{NULL}};
 
 /* --- other media --- */
 static SDL_Surface* title = NULL;
@@ -63,7 +59,7 @@ static int load_media(void);
 static void load_menu(void);
 static void recalc_rects(void);
 static int chooseWordlist(void);
-static void ChooseWord(char *words_file);
+static void ChooseWord(char* words_file);
 static void ChooseFile(void);
 static void unload_media(void);
 static void unload_menu(void);
@@ -73,7 +69,7 @@ static void not_implemented(void);
 
 /* --- define menu structure --- */
 /* (these values are all in the Game_Type enum in globals.h) */
-const int menu_item[][6]= {{0, 0,         0,         0,          0},
+const int menu_item[][6] = {{0, 0,         0,         0,          0},
 			   {0, CASCADE,   LEVEL1,    LEVEL1,  EDIT_WORDLIST   },
 			   {0, LASER,     LEVEL2,    LEVEL2,  PHRASE_TYPING },
 			   {0, LESSONS,   LEVEL3,    LEVEL3,  PROJECT_INFO    },
@@ -81,7 +77,7 @@ const int menu_item[][6]= {{0, 0,         0,         0,          0},
 			   {0, QUIT_GAME, MAIN,      MAIN,    MAIN            }};
 
 /* --- menu icons --- */
-const unsigned char *menu_icon[][6]= 
+const char* menu_icon[][6] = 
 {{"", "", "", "", ""},
  {"", "cascade", "easy",   "grade1_", "list"   },
  {"", "comet",   "medium", "grade2_", "practice" },
@@ -90,7 +86,7 @@ const unsigned char *menu_icon[][6]=
  {"", "quit",    "main",   "main",    "main"   }};
 
      
-static const char *menu_text[]= 
+static const char* menu_text[] = 
 {"", "",            "",             "",            ""    ,
  "",gettext_noop("Fish Cascade"),gettext_noop("Easy"),gettext_noop("Space Cadet"),gettext_noop("Edit Word Lists"),
  "",gettext_noop("Comet Zap"),gettext_noop("Medium"),gettext_noop("Pilot"),gettext_noop("Phrase Typing"),
@@ -132,11 +128,6 @@ void TitleScreen(void)
   int redraw = 0;
   int key_menu = 1;
   int old_key_menu = 5;
-//  wchar_t phrase[128];
-//  FILE *fp;
-//  unsigned char fn[FNLEN];
-//  int found = 0;
-  unsigned char str[1000];
 
 
   if (settings.sys_sound)
@@ -145,12 +136,6 @@ void TitleScreen(void)
     settings.menu_music = 1;
   }
 
-  
-  /* FIXME phrase(s) should come from file */
-
-//  ConvertFromUTF8(phrase, "The quick brown fox jumps over the lazy dog.");
-
-//  wcscpy(phrase, "Now is the time for all good men to come to the aid of their country.");
   start = SDL_GetTicks();
 
 
@@ -904,7 +889,7 @@ static void show_logo(void)
 /* animated sprites, if any.                                    */
 static void load_menu(void)
 {
-  unsigned char fn[FNLEN];
+  char fn[FNLEN];
   int max, i, j;
 
   SDL_ShowCursor(1);
@@ -919,12 +904,12 @@ static void load_menu(void)
       DEBUGCODE
       {
         fprintf(stderr, "i = '%d'\tj = '%d'\ttext = '%s'\n",
-                i, j,  gettext((unsigned char*)menu_text[j+5*i]));
+                i, j,  gettext(menu_text[j + 5 * i]));
       }
 
       /* --- create text surfaces --- */
-      reg_text[i][j] = BlackOutline( gettext((unsigned char*)menu_text[j+5*i]), font, &white);
-      sel_text[i][j] = BlackOutline( gettext((unsigned char*)menu_text[j+5*i]), font, &yellow);
+      reg_text[i][j] = BlackOutline( gettext(menu_text[j + 5 * i]), font, &white);
+      sel_text[i][j] = BlackOutline( gettext(menu_text[j + 5 * i]), font, &yellow);
 
       /* (first make sure ptr valid to avoid segfault) */
       if (sel_text[i][j] && sel_text[i][j]->w > max)
@@ -1253,9 +1238,10 @@ static int chooseWordlist(void)
   int old_loc = 1;
   int lists = 0;
   int i;
-  unsigned char wordPath[FNLEN];
-  unsigned char wordlistFile[MAX_WORD_LISTS][200];
-  unsigned char wordlistName[MAX_WORD_LISTS][200];
+  int result = 0;;
+  char wordPath[FNLEN];
+  char wordlistFile[MAX_WORD_LISTS][200];
+  char wordlistName[MAX_WORD_LISTS][200];
 
   DIR* wordsDir = NULL;
   struct dirent* wordsFile = NULL;
@@ -1316,7 +1302,9 @@ static int chooseWordlist(void)
     if (!tempFile)
       continue;
 
-    fscanf(tempFile, "%[^\n]\n", wordlistName[lists]);
+    result = fscanf(tempFile, "%[^\n]\n", wordlistName[lists]);
+    if (result == EOF)
+      continue;
 
     /* check to see if it has a \r at the end of it (dos format!) */
     if (wordlistName[lists][strlen(wordlistName[lists]) - 1] == '\r')
@@ -1543,7 +1531,6 @@ static void ChooseFile(void)
 {
   SDL_Surface* titles[MAX_WORD_LISTS] = {NULL};
   SDL_Surface* select[MAX_WORD_LISTS] = {NULL};
-  SDL_Surface *photo = NULL;
   SDL_Surface* bkg = NULL;
   TTF_Font* font = NULL;
   SDL_Rect titleRects[8];
@@ -1553,14 +1540,14 @@ static void ChooseFile(void)
 
   int themes = 0;
   int i;
-  unsigned char fn[FNLEN];
-  unsigned char wordTypes[MAX_WORD_LISTS][FNLEN];
-  unsigned char fileNames[MAX_WORD_LISTS][FNLEN];
+  char fn[FNLEN];
+  char wordTypes[MAX_WORD_LISTS][FNLEN];
+  char fileNames[MAX_WORD_LISTS][FNLEN];
 
   int old_use_english;
   char old_theme_path[FNLEN];
 
-  FILE *fp;
+  FILE* fp;
 
   DIR* themesDir = NULL;
   struct dirent* themesFile = NULL;
@@ -1617,7 +1604,8 @@ static void ChooseFile(void)
       /* We know it opens safely because CheckFile() returned 1 */
       fp = fopen(fn,"r");
       /* HACK: we should get the names from file :) */
-      fscanf(fp, "%[^\n]\n", wordTypes[themes]);
+      if (EOF ==fscanf(fp, "%[^\n]\n", wordTypes[themes]))
+        continue;
       /* Make sure theme name is capitalized: */
       wordTypes[themes][0] = toupper(wordTypes[themes][0]);
       fclose(fp);
@@ -1774,23 +1762,22 @@ static void ChooseWord(char *words_file)
   SDL_Surface* select[MAX_WORD_LISTS] = {NULL};
   SDL_Surface* left = NULL, *right = NULL;
   SDL_Rect leftRect, rightRect;
-  SDL_Surface* photo = NULL;
   SDL_Surface* bkg = NULL;
   TTF_Font* font = NULL;
-  SDL_Rect worldRect, photoRect;
   SDL_Rect titleRects[8];
   int stop = 0;
   int loc = 0;
   int old_loc = 1;
+  int result = 0;
 
-  FILE *fp;
+  FILE* fp = NULL;
 
   int start,themes,themest = 0;
   int i,len;
-  unsigned char fn[FNLEN];
-  unsigned char str[FNLEN];
-  unsigned char editWordW[MAX_WORD_LISTS][FNLEN];
-  unsigned char editWordY[MAX_WORD_LISTS][FNLEN];
+  char fn[FNLEN];
+  char str[FNLEN];
+  char editWordW[MAX_WORD_LISTS][FNLEN];
+  char editWordY[MAX_WORD_LISTS][FNLEN];
 
   wchar_t temp[FNLEN];
 
@@ -1810,13 +1797,14 @@ static void ChooseWord(char *words_file)
     sprintf(fn , "%s/words/%s", settings.theme_data_path,words_file);
   }
 
-  fp=fopen(fn,"r");
-  fscanf(fp, "%[^\n]\n", str);
+  fp = fopen(fn,"r");
+  result = fscanf(fp, "%[^\n]\n", str);
 
   while(!feof(fp))
   {
     /* HACK: we should get the strings from file :) */
-    fscanf(fp, "%[^\n]\n", editWordW[themes]);
+    if (EOF ==fscanf(fp, "%[^\n]\n", editWordW[themes]))
+      continue;
     themest=themes;
     strcpy(editWordY[themes++],editWordW[themest]);
   }
