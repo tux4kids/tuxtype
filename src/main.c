@@ -18,6 +18,7 @@
 
 #include "globals.h"
 #include "funcs.h"
+#include "SDL_extras.h"
 
 SDL_Surface* screen;
 SDL_Event  event;

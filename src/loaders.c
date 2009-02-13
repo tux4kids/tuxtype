@@ -221,8 +221,6 @@ SDL_Surface* LoadImage(const char* datafile, int mode)
       DEBUGCODE { fprintf(stderr, "Warning - could not load graphics file %s\n", datafile);}
       return NULL;
     }
-
-//    exit(1);
   }
 
 

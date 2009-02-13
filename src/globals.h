@@ -36,8 +36,7 @@
 #define MAX_SPRITE_FRAMES 30
 
 
-//#define LOCALEDIR "/usr/local/share"
-#include "../config.h"
+#include "config.h"
 
 // Translation stuff (now works for Mac and Win too!): 
 #include "gettext.h"

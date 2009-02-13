@@ -228,6 +228,8 @@ int Phrases(wchar_t* pphrase )
           wchar_t buf[200];
           wcsncpy(buf, &phrases[cur_phrase][prev_wrap], wrap_pt + 1); 
           buf[wrap_pt + 1]= '\0';
+          fprintf(stderr, "wrap_pt = %d\t cursor = %d\t prev_wrap = %d\n",
+                          wrap_pt, cursor, prev_wrap);
           fprintf(stderr, "Phrase to be typed is: %S\n", buf);
         }
 
@@ -242,14 +244,18 @@ int Phrases(wchar_t* pphrase )
         }
 
         /* Draw the text the player has typed so far: */
+
         tmpsurf = BlackOutline_w(&phrases[cur_phrase][prev_wrap],
                                   medfont, &white,
                                   cursor - prev_wrap);
+
         DEBUGCODE
         {
           wchar_t buf[200];
           wcsncpy(buf, &phrases[cur_phrase][prev_wrap], cursor - prev_wrap); 
-          buf[cursor - prev_wrap + 1]= '\0';
+          buf[cursor - prev_wrap]= '\0';
+          fprintf(stderr, "wrap_pt = %d\t cursor = %d\t prev_wrap = %d\n",
+                          wrap_pt, cursor, prev_wrap);
           fprintf(stderr, "Text typed so far is: %S\n", buf);
         }
 
@@ -286,6 +292,7 @@ int Phrases(wchar_t* pphrase )
               /* If no typing for 0.5 sec, display hint:      */
         if (SDL_GetTicks() - start > 500) 
         {
+      
           /* Show finger hint, if available. Note that GetFinger() */
           /* returns negative values on error and never returns a  */
           /* value greater than 9.                                 */
@@ -295,27 +302,27 @@ int Phrases(wchar_t* pphrase )
           keypress1 = GetKeypress1(key);
           keypress2 = GetKeypress2(key);
 
-          if (!keypress1)
-          {
-            fprintf(stderr, "Phrases() - GetKeypress1 failed, returning.\n");
-            return 0;
-          }
-
-          if(!keypress2)
-          {
-            fprintf(stderr, "Phrases() - GetKeypress2 failed, returning.\n");
-            return 0;
-          }
-
           SDL_BlitSurface(CurrentBkgd(), &hand_loc, screen, &hand_loc);
           SDL_BlitSurface(hands, NULL, screen, &hand_loc);
+
           if (fing >= 0) 
             SDL_BlitSurface(hand[fing], NULL, screen, &hand_loc);
           SDL_BlitSurface(hand_shift[shift], NULL, screen, &hand_loc);
-          SDL_BlitSurface(keypress1, NULL, screen, &keyboard_loc);
-          SDL_BlitSurface(keypress2, NULL, screen, &keyboard_loc);
-          SDL_FreeSurface(keypress1);
-          SDL_FreeSurface(keypress2);
+
+          if (keypress1)
+          {
+            SDL_BlitSurface(keypress1, NULL, screen, &keyboard_loc);
+            SDL_FreeSurface(keypress1);
+            keypress1 = NULL;
+          }
+
+          if (keypress2)
+          {
+            SDL_BlitSurface(keypress2, NULL, screen, &keyboard_loc);
+            SDL_FreeSurface(keypress2);
+            keypress2 = NULL;
+          }     
+
           state = 4;
         }
         break;
@@ -342,28 +349,29 @@ int Phrases(wchar_t* pphrase )
         int shift = GetShift(key);
         keypress1 = GetKeypress1(key);
         keypress2 = GetKeypress2(key);
-
-        if (!keypress1)
-        {
-          fprintf(stderr, "Phrases() - GetKeypress1 failed, returning.\n");
-          return 0;
-        }
-
-        if(!keypress2)
-        {
-          fprintf(stderr, "Phrases() - GetKeypress2 failed, returning.\n");
-          return 0;
-        }
-
+ 
         SDL_BlitSurface(CurrentBkgd(), &hand_loc, screen, &hand_loc);
         SDL_BlitSurface(hands, NULL, screen, &hand_loc);
+
         if (fing >= 0) 
           SDL_BlitSurface(hand[fing], NULL, screen, &hand_loc);
+
         SDL_BlitSurface(hand_shift[shift], NULL, screen, &hand_loc);
-        SDL_BlitSurface(keypress1, NULL, screen, &keyboard_loc);
-        SDL_BlitSurface(keypress2, NULL, screen, &keyboard_loc);
-        SDL_FreeSurface(keypress1);
-        SDL_FreeSurface(keypress2);
+
+        if (keypress1)
+        {
+          SDL_BlitSurface(keypress1, NULL, screen, &keyboard_loc);
+          SDL_FreeSurface(keypress1);
+          keypress1 = NULL;
+        }
+
+        if (keypress2)
+        {
+          SDL_BlitSurface(keypress2, NULL, screen, &keyboard_loc);
+          SDL_FreeSurface(keypress2);
+          keypress2 = NULL;
+        }
+
         state = 13;
         break;
       }
@@ -656,7 +664,6 @@ int Phrases(wchar_t* pphrase )
 
           /* Redraw everything below any "completed" lines of input text, */
           /* except we don't want to redraw keyboard to avoid flicker:    */
-
           tmpsurf = BlackOutline_w(&phrases[cur_phrase][prev_wrap],
                                    medfont, &white,
                                    cursor - prev_wrap);
@@ -1457,7 +1464,8 @@ SDL_Surface* GetWrongKeypress(int index)
 
 SDL_Surface* GetKeypress2(int index)
 {
+ 
 	char buf[50];
-	GetKeyShift(index,buf);
+	GetKeyShift(index, buf);
 	return (LoadImage(buf, IMG_ALPHA));
 }

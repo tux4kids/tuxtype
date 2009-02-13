@@ -271,30 +271,50 @@ int GetIndex(wchar_t uni_char)
     fprintf(stderr, "GetIndex - Unicode char '%C' not found in list.\n", uni_char);
     return -1;
   }
+  fprintf(stderr, "Done with GetIndex()\n");
 
   return i;
 }
 
-void GetKeyPos(int index, char *buf)
+void GetKeyPos(int index, char* buf)
 {
-	sprintf(buf,"keyboard/keyboard_%s.png", keyboard_list[index].keyname);	
+  if (index < 0 || index > MAX_UNICODES)
+  {
+    fprintf(stderr, "GetKeyPos() - invalid argument 'index' = %d\n", index); 
+    buf = "";
+    return;
+  }
+  sprintf(buf,"keyboard/keyboard_%s.png", keyboard_list[index].keyname);	
 }
 
 
 void GetWrongKeyPos(int index, char *buf)
 {
-	sprintf(buf,"keyboard/keyboardN_%s.png", keyboard_list[index].keyname);
+  if (index < 0 || index > MAX_UNICODES)
+  {
+    fprintf(stderr, "GetWrongKeyPos() - invalid argument 'index' = %d\n", index); 
+    buf = "";
+    return;
+  }
+  sprintf(buf,"keyboard/keyboardN_%s.png", keyboard_list[index].keyname);
 }
 
 
 void GetKeyShift(int index, char* buf)
 {
+   if (index < 0 || index > MAX_UNICODES)
+  {
+    fprintf(stderr, "GetKeyShift() - invalid argument 'index' = %d\n", index); 
+    buf = "";
+    return;
+  }
+
   if(keyboard_list[index].shift == 0)
     sprintf(buf,"keyboard/keyboard_None.png");
   else if(keyboard_list[index].shift == 1)
     sprintf(buf,"keyboard/keyboard_D00.png");
   else
-    sprintf(buf,"%s/images/keyboard/keyboard_D12.png", settings.default_data_path);
+    sprintf(buf,"keyboard/keyboard_D12.png");
 }
 
 
