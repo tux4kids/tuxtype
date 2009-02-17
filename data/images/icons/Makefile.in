@@ -227,7 +227,10 @@ target_vendor = @target_vendor@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 images_iconsdir = $(pkgdatadir)/images/icons
-dist_images_icons_DATA = tuxtype.ico tuxtype.icns
+dist_images_icons_DATA = tuxtype.ico \
+	tuxtype.icns \
+	icon.png
+
 all: all-am
 
 .SUFFIXES:

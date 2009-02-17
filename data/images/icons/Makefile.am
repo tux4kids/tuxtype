@@ -3,4 +3,6 @@
 
 images_iconsdir = $(pkgdatadir)/images/icons
 
-dist_images_icons_DATA = tuxtype.ico tuxtype.icns
+dist_images_icons_DATA = tuxtype.ico \
+	tuxtype.icns \
+	icon.png

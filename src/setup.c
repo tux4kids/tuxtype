@@ -45,6 +45,7 @@ int fs_res_x = 0;
 int fs_res_y = 0;
 
 /* Local function prototypes: */
+static void seticon(void);
 static int load_settings_fp(FILE* fp);
 static int load_settings_filename(const char* fn);
 
@@ -55,6 +56,11 @@ void GraphicsInit(void)
 {
   const SDL_VideoInfo* video_info = SDL_GetVideoInfo();
   Uint32 surface_mode = 0;
+
+  //Set application's icon:
+  seticon();
+  //Set caption:
+  SDL_WM_SetCaption("Tux Typing", "TuxType");
 
   if (video_info->hw_available)
   {
@@ -131,6 +137,8 @@ void GraphicsInit(void)
 	yellow.r      = 0xff; yellow.g      = 0xff; yellow.b      = 0x00; 
 
 	InitEngine();
+
+
 
   DEBUGCODE 
   {
@@ -483,6 +491,34 @@ int SetupPaths(const char* theme_dir)
     fprintf(stderr, "theme_data_path: '%s'\n\n", settings.theme_data_path);
   }
   return 1;	
+}
+
+
+/* Set the application's icon: */
+
+static void seticon(void)
+{
+  SDL_Surface* icon;
+  int colorkey;
+
+  /* Load icon into a surface: */
+  icon = IMG_Load(DATA_PREFIX "/images/icons/icon.png");
+  if (icon == NULL)
+  {
+    fprintf(stderr,
+            "\nWarning: I could not load the icon image: %s\n"
+            "The Simple DirectMedia error that occured was:\n"
+            "%s\n\n", DATA_PREFIX "/images/icons/icon.png", SDL_GetError());
+    return;
+  }
+
+  /* Set up key for transparency: */
+  colorkey = SDL_MapRGB(icon->format, 255, 0, 255);
+  SDL_SetColorKey(icon, SDL_SRCCOLORKEY, colorkey);              
+
+  SDL_WM_SetIcon(icon,NULL);
+
+  SDL_FreeSurface(icon);
 }
 
 
