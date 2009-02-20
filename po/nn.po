@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tux Typing 1.5.16\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2009-02-08 19:09-0600\n"
+"POT-Creation-Date: 2009-02-20 13:01-0600\n"
 "PO-Revision-Date: 2005-02-12 13:13+0100\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <i18n-nn@lister.ping.uio.no>\n"
@@ -16,92 +16,92 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.9.1\n"
 
-#: src/loaders.c:88 src/main.c:150
+#: src/loaders.c:88 src/main.c:151
 msgid "Fish"
 msgstr "Fisk"
 
-#: src/titlescreen.c:95
+#: src/titlescreen.c:91
 msgid "Fish Cascade"
 msgstr "Fiskefall"
 
-#: src/titlescreen.c:95
+#: src/titlescreen.c:91
 msgid "Easy"
 msgstr "Lett"
 
-#: src/titlescreen.c:95
+#: src/titlescreen.c:91
 msgid "Space Cadet"
 msgstr "Nybegynnar"
 
-#: src/titlescreen.c:95
+#: src/titlescreen.c:91
 msgid "Edit Word Lists"
 msgstr "Rediger ordliste"
 
-#: src/titlescreen.c:96
+#: src/titlescreen.c:92
 msgid "Comet Zap"
 msgstr "Kometknusing"
 
-#: src/titlescreen.c:96
+#: src/titlescreen.c:92
 msgid "Medium"
 msgstr "Middels"
 
-#: src/titlescreen.c:96
+#: src/titlescreen.c:92
 msgid "Pilot"
 msgstr "Erfaren"
 
-#: src/titlescreen.c:96
+#: src/titlescreen.c:92
 msgid "Phrase Typing"
 msgstr ""
 
-#: src/titlescreen.c:97
+#: src/titlescreen.c:93
 msgid "Lessons"
 msgstr "Opplæring"
 
-#: src/titlescreen.c:97
+#: src/titlescreen.c:93
 msgid "Hard"
 msgstr "Vanskeleg"
 
-#: src/titlescreen.c:97
+#: src/titlescreen.c:93
 msgid "Ace"
 msgstr "Profesjonell"
 
 #
-#: src/titlescreen.c:97
+#: src/titlescreen.c:93
 msgid "Project Info"
 msgstr "Prosjektinfo"
 
-#: src/titlescreen.c:98
+#: src/titlescreen.c:94
 msgid "Options"
 msgstr "Oppsett"
 
-#: src/titlescreen.c:98
+#: src/titlescreen.c:94
 msgid "Instructions"
 msgstr "Hjelp"
 
-#: src/titlescreen.c:98
+#: src/titlescreen.c:94
 msgid "Commander"
 msgstr "Ekspert"
 
-#: src/titlescreen.c:98
+#: src/titlescreen.c:94
 msgid "Setup Language"
 msgstr "Språk"
 
-#: src/titlescreen.c:99
+#: src/titlescreen.c:95
 msgid "Quit"
 msgstr "Avslutt"
 
-#: src/titlescreen.c:99
+#: src/titlescreen.c:95
 msgid "Main Menu"
 msgstr "Hovudmeny"
 
-#: src/titlescreen.c:1152
+#: src/titlescreen.c:1137
 msgid "Work In Progress!"
 msgstr "Uferdig!"
 
-#: src/titlescreen.c:1153
+#: src/titlescreen.c:1138
 msgid "This feature is not ready yet"
 msgstr "Denne funksjonen er ikkje klar enno."
 
-#: src/titlescreen.c:1154
+#: src/titlescreen.c:1139
 msgid "Discuss the future of TuxTyping at"
 msgstr "Diskuter neste versjon av Tux Typing på"
 

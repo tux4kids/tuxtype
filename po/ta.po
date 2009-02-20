@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tuxtype\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2009-02-08 19:09-0600\n"
+"POT-Creation-Date: 2009-02-20 13:01-0600\n"
 "PO-Revision-Date: 2008-08-22 12:41+0530\n"
 "Last-Translator: Felix I <ifelix25@gmail.com>, 2008\n"
 "Language-Team:  <en@li.org>\n"
@@ -15,91 +15,91 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
 
-#: src/loaders.c:88 src/main.c:150
+#: src/loaders.c:88 src/main.c:151
 msgid "Fish"
 msgstr "ஃபிஷ்"
 
-#: src/titlescreen.c:95
+#: src/titlescreen.c:91
 msgid "Fish Cascade"
 msgstr "ஃபிஷ் கேஸ்கேட்"
 
-#: src/titlescreen.c:95
+#: src/titlescreen.c:91
 msgid "Easy"
 msgstr "எளியது"
 
-#: src/titlescreen.c:95
+#: src/titlescreen.c:91
 msgid "Space Cadet"
 msgstr "ஸ்பேஸ் கேடெட்"
 
-#: src/titlescreen.c:95
+#: src/titlescreen.c:91
 msgid "Edit Word Lists"
 msgstr "சொல் பட்டியல்களை திருத்து"
 
-#: src/titlescreen.c:96
+#: src/titlescreen.c:92
 msgid "Comet Zap"
 msgstr "கமெட் ஸெப்"
 
-#: src/titlescreen.c:96
+#: src/titlescreen.c:92
 msgid "Medium"
 msgstr "நடுத்தரம்"
 
-#: src/titlescreen.c:96
+#: src/titlescreen.c:92
 msgid "Pilot"
 msgstr "பைலட்"
 
-#: src/titlescreen.c:96
+#: src/titlescreen.c:92
 msgid "Phrase Typing"
 msgstr ""
 
-#: src/titlescreen.c:97
+#: src/titlescreen.c:93
 msgid "Lessons"
 msgstr "பாடங்கள்"
 
-#: src/titlescreen.c:97
+#: src/titlescreen.c:93
 msgid "Hard"
 msgstr "கடினம்"
 
-#: src/titlescreen.c:97
+#: src/titlescreen.c:93
 msgid "Ace"
 msgstr "ஏஸ்"
 
-#: src/titlescreen.c:97
+#: src/titlescreen.c:93
 msgid "Project Info"
 msgstr "திட்ட விவரம்"
 
-#: src/titlescreen.c:98
+#: src/titlescreen.c:94
 msgid "Options"
 msgstr "விருப்பங்கள்"
 
-#: src/titlescreen.c:98
+#: src/titlescreen.c:94
 msgid "Instructions"
 msgstr "தகவல்கள்"
 
-#: src/titlescreen.c:98
+#: src/titlescreen.c:94
 msgid "Commander"
 msgstr "கமெண்டர்"
 
-#: src/titlescreen.c:98
+#: src/titlescreen.c:94
 msgid "Setup Language"
 msgstr "அமைவு மொழி"
 
-#: src/titlescreen.c:99
+#: src/titlescreen.c:95
 msgid "Quit"
 msgstr "வெளியேறு"
 
-#: src/titlescreen.c:99
+#: src/titlescreen.c:95
 msgid "Main Menu"
 msgstr "முதன்மை மெனு"
 
-#: src/titlescreen.c:1152
+#: src/titlescreen.c:1137
 msgid "Work In Progress!"
 msgstr "பணி நடைபெறுகிறது!"
 
-#: src/titlescreen.c:1153
+#: src/titlescreen.c:1138
 msgid "This feature is not ready yet"
 msgstr "இந்த வசதி இதுவரை இல்லை"
 
-#: src/titlescreen.c:1154
+#: src/titlescreen.c:1139
 msgid "Discuss the future of TuxTyping at"
 msgstr "TuxTyping எதிர்கால திட்டத்தை இங்கு விவாதிக்கவும்"
 

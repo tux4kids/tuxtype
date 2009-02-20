@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tux Typing 1.5.16\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2009-02-08 19:09-0600\n"
+"POT-Creation-Date: 2009-02-20 13:01-0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Mobin M <mobinmohan@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,111 +17,111 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #
-#: src/loaders.c:88 src/main.c:150
+#: src/loaders.c:88 src/main.c:151
 msgid "Fish"
 msgstr "माछा"
 
 #
-#: src/titlescreen.c:95
+#: src/titlescreen.c:91
 msgid "Fish Cascade"
 msgstr "माछा क्यास्केड ‍"
 
 #
-#: src/titlescreen.c:95
+#: src/titlescreen.c:91
 msgid "Easy"
 msgstr "सजिलो"
 
 #
-#: src/titlescreen.c:95
+#: src/titlescreen.c:91
 msgid "Space Cadet"
 msgstr "‍ स्पेस क्याडेट"
 
 #
-#: src/titlescreen.c:95
+#: src/titlescreen.c:91
 msgid "Edit Word Lists"
 msgstr "शब्द शुचिहरुलाई सम्पादन गर्नुहोस ।"
 
 #
-#: src/titlescreen.c:96
+#: src/titlescreen.c:92
 msgid "Comet Zap"
 msgstr "कमेट ज्याप"
 
 #
-#: src/titlescreen.c:96
+#: src/titlescreen.c:92
 msgid "Medium"
 msgstr "मध्यम"
 
 #
-#: src/titlescreen.c:96
+#: src/titlescreen.c:92
 msgid "Pilot"
 msgstr "पाइलट"
 
-#: src/titlescreen.c:96
+#: src/titlescreen.c:92
 msgid "Phrase Typing"
 msgstr ""
 
 #
-#: src/titlescreen.c:97
+#: src/titlescreen.c:93
 msgid "Lessons"
 msgstr "पाठ्य‍क्रमहरु"
 
 #
-#: src/titlescreen.c:97
+#: src/titlescreen.c:93
 msgid "Hard"
 msgstr "कठिन"
 
 #
-#: src/titlescreen.c:97
+#: src/titlescreen.c:93
 msgid "Ace"
 msgstr "एस"
 
 #
-#: src/titlescreen.c:97
+#: src/titlescreen.c:93
 msgid "Project Info"
 msgstr "‍परियोजनाको बारेमा"
 
 #
-#: src/titlescreen.c:98
+#: src/titlescreen.c:94
 msgid "Options"
 msgstr "विकल्पहरु‍"
 
 #
-#: src/titlescreen.c:98
+#: src/titlescreen.c:94
 msgid "Instructions"
 msgstr "निर्देशनहरु "
 
 #
-#: src/titlescreen.c:98
+#: src/titlescreen.c:94
 msgid "Commander"
 msgstr "कमान्डर‍"
 
 #
-#: src/titlescreen.c:98
+#: src/titlescreen.c:94
 msgid "Setup Language"
 msgstr "भाषा समाबिष्ट गर्नुहोस ।"
 
 #
-#: src/titlescreen.c:99
+#: src/titlescreen.c:95
 msgid "Quit"
 msgstr "बन्द गर्नुहोस ।"
 
 #
-#: src/titlescreen.c:99
+#: src/titlescreen.c:95
 msgid "Main Menu"
 msgstr "मुख्य मेनु"
 
 #
-#: src/titlescreen.c:1152
+#: src/titlescreen.c:1137
 msgid "Work In Progress!"
 msgstr "काम हुदैछ!!!!!!!!"
 
 #
-#: src/titlescreen.c:1153
+#: src/titlescreen.c:1138
 msgid "This feature is not ready yet"
 msgstr "यो सुबिधा अहिले उपलब्ध हुनसक्दैन!!!!"
 
 #
-#: src/titlescreen.c:1154
+#: src/titlescreen.c:1139
 msgid "Discuss the future of TuxTyping at"
 msgstr " टक्शटाइप को भविष्य बारेमा छलफल गर्नुहोस ।"
 

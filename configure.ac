@@ -1,5 +1,5 @@
 # Process this file with autoconf to produce a configure script.
-AC_INIT([Tux Typing],[1.7.4],[tux4kids-tuxtype-dev@lists.alioth.debian.org],[tuxtype])
+AC_INIT([Tux Typing],[1.7.4.preview],[tux4kids-tuxtype-dev@lists.alioth.debian.org],[tuxtype])
 AC_CONFIG_SRCDIR([src/playgame.c])
 
 AC_PREREQ(2.61)
@@ -191,7 +191,8 @@ AC_PATH_PROG(NSIS, makensis, [], [$PATH])
 # Create Makefiles
 # ---------------------------------------------------------------
 
-AC_CONFIG_FILES([Makefile po/Makefile.in intl/Makefile
+AC_CONFIG_FILES([Makefile
+tuxtype.spec
 data/Makefile
 data/fonts/Makefile
 data/images/Makefile
@@ -290,8 +291,11 @@ data/themes/wolof/words/Makefile
 data/words/Makefile
 doc/Makefile
 doc/en/Makefile
+intl/Makefile
+po/Makefile.in
+nsis/tuxtype.nsi
 src/Makefile
-nsis/tuxtype.nsi])
+])
 ##tuxtype.spec])
 
 AC_OUTPUT

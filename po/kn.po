@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tuxtype\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2009-02-08 19:09-0600\n"
+"POT-Creation-Date: 2009-02-20 13:01-0600\n"
 "PO-Revision-Date: 2008-08-27 13:58+0530\n"
 "Last-Translator: Shankar Prasad <svenkate@redhat.com>\n"
 "Language-Team: Kannada <en@li.org>\n"
@@ -16,91 +16,91 @@ msgstr ""
 "X-Generator: KBabel 1.11.4\n"
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
 
-#: src/loaders.c:88 src/main.c:150
+#: src/loaders.c:88 src/main.c:151
 msgid "Fish"
 msgstr "ಮೀನು"
 
-#: src/titlescreen.c:95
+#: src/titlescreen.c:91
 msgid "Fish Cascade"
 msgstr "ಮೀನಿನ ಕ್ಯಾಸ್ಕೇಡ್"
 
-#: src/titlescreen.c:95
+#: src/titlescreen.c:91
 msgid "Easy"
 msgstr "ಸುಲಭ"
 
-#: src/titlescreen.c:95
+#: src/titlescreen.c:91
 msgid "Space Cadet"
 msgstr "ಸ್ಪೇಸ್ ಕ್ಯಾಡೆಟ್"
 
-#: src/titlescreen.c:95
+#: src/titlescreen.c:91
 msgid "Edit Word Lists"
 msgstr "ಪದಗಳ ಪಟ್ಟಿಯನ್ನು ಸಂಪಾದಿಸು"
 
-#: src/titlescreen.c:96
+#: src/titlescreen.c:92
 msgid "Comet Zap"
 msgstr "ಧೂಮಕೇತು ಧಾಳಿ"
 
-#: src/titlescreen.c:96
+#: src/titlescreen.c:92
 msgid "Medium"
 msgstr "ಮಧ್ಯಮ"
 
-#: src/titlescreen.c:96
+#: src/titlescreen.c:92
 msgid "Pilot"
 msgstr "ಪೈಲೆಟ್"
 
-#: src/titlescreen.c:96
+#: src/titlescreen.c:92
 msgid "Phrase Typing"
 msgstr ""
 
-#: src/titlescreen.c:97
+#: src/titlescreen.c:93
 msgid "Lessons"
 msgstr "ಪಾಠಗಳು"
 
-#: src/titlescreen.c:97
+#: src/titlescreen.c:93
 msgid "Hard"
 msgstr "ಕಷ್ಟಕರ"
 
-#: src/titlescreen.c:97
+#: src/titlescreen.c:93
 msgid "Ace"
 msgstr "ಏಸ್"
 
-#: src/titlescreen.c:97
+#: src/titlescreen.c:93
 msgid "Project Info"
 msgstr "ಪರಿಯೋಜನೆಯ ಮಾಹಿತಿ"
 
-#: src/titlescreen.c:98
+#: src/titlescreen.c:94
 msgid "Options"
 msgstr "ಆಯ್ಕೆಗಳು"
 
-#: src/titlescreen.c:98
+#: src/titlescreen.c:94
 msgid "Instructions"
 msgstr "ಸೂಚನೆಗಳು"
 
-#: src/titlescreen.c:98
+#: src/titlescreen.c:94
 msgid "Commander"
 msgstr "ಕಮಾಂಡರ್"
 
-#: src/titlescreen.c:98
+#: src/titlescreen.c:94
 msgid "Setup Language"
 msgstr "ಸೆಟ್‌ಅಪ್ ಭಾಷೆ"
 
-#: src/titlescreen.c:99
+#: src/titlescreen.c:95
 msgid "Quit"
 msgstr "ಹೊರನಡೆ"
 
-#: src/titlescreen.c:99
+#: src/titlescreen.c:95
 msgid "Main Menu"
 msgstr "ಮುಖ್ಯ ಮೆನು"
 
-#: src/titlescreen.c:1152
+#: src/titlescreen.c:1137
 msgid "Work In Progress!"
 msgstr "ಕೆಲಸವು ಪ್ರಗತಿಯಲ್ಲಿದೆ!"
 
-#: src/titlescreen.c:1153
+#: src/titlescreen.c:1138
 msgid "This feature is not ready yet"
 msgstr "ಈ ಸವಲತ್ತು ಇನ್ನೂ ತಯಾರಾಗಿಲ್ಲ"
 
-#: src/titlescreen.c:1154
+#: src/titlescreen.c:1139
 msgid "Discuss the future of TuxTyping at"
 msgstr "TuxTyping ನ ಮುಂದಿನ ಭವಿಷ್ಯವನ್ನು ಇಲ್ಲಿ ಚರ್ಚಿಸಿ"
 

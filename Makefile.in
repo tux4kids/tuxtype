@@ -37,7 +37,8 @@ target_triplet = @target@
 subdir = .
 DIST_COMMON = README $(am__configure_deps) $(srcdir)/Makefile.am \
 	$(srcdir)/Makefile.in $(srcdir)/config.h.in \
-	$(top_srcdir)/configure $(top_srcdir)/intl/Makefile.in \
+	$(srcdir)/tuxtype.spec.in $(top_srcdir)/configure \
+	$(top_srcdir)/intl/Makefile.in \
 	$(top_srcdir)/nsis/tuxtype.nsi.in ABOUT-NLS AUTHORS COPYING \
 	ChangeLog INSTALL TODO config.guess config.rpath config.sub \
 	depcomp install-sh missing mkinstalldirs
@@ -65,7 +66,7 @@ am__CONFIG_DISTCLEAN_FILES = config.status config.cache config.log \
  configure.lineno config.status.lineno
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
 CONFIG_HEADER = config.h
-CONFIG_CLEAN_FILES = intl/Makefile nsis/tuxtype.nsi
+CONFIG_CLEAN_FILES = tuxtype.spec intl/Makefile nsis/tuxtype.nsi
 SOURCES =
 DIST_SOURCES =
 RECURSIVE_TARGETS = all-recursive check-recursive dvi-recursive \
@@ -246,11 +247,11 @@ target_os = @target_os@
 target_vendor = @target_vendor@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-SUBDIRS = doc	\
+SUBDIRS = data \
+	doc	\
 	intl	\
 	po	\
-	src	\
-	data
+	src
 
 ACLOCAL_AMFLAGS = -I m4
 EXTRA_DIST = tuxtype.spec tuxtype.desktop tuxtype.ico config.rpath
@@ -312,6 +313,8 @@ $(srcdir)/config.h.in:  $(am__configure_deps)
 
 distclean-hdr:
 	-rm -f config.h stamp-h1
+tuxtype.spec: $(top_builddir)/config.status $(srcdir)/tuxtype.spec.in
+	cd $(top_builddir) && $(SHELL) ./config.status $@
 intl/Makefile: $(top_builddir)/config.status $(top_srcdir)/intl/Makefile.in
 	cd $(top_builddir) && $(SHELL) ./config.status $@
 nsis/tuxtype.nsi: $(top_builddir)/config.status $(top_srcdir)/nsis/tuxtype.nsi.in
@@ -718,10 +721,13 @@ $(PACKAGE)-$(VERSION).tar.gz: distcheck
 # Rule to build RPM distribution package
 rpm: $(PACKAGE)-$(VERSION).tar.gz
 	rpmbuild -ta $(PACKAGE)-$(VERSION).tar.gz
-
 dist_with_fonts:
 	$(MAKE) $(AM_MAKEFLAGS) distdir=$(PACKAGE)_w_fonts-$(VERSION) \
   dist_fonts=$(data_fonts) dist
+
+dist_with_fonts_bzip2:
+	$(MAKE) $(AM_MAKEFLAGS) distdir=$(PACKAGE)_w_fonts-$(VERSION) \
+  dist_fonts=$(data_fonts) dist-bzip2
 
 install-nsi-local: all
 	$(INSTALL) -d $(NSI_TEMP_INSTALL_DIR)

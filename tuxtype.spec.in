@@ -1,3 +1,6 @@
+## tuxtype.spec.in - process with configure to substitute in PACKAGE
+## VERSION strings
+#
 #
 # spec file for package tuxtype 
 #
@@ -7,14 +10,14 @@
 
 # norootforbuild
 
-Name:           tuxtype
+Name:           @PACKAGE@
 Summary:        Typing tutor for children
 Url:            http://alioth.debian.org/projects/tux4kids/
 %define         realname tuxtype_w_fonts
 License:        GNU General Public License (GPL) v2, Open Font License v1.1, free (BSD-like) license
 Group:          Amusements/Games/Action/Other
-Version:        1.7.2
-Release:        5.1
+Version:        @VERSION@
+Release:        1
 Vendor:         openSUSE-Education
 Source:         %realname-%version.tar.bz2
 Source1:        tuxtype.desktop
