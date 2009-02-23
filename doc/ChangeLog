@@ -1,3 +1,13 @@
+22 Feb 2009 svn revision 903
+[ David Bruce <davidstuartbruce@gmail.com> ]
+        - lots of general code cleanup to eliminate most of the compiler warnings, 
+          including removal of remaining incorrect uses of "unsigned char".
+        - addition of "make dist_with_fonts_bzip2" target to help support OpenSUSE
+          build service integration.
+        - beginning of VERSIOM "1.7.4.preview"
+        - cleanup of alphabet.c with addition of pointer safety checks and fix of 
+          "off-by-one" drawing error in fourth row of keyboard hints graphic.
+
 08 Feb 2009 
 [ David Bruce <davidstuartbruce@gmail.com> ]
         - cleanup of wchar_t <--> UTF-8 conversion wrapper functions. These are now
