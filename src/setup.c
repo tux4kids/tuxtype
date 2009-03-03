@@ -19,6 +19,7 @@
 
 #include "globals.h"
 #include "funcs.h"
+#include "SDL_extras.h"
 
 //NOTE this PATHS[] is an ugly hack which is no longer used.  We
 //now just confirm that DATA_PREFIX is valid, as it should be.
@@ -190,13 +191,15 @@ void LibInit(Uint32 lib_flags)
             LOG("Mix_OpenAudio() successful\n");
         }
 
-	LOG( "-about to init SDL_ttf\n" );
+  LOG( "-about to init SDL text library (SDL_ttf or SDL_Pango\n" );
 
-	if (TTF_Init() < 0) {
-		fprintf( stderr, "Couldn't initialize SDL_ttf\n" );
-		exit(2);
-	}
-
+  if (!Setup_SDL_Text())
+  {
+    fprintf( stderr, "Couldn't initialize desired SDL text libary\n" );
+    exit(2);
+  }
+  /* FIXME get rid of this as soon as text overhaul done: */
+  TTF_Init();
 //	atexit(TTF_Quit);
 
 	SDL_EnableKeyRepeat( 0, SDL_DEFAULT_REPEAT_INTERVAL );
@@ -453,7 +456,7 @@ int SetupPaths(const char* theme_dir)
       /* (Need to do this in case we are changing from a theme with */
       /* a special font to a theme that uses the default, but lacks */
       /* an explicit statement to use the default(                  */
-      strncpy(settings.theme_font_name, DEFAULT_MENU_FONT, FNLEN);
+      strncpy(settings.theme_font_name, DEFAULT_FONT_NAME, FNLEN);
       
 
       /* Load fontname or any other theme-specific settings: */
@@ -470,7 +473,7 @@ int SetupPaths(const char* theme_dir)
     {
       settings.use_english = 1; // default is to use English if we cannot find theme
       strcpy(settings.theme_name, "");
-      strncpy(settings.theme_font_name, DEFAULT_MENU_FONT, FNLEN);
+      strncpy(settings.theme_font_name, DEFAULT_FONT_NAME, FNLEN);
       strncpy(settings.theme_locale_name, DEFAULT_LOCALE, FNLEN);
       fprintf(stderr, "SetupPaths(): could not find '%s'\n", full_theme_path);
     }
@@ -479,7 +482,7 @@ int SetupPaths(const char* theme_dir)
   {
     settings.use_english = 1; // default is to use English if we cannot find theme
     strcpy(settings.theme_name, "");
-    strncpy(settings.theme_font_name, DEFAULT_MENU_FONT, FNLEN);
+    strncpy(settings.theme_font_name, DEFAULT_FONT_NAME, FNLEN);
     strncpy(settings.theme_locale_name, DEFAULT_LOCALE, FNLEN);
   }
 
@@ -526,7 +529,6 @@ void Cleanup(void)
 {
   SDL_FreeSurface(screen);
   screen = NULL;
-
+  Cleanup_SDL_Text();
   SDL_Quit();
-  TTF_Quit();
 }

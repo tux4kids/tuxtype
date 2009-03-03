@@ -23,7 +23,9 @@ email                : jdandr2@uky.edu
 static Mix_Chunk *pause_sfx = NULL;
 static SDL_Surface *up = NULL, *down = NULL, *left = NULL, *right = NULL;
 static SDL_Rect rectUp, rectDown, rectLeft, rectRight;
-static TTF_Font *f1 = NULL, *f2 = NULL;
+const int pause_font_size1 = 24;
+const int pause_font_size2 = 36;
+
 
 /* Local function prototypes: */
 //static void darkenscreen(void);
@@ -221,8 +223,8 @@ static void pause_load_media(void) {
 	right = LoadImage("right.png", IMG_ALPHA);
 	rectRight.w = right->w; rectRight.h = right->h;
 
-	f1 = LoadFont(settings.theme_font_name, 24);
-	f2 = LoadFont(settings.theme_font_name, 36);
+//	f1 = LoadFont(settings.theme_font_name, 24);
+//	f2 = LoadFont(settings.theme_font_name, 36);
 }
 
 static void pause_unload_media(void) {
@@ -236,9 +238,6 @@ static void pause_unload_media(void) {
 	SDL_FreeSurface(left);
 	SDL_FreeSurface(right);
         up = down = left = right = NULL;
-	TTF_CloseFont(f1);
-	TTF_CloseFont(f2);
-	f1 = f2 = NULL;
 }
 
 
@@ -276,7 +275,7 @@ static void pause_draw(void)
 
   if (settings.sys_sound)
   {
-    t = BlackOutline(gettext("Sound Effects Volume"), f1, &white);
+    t = BlackOutline(gettext("Sound Effects Volume"), pause_font_size1, &white);
     if (t)
     {	
       s.y = screen->h/2 - 80;
@@ -285,7 +284,7 @@ static void pause_draw(void)
       SDL_FreeSurface(t);
     }
 
-    t = BlackOutline(gettext("Music Volume"), f1, &white);
+    t = BlackOutline(gettext("Music Volume"), pause_font_size1, &white);
     if (t)
     {
       s.y = screen->h/2 + 20;
@@ -296,7 +295,7 @@ static void pause_draw(void)
   }
   else  /* No sound: */
   {
-    t = BlackOutline(gettext("Sound & Music Disabled"), f1, &white);
+    t = BlackOutline(gettext("Sound & Music Disabled"), pause_font_size1, &white);
     if (t)
     {
       s.y = screen->h/2 - 80;
@@ -306,7 +305,7 @@ static void pause_draw(void)
     }
   }
 
-  t = BlackOutline(gettext("Paused!"), f2, &white);
+  t = BlackOutline(gettext("Paused!"), pause_font_size2, &white);
   if (t)
   {
 	s.y = screen->h/2 - 180; //60;
@@ -315,7 +314,7 @@ static void pause_draw(void)
 	SDL_FreeSurface(t);
   }
 
-  t = BlackOutline(gettext("Press escape again to return to menu"), f1, &white);
+  t = BlackOutline(gettext("Press escape again to return to menu"), pause_font_size1, &white);
   if (t)
   {
     s.y = screen->h/2 + 160;
@@ -324,7 +323,7 @@ static void pause_draw(void)
     SDL_FreeSurface(t);
   }
 
-  t = BlackOutline(gettext("Press space bar to return to game"), f1, &white);
+  t = BlackOutline(gettext("Press space bar to return to game"), pause_font_size1, &white);
   if (t)
   {
     s.y = screen->h/2 + 200;
@@ -365,29 +364,5 @@ static void draw_vols(int sfx, int mus)
     m.x = s.x += 7;
   }
 }
-
-// /* ==== fillscreen ====
-//  * RESULT: it will darken the screen by a factor of 4
-//  * WARNING: only works on 16bit screens right now!
-//  */
-// static void darkenscreen(void)
-// {
-//   Uint16 rm = screen->format->Rmask;
-//   Uint16 gm = screen->format->Gmask;
-//   Uint16 bm = screen->format->Bmask;
-//   Uint16* p; 
-//   int x, y;
-// 
-//   p = screen->pixels;
-// 
-//   for (y = 0; y < 480; y++) 
-//   {
-//     for (x = 0; x < 640; x++)
-//     {
-//       *p = (((*p&rm)>>2)&rm) | (((*p&gm)>>2)&gm) | (((*p&bm)>>2)&bm);
-//       p++;
-//     }
-//   }
-// }
 
 

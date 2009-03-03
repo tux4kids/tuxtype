@@ -116,8 +116,10 @@ typedef struct game_option_type{
 
 /* Default values for game_option_type struct */
 /* They can be changed in the struct to other values at run-time */
-#define DEFAULT_MENU_FONT       "AndikaDesRevG.ttf"
+#define DEFAULT_FONT_NAME       "AndikaDesRevG.ttf"
 #define DEFAULT_GAME_FONT       "AndikaDesRevG.ttf" 
+#define DEFAULT_MENU_FONT_SIZE	20
+#define GAME_FONT_SIZE	20
 #define DEFAULT_LOCALE	        "en_US.UTF-8"
 #define DEFAULT_USE_ENGLISH 1
 #define DEFAULT_FULLSCREEN 1
@@ -177,8 +179,6 @@ typedef struct {
 
 
 
-#define MENU_FONT_SIZE	20
-#define GAME_FONT_SIZE	20
 
 /* Limits on word list size, word length, and on the number of distinct characters */
 /* that can be present within a word list: */

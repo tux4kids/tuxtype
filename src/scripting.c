@@ -125,7 +125,6 @@ int TestLesson(void)
   SDL_Surface* left = NULL, *right = NULL;
   SDL_Rect leftRect, rightRect;
   SDL_Rect titleRects[8];
-  TTF_Font* font = NULL;
 
   int stop = 0;
   int loc = 0;
@@ -141,8 +140,6 @@ int TestLesson(void)
   struct dirent* script_file = NULL;
 
   LOG("Entering TestLesson():\n");
-
-  font = LoadFont(settings.theme_font_name, MENU_FONT_SIZE);
 
   /* First look in theme path, if desired: */
   if (!settings.use_english)
@@ -212,8 +209,8 @@ int TestLesson(void)
   /* let the user pick the lesson script */
   for (i = 0; i < num_scripts; i++)
   {
-    titles[i] = BlackOutline( script_filenames[i], font, &white );
-    select[i] = BlackOutline( script_filenames[i], font, &yellow);
+    titles[i] = BlackOutline( script_filenames[i], DEFAULT_MENU_FONT_SIZE, &white );
+    select[i] = BlackOutline( script_filenames[i], DEFAULT_MENU_FONT_SIZE, &yellow);
   }
 
   left = LoadImage("left.png", IMG_ALPHA);
@@ -399,9 +396,6 @@ int TestLesson(void)
   left = right = NULL; /* Maybe overkill - about to be destroyed anyway */
 
   FreeBothBkgds();
-
-  TTF_CloseFont(font);
-  font = NULL;
 
 
   if (stop == 2)

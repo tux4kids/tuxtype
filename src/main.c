@@ -161,10 +161,6 @@ int main(int argc, char *argv[])
   LibInit(lib_flags); /* calls SDL_Init(), TTF_Init(), some other settings */
   GraphicsInit(); /* calls SDL_SetVideoMode(), a few others     */
 
-  /* Initialize SDL_Pango, if we are using it. Note that our wrapper function */
-  /* being called here is just a no-op if SDL_Pango not enabled.              */
-  init_SDLPango_Context();
-
   if (settings.sys_sound)
   {
     Mix_VolumeMusic(settings.mus_volume);

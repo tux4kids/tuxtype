@@ -613,16 +613,10 @@ int GenerateWordList(const char* wordFn)
 
 
 /* This version creates the letters using TTF_RenderUNICODE_Blended */
-int RenderLetters(const TTF_Font* letter_font)
+int RenderLetters(int font_size)
 {
-  Uint16 t[2];
+  wchar_t t[2];
   int i, j;  /* i is chars attempted, j is chars actually rendered. */
-
-  if (!letter_font)
-  {
-    fprintf(stderr, "RenderLetters() - invalid TTF_Font* argument!\n");
-    return 0;
-  }
 
   i = j = num_chars_used = 0;
 
@@ -640,8 +634,8 @@ int RenderLetters(const TTF_Font* letter_font)
       }
 
       char_glyphs[j].unicode_value = t[0];
-      char_glyphs[j].white_glyph = BlackOutline_Unicode(t, letter_font, &white);
-      char_glyphs[j].red_glyph = BlackOutline_Unicode(t, letter_font, &red);
+      char_glyphs[j].white_glyph = BlackOutline_w(t, font_size, &white, 1);
+      char_glyphs[j].red_glyph = BlackOutline_w(t, font_size, &red, 1);
 
       j++;
       num_chars_used++;

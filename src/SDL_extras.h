@@ -49,11 +49,16 @@ void ResetDPI(void);
 /* These functions are the only code in the program that directly use SDL_Pango */
 /* If SDL_Pango not available, they fall back to SDL_ttf or do nothing,         */
 /* as appropriate.                                                              */
-SDL_Surface* BlackOutline(const char *t, const TTF_Font* font, const SDL_Color* c);
-SDL_Surface* BlackOutline_Unicode(const Uint16* t, const TTF_Font* font, const SDL_Color* c);
-SDL_Surface* BlackOutline_w(const wchar_t* t, const TTF_Font* font, const SDL_Color* c, int size);
-void init_SDLPango_Context();
-void free_SDLPango_Context();
+SDL_Surface* BlackOutline(const char* t, int font_size, const SDL_Color* c);
+SDL_Surface* BlackOutline_w(const wchar_t* t, int font_size, const SDL_Color* c, int length);
+
 void reset_DPI_SDLPango_Context(float dpi_x, float dpi_y);
+
+/*Text rendering functions: */
+int Setup_SDL_Text(void);
+void Cleanup_SDL_Text(void);
+//SDL_Surface* BlackOutline(const char* t, int size, SDL_Color* c);
+//SDL_Surface* SimpleText(const char *t, int size, SDL_Color* col);
+//SDL_Surface* SimpleTextWithOffset(const char *t, int size, SDL_Color* col, int *glyph_offset);
 
 #endif

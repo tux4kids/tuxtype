@@ -42,7 +42,7 @@ void ChooseTheme(void)
   SDL_Rect leftRect, rightRect;
   SDL_Rect worldRect, photoRect;
   SDL_Rect titleRects[8];
-  TTF_Font* font = NULL;  
+
   int stop = 0;
   int loc = 0;
   int old_loc = 1;
@@ -101,15 +101,13 @@ void ChooseTheme(void)
   closedir(themesDir);
 
   settings.use_english = 1;
-  // HACK: is font empty now???
-  font = LoadFont(settings.theme_font_name, MENU_FONT_SIZE);
 
-  titles[0] = BlackOutline( "English", font, &white );
-  select[0] = BlackOutline( "English", font, &yellow);
+  titles[0] = BlackOutline( "English", DEFAULT_MENU_FONT_SIZE, &white );
+  select[0] = BlackOutline( "English", DEFAULT_MENU_FONT_SIZE, &yellow);
   for (i = 1; i < themes; i++)
   {
-    titles[i] = BlackOutline( themeNames[i], font, &white );
-    select[i] = BlackOutline( themeNames[i], font, &yellow);
+    titles[i] = BlackOutline( themeNames[i], DEFAULT_MENU_FONT_SIZE, &white );
+    select[i] = BlackOutline( themeNames[i], DEFAULT_MENU_FONT_SIZE, &yellow);
   }
 
   LoadBothBkgds("main_bkg.png");
@@ -148,8 +146,6 @@ void ChooseTheme(void)
     titleRects[i].w = titleRects[i].h = titleRects[i].x = 0;
   }
 
-  TTF_CloseFont(font);
-  font = NULL;
   settings.use_english = old_use_english;
 
   while (!stop)

@@ -39,7 +39,6 @@ static sprite* Tux = NULL;
 static Mix_Chunk* snd_move = NULL;
 static Mix_Chunk* snd_select = NULL;
 static Mix_Chunk* snd_welcome = NULL; 
-static TTF_Font* font = NULL;
 
 /* --- locations we need --- */
 static SDL_Rect text_dst[TITLE_MENU_ITEMS + 1];     // location of menu text
@@ -908,8 +907,8 @@ static void load_menu(void)
       }
 
       /* --- create text surfaces --- */
-      reg_text[i][j] = BlackOutline( gettext(menu_text[j + 5 * i]), font, &white);
-      sel_text[i][j] = BlackOutline( gettext(menu_text[j + 5 * i]), font, &yellow);
+      reg_text[i][j] = BlackOutline( gettext(menu_text[j + 5 * i]), DEFAULT_MENU_FONT_SIZE, &white);
+      sel_text[i][j] = BlackOutline( gettext(menu_text[j + 5 * i]), DEFAULT_MENU_FONT_SIZE, &yellow);
 
       /* (first make sure ptr valid to avoid segfault) */
       if (sel_text[i][j] && sel_text[i][j]->w > max)
@@ -1045,15 +1044,13 @@ static int load_media(void)
     fprintf(stderr, "titlescreen.c load_media(): settings.theme_font_name is %s\n",
             settings.theme_font_name);
   }
-  font = LoadFont(settings.theme_font_name, MENU_FONT_SIZE);
 
   /* Make sure we were successful: */
   if (!CurrentBkgd()
    || !title
    || !speaker
    || !speakeroff
-   || !Tux
-   || !font)
+   || !Tux)
   {
     fprintf(stderr, "load_media() - could not load all needed files\n");
     unload_media();
@@ -1113,12 +1110,6 @@ static void unload_media(void)
     Tux = NULL;
   }
 
-  if (font)
-  {
-    TTF_CloseFont(font);
-    font = NULL;
-  }
-
   LOG("Leaving load_media():\n");
 
   unload_menu();
@@ -1134,24 +1125,10 @@ static void not_implemented(void)
 
   LOG( "NotImplemented() - creating text\n" );
 
-  s1 = BlackOutline( gettext_noop("Work In Progress!"), font, &white);
-  s2 = BlackOutline( gettext_noop("This feature is not ready yet"), font, &white);
-  s3 = BlackOutline( gettext_noop("Discuss the future of TuxTyping at"), font, &white);
-
-  /* we always want the URL in english */
-  /* NOTE: all fonts are almost certain to include glyphs for ASCII, */
-  /* so the following "english_font" hackery is probably unnecessary: */
-  if (!settings.use_english)
-  {
-    TTF_Font *english_font;
-    settings.use_english = 1;
-    english_font = LoadFont(DEFAULT_MENU_FONT, MENU_FONT_SIZE);
-    s4 = BlackOutline( "http://tuxtype.sf.net/forums", english_font, &white);
-    TTF_CloseFont(english_font);
-    settings.use_english = 0;
-  }
-  else 
-    s4 = BlackOutline( "http://tuxtype.sf.net/forums", font, &white);
+  s1 = BlackOutline( gettext_noop("Work In Progress!"), DEFAULT_MENU_FONT_SIZE, &white);
+  s2 = BlackOutline( gettext_noop("This feature is not ready yet"), DEFAULT_MENU_FONT_SIZE, &white);
+  s3 = BlackOutline( gettext_noop("Discuss the future of TuxTyping at"), DEFAULT_MENU_FONT_SIZE, &white);
+  s4 = BlackOutline( "http://tuxtype.sf.net/forums", DEFAULT_MENU_FONT_SIZE, &white);
 
   tux = LoadSprite("tux/tux-egypt", IMG_ALPHA);
 
@@ -1333,8 +1310,8 @@ static int chooseWordlist(void)
   /* present.                                                        */
   for (i = 0; i < lists; i++)
   {
-    titles[i] = BlackOutline( wordlistName[i], font, &white );
-    select[i] = BlackOutline( wordlistName[i], font, &yellow);
+    titles[i] = BlackOutline( wordlistName[i], DEFAULT_MENU_FONT_SIZE, &white );
+    select[i] = BlackOutline( wordlistName[i], DEFAULT_MENU_FONT_SIZE, &yellow);
   }
 
   left = LoadImage("left.png", IMG_ALPHA);
@@ -1532,7 +1509,6 @@ static void ChooseFile(void)
   SDL_Surface* titles[MAX_WORD_LISTS] = {NULL};
   SDL_Surface* select[MAX_WORD_LISTS] = {NULL};
   SDL_Surface* bkg = NULL;
-  TTF_Font* font = NULL;
   SDL_Rect titleRects[8];
   int stop = 0;
   int loc = 0;
@@ -1617,16 +1593,13 @@ static void ChooseFile(void)
 
   settings.use_english = 1;
         // HACK: is font empty now???
-  font = LoadFont(settings.theme_font_name, MENU_FONT_SIZE);
 
   for (i = 0; i<themes; i++)
   {
-    titles[i] = BlackOutline(wordTypes[i], font, &white);
-    select[i] = BlackOutline(wordTypes[i], font, &yellow);
+    titles[i] = BlackOutline(wordTypes[i], DEFAULT_MENU_FONT_SIZE, &white);
+    select[i] = BlackOutline(wordTypes[i], DEFAULT_MENU_FONT_SIZE, &yellow);
   }
 
-  TTF_CloseFont(font);
-  font = NULL;
 
   settings.use_english = old_use_english;
 
@@ -1763,7 +1736,6 @@ static void ChooseWord(char *words_file)
   SDL_Surface* left = NULL, *right = NULL;
   SDL_Rect leftRect, rightRect;
   SDL_Surface* bkg = NULL;
-  TTF_Font* font = NULL;
   SDL_Rect titleRects[8];
   int stop = 0;
   int loc = 0;
@@ -1812,18 +1784,13 @@ static void ChooseWord(char *words_file)
   fclose(fp); 
 
   settings.use_english = 1;
-        // HACK: is font empty now???
-  font = LoadFont(settings.theme_font_name, MENU_FONT_SIZE);
 
   for (i = 0; i<themes; i++)
   {
-    titles[i] = BlackOutline(editWordW[i], font, &white);
+    titles[i] = BlackOutline(editWordW[i], DEFAULT_MENU_FONT_SIZE, &white);
     strcat(editWordY[i],"|");
-    select[i] = BlackOutline(editWordY[i], font, &yellow);
+    select[i] = BlackOutline(editWordY[i], DEFAULT_MENU_FONT_SIZE, &yellow);
   }
-
-  TTF_CloseFont(font);
-  font = NULL;
 
   settings.use_english = old_use_english;
   strncpy(settings.theme_data_path, old_theme_path, FNLEN - 1);
@@ -1885,18 +1852,15 @@ static void ChooseWord(char *words_file)
 
         if (event.key.keysym.sym == SDLK_BACKSPACE)
         {
-          font = LoadFont(settings.theme_font_name, MENU_FONT_SIZE);
           len = ConvertFromUTF8(temp, editWordW[loc], FNLEN);
           temp[len - 1] = temp[len];
           len = ConvertToUTF8(temp, editWordW[loc], FNLEN);
-          titles[loc] = BlackOutline(editWordW[loc], font, &white );
+          titles[loc] = BlackOutline(editWordW[loc], DEFAULT_MENU_FONT_SIZE, &white );
           len = ConvertFromUTF8(temp, editWordY[loc], FNLEN);
           temp[len - 2] = temp[len - 1];
           temp[len - 1] = temp[len];
           len = ConvertToUTF8(temp, editWordY[loc], FNLEN);
-          select[loc] = BlackOutline(editWordY[loc], font, &yellow);
-          TTF_CloseFont(font);
-          font = NULL;
+          select[loc] = BlackOutline(editWordY[loc], DEFAULT_MENU_FONT_SIZE, &yellow);
           break;
         }
 
@@ -1955,20 +1919,17 @@ static void ChooseWord(char *words_file)
 
         if(i)
         {
-          font = LoadFont(settings.theme_font_name, MENU_FONT_SIZE);
           len = ConvertFromUTF8(temp, editWordW[loc], FNLEN);
           temp[len] = event.key.keysym.unicode;
           temp[len + 1] = 0;
           ConvertToUTF8(temp,editWordW[loc], FNLEN);
-          titles[loc] = BlackOutline(editWordW[loc], font, &white );
+          titles[loc] = BlackOutline(editWordW[loc], DEFAULT_MENU_FONT_SIZE, &white );
           len = ConvertFromUTF8(temp,editWordY[loc], FNLEN);
           temp[len + 1]=0;
           temp[len] = temp[len-1];
           temp[len - 1] = event.key.keysym.unicode;
           ConvertToUTF8(temp,editWordY[loc], FNLEN);
-          select[loc] = BlackOutline(editWordY[loc], font, &yellow);
-          TTF_CloseFont(font);
-          font = NULL;
+          select[loc] = BlackOutline(editWordY[loc], DEFAULT_MENU_FONT_SIZE, &yellow);
           i = 0;
           break;
         }

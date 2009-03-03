@@ -31,7 +31,7 @@ game_option_type settings;
 /* Simply stick all the default values into the settings struct: */
 void Opts_Initialize(void)
 {
-  strncpy(settings.theme_font_name, DEFAULT_MENU_FONT, FNLEN);
+  strncpy(settings.theme_font_name, DEFAULT_FONT_NAME, FNLEN);
   strncpy(settings.theme_locale_name, DEFAULT_LOCALE, FNLEN);
   settings.use_english = DEFAULT_USE_ENGLISH;
   settings.fullscreen = DEFAULT_FULLSCREEN;

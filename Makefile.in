@@ -37,8 +37,8 @@ target_triplet = @target@
 subdir = .
 DIST_COMMON = README $(am__configure_deps) $(srcdir)/Makefile.am \
 	$(srcdir)/Makefile.in $(srcdir)/config.h.in \
-	$(srcdir)/tuxtype.spec.in $(top_srcdir)/configure \
-	$(top_srcdir)/intl/Makefile.in \
+	$(srcdir)/tuxtype.spec.in $(srcdir)/tuxtype_preview.spec.in \
+	$(top_srcdir)/configure $(top_srcdir)/intl/Makefile.in \
 	$(top_srcdir)/nsis/tuxtype.nsi.in ABOUT-NLS AUTHORS COPYING \
 	ChangeLog INSTALL TODO config.guess config.rpath config.sub \
 	depcomp install-sh missing mkinstalldirs
@@ -66,7 +66,8 @@ am__CONFIG_DISTCLEAN_FILES = config.status config.cache config.log \
  configure.lineno config.status.lineno
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
 CONFIG_HEADER = config.h
-CONFIG_CLEAN_FILES = tuxtype.spec intl/Makefile nsis/tuxtype.nsi
+CONFIG_CLEAN_FILES = tuxtype.spec tuxtype_preview.spec intl/Makefile \
+	nsis/tuxtype.nsi
 SOURCES =
 DIST_SOURCES =
 RECURSIVE_TARGETS = all-recursive check-recursive dvi-recursive \
@@ -314,6 +315,8 @@ $(srcdir)/config.h.in:  $(am__configure_deps)
 distclean-hdr:
 	-rm -f config.h stamp-h1
 tuxtype.spec: $(top_builddir)/config.status $(srcdir)/tuxtype.spec.in
+	cd $(top_builddir) && $(SHELL) ./config.status $@
+tuxtype_preview.spec: $(top_builddir)/config.status $(srcdir)/tuxtype_preview.spec.in
 	cd $(top_builddir) && $(SHELL) ./config.status $@
 intl/Makefile: $(top_builddir)/config.status $(top_srcdir)/intl/Makefile.in
 	cd $(top_builddir) && $(SHELL) ./config.status $@

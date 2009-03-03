@@ -169,11 +169,11 @@ TTF_Font* LoadFont(const char* font_name, int font_size )
 
   /* We could not find desired font. If we were looking for something other  */
   /* than default (Andika) font, print warning and try to load default font: */
-  if (strncmp(font_name, DEFAULT_MENU_FONT, FNLEN ) != 0)
+  if (strncmp(font_name, DEFAULT_FONT_NAME, FNLEN ) != 0)
   {
     fprintf(stderr, "Warning - could not load desired font: %s\n", font_name);
-    fprintf(stderr, "Trying to load default instead: %s\n", DEFAULT_MENU_FONT);
-    return LoadFont(DEFAULT_MENU_FONT, font_size);
+    fprintf(stderr, "Trying to load default instead: %s\n", DEFAULT_FONT_NAME);
+    return LoadFont(DEFAULT_FONT_NAME, font_size);
   }
   else  /* Default failed also - bummer! */
   {

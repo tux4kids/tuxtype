@@ -39,7 +39,7 @@ SDL_Surface* GetWhiteGlyph(wchar_t t);
 SDL_Surface* GetRedGlyph(wchar_t t);
 int LoadKeyboard(void);
 int GetFinger(int i);
-int RenderLetters(const TTF_Font* letter_font);
+int RenderLetters(int font_size);
 int GetIndex(wchar_t uni_char);
 void GetKeyShift(int index, char *buf);
 int GetShift(int i);

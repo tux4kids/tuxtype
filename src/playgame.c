@@ -33,8 +33,7 @@ static int number_max_w;                 // the max width of a number image
 
 //int o_lives; // something cal is working on
 //int sound_vol;
-static TTF_Font* label_font = NULL;
-static TTF_Font* fishy_font = NULL;
+
 
 //static SDL_Surface* background = NULL;
 static SDL_Surface* level[NUM_LEVELS] = {NULL};
@@ -1105,21 +1104,18 @@ static void LoadOthers(void)
                   settings.theme_font_name);
 	}
 
-        fishy_font = LoadFont(settings.theme_font_name, FISHY_FONT_SIZE);
-	label_font = LoadFont(settings.theme_font_name, LABEL_FONT_SIZE);
-
-        RenderLetters(fishy_font);
+        RenderLetters(FISHY_FONT_SIZE);
         LOG( " Done rendering letters \n ");
 
 
-	curlev = BlackOutline(gettext("Level"), label_font, &white);
-	lives  = BlackOutline(gettext("Lives"), label_font, &white);
-	fish   = BlackOutline(gettext("Fish"), label_font, &white);
+	curlev = BlackOutline(gettext("Level"), LABEL_FONT_SIZE, &white);
+	lives  = BlackOutline(gettext("Lives"), LABEL_FONT_SIZE, &white);
+	fish   = BlackOutline(gettext("Fish"), LABEL_FONT_SIZE, &white);
 
-	level[0] = BlackOutline(gettext("Easy"), label_font, &white);
-	level[1] = BlackOutline(gettext("Medium"), label_font, &white);
-	level[2] = BlackOutline(gettext("Hard"), label_font, &white);
-	level[3] = BlackOutline(gettext("Practice"), label_font, &white);
+	level[0] = BlackOutline(gettext("Easy"), LABEL_FONT_SIZE, &white);
+	level[1] = BlackOutline(gettext("Medium"), LABEL_FONT_SIZE, &white);
+	level[2] = BlackOutline(gettext("Hard"), LABEL_FONT_SIZE, &white);
+	level[3] = BlackOutline(gettext("Practice"), LABEL_FONT_SIZE, &white);
 
 	number_max_w = 0;
 	for (i = 0; i < NUM_NUMS; i++) {
@@ -1130,11 +1126,11 @@ static void LoadOthers(void)
 	}
 
 	for (i = 0; i < CONGRATS_FRAMES; i++) {
-		congrats[i] = BlackOutline(gettext("Congratulations"), label_font, &white);
+		congrats[i] = BlackOutline(gettext("Congratulations"), LABEL_FONT_SIZE, &white);
 	}
 
 	for (i = 0; i < OH_NO_FRAMES; i++) {
-		ohno[i] = BlackOutline(gettext("Oh No!"), label_font, &white);
+		ohno[i] = BlackOutline(gettext("Oh No!"), LABEL_FONT_SIZE, &white);
 	}
 	
 	if (settings.sys_sound) {
@@ -1176,7 +1172,7 @@ static void display_msg(const char* msg, int x, int y)
     return;
 
   SDL_Surface* m;
-  m = TTF_RenderUTF8_Shaded(label_font, msg, white, white);
+  m = BlackOutline(msg, LABEL_FONT_SIZE, &white);
 
   if (m)
   {
@@ -1322,14 +1318,6 @@ static void FreeGame(void)
   int i;
 
   FreeLetters();
-
-  if (fishy_font)
-    TTF_CloseFont(fishy_font);
-  fishy_font = NULL;
-
-  if (label_font)
-    TTF_CloseFont(label_font);
-  label_font = NULL;
 
   LOG( "FreeGame():\n-Freeing Tux Animations\n" );
 

@@ -38,7 +38,6 @@ static sprite* shield = NULL;
 static SDL_Surface* images[NUM_IMAGES] = {NULL};
 static Mix_Chunk* sounds[NUM_SOUNDS] = {NULL};
 static Mix_Music* musics[NUM_MUSICS] = {NULL};
-static TTF_Font* font = NULL;
 
 static int wave, speed, score, pre_wave_score, num_attackers, distanceMoved;
 static wchar_t ans[NUM_ANS];
@@ -706,8 +705,7 @@ static void laser_load_data(void)
 
 	/* Create the SDL_Surfaces for all of the characters */
         /* used in the word list: */
-	font = LoadFont(settings.theme_font_name, COMET_ZAP_FONT_SIZE);
-	RenderLetters(font);
+	RenderLetters(COMET_ZAP_FONT_SIZE);
 
 	/* Load images: */
 	for (i = 0; i < NUM_IMAGES; i++) 
@@ -744,11 +742,6 @@ static void laser_unload_data(void) {
 
 	FreeSprite(shield);
         shield = NULL;
-
-//	PauseUnloadMedia();
-
-	TTF_CloseFont(font);
-        font = NULL;
 }
 
 
