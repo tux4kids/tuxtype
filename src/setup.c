@@ -157,39 +157,45 @@ void GraphicsInit(void)
 	LibInit : Init the SDL
 	library
 *****************************/
-void LibInit(Uint32 lib_flags)
+/* NOTE lib_flags is *always* SDL_INIT_VIDEO|SDL_INIT_AUDIO - maybe we */
+/* should just simplify all this:                                      */
+void LibInit(lib_flags)
 {
-	LOG( "LibInit():\n-About to init SDL Library\n" );
+  LOG( "LibInit():\n-About to init SDL Library\n" );
+  /* FIXME this looks wrong - if SDL_Init() fails, we try other subsystem??? */
+  if (SDL_Init(lib_flags) < 0) 
+  /* FIXME this looks wrong - if no sys_sound, we don't init video??? */
+  if (settings.sys_sound)
+  {
+    if (SDL_Init(SDL_INIT_VIDEO) < 0)
+    {
+      fprintf(stderr, "Couldn't initialize SDL: %s\n",
+      SDL_GetError());
+      exit(2);
+    }
+    else
+    {
+      LOG( "Couldn't initialize SDL Sound\n" );
+      settings.sys_sound = 0;
+    }
+  }
 
-	if (SDL_Init(lib_flags) < 0) 
-		/* FIXME this looks wrong - if no sys_sound, we don't init video??? */
-		if (settings.sys_sound) {
-			if (SDL_Init(SDL_INIT_VIDEO) < 0) {
-				fprintf(stderr, "Couldn't initialize SDL: %s\n",
-				SDL_GetError());
-				exit(2);
-			} else {
-				LOG( "Couldn't initialize SDL Sound\n" );
-				settings.sys_sound = 0;
-			}
-		}
 
+// atexit(SDL_Quit); // fire and forget... 
 
-//	atexit(SDL_Quit); // fire and forget... 
+  LOG( "-SDL Library init'd successfully\n" );
 
-	LOG( "-SDL Library init'd successfully\n" );
-
-	/* FIXME should read settings before we do this: */ 
-	if (settings.sys_sound)
-        { 
-          if (Mix_OpenAudio(22050, AUDIO_S16, 1, 2048) == -1)
-          {
-            fprintf( stderr, "Warning: couldn't set 22050 Hz 8-bit audio\n - Reasons: %s\n", SDL_GetError());
-            settings.sys_sound=0;
-          }
-          else
-            LOG("Mix_OpenAudio() successful\n");
-        }
+  /* FIXME should read settings before we do this: */ 
+  if (settings.sys_sound)
+  {
+    if (Mix_OpenAudio(22050, AUDIO_S16, 1, 2048) == -1)
+    {
+      fprintf( stderr, "Warning: couldn't set 22050 Hz 8-bit audio\n - Reasons: %s\n", SDL_GetError());
+      settings.sys_sound=0;
+    }
+    else
+      LOG("Mix_OpenAudio() successful\n");
+  }
 
   LOG( "-about to init SDL text library (SDL_ttf or SDL_Pango\n" );
 
@@ -198,15 +204,13 @@ void LibInit(Uint32 lib_flags)
     fprintf( stderr, "Couldn't initialize desired SDL text libary\n" );
     exit(2);
   }
-  /* FIXME get rid of this as soon as text overhaul done: */
-  TTF_Init();
 //	atexit(TTF_Quit);
 
-	SDL_EnableKeyRepeat( 0, SDL_DEFAULT_REPEAT_INTERVAL );
-	/* Need this to get Unicode values from keysyms: */
-	SDL_EnableUNICODE(1);
+  SDL_EnableKeyRepeat( 0, SDL_DEFAULT_REPEAT_INTERVAL );
+  /* Need this to get Unicode values from keysyms: */
+  SDL_EnableUNICODE(1);
 
-	LOG( "LibInit():END\n" );
+  LOG( "LibInit():END\n" );
 }
 
 /* Load the settings from a file... make sure to update SaveSettings if you change

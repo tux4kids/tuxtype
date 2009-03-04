@@ -17,7 +17,6 @@
 #include "../config.h"
 
 #include "SDL.h"
-#include "SDL_ttf.h"
 
 
 #if SDL_BYTEORDER == SDL_BIG_ENDIAN
@@ -43,22 +42,13 @@ void SwitchScreenMode(void);
 int WaitForKeypress(void);
 SDL_Surface* Blend(SDL_Surface *S1, SDL_Surface *S2,float gamma);
 SDL_Surface* zoom(SDL_Surface * src, int new_w, int new_h);
-void ScaleDPIforFS(void);
-void ResetDPI(void);
-
-/* These functions are the only code in the program that directly use SDL_Pango */
-/* If SDL_Pango not available, they fall back to SDL_ttf or do nothing,         */
-/* as appropriate.                                                              */
-SDL_Surface* BlackOutline(const char* t, int font_size, const SDL_Color* c);
-SDL_Surface* BlackOutline_w(const wchar_t* t, int font_size, const SDL_Color* c, int length);
-
-void reset_DPI_SDLPango_Context(float dpi_x, float dpi_y);
 
 /*Text rendering functions: */
 int Setup_SDL_Text(void);
 void Cleanup_SDL_Text(void);
-//SDL_Surface* BlackOutline(const char* t, int size, SDL_Color* c);
-//SDL_Surface* SimpleText(const char *t, int size, SDL_Color* col);
+SDL_Surface* BlackOutline(const char* t, int font_size, const SDL_Color* c);
+SDL_Surface* BlackOutline_w(const wchar_t* t, int font_size, const SDL_Color* c, int length);
+SDL_Surface* SimpleText(const char *t, int size, SDL_Color* col);
 //SDL_Surface* SimpleTextWithOffset(const char *t, int size, SDL_Color* col, int *glyph_offset);
 
 #endif

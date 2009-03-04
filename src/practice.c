@@ -843,16 +843,6 @@ static void calc_font_sizes(void)
   fontsize = (screen->h)/28;
   medfontsize = fontsize * 1.5;
   bigfontsize = fontsize * 4;
-
-  /* When SDL_Pango is used, the above font sizes are ignored    */
-  /* by BlackOutline(), so we adjust dpi to scale the fonts:     */
-  /* HACK this isn't quite the intended use of SDLPango_SetDpi() */
-  /* NOTE this code has no effect if SDL_Pango not being used    */
-  {
-   float dpi_x, dpi_y;
-   dpi_x = dpi_y = 125 * ((float)screen->h/(float)480);
-   reset_DPI_SDLPango_Context(dpi_x, dpi_y);
-  }
 }
 
 static int practice_load_media(void)
@@ -898,13 +888,12 @@ static int practice_load_media(void)
   errors_label_srfc = BlackOutline(_("Errors"), fontsize, &yellow);
   accuracy_label_srfc = BlackOutline(_("Accuracy"), fontsize, &yellow);
 
-  /* Get out if anything failed to load: */
+  /* Get out if anything failed to load (except sounds): */
   if (load_failed
     ||!hands
     ||!CurrentBkgd()
     ||!tux_win
     ||!tux_stand
-    ||!wrong
     ||!keyboard
     ||!hand_shift[0]
     ||!hand_shift[1]
@@ -945,8 +934,6 @@ static void print_load_results(void)
     { LOG("tux_win did not load\n");}
   if (!tux_stand)
     { LOG("tux_stand did not load\n");}
-  if (!wrong)
-    { LOG("wrong did not load\n");}
   if (!keyboard)
     { LOG("keyboard did not load\n");}
   if (!hand_shift[0])
@@ -1188,10 +1175,6 @@ static void practice_unload_media(void)
   if (wrong)
     Mix_FreeChunk(wrong);
   wrong = NULL;
-
-/* Set the dpi back to default as our SDL_Pango font-scaling hack: */
-/* NOTE this is a no-op if we aren't using SDL_Pango */
-  reset_DPI_SDLPango_Context(125, 125);
 }
 
 
@@ -1287,7 +1270,7 @@ static int find_next_wrap(const wchar_t* wstr, int font_size, int width)
 {
   wchar_t buf[MAX_PHRASE_LENGTH];
   char UTF8buf[MAX_PHRASE_LENGTH];
-
+  SDL_Surface* s = NULL;
   int word_end = -1;
   int prev_word_end = -1;
 
@@ -1295,7 +1278,6 @@ static int find_next_wrap(const wchar_t* wstr, int font_size, int width)
   int phr_length = 0;
   int test_w = 0;      /* The width in pixels of the SDL-rendered string */
   /* FIXME get rid of this once overhaul done: */
-  TTF_Font* font = LoadFont(DEFAULT_FONT_NAME , font_size);
 
   LOG("Entering find__next_wrap\n");
 
@@ -1303,12 +1285,6 @@ static int find_next_wrap(const wchar_t* wstr, int font_size, int width)
   if (!wstr)
   {
     fprintf(stderr, "find_next_wrap() - error - invalid string argument\n");
-    return -1;
-  }
-
-  if (!font)
-  {
-    fprintf(stderr, "find_next_wrap() - error - invalid font argument\n");
     return -1;
   }
 
@@ -1352,11 +1328,16 @@ static int find_next_wrap(const wchar_t* wstr, int font_size, int width)
     /* Need to convert to UTF8 because couldn't get UNICODE version to work: */
     ConvertToUTF8(buf, UTF8buf, MAX_PHRASE_LENGTH);
     /*  Now check width of string: */
-    if (-1 == TTF_SizeUTF8((TTF_Font*)font, UTF8buf, &test_w, NULL))
+    s = SimpleText(UTF8buf, font_size, &white);
+    if (!s)
     {
       /* An error occurred: */
       return -1;
     }
+
+    test_w = s->w;
+    SDL_FreeSurface(s);
+    s = NULL;
 
     DOUT(test_w);
     DOUT(width);

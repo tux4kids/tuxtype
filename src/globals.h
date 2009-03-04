@@ -65,19 +65,7 @@
 #include "SDL.h"
 #include "SDL_image.h"
 #include "SDL_mixer.h"
-#include "SDL_ttf.h"
-
-//#include <SDL/SDL.h>
-//#include <SDL/SDL_image.h>
-//#include <SDL/SDL_mixer.h>
-//#include <SDL/SDL_ttf.h>
-
-//#include "i18n.h"
-//#include <libintl.h>
-//#define _(String) gettext(String)
-//#define gettext_noop(String) (String)
-
-
+/* NOTE only SDL_extras.c/.h now knows about SDL_ttf or SDL_Pango. */
 
 #endif //  __GLOBALS_H__
 

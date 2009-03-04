@@ -276,7 +276,6 @@ int GetIndex(wchar_t uni_char)
     fprintf(stderr, "GetIndex - Unicode char '%C' not found in list.\n", uni_char);
     return -1;
   }
-  fprintf(stderr, "Done with GetIndex()\n");
 
   return i;
 }
@@ -1178,8 +1177,9 @@ void GenerateKeyboard(SDL_Surface* keyboard)
   int col;
   char row;
   int render = 1;
-  Uint16 t[2];
-  TTF_Font* smallfont = NULL;
+  wchar_t t[2];
+  char buf[8];
+//  TTF_Font* smallfont = NULL;
 
   DEBUGCODE { printf("Entering GenerateKeyboard\n"); }
 
@@ -1189,12 +1189,12 @@ void GenerateKeyboard(SDL_Surface* keyboard)
     return;
   }
 
-  smallfont = LoadFont(settings.theme_font_name, 15);
-  if(!smallfont)
-  {
-    DEBUGCODE { printf("Error loading font\n"); }
-    return;
-  }
+//   smallfont = LoadFont(settings.theme_font_name, 15);
+//   if(!smallfont)
+//   {
+//     DEBUGCODE { printf("Error loading font\n"); }
+//     return;
+//   }
 
   /* to give us a null-terminated string: */
   t[1] = '\0';
@@ -1211,14 +1211,16 @@ void GenerateKeyboard(SDL_Surface* keyboard)
     t[0] = keyboard_list[i].unicode_value;
     sscanf(keyboard_list[i].keyname,"%c%d",&row,&col);
 
+    /* NOTE these values have been tweaked to better center the */
+    /* characters on the key images - DSB.                      */
     switch(row)
     {
-      case 'A': new.y += 6;   new.x += 13; break;
-      case 'B': new.y += 36;  new.x += 23; break;
-      case 'C': new.y += 66;  new.x += 33; break;
+      case 'A': new.y += 6;   new.x += 12; break;
+      case 'B': new.y += 39;  new.x += 23; break;
+      case 'C': new.y += 69;  new.x += 33; break;
 //      case 'D': new.y += 96;  new.x += 23; break;
-      case 'D': new.y += 96;  new.x += 54; break;
-      case 'E': new.y += 126; break;
+      case 'D': new.y += 99;  new.x += 54; break;
+      case 'E': new.y += 129; break;
       default: render = 0; break;
     }
 
@@ -1237,9 +1239,9 @@ void GenerateKeyboard(SDL_Surface* keyboard)
     }
 
     DEBUGCODE { printf("Making %d : %C\n",i,keyboard_list[i].unicode_value); }
-
-    //tmp=BlackOutline_Unicode(t, smallfont, &black);
-    tmp = TTF_RenderUNICODE_Blended((TTF_Font*)smallfont, t, black);
+    ConvertToUTF8(t, buf, 8);
+    tmp = SimpleText(buf, 15, &black);
+//    tmp = TTF_RenderUNICODE_Blended((TTF_Font*)smallfont, t, black);
     if(tmp == NULL)
     {
       fprintf(stderr, "Error Making %d : %C\n", i, keyboard_list[i].unicode_value);
@@ -1248,7 +1250,7 @@ void GenerateKeyboard(SDL_Surface* keyboard)
       SDL_BlitSurface(tmp, NULL, keyboard, &new);
   }
   //Know this is safe - if NULL would have returned above:
-  TTF_CloseFont(smallfont);
+//  TTF_CloseFont(smallfont);
 
   DEBUGCODE { printf("Leaving GenerateKeyboard\n"); }
 }

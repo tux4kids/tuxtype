@@ -1038,18 +1038,18 @@ static void run_script(void)
 
         case itemTEXT:
         {
-          TTF_Font* myFont;
+//          TTF_Font* myFont;
           SDL_Surface* img;
           SDL_Color* col;
 
-          int shown, toshow, w, h; // used to wrap text
+          int shown, toshow; // used to wrap text
           char tmp[FNLEN];   // used to hold temp text for wrapping
 
           /* --- create font & render text --- */
-          if (curItem->size > 0)
-            myFont = LoadFont(settings.theme_font_name, (int)curItem->size);
-          else
-            myFont = LoadFont(settings.theme_font_name, 24); // default size is 24
+//          if (curItem->size > 0)
+//            myFont = LoadFont(settings.theme_font_name, (int)curItem->size);
+//          else
+//            myFont = LoadFont(settings.theme_font_name, 24); // default size is 24
 
           if (curItem->color)
             col = curItem->color;
@@ -1079,15 +1079,19 @@ static void run_script(void)
                 continue;
 
               tmp[toshow] = 0;
-              TTF_SizeText(myFont, tmp, &w, &h);
-
-              if (w + 20 < screen->w)
-                ok = 1;
+              img = SimpleText(tmp, (int)curItem->size, col);
+              if (img)
+              { 
+                if (img->w + 20 < screen->w)
+                  ok = 1;
+                SDL_FreeSurface(img);
+                img = NULL;
+              }
             }
 
             shown += toshow + 1;
 
-            img = TTF_RenderUTF8_Blended(myFont, tmp, *col);
+            img = SimpleText(tmp, (int)curItem->size, col);
 
             if (img)
             {
@@ -1122,13 +1126,12 @@ static void run_script(void)
               }
 
               /* --- and blit! --- */
-              SDL_BlitSurface( img, NULL, screen, &loc );
-              SDL_FreeSurface( img );
+              SDL_BlitSurface(img, NULL, screen, &loc);
+              SDL_FreeSurface(img);
             }
                     
           } while (shown + 1 < strlen(curItem->data));
 
-          TTF_CloseFont(myFont);
           break;
         }
 

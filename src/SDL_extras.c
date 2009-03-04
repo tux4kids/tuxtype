@@ -585,33 +585,26 @@ SDL_Surface* zoom(SDL_Surface* src, int new_w, int new_h)
 //#undef HAVE_LIBSDL_PANGO
 
 
-#define MAX_FONT_SIZE 40
+#define MAX_FONT_SIZE 72
 
 /*-- file-scope variables and local file prototypes for SDL_Pango-based code: */
 #ifdef HAVE_LIBSDL_PANGO
 #include "SDL_Pango.h"
 SDLPango_Context* context = NULL;
+static int current_pango_font_size = 0;
 static SDLPango_Matrix* SDL_Colour_to_SDLPango_Matrix(const SDL_Color* cl);
-
+static int Set_SDL_Pango_Font_Size(int size);
 /*-- file-scope variables and local file prototypes for SDL_ttf-based code: */
 #else
 #include "SDL_ttf.h"
 /* We cache fonts here once loaded to improve performance: */
-TTF_Font* font_list[MAX_FONT_SIZE] = {NULL};
+TTF_Font* font_list[MAX_FONT_SIZE + 1] = {NULL};
 static void free_font_list(void);
 static TTF_Font* get_font(int size);
 static TTF_Font* load_font(const char* font_name, int font_size);
 #endif
 
 
-
-
-void reset_DPI_SDLPango_Context(float dpi_x, float dpi_y)
-{
-#ifdef HAVE_LIBSDL_PANGO
-  SDLPango_SetDpi(context, dpi_x, dpi_y);
-#endif
-}
 
 
 /* "Public" functions called from other files that use either */
@@ -623,15 +616,11 @@ void reset_DPI_SDLPango_Context(float dpi_x, float dpi_y)
 int Setup_SDL_Text(void)
 {
 #ifdef HAVE_LIBSDL_PANGO
-  char buf[64];
 
   LOG("Setup_SDL_Text() - using SDL_Pango\n");
 
   SDLPango_Init();
-
-  snprintf(buf, 64, "[%s][][%d]", DEFAULT_FONT_NAME, DEFAULT_MENU_FONT_SIZE);
-  context =  SDLPango_CreateContext_GivenFontDesc(buf);
-  if (!context)
+  if (!Set_SDL_Pango_Font_Size(DEFAULT_MENU_FONT_SIZE))
   {
     fprintf(stderr, "\nError: I could not set SDL_Pango context\n");
     return 0;
@@ -684,27 +673,27 @@ SDL_Surface* BlackOutline(const char* t, int font_size, const SDL_Color* c)
 #ifdef HAVE_LIBSDL_PANGO
   if (!context)
   {
-    fprintf(stderr, "BlackOutline(): invalid SDL_Pango context - returning.");
+    fprintf(stderr, "BlackOutline(): invalid SDL_Pango context - returning.\n");
     return NULL;
   }
 #else
-  TTF_Font* font = get_font(DEFAULT_FONT_NAME, size);
+  TTF_Font* font = get_font(font_size);
   if (!font)
   {
-    fprintf(stderr, "BlackOutline(): could not load needed font - returning.");
+    fprintf(stderr, "BlackOutline(): could not load needed font - returning.\n");
     return NULL;
   }
 #endif
 
   if (!t || !c)
   {
-    fprintf(stderr, "BlackOutline(): invalid ptr parameter, returning.");
+    fprintf(stderr, "BlackOutline(): invalid ptr parameter, returning.\n");
     return NULL;
   }
 
   if (t[0] == '\0')
   {
-    fprintf(stderr, "BlackOutline(): empty string, returning");
+    fprintf(stderr, "BlackOutline(): empty string, returning\n");
     return NULL;
   }
 
@@ -715,6 +704,7 @@ DEBUGCODE
 }
 
 #ifdef HAVE_LIBSDL_PANGO
+  Set_SDL_Pango_Font_Size(font_size);
   SDLPango_SetDefaultColor(context, MATRIX_TRANSPARENT_BACK_BLACK_LETTER);
   SDLPango_SetText(context, t, -1);
   black_letters = SDLPango_CreateSurfaceDraw(context);
@@ -831,20 +821,46 @@ SDL_Surface* BlackOutline_w(const wchar_t* t, int font_size, const SDL_Color* c,
   return BlackOutline(tmp, font_size, c);
 }
 
-
-
-/* When SDL_Pango is used, the ttf font sizes are ignored    */
-/* by BlackOutline(), so we adjust dpi to scale the fonts:     */
-/* HACK this isn't quite the intended use of SDLPango_SetDpi() */
-void ScaleDPIforFS(void)
+/* This (fast) function just returns a non-outlined surf */
+/* using either SDL_Pango or SDL_ttf                     */
+SDL_Surface* SimpleText(const char *t, int size, SDL_Color* col)
 {
+  SDL_Surface* surf = NULL;
+
+  if (!t||!col)
+    return NULL;
+
 #ifdef HAVE_LIBSDL_PANGO
+  if (!context)
   {
-   float dpi_x, dpi_y;
-   dpi_x = dpi_y = 125 * ((float)screen->h/(float)480);
-   reset_DPI_SDLPango_Context(dpi_x, dpi_y);
+    fprintf(stderr, "SimpleText() - context not valid!\n");
+    return NULL;
+  }
+  else
+  {
+    SDLPango_Matrix colormatrix = 
+    {
+      col->r,  col->r,  0,  0,
+      col->g,  col->g,  0,  0,
+      col->b,  col->b,  0,  0,
+      0,      255,      0,  0,
+    };
+    Set_SDL_Pango_Font_Size(size);
+    SDLPango_SetDefaultColor(context, &colormatrix );
+    SDLPango_SetText(context, t, -1);
+    surf = SDLPango_CreateSurfaceDraw(context);
+  }
+
+#else
+  {
+    TTF_Font* font = get_font(size);
+    if (!font)
+      return NULL;
+    surf = TTF_RenderUTF8_Blended(font, t, *col);
   }
 #endif
+
+  return surf;
 }
 
 
@@ -856,7 +872,37 @@ void ScaleDPIforFS(void)
 
 
 #ifdef HAVE_LIBSDL_PANGO
-/* Local functions when using SDL_Pango:   */
+
+/* Local functions when using SDL_Pango: -------------------------------   */
+
+/* FIXME the '0.7' a few lines down is to compensate for the larger font size   */
+/* that SDL_Pango generates relative to a TTF_Font of the same numerical size - */
+/* this was picked by trial and error, ought to understand this better - DSB    */
+static int Set_SDL_Pango_Font_Size(int size)
+{
+  /* Do nothing unless we need to change size: */
+  if (size == current_pango_font_size)
+    return 1;
+  else
+  {
+    char buf[64];
+    DEBUGCODE { fprintf(stderr, "Setting font size to %d\n", size); }
+    if(context != NULL)
+      SDLPango_FreeContext(context);
+    context = NULL;
+    snprintf(buf, sizeof(buf), "%s %d", DEFAULT_FONT_NAME, (int)(size * 0.7));
+    context =  SDLPango_CreateContext_GivenFontDesc(buf);
+  }
+
+  if (!context)
+    return 0;
+  else
+  {
+    current_pango_font_size = size;
+    return 1;
+  }
+}
+
 
 SDLPango_Matrix* SDL_Colour_to_SDLPango_Matrix(const SDL_Color *cl)
 {
@@ -911,10 +957,17 @@ static void free_font_list(void)
 /* font in memory once loaded until cleanup.                  */
 static TTF_Font* get_font(int size)
 {
-  if (size < 0 || size > MAX_FONT_SIZE)
+  if (size < 0)
   {
-    fprintf(stderr, "Error - requested font size %d is invalid\n", size);
+    fprintf(stderr, "Error - requested font size %d is negative\n", size);
     return NULL;
+  }
+
+  if (size > MAX_FONT_SIZE)
+  {
+    fprintf(stderr, "Error - requested font size %d exceeds max = %d, resetting.\n",
+            size, MAX_FONT_SIZE);
+    size = MAX_FONT_SIZE;
   }
 
   if(font_list[size] == NULL)

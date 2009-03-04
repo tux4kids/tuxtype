@@ -67,7 +67,6 @@ int PlayLaserGame(int diff_level);
 int CheckFile(const char* file);
 sprite* FlipSprite(sprite* in, int X, int Y);
 void FreeSprite(sprite* gfx);
-TTF_Font* LoadFont(const char* fontfile, int fontsize);
 SDL_Surface* LoadImage(const char* datafile, int mode);
 int LoadBothBkgds(const char* datafile);
 SDL_Surface* CurrentBkgd(void);

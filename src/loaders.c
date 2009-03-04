@@ -116,71 +116,6 @@ int max(int n1, int n2)
 
 
 
-/* FIXME need code to search for font paths on different platforms */
-TTF_Font* LoadFont(const char* font_name, int font_size )
-{
-  TTF_Font* loaded_font = NULL;
-  char fn[FNLEN];
-
-  /* try to find font in default data dir: */
-  sprintf(fn, "%s/fonts/%s", settings.default_data_path, font_name );
-
-  DEBUGCODE { fprintf(stderr, "LoadFont(): looking for %s using data paths\n", fn); }
-
-  /* try to load the font, if successful, return font*/
-  loaded_font = TTF_OpenFont(fn, font_size);
-  if (loaded_font != NULL)
-    return loaded_font;
-		
-
-  /* HACK hard-coded for Debian (and current exact font names): */ 
-
-  if (strncmp(font_name, "AndikaDesRevG.ttf", FNLEN ) == 0)
-    sprintf(fn, "/usr/share/fonts/truetype/ttf-sil-andika/AndikaDesRevG.ttf");
-  else if (strncmp(font_name, "DoulosSILR.ttf", FNLEN ) == 0)
-    sprintf(fn, "/usr/share/fonts/truetype/ttf-sil-doulos/DoulosSILR.ttf");
-  else if (strncmp(font_name, "Kedage-n.ttf", FNLEN ) == 0)
-    sprintf(fn, "/usr/share/fonts/truetype/ttf-kannada-fonts/Kedage-n.ttf");
-  else if (strncmp(font_name, "lohit_bn.ttf", FNLEN ) == 0)
-    sprintf(fn, "/usr/share/fonts/truetype/ttf-bengali-fonts/lohit_bn.ttf");
-  else if (strncmp(font_name, "lohit_gu.ttf", FNLEN ) == 0)
-    sprintf(fn, "/usr/share/fonts/truetype/ttf-indic-fonts-core/lohit_gu.ttf");
-  else if (strncmp(font_name, "lohit_hi.ttf", FNLEN ) == 0)
-    sprintf(fn, "/usr/share/fonts/truetype/ttf-indic-fonts-core/lohit_hi.ttf");
-  else if (strncmp(font_name, "lohit_pa.ttf", FNLEN ) == 0)
-    sprintf(fn, "/usr/share/fonts/truetype/ttf-indic-fonts-core/lohit_pa.ttf");
-  else if (strncmp(font_name, "lohit_ta.ttf", FNLEN ) == 0)
-    sprintf(fn, "/usr/share/fonts/truetype/ttf-indic-fonts-core/lohit_ta.ttf");
-  else if (strncmp(font_name, "Rachana_w01.ttf", FNLEN ) == 0)
-    sprintf(fn, "/usr/share/fonts/truetype/ttf-malayalam-fonts/Rachana_w01.ttf");
-  else if (strncmp(font_name, "utkal.ttf", FNLEN ) == 0)
-    sprintf(fn, "/usr/share/fonts/truetype/ttf-indic-fonts-core/utkal.ttf");
-  else if (strncmp(font_name, "Vemana.ttf", FNLEN ) == 0)
-    sprintf(fn, "/usr/share/fonts/truetype/ttf-indic-fonts-core/Vemena.ttf");
-
-
-
-  DEBUGCODE { fprintf(stderr, "LoadFont(): looking for %s\n in OS' font path\n", fn); }
-
-  /* try to load the font, if successful, return font*/
-  loaded_font = TTF_OpenFont(fn, font_size);
-  if (loaded_font != NULL)
-    return loaded_font;
-
-  /* We could not find desired font. If we were looking for something other  */
-  /* than default (Andika) font, print warning and try to load default font: */
-  if (strncmp(font_name, DEFAULT_FONT_NAME, FNLEN ) != 0)
-  {
-    fprintf(stderr, "Warning - could not load desired font: %s\n", font_name);
-    fprintf(stderr, "Trying to load default instead: %s\n", DEFAULT_FONT_NAME);
-    return LoadFont(DEFAULT_FONT_NAME, font_size);
-  }
-  else  /* Default failed also - bummer! */
-  {
-    fprintf(stderr, "LoadFont(): Error - couldn't load either selected or default font\n");
-    return NULL;
-  }
-}
 /***********************
 	LoadImage : Load an image and set transparent if requested
 ************************/
@@ -424,10 +359,12 @@ Mix_Chunk* LoadSound(const char* datafile )
   {
     sprintf(fn , "%s/sounds/%s", settings.default_data_path, datafile);
     tempChunk = Mix_LoadWAV(fn);
-    return tempChunk;
+    if (tempChunk)
+      return tempChunk;
   }
   // We never want to get here...
-  return tempChunk;
+  fprintf(stderr, "LoadSound() - could not load %s\n", datafile);
+  return NULL;
 }
 
 
