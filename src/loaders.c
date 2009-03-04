@@ -116,6 +116,7 @@ int max(int n1, int n2)
 
 
 
+
 /***********************
 	LoadImage : Load an image and set transparent if requested
 ************************/

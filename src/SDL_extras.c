@@ -937,7 +937,7 @@ SDLPango_Matrix* SDL_Colour_to_SDLPango_Matrix(const SDL_Color *cl)
 static void free_font_list(void)
 {
   int i;
-  for(i = 0; i < MAX_FONT_SIZE; i++);
+  for(i = 0; i < MAX_FONT_SIZE; i++)
   {
     if(font_list[i])
     {
