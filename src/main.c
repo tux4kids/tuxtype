@@ -23,13 +23,7 @@
 SDL_Surface* screen;
 SDL_Event  event;
 
-/* the colors we use throughout the game */
-SDL_Color black;
-SDL_Color gray;
-SDL_Color dark_blue;
-SDL_Color red;
-SDL_Color white;
-SDL_Color yellow;
+
 
 
 /********************

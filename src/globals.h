@@ -219,21 +219,14 @@ extern SDL_Surface* screen;
 extern int fs_res_x;
 extern int fs_res_y;
 
-//extern TTF_Font* font;
 extern SDL_Event  event;
 
-extern SDL_Color black;
-extern SDL_Color gray;
-extern SDL_Color dark_blue;
-extern SDL_Color red;
-extern SDL_Color white;
-extern SDL_Color yellow;
 
-extern SDL_Surface* letters[255]; /* Will be going away */
+//extern SDL_Surface* letters[255]; /* Will be going away */
 
 /* These need some work to support Unicode & i18n: */
-extern wchar_t ALPHABET[256];
-extern int ALPHABET_SIZE;
+//extern wchar_t ALPHABET[256];
+//extern int ALPHABET_SIZE;
 
 
 enum {

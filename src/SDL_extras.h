@@ -31,11 +31,19 @@
 #define amask 0xff000000
 #endif
 
+/* the colors we use throughout the game */
+static const SDL_Color black 		= {0x00, 0x00, 0x00, 0x00};
+static const SDL_Color gray 		= {0x80, 0x80, 0x80, 0x00};
+static const SDL_Color dark_blue	= {0x00, 0x00, 0x60, 0x00};
+static const SDL_Color red 		= {0xff, 0x00, 0x00, 0x00};
+static const SDL_Color white 		= {0xff, 0xff, 0xff, 0x00};
+static const SDL_Color yellow 		= {0xff, 0xff, 0x00, 0x00};
+
+
 /* "Public" function prototypes: */
 void DrawButton(SDL_Rect* target_rect, int radius, Uint8 r, Uint8 g, Uint8 b, Uint8 a);
 void RoundCorners(SDL_Surface* s, Uint16 radius);
 SDL_Surface* Flip(SDL_Surface *in, int x, int y);
-
 int  inRect(SDL_Rect r, int x, int y);
 void DarkenScreen(Uint8 bits);
 void SwitchScreenMode(void);

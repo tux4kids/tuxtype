@@ -21,26 +21,6 @@
 #include "funcs.h"
 #include "SDL_extras.h"
 
-//NOTE this PATHS[] is an ugly hack which is no longer used.  We
-//now just confirm that DATA_PREFIX is valid, as it should be.
-
-//#define NUM_PATHS 2
-
-///* NOTE the correct path for a unix-type make install _should_ be */
-///* DATA_PREFIX, which is "$(PREFIX)/share/tuxtype". The "./data"  */
-///* path is for the Windows install, but this should really not be */
-///* necessary because DATA_PREFIX gets defined to this #ifdef WIN32 */
-///* So, the path to the default data should always be DATA_PREFIX  */
-///* unless something is screwed up - DSB                           */
-// const char PATHS[NUM_PATHS][FNLEN] = 
-// {
-// /*  DATA_PREFIX"/share/"PACKAGE"/data",
-//   "/usr/share/"PACKAGE"/data",
-//   "/usr/local/share/"PACKAGE"/data",
-//   "./data"*/
-//   DATA_PREFIX,
-//   "./data"
-// };
 
 int fs_res_x = 0;
 int fs_res_y = 0;
@@ -116,22 +96,7 @@ void GraphicsInit(void)
     exit(2);
   }
 
-
-	LOG( "SDL_SetClipRect(screen, NULL):\n" );
-
-	SDL_SetClipRect(screen, NULL); // Let's set the appropriate clip rect  -- JA: is neccessary???  
-
-
-
-	/* --- setup color we use --- */
-	black.r       = 0x00; black.g       = 0x00; black.b       = 0x00;
-        gray.r        = 0x80; gray.g        = 0x80; gray.b        = 0x80;
-	dark_blue.r   = 0x00; dark_blue.g   = 0x00; dark_blue.b   = 0x60; 
-	red.r         = 0xff; red.g         = 0x00; red.b         = 0x00;
-	white.r       = 0xff; white.g       = 0xff; white.b       = 0xff;
-	yellow.r      = 0xff; yellow.g      = 0xff; yellow.b      = 0x00; 
-
-	InitEngine();
+  InitEngine();
 
 
 

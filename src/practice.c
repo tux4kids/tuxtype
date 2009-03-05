@@ -100,6 +100,7 @@ static int load_phrases(const char* phrase_file);
 static int find_next_wrap(const wchar_t* wstr, int font_size, int width);
 static void recalc_positions(void);
 static void calc_font_sizes(void);
+static int create_labels(void);
 static void display_next_letter(wchar_t* str, Uint16 index);
 static int practice_load_media(void);
 static void practice_unload_media(void);
@@ -402,6 +403,7 @@ int Phrases(wchar_t* pphrase )
           case  SDLK_F10:
             SwitchScreenMode();
             recalc_positions();
+            create_labels();
             state = 1;
             break;
 
@@ -850,6 +852,7 @@ static int practice_load_media(void)
   int i;	
   char fn[FNLEN];
   int load_failed = 0;
+  int labels_ok = 0;
 
   DEBUGCODE { printf("Entering practice_load_media\n"); }
 
@@ -881,12 +884,7 @@ static int practice_load_media(void)
   calc_font_sizes();
 
   /* create labels: */
-  time_label_srfc = BlackOutline(_("Time"), fontsize, &yellow);
-  chars_label_srfc = BlackOutline(_("Chars"), fontsize, &yellow);
-  cpm_label_srfc = BlackOutline(_("CPM"), fontsize, &yellow);
-  wpm_label_srfc = BlackOutline(_("WPM"), fontsize, &yellow);
-  errors_label_srfc = BlackOutline(_("Errors"), fontsize, &yellow);
-  accuracy_label_srfc = BlackOutline(_("Accuracy"), fontsize, &yellow);
+  labels_ok = create_labels();
 
   /* Get out if anything failed to load (except sounds): */
   if (load_failed
@@ -898,12 +896,7 @@ static int practice_load_media(void)
     ||!hand_shift[0]
     ||!hand_shift[1]
     ||!hand_shift[2]
-    ||!time_label_srfc
-    ||!chars_label_srfc
-    ||!cpm_label_srfc
-    ||!wpm_label_srfc
-    ||!errors_label_srfc
-    ||!accuracy_label_srfc)
+    ||!labels_ok)
   {
     fprintf(stderr, "practice_load_media() - failed to load needed media \n");
     print_load_results();
@@ -962,7 +955,14 @@ static void print_load_results(void)
 
 static void recalc_positions(void)
 {
-  int text_height = fontsize * 1.5;
+  int text_height;
+  calc_font_sizes();
+  text_height = fontsize * 1.5;
+
+  DEBUGCODE
+  {
+    fprintf(stderr, "Entering recalc_positions(), screen is %d x %d\n", screen->w, screen->h); 
+  }
 
   if (!keyboard
     ||!tux_win
@@ -1424,4 +1424,41 @@ SDL_Surface* GetKeypress2(int index)
 	char buf[50];
 	GetKeyShift(index, buf);
 	return (LoadImage(buf, IMG_ALPHA));
+}
+
+static int create_labels(void)
+{
+  if (time_label_srfc)
+    SDL_FreeSurface(time_label_srfc); 
+  time_label_srfc = BlackOutline(_("Time"), fontsize, &yellow);
+
+  if (chars_label_srfc)
+    SDL_FreeSurface(chars_label_srfc); 
+  chars_label_srfc = BlackOutline(_("Chars"), fontsize, &yellow);
+
+  if (cpm_label_srfc)
+    SDL_FreeSurface(cpm_label_srfc);
+  cpm_label_srfc = BlackOutline(_("CPM"), fontsize, &yellow);
+
+  if (wpm_label_srfc)
+    SDL_FreeSurface(wpm_label_srfc); 
+  wpm_label_srfc = BlackOutline(_("WPM"), fontsize, &yellow);
+
+  if (errors_label_srfc)
+    SDL_FreeSurface(errors_label_srfc); 
+  errors_label_srfc = BlackOutline(_("Errors"), fontsize, &yellow);
+
+  if (accuracy_label_srfc)
+    SDL_FreeSurface(accuracy_label_srfc); 
+  accuracy_label_srfc = BlackOutline(_("Accuracy"), fontsize, &yellow);
+
+  if (time_label_srfc
+   && chars_label_srfc
+   && cpm_label_srfc
+   && wpm_label_srfc
+   && errors_label_srfc
+   && accuracy_label_srfc)
+    return 1;
+  else
+    return 0;
 }
