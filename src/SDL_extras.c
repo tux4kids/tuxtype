@@ -615,8 +615,8 @@ static TTF_Font* load_font(const char* font_name, int font_size);
 /* or we initialize SDL_ttf:                                      */
 int Setup_SDL_Text(void)
 {
-#ifdef HAVE_LIBSDL_PANGO
 
+#ifdef HAVE_LIBSDL_PANGO
   LOG("Setup_SDL_Text() - using SDL_Pango\n");
 
   SDLPango_Init();
@@ -625,8 +625,6 @@ int Setup_SDL_Text(void)
     fprintf(stderr, "\nError: I could not set SDL_Pango context\n");
     return 0;
   }
-  return 1;
-
 #else
 /* using SDL_ttf: */
   LOG("Setup_SDL_Text() - using SDL_ttf\n");
@@ -636,8 +634,11 @@ int Setup_SDL_Text(void)
     fprintf(stderr, "\nError: I could not initialize SDL_ttf\n");
     return 0;
   }
-  return 1;
 #endif
+
+  SDL_EnableKeyRepeat(0, SDL_DEFAULT_REPEAT_INTERVAL);
+  SDL_EnableUNICODE(1);
+  return 1;
 }
 
 

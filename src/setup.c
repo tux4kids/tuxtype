@@ -121,13 +121,7 @@ void GraphicsInit(void)
 
 	SDL_SetClipRect(screen, NULL); // Let's set the appropriate clip rect  -- JA: is neccessary???  
 
-	LOG( "SDL_ShowCursor(0):\n" );
 
-	SDL_ShowCursor(0); // no cursor please
-
-	LOG( "SDL_WM_SetCaption(\"Tux Typing\", PACKAGE);\n" );
-
-	SDL_WM_SetCaption("Tux Typing", "tuxtype"); // Set window manager stuff
 
 	/* --- setup color we use --- */
 	black.r       = 0x00; black.g       = 0x00; black.b       = 0x00;
@@ -162,20 +156,21 @@ void GraphicsInit(void)
 void LibInit(Uint32 lib_flags)
 {
   LOG( "LibInit():\n-About to init SDL Library\n" );
-  /* FIXME this looks wrong - if SDL_Init() fails, we try other subsystem??? */
-  if (SDL_Init(lib_flags) < 0) 
-  /* FIXME this looks wrong - if no sys_sound, we don't init video??? */
+
+  /* Initialize video: */
+  if (SDL_Init(SDL_INIT_VIDEO) < 0)
+  {
+    fprintf(stderr, "Couldn't initialize SDL: %s\n",
+    SDL_GetError());
+    exit(2);
+  }
+  /* Initialize audio if desired: */
   if (settings.sys_sound)
   {
-    if (SDL_Init(SDL_INIT_VIDEO) < 0)
+    if (SDL_InitSubSystem(SDL_INIT_AUDIO) < 0)
     {
-      fprintf(stderr, "Couldn't initialize SDL: %s\n",
-      SDL_GetError());
-      exit(2);
-    }
-    else
-    {
-      LOG( "Couldn't initialize SDL Sound\n" );
+      fprintf(stderr, "Couldn't initialize SDL Sound: %s\n",
+              SDL_GetError());
       settings.sys_sound = 0;
     }
   }
@@ -206,12 +201,9 @@ void LibInit(Uint32 lib_flags)
   }
 //	atexit(TTF_Quit);
 
-  SDL_EnableKeyRepeat( 0, SDL_DEFAULT_REPEAT_INTERVAL );
-  /* Need this to get Unicode values from keysyms: */
-  SDL_EnableUNICODE(1);
-
   LOG( "LibInit():END\n" );
 }
+
 
 /* Load the settings from a file... make sure to update SaveSettings if you change
  *  what can be saved/loaded 

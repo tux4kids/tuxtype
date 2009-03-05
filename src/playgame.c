@@ -142,7 +142,6 @@ int PlayCascade(int diflevel)
     fprintf(stderr, "->Entering PlayCascade(): level=%i\n", diflevel);
   }
 
-  SDL_WarpMouse(screen->w / 2, screen->h / 2);
   SDL_ShowCursor(0);
 
 //	SNOW_init();

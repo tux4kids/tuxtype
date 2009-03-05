@@ -241,10 +241,6 @@ void TitleScreen(void)
 
   LOG( "Tux and Title are in place now\n" );
 
-  /* Move mouse to top button: */
-  cursor.x = menu_button[1].x + (menu_button[1].w / 2);
-  cursor.y = menu_button[1].y + (3 * menu_button[1].h / 4);
-  SDL_WarpMouse(cursor.x, cursor.y);
   SDL_WM_GrabInput(SDL_GRAB_OFF);
 
 
@@ -441,15 +437,6 @@ void TitleScreen(void)
     }	              /* End of while (SDL_PollEvent(&event)) loop     */
 
 
-
-    /* --- warp mouse to follow keyboard input --- */
-
-    if (old_key_menu != key_menu)
-    {
-      cursor.x = menu_button[key_menu].x + (menu_button[key_menu].w / 2);
-      cursor.y = menu_button[key_menu].y + (3 * menu_button[key_menu].h / 4);
-      SDL_WarpMouse(cursor.x, cursor.y);
-    }
 
 
 
