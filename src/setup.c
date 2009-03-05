@@ -159,7 +159,7 @@ void GraphicsInit(void)
 *****************************/
 /* NOTE lib_flags is *always* SDL_INIT_VIDEO|SDL_INIT_AUDIO - maybe we */
 /* should just simplify all this:                                      */
-void LibInit(lib_flags)
+void LibInit(Uint32 lib_flags)
 {
   LOG( "LibInit():\n-About to init SDL Library\n" );
   /* FIXME this looks wrong - if SDL_Init() fails, we try other subsystem??? */
