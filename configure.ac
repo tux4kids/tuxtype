@@ -94,20 +94,38 @@ AC_CHECK_LIB([SDL_mixer],
              ,
              [AC_MSG_ERROR([SDL_mixer not found! http://www.libsdl.org/projects/SDL_mixer])])
 
-dnl Check for SDL_ttf:
+
+dnl SDL_Pango is enabled by default.
+dnl If SDL_Pango disabled at configure time, or if we can't find it,
+dnl we look for SDL_ttf:
+
+AC_ARG_WITH([sdlpango],
+            [AS_HELP_STRING([--without-sdlpango],
+            [don't use SDL_Pango even if available])],
+            [],
+            [with_sdlpango=yes])
+
+if test "x$with_sdlpango" != xno; then
+AC_CHECK_LIB([SDL_Pango],
+             [SDLPango_Init],
+             ,
+             [with_sdlpango=no;
+              AC_MSG_FAILURE([SDL_Pango test failed (--without-sdlpango to disable)])])
+fi
+
+if [test "x$with_sdlpango" = xno]; then
 AC_CHECK_LIB([SDL_ttf],
              [TTF_Init],
              ,
              [AC_MSG_ERROR([SDL_ttf not found! http://www.libsdl.org/projects/SDL_ttf])])
+fi
 
 
-
-# FIXME would be better to skip check for win32 build
-AC_CHECK_LIB([SDL_Pango], 
-             [SDLPango_Init],
+dnl Check for (somewhat) higher-level math functions - needed for SDL_extras
+AC_CHECK_LIB([m],
+             [csin],
              ,
-             [AC_MSG_WARN(SDL_Pango not found http://sdlpango.sourceforge.net/)])
-
+             [AC_MSG_ERROR([Math library not found - functions in <math.h> may not be available.])])
 
 
 # --------------------------------------------------------------------------------------

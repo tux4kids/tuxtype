@@ -824,7 +824,7 @@ SDL_Surface* BlackOutline_w(const wchar_t* t, int font_size, const SDL_Color* c,
 
 /* This (fast) function just returns a non-outlined surf */
 /* using either SDL_Pango or SDL_ttf                     */
-SDL_Surface* SimpleText(const char *t, int size, SDL_Color* col)
+SDL_Surface* SimpleText(const char *t, int size, const SDL_Color* col)
 {
   SDL_Surface* surf = NULL;
 

@@ -48,7 +48,7 @@ int  inRect(SDL_Rect r, int x, int y);
 void DarkenScreen(Uint8 bits);
 void SwitchScreenMode(void);
 int WaitForKeypress(void);
-SDL_Surface* Blend(SDL_Surface *S1, SDL_Surface *S2,float gamma);
+SDL_Surface* Blend(SDL_Surface *S1, SDL_Surface *S2, float gamma);
 SDL_Surface* zoom(SDL_Surface * src, int new_w, int new_h);
 
 /*Text rendering functions: */
@@ -56,7 +56,7 @@ int Setup_SDL_Text(void);
 void Cleanup_SDL_Text(void);
 SDL_Surface* BlackOutline(const char* t, int font_size, const SDL_Color* c);
 SDL_Surface* BlackOutline_w(const wchar_t* t, int font_size, const SDL_Color* c, int length);
-SDL_Surface* SimpleText(const char *t, int size, SDL_Color* col);
+SDL_Surface* SimpleText(const char *t, int size, const SDL_Color* col);
 //SDL_Surface* SimpleTextWithOffset(const char *t, int size, SDL_Color* col, int *glyph_offset);
 
 #endif

@@ -101,7 +101,7 @@ static int find_next_wrap(const wchar_t* wstr, int font_size, int width);
 static void recalc_positions(void);
 static void calc_font_sizes(void);
 static int create_labels(void);
-static void display_next_letter(wchar_t* str, Uint16 index);
+static void display_next_letter(const wchar_t* str, Uint16 index);
 static int practice_load_media(void);
 static void practice_unload_media(void);
 //static void show(char t);
@@ -1379,7 +1379,7 @@ static int find_next_wrap(const wchar_t* wstr, int font_size, int width)
 /* FIXME this isn't very safe because index could be out of allocated string, */
 /* and there a very good way to test for this within this function.           */
 /* Displays the next letter to be typed in a large font */
-static void display_next_letter(wchar_t *str, Uint16 index)
+static void display_next_letter(const wchar_t *str, Uint16 index)
 {
   wchar_t ltr[2];
   SDL_Surface* s = NULL;

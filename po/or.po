@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tuxtype\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2009-02-23 08:14-0600\n"
+"POT-Creation-Date: 2009-03-08 07:13-0500\n"
 "PO-Revision-Date: 2008-08-27 17:56+0530\n"
 "Last-Translator: Manoj Kumar Giri <mgiri@redhat.com>\n"
 "Language-Team: Oriya\n"
@@ -17,91 +17,91 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n!=1)\n"
 "\n"
 
-#: src/loaders.c:88 src/main.c:151
+#: src/loaders.c:88 src/main.c:145
 msgid "Fish"
 msgstr "ମାଛ"
 
-#: src/titlescreen.c:91
+#: src/titlescreen.c:90
 msgid "Fish Cascade"
 msgstr "ମାଛ ସୋପାନୀ"
 
-#: src/titlescreen.c:91
+#: src/titlescreen.c:90
 msgid "Easy"
 msgstr "ସହଜ"
 
-#: src/titlescreen.c:91
+#: src/titlescreen.c:90
 msgid "Space Cadet"
 msgstr "ମହାକାଶ ଛାତ୍ରସୈନିକ"
 
-#: src/titlescreen.c:91
+#: src/titlescreen.c:90
 msgid "Edit Word Lists"
 msgstr "ଶବ୍ଦ ତାଲିକାଗୁଡ଼ିକୁ ସମ୍ପାଦନ କରନ୍ତୁ"
 
-#: src/titlescreen.c:92
+#: src/titlescreen.c:91
 msgid "Comet Zap"
 msgstr "Comet Zap"
 
-#: src/titlescreen.c:92
+#: src/titlescreen.c:91
 msgid "Medium"
 msgstr "ମଧ୍ଯମ"
 
-#: src/titlescreen.c:92
+#: src/titlescreen.c:91
 msgid "Pilot"
 msgstr "ଚାଳକ"
 
-#: src/titlescreen.c:92
+#: src/titlescreen.c:91
 msgid "Phrase Typing"
 msgstr ""
 
-#: src/titlescreen.c:93
+#: src/titlescreen.c:92
 msgid "Lessons"
 msgstr "ଶିକ୍ଷା"
 
-#: src/titlescreen.c:93
+#: src/titlescreen.c:92
 msgid "Hard"
 msgstr "କଠିନ"
 
-#: src/titlescreen.c:93
+#: src/titlescreen.c:92
 msgid "Ace"
 msgstr "ଉତ୍କୃଷ୍ଟ"
 
-#: src/titlescreen.c:93
+#: src/titlescreen.c:92
 msgid "Project Info"
 msgstr "ପ୍ରକଳ୍ପ ସୂଚନା"
 
-#: src/titlescreen.c:94
+#: src/titlescreen.c:93
 msgid "Options"
 msgstr "ବିକଳ୍ପଗୁଡ଼ିକ"
 
-#: src/titlescreen.c:94
+#: src/titlescreen.c:93
 msgid "Instructions"
 msgstr "ନିର୍ଦ୍ଦେଶ"
 
-#: src/titlescreen.c:94
+#: src/titlescreen.c:93
 msgid "Commander"
 msgstr "ସେନାପତି"
 
-#: src/titlescreen.c:94
+#: src/titlescreen.c:93
 msgid "Setup Language"
 msgstr "ଭାଷା ବିନ୍ୟାସ କରନ୍ତୁ"
 
-#: src/titlescreen.c:95
+#: src/titlescreen.c:94
 msgid "Quit"
 msgstr "ବିଦାୟ ନିଅନ୍ତୁ"
 
-#: src/titlescreen.c:95
+#: src/titlescreen.c:94
 msgid "Main Menu"
 msgstr "ମୂଖ୍ୟ ତାଲିକା"
 
-#: src/titlescreen.c:1137
+#: src/titlescreen.c:1115
 msgid "Work In Progress!"
 msgstr "କାର୍ଯ୍ୟ ଚାଲୁଅଛି!"
 
-#: src/titlescreen.c:1138
+#: src/titlescreen.c:1116
 msgid "This feature is not ready yet"
 msgstr "ଏହି ଅଂଶଟି ଏପର୍ଯ୍ୟନ୍ତ ପ୍ରସ୍ତୁତ ହୋଇନାହିଁ"
 
-#: src/titlescreen.c:1139
+#: src/titlescreen.c:1117
 msgid "Discuss the future of TuxTyping at"
 msgstr "ରେ TuxTyping ର ଭବିଷ୍ୟତ ଆଲୋଚନା କରନ୍ତୁ"
 

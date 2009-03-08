@@ -1527,8 +1527,8 @@ static void SpawnFishies(int diflevel, int* fishies, int* frame)
   {
     /* NOTE need %S rather than %s because of wide characters */
     fprintf(stderr, "Spawn fishy with word '%S'\n", fish_object[*fishies].word);
-    fprintf(stderr, "Byte length is: %d\n", wcslen(fish_object[*fishies].word));
-    fprintf(stderr, "UTF-8 char length is: %d\n", fish_object[*fishies].len);
+    fprintf(stderr, "Byte length is: %d\n", (int)wcslen(fish_object[*fishies].word));
+    fprintf(stderr, "UTF-8 char length is: %d\n", (int)fish_object[*fishies].len);
   }
 
   *fishies = *fishies + 1;

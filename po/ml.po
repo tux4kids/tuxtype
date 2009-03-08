@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tuxtype\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2009-02-23 08:14-0600\n"
+"POT-Creation-Date: 2009-03-08 07:13-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Mobin M <mobinmohan@gmail.com>\n"
 "Language-Team: Swathanthra|സ്വതന്ത്ര Malayalam|മലയാളം Computing|കമ്പ്യൂട്ടിങ്ങ് <smc-"
@@ -17,91 +17,91 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/loaders.c:88 src/main.c:151
+#: src/loaders.c:88 src/main.c:145
 msgid "Fish"
 msgstr "മത്സ്യം"
 
-#: src/titlescreen.c:91
+#: src/titlescreen.c:90
 msgid "Fish Cascade"
 msgstr "വീഴുന്ന മത്സ്യങ്ങള്‍"
 
-#: src/titlescreen.c:91
+#: src/titlescreen.c:90
 msgid "Easy"
 msgstr "എളുപ്പം"
 
-#: src/titlescreen.c:91
+#: src/titlescreen.c:90
 msgid "Space Cadet"
 msgstr "ആകാശ പറവകള്‍ "
 
-#: src/titlescreen.c:91
+#: src/titlescreen.c:90
 msgid "Edit Word Lists"
 msgstr "വാക്കുകളുടെ ശേഖരം"
 
-#: src/titlescreen.c:92
+#: src/titlescreen.c:91
 msgid "Comet Zap"
 msgstr "വാല്‍ നക്ഷത്രത്തെ പിടിക്കുക"
 
-#: src/titlescreen.c:92
+#: src/titlescreen.c:91
 msgid "Medium"
 msgstr "ഇടത്തരം"
 
-#: src/titlescreen.c:92
+#: src/titlescreen.c:91
 msgid "Pilot"
 msgstr "ആദ്യ പരിശീലനം"
 
-#: src/titlescreen.c:92
+#: src/titlescreen.c:91
 msgid "Phrase Typing"
 msgstr ""
 
-#: src/titlescreen.c:93
+#: src/titlescreen.c:92
 msgid "Lessons"
 msgstr "പാഠങ്ങള്‍"
 
-#: src/titlescreen.c:93
+#: src/titlescreen.c:92
 msgid "Hard"
 msgstr "ബുദ്ധിമുട്ടുള്ളത്"
 
-#: src/titlescreen.c:93
+#: src/titlescreen.c:92
 msgid "Ace"
 msgstr "എയ്സ്"
 
-#: src/titlescreen.c:93
+#: src/titlescreen.c:92
 msgid "Project Info"
 msgstr "കളിയുടെ വിവരങ്ങള്‍"
 
-#: src/titlescreen.c:94
+#: src/titlescreen.c:93
 msgid "Options"
 msgstr "ഐച്ഛികങ്ങള്‍"
 
-#: src/titlescreen.c:94
+#: src/titlescreen.c:93
 msgid "Instructions"
 msgstr "നിര്‍‌ദ്ദേശങ്ങള്‍ "
 
-#: src/titlescreen.c:94
+#: src/titlescreen.c:93
 msgid "Commander"
 msgstr "കമാന്‍ഡര്‍"
 
-#: src/titlescreen.c:94
+#: src/titlescreen.c:93
 msgid "Setup Language"
 msgstr "ഭാഷ മാറ്റുക"
 
-#: src/titlescreen.c:95
+#: src/titlescreen.c:94
 msgid "Quit"
 msgstr "പുറത്തു കടക്കുക"
 
-#: src/titlescreen.c:95
+#: src/titlescreen.c:94
 msgid "Main Menu"
 msgstr "പ്രധാന മെനു"
 
-#: src/titlescreen.c:1137
+#: src/titlescreen.c:1115
 msgid "Work In Progress!"
 msgstr "പണി നടക്കുന്നുണ്ടല്ലോ"
 
-#: src/titlescreen.c:1138
+#: src/titlescreen.c:1116
 msgid "This feature is not ready yet"
 msgstr "ഇത് ഇതുവരെ ശരിയാക്കിയിട്ടില്ല."
 
-#: src/titlescreen.c:1139
+#: src/titlescreen.c:1117
 msgid "Discuss the future of TuxTyping at"
 msgstr "ടക്സ് ടൈപ്പിന്റെ  ഭാവി ചര്‍ച്ചചെയ്യാനായി ഇവിടെ പോകുക"
 

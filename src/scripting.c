@@ -1058,7 +1058,7 @@ static void run_script(void)
           else if (curScript->fgcolor)
             col = curScript->fgcolor;
           else 
-            col = &white;
+            col = (SDL_Color*)&white;
 
           shown = 0;
 

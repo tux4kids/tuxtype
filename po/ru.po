@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tux Typing 1.5.16\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2009-02-23 08:14-0600\n"
+"POT-Creation-Date: 2009-03-08 07:13-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Mobin M <mobinmohan@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,91 +16,91 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/loaders.c:88 src/main.c:151
+#: src/loaders.c:88 src/main.c:145
 msgid "Fish"
 msgstr "Рыб"
 
-#: src/titlescreen.c:91
+#: src/titlescreen.c:90
 msgid "Fish Cascade"
 msgstr "Каскад рыб"
 
-#: src/titlescreen.c:91
+#: src/titlescreen.c:90
 msgid "Easy"
 msgstr "Легкий"
 
-#: src/titlescreen.c:91
+#: src/titlescreen.c:90
 msgid "Space Cadet"
 msgstr "Космический кадет"
 
-#: src/titlescreen.c:91
+#: src/titlescreen.c:90
 msgid "Edit Word Lists"
 msgstr "Редактирование списка слов"
 
-#: src/titlescreen.c:92
+#: src/titlescreen.c:91
 msgid "Comet Zap"
 msgstr "Падение комет"
 
-#: src/titlescreen.c:92
+#: src/titlescreen.c:91
 msgid "Medium"
 msgstr "Средний"
 
-#: src/titlescreen.c:92
+#: src/titlescreen.c:91
 msgid "Pilot"
 msgstr "Пилот"
 
-#: src/titlescreen.c:92
+#: src/titlescreen.c:91
 msgid "Phrase Typing"
 msgstr ""
 
-#: src/titlescreen.c:93
+#: src/titlescreen.c:92
 msgid "Lessons"
 msgstr "Уроки"
 
-#: src/titlescreen.c:93
+#: src/titlescreen.c:92
 msgid "Hard"
 msgstr "Сложный"
 
-#: src/titlescreen.c:93
+#: src/titlescreen.c:92
 msgid "Ace"
 msgstr "Ас"
 
-#: src/titlescreen.c:93
+#: src/titlescreen.c:92
 msgid "Project Info"
 msgstr ""
 
-#: src/titlescreen.c:94
+#: src/titlescreen.c:93
 msgid "Options"
 msgstr "Параметры"
 
-#: src/titlescreen.c:94
+#: src/titlescreen.c:93
 msgid "Instructions"
 msgstr "Инструкции"
 
-#: src/titlescreen.c:94
+#: src/titlescreen.c:93
 msgid "Commander"
 msgstr "Капитан"
 
-#: src/titlescreen.c:94
+#: src/titlescreen.c:93
 msgid "Setup Language"
 msgstr "Выбор языка"
 
-#: src/titlescreen.c:95
+#: src/titlescreen.c:94
 msgid "Quit"
 msgstr "Выход"
 
-#: src/titlescreen.c:95
+#: src/titlescreen.c:94
 msgid "Main Menu"
 msgstr "Главное меню"
 
-#: src/titlescreen.c:1137
+#: src/titlescreen.c:1115
 msgid "Work In Progress!"
 msgstr "Работа продолжается!"
 
-#: src/titlescreen.c:1138
+#: src/titlescreen.c:1116
 msgid "This feature is not ready yet"
 msgstr "Эта функция еще не готова"
 
-#: src/titlescreen.c:1139
+#: src/titlescreen.c:1117
 msgid "Discuss the future of TuxTyping at"
 msgstr "Обсудите будущее TuxTyping на"
 

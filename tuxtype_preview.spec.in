@@ -20,7 +20,7 @@ Obsoletes: 	tuxtype <= @VERSION@
 Provides:  	tuxtype = @VERSION@
 Summary:        Typing tutor for children
 Url:            http://alioth.debian.org/projects/tux4kids/
-%define         realname @PACKAGE@_w_fonts
+%define         realname @PACKAGE@
 %define         progname tuxtype
 License:        GNU General Public License (GPL) v2, Open Font License v1.1, free (BSD-like) license
 Group:          Amusements/Games/Action/Other
@@ -30,7 +30,7 @@ Vendor:         openSUSE-Education
 Source:         %realname-%version.tar.bz2
 
 BuildRequires:  SDL_image-devel >= 1.2.2  
-BuildRequires:  SDL_ttf-devel > 2.0.8  
+#BuildRequires:  SDL_ttf-devel > 2.0.8  
 BuildRequires:  SDL-devel  
 BuildRequires:  SDL_mixer-devel  
 BuildRequires:  SDL_Pango-devel 
@@ -142,10 +142,10 @@ install -Dm644  tuxtype.desktop %buildroot/%_datadir/applications/%progname.desk
 %endif
 
 # grmbl....
-if [ ! -d %buildroot%{_datadir}/fonts/truetype ]; then
-	mkdir -p %buildroot%{_datadir}/fonts/truetype
-	ln -s %{_datadir}/tuxtype/fonts %buildroot%{_datadir}/fonts/truetype/ttf-sil-andika
-fi
+#if [ ! -d %buildroot%{_datadir}/fonts/truetype ]; then
+#	mkdir -p %buildroot%{_datadir}/fonts/truetype
+#	ln -s %{_datadir}/tuxtype/fonts %buildroot%{_datadir}/fonts/truetype/ttf-sil-andika
+#fi
 
 %find_lang %progname
 
@@ -176,8 +176,8 @@ rm -rf %buildroot
 %{_bindir}/tuxtype
 %dir %_datadir/tuxtype
 #%dir %_datadir/tuxtype/fonts
-%dir %{_datadir}/fonts/truetype
-%dir %{_datadir}/fonts/truetype/ttf-sil-andika
+#%dir %{_datadir}/fonts/truetype
+#%dir %{_datadir}/fonts/truetype/ttf-sil-andika
 %_datadir/tuxtype/*
 %_datadir/applications/*%progname.desktop
 %_datadir/pixmaps/%progname.png
