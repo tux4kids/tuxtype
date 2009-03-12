@@ -14,7 +14,7 @@
 
 @SET_MAKE@
 
-# Modified to include support for NSIS Windows installer - David Bruce <dbruce@tampabay.rr.com>
+# Modified to include support for NSIS Windows installer - David Bruce <davidstuartbruce@gmail.com>
 VPATH = @srcdir@
 pkgdatadir = $(datadir)/@PACKAGE@
 pkglibdir = $(libdir)/@PACKAGE@
@@ -256,7 +256,13 @@ SUBDIRS = data \
 	src
 
 ACLOCAL_AMFLAGS = -I m4
-EXTRA_DIST = tuxtype.spec tuxtype.desktop tuxtype.ico config.rpath
+EXTRA_DIST = tuxtype.spec \
+	tuxtype.desktop  \
+	tuxtype.ico \
+	icon.png \
+	Info.plist \
+	config.rpath 
+
 MAKENSIS = @NSIS@
 NSIS_FOUND = @NSIS_FOUND@
 NSI_TEMP_INSTALL_DIR = $(abs_top_builddir)/_instw32

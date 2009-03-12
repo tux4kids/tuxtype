@@ -16,64 +16,50 @@ Provides:  	tuxtype_preview = @VERSION@
 Summary:        Typing tutor for children
 Url:            http://alioth.debian.org/projects/tux4kids/
 %define         realname @PACKAGE@
-%define         progname tuxtype
+%define         progname @PACKAGE@
 License:        GNU General Public License (GPL) v2, Open Font License v1.1, free (BSD-like) license
-Group:          Amusements/Games/Action/Other
+Group:          Amusements/Teaching/Language
 Version:        @VERSION@
 Release:        1
 Vendor:         openSUSE-Education
 Source:         %realname-%version.tar.bz2
 
-BuildRequires:  SDL_image-devel >= 1.2.2  
-#BuildRequires:  SDL_ttf-devel > 2.0.8  
-BuildRequires:  SDL-devel  
-BuildRequires:  SDL_mixer-devel  
-BuildRequires:  SDL_Pango-devel 
+BuildRequires:  SDL_image-devel >= 1.2.2
+#BuildRequires:  SDL_ttf-devel > 2.0.8
+BuildRequires:  SDL-devel
+BuildRequires:  SDL_mixer-devel
+BuildRequires:  SDL_Pango-devel
 BuildRequires:  ImageMagick
 
-%if 0%{?suse_version}  
-BuildRequires:  update-desktop-files  
-BuildRequires:  fdupes  
-%endif  
+%if 0%{?suse_version}
+BuildRequires:  update-desktop-files
+BuildRequires:  fdupes
+%endif
 
-%if 0%{?fedora_version}  
-BuildRequires:  desktop-file-utils  
-%endif  
+%if 0%{?fedora_version}
+BuildRequires:  desktop-file-utils
+%endif
 
-%if 0%{?mandriva_version}  
-BuildRequires:  desktop-file-utils  
-Requires(post): desktop-file-utils  
-Requires(postun): desktop-file-utils  
+%if 0%{?mandriva_version}
+BuildRequires:  desktop-file-utils
+Requires(post): desktop-file-utils
+Requires(postun): desktop-file-utils
 %endif
 %if 0%{?mandriva_version} >= 2009
 BuildRequires: pulseaudio-esound-compat
 %endif  
 
-BuildRoot:      %{_tmppath}/%{progname}-%{version}-build
+Source0:        %realname-%version.tar.bz2
 
+BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
 %description
 Tux Typing is an educational typing tutor game starring Tux, the Linux
-penguin.
+penguin. It is designed to be entertaining for children, but can be used
+by all ages to improve typing skills. Tux Typing includes two video game-style activities that give practice typing individual characters and words.  There
+is also a phrase typing activity that provides practice with phrases and sentences, with on-screen display of accuracy and typing speed.
 
-In "Fish Cascade" you control Tux as he searches for fish to eat. Fish fall
-from the top of the screen. These fish have letters on them.  Unforunately
-for Tux, eating a fish with a letter on it will cause his stomach to
-become ill, so it is up to you to help Tux eat fish!  By typing the
-letters, it will cause them to disappear so tux can chow down on the
-fish.
-
-In "Comet Zap" you control Tux as he defends the cities from comets.  To
-protect a city from a comet, type the letter on the comet and it will
-cause Tux to destroy it with a laser! (In case you wondered, Comet Zap
-is an adaptation of the *great* math drill game, "Tux, of Math Command").
-
-"Phrase Typing" offers practice typing phrases and sentences, with on-
-screen display of accuracy and typing speed.
-
-"Lessons" is an additional typing activity that we have not yet
-completed. You will find other menu entries for planned features
-that still need to be implemented.
+Tux Typing supports all commonly used desktop platforms, and is packaged with translation files and word lists for many (human) languages. The program is capable of displaying essentially the entire Unicode character set.
 
 Authors:
 --------
@@ -91,60 +77,52 @@ Authors:
     Mobin Mohan <mobinmohan@gmail.com>
 
 
+# prep section: ---------------------------------------------------------
+
 %prep
 %setup -q -n %realname-%version
 rm -rf $(find . -type d -name CVS)
 rm -rf $(find . -type d -name .svn)
 rm -rf $(find . -type d -name .xvpics)
 
+
+
+# build section: ---------------------------------------------------------
+
 %build
-%configure --docdir="%{_defaultdocdir}/%{progname}" --disable-rpath
+%configure --disable-rpath
 make %{?jobs:-j %jobs}
 
 
+
+# install section: ---------------------------------------------------------
+
 %install
-%if 0%{?suse_version} < 1030
-for i in $(find . -progname Makefile ); do
-    sed -i "s#MKDIR_P#mkdir_p#g" $i
-done
-%endif
-
+install -d %buildroot/{%_bindir,%_datadir/pixmaps,%_datadir/applications,%_datadir/%progname,%_defaultdocdir/%progname}
 make DESTDIR=%{buildroot} install
-# remove unneeded data
-rm -rf %buildroot/usr/doc/tuxtype
-rm -rf %buildroot%_datadir/tuxtype/{autorun.inf,OFL.txt}
-
-# install desktop file and icon
-mkdir -p %buildroot%_datadir/pixmaps
-convert -scale 48x48 tuxtype.ico %buildroot%_datadir/pixmaps/%progname.png
-rm -rf %buildroot%_datadir/tuxtype/*.ico
+install -m 644 data/images/icons/icon.png %buildroot%_datadir/pixmaps/%progname.png
 
 %if 0%{?suse_version}
-#install -Dm644 %{SOURCE1} %buildroot%_datadir/applications/%progname.desktop
-%suse_update_desktop_file -i %progname Game KidsGame
-# save some discspace using symlinks
+# handle special docdir path
+mv %buildroot/%_datadir/doc/%progname/* %buildroot/%_defaultdocdir/%progname/
+rm -rf %buildroot/%_datadir/doc/%progname
+# install desktop file
+%suse_update_desktop_file -i %progname Education Languages
 %fdupes -s %buildroot
 %endif
-
 %if 0%{?fedora_version}
 # install desktop file
 desktop-file-install --vendor="%{vendor}" \
   --dir=%buildroot/%_datadir/applications \
-  tuxtype.desktop
+  %progname.desktop
 %endif
-
 %if 0%{?mandriva_version}
-#desktop-file-install --vendor="%{vendor}" \
-#  --dir=%buildroot/%_datadir/applications \
-install -Dm644  tuxtype.desktop %buildroot/%_datadir/applications/%progname.desktop
+desktop-file-install --vendor="%{vendor}" \
+  --dir=%buildroot/%_datadir/applications \
+  %progname.desktop
 %endif
-
-# grmbl....
-#if [ ! -d %buildroot%{_datadir}/fonts/truetype ]; then
-#	mkdir -p %buildroot%{_datadir}/fonts/truetype
-#	ln -s %{_datadir}/tuxtype/fonts %buildroot%{_datadir}/fonts/truetype/ttf-sil-andika
-#fi
-
+# remove invalid locale directories
+rm -rf %buildroot/%{_datadir}/locale/en@*
 %find_lang %progname
 
 %if 0%{?mandriva_version}
@@ -158,27 +136,17 @@ install -Dm644  tuxtype.desktop %buildroot/%_datadir/applications/%progname.desk
 %clean
 rm -rf %buildroot
 
+
+
+# files section: ---------------------------------------------------------
+
 %files -f %progname.lang
+
 %defattr(-,root,root)
-#%doc README AUTHORS COPYING ChangeLog TODO 
-%dir %_docdir/%{progname}
-%doc %_docdir/%{progname}/*
-%doc data/sounds/README_SOUNDS.TXT
-%doc data/images/README_IMAGES.TXT
+%doc %_defaultdocdir/%progname
+%_bindir/*
+%_datadir/pixmaps/*
+%_datadir/applications/*
+%_datadir/%progname
 
-#%if 0%{?fedora_version}
-#%dir %_docdir/%{progname}
-#%doc %_docdir/%{progname}/*
-#%endif
-
-%{_bindir}/tuxtype
-%dir %_datadir/tuxtype
-#%dir %_datadir/tuxtype/fonts
-#%dir %{_datadir}/fonts/truetype
-#%dir %{_datadir}/fonts/truetype/ttf-sil-andika
-%_datadir/tuxtype/*
-%_datadir/applications/*%progname.desktop
-%_datadir/pixmaps/%progname.png
-
-
-%changelog 
+%changelog

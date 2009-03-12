@@ -1,6 +1,6 @@
 [Desktop Entry]
 Name=Tux Typing
-GenericName=Kids game
+GenericName=Educational typing game
 GenericName[ru]=Игра для детей
 GenericName[tr]=Daktilo Öğretmeni
 GenericName[fr]=Jeu pour les enfants
@@ -14,4 +14,4 @@ Icon=tuxtype
 Terminal=false
 Type=Application
 StartupNotify=true
-Categories=Education;X-Teaching;
+Categories=Education;Languages;

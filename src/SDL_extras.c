@@ -694,7 +694,7 @@ SDL_Surface* BlackOutline(const char* t, int font_size, const SDL_Color* c)
 
   if (t[0] == '\0')
   {
-    fprintf(stderr, "BlackOutline(): empty string, returning\n");
+    LOG("BlackOutline(): empty string, returning\n");
     return NULL;
   }
 

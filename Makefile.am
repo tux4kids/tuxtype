@@ -1,4 +1,4 @@
-# Modified to include support for NSIS Windows installer - David Bruce <dbruce@tampabay.rr.com>
+# Modified to include support for NSIS Windows installer - David Bruce <davidstuartbruce@gmail.com>
 
 SUBDIRS = data \
 	doc	\
@@ -8,7 +8,12 @@ SUBDIRS = data \
 
 ACLOCAL_AMFLAGS = -I m4
 
-EXTRA_DIST = tuxtype.spec tuxtype.desktop tuxtype.ico config.rpath
+EXTRA_DIST = tuxtype.spec \
+	tuxtype.desktop  \
+	tuxtype.ico \
+	icon.png \
+	Info.plist \
+	config.rpath 
 datadir = @datadir@
 localedir = $(datadir)/locale
 

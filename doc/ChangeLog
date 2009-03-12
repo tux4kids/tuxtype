@@ -1,6 +1,16 @@
+03 Mar 2009 (svn.debian.org/tux4kids - revision 932)
+Version 1.7.4
+[ David Bruce <davidstuartbruce@gmail.com> ]
+        - Build - configure.ac updated to only link to SDL_ttf when SDL_Pango is
+          unavailable; also added configure option "--without-sdlpango" to facilitate
+          testing of program when SDL_ttf is used.
+
 03 Mar 2009 (svn.debian.org/tux4kids - revision 923)
 [ David Bruce <davidstuartbruce@gmail.com> ]
-        - Text drawing -
+        - Text drawing - encapsulation of all calls to SDL_ttf and SDL_Pango to 
+          within SDL_extras.c/.h.  The rest of the program no longer "knows" which
+          text library is being used.  Now, since SDL_ttf is no longer used at all
+          whenever SDL_Pango is available, we don't need any specific fonts for Linux.
 
 22 Feb 2009 svn revision 903
 [ David Bruce <davidstuartbruce@gmail.com> ]
@@ -8,7 +18,7 @@
           including removal of remaining incorrect uses of "unsigned char".
         - addition of "make dist_with_fonts_bzip2" target to help support OpenSUSE
           build service integration.
-        - beginning of VERSIOM "1.7.4.preview"
+        - beginning of VERSION "1.7.4.preview"
         - cleanup of alphabet.c with addition of pointer safety checks and fix of 
           "off-by-one" drawing error in fourth row of keyboard hints graphic.
 
