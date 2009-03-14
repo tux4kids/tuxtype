@@ -580,9 +580,8 @@ SDL_Surface* zoom(SDL_Surface* src, int new_w, int new_h)
 /* which library is used to do the actual rendering.                    */
 /************************************************************************/
 
-/* Uncomment this line to test how the program will run if */
-/* SDL_Pango not available.                                */
-//#undef HAVE_LIBSDL_PANGO
+
+//NOTE to test program with SDL_ttf, do "./configure --without-sdlpango"
 
 
 #define MAX_FONT_SIZE 72
