@@ -33,7 +33,6 @@
 #ifndef __GLOBALS_H__
 #define __GLOBALS_H__
 
-#define MAX_SPRITE_FRAMES 30
 
 
 #include "config.h"
@@ -69,9 +68,7 @@
 
 #endif //  __GLOBALS_H__
 
-/* FIXME get rid of these 'evil' macros */
-#define NEXT_FRAME(SPRITE) if ((SPRITE)->num_frames) (SPRITE)->cur = (((SPRITE)->cur)+1) % (SPRITE)->num_frames;
-#define REWIND(SPRITE) (SPRITE)->cur = 0;
+
 
 #define MIN(x,y) ((x) < (y) ? (x) : (y))
 #define MAX(x,y) ((x) > (y) ? (x) : (y))
@@ -125,15 +122,6 @@ typedef struct game_option_type{
 
 
 
-typedef struct {
-  SDL_Surface* frame[MAX_SPRITE_FRAMES];
-  SDL_Surface* default_img;
-  int num_frames;
-  int cur;
-} sprite;
-
-
-
 /* LOGGING works as such:
  *
  * - Use LOG if you want to output a string LOG( "Hello World");
@@ -152,20 +140,6 @@ typedef struct {
 #define LOG( str ) if (settings.debug_on) fprintf( stderr, str );
 #define DEBUGCODE if (settings.debug_on) 
 #define DOUT(x) if (settings.debug_on) fprintf(stderr, "%s = %d\n", #x, x);
-
-// #if SDL_BYTEORDER == SDL_BIG_ENDIAN
-// #define RMASK 0xff000000
-// #define GMASK 0x00ff0000
-// #define BMASK 0x0000ff00
-// #define AMASK 0x000000ff
-// #else
-// #define RMASK 0x000000ff
-// #define GMASK 0x0000ff00
-// #define BMASK 0x00ff0000
-// #define AMASK 0xff000000
-// #endif
-
-
 
 
 /* Limits on word list size, word length, and on the number of distinct characters */
@@ -222,34 +196,29 @@ extern int fs_res_y;
 extern SDL_Event  event;
 
 
-//extern SDL_Surface* letters[255]; /* Will be going away */
-
-/* These need some work to support Unicode & i18n: */
-//extern wchar_t ALPHABET[256];
-//extern int ALPHABET_SIZE;
-
-
-enum {
-	WIN_WAV,
-	BITE_WAV,
-	LOSE_WAV,
-	RUN_WAV,
-	SPLAT_WAV,
-	WINFINAL_WAV,
-	EXCUSEME_WAV,
-	PAUSE_WAV,
-	NUM_WAVES
+enum 
+{
+  WIN_WAV,
+  BITE_WAV,
+  LOSE_WAV,
+  RUN_WAV,
+  SPLAT_WAV,
+  WINFINAL_WAV,
+  EXCUSEME_WAV,
+  PAUSE_WAV,
+  NUM_WAVES
 };
 
 #define MUSIC_FADE_OUT_MS	80
 
-enum {
-    WIPE_BLINDS_VERT,
-    WIPE_BLINDS_HORIZ,
-    WIPE_BLINDS_BOX,
-    RANDOM_WIPE,
-
-    NUM_WIPES
+/* For TransWipe(): */
+enum
+{
+  WIPE_BLINDS_VERT,
+  WIPE_BLINDS_HORIZ,
+  WIPE_BLINDS_BOX,
+  RANDOM_WIPE,
+  NUM_WIPES
 };
 
 

@@ -21,11 +21,6 @@
 #include "SDL_extras.h"
 
 
-SDL_Surface* letters[255] = {NULL}; //get rid of this
-wchar_t ALPHABET[256];
-int ALPHABET_SIZE;
-
-
 #define MAX_LANGUAGES 100
 
 

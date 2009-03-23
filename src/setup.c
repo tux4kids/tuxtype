@@ -96,7 +96,7 @@ void GraphicsInit(void)
     exit(2);
   }
 
-  InitEngine();
+  InitBlitQueue();
 
 
 

@@ -21,12 +21,13 @@ Provides:  	tuxtype = @VERSION@
 Summary:        Typing tutor for children
 Url:            http://alioth.debian.org/projects/tux4kids/
 %define         realname @PACKAGE@
-%define         progname tuxtype
+%define         progname @PACKAGE@
 License:        GNU General Public License (GPL) v2, Open Font License v1.1, free (BSD-like) license
 Group:          Amusements/Teaching/Language
 Version:        @VERSION@
 Release:        1
 Vendor:         openSUSE-Education
+
 Source:         %realname-%version.tar.bz2
 
 BuildRequires:  SDL_image-devel >= 1.2.2  

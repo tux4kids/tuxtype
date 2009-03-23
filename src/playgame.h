@@ -19,13 +19,14 @@
 #ifndef __PLAYGAME_H__
 #define __PLAYGAME_H__
 
+#include "config.h"
+#include "SDL_extras.h"
+
 //definitions
 #define FISHY_FONT_SIZE 32
 #define LABEL_FONT_SIZE 20
 //space between each status bar element in cascade
 #define GRAPHIC_SPACE 4
-//extra bkgd border around "erased" images.
-#define ERASE_MARGIN 5
 
 #define NUM_NUMS 10	//"Mmmmm....Num-Nums...."
 
@@ -76,9 +77,6 @@
 #define LIVES_INIT_MEDIUM    7
 #define LIVES_INIT_HARD      9
 
-//#define MAX_UPDATES	3*(20+MAX_FISHIES_HARD)	//20 to account for text updates (I hope)
-//With fullscreen, we need more updates - 180 wasn't enough
-#define MAX_UPDATES 512
 
 /* The default alpha for slow moving words,
  note that 128 is optimized for speed! */

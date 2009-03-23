@@ -23,16 +23,10 @@ email                : tuxtype-dev@tux4kids.net
 #include "snow.h"
 #include "SDL_extras.h"
 
-//#define _(String) gettext(String)
-
-//void add_words( int level );
 
 /* Should these be constants? */
 static int tux_max_width;                // the max width of the images of tux
 static int number_max_w;                 // the max width of a number image
-
-//int o_lives; // something cal is working on
-//int sound_vol;
 
 
 //static SDL_Surface* background = NULL;
@@ -48,22 +42,11 @@ static Mix_Chunk* sound[NUM_WAVES];
 static sprite* fish_sprite = NULL;
 static sprite* splat_sprite = NULL;
 
-/* --- Data Structure for Dirty Blitting --- */
-static SDL_Rect srcupdate[MAX_UPDATES];
-static SDL_Rect dstupdate[MAX_UPDATES];
-static int numupdates = 0; // tracks how many blits to be done
 
-struct blit {
-    SDL_Surface* src;
-    SDL_Rect* srcrect;
-    SDL_Rect* dstrect;
-    unsigned char type;
-} blits[MAX_UPDATES];
 
 
 
 /* Local function prototypes: */
-static int AddRect(SDL_Rect* src, SDL_Rect* dst);
 static void AddSplat(int* splats, struct fishypoo* f, int* curlives, int* frame);
 static void CheckCollision(int fishies, int* fish_left, int frame );
 static void CheckFishies(int* fishies, int* splats);
@@ -74,11 +57,8 @@ static void draw_bar(int curlevel, int diflevel, int curlives,
                      int oldlives, int fish_left, int oldfish_left);
 static void DrawFish(int which);
 static void DrawNumbers(int num, int x, int y, int places);
-static int DrawObject(SDL_Surface* surf, int x, int y);
-static int DrawSprite(sprite* gfx, int x, int y);
 static void EraseNumbers(int num, int x, int y, int places);
-static int EraseObject(SDL_Surface* surf, int x, int y);
-static int EraseSprite(sprite* img, int x, int y);
+
 static float float_restrict(float a, float x, float b);
 static void FreeGame(void);
 static int int_restrict(int a, int x, int b);
@@ -90,7 +70,6 @@ static void MoveTux(int frame, int fishies);
 static void next_tux_frame(void);
 static void ResetObjects(void);
 static void SpawnFishies(int diflevel, int* fishies, int* frame);
-static void UpdateScreen(int* frame);
 static void UpdateTux(wchar_t letter_pressed, int fishies, int frame);
 static void WaitFrame(void);
 
@@ -208,7 +187,6 @@ int PlayCascade(int diflevel)
       if (curlevel != 0)
       {
         FreeBothBkgds();
-        //SDL_FreeSurface(background);
       }
 
       if (diflevel == INF_PRACT)
@@ -226,9 +204,7 @@ int PlayCascade(int diflevel)
         fprintf(stderr, "->>Loading background: %s\n", filename);
       }
         LoadBothBkgds(filename);
-//      background = LoadImage( filename, IMG_REGULAR );
 //			SNOW_setBkg( background );
-
 
       DrawBackground();
 
@@ -290,7 +266,8 @@ int PlayCascade(int diflevel)
             {
               /* first wipe out old blits because screen size is changing */
               /* and otherwise we would segfault:                         */
-              numupdates = 0;
+              ResetBlitQueue();
+              //numupdates = 0;
 
               SwitchScreenMode();
 
@@ -544,187 +521,6 @@ int PlayCascade(int diflevel)
 
 
 
-/***********************
- InitEngine
- ***********************/
-void InitEngine(void) {
-    int i;
-
-    /* --- Set up the update rectangle pointers --- */
-	
-    for (i = 0; i < MAX_UPDATES; ++i) {
-        blits[i].srcrect = &srcupdate[i];
-        blits[i].dstrect = &dstupdate[i];
-    }
-}
-
-
-
-/*************************************************/
-/* TransWipe: Performs various wipes to new bkgs */
-/*************************************************/
-/*
- * Given a wipe request type, and any variables
- * that wipe requires, will perform a wipe from
- * the current screen image to a new one.
- */
-int TransWipe(SDL_Surface* newbkg, int type, int var1, int var2)
-{
-    int i, j, x1, x2, y1, y2;
-    int step1, step2, step3, step4;
-    int frame;
-    SDL_Rect src;
-    SDL_Rect dst;
-
-    LOG("->TransWipe(): START\n");
-
-    if (!newbkg)
-    {
-      fprintf(stderr, "TransWipe() - 'newbkg' arg invalid!\n");
-      return 0;
-    }
-
-    numupdates = 0;
-    frame = 0;
-
-    if(newbkg->w == screen->w && newbkg->h == screen->h) {
-        if( type == RANDOM_WIPE )
-            type = (RANDOM_WIPE * ((float) rand()) / (RAND_MAX+1.0));
-
-        switch( type ) {
-            case WIPE_BLINDS_VERT: {
-                LOG("--+ Doing 'WIPE_BLINDS_VERT'\n");
-                /* var1 is num of divisions
-                   var2 is how many frames animation should take */
-                if( var1 < 1 ) var1 = 1;
-                if( var2 < 1 ) var2 = 1;
-                step1 = screen->w / var1;
-                step2 = step1 / var2;
-
-                for(i = 0; i <= var2; i++) {
-                    for(j = 0; j <= var1; j++) {
-                        x1 = step1 * (j - 0.5) - i * step2 + 1;
-                        x2 = step1 * (j - 0.5) + i * step2 + 1;
-                        src.x = x1;
-                        src.y = 0;
-                        src.w = step2;
-                        src.h = screen->h;
-                        dst.x = x2;
-                        dst.y = 0;
-                        dst.w = step2;
-                        dst.h = screen->h;
-                        SDL_BlitSurface(newbkg, &src, screen, &src);
-                        SDL_BlitSurface(newbkg, &dst, screen, &dst);
-                        AddRect(&src, &src);
-                        AddRect(&dst, &dst);
-                    }
-                    UpdateScreen(&frame);
-                }
-
-                src.x = 0;
-                src.y = 0;
-                src.w = screen->w;
-                src.h = screen->h;
-                SDL_BlitSurface(newbkg, NULL, screen, &src);
-                SDL_Flip(screen);
-
-                break;
-            } case WIPE_BLINDS_HORIZ: {
-                LOG("--+ Doing 'WIPE_BLINDS_HORIZ'\n");
-                /* var1 is num of divisions
-                   var2 is how many frames animation should take */
-                if( var1 < 1 ) var1 = 1;
-                if( var2 < 1 ) var2 = 1;
-                step1 = screen->h / var1;
-                step2 = step1 / var2;
-
-                for(i = 0; i <= var2; i++) {
-                    for(j = 0; j <= var1; j++) {
-                        y1 = step1 * (j - 0.5) - i * step2 + 1;
-                        y2 = step1 * (j - 0.5) + i * step2 + 1;
-                        src.x = 0;
-                        src.y = y1;
-                        src.w = screen->w;
-                        src.h = step2;
-                        dst.x = 0;
-                        dst.y = y2;
-                        dst.w = screen->w;
-                        dst.h = step2;
-                        SDL_BlitSurface(newbkg, &src, screen, &src);
-                        SDL_BlitSurface(newbkg, &dst, screen, &dst);
-                        AddRect(&src, &src);
-                        AddRect(&dst, &dst);
-                    }
-                    UpdateScreen(&frame);
-                }
-
-                src.x = 0;
-                src.y = 0;
-                src.w = screen->w;
-                src.h = screen->h;
-                SDL_BlitSurface(newbkg, NULL, screen, &src);
-                SDL_Flip(screen);
-
-                break;
-            } case WIPE_BLINDS_BOX: {
-                LOG("--+ Doing 'WIPE_BLINDS_BOX'\n");
-                /* var1 is num of divisions
-                   var2 is how many frames animation should take */
-                if( var1 < 1 ) var1 = 1;
-                if( var2 < 1 ) var2 = 1;
-                step1 = screen->w / var1;
-                step2 = step1 / var2;
-                step3 = screen->h / var1;
-                step4 = step1 / var2;
-
-                for(i = 0; i <= var2; i++) {
-                    for(j = 0; j <= var1; j++) {
-                        x1 = step1 * (j - 0.5) - i * step2 + 1;
-                        x2 = step1 * (j - 0.5) + i * step2 + 1;
-                        src.x = x1;
-                        src.y = 0;
-                        src.w = step2;
-                        src.h = screen->h;
-                        dst.x = x2;
-                        dst.y = 0;
-                        dst.w = step2;
-                        dst.h = screen->h;
-                        SDL_BlitSurface(newbkg, &src, screen, &src);
-                        SDL_BlitSurface(newbkg, &dst, screen, &dst);
-                        AddRect(&src, &src);
-                        AddRect(&dst, &dst);
-                        y1 = step3 * (j - 0.5) - i * step4 + 1;
-                        y2 = step3 * (j - 0.5) + i * step4 + 1;
-                        src.x = 0;
-                        src.y = y1;
-                        src.w = screen->w;
-                        src.h = step4;
-                        dst.x = 0;
-                        dst.y = y2;
-                        dst.w = screen->w;
-                        dst.h = step4;
-                        SDL_BlitSurface(newbkg, &src, screen, &src);
-                        SDL_BlitSurface(newbkg, &dst, screen, &dst);
-                        AddRect(&src, &src);
-                        AddRect(&dst, &dst);
-                    }
-                    UpdateScreen(&frame);
-                }
-
-                src.x = 0;
-                src.y = 0;
-                src.w = screen->w;
-                src.h = screen->h;
-                SDL_BlitSurface(newbkg, NULL, screen, &src);
-                SDL_Flip(screen);
-
-                break;
-            } default:
-                break;
-        }
-    }
-    return 1;
-}
 
 
 
@@ -802,290 +598,6 @@ static void ResetObjects(void)
   LOG( "OBJECTS RESET\n" );
 }
 
-
-static int DrawSprite(sprite* gfx, int x, int y)
-{
-  LOG("Entering DrawSprite()\n");
-
-  if (!gfx || !gfx->frame[gfx->cur])
-  {
-    fprintf(stderr, "DrawSprite() - 'gfx' arg invalid!\n");
-    LOG("Leaving DrawSprite()\n");
-    return 0;
-  }
-
-  LOG("Leaving DrawSprite()\n");
-
-  return DrawObject(gfx->frame[gfx->cur], x, y);
-
-}
-
-/**********************
-DrawObject : Draw an object at the specified
-location. No respect to clipping!
-*************************/
-static int DrawObject(SDL_Surface* surf, int x, int y)
-{
-  struct blit *update;
-
-  LOG("Entering DrawObject()\n");
-
-  if (!surf)
-  {
-    fprintf(stderr, "DrawObject() - invalid 'surf' arg!\n");
-    return 0;
-  }
-
-  DOUT(numupdates);
-
-  if(numupdates >= MAX_UPDATES)
-  {
-    fprintf(stderr, "Warning - MAX_UPDATES exceeded, cannot add blit to queue\n");
-    return 0;
-  }
-
-  update = &blits[numupdates++];
-
-  if(!update || !update->srcrect || !update->dstrect)
-  {
-    fprintf(stderr, "DrawObject() - 'update' ptr invalid!\n");
-    return 0;
-  }
-
-  update->src = surf;
-  update->srcrect->x = 0;
-  update->srcrect->y = 0;
-  update->srcrect->w = surf->w;
-  update->srcrect->h = surf->h;
-  update->dstrect->x = x;
-  update->dstrect->y = y;
-  update->dstrect->w = surf->w;
-  update->dstrect->h = surf->h;
-  update->type = 'D';
-
-  LOG("Leaving DrawObject()\n");
-
-  return 1;
-}
-
-/************************
-UpdateScreen : Update the screen and increment the frame num
-***************************/
-static void UpdateScreen(int* frame)
-{
-  int i;
-
-  LOG("Entering UpdateScreen()\n");
-  DOUT(numupdates);
-
-  /* -- First erase everything we need to -- */
-  for (i = 0; i < numupdates; i++)
-  {
-    if (blits[i].type == 'E') 
-    {
-//       DEBUGCODE
-//       {
-//         fprintf(stderr, "Erasing blits[%d]\n", i);
-//         fprintf(stderr, "srcrect->x = %d\t srcrect->y = %d\t srcrect->w = %d\t srcrect->h = %d\n",
-//               blits[i].srcrect->x, blits[i].srcrect->y, blits[i].srcrect->w, blits[i].srcrect->h);
-//         fprintf(stderr, "dstrect->x = %d\t dstrect->y = %d\t dstrect->w = %d\t dstrect->h = %d\n",
-//               blits[i].dstrect->x, blits[i].dstrect->y, blits[i].dstrect->w, blits[i].dstrect->h);
-//       }
-
-      SDL_LowerBlit(blits[i].src, blits[i].srcrect, screen, blits[i].dstrect);
-    }
-  }
-
-  LOG("Done erasing\n");
-
-//  SNOW_erase();
-
-  /* -- then draw -- */ 
-  for (i = 0; i < numupdates; i++)
-  {
-    if (blits[i].type == 'D') 
-    {
-//       DEBUGCODE
-//       {
-//         fprintf(stderr, "drawing blits[%d]\n", i);
-//         fprintf(stderr, "srcrect->x = %d\t srcrect->y = %d\t srcrect->w = %d\t srcrect->h = %d\n",
-//               blits[i].srcrect->x, blits[i].srcrect->y, blits[i].srcrect->w, blits[i].srcrect->h);
-//         fprintf(stderr, "dstrect->x = %d\t dstrect->y = %d\t dstrect->w = %d\t dstrect->h = %d\n",
-//               blits[i].dstrect->x, blits[i].dstrect->y, blits[i].dstrect->w, blits[i].dstrect->h);
-//       } 
-
-      SDL_BlitSurface(blits[i].src, blits[i].srcrect, screen, blits[i].dstrect);
-    } 
-  }
-
-  LOG("Done drawing\n");
-
-//  SNOW_draw();
-
-  /* -- update the screen only where we need to! -- */
-//  if (SNOW_on) 
-//    SDL_UpdateRects(screen, SNOW_add( (SDL_Rect*)&dstupdate, numupdates ), SNOW_rects);
-//  else 
-    SDL_UpdateRects(screen, numupdates, dstupdate);
-
-  numupdates = 0;
-  *frame = *frame + 1;
-
-  LOG("Leaving UpdateScreen()\n");
-}
-
-
-/* basically puts in an order to overdraw sprite with corresponding */
-/* rect of bkgd img                                                 */
-static int EraseSprite(sprite* img, int x, int y)
-{
-//  struct blit* update;
-
-  LOG("Entering EraseSprite()\n");
-
-  if( !img 
-   || img->cur < 0
-   || img->cur > MAX_SPRITE_FRAMES
-   || !img->frame[img->cur])
-  {
-    fprintf(stderr, "EraseSprite() - invalid 'img' arg!\n");
-    LOG("Leaving EraseSprite()\n");
-    return 0;
-  }
-
-  LOG("Leaving EraseSprite()\n");
-
-  return EraseObject(img->frame[img->cur], x, y);
-}
-
-
-
-/*************************
-EraseObject : Erase an object from the screen
-**************************/
-static int EraseObject(SDL_Surface* surf, int x, int y)
-{
-  struct blit* update = NULL;
-
-  LOG("Entering EraseObject()\n");
-
-  if(!surf)
-  {
-    fprintf(stderr, "EraseObject() - invalid 'surf' arg!\n");
-    return 0;
-  }
-
-  if(numupdates >= MAX_UPDATES)
-  {
-    fprintf(stderr, "Warning - MAX_UPDATES exceeded, cannot add blit to queue\n");
-    return 0;
-  }
-
-  update = &blits[numupdates++];
-
-  if(!update || !update->srcrect || !update->dstrect)
-  {
-    fprintf(stderr, "EraseObject() - 'update' ptr invalid!\n");
-    return 0;
-  }
-
-  update->src = CurrentBkgd();
-
-  /* take dimentsions from src surface: */
-  update->srcrect->x = x;
-  update->srcrect->y = y;
-  update->srcrect->w = surf->w;
-  update->srcrect->h = surf->h;
-
-  /* NOTE this is needed because the letters may go beyond the size of */
-  /* the fish, and we only erase the fish image before we redraw the   */
-  /* fish followed by the letter - DSB                                 */
-  /* add margin of a few pixels on each side: */
-  update->srcrect->x -= ERASE_MARGIN;
-  update->srcrect->y -= ERASE_MARGIN;
-  update->srcrect->w += (ERASE_MARGIN * 2);
-  update->srcrect->h += (ERASE_MARGIN * 2);
-
-
-  /* Adjust srcrect so it doesn't go past bkgd: */
-  if (update->srcrect->x < 0)
-  {
-    update->srcrect->w += update->srcrect->x; //so right edge stays correct
-    update->srcrect->x = 0;
-  }
-  if (update->srcrect->y < 0)
-  {
-    update->srcrect->h += update->srcrect->y; //so bottom edge stays correct
-    update->srcrect->y = 0;
-  }
-
-  if (update->srcrect->x + update->srcrect->w > CurrentBkgd()->w)
-    update->srcrect->w = CurrentBkgd()->w - update->srcrect->x;
-  if (update->srcrect->y + update->srcrect->h > CurrentBkgd()->h)
-    update->srcrect->h = CurrentBkgd()->h - update->srcrect->y;
-
-
-  update->dstrect->x = update->srcrect->x;
-  update->dstrect->y = update->srcrect->y;
-  update->dstrect->w = update->srcrect->w;
-  update->dstrect->h = update->srcrect->h; 
-  update->type = 'E';
-
-  LOG("Leaving EraseObject()\n");
-
-  return 1;
-}
-
-
-/******************************
-AddRect : Dont actually blit a surface,
-    but add a rect to be updated next
-    update
-*******************************/
-static int AddRect(SDL_Rect* src, SDL_Rect* dst)
-{
-
-  /*borrowed from SL's alien (and modified)*/
-  struct blit* update;
-
-  if(!src)
-  {
-    fprintf(stderr, "AddRect() - invalid 'src' arg!\n");
-    return 0;
-  }
-
-  if(!dst)
-  {
-    fprintf(stderr, "AddRect() - invalid 'dst' arg!\n");
-    return 0;
-  }
-
-  if(numupdates >= MAX_UPDATES)
-  {
-    fprintf(stderr, "Warning - MAX_UPDATES exceeded, cannot add blit to queue\n");
-    return 0;
-  }
-
-  update = &blits[numupdates++];
-
-  if(!update || !update->srcrect || !update->dstrect)
-  {
-    fprintf(stderr, "AddRect() - 'update' ptr invalid!\n");
-    return 0;
-  }
-
-  update->srcrect->x = src->x;
-  update->srcrect->y = src->y;
-  update->srcrect->w = src->w;
-  update->srcrect->h = src->h;
-  update->dstrect->x = dst->x;
-  update->dstrect->y = dst->y;
-  update->dstrect->w = dst->w;
-  update->dstrect->h = dst->h;
-  update->type = 'I';
-
-  return 1;
-}
 
 
 /*********************
@@ -1400,21 +912,24 @@ or clearing game screen
 ****************************/
 static void DrawBackground(void)
 {
-    struct blit *update;
+  ResetBlitQueue();
+  DrawObject(CurrentBkgd(), 0, 0);
 
-    LOG("-DrawBackground(): Updating entire background\n");
-
-    numupdates=0;  // drawing entire background writes over all other stuff, so don't draw them
-
-    update = &blits[numupdates++];
-    update->src = CurrentBkgd();
-
-    update->srcrect->x = update->dstrect->x = 0;
-    update->srcrect->y = update->dstrect->y = 0;
-    update->srcrect->w = update->dstrect->w = update->src->w;
-    update->srcrect->h = update->dstrect->h = update->src->h;
-
-    update->type = 'D';
+// //    struct blit *update;
+// 
+//     LOG("-DrawBackground(): Updating entire background\n");
+// 
+//     numupdates=0;  // drawing entire background writes over all other stuff, so don't draw them
+// 
+//     update = &blits[numupdates++];
+//     update->src = CurrentBkgd();
+// 
+//     update->srcrect->x = update->dstrect->x = 0;
+//     update->srcrect->y = update->dstrect->y = 0;
+//     update->srcrect->w = update->dstrect->w = update->src->w;
+//     update->srcrect->h = update->dstrect->h = update->src->h;
+// 
+//     update->type = 'D';
 }
 
 /****************************

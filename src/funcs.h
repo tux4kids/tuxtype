@@ -24,7 +24,7 @@
 /* NOTE - there is no reason to declare functions using "extern", as all */
 /* non-local functions are visible throughout the program.               */ 
 
-
+#include "SDL_extras.h"
 
 /* (still in alphabet.c:) */
 int CheckNeededGlyphs(void);
@@ -85,8 +85,6 @@ int  Pause(void);
 
 /* In playgame.c: */
 int PlayCascade(int level);
-void InitEngine(void);
-int TransWipe(SDL_Surface* newbkg, int type, int var1, int var2);
 
 
 /* In practice.c: */

@@ -22,6 +22,7 @@ Group:          Amusements/Teaching/Language
 Version:        @VERSION@
 Release:        1
 Vendor:         openSUSE-Education
+
 Source:         %realname-%version.tar.bz2
 
 BuildRequires:  SDL_image-devel >= 1.2.2

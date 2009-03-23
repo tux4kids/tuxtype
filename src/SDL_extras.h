@@ -4,7 +4,7 @@
 // Description: A few handy functions for using SDL graphics.
 //
 //
-// Author: David Bruce,,, <dbruce@tampabay.rr.com>, (C) 2007
+// Author: David Bruce,,, <davidstuartbruce@gmail.com>, (C) 2007-9
 //
 // Copyright: See COPYING file that comes with this distribution
 // (briefly, GPL v3 or later).
@@ -40,6 +40,23 @@ static const SDL_Color white 		= {0xff, 0xff, 0xff, 0x00};
 static const SDL_Color yellow 		= {0xff, 0xff, 0x00, 0x00};
 
 
+
+/* FIXME get rid of these 'evil' macros */
+#define NEXT_FRAME(SPRITE) if ((SPRITE)->num_frames) (SPRITE)->cur = (((SPRITE)->cur)+1) % (SPRITE)->num_frames;
+#define REWIND(SPRITE) (SPRITE)->cur = 0;
+#define MAX_SPRITE_FRAMES 30
+//extra bkgd border around "erased" images.
+#define ERASE_MARGIN 5
+
+
+typedef struct {
+  SDL_Surface* frame[MAX_SPRITE_FRAMES];
+  SDL_Surface* default_img;
+  int num_frames;
+  int cur;
+} sprite;
+
+
 /* "Public" function prototypes: */
 void DrawButton(SDL_Rect* target_rect, int radius, Uint8 r, Uint8 g, Uint8 b, Uint8 a);
 void RoundCorners(SDL_Surface* s, Uint16 radius);
@@ -50,6 +67,17 @@ void SwitchScreenMode(void);
 int WaitForKeypress(void);
 SDL_Surface* Blend(SDL_Surface *S1, SDL_Surface *S2, float gamma);
 SDL_Surface* zoom(SDL_Surface * src, int new_w, int new_h);
+int TransWipe(const SDL_Surface* newbkg, int type, int segments, int duration);
+
+/* Blit queue functions: */
+void InitBlitQueue(void);
+void ResetBlitQueue(void);
+int AddRect(SDL_Rect* src, SDL_Rect* dst);
+int DrawObject(SDL_Surface* surf, int x, int y);
+int DrawSprite(sprite* gfx, int x, int y);
+int EraseObject(SDL_Surface* surf, int x, int y);
+int EraseSprite(sprite* img, int x, int y);
+void UpdateScreen(int* frame);
 
 /*Text rendering functions: */
 int Setup_SDL_Text(void);
