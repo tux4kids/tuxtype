@@ -167,9 +167,25 @@ AC_FUNC_STRTOD
 AC_FUNC_VPRINTF
 AC_CHECK_FUNCS([__argz_count __argz_next __argz_stringify atexit bcopy getcwd getenv localtime_r memmove mempcpy memset mkdir munmap nl_langinfo putenv scandir setenv setlocale stpcpy strcasecmp strchr strcspn strdup strncasecmp strndup strstr strtoul])
 
-# Set PACKAGE_DATA_DIR
+
+
+
+# If using Woe32, we will need to use non-unix locations for various things:
+# Where to keep bundled (fixed) data files:
 MINGW32_PACKAGE_DATA_DIR="data"
 AC_SUBST(MINGW32_PACKAGE_DATA_DIR)
+
+# Where to keep modifiable shared data files:
+MINGW32_PACKAGE_VAR_DIR="data"
+AC_SUBST(MINGW32_PACKAGE_VAR_DIR)
+
+# Where to keep machine-wide (i.e for all users) config files:
+MINGW32_PACKAGE_CONF_DIR="data"
+AC_SUBST(MINGW32_PACKAGE_CONF_DIR)
+
+
+
+
 
 #AM_CONDITIONAL(BUILD_MINGW32, test "$native_win32" = yes)
 
