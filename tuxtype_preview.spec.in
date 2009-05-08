@@ -103,7 +103,11 @@ make %{?jobs:-j %jobs}
 # install section: ---------------------------------------------------------
 
 %install
-install -d %buildroot/{%_bindir,%_datadir/pixmaps,%_datadir/applications,%_datadir/%progname,%_defaultdocdir/%progname}
+install -d %buildroot/%_bindir
+install -d %buildroot/%_datadir/pixmaps
+install -d %buildroot/%_datadir/applications
+install -d %buildroot/%_datadir/%progname
+install -d %buildroot/%_defaultdocdir/%progname
 make DESTDIR=%{buildroot} install
 install -m 644 data/images/icons/icon.png %buildroot%_datadir/pixmaps/%progname.png
 
