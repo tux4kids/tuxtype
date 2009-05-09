@@ -1,0 +1,281 @@
+tuxtype (1.5.17.dfsg1-4) unstable; urgency=low
+
+  * Install .desktop file. (Closes: #509364) 
+  * Removed .pc/.version from diff.
+
+ -- Holger Levsen <holger@debian.org>  Thu, 08 Jan 2009 18:24:00 +0100
+
+tuxtype (1.5.17.dfsg1-3) unstable; urgency=low
+
+  * Include patches from Patrick Winnertz which prevent tuxtype from crashing
+    if no wordlists are available and which fix the german keyboard
+    definition. (Closes: #473618)
+  * Remove tuxtype-data conflict on older versions of tuxtype.
+
+ -- Holger Levsen <holger@debian.org>  Sun, 06 Jul 2008 19:26:17 +0200
+
+tuxtype (1.5.17.dfsg1-2) unstable; urgency=low
+
+  * Bump Standards-version to 3.8.0, no changes needed.
+  * Patch the source to use 1.0 basic release of the ttf-sil-andika fonts and
+    not the "design review" version.
+
+ -- Holger Levsen <holger@debian.org>  Wed, 25 Jun 2008 21:08:30 +0000
+
+tuxtype (1.5.17.dfsg1-1) unstable; urgency=low
+
+  * New upstream version (Closes: #469941, #217448) with a new Nepali theme 
+    (contributed by Vikal Acharya and Shakeel Shrestha), a greatly enhanced
+    Ialian theme as well as some visual enhancements to the menu interface.
+  * Lower dependency on ttf-malayalam-fonts to a suggests, assuming that
+    people speaking Malayalam having it installed anyway. (Closes: #481294)
+  * Lower dependency on ttf-sil-doulos to a recommends.
+  * Temporarily add quilt and automake to build-depends to be able to fix a
+    problem in the Makefile.am for Nynorsk wordlists.
+
+ -- Holger Levsen <holger@debian.org>  Wed, 18 Jun 2008 11:54:08 +0000
+
+tuxtype (1.5.16.dfsg1-1) unstable; urgency=low
+
+  * new upstream version, containing new Wolof and Czech themes and a fixed
+    Russian theme
+  * removed cruft from rules file
+  * updated to comply with policy 3.7.3.0
+  * increased debhelper compat level to 5
+  * use dh_install as intended
+  * use dh_installdoc as intended
+  * use dh_desktop to add maintainer script fragments to call
+    update-desktop-database
+  * only make clean if Makefile exists
+  * declare a versioned dependency on tuxtype-data (Closes: #443896)
+  * remove fonts from binary package, update debian/copyright to reflect
+    shipping them in the source package
+
+ -- Holger Levsen <holger@debian.org>  Sun, 17 Feb 2008 16:37:51 +0000
+
+tuxtype (1.5.15.dfsg1-3) unstable; urgency=low
+
+  * tuxmath.desktop: now in the category Games/KidsGame
+  * debian/menu: changed to Games/Arcade
+  * added Homepage: and Vcs-*: fields to debian/control 
+
+ -- Holger Levsen <holger@debian.org>  Mon, 19 Nov 2007 14:54:05 +0000
+
+tuxtype (1.5.15.dfsg1-2) unstable; urgency=low
+
+  * merged back the changes from 1.5.6.dfsg1-2 and 1.5.6.dfsg1-3 which got
+    lost when moving svn repositories (Closes: #380161)
+  * updated SVN repo, release URL and upstream author in debian/copyright
+  * updated section in debian/menu 
+
+ -- Holger Levsen <holger@debian.org>  Sun,  7 Oct 2007 17:26:11 +0200
+
+tuxtype (1.5.15.dfsg1-1) unstable; urgency=low
+
+  * new upstream version (Closes: 411163, 412011, 440920, 434081, 413563)
+  * added dependency on ttf-sil-andika, ttf-sil-doulos and
+    ttf-malayalam-fonts, removed dependency on ttf-gentium
+  * added build-dependency to libsdl-pango-dev
+  * new maintainer address
+  * update debian/copyright regarding ConvertUTF.c and ConvertUTF.h
+
+ -- Holger Levsen <holger@debian.org>  Mon, 17 Sep 2007 15:14:22 +0200
+
+tuxtype (1.5.6.dfsg1-3) unstable; urgency=low
+
+  * fix debian rules, so binary-indep target is only build when that target is
+    called (Closes: #380161) 
+
+ -- Holger Levsen <debian@layer-acht.org>  Fri, 28 Jul 2006 11:59:56 +0000
+
+tuxtype (1.5.6.dfsg1-2) unstable; urgency=low
+
+  * fix debian/copyright
+  * removed the second copy of upstreams changelog
+  * added menu entry and icon (Closes: #275647)
+
+ -- Holger Levsen <debian@layer-acht.org>  Wed, 26 Jul 2006 18:20:08 +0000
+
+tuxtype (1.5.6.dfsg1-1) unstable; urgency=low
+
+  * new upsteam release
+  * dfsg free version without dfsg non-free soundfiles (those have been moved
+    to tuxtype-data-nonfree)
+  * removed tuxtype.ico tuxtype.lsm autorun.inf and README.Win32 from debian
+    package
+  * complies with policy 3.7.2
+  * workaround #374062 (will open blocking bug in tuxtype after upload, it's
+    pointless to open a bug before the new tuxtype version is available) -
+    many thanks to Kaol for finding the problem and the workaround as well
+    as educating me about autotools and other stuff!
+  * include the patch for #359589 for smooth upgrades, thanks Amaya!
+
+ -- Holger Levsen <debian@layer-acht.org>  Wed, 19 Jul 2006 10:25:37 +0000
+
+tuxtype (1.5.5-1) unstable; urgency=low
+
+  * New upstream version which solves the (previously still remaining) sound 
+    files licencing issues and removes the included fonts, uses ttf-gentium now
+    (1.5.3 started to address this, the relevant bugs where closed there) see 
+    /usr/share/tuxtype-data/data/images/README_IMAGES.TXT and
+    /usr/share/tuxtype-data/data/sounds/README_SOUNDS.TXT
+    (the bugs #218908 and #244295 are closed in the changelog from 1.5.3-1)
+  * finished /usr/doc transition (Closes: #359589)
+  * not uploaded
+
+ -- Holger Levsen <debian@layer-acht.org>  Fri, 27 Jan 2006 11:46:50 +0000
+
+tuxtype (1.5.3-2) unstable; urgency=low
+
+  * New Maintainer (Closes: #348763)
+  * removed unneccessary dependency on xlibs-dev (Closes: #346914, #378203)
+  * split into tuxtype and tuxtype-data (Closes: #233452)
+  * fixed build-dependency: libsdl-ttf2.0-dev instead of libsdl-ttf2.0-0
+  * reworded debian/copyright (Closes: #302929)
+  * new upstream version also provides localisation (Closes: #187618)
+  * modified Makefile.am not to use win32 files and ran automake, autoconf,
+    und autoheader
+  * not uploaded
+
+ -- Holger Levsen <debian@layer-acht.org>  Sat, 21 Jan 2006 17:58:35 +0000
+
+tuxtype (1.5.3-1) unstable; urgency=low
+
+  * New Maintainer (Closes: #315236)
+  * New upstream release which fixes the legal issues (Closes: #218908, #244295)
+  * not uploaded
+
+ -- Fabio Brito <fabio@debian-ba.org>  Fri, 15 Jul 2005 16:26:31 -0300
+
+tuxtype (1.0-4) unstable; urgency=medium
+
+  * Updated Build-Depends: to include automake, autoconf and m4 (Closes:
+    Bug#142278)
+  * Corrected download-location in debian/copyright 
+
+ -- Rune B. Broberg <mihtjel@mihtjel.dk>  Thu, 11 Apr 2002 17:02:07 +0200
+
+tuxtype (1.0-3) unstable; urgency=low
+
+  * New Maintainer
+  * Spelling error in description fixed (Closes: #125441)
+
+ -- Rune B. Broberg <mihtjel@mihtjel.dk>  Sun,  7 Apr 2002 18:45:24 +0200
+
+tuxtype (1.0-2) unstable; urgency=low
+
+  * debian/control: sdl package name changes, closes: #116586
+
+ -- Laurence J. Lane <ljlane@debian.org>  Tue, 23 Oct 2001 13:58:33 -0400
+
+tuxtype (1.0-1) unstable; urgency=low
+
+  * New upstream version 
+  * debian/control: updated standards version to 3.5.6.0
+
+ -- Laurence J. Lane <ljlane@debian.org>  Tue,  7 Aug 2001 08:46:14 -0400
+
+tuxtype (0.9-1) unstable; urgency=low
+
+  * New upstream version
+
+ -- Laurence J. Lane <ljlane@debian.org>  Tue,  3 Jul 2001 08:16:52 -0400
+
+tuxtype (0.8-1) unstable; urgency=low
+
+  * New upstream version, Closes: Bug#101656,#101154
+  * rules: added debian/build/ build-root support
+  * rules: added DEB_BUILD_OPTIONS support
+
+ -- Laurence J. Lane <ljlane@debian.org>  Wed, 20 Jun 2001 23:13:33 -0400
+
+tuxtype (0.6-3) unstable; urgency=low
+
+  * Closes: #92957 for real this time, honestly
+
+ -- Laurence J. Lane <ljlane@debian.org>  Sat,  7 Apr 2001 08:02:15 -0400
+
+tuxtype (0.6-2) unstable; urgency=low
+
+  * chmod +x $(topdir)/missing, Closes: #92957
+
+ -- Laurence J. Lane <ljlane@debian.org>  Fri,  6 Apr 2001 06:27:39 -0400
+
+tuxtype (0.6-1) unstable; urgency=low
+
+  * New upstream version
+  * Updated manpage to show command line options
+
+ -- Laurence J. Lane <ljlane@debian.org>  Tue,  6 Feb 2001 22:10:54 -0500
+
+tuxtype (0.5.2-3) unstable; urgency=low
+
+  * tuxtype/images/Makefile.am fix, closes #84446 
+
+ -- Laurence J. Lane <ljlane@debian.org>  Fri,  2 Feb 2001 20:11:09 -0500
+
+tuxtype (0.5.2-2) unstable; urgency=low
+
+  * recompiled for libsdl changes
+
+ -- Laurence J. Lane <ljlane@debian.org>  Wed, 24 Jan 2001 20:21:20 -0500
+
+tuxtype (0.5.2-1) unstable; urgency=low
+
+  * New upstream release. 
+
+ -- Laurence J. Lane <ljlane@debian.org>  Sun, 12 Nov 2000 23:55:44 -0500
+
+tuxtype (0.4pre2-8) unstable; urgency=low
+
+  * updated manpage, closes: #76613
+  * moved bin to /usr/games, closes: #76611
+  * all previous closed bug reports were for build problems
+  * Build-Depends correction
+
+ -- Laurence J. Lane <ljlane@debian.org>  Thu,  9 Nov 2000 17:58:14 -0500
+
+tuxtype (0.4pre2-7) unstable; urgency=low
+
+  * Closes: #69800 
+
+ -- Laurence J. Lane <ljlane@debian.org>  Wed, 23 Aug 2000 14:26:48 -0400
+
+tuxtype (0.4pre2-6) unstable; urgency=low
+
+  * Build-Depends correction 
+
+ -- Laurence J. Lane <ljlane@debian.org>  Fri, 28 Jul 2000 23:00:57 -0400
+
+tuxtype (0.4pre2-5) unstable; urgency=low
+
+  * Closes: #67846 
+  * Build-Depends correction
+
+ -- Laurence J. Lane <ljlane@debian.org>  Fri, 28 Jul 2000 09:08:18 -0400
+
+tuxtype (0.4pre2-4) unstable; urgency=low
+
+  * Closes: #67538
+  * Build-Depends correction
+
+ -- Laurence J. Lane <ljlane@debian.org>  Mon, 24 Jul 2000 08:07:08 -0400
+
+tuxtype (0.4pre2-3) unstable; urgency=low
+
+  * Bug #67393 revisited
+  * Build-Depends correction
+
+ -- Laurence J. Lane <ljlane@debian.org>  Tue, 18 Jul 2000 23:54:39 -0400
+
+tuxtype (0.4pre2-2) unstable; urgency=low
+
+  * Closes: #67393
+
+ -- Laurence J. Lane <ljlane@debian.org>  Tue, 18 Jul 2000 11:32:04 -0400
+
+tuxtype (0.4pre2-1) unstable; urgency=low
+
+  * Initial Release.
+
+ -- Laurence J. Lane <ljlane@debian.org>  Fri, 23 Jun 2000 22:16:29 -0400

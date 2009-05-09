@@ -1,0 +1,83 @@
+Index: tuxtype-1.5.17.dfsg1/Makefile.am
+===================================================================
+--- tuxtype-1.5.17.dfsg1.orig/Makefile.am	2008-06-25 12:53:01.000000000 +0000
++++ tuxtype-1.5.17.dfsg1/Makefile.am	2008-06-25 12:54:34.000000000 +0000
+@@ -66,7 +66,7 @@
+ ## i.e. to make tarball to post for individual download - use 'make distcheck' for Debian.
+ ## (thanks to Ralf Wildenhues <Ralf.Wildenhues@gmx.de> for automake help!)
+ dist_with_fonts:
+-	$(MAKE) $(AM_MAKEFLAGS) distdir=$(PACKAGE)_w_fonts-$(VERSION) dist_fonts='AndikaDesRevG.ttf DoulosSILR.ttf lohit_hi.ttf Rachana_w01.ttf' dist
++	$(MAKE) $(AM_MAKEFLAGS) distdir=$(PACKAGE)_w_fonts-$(VERSION) dist_fonts='AndBasR.ttf DoulosSILR.ttf lohit_hi.ttf Rachana_w01.ttf' dist
+ 
+ install-nsi-am: install-nsi-local
+ 
+@@ -78,4 +78,4 @@
+ 	@$(NORMAL_CLEAN)
+ 	if test -d $(NSI_INSTALL_DIR); then \
+ 	  rm -fr $(NSI_INSTALL_DIR); \
+-	fi
+\ No newline at end of file
++	fi
+Index: tuxtype-1.5.17.dfsg1/tuxtype/data/fonts/Makefile.am
+===================================================================
+--- tuxtype-1.5.17.dfsg1.orig/tuxtype/data/fonts/Makefile.am	2008-06-25 12:53:01.000000000 +0000
++++ tuxtype-1.5.17.dfsg1/tuxtype/data/fonts/Makefile.am	2008-06-25 12:54:25.000000000 +0000
+@@ -9,13 +9,13 @@
+ ## included (depending if package build with "make dist" or "make dist_with_fonts"
+ install-data-local:
+ 	$(MKDIR_P) $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/fonts
+-	-$(INSTALL_DATA) $(srcdir)/AndikaDesRevG.ttf $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/fonts
++	-$(INSTALL_DATA) $(srcdir)/AndBasR.ttf $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/fonts
+ 	-$(INSTALL_DATA) $(srcdir)/DoulosSILR.ttf $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/fonts
+ 	-$(INSTALL_DATA) $(srcdir)/lohit_hi.ttf $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/fonts
+ 	-$(INSTALL_DATA) $(srcdir)/Rachana_w01.ttf $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/fonts
+ 
+ uninstall-local:
+-	-rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/fonts/AndikaDesRevG.ttf
++	-rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/fonts/AndBasR.ttf
+ 	-rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/fonts/DoulosSILR.ttf
+ 	-rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/fonts/lohit_hi.ttf
+ 	-rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/data/fonts/Rachana_w01.ttf
+Index: tuxtype-1.5.17.dfsg1/tuxtype/docs/en/howtotheme.html
+===================================================================
+--- tuxtype-1.5.17.dfsg1.orig/tuxtype/docs/en/howtotheme.html	2008-06-25 12:53:01.000000000 +0000
++++ tuxtype-1.5.17.dfsg1/tuxtype/docs/en/howtotheme.html	2008-06-25 12:53:49.000000000 +0000
+@@ -39,7 +39,7 @@
+ </td></tr></table></center>
+ <br>
+ <li>Fonts
+-<p>Tux Typing currently uses three fonts (AndikaDesRevG.ttf, DoulosSILR.ttf, and Rachana_w01.ttf) to provide glyphs for the included themes. The default font is Andika, which has glyphs for English and other Western European languages. Doulos has wider coverage, and is included to support the Cyrillic characters needed for the Russian theme. Rachana provides glyphs for the Malayalam theme. If your theme works with the default Andika font, you do not need to specify anything.  If one of the other fonts is needed, your theme directory needs to have a file "settings.txt" containing a line indicating your font selection, e.g.:
++<p>Tux Typing currently uses three fonts (AndBasR.ttf, DoulosSILR.ttf, and Rachana_w01.ttf) to provide glyphs for the included themes. The default font is Andika, which has glyphs for English and other Western European languages. Doulos has wider coverage, and is included to support the Cyrillic characters needed for the Russian theme. Rachana provides glyphs for the Malayalam theme. If your theme works with the default Andika font, you do not need to specify anything.  If one of the other fonts is needed, your theme directory needs to have a file "settings.txt" containing a line indicating your font selection, e.g.:
+ <br>
+ theme_font_name=Rachana_w01.ttf
+ <br>
+Index: tuxtype-1.5.17.dfsg1/tuxtype/globals.h
+===================================================================
+--- tuxtype-1.5.17.dfsg1.orig/tuxtype/globals.h	2008-06-25 12:53:01.000000000 +0000
++++ tuxtype-1.5.17.dfsg1/tuxtype/globals.h	2008-06-25 12:54:05.000000000 +0000
+@@ -87,8 +87,8 @@
+ 
+ /* Default values for game_option_type struct */
+ /* They can be changed in the struct to other values at run-time */
+-#define DEFAULT_MENU_FONT       "AndikaDesRevG.ttf"
+-#define DEFAULT_GAME_FONT       "AndikaDesRevG.ttf" 
++#define DEFAULT_MENU_FONT       "AndBasR.ttf"
++#define DEFAULT_GAME_FONT       "AndBasR.ttf"
+ #define DEFAULT_USE_ENGLISH 1
+ #define DEFAULT_FULLSCREEN 1
+ #define DEFAULT_SYS_SOUND 1
+Index: tuxtype-1.5.17.dfsg1/tuxtype/loaders.c
+===================================================================
+--- tuxtype-1.5.17.dfsg1.orig/tuxtype/loaders.c	2008-06-25 12:53:01.000000000 +0000
++++ tuxtype-1.5.17.dfsg1/tuxtype/loaders.c	2008-06-25 12:53:40.000000000 +0000
+@@ -221,8 +221,8 @@
+ 
+   /* HACK hard-coded for Debian (and current exact font names): */ 
+ 
+-  if (strncmp(font_name, "AndikaDesRevG.ttf", FNLEN ) == 0)
+-    sprintf(fn, "/usr/share/fonts/truetype/ttf-sil-andika/AndikaDesRevG.ttf");
++  if (strncmp(font_name, "AndBasR.ttf", FNLEN ) == 0)
++    sprintf(fn, "/usr/share/fonts/truetype/ttf-sil-andika/AndBasR.ttf");
+   else if (strncmp(font_name, "DoulosSILR.ttf", FNLEN ) == 0)
+     sprintf(fn, "/usr/share/fonts/truetype/ttf-sil-doulos/DoulosSILR.ttf");
+   else if (strncmp(font_name, "lohit_hi.ttf", FNLEN ) == 0)

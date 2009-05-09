@@ -1,0 +1,16 @@
+Index: tuxtype-1.5.17.dfsg1/tuxtype/data/themes/nynorsk/words/Makefile.am
+===================================================================
+--- tuxtype-1.5.17.dfsg1.orig/tuxtype/data/themes/nynorsk/words/Makefile.am	2008-06-17 17:32:52.000000000 +0000
++++ tuxtype-1.5.17.dfsg1/tuxtype/data/themes/nynorsk/words/Makefile.am	2008-06-17 17:33:08.000000000 +0000
+@@ -1,9 +1,9 @@
+ ## Makefile.am for tuxtype - data/themes/nynorsk/words:
+ ## Process with Automake to create Makefile.in
+ 
+-themes_nynorsk_images_wordsdir = $(pkgdatadir)/data/themes/nynorsk/images/words
++themes_nynorsk_wordsdir = $(pkgdatadir)/data/themes/nynorsk/words
+ 
+-dist_themes_nynorsk_images_words_DATA = 3boks.txt \
++dist_themes_nynorsk_words_DATA = 3boks.txt \
+   4boks.txt \
+   5boks.txt \
+   6boks.txt \

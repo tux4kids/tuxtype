@@ -1,0 +1,3 @@
+?package(tuxtype):needs="X11" section="Games/Action"\
+  icon="/usr/share/tuxtype/tuxtype.xpm" \
+  title="Tuxtype" command="/usr/games/tuxtype"
