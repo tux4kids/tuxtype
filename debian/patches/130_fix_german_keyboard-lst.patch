@@ -1,6 +1,6 @@
-diff -Nurwd orig/tuxtype-1.5.17.dfsg1/tuxtype/data/themes/deutsch/keyboard.lst tuxtype-1.5.17.dfsg1/tuxtype/data/themes/deutsch/keyboard.lst
---- orig/tuxtype-1.5.17.dfsg1/tuxtype/data/themes/deutsch/keyboard.lst	2008-07-05 14:19:19.000000000 +0200
-+++ tuxtype-1.5.17.dfsg1/tuxtype/data/themes/deutsch/keyboard.lst	2008-07-05 14:26:36.000000000 +0200
+diff -Nurwd orig/tuxtype-1.5.17.dfsg1/data/themes/deutsch/keyboard.lst tuxtype-1.5.17.dfsg1/tuxtype/data/themes/deutsch/keyboard.lst
+--- orig/tuxtype-1.5.17.dfsg1/data/themes/deutsch/keyboard.lst	2008-07-05 14:19:19.000000000 +0200
++++ tuxtype-1.5.17.dfsg1/data/themes/deutsch/keyboard.lst	2008-07-05 14:26:36.000000000 +0200
 @@ -54,7 +54,7 @@
  5| 
  0|!
@@ -10,7 +10,7 @@ diff -Nurwd orig/tuxtype-1.5.17.dfsg1/tuxtype/data/themes/deutsch/keyboard.lst t
  0|1
  0|2
  0|3
-@@ -67,5 +67,12 @@
+@@ -67,4 +67,12 @@
  0|0
  7|,
  8|.
@@ -23,4 +23,4 @@ diff -Nurwd orig/tuxtype-1.5.17.dfsg1/tuxtype/data/themes/deutsch/keyboard.lst t
 +9|Ü
 +9|ä
 +9|Ä
- 9|ß
++9|ß

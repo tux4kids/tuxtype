@@ -1,3 +1,23 @@
+tuxtype (1.7.4.dfsg1-1) unstable; urgency=low
+
+  * New upstream version (Closes: #528423) with lots of bug fixes and code
+    cleanups, GNU gettext is used for internationalization, added themes and 
+    translations for multiple additional Indic languages, improved font 
+    handling (Closes: #489924, #497112), thus removing
+    debian/patches/110-ttf-sil-andika.patch, a new graphical keyboard hint 
+    system, rewritten phrase practice activity, fullscreen mode at native 
+    resolution, a new GUI for editing wordlist implemented (Closes: #94986)
+  * Drop 100-nynorsk-words.patch as it has been adopted upstream
+  * Drop 120_fix-null-pointer.patch as it causes a FTBFS, upstream has been
+    notified.
+  * Add ttf-bengali-fonts, ttf-devanagari-fonts, ttf-gujarati-fonts,
+    ttf-kannada-fonts, ttf-oriya-fonts, ttf-punjabi-fonts, ttf-tamil-fonts,
+    ttf-telugu-fonts as suggested packages.
+  * Bump Standards-version to 3.8.1, no changes needed.
+  * Switch packaging to svn-buildpackage.
+
+ -- Holger Levsen <holger@debian.org>  Thu, 21 May 2009 11:28:01 +0200
+
 tuxtype (1.5.17.dfsg1-4) unstable; urgency=low
 
   * Install .desktop file. (Closes: #509364) 

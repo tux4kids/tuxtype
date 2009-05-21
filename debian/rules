@@ -26,7 +26,6 @@ endif
 config.status: 
 	dh_testdir
 	QUILT_PATCHES=debian/patches quilt push -a || test $$? = 2
-	# because we patch a Makefile.am to fix nynorsk in 1.5.17
 	autoreconf --install
 	# Add here commands to configure the package.
 	CFLAGS="$(CFLAGS)" ./configure --host=$(DEB_HOST_GNU_TYPE) --build=$(DEB_BUILD_GNU_TYPE) --prefix=/usr --mandir=\$${prefix}/share/man --infodir=\$${prefix}/share/info --bindir=\$${prefix}/games
@@ -63,16 +62,13 @@ install:
 	dh_installdirs 
 	# Add here commands to install the package into debian/tuxtype.
 	$(MAKE) install DESTDIR=$(CURDIR)/debian/tmp
-	rm $(CURDIR)/debian/tmp/usr/share/tuxtype/data/images/icons/tuxtype.ico
-	rmdir $(CURDIR)/debian/tmp/usr/share/tuxtype/data/images/icons/
 	dh_installdirs -ptuxtype-data  usr/share/
 	dh_installdirs
 	cp $(CURDIR)/debian/tuxtype.xpm $(CURDIR)/debian/tuxtype/usr/share/tuxtype/tuxtype.xpm
 	mkdir -p $(CURDIR)/debian/tuxtype/usr/share/applications
 	cp $(CURDIR)/debian/tuxtype.desktop \
 		$(CURDIR)/debian/tuxtype/usr/share/applications/tuxtype.desktop
-	rm $(CURDIR)/debian/tmp/usr/share/tuxtype/data/fonts/*.ttf
-	rmdir $(CURDIR)/debian/tmp/usr/share/tuxtype/data/fonts
+	rm $(CURDIR)/debian/tmp/usr/share/tuxtype/fonts -Rf
 
 	touch install-stamp
 
@@ -87,7 +83,6 @@ binary-common:
 	dh_installmenu
 	dh_installman
 	dh_install --sourcedir=debian/tmp
-	dh_desktop
 	dh_link
 	dh_strip
 	dh_compress
