@@ -3,7 +3,7 @@ Section: games
 Priority: optional
 Maintainer: Holger Levsen <holger@debian.org>
 Standards-Version: 3.8.1
-Build-Depends: debhelper (>=5.0.42), libsdl-mixer1.2-dev, libsdl-image1.2-dev, libsdl1.2-dev, libsdl-ttf2.0-dev, libsdl-pango-dev, quilt, automake
+Build-Depends: debhelper (>=5.0.42), libsdl-mixer1.2-dev, libsdl-image1.2-dev, libsdl1.2-dev, libsdl-ttf2.0-dev, libsdl-pango-dev, quilt
 Homepage: http://tux4kids.alioth.debian.org
 Vcs-Svn: svn://svn.debian.org/svn/tux4kids/tuxtype/
 Vcs-Browser: http://svn.debian.org/wsvn/tux4kids/tuxtype/

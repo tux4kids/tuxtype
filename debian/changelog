@@ -1,3 +1,9 @@
+tuxtype (1.7.4.dfsg1-2) UNRELEASED; urgency=low
+
+  * Drop automake from build-depends. 
+
+ -- Holger Levsen <holger@debian.org>  Thu, 21 May 2009 20:45:22 +0200
+
 tuxtype (1.7.4.dfsg1-1) unstable; urgency=low
 
   * New upstream version (Closes: #528423) with lots of bug fixes and code
