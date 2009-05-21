@@ -26,7 +26,6 @@ endif
 config.status: 
 	dh_testdir
 	QUILT_PATCHES=debian/patches quilt push -a || test $$? = 2
-	autoreconf --install
 	# Add here commands to configure the package.
 	CFLAGS="$(CFLAGS)" ./configure --host=$(DEB_HOST_GNU_TYPE) --build=$(DEB_BUILD_GNU_TYPE) --prefix=/usr --mandir=\$${prefix}/share/man --infodir=\$${prefix}/share/info --bindir=\$${prefix}/games
 

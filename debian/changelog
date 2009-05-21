@@ -5,6 +5,7 @@ tuxtype (1.7.4.dfsg1-1) unstable; urgency=low
     translations for multiple additional Indic languages, improved font 
     handling (Closes: #489924, #497112), a new graphical keyboard hint system,
     rewritten phrase practice activity, fullscreen mode at native resolution.
+  * Do not call autoreconf during the build anymore.
   * Drop 100-nynorsk-words.patch,110-ttf-sil-andika.patch and
     120_fix-null-pointer.patch as the issues have been resolved upstream.
   * Add ttf-bengali-fonts, ttf-devanagari-fonts, ttf-gujarati-fonts,
