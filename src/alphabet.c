@@ -153,8 +153,8 @@ int LoadKeyboard(void)
       /* wide_str[1] =='|'                                  */
       /* wide_str[2] == Unicode value of character          */
 
-      /* FIXME - this might be a good place to use a    */
-      /* hash table to avoid n^2 performance problems.  */
+      /* NOTE the following code is really confusing!       */
+
       /* Some sanity checks:  */
       if ((wcslen(wide_str) >=3)
        && (wcstol(&wide_str[0], NULL, 0) >=0)   /* These lines just make sure the */
@@ -173,11 +173,11 @@ int LoadKeyboard(void)
         keyboard_list[k].unicode_value = wide_str[2];
         keyboard_list[k].finger = wcstol(&wide_str[0], NULL, 0);
 
-        if (wcslen(wide_str) <5)
+        if (wcslen(wide_str) < 5)
         {
           if(!settings.use_english)
           {
-            map_keys(-1,&keyboard_list[k]);
+            map_keys(-1, &keyboard_list[k]);
             keyboard_list[k].latin_char=-1;
             keyboard_list[k].finger = wcstol(&wide_str[0], NULL, 0);
           }
@@ -1161,9 +1161,10 @@ int map_keys(wchar_t wide_char, kbd_char* keyboard_entry)
 		keyboard_entry->shift=0;
 		keyboard_entry->finger=5;
 		break;
+	// I think this is for when we call "keymap(-1, ...)"
 	default:strcpy(keyboard_entry->keyname,"None");
-		keyboard_entry->shift=0;
-		keyboard_entry->finger=-1;
+		keyboard_entry->shift = 0;
+		keyboard_entry->finger = -1;
 		break;
   }	
   return 0;

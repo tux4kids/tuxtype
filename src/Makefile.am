@@ -10,6 +10,7 @@ AM_CFLAGS=-Wall -g -DDATA_PREFIX=\"${DATA_PREFIX}\" -DDEBUG \
 
 AM_CPPFLAGS = -DLOCALEDIR=\"$(localedir)\" \
 	-DLOCALSTATEDIR=\"$(pkglocalstatedir)\" \
+	-DSYSCONFDIRDIR=\"$(pkgsysconfdir)\" \
 	-I../intl -I$(top_srcdir)/intl
 
 if BUILD_MINGW32

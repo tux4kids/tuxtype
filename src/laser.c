@@ -809,17 +809,17 @@ static void laser_reset_level(int diff_level)
 
 /* Add an comet to the game (if there's room): */
 
-static void laser_add_comet(int diff_level) {
+static void laser_add_comet(int diff_level)
+{
+  int target, location = 0;
+  static int last = -1;
+  int targeted[NUM_CITIES] = { 0 };
+  int add = (rand() % (diff_level + 2));
 
-	int target, location = 0;
-	static int last = -1;
-	int targeted[NUM_CITIES] = { 0 };
-	int add = (rand() % (diff_level + 2));
+  LOG ("Entering laser_add_comet()\n");
+  DEBUGCODE { fprintf(stderr, "Adding %d comets \n", add); }
 
-	LOG ("Entering laser_add_comet()\n");
-	DEBUGCODE { fprintf(stderr, "Adding %d comets \n", add); }
-
-	if (0 == NUM_CITIES % 2) /* Even number of cities */
+  if (0 == NUM_CITIES % 2) /* Even number of cities */
 	{
           LOG("NUM_CITIES is even\n");
 	  while ((add > 0) && (location != MAX_COMETS))
@@ -867,6 +867,12 @@ static void laser_add_comet(int diff_level) {
           int i = 0;
           comet_type* prev_comet = NULL;
 
+          if(!word || wcslen(word) == 0)
+          {
+            fprintf(stderr, "Error - GetWord() returned NULL or zero-length word\n");
+            return; 
+          }
+
           DEBUGCODE {fprintf(stderr, "word is: %S\tlength is: %d\n", word, (int)wcslen(word));}
           do
           { 
@@ -874,7 +880,7 @@ static void laser_add_comet(int diff_level) {
           } while (target == last);
           last = target;
 
-		for (i=0; i < wcslen(word); i++)
+		for (i = 0; i < wcslen(word); i++)
 		{
  			while ((comets[location].alive == 1) && (location < MAX_COMETS))
 				location++; 
