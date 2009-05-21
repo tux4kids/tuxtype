@@ -120,6 +120,24 @@ AC_CHECK_LIB([SDL_ttf],
              [AC_MSG_ERROR([SDL_ttf not found! http://www.libsdl.org/projects/SDL_ttf])])
 fi
 
+dnl Check for libRSVG. SVG support is enabled by default
+
+AC_ARG_WITH([rsvg],
+            [AS_HELP_STRING([--without-rsvg],[don't use libRSVG even if available])],
+            [with_rsvg=no],
+            [with_rsvg=yes])
+
+if test "x$with_rsvg" = xyes; then
+  RSVG_CFLAGS=""
+  RSVG_LIBS=""
+  PKG_CHECK_MODULES([RSVG],
+                    [librsvg-2.0 >= 2.22],
+                    ,
+                    [AC_MSG_FAILURE([libRSVG test failed (--without-rsvg to disable svg support)])])
+  CFLAGS="$CFLAGS $RSVG_CFLAGS"
+  LIBS="$LIBS $RSVG_LIBS"
+  AC_DEFINE([HAVE_RSVG],[1],[Define to 1 if you have the `libRSVG` library])
+fi
 
 dnl Check for (somewhat) higher-level math functions - needed for SDL_extras
 AC_CHECK_LIB([m],
@@ -147,6 +165,9 @@ AC_C_CONST
 AC_C_INLINE
 AC_TYPE_MODE_T
 AC_TYPE_SIZE_T
+AC_TYPE_UINT16_T
+AC_TYPE_UINT32_T
+AC_TYPE_UINT8_T
 AC_C_VOLATILE
 AC_CHECK_TYPES([ptrdiff_t])
 
@@ -165,7 +186,7 @@ AC_FUNC_STAT
 AC_FUNC_STRCOLL
 AC_FUNC_STRTOD
 AC_FUNC_VPRINTF
-AC_CHECK_FUNCS([__argz_count __argz_next __argz_stringify atexit bcopy getcwd getenv localtime_r memmove mempcpy memset mkdir munmap nl_langinfo putenv scandir setenv setlocale stpcpy strcasecmp strchr strcspn strdup strncasecmp strndup strstr strtoul])
+AC_CHECK_FUNCS([__argz_count __argz_next __argz_stringify atexit bcopy floor getcwd getenv localeconv localtime_r memmove mempcpy memset mkdir munmap nl_langinfo pow putenv scandir setenv setlocale stpcpy strcasecmp strchr strcspn strdup strncasecmp strndup strstr strtoul])
 
 
 

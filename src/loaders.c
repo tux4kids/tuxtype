@@ -115,7 +115,141 @@ int max(int n1, int n2)
 }
 
 
+#ifdef HAVE_RSVG
+/***********************
+    SVG related functions
+************************/
+#include<librsvg/rsvg.h>
+#include<librsvg/rsvg-cairo.h>
 
+/* Load an SVG file and resize it to given dimensions.
+   if width or height is set to 0 no resizing is applied
+   (partly based on TuxPaint's SVG loading function) */
+SDL_Surface* LoadSVGOfDimensions(char* filename, int width, int height)
+{
+  cairo_surface_t* temp_surf;
+  cairo_t* context;
+  RsvgHandle* file_handle;
+  RsvgDimensionData dimensions;
+  SDL_Surface* dest;
+  float scale_x;
+  float scale_y;
+  int bpp = 32;
+  Uint32 Rmask, Gmask, Bmask, Amask;
+
+  DEBUGCODE{
+    fprintf(stderr, "LoadSVGOfDimensions(): looking for %s\n", filename);
+  }
+
+  rsvg_init();
+
+  file_handle = rsvg_handle_new_from_file(filename, NULL);
+  if(file_handle == NULL)
+  {
+    DEBUGCODE{
+      fprintf(stderr, "LoadSVGOfDimensions(): file %s not found\n", filename);
+    }
+    rsvg_term();
+    return NULL;
+  }
+
+  rsvg_handle_get_dimensions(file_handle, &dimensions);
+  DEBUGCODE{
+    fprintf(stderr, "SVG is %d x %d\n", dimensions.width, dimensions.height);
+  }
+
+  if(width <= 0 || height <= 0)
+  {
+    width = dimensions.width;
+    height = dimensions.height;
+    scale_x = 1.0;
+    scale_y = 1.0;
+  }
+  else
+  {
+    scale_x = (float)width / dimensions.width;
+    scale_y = (float)height / dimensions.height;
+  }
+
+  /* FIXME: We assume that our bpp = 32 */
+
+  /* rmask, gmask, bmask, amask defined in SDL_extras.h do not work !
+     are those (taken from TuxPaint) dependent on endianness ? */
+  Rmask = 0x00ff0000;
+  Gmask = 0x0000ff00;
+  Bmask = 0x000000ff;
+  Amask = 0xff000000;
+
+  dest = SDL_CreateRGBSurface(SDL_SWSURFACE | SDL_SRCALPHA,
+        width, height, bpp, Rmask, Gmask, Bmask, Amask);
+
+  SDL_LockSurface(dest);
+  temp_surf = cairo_image_surface_create_for_data(dest->pixels,
+        CAIRO_FORMAT_ARGB32, dest->w, dest->h, dest->pitch);
+
+  context = cairo_create(temp_surf);
+  if(cairo_status(context) != CAIRO_STATUS_SUCCESS)
+  {
+    DEBUGCODE{
+      fprintf(stderr, "LoadSVGOfDimensions(): error rendering SVG from %s\n", filename);
+    }
+    g_object_unref(file_handle);
+    cairo_surface_destroy(temp_surf);
+    rsvg_term();
+    return NULL;
+  }
+
+  cairo_scale(context, scale_x, scale_y);
+  rsvg_handle_render_cairo(file_handle, context);
+
+  SDL_UnlockSurface(dest);
+
+  g_object_unref(file_handle);
+  cairo_surface_destroy(temp_surf);
+  cairo_destroy(context);
+  rsvg_term();
+
+  return dest;
+}
+
+#endif
+
+/***********************
+        LoadImageFromFile : Simply load an image from given file
+        or its SVG equivalent (if present). Return NULL if loading failed.
+************************/
+SDL_Surface* LoadImageFromFile(char *datafile)
+{
+  SDL_Surface* tmp_pic = NULL;
+
+#ifdef HAVE_RSVG
+  char svgfn[PATH_MAX];
+#endif
+
+  DEBUGCODE{
+    fprintf(stderr, "LoadImageFromFile(): looking in %s\n", datafile);
+  }
+
+#ifdef HAVE_RSVG
+  /* This is just an ugly workaround to test SVG
+     before any scaling routines are implemented */
+
+  /* change extension into .svg */
+  char* dotpos = strrchr(datafile, '.');
+  strncpy(svgfn, datafile, dotpos - datafile);
+  svgfn[dotpos - datafile] = '\0';
+  strcat(svgfn, ".svg");
+
+  /* try to load an SVG equivalent */
+  tmp_pic = LoadSVGOfDimensions(svgfn, 0, 0);
+#endif
+
+  if(tmp_pic == NULL)
+    /* Try to load image with SDL_image: */
+    tmp_pic = IMG_Load(datafile);
+
+  return tmp_pic;
+}
 
 /***********************
 	LoadImage : Load an image and set transparent if requested
@@ -130,7 +264,7 @@ SDL_Surface* LoadImage(const char* datafile, int mode)
   {
     sprintf(fn, "%s/images/%s", settings.theme_data_path, datafile);
 
-    tmp_pic = IMG_Load(fn);
+    tmp_pic = LoadImageFromFile(fn);
     if (tmp_pic != NULL)
       {}
     else
@@ -142,7 +276,7 @@ SDL_Surface* LoadImage(const char* datafile, int mode)
   {
     sprintf(fn, "%s/images/%s", settings.default_data_path, datafile);
 
-    tmp_pic = IMG_Load(fn);
+    tmp_pic = LoadImageFromFile(fn);
     if (tmp_pic != NULL)
       {}
     else
