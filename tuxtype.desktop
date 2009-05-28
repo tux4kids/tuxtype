@@ -14,4 +14,4 @@ Icon=tuxtype
 Terminal=false
 Type=Application
 StartupNotify=true
-Categories=Education;Languages;
+Categories=Education;

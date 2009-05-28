@@ -34,25 +34,10 @@ build_triplet = @build@
 host_triplet = @host@
 target_triplet = @target@
 subdir = data/themes/nynorsk/words
-DIST_COMMON = $(dist_themes_nynorsk_words_DATA) $(srcdir)/Makefile.am \
-	$(srcdir)/Makefile.in
+DIST_COMMON = $(dist_themes_nynorsk_images_words_DATA) \
+	$(srcdir)/Makefile.am $(srcdir)/Makefile.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
-am__aclocal_m4_deps = $(top_srcdir)/m4/codeset.m4 \
-	$(top_srcdir)/m4/gettext.m4 $(top_srcdir)/m4/glibc2.m4 \
-	$(top_srcdir)/m4/glibc21.m4 $(top_srcdir)/m4/iconv.m4 \
-	$(top_srcdir)/m4/intdiv0.m4 $(top_srcdir)/m4/intl.m4 \
-	$(top_srcdir)/m4/intldir.m4 $(top_srcdir)/m4/intlmacosx.m4 \
-	$(top_srcdir)/m4/intmax.m4 $(top_srcdir)/m4/inttypes-pri.m4 \
-	$(top_srcdir)/m4/inttypes_h.m4 $(top_srcdir)/m4/lcmessage.m4 \
-	$(top_srcdir)/m4/lib-ld.m4 $(top_srcdir)/m4/lib-link.m4 \
-	$(top_srcdir)/m4/lib-prefix.m4 $(top_srcdir)/m4/lock.m4 \
-	$(top_srcdir)/m4/longlong.m4 $(top_srcdir)/m4/nls.m4 \
-	$(top_srcdir)/m4/po.m4 $(top_srcdir)/m4/printf-posix.m4 \
-	$(top_srcdir)/m4/progtest.m4 $(top_srcdir)/m4/size_max.m4 \
-	$(top_srcdir)/m4/stdint_h.m4 $(top_srcdir)/m4/uintmax_t.m4 \
-	$(top_srcdir)/m4/ulonglong.m4 $(top_srcdir)/m4/visibility.m4 \
-	$(top_srcdir)/m4/wchar_t.m4 $(top_srcdir)/m4/wint_t.m4 \
-	$(top_srcdir)/m4/xsize.m4 $(top_srcdir)/acinclude.m4 \
+am__aclocal_m4_deps = $(top_srcdir)/acinclude.m4 \
 	$(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
@@ -67,27 +52,22 @@ am__vpath_adj = case $$p in \
     *) f=$$p;; \
   esac;
 am__strip_dir = `echo $$p | sed -e 's|^.*/||'`;
-am__installdirs = "$(DESTDIR)$(themes_nynorsk_wordsdir)"
-dist_themes_nynorsk_wordsDATA_INSTALL = $(INSTALL_DATA)
-DATA = $(dist_themes_nynorsk_words_DATA)
+am__installdirs = "$(DESTDIR)$(themes_nynorsk_images_wordsdir)"
+dist_themes_nynorsk_images_wordsDATA_INSTALL = $(INSTALL_DATA)
+DATA = $(dist_themes_nynorsk_images_words_DATA)
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 ACLOCAL = @ACLOCAL@
-ALLOCA = @ALLOCA@
 AMTAR = @AMTAR@
 AUTOCONF = @AUTOCONF@
 AUTOHEADER = @AUTOHEADER@
 AUTOMAKE = @AUTOMAKE@
 AWK = @AWK@
-BUILD_INCLUDED_LIBINTL = @BUILD_INCLUDED_LIBINTL@
-CATOBJEXT = @CATOBJEXT@
 CC = @CC@
 CCDEPMODE = @CCDEPMODE@
 CFLAGS = @CFLAGS@
-CFLAG_VISIBILITY = @CFLAG_VISIBILITY@
 CPP = @CPP@
 CPPFLAGS = @CPPFLAGS@
 CYGPATH_W = @CYGPATH_W@
-DATADIRNAME = @DATADIRNAME@
 DEFS = @DEFS@
 DEPDIR = @DEPDIR@
 ECHO_C = @ECHO_C@
@@ -95,52 +75,19 @@ ECHO_N = @ECHO_N@
 ECHO_T = @ECHO_T@
 EGREP = @EGREP@
 EXEEXT = @EXEEXT@
-GENCAT = @GENCAT@
-GETTEXT_MACRO_VERSION = @GETTEXT_MACRO_VERSION@
-GLIBC2 = @GLIBC2@
-GLIBC21 = @GLIBC21@
-GMSGFMT = @GMSGFMT@
-GMSGFMT_015 = @GMSGFMT_015@
 GREP = @GREP@
-HAVE_ASPRINTF = @HAVE_ASPRINTF@
-HAVE_POSIX_PRINTF = @HAVE_POSIX_PRINTF@
-HAVE_SNPRINTF = @HAVE_SNPRINTF@
-HAVE_VISIBILITY = @HAVE_VISIBILITY@
-HAVE_WPRINTF = @HAVE_WPRINTF@
 INSTALL = @INSTALL@
 INSTALL_DATA = @INSTALL_DATA@
 INSTALL_PROGRAM = @INSTALL_PROGRAM@
 INSTALL_SCRIPT = @INSTALL_SCRIPT@
 INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_PROGRAM@
-INSTOBJEXT = @INSTOBJEXT@
-INTLBISON = @INTLBISON@
-INTLLIBS = @INTLLIBS@
-INTLOBJS = @INTLOBJS@
-INTL_LIBTOOL_SUFFIX_PREFIX = @INTL_LIBTOOL_SUFFIX_PREFIX@
-INTL_MACOSX_LIBS = @INTL_MACOSX_LIBS@
 LDFLAGS = @LDFLAGS@
-LIBICONV = @LIBICONV@
-LIBINTL = @LIBINTL@
-LIBMULTITHREAD = @LIBMULTITHREAD@
 LIBOBJS = @LIBOBJS@
-LIBPTH = @LIBPTH@
-LIBPTH_PREFIX = @LIBPTH_PREFIX@
 LIBS = @LIBS@
-LIBTHREAD = @LIBTHREAD@
-LTLIBC = @LTLIBC@
-LTLIBICONV = @LTLIBICONV@
-LTLIBINTL = @LTLIBINTL@
-LTLIBMULTITHREAD = @LTLIBMULTITHREAD@
+LN_S = @LN_S@
 LTLIBOBJS = @LTLIBOBJS@
-LTLIBPTH = @LTLIBPTH@
-LTLIBTHREAD = @LTLIBTHREAD@
 MAKEINFO = @MAKEINFO@
-MINGW32_PACKAGE_DATA_DIR = @MINGW32_PACKAGE_DATA_DIR@
 MKDIR_P = @MKDIR_P@
-MSGFMT = @MSGFMT@
-MSGFMT_015 = @MSGFMT_015@
-MSGMERGE = @MSGMERGE@
-NAME_VERSION = @NAME_VERSION@
 NSIS = @NSIS@
 NSI_DLL_DIR = @NSI_DLL_DIR@
 NSI_INSTALL_DIR = @NSI_INSTALL_DIR@
@@ -152,27 +99,14 @@ PACKAGE_STRING = @PACKAGE_STRING@
 PACKAGE_TARNAME = @PACKAGE_TARNAME@
 PACKAGE_VERSION = @PACKAGE_VERSION@
 PATH_SEPARATOR = @PATH_SEPARATOR@
-POSUB = @POSUB@
-POW_LIB = @POW_LIB@
-PRI_MACROS_BROKEN = @PRI_MACROS_BROKEN@
-RANLIB = @RANLIB@
 SDL_CFLAGS = @SDL_CFLAGS@
 SDL_CONFIG = @SDL_CONFIG@
 SDL_LIBS = @SDL_LIBS@
 SET_MAKE = @SET_MAKE@
 SHELL = @SHELL@
 STRIP = @STRIP@
-USE_INCLUDED_LIBINTL = @USE_INCLUDED_LIBINTL@
-USE_NLS = @USE_NLS@
 VERSION = @VERSION@
 WINDRES = @WINDRES@
-WOE32 = @WOE32@
-WOE32DLL = @WOE32DLL@
-XGETTEXT = @XGETTEXT@
-XGETTEXT_015 = @XGETTEXT_015@
-XGETTEXT_EXTRA_OPTIONS = @XGETTEXT_EXTRA_OPTIONS@
-YACC = @YACC@
-YFLAGS = @YFLAGS@
 abs_builddir = @abs_builddir@
 abs_srcdir = @abs_srcdir@
 abs_top_builddir = @abs_top_builddir@
@@ -226,8 +160,8 @@ target_os = @target_os@
 target_vendor = @target_vendor@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-themes_nynorsk_wordsdir = $(pkgdatadir)/themes/nynorsk/words
-dist_themes_nynorsk_words_DATA = 3boks.txt \
+themes_nynorsk_images_wordsdir = $(pkgdatadir)/data/themes/nynorsk/images/words
+dist_themes_nynorsk_images_words_DATA = 3boks.txt \
   4boks.txt \
   5boks.txt \
   6boks.txt \
@@ -269,22 +203,22 @@ $(top_srcdir)/configure:  $(am__configure_deps)
 	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh
 $(ACLOCAL_M4):  $(am__aclocal_m4_deps)
 	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh
-install-dist_themes_nynorsk_wordsDATA: $(dist_themes_nynorsk_words_DATA)
+install-dist_themes_nynorsk_images_wordsDATA: $(dist_themes_nynorsk_images_words_DATA)
 	@$(NORMAL_INSTALL)
-	test -z "$(themes_nynorsk_wordsdir)" || $(MKDIR_P) "$(DESTDIR)$(themes_nynorsk_wordsdir)"
-	@list='$(dist_themes_nynorsk_words_DATA)'; for p in $$list; do \
+	test -z "$(themes_nynorsk_images_wordsdir)" || $(MKDIR_P) "$(DESTDIR)$(themes_nynorsk_images_wordsdir)"
+	@list='$(dist_themes_nynorsk_images_words_DATA)'; for p in $$list; do \
 	  if test -f "$$p"; then d=; else d="$(srcdir)/"; fi; \
 	  f=$(am__strip_dir) \
-	  echo " $(dist_themes_nynorsk_wordsDATA_INSTALL) '$$d$$p' '$(DESTDIR)$(themes_nynorsk_wordsdir)/$$f'"; \
-	  $(dist_themes_nynorsk_wordsDATA_INSTALL) "$$d$$p" "$(DESTDIR)$(themes_nynorsk_wordsdir)/$$f"; \
+	  echo " $(dist_themes_nynorsk_images_wordsDATA_INSTALL) '$$d$$p' '$(DESTDIR)$(themes_nynorsk_images_wordsdir)/$$f'"; \
+	  $(dist_themes_nynorsk_images_wordsDATA_INSTALL) "$$d$$p" "$(DESTDIR)$(themes_nynorsk_images_wordsdir)/$$f"; \
 	done
 
-uninstall-dist_themes_nynorsk_wordsDATA:
+uninstall-dist_themes_nynorsk_images_wordsDATA:
 	@$(NORMAL_UNINSTALL)
-	@list='$(dist_themes_nynorsk_words_DATA)'; for p in $$list; do \
+	@list='$(dist_themes_nynorsk_images_words_DATA)'; for p in $$list; do \
 	  f=$(am__strip_dir) \
-	  echo " rm -f '$(DESTDIR)$(themes_nynorsk_wordsdir)/$$f'"; \
-	  rm -f "$(DESTDIR)$(themes_nynorsk_wordsdir)/$$f"; \
+	  echo " rm -f '$(DESTDIR)$(themes_nynorsk_images_wordsdir)/$$f'"; \
+	  rm -f "$(DESTDIR)$(themes_nynorsk_images_wordsdir)/$$f"; \
 	done
 tags: TAGS
 TAGS:
@@ -323,7 +257,7 @@ check-am: all-am
 check: check-am
 all-am: Makefile $(DATA)
 installdirs:
-	for dir in "$(DESTDIR)$(themes_nynorsk_wordsdir)"; do \
+	for dir in "$(DESTDIR)$(themes_nynorsk_images_wordsdir)"; do \
 	  test -z "$$dir" || $(MKDIR_P) "$$dir"; \
 	done
 install: install-am
@@ -368,7 +302,7 @@ info: info-am
 
 info-am:
 
-install-data-am: install-dist_themes_nynorsk_wordsDATA
+install-data-am: install-dist_themes_nynorsk_images_wordsDATA
 
 install-dvi: install-dvi-am
 
@@ -402,21 +336,21 @@ ps: ps-am
 
 ps-am:
 
-uninstall-am: uninstall-dist_themes_nynorsk_wordsDATA
+uninstall-am: uninstall-dist_themes_nynorsk_images_wordsDATA
 
 .MAKE: install-am install-strip
 
 .PHONY: all all-am check check-am clean clean-generic distclean \
 	distclean-generic distdir dvi dvi-am html html-am info info-am \
 	install install-am install-data install-data-am \
-	install-dist_themes_nynorsk_wordsDATA install-dvi \
+	install-dist_themes_nynorsk_images_wordsDATA install-dvi \
 	install-dvi-am install-exec install-exec-am install-html \
 	install-html-am install-info install-info-am install-man \
 	install-pdf install-pdf-am install-ps install-ps-am \
 	install-strip installcheck installcheck-am installdirs \
 	maintainer-clean maintainer-clean-generic mostlyclean \
 	mostlyclean-generic pdf pdf-am ps ps-am uninstall uninstall-am \
-	uninstall-dist_themes_nynorsk_wordsDATA
+	uninstall-dist_themes_nynorsk_images_wordsDATA
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

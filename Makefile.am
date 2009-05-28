@@ -1,4 +1,9 @@
 # Modified to include support for NSIS Windows installer - David Bruce <davidstuartbruce@gmail.com>
+# Support for gettext:
+datadir = @datadir@
+localedir = $(datadir)/locale
+pkglocalstatedir = $(localstatedir)/$(PACKAGE)
+pkgsysconfdir = $(sysconfdir)/$(PACKAGE)
 
 SUBDIRS = data \
 	doc	\
@@ -6,16 +11,13 @@ SUBDIRS = data \
 	po	\
 	src
 
-ACLOCAL_AMFLAGS = -I m4
-
 EXTRA_DIST = tuxtype.spec \
 	tuxtype.desktop  \
 	tuxtype.ico \
 	icon.png \
 	Info.plist \
 	config.rpath 
-datadir = @datadir@
-localedir = $(datadir)/locale
+
 
 
 ## These are defined in configure.ac:
@@ -34,6 +36,16 @@ install-data-local:
 uninstall-local:
 	-rm -f $(DESTDIR)$(prefix)/share/$(PACKAGE)/tuxtype.ico
 	-rm -rf $(DESTDIR)$(prefix)/share/$(PACKAGE)
+
+# Sould we skip uninstall of these directories to avoid clobbering user-created files
+# on upgrade?:
+install-data-hook:
+	$(MKDIR_P) -m 755 $(DESTDIR)$(pkglocalstatedir)
+	$(MKDIR_P) -m 755 $(DESTDIR)$(pkgsysconfdir)
+
+uninstall-hook:
+	rm -rf $(DESTDIR)$(pkglocalstatedir)
+	rm -rf $(DESTDIR)$(pkgsysconfdir)
 
 
 
