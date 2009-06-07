@@ -1,3 +1,11 @@
+06 Jun 2009 (svn.debian.org/tux4kids - revision 1013)
+[ David Bruce <davidstuartbruce@gmail.com> ]
+        - Paths - added support for localstatedir (shared modifiable data, generally
+          located under /var) and sysconfdir (program-wide settings, generally located
+          under /etc) to autotools build system.  Also updated the game_option_type struct
+          to have a field for the shared modifiable data - var_data_path.  This is the
+          intended location for shared custom word lists, high scores, and so forth.
+
 23 Mar 2009 (svn.debian.org/tux4kids - revision 945)
 [ David Bruce <davidstuartbruce@gmail.com> ]
         - Code organization - TransWipe() and all of the blitting queue functions

@@ -1,9 +1,13 @@
 # Modified to include support for NSIS Windows installer - David Bruce <davidstuartbruce@gmail.com>
+
 # Support for gettext:
 datadir = @datadir@
+localstatedir = @localstatedir@
+sysconfdir = @sysconfdir@
 localedir = $(datadir)/locale
 pkglocalstatedir = $(localstatedir)/$(PACKAGE)
 pkgsysconfdir = $(sysconfdir)/$(PACKAGE)
+
 
 SUBDIRS = data \
 	doc	\

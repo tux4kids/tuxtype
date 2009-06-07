@@ -76,10 +76,11 @@
 /* Goal is to have all global settings here */
 /* (renamed from 'settings' to match tuxmath) */
 typedef struct game_option_type{
-  char default_data_path[FNLEN];
-  char theme_data_path[FNLEN];
-  char user_settings_path[FNLEN];
-  char global_settings_path[FNLEN];
+  char default_data_path[FNLEN];  // for static read-only data
+  char theme_data_path[FNLEN];    // read-only data for current theme
+  char var_data_path[FNLEN];      // for modifiable shared data (custom word lists, etc.)
+  char user_settings_path[FNLEN];  // per-user settings (under /home)
+  char global_settings_path[FNLEN]; // settings for all users (under /etc)
   char theme_name[FNLEN];
   char lang[FNLEN];
   char theme_font_name[FNLEN];
