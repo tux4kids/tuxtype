@@ -84,6 +84,7 @@ typedef struct game_option_type{
   char lang[FNLEN];
   char theme_font_name[FNLEN];
   char theme_locale_name[FNLEN];
+  char custom_word_path[FNLEN];
   int use_english;
   int fullscreen;
   int sys_sound;
@@ -119,6 +120,7 @@ typedef struct game_option_type{
 #define DEFAULT_O_LIVES 0
 #define DEFAULT_SOUND_VOL 100
 #define DEFAULT_HIDDEN 0
+#define CUSTOM_WORD_PATH		"/usr/local/var/tuxtype"
 
 
 

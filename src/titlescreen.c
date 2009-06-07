@@ -484,8 +484,9 @@ void TitleScreen(void)
 
     if (menu_opt == EDIT_WORDLIST)
     {
-      not_implemented();
-//      ChooseFile();
+//		editWordlists();
+//      not_implemented();
+     ChooseFile();
       redraw = 1;
     }
 
@@ -1517,18 +1518,15 @@ static void ChooseFile(void)
 
  /* save previous settings in case we back out: */
   old_use_english = settings.use_english;
-  strncpy(old_theme_path, settings.theme_data_path, FNLEN - 1);
+  strncpy(old_theme_path, settings.custom_word_path, FNLEN - 1);
 
-  if(settings.use_english)
-  {
-    sprintf(fn , "%s/words", settings.default_data_path);
-    fprintf(stderr , "%s/words", settings.default_data_path);
-  }
-  else
-  {
-    sprintf(fn , "%s/words", settings.theme_data_path);
-    fprintf(stderr , "%s/words", settings.theme_data_path);
-  }
+
+  sprintf(fn , "%s" , settings.custom_word_path); //sprintf(fn , "%s/words", settings.default_data_path);
+  fprintf(stderr , "%s", settings.custom_word_path);//fprintf(stderr , "%s/words", settings.default_data_path);
+
+
+//	sprintf(fn, "/var/lib/tuxtype");
+//	fprint(stderr, "/var/lib/tuxtype");
 
   themesDir = opendir(fn);
 
@@ -1552,14 +1550,8 @@ static void ChooseFile(void)
     if (strcmp("CVS", themesFile->d_name)==0)
     continue;
 
-    if(settings.use_english)
-    {
-      sprintf(fn, "%s/words/%s",settings.default_data_path, themesFile->d_name);
-    }
-    else
-    {
-      sprintf(fn, "%s/words/%s", settings.theme_data_path, themesFile->d_name);
-    }
+    sprintf(fn, "%s/%s" , settings.custom_word_path, themesFile->d_name); //sprintf(fn, "%s/words/%s",settings.default_data_path, themesFile->d_name);
+    
 
     /* CheckFile() returns 2 if dir, 1 if file, 0 if neither: */
     if (CheckFile(fn) == 1)
@@ -1747,14 +1739,10 @@ static void ChooseWord(char *words_file)
   old_use_english = settings.use_english;
   strncpy(old_theme_path, settings.theme_data_path, FNLEN - 1);
 
-  if(settings.use_english)
-  {
-    sprintf(fn , "%s/words/%s", settings.default_data_path,words_file);
-  }
-  else
-  {
-    sprintf(fn , "%s/words/%s", settings.theme_data_path,words_file);
-  }
+	//internationalization required
+    sprintf(fn , "%s/%s", settings.custom_word_path,words_file);
+
+
 
   fp = fopen(fn,"r");
   result = fscanf(fp, "%[^\n]\n", str);
@@ -1991,4 +1979,78 @@ static void ChooseWord(char *words_file)
   SDL_FreeSurface(right);
   bkg = NULL;  /* the other pointers are going out of scope so we don't */
                /* have to worry about setting them to NULL              */
+}               
+
+
+ void editWordlists(void)
+{
+  SDL_Surface *s1 = NULL, *s2 = NULL, *s3 = NULL, *s4 = NULL;   //this is text
+  SDL_Rect loc;    // location of surface
+  int finished = 0, i;
+
+  LOG( "editWordlists() - creating text\n" );
+
+  s1 = BlackOutline( gettext_noop("This is the Wordlist Configure Page"), DEFAULT_MENU_FONT_SIZE, &white);
+  s2 = BlackOutline( gettext_noop("This feature is not ready yet"), DEFAULT_MENU_FONT_SIZE, &white);
+  s3 = BlackOutline( gettext_noop("But hopefully it will be soon"), DEFAULT_MENU_FONT_SIZE, &white);
+  s4 = BlackOutline( "-Sarah", DEFAULT_MENU_FONT_SIZE, &white);
+
+
+  if (s1 && s2 && s3 && s4)
+  {
+    LOG( "editWordlists() - drawing screen\n" );
+
+    SDL_BlitSurface(CurrentBkgd(), NULL, screen, NULL);
+    loc.x = screen->w/2 - (s1->w/2); loc.y = 10;
+    SDL_BlitSurface( s1, NULL, screen, &loc);
+    loc.x = screen->w/2 - (s2->w/2); loc.y = 60;
+    SDL_BlitSurface( s2, NULL, screen, &loc);
+    loc.x = screen->w/2 - (s3->w/2); loc.y = 110;
+    SDL_BlitSurface(s3, NULL, screen, &loc);
+    loc.x = screen->w/2 - (s4->w/2); loc.y = 160;
+    SDL_BlitSurface( s4, NULL, screen, &loc);
+
+    loc.y = screen->h - 280;
+
+    SDL_UpdateRect(screen, 0, 0, 0, 0);
+
+    i = 0;
+
+    while (!finished)
+    {
+      while (SDL_PollEvent(&event)) 
+      {
+        switch (event.type)
+        {
+          case SDL_QUIT:
+            exit(0);
+          case SDL_MOUSEBUTTONDOWN:
+          case SDL_KEYDOWN:
+            finished = 1;
+        }
+      }
+
+      i++;
+
+      if (i %5 == 0)
+      {
+ //       NEXT_FRAME(tux);
+        SDL_BlitSurface(CurrentBkgd(), &loc, screen, &loc);
+ //       SDL_BlitSurface(tux->frame[tux->cur], NULL, screen, &loc);
+        SDL_UpdateRect(screen, loc.x, loc.y, loc.w, loc.h);
+      }
+
+      SDL_Delay(40);
+    }
+  }
+  else
+    fprintf(stderr, "editWordlists() - could not load needed graphic\n");
+
+  SDL_FreeSurface(s1);
+  SDL_FreeSurface(s2);
+  SDL_FreeSurface(s3);
+  SDL_FreeSurface(s4);
+  s1 = s2 = s3 = s4 = NULL;
+
 }
+
