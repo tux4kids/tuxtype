@@ -236,12 +236,16 @@ SDL_Surface* LoadImageFromFile(char *datafile)
 
   /* change extension into .svg */
   char* dotpos = strrchr(datafile, '.');
-  strncpy(svgfn, datafile, dotpos - datafile);
-  svgfn[dotpos - datafile] = '\0';
-  strcat(svgfn, ".svg");
+  if (dotpos) //will be NULL if '.' not found:
+  {
+    strncpy(svgfn, datafile, dotpos - datafile);
+    svgfn[dotpos - datafile] = '\0';
+    strcat(svgfn, ".svg");
 
-  /* try to load an SVG equivalent */
-  tmp_pic = LoadSVGOfDimensions(svgfn, 0, 0);
+    /* try to load an SVG equivalent */
+    fprintf(stderr, "svgfn = %s\n", svgfn);
+    tmp_pic = LoadSVGOfDimensions(svgfn, 0, 0);
+  }
 #endif
 
   if(tmp_pic == NULL)
