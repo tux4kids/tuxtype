@@ -19,6 +19,8 @@
 #include "globals.h"
 #include "funcs.h"
 
+static const int DEFAULT_SCRIPT_FONT_SIZE = 24;
+
 enum { itemTEXT, itemIMG, itemWAV, itemPRAC, itemWFIN, itemWFCH };
 
 /* linked list of elements for a page */
