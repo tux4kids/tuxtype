@@ -1,7 +1,6 @@
 ../trunk/src/alphabet.c
 ../trunk/src/audio.c
 ../trunk/src/convert_utf.c
-../trunk/src/iconv_string_test.c
 ../trunk/src/laser.c
 ../trunk/src/loaders.c
 ../trunk/src/main.c
