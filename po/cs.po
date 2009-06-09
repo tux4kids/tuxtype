@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tux Typing 1.5.16\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2009-07-01 13:20-0500\n"
+"POT-Creation-Date: 2009-06-08 23:32-0500\n"
 "PO-Revision-Date: 2007-11-10 16:36+0100\n"
 "Last-Translator: JardaK <krejci@zstenis.com>\n"
 "Language-Team: czech <cs@li.org>\n"
@@ -19,157 +19,169 @@ msgstr ""
 "Plural-Forms:  nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
 #
-#: src/loaders.c:88 src/main.c:145
+#: ../trunk/src/loaders.c:88 ../trunk/src/main.c:145
+#: ../trunk/src/playgame.c:624
 msgid "Fish"
 msgstr "Ryba"
 
 #
-#: src/titlescreen.c:90
-msgid "Fish Cascade"
-msgstr "Vodopád ryb"
+#: ../trunk/src/pause.c:277
+msgid "Sound Effects Volume"
+msgstr "Hlasitost zvuku "
 
 #
-#: src/titlescreen.c:90
+#: ../trunk/src/pause.c:286
+msgid "Music Volume"
+msgstr "Hlasitost hudby"
+
+#
+#: ../trunk/src/pause.c:297
+msgid "Sound & Music Disabled"
+msgstr "Vypnout hudbu a zvuk"
+
+#
+#: ../trunk/src/pause.c:307
+msgid "Paused!"
+msgstr "Pauza!"
+
+#
+#: ../trunk/src/pause.c:316
+msgid "Press escape again to return to menu"
+msgstr "Stiskni klávesu Esc pro návrat do menu"
+
+#
+#: ../trunk/src/pause.c:325
+msgid "Press space bar to return to game"
+msgstr "Stiskni mezerník pro návrat do hry"
+
+#
+#: ../trunk/src/playgame.c:622
+msgid "Level"
+msgstr "Úroveň"
+
+#
+#: ../trunk/src/playgame.c:623
+msgid "Lives"
+msgstr "Životy"
+
+#
+#: ../trunk/src/playgame.c:626 ../trunk/src/titlescreen.c:90
 msgid "Easy"
 msgstr "Snadná"
 
 #
-#: src/titlescreen.c:90
-msgid "Space Cadet"
-msgstr "Nováček"
-
-#
-#: src/titlescreen.c:90
-msgid "Edit Word Lists"
-msgstr "Uprav seznamy slov"
-
-#
-#: src/titlescreen.c:91
-msgid "Comet Zap"
-msgstr "Sestřelování komet"
-
-#
-#: src/titlescreen.c:91
+#: ../trunk/src/playgame.c:627 ../trunk/src/titlescreen.c:91
 msgid "Medium"
 msgstr "Střední"
 
 #
-#: src/titlescreen.c:91
-msgid "Pilot"
-msgstr "Pilot"
-
-#: src/titlescreen.c:91
-msgid "Phrase Typing"
-msgstr ""
-
-#
-#: src/titlescreen.c:92
-msgid "Lessons"
-msgstr "Lekce"
-
-#
-#: src/titlescreen.c:92
+#: ../trunk/src/playgame.c:628 ../trunk/src/titlescreen.c:92
 msgid "Hard"
 msgstr "Těžká"
 
 #
-#: src/titlescreen.c:92
+#: ../trunk/src/playgame.c:629
+msgid "Practice"
+msgstr "Procvičování"
+
+#
+#: ../trunk/src/playgame.c:640
+msgid "Congratulations"
+msgstr "Gratuluji"
+
+#
+#: ../trunk/src/playgame.c:644
+msgid "Oh No!"
+msgstr "Ach jo!"
+
+#
+#: ../trunk/src/titlescreen.c:90
+msgid "Fish Cascade"
+msgstr "Vodopád ryb"
+
+#
+#: ../trunk/src/titlescreen.c:90
+msgid "Space Cadet"
+msgstr "Nováček"
+
+#
+#: ../trunk/src/titlescreen.c:90
+msgid "Edit Word Lists"
+msgstr "Uprav seznamy slov"
+
+#
+#: ../trunk/src/titlescreen.c:91
+msgid "Comet Zap"
+msgstr "Sestřelování komet"
+
+#
+#: ../trunk/src/titlescreen.c:91
+msgid "Pilot"
+msgstr "Pilot"
+
+#: ../trunk/src/titlescreen.c:91
+msgid "Phrase Typing"
+msgstr ""
+
+#
+#: ../trunk/src/titlescreen.c:92
+msgid "Lessons"
+msgstr "Lekce"
+
+#
+#: ../trunk/src/titlescreen.c:92
 msgid "Ace"
 msgstr "Eso"
 
 #
-#: src/titlescreen.c:92
+#: ../trunk/src/titlescreen.c:92
 msgid "Project Info"
 msgstr "Info o projektu"
 
 #
-#: src/titlescreen.c:93
+#: ../trunk/src/titlescreen.c:93
 msgid "Options"
 msgstr "Možnosti"
 
 #
-#: src/titlescreen.c:93
+#: ../trunk/src/titlescreen.c:93
 msgid "Instructions"
 msgstr "Instrukce"
 
 #
-#: src/titlescreen.c:93
+#: ../trunk/src/titlescreen.c:93
 msgid "Commander"
 msgstr "Kapitán"
 
 #
-#: src/titlescreen.c:93
+#: ../trunk/src/titlescreen.c:93
 msgid "Setup Language"
 msgstr "Vyber jazyk"
 
 #
-#: src/titlescreen.c:94
+#: ../trunk/src/titlescreen.c:94
 msgid "Quit"
 msgstr "Ukončit"
 
 #
-#: src/titlescreen.c:94
+#: ../trunk/src/titlescreen.c:94
 msgid "Main Menu"
 msgstr "Hlavní menu"
 
 #
-#: src/titlescreen.c:1115
+#: ../trunk/src/titlescreen.c:1115
 msgid "Work In Progress!"
 msgstr "Ve výstavbě!"
 
 #
-#: src/titlescreen.c:1116
+#: ../trunk/src/titlescreen.c:1116
 msgid "This feature is not ready yet"
 msgstr "Tato vlastnost ještě nefunguje"
 
 #
-#: src/titlescreen.c:1117
+#: ../trunk/src/titlescreen.c:1117
 msgid "Discuss the future of TuxTyping at"
 msgstr "Diskutuj o budoucnosti TuxTyping na"
-
-#
-#~ msgid "Sound Effects Volume"
-#~ msgstr "Hlasitost zvuku "
-
-#
-#~ msgid "Music Volume"
-#~ msgstr "Hlasitost hudby"
-
-#
-#~ msgid "Sound & Music Disabled"
-#~ msgstr "Vypnout hudbu a zvuk"
-
-#
-#~ msgid "Paused!"
-#~ msgstr "Pauza!"
-
-#
-#~ msgid "Press escape again to return to menu"
-#~ msgstr "Stiskni klávesu Esc pro návrat do menu"
-
-#
-#~ msgid "Press space bar to return to game"
-#~ msgstr "Stiskni mezerník pro návrat do hry"
-
-#
-#~ msgid "Level"
-#~ msgstr "Úroveň"
-
-#
-#~ msgid "Lives"
-#~ msgstr "Životy"
-
-#
-#~ msgid "Practice"
-#~ msgstr "Procvičování"
-
-#
-#~ msgid "Congratulations"
-#~ msgstr "Gratuluji"
-
-#
-#~ msgid "Oh No!"
-#~ msgstr "Ach jo!"
 
 #
 #, fuzzy

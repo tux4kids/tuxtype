@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tuxtype\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2009-07-01 13:20-0500\n"
+"POT-Creation-Date: 2009-06-08 23:32-0500\n"
 "PO-Revision-Date: 2008-08-27 13:58+0530\n"
 "Last-Translator: Shankar Prasad <svenkate@redhat.com>\n"
 "Language-Team: Kannada <en@li.org>\n"
@@ -16,126 +16,138 @@ msgstr ""
 "X-Generator: KBabel 1.11.4\n"
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
 
-#: src/loaders.c:88 src/main.c:145
+#: ../trunk/src/loaders.c:88 ../trunk/src/main.c:145
+#: ../trunk/src/playgame.c:624
 msgid "Fish"
 msgstr "ಮೀನು"
 
-#: src/titlescreen.c:90
-msgid "Fish Cascade"
-msgstr "ಮೀನಿನ ಕ್ಯಾಸ್ಕೇಡ್"
+#: ../trunk/src/pause.c:277
+msgid "Sound Effects Volume"
+msgstr "ಶಬ್ಧ ಪರಿಣಾಮಗಳ ವಾಲ್ಯೂಮ್"
 
-#: src/titlescreen.c:90
+#: ../trunk/src/pause.c:286
+msgid "Music Volume"
+msgstr "ಸಂಗೀತದ ವಾಲ್ಯೂಮ್"
+
+#: ../trunk/src/pause.c:297
+msgid "Sound & Music Disabled"
+msgstr "ಶಬ್ಧ ಹಾಗು ಸಂಗೀತವನ್ನು ನಿಷ್ಕ್ರಿಯಗೊಳಿಸಲಾಗಿದೆ"
+
+#: ../trunk/src/pause.c:307
+msgid "Paused!"
+msgstr "ತಾತ್ಕಾಲಿಕ ಸ್ಥಗಿತ!"
+
+#: ../trunk/src/pause.c:316
+msgid "Press escape again to return to menu"
+msgstr "ಮೆನುವಿಗೆ ಹಿಂತಿರುಗಲು ಎಸ್ಕೇಪನ್ನು ಒತ್ತಿ"
+
+#: ../trunk/src/pause.c:325
+msgid "Press space bar to return to game"
+msgstr "ಆಟಕ್ಕೆ ಹಿಂತಿರುಗಲು ಸ್ಪೇಸ್‌ ಬಾರನ್ನು ಒತ್ತಿ"
+
+#: ../trunk/src/playgame.c:622
+msgid "Level"
+msgstr "ಮಟ್ಟ"
+
+#: ../trunk/src/playgame.c:623
+msgid "Lives"
+msgstr "ಜೀವಗಳು"
+
+#: ../trunk/src/playgame.c:626 ../trunk/src/titlescreen.c:90
 msgid "Easy"
 msgstr "ಸುಲಭ"
 
-#: src/titlescreen.c:90
-msgid "Space Cadet"
-msgstr "ಸ್ಪೇಸ್ ಕ್ಯಾಡೆಟ್"
-
-#: src/titlescreen.c:90
-msgid "Edit Word Lists"
-msgstr "ಪದಗಳ ಪಟ್ಟಿಯನ್ನು ಸಂಪಾದಿಸು"
-
-#: src/titlescreen.c:91
-msgid "Comet Zap"
-msgstr "ಧೂಮಕೇತು ಧಾಳಿ"
-
-#: src/titlescreen.c:91
+#: ../trunk/src/playgame.c:627 ../trunk/src/titlescreen.c:91
 msgid "Medium"
 msgstr "ಮಧ್ಯಮ"
 
-#: src/titlescreen.c:91
-msgid "Pilot"
-msgstr "ಪೈಲೆಟ್"
-
-#: src/titlescreen.c:91
-msgid "Phrase Typing"
-msgstr ""
-
-#: src/titlescreen.c:92
-msgid "Lessons"
-msgstr "ಪಾಠಗಳು"
-
-#: src/titlescreen.c:92
+#: ../trunk/src/playgame.c:628 ../trunk/src/titlescreen.c:92
 msgid "Hard"
 msgstr "ಕಷ್ಟಕರ"
 
-#: src/titlescreen.c:92
+#: ../trunk/src/playgame.c:629
+msgid "Practice"
+msgstr "ತರಬೇತಿ"
+
+#: ../trunk/src/playgame.c:640
+msgid "Congratulations"
+msgstr "ಶುಭಾಶಯಗಳು"
+
+#: ../trunk/src/playgame.c:644
+msgid "Oh No!"
+msgstr "ಒಹ್ ಇಲ್ಲ!"
+
+#: ../trunk/src/titlescreen.c:90
+msgid "Fish Cascade"
+msgstr "ಮೀನಿನ ಕ್ಯಾಸ್ಕೇಡ್"
+
+#: ../trunk/src/titlescreen.c:90
+msgid "Space Cadet"
+msgstr "ಸ್ಪೇಸ್ ಕ್ಯಾಡೆಟ್"
+
+#: ../trunk/src/titlescreen.c:90
+msgid "Edit Word Lists"
+msgstr "ಪದಗಳ ಪಟ್ಟಿಯನ್ನು ಸಂಪಾದಿಸು"
+
+#: ../trunk/src/titlescreen.c:91
+msgid "Comet Zap"
+msgstr "ಧೂಮಕೇತು ಧಾಳಿ"
+
+#: ../trunk/src/titlescreen.c:91
+msgid "Pilot"
+msgstr "ಪೈಲೆಟ್"
+
+#: ../trunk/src/titlescreen.c:91
+msgid "Phrase Typing"
+msgstr ""
+
+#: ../trunk/src/titlescreen.c:92
+msgid "Lessons"
+msgstr "ಪಾಠಗಳು"
+
+#: ../trunk/src/titlescreen.c:92
 msgid "Ace"
 msgstr "ಏಸ್"
 
-#: src/titlescreen.c:92
+#: ../trunk/src/titlescreen.c:92
 msgid "Project Info"
 msgstr "ಪರಿಯೋಜನೆಯ ಮಾಹಿತಿ"
 
-#: src/titlescreen.c:93
+#: ../trunk/src/titlescreen.c:93
 msgid "Options"
 msgstr "ಆಯ್ಕೆಗಳು"
 
-#: src/titlescreen.c:93
+#: ../trunk/src/titlescreen.c:93
 msgid "Instructions"
 msgstr "ಸೂಚನೆಗಳು"
 
-#: src/titlescreen.c:93
+#: ../trunk/src/titlescreen.c:93
 msgid "Commander"
 msgstr "ಕಮಾಂಡರ್"
 
-#: src/titlescreen.c:93
+#: ../trunk/src/titlescreen.c:93
 msgid "Setup Language"
 msgstr "ಸೆಟ್‌ಅಪ್ ಭಾಷೆ"
 
-#: src/titlescreen.c:94
+#: ../trunk/src/titlescreen.c:94
 msgid "Quit"
 msgstr "ಹೊರನಡೆ"
 
-#: src/titlescreen.c:94
+#: ../trunk/src/titlescreen.c:94
 msgid "Main Menu"
 msgstr "ಮುಖ್ಯ ಮೆನು"
 
-#: src/titlescreen.c:1115
+#: ../trunk/src/titlescreen.c:1115
 msgid "Work In Progress!"
 msgstr "ಕೆಲಸವು ಪ್ರಗತಿಯಲ್ಲಿದೆ!"
 
-#: src/titlescreen.c:1116
+#: ../trunk/src/titlescreen.c:1116
 msgid "This feature is not ready yet"
 msgstr "ಈ ಸವಲತ್ತು ಇನ್ನೂ ತಯಾರಾಗಿಲ್ಲ"
 
-#: src/titlescreen.c:1117
+#: ../trunk/src/titlescreen.c:1117
 msgid "Discuss the future of TuxTyping at"
 msgstr "TuxTyping ನ ಮುಂದಿನ ಭವಿಷ್ಯವನ್ನು ಇಲ್ಲಿ ಚರ್ಚಿಸಿ"
-
-#~ msgid "Sound Effects Volume"
-#~ msgstr "ಶಬ್ಧ ಪರಿಣಾಮಗಳ ವಾಲ್ಯೂಮ್"
-
-#~ msgid "Music Volume"
-#~ msgstr "ಸಂಗೀತದ ವಾಲ್ಯೂಮ್"
-
-#~ msgid "Sound & Music Disabled"
-#~ msgstr "ಶಬ್ಧ ಹಾಗು ಸಂಗೀತವನ್ನು ನಿಷ್ಕ್ರಿಯಗೊಳಿಸಲಾಗಿದೆ"
-
-#~ msgid "Paused!"
-#~ msgstr "ತಾತ್ಕಾಲಿಕ ಸ್ಥಗಿತ!"
-
-#~ msgid "Press escape again to return to menu"
-#~ msgstr "ಮೆನುವಿಗೆ ಹಿಂತಿರುಗಲು ಎಸ್ಕೇಪನ್ನು ಒತ್ತಿ"
-
-#~ msgid "Press space bar to return to game"
-#~ msgstr "ಆಟಕ್ಕೆ ಹಿಂತಿರುಗಲು ಸ್ಪೇಸ್‌ ಬಾರನ್ನು ಒತ್ತಿ"
-
-#~ msgid "Level"
-#~ msgstr "ಮಟ್ಟ"
-
-#~ msgid "Lives"
-#~ msgstr "ಜೀವಗಳು"
-
-#~ msgid "Practice"
-#~ msgstr "ತರಬೇತಿ"
-
-#~ msgid "Congratulations"
-#~ msgstr "ಶುಭಾಶಯಗಳು"
-
-#~ msgid "Oh No!"
-#~ msgstr "ಒಹ್ ಇಲ್ಲ!"
 
 #, fuzzy
 #~ msgid "Phrase Practice"

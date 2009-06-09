@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tuxtype\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2009-07-01 13:20-0500\n"
+"POT-Creation-Date: 2009-06-08 23:32-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Mobin M <mobinmohan@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,90 +16,135 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/loaders.c:88 src/main.c:145
+#: ../trunk/src/loaders.c:88 ../trunk/src/main.c:145
+#: ../trunk/src/playgame.c:624
 msgid "Fish"
 msgstr ""
 
-#: src/titlescreen.c:90
-msgid "Fish Cascade"
+#: ../trunk/src/pause.c:277
+msgid "Sound Effects Volume"
 msgstr ""
 
-#: src/titlescreen.c:90
+#: ../trunk/src/pause.c:286
+msgid "Music Volume"
+msgstr ""
+
+#: ../trunk/src/pause.c:297
+msgid "Sound & Music Disabled"
+msgstr ""
+
+#: ../trunk/src/pause.c:307
+msgid "Paused!"
+msgstr ""
+
+#: ../trunk/src/pause.c:316
+msgid "Press escape again to return to menu"
+msgstr ""
+
+#: ../trunk/src/pause.c:325
+msgid "Press space bar to return to game"
+msgstr ""
+
+#: ../trunk/src/playgame.c:622
+msgid "Level"
+msgstr ""
+
+#: ../trunk/src/playgame.c:623
+msgid "Lives"
+msgstr ""
+
+#: ../trunk/src/playgame.c:626 ../trunk/src/titlescreen.c:90
 msgid "Easy"
 msgstr ""
 
-#: src/titlescreen.c:90
-msgid "Space Cadet"
-msgstr ""
-
-#: src/titlescreen.c:90
-msgid "Edit Word Lists"
-msgstr ""
-
-#: src/titlescreen.c:91
-msgid "Comet Zap"
-msgstr ""
-
-#: src/titlescreen.c:91
+#: ../trunk/src/playgame.c:627 ../trunk/src/titlescreen.c:91
 msgid "Medium"
 msgstr ""
 
-#: src/titlescreen.c:91
-msgid "Pilot"
-msgstr ""
-
-#: src/titlescreen.c:91
-msgid "Phrase Typing"
-msgstr ""
-
-#: src/titlescreen.c:92
-msgid "Lessons"
-msgstr ""
-
-#: src/titlescreen.c:92
+#: ../trunk/src/playgame.c:628 ../trunk/src/titlescreen.c:92
 msgid "Hard"
 msgstr ""
 
-#: src/titlescreen.c:92
+#: ../trunk/src/playgame.c:629
+msgid "Practice"
+msgstr ""
+
+#: ../trunk/src/playgame.c:640
+msgid "Congratulations"
+msgstr ""
+
+#: ../trunk/src/playgame.c:644
+msgid "Oh No!"
+msgstr ""
+
+#: ../trunk/src/titlescreen.c:90
+msgid "Fish Cascade"
+msgstr ""
+
+#: ../trunk/src/titlescreen.c:90
+msgid "Space Cadet"
+msgstr ""
+
+#: ../trunk/src/titlescreen.c:90
+msgid "Edit Word Lists"
+msgstr ""
+
+#: ../trunk/src/titlescreen.c:91
+msgid "Comet Zap"
+msgstr ""
+
+#: ../trunk/src/titlescreen.c:91
+msgid "Pilot"
+msgstr ""
+
+#: ../trunk/src/titlescreen.c:91
+msgid "Phrase Typing"
+msgstr ""
+
+#: ../trunk/src/titlescreen.c:92
+msgid "Lessons"
+msgstr ""
+
+#: ../trunk/src/titlescreen.c:92
 msgid "Ace"
 msgstr ""
 
-#: src/titlescreen.c:92
+#: ../trunk/src/titlescreen.c:92
 msgid "Project Info"
 msgstr ""
 
-#: src/titlescreen.c:93
+#: ../trunk/src/titlescreen.c:93
 msgid "Options"
 msgstr ""
 
-#: src/titlescreen.c:93
+#: ../trunk/src/titlescreen.c:93
 msgid "Instructions"
 msgstr ""
 
-#: src/titlescreen.c:93
+#: ../trunk/src/titlescreen.c:93
 msgid "Commander"
 msgstr ""
 
-#: src/titlescreen.c:93
+#: ../trunk/src/titlescreen.c:93
 msgid "Setup Language"
 msgstr ""
 
-#: src/titlescreen.c:94
+#: ../trunk/src/titlescreen.c:94
 msgid "Quit"
 msgstr ""
 
-#: src/titlescreen.c:94
+#: ../trunk/src/titlescreen.c:94
 msgid "Main Menu"
 msgstr ""
 
-#: src/titlescreen.c:1115
+#: ../trunk/src/titlescreen.c:1115
 msgid "Work In Progress!"
 msgstr ""
 
-#: src/titlescreen.c:1116
+#: ../trunk/src/titlescreen.c:1116
 msgid "This feature is not ready yet"
 msgstr ""
 
-#: src/titlescreen.c:1117
+#: ../trunk/src/titlescreen.c:1117
 msgid "Discuss the future of TuxTyping at"
 msgstr ""

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tuxtype2\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2009-07-01 13:20-0500\n"
+"POT-Creation-Date: 2009-06-08 23:32-0500\n"
 "PO-Revision-Date: 2008-12-02 19:51+0100\n"
 "Last-Translator: Göran Uddeborg <goeran@uddeborg.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
@@ -15,134 +15,146 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/loaders.c:88 src/main.c:145
+#: ../trunk/src/loaders.c:88 ../trunk/src/main.c:145
+#: ../trunk/src/playgame.c:624
 msgid "Fish"
 msgstr "Fisk"
 
-#: src/titlescreen.c:90
-msgid "Fish Cascade"
-msgstr "Fiskregn"
+#: ../trunk/src/pause.c:277
+msgid "Sound Effects Volume"
+msgstr "Ljudeffektvolym"
+
+#: ../trunk/src/pause.c:286
+msgid "Music Volume"
+msgstr "Musikvolym"
+
+#: ../trunk/src/pause.c:297
+msgid "Sound & Music Disabled"
+msgstr "Ljud och musik avaktiverade"
+
+#: ../trunk/src/pause.c:307
+msgid "Paused!"
+msgstr "Pausat!"
+
+#: ../trunk/src/pause.c:316
+msgid "Press escape again to return to menu"
+msgstr "Tryck escape igen för att komma tillbaka till menyn"
+
+#: ../trunk/src/pause.c:325
+msgid "Press space bar to return to game"
+msgstr "Tryck mellanslag för att fortsätta spela"
+
+#: ../trunk/src/playgame.c:622
+msgid "Level"
+msgstr "Nivå"
+
+#: ../trunk/src/playgame.c:623
+msgid "Lives"
+msgstr "Liv"
 
 # levels for Cascade game:
-#: src/titlescreen.c:90
+#: ../trunk/src/playgame.c:626 ../trunk/src/titlescreen.c:90
 msgid "Easy"
 msgstr "Lätt"
 
+#: ../trunk/src/playgame.c:627 ../trunk/src/titlescreen.c:91
+msgid "Medium"
+msgstr "Mellan"
+
+#: ../trunk/src/playgame.c:628 ../trunk/src/titlescreen.c:92
+msgid "Hard"
+msgstr "Svårt"
+
+# general stuff
+#: ../trunk/src/playgame.c:629
+msgid "Practice"
+msgstr "Övning"
+
+#: ../trunk/src/playgame.c:640
+msgid "Congratulations"
+msgstr "Gratulerar"
+
+#: ../trunk/src/playgame.c:644
+msgid "Oh No!"
+msgstr "Åh nej!"
+
+#: ../trunk/src/titlescreen.c:90
+msgid "Fish Cascade"
+msgstr "Fiskregn"
+
 # "Space Cadet" is level 1 in comet zap
-#: src/titlescreen.c:90
+#: ../trunk/src/titlescreen.c:90
 msgid "Space Cadet"
 msgstr "Rymdkadett"
 
-#: src/titlescreen.c:90
+#: ../trunk/src/titlescreen.c:90
 msgid "Edit Word Lists"
 msgstr "Redigera ordlista"
 
 # types of games
-#: src/titlescreen.c:91
+#: ../trunk/src/titlescreen.c:91
 msgid "Comet Zap"
 msgstr "Pricka kometer"
 
-#: src/titlescreen.c:91
-msgid "Medium"
-msgstr "Mellan"
-
 # "Pilot" is level 2 in comet zap
-#: src/titlescreen.c:91
+#: ../trunk/src/titlescreen.c:91
 msgid "Pilot"
 msgstr "Pilot"
 
-#: src/titlescreen.c:91
+#: ../trunk/src/titlescreen.c:91
 msgid "Phrase Typing"
 msgstr ""
 
-#: src/titlescreen.c:92
+#: ../trunk/src/titlescreen.c:92
 msgid "Lessons"
 msgstr "Lektioner"
 
-#: src/titlescreen.c:92
-msgid "Hard"
-msgstr "Svårt"
-
 # "Ace" is level 3 in comet zap
-#: src/titlescreen.c:92
+#: ../trunk/src/titlescreen.c:92
 msgid "Ace"
 msgstr "Flygaress"
 
-#: src/titlescreen.c:92
+#: ../trunk/src/titlescreen.c:92
 msgid "Project Info"
 msgstr "Projektinformation"
 
-#: src/titlescreen.c:93
+#: ../trunk/src/titlescreen.c:93
 msgid "Options"
 msgstr "Inställningar"
 
-#: src/titlescreen.c:93
+#: ../trunk/src/titlescreen.c:93
 msgid "Instructions"
 msgstr "Instruktioner"
 
 # "Commander" is level 4 in comet zap
-#: src/titlescreen.c:93
+#: ../trunk/src/titlescreen.c:93
 msgid "Commander"
 msgstr "Kommendör"
 
-#: src/titlescreen.c:93
+#: ../trunk/src/titlescreen.c:93
 msgid "Setup Language"
 msgstr "Ställ in språk"
 
-#: src/titlescreen.c:94
+#: ../trunk/src/titlescreen.c:94
 msgid "Quit"
 msgstr "Avsluta"
 
-#: src/titlescreen.c:94
+#: ../trunk/src/titlescreen.c:94
 msgid "Main Menu"
 msgstr "Huvudmeny"
 
 # work in progress stuff
-#: src/titlescreen.c:1115
+#: ../trunk/src/titlescreen.c:1115
 msgid "Work In Progress!"
 msgstr "Arbete pågår!"
 
-#: src/titlescreen.c:1116
+#: ../trunk/src/titlescreen.c:1116
 msgid "This feature is not ready yet"
 msgstr "Denna funktion är inte färdig än"
 
-#: src/titlescreen.c:1117
+#: ../trunk/src/titlescreen.c:1117
 msgid "Discuss the future of TuxTyping at"
 msgstr "Diskutera TyxeTypes framtid på"
-
-#~ msgid "Sound Effects Volume"
-#~ msgstr "Ljudeffektvolym"
-
-#~ msgid "Music Volume"
-#~ msgstr "Musikvolym"
-
-#~ msgid "Sound & Music Disabled"
-#~ msgstr "Ljud och musik avaktiverade"
-
-#~ msgid "Paused!"
-#~ msgstr "Pausat!"
-
-#~ msgid "Press escape again to return to menu"
-#~ msgstr "Tryck escape igen för att komma tillbaka till menyn"
-
-#~ msgid "Press space bar to return to game"
-#~ msgstr "Tryck mellanslag för att fortsätta spela"
-
-#~ msgid "Level"
-#~ msgstr "Nivå"
-
-#~ msgid "Lives"
-#~ msgstr "Liv"
-
-# general stuff
-#~ msgid "Practice"
-#~ msgstr "Övning"
-
-#~ msgid "Congratulations"
-#~ msgstr "Gratulerar"
-
-#~ msgid "Oh No!"
-#~ msgstr "Åh nej!"
 
 # general stuff
 #, fuzzy

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tr\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2009-07-01 13:20-0500\n"
+"POT-Creation-Date: 2009-06-08 23:32-0500\n"
 "PO-Revision-Date: 2008-12-11 15:08+0200\n"
 "Last-Translator: Doruk Fisek <dfisek@fisek.com.tr>\n"
 "Language-Team: Turkish <gnu-tr-u12a@lists.sourceforge.net>\n"
@@ -15,126 +15,138 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
 
-#: src/loaders.c:88 src/main.c:145
+#: ../trunk/src/loaders.c:88 ../trunk/src/main.c:145
+#: ../trunk/src/playgame.c:624
 msgid "Fish"
 msgstr "Balık"
 
-#: src/titlescreen.c:90
-msgid "Fish Cascade"
-msgstr "Balık Çağlayanı"
+#: ../trunk/src/pause.c:277
+msgid "Sound Effects Volume"
+msgstr "Ses Efektleri Ses Düzeyi"
 
-#: src/titlescreen.c:90
+#: ../trunk/src/pause.c:286
+msgid "Music Volume"
+msgstr "Müzik Ses Düzeyi"
+
+#: ../trunk/src/pause.c:297
+msgid "Sound & Music Disabled"
+msgstr "Ses & Müzik Kapalı"
+
+#: ../trunk/src/pause.c:307
+msgid "Paused!"
+msgstr "Duraklatıldı!"
+
+#: ../trunk/src/pause.c:316
+msgid "Press escape again to return to menu"
+msgstr "Menüye dönmek için tekrar esc'ye basın"
+
+#: ../trunk/src/pause.c:325
+msgid "Press space bar to return to game"
+msgstr "Oyuna dönmek için boşluk tuşuna basın"
+
+#: ../trunk/src/playgame.c:622
+msgid "Level"
+msgstr "Düzey"
+
+#: ../trunk/src/playgame.c:623
+msgid "Lives"
+msgstr "Yaşamlar"
+
+#: ../trunk/src/playgame.c:626 ../trunk/src/titlescreen.c:90
 msgid "Easy"
 msgstr "Kolay"
 
-#: src/titlescreen.c:90
-msgid "Space Cadet"
-msgstr "Uzay Tertibi"
-
-#: src/titlescreen.c:90
-msgid "Edit Word Lists"
-msgstr "Kelime Listelerini Düzenle"
-
-#: src/titlescreen.c:91
-msgid "Comet Zap"
-msgstr "Kuyruklu Yıldız Vur"
-
-#: src/titlescreen.c:91
+#: ../trunk/src/playgame.c:627 ../trunk/src/titlescreen.c:91
 msgid "Medium"
 msgstr "Orta"
 
-#: src/titlescreen.c:91
-msgid "Pilot"
-msgstr "Pilot"
-
-#: src/titlescreen.c:91
-msgid "Phrase Typing"
-msgstr ""
-
-#: src/titlescreen.c:92
-msgid "Lessons"
-msgstr "Dersler"
-
-#: src/titlescreen.c:92
+#: ../trunk/src/playgame.c:628 ../trunk/src/titlescreen.c:92
 msgid "Hard"
 msgstr "Zor"
 
-#: src/titlescreen.c:92
+#: ../trunk/src/playgame.c:629
+msgid "Practice"
+msgstr "Alıştırma"
+
+#: ../trunk/src/playgame.c:640
+msgid "Congratulations"
+msgstr "Tebrikler"
+
+#: ../trunk/src/playgame.c:644
+msgid "Oh No!"
+msgstr "Oo Hayır!"
+
+#: ../trunk/src/titlescreen.c:90
+msgid "Fish Cascade"
+msgstr "Balık Çağlayanı"
+
+#: ../trunk/src/titlescreen.c:90
+msgid "Space Cadet"
+msgstr "Uzay Tertibi"
+
+#: ../trunk/src/titlescreen.c:90
+msgid "Edit Word Lists"
+msgstr "Kelime Listelerini Düzenle"
+
+#: ../trunk/src/titlescreen.c:91
+msgid "Comet Zap"
+msgstr "Kuyruklu Yıldız Vur"
+
+#: ../trunk/src/titlescreen.c:91
+msgid "Pilot"
+msgstr "Pilot"
+
+#: ../trunk/src/titlescreen.c:91
+msgid "Phrase Typing"
+msgstr ""
+
+#: ../trunk/src/titlescreen.c:92
+msgid "Lessons"
+msgstr "Dersler"
+
+#: ../trunk/src/titlescreen.c:92
 msgid "Ace"
 msgstr "As"
 
-#: src/titlescreen.c:92
+#: ../trunk/src/titlescreen.c:92
 msgid "Project Info"
 msgstr "Proje Bilgisi"
 
-#: src/titlescreen.c:93
+#: ../trunk/src/titlescreen.c:93
 msgid "Options"
 msgstr "Seçenekler"
 
-#: src/titlescreen.c:93
+#: ../trunk/src/titlescreen.c:93
 msgid "Instructions"
 msgstr "Yönergeler"
 
-#: src/titlescreen.c:93
+#: ../trunk/src/titlescreen.c:93
 msgid "Commander"
 msgstr "Kumandan"
 
-#: src/titlescreen.c:93
+#: ../trunk/src/titlescreen.c:93
 msgid "Setup Language"
 msgstr "Ayar Dili"
 
-#: src/titlescreen.c:94
+#: ../trunk/src/titlescreen.c:94
 msgid "Quit"
 msgstr "Çıkış"
 
-#: src/titlescreen.c:94
+#: ../trunk/src/titlescreen.c:94
 msgid "Main Menu"
 msgstr "Ana Menü"
 
-#: src/titlescreen.c:1115
+#: ../trunk/src/titlescreen.c:1115
 msgid "Work In Progress!"
 msgstr "Çalışmalar Sürüyor!"
 
-#: src/titlescreen.c:1116
+#: ../trunk/src/titlescreen.c:1116
 msgid "This feature is not ready yet"
 msgstr "Bu özellik henüz hazır değil"
 
-#: src/titlescreen.c:1117
+#: ../trunk/src/titlescreen.c:1117
 msgid "Discuss the future of TuxTyping at"
 msgstr "Tuxtyping'in geleceğinin tartışıldığı liste :"
-
-#~ msgid "Sound Effects Volume"
-#~ msgstr "Ses Efektleri Ses Düzeyi"
-
-#~ msgid "Music Volume"
-#~ msgstr "Müzik Ses Düzeyi"
-
-#~ msgid "Sound & Music Disabled"
-#~ msgstr "Ses & Müzik Kapalı"
-
-#~ msgid "Paused!"
-#~ msgstr "Duraklatıldı!"
-
-#~ msgid "Press escape again to return to menu"
-#~ msgstr "Menüye dönmek için tekrar esc'ye basın"
-
-#~ msgid "Press space bar to return to game"
-#~ msgstr "Oyuna dönmek için boşluk tuşuna basın"
-
-#~ msgid "Level"
-#~ msgstr "Düzey"
-
-#~ msgid "Lives"
-#~ msgstr "Yaşamlar"
-
-#~ msgid "Practice"
-#~ msgstr "Alıştırma"
-
-#~ msgid "Congratulations"
-#~ msgstr "Tebrikler"
-
-#~ msgid "Oh No!"
-#~ msgstr "Oo Hayır!"
 
 #, fuzzy
 #~ msgid "Phrase Practice"

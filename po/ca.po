@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tux Typing 1.5.16\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2009-07-01 13:20-0500\n"
+"POT-Creation-Date: 2009-06-08 23:32-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Mobin M <mobinmohan@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,137 +16,149 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/loaders.c:88 src/main.c:145
+#: ../trunk/src/loaders.c:88 ../trunk/src/main.c:145
+#: ../trunk/src/playgame.c:624
 msgid "Fish"
 msgstr "Peix"
 
-#: src/titlescreen.c:90
-msgid "Fish Cascade"
-msgstr "Caiguda de peixos"
+#: ../trunk/src/pause.c:277
+msgid "Sound Effects Volume"
+msgstr "Volum dels efectes de só"
+
+#: ../trunk/src/pause.c:286
+msgid "Music Volume"
+msgstr "Volum de la música"
+
+#: ../trunk/src/pause.c:297
+msgid "Sound & Music Disabled"
+msgstr "S'ha inhabilitat el só i la música"
+
+#: ../trunk/src/pause.c:307
+msgid "Paused!"
+msgstr "En pausa!"
+
+#: ../trunk/src/pause.c:316
+#, fuzzy
+msgid "Press escape again to return to menu"
+msgstr "Torneu a prèmer escape per tornar al menú"
+
+#: ../trunk/src/pause.c:325
+#, fuzzy
+msgid "Press space bar to return to game"
+msgstr "Premeu 'espai' per tornar al joc"
+
+#: ../trunk/src/playgame.c:622
+msgid "Level"
+msgstr "Nivell"
+
+#: ../trunk/src/playgame.c:623
+msgid "Lives"
+msgstr "Vides"
 
 # levels for Cascade game:
-#: src/titlescreen.c:90
+#: ../trunk/src/playgame.c:626 ../trunk/src/titlescreen.c:90
 msgid "Easy"
 msgstr "Fàcil"
 
+#: ../trunk/src/playgame.c:627 ../trunk/src/titlescreen.c:91
+msgid "Medium"
+msgstr "Mitg"
+
+#: ../trunk/src/playgame.c:628 ../trunk/src/titlescreen.c:92
+msgid "Hard"
+msgstr "Difícil"
+
+# general stuff
+#: ../trunk/src/playgame.c:629
+msgid "Practice"
+msgstr "Practicar"
+
+#: ../trunk/src/playgame.c:640
+msgid "Congratulations"
+msgstr "L'enhorabona!"
+
+#: ../trunk/src/playgame.c:644
+msgid "Oh No!"
+msgstr "Oh No!"
+
+#: ../trunk/src/titlescreen.c:90
+msgid "Fish Cascade"
+msgstr "Caiguda de peixos"
+
 # "Space Cadet" is level 1 in comet zap
-#: src/titlescreen.c:90
+#: ../trunk/src/titlescreen.c:90
 msgid "Space Cadet"
 msgstr "Cadet"
 
-#: src/titlescreen.c:90
+#: ../trunk/src/titlescreen.c:90
 msgid "Edit Word Lists"
 msgstr "Editar les llistes de paraules"
 
 # types of games
-#: src/titlescreen.c:91
+#: ../trunk/src/titlescreen.c:91
 msgid "Comet Zap"
 msgstr "Caiguda de meteorits"
 
-#: src/titlescreen.c:91
-msgid "Medium"
-msgstr "Mitg"
-
 # "Pilot" is level 2 in comet zap
-#: src/titlescreen.c:91
+#: ../trunk/src/titlescreen.c:91
 msgid "Pilot"
 msgstr "Pilot"
 
-#: src/titlescreen.c:91
+#: ../trunk/src/titlescreen.c:91
 msgid "Phrase Typing"
 msgstr ""
 
-#: src/titlescreen.c:92
+#: ../trunk/src/titlescreen.c:92
 msgid "Lessons"
 msgstr "Llissons"
 
-#: src/titlescreen.c:92
-msgid "Hard"
-msgstr "Difícil"
-
 # "Ace" is level 3 in comet zap
-#: src/titlescreen.c:92
+#: ../trunk/src/titlescreen.c:92
 msgid "Ace"
 msgstr "As"
 
-#: src/titlescreen.c:92
+#: ../trunk/src/titlescreen.c:92
 msgid "Project Info"
 msgstr ""
 
-#: src/titlescreen.c:93
+#: ../trunk/src/titlescreen.c:93
 msgid "Options"
 msgstr "Opcions"
 
-#: src/titlescreen.c:93
+#: ../trunk/src/titlescreen.c:93
 msgid "Instructions"
 msgstr "Instruccions"
 
 # "Commander" is level 4 in comet zap
-#: src/titlescreen.c:93
+#: ../trunk/src/titlescreen.c:93
 msgid "Commander"
 msgstr "Comandant"
 
-#: src/titlescreen.c:93
+#: ../trunk/src/titlescreen.c:93
 msgid "Setup Language"
 msgstr "Configuració de l'idioma"
 
-#: src/titlescreen.c:94
+#: ../trunk/src/titlescreen.c:94
 msgid "Quit"
 msgstr "Sortir"
 
-#: src/titlescreen.c:94
+#: ../trunk/src/titlescreen.c:94
 msgid "Main Menu"
 msgstr "Menu principal"
 
 # work in progress stuff
-#: src/titlescreen.c:1115
+#: ../trunk/src/titlescreen.c:1115
 msgid "Work In Progress!"
 msgstr "Encara en progres!"
 
-#: src/titlescreen.c:1116
+#: ../trunk/src/titlescreen.c:1116
 #, fuzzy
 msgid "This feature is not ready yet"
 msgstr "Encara no implementat"
 
-#: src/titlescreen.c:1117
+#: ../trunk/src/titlescreen.c:1117
 msgid "Discuss the future of TuxTyping at"
 msgstr "Podeu parlar sobre el futur de TuxTyping a"
-
-#~ msgid "Sound Effects Volume"
-#~ msgstr "Volum dels efectes de só"
-
-#~ msgid "Music Volume"
-#~ msgstr "Volum de la música"
-
-#~ msgid "Sound & Music Disabled"
-#~ msgstr "S'ha inhabilitat el só i la música"
-
-#~ msgid "Paused!"
-#~ msgstr "En pausa!"
-
-#, fuzzy
-#~ msgid "Press escape again to return to menu"
-#~ msgstr "Torneu a prèmer escape per tornar al menú"
-
-#, fuzzy
-#~ msgid "Press space bar to return to game"
-#~ msgstr "Premeu 'espai' per tornar al joc"
-
-#~ msgid "Level"
-#~ msgstr "Nivell"
-
-#~ msgid "Lives"
-#~ msgstr "Vides"
-
-# general stuff
-#~ msgid "Practice"
-#~ msgstr "Practicar"
-
-#~ msgid "Congratulations"
-#~ msgstr "L'enhorabona!"
-
-#~ msgid "Oh No!"
-#~ msgstr "Oh No!"
 
 # general stuff
 #, fuzzy

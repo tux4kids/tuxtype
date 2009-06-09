@@ -28,7 +28,6 @@ const int pause_font_size2 = 36;
 
 
 /* Local function prototypes: */
-//static void darkenscreen(void);
 static void draw_vols(int sfx, int mus);
 static void pause_draw(void);
 static void pause_load_media(void);

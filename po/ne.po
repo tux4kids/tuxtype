@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tux Typing 1.5.16\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2009-07-01 13:20-0500\n"
+"POT-Creation-Date: 2009-06-08 23:32-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Mobin M <mobinmohan@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,154 +17,166 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #
-#: src/loaders.c:88 src/main.c:145
+#: ../trunk/src/loaders.c:88 ../trunk/src/main.c:145
+#: ../trunk/src/playgame.c:624
 msgid "Fish"
 msgstr "माछा"
 
-#
-#: src/titlescreen.c:90
-msgid "Fish Cascade"
-msgstr "माछा क्यास्केड ‍"
+#: ../trunk/src/pause.c:277
+msgid "Sound Effects Volume"
+msgstr "ध्वनिको मात्राको असर"
+
+#: ../trunk/src/pause.c:286
+msgid "Music Volume"
+msgstr "संगितको मात्रा"
 
 #
-#: src/titlescreen.c:90
+#: ../trunk/src/pause.c:297
+msgid "Sound & Music Disabled"
+msgstr "ध्वनि र संगित निष्क्रिय गर्नूहोस ।"
+
+#
+#: ../trunk/src/pause.c:307
+msgid "Paused!"
+msgstr " केहि बेर रोक्नुहोस ।"
+
+#: ../trunk/src/pause.c:316
+msgid "Press escape again to return to menu"
+msgstr "मेनुमा फर्कन इस्केप बटन थिच्नुहोस ।"
+
+#
+#: ../trunk/src/pause.c:325
+msgid "Press space bar to return to game"
+msgstr "खेलमा फर्कन स्पेस बार  थिच्नुहोस । "
+
+#
+#: ../trunk/src/playgame.c:622
+msgid "Level"
+msgstr "श्रेणी"
+
+#
+#: ../trunk/src/playgame.c:623
+msgid "Lives"
+msgstr "जिवनहरु"
+
+#
+#: ../trunk/src/playgame.c:626 ../trunk/src/titlescreen.c:90
 msgid "Easy"
 msgstr "सजिलो"
 
 #
-#: src/titlescreen.c:90
-msgid "Space Cadet"
-msgstr "‍ स्पेस क्याडेट"
-
-#
-#: src/titlescreen.c:90
-msgid "Edit Word Lists"
-msgstr "शब्द शुचिहरुलाई सम्पादन गर्नुहोस ।"
-
-#
-#: src/titlescreen.c:91
-msgid "Comet Zap"
-msgstr "कमेट ज्याप"
-
-#
-#: src/titlescreen.c:91
+#: ../trunk/src/playgame.c:627 ../trunk/src/titlescreen.c:91
 msgid "Medium"
 msgstr "मध्यम"
 
 #
-#: src/titlescreen.c:91
-msgid "Pilot"
-msgstr "पाइलट"
-
-#: src/titlescreen.c:91
-msgid "Phrase Typing"
-msgstr ""
-
-#
-#: src/titlescreen.c:92
-msgid "Lessons"
-msgstr "पाठ्य‍क्रमहरु"
-
-#
-#: src/titlescreen.c:92
+#: ../trunk/src/playgame.c:628 ../trunk/src/titlescreen.c:92
 msgid "Hard"
 msgstr "कठिन"
 
 #
-#: src/titlescreen.c:92
+#: ../trunk/src/playgame.c:629
+msgid "Practice"
+msgstr "प्रशिक्षण"
+
+#
+#: ../trunk/src/playgame.c:640
+msgid "Congratulations"
+msgstr "तपाइलाई बधाई छ!!!"
+
+#
+#: ../trunk/src/playgame.c:644
+msgid "Oh No!"
+msgstr "हेत्तेरिका!.."
+
+#
+#: ../trunk/src/titlescreen.c:90
+msgid "Fish Cascade"
+msgstr "माछा क्यास्केड ‍"
+
+#
+#: ../trunk/src/titlescreen.c:90
+msgid "Space Cadet"
+msgstr "‍ स्पेस क्याडेट"
+
+#
+#: ../trunk/src/titlescreen.c:90
+msgid "Edit Word Lists"
+msgstr "शब्द शुचिहरुलाई सम्पादन गर्नुहोस ।"
+
+#
+#: ../trunk/src/titlescreen.c:91
+msgid "Comet Zap"
+msgstr "कमेट ज्याप"
+
+#
+#: ../trunk/src/titlescreen.c:91
+msgid "Pilot"
+msgstr "पाइलट"
+
+#: ../trunk/src/titlescreen.c:91
+msgid "Phrase Typing"
+msgstr ""
+
+#
+#: ../trunk/src/titlescreen.c:92
+msgid "Lessons"
+msgstr "पाठ्य‍क्रमहरु"
+
+#
+#: ../trunk/src/titlescreen.c:92
 msgid "Ace"
 msgstr "एस"
 
 #
-#: src/titlescreen.c:92
+#: ../trunk/src/titlescreen.c:92
 msgid "Project Info"
 msgstr "‍परियोजनाको बारेमा"
 
 #
-#: src/titlescreen.c:93
+#: ../trunk/src/titlescreen.c:93
 msgid "Options"
 msgstr "विकल्पहरु‍"
 
 #
-#: src/titlescreen.c:93
+#: ../trunk/src/titlescreen.c:93
 msgid "Instructions"
 msgstr "निर्देशनहरु "
 
 #
-#: src/titlescreen.c:93
+#: ../trunk/src/titlescreen.c:93
 msgid "Commander"
 msgstr "कमान्डर‍"
 
 #
-#: src/titlescreen.c:93
+#: ../trunk/src/titlescreen.c:93
 msgid "Setup Language"
 msgstr "भाषा समाबिष्ट गर्नुहोस ।"
 
 #
-#: src/titlescreen.c:94
+#: ../trunk/src/titlescreen.c:94
 msgid "Quit"
 msgstr "बन्द गर्नुहोस ।"
 
 #
-#: src/titlescreen.c:94
+#: ../trunk/src/titlescreen.c:94
 msgid "Main Menu"
 msgstr "मुख्य मेनु"
 
 #
-#: src/titlescreen.c:1115
+#: ../trunk/src/titlescreen.c:1115
 msgid "Work In Progress!"
 msgstr "काम हुदैछ!!!!!!!!"
 
 #
-#: src/titlescreen.c:1116
+#: ../trunk/src/titlescreen.c:1116
 msgid "This feature is not ready yet"
 msgstr "यो सुबिधा अहिले उपलब्ध हुनसक्दैन!!!!"
 
 #
-#: src/titlescreen.c:1117
+#: ../trunk/src/titlescreen.c:1117
 msgid "Discuss the future of TuxTyping at"
 msgstr " टक्शटाइप को भविष्य बारेमा छलफल गर्नुहोस ।"
-
-#~ msgid "Sound Effects Volume"
-#~ msgstr "ध्वनिको मात्राको असर"
-
-#~ msgid "Music Volume"
-#~ msgstr "संगितको मात्रा"
-
-#
-#~ msgid "Sound & Music Disabled"
-#~ msgstr "ध्वनि र संगित निष्क्रिय गर्नूहोस ।"
-
-#
-#~ msgid "Paused!"
-#~ msgstr " केहि बेर रोक्नुहोस ।"
-
-#~ msgid "Press escape again to return to menu"
-#~ msgstr "मेनुमा फर्कन इस्केप बटन थिच्नुहोस ।"
-
-#
-#~ msgid "Press space bar to return to game"
-#~ msgstr "खेलमा फर्कन स्पेस बार  थिच्नुहोस । "
-
-#
-#~ msgid "Level"
-#~ msgstr "श्रेणी"
-
-#
-#~ msgid "Lives"
-#~ msgstr "जिवनहरु"
-
-#
-#~ msgid "Practice"
-#~ msgstr "प्रशिक्षण"
-
-#
-#~ msgid "Congratulations"
-#~ msgstr "तपाइलाई बधाई छ!!!"
-
-#
-#~ msgid "Oh No!"
-#~ msgstr "हेत्तेरिका!.."
 
 #
 #, fuzzy

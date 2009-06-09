@@ -15,6 +15,10 @@
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
+#ifndef GLOBALS_H
+#define GLOBALS_H
+
+#include "config.h"
 
 #define to_upper(c) (((c) >= 'a' && (c) <= 'z') ? (c) -32 : (c))
 #define COL2RGB( col ) SDL_MapRGB( screen->format, col->r, col->g, col->b )
@@ -30,12 +34,6 @@
 #define DATA_PREFIX "./data"
 #endif
 
-#ifndef __GLOBALS_H__
-#define __GLOBALS_H__
-
-
-
-#include "config.h"
 
 // Translation stuff (now works for Mac and Win too!): 
 #include "gettext.h"
@@ -65,9 +63,6 @@
 #include "SDL_image.h"
 #include "SDL_mixer.h"
 /* NOTE only SDL_extras.c/.h now knows about SDL_ttf or SDL_Pango. */
-
-#endif //  __GLOBALS_H__
-
 
 
 #define MIN(x,y) ((x) < (y) ? (x) : (y))
@@ -222,4 +217,5 @@ enum
   NUM_WIPES
 };
 
+#endif
 

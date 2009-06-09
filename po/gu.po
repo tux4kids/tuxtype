@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tuxtype\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2009-07-01 13:20-0500\n"
+"POT-Creation-Date: 2009-06-08 23:32-0500\n"
 "PO-Revision-Date: 2008-08-28 16:17+0530\n"
 "Last-Translator: Sweta Kothari <swkothar@redhat.com>\n"
 "Language-Team: Gujarati\n"
@@ -16,126 +16,138 @@ msgstr ""
 "X-Generator: KBabel 1.11.4\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n"
 
-#: src/loaders.c:88 src/main.c:145
+#: ../trunk/src/loaders.c:88 ../trunk/src/main.c:145
+#: ../trunk/src/playgame.c:624
 msgid "Fish"
 msgstr "માછલી"
 
-#: src/titlescreen.c:90
-msgid "Fish Cascade"
-msgstr "માછલી પાણીનાં ધોધમાં"
+#: ../trunk/src/pause.c:277
+msgid "Sound Effects Volume"
+msgstr "સાઉન્ડને અસર કરતુ વોલ્યુમ"
 
-#: src/titlescreen.c:90
+#: ../trunk/src/pause.c:286
+msgid "Music Volume"
+msgstr "સંગીત વોલ્યુમ"
+
+#: ../trunk/src/pause.c:297
+msgid "Sound & Music Disabled"
+msgstr "સાઉન્ડ અને સંગીત નિષ્ક્રિય થયેલ છે"
+
+#: ../trunk/src/pause.c:307
+msgid "Paused!"
+msgstr "થોભેલ છે!"
+
+#: ../trunk/src/pause.c:316
+msgid "Press escape again to return to menu"
+msgstr "મેનુ ને પાછુ લાવવા માટે ફરીથી escape ને દબાવો"
+
+#: ../trunk/src/pause.c:325
+msgid "Press space bar to return to game"
+msgstr "રમતને પાછુ લાવવા માટે space પટ્ટીને દબાવો"
+
+#: ../trunk/src/playgame.c:622
+msgid "Level"
+msgstr "સ્તર"
+
+#: ../trunk/src/playgame.c:623
+msgid "Lives"
+msgstr "જીવો"
+
+#: ../trunk/src/playgame.c:626 ../trunk/src/titlescreen.c:90
 msgid "Easy"
 msgstr "સરળ"
 
-#: src/titlescreen.c:90
-msgid "Space Cadet"
-msgstr "જગ્યા કેડેટ"
-
-#: src/titlescreen.c:90
-msgid "Edit Word Lists"
-msgstr "શબ્દની યાદીઓમાં ફેરફાર કરો"
-
-#: src/titlescreen.c:91
-msgid "Comet Zap"
-msgstr "ધૂમકેતુ ને મારવો"
-
-#: src/titlescreen.c:91
+#: ../trunk/src/playgame.c:627 ../trunk/src/titlescreen.c:91
 msgid "Medium"
 msgstr "માધ્યમ"
 
-#: src/titlescreen.c:91
-msgid "Pilot"
-msgstr "પાઇલોટ"
-
-#: src/titlescreen.c:91
-msgid "Phrase Typing"
-msgstr ""
-
-#: src/titlescreen.c:92
-msgid "Lessons"
-msgstr "પાઠો"
-
-#: src/titlescreen.c:92
+#: ../trunk/src/playgame.c:628 ../trunk/src/titlescreen.c:92
 msgid "Hard"
 msgstr "સખત"
 
-#: src/titlescreen.c:92
+#: ../trunk/src/playgame.c:629
+msgid "Practice"
+msgstr "પ્રયાસ"
+
+#: ../trunk/src/playgame.c:640
+msgid "Congratulations"
+msgstr "અભિનંદન"
+
+#: ../trunk/src/playgame.c:644
+msgid "Oh No!"
+msgstr "અરે નહિં!"
+
+#: ../trunk/src/titlescreen.c:90
+msgid "Fish Cascade"
+msgstr "માછલી પાણીનાં ધોધમાં"
+
+#: ../trunk/src/titlescreen.c:90
+msgid "Space Cadet"
+msgstr "જગ્યા કેડેટ"
+
+#: ../trunk/src/titlescreen.c:90
+msgid "Edit Word Lists"
+msgstr "શબ્દની યાદીઓમાં ફેરફાર કરો"
+
+#: ../trunk/src/titlescreen.c:91
+msgid "Comet Zap"
+msgstr "ધૂમકેતુ ને મારવો"
+
+#: ../trunk/src/titlescreen.c:91
+msgid "Pilot"
+msgstr "પાઇલોટ"
+
+#: ../trunk/src/titlescreen.c:91
+msgid "Phrase Typing"
+msgstr ""
+
+#: ../trunk/src/titlescreen.c:92
+msgid "Lessons"
+msgstr "પાઠો"
+
+#: ../trunk/src/titlescreen.c:92
 msgid "Ace"
 msgstr "એક્કો"
 
-#: src/titlescreen.c:92
+#: ../trunk/src/titlescreen.c:92
 msgid "Project Info"
 msgstr "પ્રોજેક્ટની જાણકારી"
 
-#: src/titlescreen.c:93
+#: ../trunk/src/titlescreen.c:93
 msgid "Options"
 msgstr "વિકલ્પો"
 
-#: src/titlescreen.c:93
+#: ../trunk/src/titlescreen.c:93
 msgid "Instructions"
 msgstr "સૂચનાઓ"
 
-#: src/titlescreen.c:93
+#: ../trunk/src/titlescreen.c:93
 msgid "Commander"
 msgstr "સેનાપતિ"
 
-#: src/titlescreen.c:93
+#: ../trunk/src/titlescreen.c:93
 msgid "Setup Language"
 msgstr "ભાષાને સુયોજિત કરો"
 
-#: src/titlescreen.c:94
+#: ../trunk/src/titlescreen.c:94
 msgid "Quit"
 msgstr "બહાર નીકળો"
 
-#: src/titlescreen.c:94
+#: ../trunk/src/titlescreen.c:94
 msgid "Main Menu"
 msgstr "મુખ્ય મેનુ"
 
-#: src/titlescreen.c:1115
+#: ../trunk/src/titlescreen.c:1115
 msgid "Work In Progress!"
 msgstr "પ્રગતિમાં કામ છે!"
 
-#: src/titlescreen.c:1116
+#: ../trunk/src/titlescreen.c:1116
 msgid "This feature is not ready yet"
 msgstr "આ લક્ષણ હજુ તૈયાર નથી"
 
-#: src/titlescreen.c:1117
+#: ../trunk/src/titlescreen.c:1117
 msgid "Discuss the future of TuxTyping at"
 msgstr "TuxTyping ને ભવિષ્યમાં ચર્ચા કરો"
-
-#~ msgid "Sound Effects Volume"
-#~ msgstr "સાઉન્ડને અસર કરતુ વોલ્યુમ"
-
-#~ msgid "Music Volume"
-#~ msgstr "સંગીત વોલ્યુમ"
-
-#~ msgid "Sound & Music Disabled"
-#~ msgstr "સાઉન્ડ અને સંગીત નિષ્ક્રિય થયેલ છે"
-
-#~ msgid "Paused!"
-#~ msgstr "થોભેલ છે!"
-
-#~ msgid "Press escape again to return to menu"
-#~ msgstr "મેનુ ને પાછુ લાવવા માટે ફરીથી escape ને દબાવો"
-
-#~ msgid "Press space bar to return to game"
-#~ msgstr "રમતને પાછુ લાવવા માટે space પટ્ટીને દબાવો"
-
-#~ msgid "Level"
-#~ msgstr "સ્તર"
-
-#~ msgid "Lives"
-#~ msgstr "જીવો"
-
-#~ msgid "Practice"
-#~ msgstr "પ્રયાસ"
-
-#~ msgid "Congratulations"
-#~ msgstr "અભિનંદન"
-
-#~ msgid "Oh No!"
-#~ msgstr "અરે નહિં!"
 
 #, fuzzy
 #~ msgid "Phrase Practice"

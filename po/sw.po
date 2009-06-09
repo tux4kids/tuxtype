@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tux Typing 1.5.16\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2009-07-01 13:20-0500\n"
+"POT-Creation-Date: 2009-06-08 23:32-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,135 +16,147 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/loaders.c:88 src/main.c:145
+#: ../trunk/src/loaders.c:88 ../trunk/src/main.c:145
+#: ../trunk/src/playgame.c:624
 msgid "Fish"
 msgstr "Peces"
 
-#: src/titlescreen.c:90
-msgid "Fish Cascade"
-msgstr "Samaki zinaanguka"
+#: ../trunk/src/pause.c:277
+msgid "Sound Effects Volume"
+msgstr "Sound Effects Volume"
+
+#: ../trunk/src/pause.c:286
+msgid "Music Volume"
+msgstr "Music Volume"
+
+#: ../trunk/src/pause.c:297
+msgid "Sound & Music Disabled"
+msgstr "Sauti na ngoma imekatwa"
+
+#: ../trunk/src/pause.c:307
+msgid "Paused!"
+msgstr "Tuliza kwaq dakika moja"
+
+#: ../trunk/src/pause.c:316
+msgid "Press escape again to return to menu"
+msgstr "Finya escape ndio uridi"
+
+#: ../trunk/src/pause.c:325
+msgid "Press space bar to return to game"
+msgstr "Press space bar to return to game"
+
+#: ../trunk/src/playgame.c:622
+msgid "Level"
+msgstr "Nivel"
+
+#: ../trunk/src/playgame.c:623
+msgid "Lives"
+msgstr "Vidas"
 
 # levels for Cascade game:
-#: src/titlescreen.c:90
+#: ../trunk/src/playgame.c:626 ../trunk/src/titlescreen.c:90
 msgid "Easy"
 msgstr "Rahisi"
 
+#: ../trunk/src/playgame.c:627 ../trunk/src/titlescreen.c:91
+msgid "Medium"
+msgstr "Ngumu"
+
+#: ../trunk/src/playgame.c:628 ../trunk/src/titlescreen.c:92
+msgid "Hard"
+msgstr "Ngumu zaidi"
+
+# general stuff
+#: ../trunk/src/playgame.c:629
+msgid "Practice"
+msgstr "Jifunze"
+
+#: ../trunk/src/playgame.c:640
+msgid "Congratulations"
+msgstr "Shukran"
+
+#: ../trunk/src/playgame.c:644
+msgid "Oh No!"
+msgstr "Ahhhh"
+
+#: ../trunk/src/titlescreen.c:90
+msgid "Fish Cascade"
+msgstr "Samaki zinaanguka"
+
 # "Space Cadet" is level 1 in comet zap
-#: src/titlescreen.c:90
+#: ../trunk/src/titlescreen.c:90
 msgid "Space Cadet"
 msgstr "Kidato cha kwanza"
 
-#: src/titlescreen.c:90
+#: ../trunk/src/titlescreen.c:90
 msgid "Edit Word Lists"
 msgstr "Edit Word Lists"
 
 # types of games
-#: src/titlescreen.c:91
+#: ../trunk/src/titlescreen.c:91
 msgid "Comet Zap"
 msgstr "Vita vya nyota"
 
-#: src/titlescreen.c:91
-msgid "Medium"
-msgstr "Ngumu"
-
 # "Pilot" is level 2 in comet zap
-#: src/titlescreen.c:91
+#: ../trunk/src/titlescreen.c:91
 msgid "Pilot"
 msgstr "Kidato cha pili"
 
-#: src/titlescreen.c:91
+#: ../trunk/src/titlescreen.c:91
 msgid "Phrase Typing"
 msgstr ""
 
-#: src/titlescreen.c:92
+#: ../trunk/src/titlescreen.c:92
 msgid "Lessons"
 msgstr "Madarasa"
 
-#: src/titlescreen.c:92
-msgid "Hard"
-msgstr "Ngumu zaidi"
-
 # "Ace" is level 3 in comet zap
-#: src/titlescreen.c:92
+#: ../trunk/src/titlescreen.c:92
 msgid "Ace"
 msgstr "Kidato cha tatu"
 
-#: src/titlescreen.c:92
+#: ../trunk/src/titlescreen.c:92
 msgid "Project Info"
 msgstr ""
 
-#: src/titlescreen.c:93
+#: ../trunk/src/titlescreen.c:93
 msgid "Options"
 msgstr "Maoni"
 
-#: src/titlescreen.c:93
+#: ../trunk/src/titlescreen.c:93
 msgid "Instructions"
 msgstr "Nammna ya kutumia"
 
 # "Commander" is level 4 in comet zap
-#: src/titlescreen.c:93
+#: ../trunk/src/titlescreen.c:93
 msgid "Commander"
 msgstr "Kidato cha nne"
 
-#: src/titlescreen.c:93
+#: ../trunk/src/titlescreen.c:93
 msgid "Setup Language"
 msgstr "Chagua Lugha"
 
-#: src/titlescreen.c:94
+#: ../trunk/src/titlescreen.c:94
 msgid "Quit"
 msgstr "Ondoka"
 
-#: src/titlescreen.c:94
+#: ../trunk/src/titlescreen.c:94
 msgid "Main Menu"
 msgstr "Listi ya kwanza"
 
 # work in progress stuff
-#: src/titlescreen.c:1115
+#: ../trunk/src/titlescreen.c:1115
 msgid "Work In Progress!"
 msgstr "Bado kumalizika"
 
-#: src/titlescreen.c:1116
+#: ../trunk/src/titlescreen.c:1116
 #, fuzzy
 msgid "This feature is not ready yet"
 msgstr "Bado ina jengwa"
 
-#: src/titlescreen.c:1117
+#: ../trunk/src/titlescreen.c:1117
 msgid "Discuss the future of TuxTyping at"
 msgstr "Toa maoni yako kuhusu TuxTyping"
-
-#~ msgid "Sound Effects Volume"
-#~ msgstr "Sound Effects Volume"
-
-#~ msgid "Music Volume"
-#~ msgstr "Music Volume"
-
-#~ msgid "Sound & Music Disabled"
-#~ msgstr "Sauti na ngoma imekatwa"
-
-#~ msgid "Paused!"
-#~ msgstr "Tuliza kwaq dakika moja"
-
-#~ msgid "Press escape again to return to menu"
-#~ msgstr "Finya escape ndio uridi"
-
-#~ msgid "Press space bar to return to game"
-#~ msgstr "Press space bar to return to game"
-
-#~ msgid "Level"
-#~ msgstr "Nivel"
-
-#~ msgid "Lives"
-#~ msgstr "Vidas"
-
-# general stuff
-#~ msgid "Practice"
-#~ msgstr "Jifunze"
-
-#~ msgid "Congratulations"
-#~ msgstr "Shukran"
-
-#~ msgid "Oh No!"
-#~ msgstr "Ahhhh"
 
 # general stuff
 #, fuzzy

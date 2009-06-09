@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tux Typing 1.5.16\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2009-07-01 13:20-0500\n"
+"POT-Creation-Date: 2009-06-08 23:32-0500\n"
 "PO-Revision-Date: 2005-02-12 13:13+0100\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <i18n-nn@lister.ping.uio.no>\n"
@@ -16,127 +16,139 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.9.1\n"
 
-#: src/loaders.c:88 src/main.c:145
+#: ../trunk/src/loaders.c:88 ../trunk/src/main.c:145
+#: ../trunk/src/playgame.c:624
 msgid "Fish"
 msgstr "Fisk"
 
-#: src/titlescreen.c:90
-msgid "Fish Cascade"
-msgstr "Fiskefall"
+#: ../trunk/src/pause.c:277
+msgid "Sound Effects Volume"
+msgstr "Lydeffektar"
 
-#: src/titlescreen.c:90
+#: ../trunk/src/pause.c:286
+msgid "Music Volume"
+msgstr "Musikk"
+
+#: ../trunk/src/pause.c:297
+msgid "Sound & Music Disabled"
+msgstr "Lyd og musikk avslått"
+
+#: ../trunk/src/pause.c:307
+msgid "Paused!"
+msgstr "Pause!"
+
+#: ../trunk/src/pause.c:316
+msgid "Press escape again to return to menu"
+msgstr "Trykk «Escape» for å gå tilbake til hovudmenyen."
+
+#: ../trunk/src/pause.c:325
+msgid "Press space bar to return to game"
+msgstr "Trykk mellomromstasten for å gå tilbake til spelet."
+
+#: ../trunk/src/playgame.c:622
+msgid "Level"
+msgstr "Nivå"
+
+#: ../trunk/src/playgame.c:623
+msgid "Lives"
+msgstr "Liv"
+
+#: ../trunk/src/playgame.c:626 ../trunk/src/titlescreen.c:90
 msgid "Easy"
 msgstr "Lett"
 
-#: src/titlescreen.c:90
-msgid "Space Cadet"
-msgstr "Nybegynnar"
-
-#: src/titlescreen.c:90
-msgid "Edit Word Lists"
-msgstr "Rediger ordliste"
-
-#: src/titlescreen.c:91
-msgid "Comet Zap"
-msgstr "Kometknusing"
-
-#: src/titlescreen.c:91
+#: ../trunk/src/playgame.c:627 ../trunk/src/titlescreen.c:91
 msgid "Medium"
 msgstr "Middels"
 
-#: src/titlescreen.c:91
-msgid "Pilot"
-msgstr "Erfaren"
-
-#: src/titlescreen.c:91
-msgid "Phrase Typing"
-msgstr ""
-
-#: src/titlescreen.c:92
-msgid "Lessons"
-msgstr "Opplæring"
-
-#: src/titlescreen.c:92
+#: ../trunk/src/playgame.c:628 ../trunk/src/titlescreen.c:92
 msgid "Hard"
 msgstr "Vanskeleg"
 
-#: src/titlescreen.c:92
+#: ../trunk/src/playgame.c:629
+msgid "Practice"
+msgstr "Øving"
+
+#: ../trunk/src/playgame.c:640
+msgid "Congratulations"
+msgstr "Gratulerer!"
+
+#: ../trunk/src/playgame.c:644
+msgid "Oh No!"
+msgstr "Uff!"
+
+#: ../trunk/src/titlescreen.c:90
+msgid "Fish Cascade"
+msgstr "Fiskefall"
+
+#: ../trunk/src/titlescreen.c:90
+msgid "Space Cadet"
+msgstr "Nybegynnar"
+
+#: ../trunk/src/titlescreen.c:90
+msgid "Edit Word Lists"
+msgstr "Rediger ordliste"
+
+#: ../trunk/src/titlescreen.c:91
+msgid "Comet Zap"
+msgstr "Kometknusing"
+
+#: ../trunk/src/titlescreen.c:91
+msgid "Pilot"
+msgstr "Erfaren"
+
+#: ../trunk/src/titlescreen.c:91
+msgid "Phrase Typing"
+msgstr ""
+
+#: ../trunk/src/titlescreen.c:92
+msgid "Lessons"
+msgstr "Opplæring"
+
+#: ../trunk/src/titlescreen.c:92
 msgid "Ace"
 msgstr "Profesjonell"
 
 #
-#: src/titlescreen.c:92
+#: ../trunk/src/titlescreen.c:92
 msgid "Project Info"
 msgstr "Prosjektinfo"
 
-#: src/titlescreen.c:93
+#: ../trunk/src/titlescreen.c:93
 msgid "Options"
 msgstr "Oppsett"
 
-#: src/titlescreen.c:93
+#: ../trunk/src/titlescreen.c:93
 msgid "Instructions"
 msgstr "Hjelp"
 
-#: src/titlescreen.c:93
+#: ../trunk/src/titlescreen.c:93
 msgid "Commander"
 msgstr "Ekspert"
 
-#: src/titlescreen.c:93
+#: ../trunk/src/titlescreen.c:93
 msgid "Setup Language"
 msgstr "Språk"
 
-#: src/titlescreen.c:94
+#: ../trunk/src/titlescreen.c:94
 msgid "Quit"
 msgstr "Avslutt"
 
-#: src/titlescreen.c:94
+#: ../trunk/src/titlescreen.c:94
 msgid "Main Menu"
 msgstr "Hovudmeny"
 
-#: src/titlescreen.c:1115
+#: ../trunk/src/titlescreen.c:1115
 msgid "Work In Progress!"
 msgstr "Uferdig!"
 
-#: src/titlescreen.c:1116
+#: ../trunk/src/titlescreen.c:1116
 msgid "This feature is not ready yet"
 msgstr "Denne funksjonen er ikkje klar enno."
 
-#: src/titlescreen.c:1117
+#: ../trunk/src/titlescreen.c:1117
 msgid "Discuss the future of TuxTyping at"
 msgstr "Diskuter neste versjon av Tux Typing på"
-
-#~ msgid "Sound Effects Volume"
-#~ msgstr "Lydeffektar"
-
-#~ msgid "Music Volume"
-#~ msgstr "Musikk"
-
-#~ msgid "Sound & Music Disabled"
-#~ msgstr "Lyd og musikk avslått"
-
-#~ msgid "Paused!"
-#~ msgstr "Pause!"
-
-#~ msgid "Press escape again to return to menu"
-#~ msgstr "Trykk «Escape» for å gå tilbake til hovudmenyen."
-
-#~ msgid "Press space bar to return to game"
-#~ msgstr "Trykk mellomromstasten for å gå tilbake til spelet."
-
-#~ msgid "Level"
-#~ msgstr "Nivå"
-
-#~ msgid "Lives"
-#~ msgstr "Liv"
-
-#~ msgid "Practice"
-#~ msgstr "Øving"
-
-#~ msgid "Congratulations"
-#~ msgstr "Gratulerer!"
-
-#~ msgid "Oh No!"
-#~ msgstr "Uff!"
 
 #, fuzzy
 #~ msgid "Phrase Practice"
