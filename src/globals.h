@@ -15,6 +15,10 @@
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
+#ifndef GLOBALS_H
+#define GLOBALS_H
+
+#include "config.h"
 
 #define to_upper(c) (((c) >= 'a' && (c) <= 'z') ? (c) -32 : (c))
 #define COL2RGB( col ) SDL_MapRGB( screen->format, col->r, col->g, col->b )
@@ -30,17 +34,12 @@
 #define DATA_PREFIX "./data"
 #endif
 
-#ifndef __GLOBALS_H__
-#define __GLOBALS_H__
-
-
-
-#include "config.h"
 
 // Translation stuff (now works for Mac and Win too!): 
 #include "gettext.h"
 #include <locale.h>
 #include <iconv.h>
+
 #define _(String) gettext (String)
 #define gettext_noop(String) String
 #define N_(String) gettext_noop (String)
@@ -66,9 +65,6 @@
 #include "SDL_mixer.h"
 /* NOTE only SDL_extras.c/.h now knows about SDL_ttf or SDL_Pango. */
 
-#endif //  __GLOBALS_H__
-
-
 
 #define MIN(x,y) ((x) < (y) ? (x) : (y))
 #define MAX(x,y) ((x) > (y) ? (x) : (y))
@@ -76,10 +72,11 @@
 /* Goal is to have all global settings here */
 /* (renamed from 'settings' to match tuxmath) */
 typedef struct game_option_type{
-  char default_data_path[FNLEN];
-  char theme_data_path[FNLEN];
-  char user_settings_path[FNLEN];
-  char global_settings_path[FNLEN];
+  char default_data_path[FNLEN];  // for static read-only data
+  char theme_data_path[FNLEN];    // read-only data for current theme
+  char var_data_path[FNLEN];      // for modifiable shared data (custom word lists, etc.)
+  char user_settings_path[FNLEN];  // per-user settings (under /home)
+  char global_settings_path[FNLEN]; // settings for all users (under /etc)
   char theme_name[FNLEN];
   char lang[FNLEN];
   char theme_font_name[FNLEN];
@@ -223,4 +220,5 @@ enum
   NUM_WIPES
 };
 
+#endif
 

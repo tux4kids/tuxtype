@@ -1547,12 +1547,16 @@ static TTF_Font* load_font(const char* font_name, int font_size)
   /* try to find font in default data dir: */
   sprintf(fn, "%s/fonts/%s", settings.default_data_path, font_name);
 
-  DEBUGCODE { fprintf(stderr, "LoadFont(): looking for %s using data paths\n", fn); }
+  DEBUGCODE { fprintf(stderr, "load_font(): looking for %s using bundled data paths\n", fn); }
 
   /* try to load the font, if successful, return font*/
   loaded_font = TTF_OpenFont(fn, font_size);
   if (loaded_font != NULL)
+  {
+    DEBUGCODE { fprintf(stderr, "load_font(): found bundled font: %s\n", fn); }
     return loaded_font;
+  }
+
 		
 
   /* HACK hard-coded for Debian (and current exact font names): */ 
@@ -1582,13 +1586,15 @@ static TTF_Font* load_font(const char* font_name, int font_size)
 
 
 
-  DEBUGCODE { fprintf(stderr, "LoadFont(): looking for %s\n in OS' font path\n", fn); }
+  DEBUGCODE { fprintf(stderr, "load_font(): looking for %s\n in OS' font path\n", fn); }
 
   /* try to load the font, if successful, return font*/
   loaded_font = TTF_OpenFont(fn, font_size);
   if (loaded_font != NULL)
+  {
+    DEBUGCODE { fprintf(stderr, "load_font(): found font in OS' location: %s\n", fn); }
     return loaded_font;
-
+  }
   /* We could not find desired font. If we were looking for something other  */
   /* than default (Andika) font, print warning and try to load default font: */
   if (strncmp(font_name, DEFAULT_FONT_NAME, FNLEN ) != 0)

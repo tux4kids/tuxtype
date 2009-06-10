@@ -28,7 +28,6 @@ const int pause_font_size2 = 36;
 
 
 /* Local function prototypes: */
-//static void darkenscreen(void);
 static void draw_vols(int sfx, int mus);
 static void pause_draw(void);
 static void pause_load_media(void);
@@ -275,7 +274,7 @@ static void pause_draw(void)
 
   if (settings.sys_sound)
   {
-    t = BlackOutline(gettext("Sound Effects Volume"), pause_font_size1, &white);
+    t = BlackOutline(_("Sound Effects Volume"), pause_font_size1, &white);
     if (t)
     {	
       s.y = screen->h/2 - 80;

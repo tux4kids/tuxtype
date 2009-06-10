@@ -625,18 +625,19 @@ void TitleScreen(void)
 
     if (menu_opt == INSTRUCT)
     {
-      unload_media();
+//      unload_media();
+      not_implemented();
 
-      switch (sub_menu)
-      {
-        case CASCADE: InstructCascade(); break;
-        case LASER:   InstructLaser();   break;
-      }
+//       switch (sub_menu)
+//       {
+//         case CASCADE: InstructCascade(); break;
+//         case LASER:   InstructLaser();   break;
+//       }
 
-      load_media();
+//      load_media();
 
-      if (settings.menu_music)
-        MusicLoad( "tuxi.ogg", -1 );
+//      if (settings.menu_music)
+//        MusicLoad( "tuxi.ogg", -1 );
 
       redraw = 1;
     }
@@ -974,7 +975,6 @@ static void recalc_rects(void)
 static void unload_menu(void)
 {
   int i,j;
-  printf("enter unload_menu()\n");
 
   for (i = 1; i <= TITLE_MENU_ITEMS; i++)
   {
@@ -1116,7 +1116,7 @@ static void not_implemented(void)
   s1 = BlackOutline( gettext_noop("Work In Progress!"), DEFAULT_MENU_FONT_SIZE, &white);
   s2 = BlackOutline( gettext_noop("This feature is not ready yet"), DEFAULT_MENU_FONT_SIZE, &white);
   s3 = BlackOutline( gettext_noop("Discuss the future of TuxTyping at"), DEFAULT_MENU_FONT_SIZE, &white);
-  s4 = BlackOutline( "http://tuxtype.sf.net/forums", DEFAULT_MENU_FONT_SIZE, &white);
+  s4 = BlackOutline( "http://tux4kids.alioth.debian.org/", DEFAULT_MENU_FONT_SIZE, &white);
 
   tux = LoadSprite("tux/tux-egypt", IMG_ALPHA);
 

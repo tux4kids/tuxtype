@@ -117,7 +117,8 @@ void ProjectInfo(void)
   run_script();
 }
 
-
+/* NOTE - confusing function name - this is the function that allows the user */
+/* to select a lesson from the menu.                                          */
 int TestLesson(void)
 {
   SDL_Surface* titles[MAX_LESSONS] = {NULL};
@@ -189,6 +190,10 @@ int TestLesson(void)
 
     /* must have at least '.xml' at the end */
     if (strlen(script_file->d_name) < 5)
+      continue;
+
+    /* Don't show project info file: */
+    if (strcmp(script_file->d_name, "projectInfo.xml") == 0)
       continue;
 
     if (strcmp(&script_file->d_name[strlen(script_file->d_name) - 4],".xml"))
@@ -1038,18 +1043,15 @@ static void run_script(void)
 
         case itemTEXT:
         {
-//          TTF_Font* myFont;
           SDL_Surface* img;
           SDL_Color* col;
 
           int shown, toshow; // used to wrap text
           char tmp[FNLEN];   // used to hold temp text for wrapping
 
-          /* --- create font & render text --- */
-//          if (curItem->size > 0)
-//            myFont = LoadFont(settings.theme_font_name, (int)curItem->size);
-//          else
-//            myFont = LoadFont(settings.theme_font_name, 24); // default size is 24
+           /* Sanity check - use default font size if size not specified: */
+          if ((curItem->size < 8) || (curItem->size > 80))
+            curItem->size = DEFAULT_SCRIPT_FONT_SIZE; //currently 24
 
           if (curItem->color)
             col = curItem->color;

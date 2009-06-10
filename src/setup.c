@@ -454,6 +454,36 @@ int SetupPaths(const char* theme_dir)
     fprintf(stderr, "default_data_path: '%s'\n", settings.default_data_path);
     fprintf(stderr, "theme_data_path: '%s'\n\n", settings.theme_data_path);
   }
+
+  /* Now check for VAR_PREFIX (for modifiable data shared by all users, */ 
+  /* such as custom word lists, high scores, etc:                       */
+  /* This will generally be /var/lib/tuxtype (distro-provided pkg)      */
+  /* or /usr/local/etc/tuxtype (locally-built and installed pkg)        */
+  if (CheckFile(VAR_PREFIX))
+  {
+    strncpy(settings.var_data_path, VAR_PREFIX, FNLEN - 1);
+    DEBUGCODE {fprintf(stderr, "path '%s' found, copy to settings.var_data_path\n", VAR_PREFIX);}
+  }
+  else
+  {
+    fprintf(stderr, "Error - VAR_PREFIX = '%s' not found!\n", VAR_PREFIX);
+    return 0;
+  }
+
+  /* Now check for CONF_PREFIX (for program wide settings that apply to all users). */ 
+  /* This would typically be /etc/tuxtype if tuxtype is installed by a distro pkg,  */
+  /* or /usr/local/etc/tuxtype if the package is built locally                      */
+  if (CheckFile(VAR_PREFIX))
+  {
+    strncpy(settings.var_data_path, VAR_PREFIX, FNLEN - 1);
+    DEBUGCODE {fprintf(stderr, "path '%s' found, copy to settings.var_data_path\n", VAR_PREFIX);}
+  }
+  else
+  {
+    fprintf(stderr, "Error - VAR_PREFIX = '%s' not found!\n", VAR_PREFIX);
+    return 0;
+  }
+
   return 1;	
 }
 

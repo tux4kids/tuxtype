@@ -1,24 +1,12 @@
 ## Process with Automake to create Makefile.in
 
-
-ACLOCAL_AMFLAGS = -I m4
-# Is the following line obsolete?
-#DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@
-
-AM_CFLAGS=-Wall -g -DDATA_PREFIX=\"${DATA_PREFIX}\" -DDEBUG \
-	-DVERSION=\"@NAME_VERSION@\" -D$(SOUND)SOUND
-
-AM_CPPFLAGS = -DLOCALEDIR=\"$(localedir)\" \
-	-DLOCALSTATEDIR=\"$(pkglocalstatedir)\" \
-	-DSYSCONFDIRDIR=\"$(pkgsysconfdir)\" \
-	-I../intl -I$(top_srcdir)/intl
-
-if BUILD_MINGW32
-  bin_PROGRAMS = TuxType
-else
-  TUXTYPERC =
-  bin_PROGRAMS = tuxtype
-endif
+# Support for gettext:
+datadir = @datadir@
+localstatedir = @localstatedir@
+sysconfdir = @sysconfdir@
+localedir = $(datadir)/locale
+pkglocalstatedir = $(localstatedir)/$(PACKAGE)
+pkgsysconfdir = $(sysconfdir)/$(PACKAGE)
 
 ## These variables are used at run-time to locate files because they will
 ## not be in unix-type locations on Windows systems. The reason not to just
@@ -33,9 +21,35 @@ if BUILD_MINGW32
   CONF_PREFIX=@MINGW32_PACKAGE_CONF_DIR@
 else
   DATA_PREFIX=${pkgdatadir}
-  VAR_PREFIX=$(pkglocalstatedir)
-  CONF_PREFIX=$(pkgsysconfdir)
+  VAR_PREFIX=${pkglocalstatedir}
+  CONF_PREFIX=${pkgsysconfdir}
 endif
+
+
+ACLOCAL_AMFLAGS = -I m4
+# Is the following line obsolete?
+#DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@
+
+AM_CFLAGS=-Wall -g \
+        -DDATA_PREFIX=\"$(DATA_PREFIX)\" \
+        -DVAR_PREFIX=\"$(VAR_PREFIX)\" \
+        -DCONF_PREFIX=\"$(CONF_PREFIX)\" \
+        -DDEBUG \
+	-DVERSION=\"@NAME_VERSION@\" -D$(SOUND)SOUND
+
+AM_CPPFLAGS = -DLOCALEDIR=\"$(localedir)\" \
+	-DLOCALSTATEDIR=\"$(pkglocalstatedir)\" \
+	-DSYSCONFDIRDIR=\"$(pkgsysconfdir)\" \
+	-I../intl -I$(top_srcdir)/intl
+
+if BUILD_MINGW32
+  bin_PROGRAMS = TuxType
+else
+  TUXTYPERC =
+  bin_PROGRAMS = tuxtype
+endif
+
+
 
 
 
