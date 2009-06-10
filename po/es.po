@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tux Typing 1.5.16\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2009-06-09 09:10-0500\n"
+"POT-Creation-Date: 2009-06-09 19:49-0500\n"
 "PO-Revision-Date: 2007-09-16 19:00+0000\n"
 "Last-Translator: Amaya Rodrigo <amaya@debian.org>\n"
 "Language-Team: Spanish\n"
@@ -77,6 +77,30 @@ msgstr "¡Felicidades!"
 #: ../trunk/src/playgame.c:644
 msgid "Oh No!"
 msgstr "¡Oh, no!"
+
+#: ../trunk/src/practice.c:1433
+msgid "Time"
+msgstr ""
+
+#: ../trunk/src/practice.c:1437
+msgid "Chars"
+msgstr ""
+
+#: ../trunk/src/practice.c:1441
+msgid "CPM"
+msgstr ""
+
+#: ../trunk/src/practice.c:1445
+msgid "WPM"
+msgstr ""
+
+#: ../trunk/src/practice.c:1449
+msgid "Errors"
+msgstr ""
+
+#: ../trunk/src/practice.c:1453
+msgid "Accuracy"
+msgstr ""
 
 #: ../trunk/src/titlescreen.c:90
 msgid "Fish Cascade"
