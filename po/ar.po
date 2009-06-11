@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tux Typing 1.5.16\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2009-06-10 15:16-0500\n"
+"POT-Creation-Date: 2009-06-11 13:20-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Mobin M <mobinmohan@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,171 +16,170 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../trunk/src/loaders.c:88 ../trunk/src/main.c:145
-#: ../trunk/src/playgame.c:624
+#: src/loaders.c:88 src/main.c:145 src/playgame.c:624
 msgid "Fish"
 msgstr "@ovg"
 
-#: ../trunk/src/pause.c:277
+#: src/pause.c:277
 msgid "Sound Effects Volume"
 msgstr "Sound Effects Volume"
 
-#: ../trunk/src/pause.c:286
+#: src/pause.c:286
 msgid "Music Volume"
 msgstr "Music Volume"
 
-#: ../trunk/src/pause.c:297
+#: src/pause.c:297
 msgid "Sound & Music Disabled"
 msgstr "Sound & Music Disabled"
 
-#: ../trunk/src/pause.c:307
+#: src/pause.c:307
 msgid "Paused!"
 msgstr "Paused!"
 
-#: ../trunk/src/pause.c:316
+#: src/pause.c:316
 msgid "Press escape again to return to menu"
 msgstr "Press escape again to return to menu"
 
-#: ../trunk/src/pause.c:325
+#: src/pause.c:325
 msgid "Press space bar to return to game"
 msgstr "Press space bar to return to game"
 
-#: ../trunk/src/playgame.c:622
+#: src/playgame.c:622
 msgid "Level"
 msgstr "A[qarh"
 
-#: ../trunk/src/playgame.c:623
+#: src/playgame.c:623
 msgid "Lives"
 msgstr "G3ank"
 
 # levels for Cascade game:
-#: ../trunk/src/playgame.c:626 ../trunk/src/titlescreen.c:90
+#: src/playgame.c:626 src/titlescreen.c:90
 msgid "Easy"
 msgstr "Tanta."
 
-#: ../trunk/src/playgame.c:627 ../trunk/src/titlescreen.c:91
+#: src/playgame.c:627 src/titlescreen.c:91
 msgid "Medium"
 msgstr "Medium"
 
-#: ../trunk/src/playgame.c:628 ../trunk/src/titlescreen.c:92
+#: src/playgame.c:628 src/titlescreen.c:92
 msgid "Hard"
 msgstr "Hard"
 
 # general stuff
-#: ../trunk/src/playgame.c:629
+#: src/playgame.c:629
 msgid "Practice"
 msgstr "Practice"
 
-#: ../trunk/src/playgame.c:640
+#: src/playgame.c:640
 msgid "Congratulations"
 msgstr "Congratulations"
 
-#: ../trunk/src/playgame.c:644
+#: src/playgame.c:644
 msgid "Oh No!"
 msgstr "Oh No!"
 
-#: ../trunk/src/practice.c:1433
+#: src/practice.c:1433
 msgid "Time"
 msgstr ""
 
-#: ../trunk/src/practice.c:1437
+#: src/practice.c:1437
 msgid "Chars"
 msgstr ""
 
-#: ../trunk/src/practice.c:1441
+#: src/practice.c:1441
 msgid "CPM"
 msgstr ""
 
-#: ../trunk/src/practice.c:1445
+#: src/practice.c:1445
 msgid "WPM"
 msgstr ""
 
-#: ../trunk/src/practice.c:1449
+#: src/practice.c:1449
 msgid "Errors"
 msgstr ""
 
-#: ../trunk/src/practice.c:1453
+#: src/practice.c:1453
 msgid "Accuracy"
 msgstr ""
 
-#: ../trunk/src/titlescreen.c:90
+#: src/titlescreen.c:90
 #, fuzzy
 msgid "Fish Cascade"
 msgstr "Da-Yri dara'"
 
 # "Space Cadet" is level 1 in comet zap
-#: ../trunk/src/titlescreen.c:90
+#: src/titlescreen.c:90
 msgid "Space Cadet"
 msgstr "Space Cadet"
 
-#: ../trunk/src/titlescreen.c:90
+#: src/titlescreen.c:90
 msgid "Edit Word Lists"
 msgstr "Edit Word Lists"
 
 # types of games
-#: ../trunk/src/titlescreen.c:91
+#: src/titlescreen.c:91
 msgid "Comet Zap"
 msgstr "Comet Zap"
 
 # "Pilot" is level 2 in comet zap
-#: ../trunk/src/titlescreen.c:91
+#: src/titlescreen.c:91
 msgid "Pilot"
 msgstr "Pilot"
 
-#: ../trunk/src/titlescreen.c:91
+#: src/titlescreen.c:91
 msgid "Phrase Typing"
 msgstr ""
 
-#: ../trunk/src/titlescreen.c:92
+#: src/titlescreen.c:92
 msgid "Lessons"
 msgstr ""
 
 # "Ace" is level 3 in comet zap
-#: ../trunk/src/titlescreen.c:92
+#: src/titlescreen.c:92
 msgid "Ace"
 msgstr "Ace"
 
-#: ../trunk/src/titlescreen.c:92
+#: src/titlescreen.c:92
 msgid "Project Info"
 msgstr ""
 
-#: ../trunk/src/titlescreen.c:93
+#: src/titlescreen.c:93
 msgid "Options"
 msgstr "Options"
 
-#: ../trunk/src/titlescreen.c:93
+#: src/titlescreen.c:93
 msgid "Instructions"
 msgstr "Instructions"
 
 # "Commander" is level 4 in comet zap
-#: ../trunk/src/titlescreen.c:93
+#: src/titlescreen.c:93
 msgid "Commander"
 msgstr "Commander"
 
-#: ../trunk/src/titlescreen.c:93
+#: src/titlescreen.c:93
 msgid "Setup Language"
 msgstr "Setup Language"
 
-#: ../trunk/src/titlescreen.c:94
+#: src/titlescreen.c:94
 msgid "Quit"
 msgstr "qa.ix tovrs cal"
 
-#: ../trunk/src/titlescreen.c:94
+#: src/titlescreen.c:94
 msgid "Main Menu"
 msgstr "Main Menu"
 
 # work in progress stuff
-#: ../trunk/src/titlescreen.c:1115
+#: src/titlescreen.c:1115
 #, fuzzy
 msgid "Work In Progress!"
 msgstr "Work in Progress!"
 
-#: ../trunk/src/titlescreen.c:1116
+#: src/titlescreen.c:1116
 #, fuzzy
 msgid "This feature is not ready yet"
 msgstr "this feature is not ready yet"
 
-#: ../trunk/src/titlescreen.c:1117
+#: src/titlescreen.c:1117
 msgid "Discuss the future of TuxTyping at"
 msgstr "Discuss the future of TuxTyping at"
 

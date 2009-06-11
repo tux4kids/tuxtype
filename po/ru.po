@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tux Typing 1.5.16\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2009-06-10 15:16-0500\n"
+"POT-Creation-Date: 2009-06-11 13:20-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Mobin M <mobinmohan@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,160 +16,159 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../trunk/src/loaders.c:88 ../trunk/src/main.c:145
-#: ../trunk/src/playgame.c:624
+#: src/loaders.c:88 src/main.c:145 src/playgame.c:624
 msgid "Fish"
 msgstr "Рыб"
 
-#: ../trunk/src/pause.c:277
+#: src/pause.c:277
 msgid "Sound Effects Volume"
 msgstr "Громкость звуковых эффектов"
 
-#: ../trunk/src/pause.c:286
+#: src/pause.c:286
 msgid "Music Volume"
 msgstr "Громкость музыки"
 
-#: ../trunk/src/pause.c:297
+#: src/pause.c:297
 msgid "Sound & Music Disabled"
 msgstr "Звуки & Музыка отключены"
 
-#: ../trunk/src/pause.c:307
+#: src/pause.c:307
 msgid "Paused!"
 msgstr "Пауза!"
 
-#: ../trunk/src/pause.c:316
+#: src/pause.c:316
 msgid "Press escape again to return to menu"
 msgstr "Нажмите еще раз escape для возврата в меню"
 
-#: ../trunk/src/pause.c:325
+#: src/pause.c:325
 msgid "Press space bar to return to game"
 msgstr "Нажмите пробел для возврата к игре"
 
-#: ../trunk/src/playgame.c:622
+#: src/playgame.c:622
 msgid "Level"
 msgstr "Уровень"
 
-#: ../trunk/src/playgame.c:623
+#: src/playgame.c:623
 msgid "Lives"
 msgstr "Жизней"
 
-#: ../trunk/src/playgame.c:626 ../trunk/src/titlescreen.c:90
+#: src/playgame.c:626 src/titlescreen.c:90
 msgid "Easy"
 msgstr "Легкий"
 
-#: ../trunk/src/playgame.c:627 ../trunk/src/titlescreen.c:91
+#: src/playgame.c:627 src/titlescreen.c:91
 msgid "Medium"
 msgstr "Средний"
 
-#: ../trunk/src/playgame.c:628 ../trunk/src/titlescreen.c:92
+#: src/playgame.c:628 src/titlescreen.c:92
 msgid "Hard"
 msgstr "Сложный"
 
-#: ../trunk/src/playgame.c:629
+#: src/playgame.c:629
 msgid "Practice"
 msgstr "Практика"
 
-#: ../trunk/src/playgame.c:640
+#: src/playgame.c:640
 msgid "Congratulations"
 msgstr "Поздравляем"
 
-#: ../trunk/src/playgame.c:644
+#: src/playgame.c:644
 msgid "Oh No!"
 msgstr "О, нет!"
 
-#: ../trunk/src/practice.c:1433
+#: src/practice.c:1433
 msgid "Time"
 msgstr ""
 
-#: ../trunk/src/practice.c:1437
+#: src/practice.c:1437
 msgid "Chars"
 msgstr ""
 
-#: ../trunk/src/practice.c:1441
+#: src/practice.c:1441
 msgid "CPM"
 msgstr ""
 
-#: ../trunk/src/practice.c:1445
+#: src/practice.c:1445
 msgid "WPM"
 msgstr ""
 
-#: ../trunk/src/practice.c:1449
+#: src/practice.c:1449
 msgid "Errors"
 msgstr ""
 
-#: ../trunk/src/practice.c:1453
+#: src/practice.c:1453
 msgid "Accuracy"
 msgstr ""
 
-#: ../trunk/src/titlescreen.c:90
+#: src/titlescreen.c:90
 msgid "Fish Cascade"
 msgstr "Каскад рыб"
 
-#: ../trunk/src/titlescreen.c:90
+#: src/titlescreen.c:90
 msgid "Space Cadet"
 msgstr "Космический кадет"
 
-#: ../trunk/src/titlescreen.c:90
+#: src/titlescreen.c:90
 msgid "Edit Word Lists"
 msgstr "Редактирование списка слов"
 
-#: ../trunk/src/titlescreen.c:91
+#: src/titlescreen.c:91
 msgid "Comet Zap"
 msgstr "Падение комет"
 
-#: ../trunk/src/titlescreen.c:91
+#: src/titlescreen.c:91
 msgid "Pilot"
 msgstr "Пилот"
 
-#: ../trunk/src/titlescreen.c:91
+#: src/titlescreen.c:91
 msgid "Phrase Typing"
 msgstr ""
 
-#: ../trunk/src/titlescreen.c:92
+#: src/titlescreen.c:92
 msgid "Lessons"
 msgstr "Уроки"
 
-#: ../trunk/src/titlescreen.c:92
+#: src/titlescreen.c:92
 msgid "Ace"
 msgstr "Ас"
 
-#: ../trunk/src/titlescreen.c:92
+#: src/titlescreen.c:92
 msgid "Project Info"
 msgstr ""
 
-#: ../trunk/src/titlescreen.c:93
+#: src/titlescreen.c:93
 msgid "Options"
 msgstr "Параметры"
 
-#: ../trunk/src/titlescreen.c:93
+#: src/titlescreen.c:93
 msgid "Instructions"
 msgstr "Инструкции"
 
-#: ../trunk/src/titlescreen.c:93
+#: src/titlescreen.c:93
 msgid "Commander"
 msgstr "Капитан"
 
-#: ../trunk/src/titlescreen.c:93
+#: src/titlescreen.c:93
 msgid "Setup Language"
 msgstr "Выбор языка"
 
-#: ../trunk/src/titlescreen.c:94
+#: src/titlescreen.c:94
 msgid "Quit"
 msgstr "Выход"
 
-#: ../trunk/src/titlescreen.c:94
+#: src/titlescreen.c:94
 msgid "Main Menu"
 msgstr "Главное меню"
 
-#: ../trunk/src/titlescreen.c:1115
+#: src/titlescreen.c:1115
 msgid "Work In Progress!"
 msgstr "Работа продолжается!"
 
-#: ../trunk/src/titlescreen.c:1116
+#: src/titlescreen.c:1116
 msgid "This feature is not ready yet"
 msgstr "Эта функция еще не готова"
 
-#: ../trunk/src/titlescreen.c:1117
+#: src/titlescreen.c:1117
 msgid "Discuss the future of TuxTyping at"
 msgstr "Обсудите будущее TuxTyping на"
 

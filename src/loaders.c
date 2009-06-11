@@ -243,7 +243,6 @@ SDL_Surface* LoadImageFromFile(char *datafile)
     strcat(svgfn, ".svg");
 
     /* try to load an SVG equivalent */
-    fprintf(stderr, "svgfn = %s\n", svgfn);
     tmp_pic = LoadSVGOfDimensions(svgfn, 0, 0);
   }
 #endif

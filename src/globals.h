@@ -20,6 +20,30 @@
 
 #include "config.h"
 
+// Translation stuff: 
+#include "gettext.h"
+#include <locale.h>
+#include <iconv.h>
+#include <libintl.h>
+#define _(String) gettext (String)
+#define gettext_noop(String) String
+#define N_(String) gettext_noop (String)
+
+
+/* FIXME don't think this is needed (done elsewhere) */
+#ifdef WIN32 
+#undef DATA_PREFIX
+#define DATA_PREFIX "./data"
+#endif
+
+
+#ifdef WIN32
+#define TUXLOCALE "./locale"
+#else
+#define TUXLOCALE LOCALEDIR
+#endif
+
+
 #define to_upper(c) (((c) >= 'a' && (c) <= 'z') ? (c) -32 : (c))
 #define COL2RGB( col ) SDL_MapRGB( screen->format, col->r, col->g, col->b )
 
@@ -28,27 +52,6 @@
 #define RES_X	640
 #define RES_Y	480
 #define BPP	32
-
-#ifdef WIN32 
-#undef DATA_PREFIX
-#define DATA_PREFIX "./data"
-#endif
-
-
-// Translation stuff (now works for Mac and Win too!): 
-#include "gettext.h"
-#include <locale.h>
-#include <iconv.h>
-
-#define _(String) gettext (String)
-#define gettext_noop(String) String
-#define N_(String) gettext_noop (String)
-
-#ifdef WIN32
-#define TUXLOCALE "./locale"
-#else
-#define TUXLOCALE LOCALEDIR
-#endif
 
 #include <string.h>
 #include <wchar.h>
