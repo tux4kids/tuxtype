@@ -1,6 +1,8 @@
 tuxtype (1.7.4.dfsg1-2) UNRELEASED; urgency=low
 
   * Drop automake from build-depends. 
+  * Install .mo files into /usr/share/locale/ so that translations become
+    available. (Closes: #531753)
 
  -- Holger Levsen <holger@debian.org>  Thu, 21 May 2009 20:45:22 +0200
 
