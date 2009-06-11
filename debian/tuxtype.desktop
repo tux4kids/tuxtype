@@ -1,8 +1,0 @@
-[Desktop Entry]
-Name=TuxType
-Comment=Type Trainer Game
-Exec=tuxtype
-Icon=/usr/share/tuxtype/tuxtype.xpm
-Terminal=false
-Type=Application
-Categories=Game;KidsGame;

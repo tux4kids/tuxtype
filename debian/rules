@@ -63,9 +63,8 @@ install:
 	$(MAKE) install DESTDIR=$(CURDIR)/debian/tmp
 	dh_installdirs -ptuxtype-data  usr/share/
 	dh_installdirs
-	cp $(CURDIR)/debian/tuxtype.xpm $(CURDIR)/debian/tuxtype/usr/share/tuxtype/tuxtype.xpm
-	mkdir -p $(CURDIR)/debian/tuxtype/usr/share/applications
-	cp $(CURDIR)/debian/tuxtype.desktop \
+	cp $(CURDIR)/icon.png $(CURDIR)/debian/tuxtype/usr/share/pixmaps/tuxtype.png
+	cp $(CURDIR)/tuxtype.desktop \
 		$(CURDIR)/debian/tuxtype/usr/share/applications/tuxtype.desktop
 	rm $(CURDIR)/debian/tmp/usr/share/tuxtype/fonts -Rf
 
