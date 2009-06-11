@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -e
+
 if [ "$1" = "configure" ]; then
         if [ -d /usr/doc -a -h /usr/doc/tuxtype -a -d /usr/share/doc/tuxtype ]; then
                 rm -f /usr/doc/tuxtype
