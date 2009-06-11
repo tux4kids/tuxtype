@@ -25,11 +25,13 @@ Vendor:         openSUSE-Education
 
 Source:         %realname-%version.tar.bz2
 
-BuildRequires:  SDL_image-devel >= 1.2.2
-#BuildRequires:  SDL_ttf-devel > 2.0.8
-BuildRequires:  SDL-devel
+BuildRequires:  SDL_image-devel >= 1.2.2  
+#BuildRequires:  SDL_ttf-devel > 2.0.8  
+BuildRequires:  SDL-devel  
 BuildRequires:  SDL_mixer-devel
-BuildRequires:  SDL_Pango-devel
+#BuildRequires:  SDL_net-devel
+BuildRequires:  SDL_Pango-devel 
+BuildRequires:  librsvg-devel 
 BuildRequires:  ImageMagick
 
 %if 0%{?suse_version}
@@ -91,7 +93,10 @@ rm -rf $(find . -type d -name .xvpics)
 # build section: ---------------------------------------------------------
 
 %build
-%configure --disable-rpath
+%configure --disable-rpath \
+           --prefix=%_prefix \
+           --localstatedir=%_localstatedir \
+           --sysconfdir=%_sysconfdir
 make %{?jobs:-j %jobs}
 
 
