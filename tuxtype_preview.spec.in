@@ -30,28 +30,28 @@ Vendor:         openSUSE-Education
 
 Source:         %realname-%version.tar.bz2
 
-BuildRequires:  SDL_image-devel >= 1.2.2  
-#BuildRequires:  SDL_ttf-devel > 2.0.8  
-BuildRequires:  SDL-devel  
+BuildRequires:  SDL_image-devel >= 1.2.2 
+#BuildRequires:  SDL_ttf-devel > 2.0.8
+BuildRequires:  SDL-devel
 BuildRequires:  SDL_mixer-devel
 #BuildRequires:  SDL_net-devel
 BuildRequires:  SDL_Pango-devel 
 BuildRequires:  librsvg-devel 
 BuildRequires:  ImageMagick
 
-%if 0%{?suse_version}  
+%if 0%{?suse_version}
 BuildRequires:  update-desktop-files  
-BuildRequires:  fdupes  
-%endif  
+BuildRequires:  fdupes
+%endif
 
 %if 0%{?fedora_version}  
-BuildRequires:  desktop-file-utils  
-%endif  
+BuildRequires:  desktop-file-utils
+%endif
 
 %if 0%{?mandriva_version}  
-BuildRequires:  desktop-file-utils  
-Requires(post): desktop-file-utils  
-Requires(postun): desktop-file-utils  
+BuildRequires:  desktop-file-utils
+Requires(post): desktop-file-utils
+Requires(postun): desktop-file-utils
 %endif
 %if 0%{?mandriva_version} >= 2009
 BuildRequires: pulseaudio-esound-compat

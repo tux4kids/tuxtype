@@ -1,5 +1,5 @@
-Tux Typing 1.7.4
-03 Feb 2009
+Tux Typing 1.7.5
+10 Jun 2009
 
 NOTE - this document is reasonably correct but not completely current.
 It will updated as the maintainer's time allows. For GNU/Linux users, you
@@ -24,7 +24,7 @@ Quick Installation
 
  Tuxtype should compile out of the box if you have a sane tool chain
  and the following SDL libraries:
- 
+
  SDL-1.2.5            http://www.libsdl.org
  SDL_image-1.2.3      http://www.libsdl.org/projects/SDL_image
  SDL_mixer-1.2.5      http://www.libsdl.org/projects/SDL_mixer
@@ -55,6 +55,7 @@ You can install to a different location by setting a prefix with:
 
 instead of just "./configure".  The default prefix is /usr/local
 
+More configure options can be viewed with "./configure --help".
 
 If you run into problems, run:
 
@@ -65,7 +66,7 @@ the corresponding Makefile.am's.  You should not need to do this if you are buil
 a tuxtype*.tar.gz (but will need to do this if building from a Subversion checkout).
 
 Note - if you have SDL_Pango available, you can use the package without bundled fonts (e.g. 
-tuxtype-1.7.4.tar.gz).  The tarball with the bundled fonts, e.g. tuxtype_w_fonts-1.7.4.tar.gz.
+tuxtype-1.7.5.tar.gz).  The tarball with the bundled fonts, e.g. tuxtype_w_fonts-1.7.5.tar.gz.
 will work fine whether or not SDL_Pango is available.  The unused fonts will simply take up about 2.5 MB on your hard drive.
 
 We want this to work for everybody, everywhere, if it doesn't

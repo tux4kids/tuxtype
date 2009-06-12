@@ -1,3 +1,12 @@
+10 Jun 2009 (svn.debian.org/tux4kids - revision 1034)
+[ David Bruce <davidstuartbruce@gmail.com> ]
+Version 1.7.5
+        - i18n - fix of problem with GNU gettext convenience string-marking macros
+          due to XGETTEXT_OPTIONS not being set correctly in po/Makevars
+        - Scripting - cleanup of some other menu issues
+        - Build - update of specfile.in's to handle new libs being used for this
+          year's GSoC projects (svg support, LAN support)
+
 08 Jun 2009 (svn.debian.org/tux4kids - revision 1017)
 [ David Bruce <davidstuartbruce@gmail.com> ]
         - Scripting - fix of bug in scripting.c run_script() where font size left
