@@ -484,9 +484,9 @@ void TitleScreen(void)
 
     if (menu_opt == EDIT_WORDLIST)
     {
-//		editWordlists();
+		editWordlists();
 //      not_implemented();
-     ChooseFile();
+  //   ChooseFile();
       redraw = 1;
     }
 
@@ -1497,15 +1497,15 @@ static void ChooseFile(void)
   SDL_Surface* titles[MAX_WORD_LISTS] = {NULL};
   SDL_Surface* select[MAX_WORD_LISTS] = {NULL};
   SDL_Surface* bkg = NULL;
-  SDL_Rect titleRects[8];
+
+  static SDL_Rect titleRects[8];
   int stop = 0;
   int loc = 0;
   int old_loc = 1;
 
   int themes = 0;
   int i;
-  char fn[FNLEN];
-  char wordTypes[MAX_WORD_LISTS][FNLEN];
+  char fn[FNLEN];                             
   char fileNames[MAX_WORD_LISTS][FNLEN];
 
   int old_use_english;
@@ -1515,18 +1515,9 @@ static void ChooseFile(void)
 
   DIR* themesDir = NULL;
   struct dirent* themesFile = NULL;
-
- /* save previous settings in case we back out: */
-  old_use_english = settings.use_english;
-  strncpy(old_theme_path, settings.custom_word_path, FNLEN - 1);
-
-
-  sprintf(fn , "%s" , settings.custom_word_path); //sprintf(fn , "%s/words", settings.default_data_path);
-  fprintf(stderr , "%s", settings.custom_word_path);//fprintf(stderr , "%s/words", settings.default_data_path);
-
-
-//	sprintf(fn, "/var/lib/tuxtype");
-//	fprint(stderr, "/var/lib/tuxtype");
+                                              
+  sprintf(fn , "%s" , settings.var_data_path);
+  fprintf(stderr , "%s", settings.var_data_path);
 
   themesDir = opendir(fn);
 
@@ -1543,46 +1534,30 @@ static void ChooseFile(void)
       break;
 
     /* we ignore any hidden file and CVS */
-
     if (themesFile->d_name[0] == '.') 
       continue;
 
     if (strcmp("CVS", themesFile->d_name)==0)
-    continue;
+      continue;
 
-    sprintf(fn, "%s/%s" , settings.custom_word_path, themesFile->d_name); //sprintf(fn, "%s/words/%s",settings.default_data_path, themesFile->d_name);
-    
+    sprintf(fn, "%s/%s" , settings.var_data_path, themesFile->d_name); //sprintf(fn, "%s/words/%s",settings.default_data_path, themesFile->d_name); 
 
     /* CheckFile() returns 2 if dir, 1 if file, 0 if neither: */
     if (CheckFile(fn) == 1)
-    {
-      /* We know it opens safely because CheckFile() returned 1 */
-      fp = fopen(fn,"r");
-      /* HACK: we should get the names from file :) */
-      if (EOF ==fscanf(fp, "%[^\n]\n", wordTypes[themes]))
-        continue;
-      /* Make sure theme name is capitalized: */
-      wordTypes[themes][0] = toupper(wordTypes[themes][0]);
-      fclose(fp);
       strncpy( fileNames[themes++], themesFile->d_name, FNLEN-1 );
-    }
+    
   } while (1);
-
+  
+  
   closedir(themesDir);
 
-  settings.use_english = 1;
-        // HACK: is font empty now???
-
-  for (i = 0; i<themes; i++)
+  for (i = 0; i < themes; i++)
   {
-    titles[i] = BlackOutline(wordTypes[i], DEFAULT_MENU_FONT_SIZE, &white);
-    select[i] = BlackOutline(wordTypes[i], DEFAULT_MENU_FONT_SIZE, &yellow);
+    titles[i] = BlackOutline(fileNames[i], DEFAULT_MENU_FONT_SIZE, &white);
+    select[i] = BlackOutline(fileNames[i], DEFAULT_MENU_FONT_SIZE, &yellow);
   }
 
-
-  settings.use_english = old_use_english;
-
-  bkg = LoadImage("main_bkg.png", IMG_REGULAR);
+  bkg = LoadImage("main_bkg.png", IMG_COLORKEY);
 
 
   /* set initial rect sizes */
@@ -1710,65 +1685,49 @@ static void ChooseFile(void)
 
 static void ChooseWord(char *words_file)
 {
-  SDL_Surface* titles[MAX_WORD_LISTS] = {NULL};
-  SDL_Surface* select[MAX_WORD_LISTS] = {NULL};
-  SDL_Surface* left = NULL, *right = NULL;
-  SDL_Rect leftRect, rightRect;
+  static SDL_Surface* titles[MAX_WORD_LISTS] = {NULL};
+  static SDL_Surface* select[MAX_WORD_LISTS] = {NULL};
+  static SDL_Surface *left = NULL, *right = NULL;
+  static SDL_Rect leftRect, rightRect;
   SDL_Surface* bkg = NULL;
   SDL_Rect titleRects[8];
   int stop = 0;
   int loc = 0;
   int old_loc = 1;
-  int result = 0;
-
+  
   FILE* fp = NULL;
 
-  int start,themes,themest = 0;
-  int i,len;
+  int start, number_of_words = 0;
+  int i,len; 
+  int listening_for_new_word = 0;
   char fn[FNLEN];
   char str[FNLEN];
-  char editWordW[MAX_WORD_LISTS][FNLEN];
-  char editWordY[MAX_WORD_LISTS][FNLEN];
-
+  char words_in_list[MAX_WORD_LISTS][FNLEN];
+  
   wchar_t temp[FNLEN];
-
-  int old_use_english;
-  char old_theme_path[FNLEN];
-
+  
   /* save previous settings in case we back out: */
-  old_use_english = settings.use_english;
-  strncpy(old_theme_path, settings.theme_data_path, FNLEN - 1);
+ // old_use_english = settings.use_english;
+ // strncpy(old_theme_path, settings.theme_data_path, FNLEN - 1);
 
 	//internationalization required
-    sprintf(fn , "%s/%s", settings.custom_word_path,words_file);
-
-
+  sprintf(fn , "%s/%s", settings.var_data_path,  words_file);
 
   fp = fopen(fn,"r");
-  result = fscanf(fp, "%[^\n]\n", str);
-
+  
+  number_of_words = 0;
+  
   while(!feof(fp))
-  {
-    /* HACK: we should get the strings from file :) */
-    if (EOF ==fscanf(fp, "%[^\n]\n", editWordW[themes]))
+    if (EOF ==fscanf(fp, "%[^\n]\n", words_in_list[number_of_words++]))
       continue;
-    themest=themes;
-    strcpy(editWordY[themes++],editWordW[themest]);
-  }
+  
+  fclose(fp);                                       
 
-  fclose(fp); 
-
-  settings.use_english = 1;
-
-  for (i = 0; i<themes; i++)
+  for (i = 0; i<number_of_words; i++)
   {
-    titles[i] = BlackOutline(editWordW[i], DEFAULT_MENU_FONT_SIZE, &white);
-    strcat(editWordY[i],"|");
-    select[i] = BlackOutline(editWordY[i], DEFAULT_MENU_FONT_SIZE, &yellow);
+    titles[i] = BlackOutline(words_in_list[i], DEFAULT_MENU_FONT_SIZE, &white);
+    select[i] = BlackOutline(words_in_list[i], DEFAULT_MENU_FONT_SIZE, &yellow);
   }
-
-  settings.use_english = old_use_english;
-  strncpy(settings.theme_data_path, old_theme_path, FNLEN - 1);
 
   bkg = LoadImage("main_bkg.png", IMG_REGULAR);
 
@@ -1788,8 +1747,7 @@ static void ChooseWord(char *words_file)
     titleRects[i].y = titleRects[i-1].y + 50;
     titleRects[i].w = titleRects[i].h = titleRects[i].x = 0;
   }
-
-
+  
   while (!stop) 
   {
    while (SDL_PollEvent(&event)) 
@@ -1808,13 +1766,13 @@ static void ChooseWord(char *words_file)
           }
 
         if (inRect(rightRect, event.button.x, event.button.y)) 
-          if (loc - (loc % 8) + 8 < themes)
+          if (loc - (loc % 8) + 8 < number_of_words)
           {
             loc = loc - (loc % 8) + 8;
             break;
           }
 
-        for (i = 0; (i < 8) && (loc - (loc % 8) + i < themes); i++)
+        for (i = 0; (i < 8) && (loc - (loc % 8) + i < number_of_words); i++)
           if (inRect(titleRects[i], event.motion.x, event.motion.y))
           {
             loc = loc - (loc % 8) + i;
@@ -1827,22 +1785,28 @@ static void ChooseWord(char *words_file)
 
         if (event.key.keysym.sym == SDLK_BACKSPACE)
         {
-          len = ConvertFromUTF8(temp, editWordW[loc], FNLEN);
-          temp[len - 1] = temp[len];
-          len = ConvertToUTF8(temp, editWordW[loc], FNLEN);
-          titles[loc] = BlackOutline(editWordW[loc], DEFAULT_MENU_FONT_SIZE, &white );
-          len = ConvertFromUTF8(temp, editWordY[loc], FNLEN);
-          temp[len - 2] = temp[len - 1];
-          temp[len - 1] = temp[len];
-          len = ConvertToUTF8(temp, editWordY[loc], FNLEN);
-          select[loc] = BlackOutline(editWordY[loc], DEFAULT_MENU_FONT_SIZE, &yellow);
+          len = ConvertFromUTF8(temp, words_in_list[loc], FNLEN); //len=int, temp=wchar_T, words_in_list=char, FNLEN=int, loc=int
+          if (len > 1) {                               
+            // remove the last character from the string
+            temp[len - 1] = temp[len];
+            len = ConvertToUTF8(temp, words_in_list[loc], FNLEN);
+            titles[loc] = BlackOutline(words_in_list[loc], DEFAULT_MENU_FONT_SIZE, &white );                     
+            select[loc] = BlackOutline(words_in_list[loc], DEFAULT_MENU_FONT_SIZE, &yellow);  
+          } else {
+            // we have to remove the word from the list 
+            int x = 0;
+            titles[loc] = titles[loc+1];   
+            select[loc] = select[loc+1];
+            number_of_words--;
+            if (loc == number_of_words)
+              loc--;
+			//handle deleation of words better, right now don't really do that
+          }
           break;
         }
 
         if (event.key.keysym.sym == SDLK_ESCAPE) 
         {
-          settings.use_english = old_use_english;
-          strncpy(settings.theme_data_path, old_theme_path, FNLEN - 1);
           stop = 1;
           break; 
         }
@@ -1858,7 +1822,7 @@ static void ChooseWord(char *words_file)
         if ((event.key.keysym.sym == SDLK_RIGHT)
          || (event.key.keysym.sym == SDLK_PAGEDOWN))
         {
-          if (loc - (loc % 8) + 8 < themes)
+          if (loc - (loc % 8) + 8 < number_of_words)
             loc = (loc - (loc % 8) + 8);
           break;
         }
@@ -1872,13 +1836,17 @@ static void ChooseWord(char *words_file)
 
         if (event.key.keysym.sym == SDLK_DOWN)
         {
-          if (loc + 1 < themes)
+          if (loc + 1 < number_of_words)
             loc++;
           break;
         }
-
+        
+        
         switch (event.key.keysym.sym)
-        {
+        {                               
+          case SDLK_RETURN:
+            listening_for_new_word = 1;
+            break;
           case SDLK_CAPSLOCK:
           case SDLK_RALT:
           case SDLK_LALT:
@@ -1888,23 +1856,26 @@ static void ChooseWord(char *words_file)
           case SDLK_LCTRL:
             i=0;
             break;
-          default:  // ignore any other keys
+          default:  // ignore any other keys 
             {}
         }
 
         if(i)
         {
-          len = ConvertFromUTF8(temp, editWordW[loc], FNLEN);
-          temp[len] = event.key.keysym.unicode;
+	//adding a character?
+          if (event.key.keysym.sym == SDLK_RETURN)
+            break;
+          if (listening_for_new_word == 1) {
+            fprintf(stderr, "REPLACE THIS CODE WITH CREATE NEW WORD!\n");
+            listening_for_new_word = 0;
+            break;                     
+          }                                  
+          len = ConvertFromUTF8(temp, words_in_list[loc], FNLEN);
+          temp[len] = toupper(event.key.keysym.unicode);
           temp[len + 1] = 0;
-          ConvertToUTF8(temp,editWordW[loc], FNLEN);
-          titles[loc] = BlackOutline(editWordW[loc], DEFAULT_MENU_FONT_SIZE, &white );
-          len = ConvertFromUTF8(temp,editWordY[loc], FNLEN);
-          temp[len + 1]=0;
-          temp[len] = temp[len-1];
-          temp[len - 1] = event.key.keysym.unicode;
-          ConvertToUTF8(temp,editWordY[loc], FNLEN);
-          select[loc] = BlackOutline(editWordY[loc], DEFAULT_MENU_FONT_SIZE, &yellow);
+          ConvertToUTF8(temp,words_in_list[loc], FNLEN);
+          titles[loc] = BlackOutline(words_in_list[loc], DEFAULT_MENU_FONT_SIZE, &white );
+          select[loc] = BlackOutline(words_in_list[loc], DEFAULT_MENU_FONT_SIZE, &yellow);
           i = 0;
           break;
         }
@@ -1917,7 +1888,7 @@ static void ChooseWord(char *words_file)
 //	if (loc) SetupPaths(fileNames[loc]); else SetupPaths(NULL);	
 
       start = loc - (loc % 8);
-      for (i = start; i < MIN(start + 8,themes); i++)
+      for (i = start; i < MIN(start + 8,number_of_words); i++)
       {
         titleRects[i % 8].x = 320 - (titles[i]->w/2);
         if (i == loc)
@@ -1931,7 +1902,7 @@ static void ChooseWord(char *words_file)
       if (start > 0) 
         SDL_BlitSurface( left, NULL, screen, &leftRect );
 
-      if (start + 8 < themes) 
+      if (start + 8 < number_of_words) 
         SDL_BlitSurface(right, NULL, screen, &rightRect);
 
       SDL_UpdateRect(screen, 0, 0, 0 ,0);
@@ -1940,7 +1911,7 @@ static void ChooseWord(char *words_file)
     old_loc = loc;
   }
 
-  /* Write changes to file, if possible: */  
+  /* Write changes to file, if possible: */   
   fprintf(stderr, "In ChooseWord(), about to write changes\n");
   fp = fopen(fn,"w");
 
@@ -1950,11 +1921,8 @@ static void ChooseWord(char *words_file)
     fprintf(fp, "%s\n", str);
     i = 0;
 
-    while(i < themes)
-    {
-      fprintf(fp, "%s\n", editWordW[i++]);
-      i++;
-    }
+    while(i < number_of_words)                     
+      fprintf(fp, "%s\n", words_in_list[i++]);
   
     fclose(fp); 
     fp = NULL;
@@ -1963,12 +1931,11 @@ static void ChooseWord(char *words_file)
   else
   {
     fprintf(stderr, "In ChooseWord(), unable to open %s for writing\n", fn);
-  }
-
+  }        
   
   /* --- clear graphics before quitting --- */ 
   /* FIXME none of this is safe if any of the images is NULL */
-  for (i = 0; i < themes; i++)
+  for (i = 0; i < number_of_words; i++)
   {
     SDL_FreeSurface(titles[i]);
     SDL_FreeSurface(select[i]);
@@ -1979,7 +1946,7 @@ static void ChooseWord(char *words_file)
   SDL_FreeSurface(right);
   bkg = NULL;  /* the other pointers are going out of scope so we don't */
                /* have to worry about setting them to NULL              */
-}               
+}              
 
 
  void editWordlists(void)
@@ -1989,6 +1956,7 @@ static void ChooseWord(char *words_file)
   int finished = 0, i;
 
   LOG( "editWordlists() - creating text\n" );
+
 
   s1 = BlackOutline( gettext_noop("This is the Wordlist Configure Page"), DEFAULT_MENU_FONT_SIZE, &white);
   s2 = BlackOutline( gettext_noop("This feature is not ready yet"), DEFAULT_MENU_FONT_SIZE, &white);
@@ -2015,6 +1983,9 @@ static void ChooseWord(char *words_file)
     SDL_UpdateRect(screen, 0, 0, 0, 0);
 
     i = 0;
+	ChooseFile();
+
+	
 
     while (!finished)
     {
