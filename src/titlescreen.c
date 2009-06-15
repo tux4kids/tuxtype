@@ -1601,7 +1601,7 @@ static void ChooseFile(void)
         case SDL_KEYDOWN:
           if (event.key.keysym.sym == SDLK_ESCAPE)
           {
-            settings.use_english = old_use_english;
+           // settings.use_english = old_use_english;
             strncpy(settings.theme_data_path, old_theme_path, FNLEN - 1);
             stop = 1; 
             break; 
@@ -1793,10 +1793,10 @@ static void ChooseWord(char *words_file)
             titles[loc] = BlackOutline(words_in_list[loc], DEFAULT_MENU_FONT_SIZE, &white );                     
             select[loc] = BlackOutline(words_in_list[loc], DEFAULT_MENU_FONT_SIZE, &yellow);  
           } else {
-            // we have to remove the word from the list 
+            // we have to remove the word from the list // FIX THIS
             int x = 0;
-            titles[loc] = titles[loc+1];   
-            select[loc] = select[loc+1];
+            titles[loc] = titles[loc + 1];   
+            select[loc] = select[loc + 1];
             number_of_words--;
             if (loc == number_of_words)
               loc--;
@@ -1862,14 +1862,13 @@ static void ChooseWord(char *words_file)
 
         if(i)
         {
-	//adding a character?
-          if (event.key.keysym.sym == SDLK_RETURN)
-            break;
+          if (event.key.keysym.sym == SDLK_RETURN)            	
+				break;
           if (listening_for_new_word == 1) {
             fprintf(stderr, "REPLACE THIS CODE WITH CREATE NEW WORD!\n");
             listening_for_new_word = 0;
-            break;                     
-          }                                  
+            break; 
+         }                                  
           len = ConvertFromUTF8(temp, words_in_list[loc], FNLEN);
           temp[len] = toupper(event.key.keysym.unicode);
           temp[len + 1] = 0;
@@ -1918,7 +1917,7 @@ static void ChooseWord(char *words_file)
   if (fp)
   { 
     fseek(fp, 0, SEEK_SET);
-    fprintf(fp, "%s\n", str);
+    fprintf(fp, "%s", str);
     i = 0;
 
     while(i < number_of_words)                     
