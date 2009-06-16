@@ -1792,16 +1792,34 @@ static void ChooseWord(char *words_file)
             len = ConvertToUTF8(temp, words_in_list[loc], FNLEN);
             titles[loc] = BlackOutline(words_in_list[loc], DEFAULT_MENU_FONT_SIZE, &white );                     
             select[loc] = BlackOutline(words_in_list[loc], DEFAULT_MENU_FONT_SIZE, &yellow);  
-          } else {
-            // we have to remove the word from the list // FIX THIS
-            int x = 0;
-            titles[loc] = titles[loc + 1];   
-            select[loc] = select[loc + 1];
-            number_of_words--;
-            if (loc == number_of_words)
-              loc--;
+          } 
+		else {
+            // we have to remove the word from the list // 
+			int x = 0;
+			number_of_words--;
+			for (x = loc; x <= number_of_words; x++)
+			{
+				if (x < number_of_words)
+				{
+					len = ConvertFromUTF8(temp, words_in_list[x + 1], FNLEN);
+					len = ConvertToUTF8(temp, words_in_list[x], FNLEN);
+					titles[x] = BlackOutline(words_in_list[x], DEFAULT_MENU_FONT_SIZE, &white );                     
+		            select[x] = BlackOutline(words_in_list[x], DEFAULT_MENU_FONT_SIZE, &yellow);				
+				}
+				else
+				{
+					titles[x] = NULL;
+					select[x] = NULL;
+				}
+			}
+			if (loc = number_of_words)
+				loc --;
+				
+			titles[loc] = BlackOutline(words_in_list[loc], DEFAULT_MENU_FONT_SIZE, &white );                     
+	        select[loc] = BlackOutline(words_in_list[loc], DEFAULT_MENU_FONT_SIZE, &yellow);	
+		
 			//handle deleation of words better, right now don't really do that
-          }
+         }
           break;
         }
 
