@@ -1704,7 +1704,7 @@ static void ChooseWord(char *words_file)
   char str[FNLEN];
   char words_in_list[MAX_WORD_LISTS][FNLEN];
   
-  wchar_t temp[FNLEN];
+  wchar_t temp[FNLEN], temp2[FNLEN];
   
   /* save previous settings in case we back out: */
  // old_use_english = settings.use_english;
@@ -1880,13 +1880,21 @@ static void ChooseWord(char *words_file)
 
         if(i)
         {
-          if (event.key.keysym.sym == SDLK_RETURN)            	
-				break;
-          if (listening_for_new_word == 1) {
-            fprintf(stderr, "REPLACE THIS CODE WITH CREATE NEW WORD!\n");
-            listening_for_new_word = 0;
-            break; 
-         }                                  
+          if (event.key.keysym.sym == SDLK_RETURN)  
+          	{
+				if (number_of_words < MAX_WORD_LISTS)
+				{
+				loc = number_of_words;
+				titles[loc] = BlackOutline(words_in_list[loc], DEFAULT_MENU_FONT_SIZE, &white );
+	            select[loc] = BlackOutline(words_in_list[loc], DEFAULT_MENU_FONT_SIZE, &yellow);
+				number_of_words ++;
+				}
+				else
+				{
+					
+				}
+			}
+                           
           len = ConvertFromUTF8(temp, words_in_list[loc], FNLEN);
           temp[len] = toupper(event.key.keysym.unicode);
           temp[len + 1] = 0;
