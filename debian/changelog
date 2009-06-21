@@ -1,11 +1,15 @@
-tuxtype (1.7.4.dfsg1-2) unstable; urgency=low
+tuxtype (1.7.5.dfsg1-1) unstable; urgency=low
 
-  * Drop automake from build-depends. 
+  * New upstream release, addressing several issues, primarily translation
+    issues and handling of the xml lesson files.
+  * Add build-depends for librsvg2-dev.
+  * Drop automake and quilt from build-depends, all patches have been applied
+    upstream.
   * Install .mo files into /usr/share/locale/ so that translations become
     available. (Closes: #531753)
   * Use the new upstream icon and .desktop file, thanks to Loïc Martin. 
     (Closes: #530542) 
-  * Use "set -e" in tuxtype.postinst to appease lintian.
+  * Use "set -e" in tuxtype.postinst to appease lintian. 
 
  -- Holger Levsen <holger@debian.org>  Thu, 11 Jun 2009 16:06:56 +0200
 
