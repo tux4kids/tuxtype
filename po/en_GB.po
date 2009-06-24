@@ -3,171 +3,176 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # Mobin M <mobinmohan@gmail.com>, 2008
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Tuxtype\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
 "POT-Creation-Date: 2009-06-11 21:00-0500\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Mobin M <mobinmohan@gmail.com>\n"
+"PO-Revision-Date: 2009-06-24 22:05+0100\n"
+"Last-Translator: Caroline Ford <caroline.ford.work@googlemail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/loaders.c:88 src/main.c:145 src/playgame.c:624
+#: src/loaders.c:88
+#: src/main.c:145
+#: src/playgame.c:624
 msgid "Fish"
-msgstr ""
+msgstr "Fish"
 
 #: src/pause.c:277
 msgid "Sound Effects Volume"
-msgstr ""
+msgstr "Sound Effects Volume"
 
 #: src/pause.c:286
 msgid "Music Volume"
-msgstr ""
+msgstr "Music Volume"
 
 #: src/pause.c:297
 msgid "Sound & Music Disabled"
-msgstr ""
+msgstr "Sound & Music Disabled"
 
 #: src/pause.c:307
 msgid "Paused!"
-msgstr ""
+msgstr "Paused!"
 
 #: src/pause.c:316
 msgid "Press escape again to return to menu"
-msgstr ""
+msgstr "Press escape again to return to menu"
 
 #: src/pause.c:325
 msgid "Press space bar to return to game"
-msgstr ""
+msgstr "Press space bar to return to game"
 
 #: src/playgame.c:622
 msgid "Level"
-msgstr ""
+msgstr "Level"
 
 #: src/playgame.c:623
 msgid "Lives"
-msgstr ""
+msgstr "Lives"
 
-#: src/playgame.c:626 src/titlescreen.c:90
+#: src/playgame.c:626
+#: src/titlescreen.c:90
 msgid "Easy"
-msgstr ""
+msgstr "Easy"
 
-#: src/playgame.c:627 src/titlescreen.c:91
+#: src/playgame.c:627
+#: src/titlescreen.c:91
 msgid "Medium"
-msgstr ""
+msgstr "Medium"
 
-#: src/playgame.c:628 src/titlescreen.c:92
+#: src/playgame.c:628
+#: src/titlescreen.c:92
 msgid "Hard"
-msgstr ""
+msgstr "Hard"
 
 #: src/playgame.c:629
 msgid "Practice"
-msgstr ""
+msgstr "Practice"
 
 #: src/playgame.c:640
 msgid "Congratulations"
-msgstr ""
+msgstr "Congratulations"
 
 #: src/playgame.c:644
 msgid "Oh No!"
-msgstr ""
+msgstr "Oh No!"
 
 #: src/practice.c:1433
 msgid "Time"
-msgstr ""
+msgstr "Time"
 
 #: src/practice.c:1437
 msgid "Chars"
-msgstr ""
+msgstr "Chars"
 
 #: src/practice.c:1441
 msgid "CPM"
-msgstr ""
+msgstr "CPM"
 
 #: src/practice.c:1445
 msgid "WPM"
-msgstr ""
+msgstr "WPM"
 
 #: src/practice.c:1449
 msgid "Errors"
-msgstr ""
+msgstr "Errors"
 
 #: src/practice.c:1453
 msgid "Accuracy"
-msgstr ""
+msgstr "Accuracy"
 
 #: src/titlescreen.c:90
 msgid "Fish Cascade"
-msgstr ""
+msgstr "Fish Cascade"
 
 #: src/titlescreen.c:90
 msgid "Space Cadet"
-msgstr ""
+msgstr "Space Cadet"
 
 #: src/titlescreen.c:90
 msgid "Edit Word Lists"
-msgstr ""
+msgstr "Edit Word Lists"
 
 #: src/titlescreen.c:91
 msgid "Comet Zap"
-msgstr ""
+msgstr "Comet Zap"
 
 #: src/titlescreen.c:91
 msgid "Pilot"
-msgstr ""
+msgstr "Pilot"
 
 #: src/titlescreen.c:91
 msgid "Phrase Typing"
-msgstr ""
+msgstr "Phrase Typing"
 
 #: src/titlescreen.c:92
 msgid "Lessons"
-msgstr ""
+msgstr "Lessons"
 
 #: src/titlescreen.c:92
 msgid "Ace"
-msgstr ""
+msgstr "Ace"
 
 #: src/titlescreen.c:92
 msgid "Project Info"
-msgstr ""
+msgstr "Project Info"
 
 #: src/titlescreen.c:93
 msgid "Options"
-msgstr ""
+msgstr "Options"
 
 #: src/titlescreen.c:93
 msgid "Instructions"
-msgstr ""
+msgstr "Instructions"
 
 #: src/titlescreen.c:93
 msgid "Commander"
-msgstr ""
+msgstr "Commander"
 
 #: src/titlescreen.c:93
 msgid "Setup Language"
-msgstr ""
+msgstr "Setup Language"
 
 #: src/titlescreen.c:94
 msgid "Quit"
-msgstr ""
+msgstr "Quit"
 
 #: src/titlescreen.c:94
 msgid "Main Menu"
-msgstr ""
+msgstr "Main Menu"
 
 #: src/titlescreen.c:1115
 msgid "Work In Progress!"
-msgstr ""
+msgstr "Work In Progress!"
 
 #: src/titlescreen.c:1116
 msgid "This feature is not ready yet"
-msgstr ""
+msgstr "This feature is not ready yet"
 
 #: src/titlescreen.c:1117
 msgid "Discuss the future of TuxTyping at"
-msgstr ""
+msgstr "Discuss the future of TuxTyping at"
+
