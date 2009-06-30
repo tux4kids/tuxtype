@@ -484,9 +484,9 @@ void TitleScreen(void)
 
     if (menu_opt == EDIT_WORDLIST)
     {
-		editWordlists();
+//		editWordlists();
 //      not_implemented();
-  //   ChooseFile();
+     ChooseFile();
       redraw = 1;
     }
 
@@ -1282,6 +1282,66 @@ static int chooseWordlist(void)
 
   closedir(wordsDir);	
  
+
+/* Adding custom wordlists */
+ 
+    sprintf(wordPath,"%s", settings.var_data_path);
+    if (!CheckFile(wordPath))
+    {
+      fprintf(stderr, "chooseWordList() - data path contains no wordlist dir \n");
+      return 0;
+    }
+ 
+
+  /* If we get to here, we know there is at least a wordlist directory */
+  /* but not necessarily any valid files.                              */
+
+  DEBUGCODE { fprintf(stderr, "wordPath is: %s\n", wordPath); }
+
+
+  /* FIXME looks like a place for scandir() - or our own w32_scandir() */
+  /* create a list of all the .txt files */
+
+  wordsDir = opendir( wordPath );	
+
+  do
+  {
+    wordsFile = readdir(wordsDir);
+    if (!wordsFile)
+      break; /* Loop continues until break occurs */
+
+    /* must have at least .txt at the end */
+    if (strlen(wordsFile->d_name) < 5)
+      continue;
+
+    if (strcmp(&wordsFile->d_name[strlen(wordsFile->d_name) -4 ],".txt"))
+      continue;
+
+    sprintf(wordlistFile[lists], "%s/%s", wordPath, wordsFile->d_name);
+
+    /* load the name for the wordlist from the file ... (1st line) */
+    tempFile = fopen( wordlistFile[lists], "r" );
+    if (!tempFile)
+      continue;
+
+    result = fscanf(tempFile, "%[^\n]\n", wordlistName[lists]);
+    if (result == EOF)
+      continue;
+
+    /* check to see if it has a \r at the end of it (dos format!) */
+    if (wordlistName[lists][strlen(wordlistName[lists]) - 1] == '\r')
+      wordlistName[lists][strlen(wordlistName[lists]) - 1] = '\0';
+
+    lists++;
+
+    fclose(tempFile);
+  } while (1); /* Loop continues until break occurs */
+
+  closedir(wordsDir);
+
+
+
+
  DEBUGCODE { fprintf(stderr, "Found %d .txt file(s) in words dir\n", lists); }
 
 
@@ -1497,6 +1557,7 @@ static void ChooseFile(void)
   SDL_Surface* titles[MAX_WORD_LISTS] = {NULL};
   SDL_Surface* select[MAX_WORD_LISTS] = {NULL};
   SDL_Surface* bkg = NULL;
+ 
 
   static SDL_Rect titleRects[8];
   int stop = 0;
@@ -1556,17 +1617,22 @@ static void ChooseFile(void)
     titles[i] = BlackOutline(fileNames[i], DEFAULT_MENU_FONT_SIZE, &white);
     select[i] = BlackOutline(fileNames[i], DEFAULT_MENU_FONT_SIZE, &yellow);
   }
+ 
 
-  bkg = LoadImage("main_bkg.png", IMG_COLORKEY);
-
-
+ //
+//	SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 0, 0, 0));
   /* set initial rect sizes */
-  titleRects[0].y = 150;
-  titleRects[0].w = titleRects[0].h = titleRects[0].x = 0;
+  SDL_BlitSurface(CurrentBkgd(), NULL, screen, NULL);	
+	bkg = LoadImage("wordlist.png", IMG_COLORKEY);
+ 
+    titleRects[0].y = 300;
+	titleRects[0].w = titleRects[0].h =  0; 
+	titleRects[0].x = 400;
   for (i = 1; i<8; i++)
   {
     titleRects[i].y = titleRects[i-1].y + 50;
-    titleRects[i].w = titleRects[i].h = titleRects[i].x = 0;
+	titleRects[i].w = titleRects[i].h = 200;
+	titleRects[i].x = 500;
   }
 
 
@@ -1797,6 +1863,7 @@ static void ChooseWord(char *words_file)
             // we have to remove the word from the list // 
 			int x = 0;
 			number_of_words--;
+			fprintf(stderr, "There are current: %i words\n", number_of_words);
 			for (x = loc; x <= number_of_words; x++)
 			{
 				if (x < number_of_words)
@@ -1812,7 +1879,7 @@ static void ChooseWord(char *words_file)
 					select[x] = NULL;
 				}
 			}
-			if (loc = number_of_words)
+			if (loc == number_of_words)
 				loc --;
 				
 			titles[loc] = BlackOutline(words_in_list[loc], DEFAULT_MENU_FONT_SIZE, &white );                     
@@ -1882,17 +1949,26 @@ static void ChooseWord(char *words_file)
         {
           if (event.key.keysym.sym == SDLK_RETURN)  
           	{
-				if (number_of_words < MAX_WORD_LISTS)
+				if (listening_for_new_word == 1)
 				{
-				loc = number_of_words;
-				titles[loc] = BlackOutline(words_in_list[loc], DEFAULT_MENU_FONT_SIZE, &white );
-	            select[loc] = BlackOutline(words_in_list[loc], DEFAULT_MENU_FONT_SIZE, &yellow);
-				number_of_words ++;
-				}
-				else
-				{
-					
-				}
+					if (number_of_words < MAX_WORD_LISTS)
+					{
+						loc = number_of_words;
+					// need to make it not enter if word list is full
+						titles[loc] = BlackOutline(words_in_list[loc], DEFAULT_MENU_FONT_SIZE, &white );
+	            		select[loc] = BlackOutline(words_in_list[loc], DEFAULT_MENU_FONT_SIZE, &yellow);
+						number_of_words ++;
+						fprintf(stderr, "There are current: %i words\n", number_of_words);
+						fprintf(stderr, "Loc is currently: %i\n", loc);
+					}
+					else
+					{	
+					//	titles[loc] = BlackOutline(words_in_list[loc], DEFAULT_MENU_FONT_SIZE, &white );
+	            	//	select[loc] = BlackOutline(words_in_list[loc], DEFAULT_MENU_FONT_SIZE, &yellow);
+						fprintf(stderr, "This wordlist is full\n");	
+					}
+					listening_for_new_word = 0;
+			    }
 			}
                            
           len = ConvertFromUTF8(temp, words_in_list[loc], FNLEN);
@@ -1936,6 +2012,10 @@ static void ChooseWord(char *words_file)
     old_loc = loc;
   }
 
+	/*FIXME: somehow when this is first saved, there is a space between
+	each of the new words in the saved file.  This is fixed upon reloading the
+	word list*/
+
   /* Write changes to file, if possible: */   
   fprintf(stderr, "In ChooseWord(), about to write changes\n");
   fp = fopen(fn,"w");
@@ -1960,7 +2040,7 @@ static void ChooseWord(char *words_file)
   
   /* --- clear graphics before quitting --- */ 
   /* FIXME none of this is safe if any of the images is NULL */
-  for (i = 0; i < number_of_words; i++)
+  for (i = 0; i < MAX_WORD_LISTS; i++)
   {
     SDL_FreeSurface(titles[i]);
     SDL_FreeSurface(select[i]);

@@ -1,3 +1,18 @@
+29 June 2009(svn.debian.org/tux4kids - previous revisions to 1116)
+[ Sarah Frisk <ssfrisk@gmail.com>]
+		- Custom Word Lists Configuration Program (titlescreen.c):
+		- Cleaned up the previous wordlist configure functions to make code more readable/fix
+		  previous bug errors.
+		- Fixed issue where the wordlist reads the first word in the list as
+		  title name.  Need to get rid of the the .txt bit at the end, but 
+		  currently reads everything correctly. NOTE: the current wordlist editor is
+		  reading the first word in the wordlist as the name of the list.
+		- Lets the user choose a custom wordlist in the choose wordlist menu before
+		  playing a game.
+		- Fixed the backspace button in wordlist editor to prevent bus errors
+		- Return key now recognizes a new word.  Still a few bugs in this though, since
+		  random characters are getting passed into the new word occasionally.
+
 08 Jun 2009 (svn.debian.org/tux4kids - revision 1017)
 [ David Bruce <davidstuartbruce@gmail.com> ]
         - Scripting - fix of bug in scripting.c run_script() where font size left
