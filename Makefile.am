@@ -39,9 +39,11 @@ uninstall-local:
 
 # Sould we skip uninstall of these directories to avoid clobbering user-created files
 # on upgrade?:
+# NOTE - at least for Debian and RPM packaging, "make uninstall" is completely
+# irrelevant to the upgrade process.
 install-data-hook:
-	$(MKDIR_P) -m 755 $(DESTDIR)$(pkglocalstatedir)
-	$(MKDIR_P) -m 755 $(DESTDIR)$(pkgsysconfdir)
+	$(MKDIR_P) -m 777 $(DESTDIR)$(pkglocalstatedir)
+	$(MKDIR_P) -m 777 $(DESTDIR)$(pkgsysconfdir)
 
 uninstall-hook:
 	rm -rf $(DESTDIR)$(pkglocalstatedir)

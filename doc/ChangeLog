@@ -1,4 +1,9 @@
-29 June 2009(svn.debian.org/tux4kids - previous revisions to 1116)
+30 Jun 2009 (svn.debian.org/tux4kids - revision 1119)
+[ David Bruce <davidstuartbruce@gmail.com> ]
+        - Build - changed file permissions on installed localstatedir and sysconfdir
+	          from 755 to 777 so they will be user-writable.
+
+June 2009(svn.debian.org/tux4kids - previous revisions to 1116)
 [ Sarah Frisk <ssfrisk@gmail.com>]
 		- Custom Word Lists Configuration Program (titlescreen.c):
 		- Cleaned up the previous wordlist configure functions to make code more readable/fix

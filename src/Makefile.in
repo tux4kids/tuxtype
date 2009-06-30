@@ -207,6 +207,8 @@ build_cpu = @build_cpu@
 build_os = @build_os@
 build_vendor = @build_vendor@
 builddir = @builddir@
+
+# Support for gettext:
 datadir = @datadir@
 datarootdir = @datarootdir@
 docdir = @docdir@
@@ -223,7 +225,7 @@ infodir = @infodir@
 install_sh = @install_sh@
 libdir = @libdir@
 libexecdir = @libexecdir@
-localedir = @localedir@
+localedir = $(datadir)/locale
 localstatedir = @localstatedir@
 mandir = @mandir@
 mkdir_p = @mkdir_p@
@@ -244,10 +246,22 @@ target_vendor = @target_vendor@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
+pkglocalstatedir = $(localstatedir)/$(PACKAGE)
+pkgsysconfdir = $(sysconfdir)/$(PACKAGE)
+@BUILD_MINGW32_FALSE@DATA_PREFIX = ${pkgdatadir}
+@BUILD_MINGW32_TRUE@DATA_PREFIX = @MINGW32_PACKAGE_DATA_DIR@
+@BUILD_MINGW32_FALSE@VAR_PREFIX = ${pkglocalstatedir}
+@BUILD_MINGW32_TRUE@VAR_PREFIX = @MINGW32_PACKAGE_VAR_DIR@
+@BUILD_MINGW32_FALSE@CONF_PREFIX = ${pkgsysconfdir}
+@BUILD_MINGW32_TRUE@CONF_PREFIX = @MINGW32_PACKAGE_CONF_DIR@
 ACLOCAL_AMFLAGS = -I m4
 # Is the following line obsolete?
 #DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@
-AM_CFLAGS = -Wall -g -DDATA_PREFIX=\"${DATA_PREFIX}\" -DDEBUG \
+AM_CFLAGS = -Wall -g \
+        -DDATA_PREFIX=\"$(DATA_PREFIX)\" \
+        -DVAR_PREFIX=\"$(VAR_PREFIX)\" \
+        -DCONF_PREFIX=\"$(CONF_PREFIX)\" \
+        -DDEBUG \
 	-DVERSION=\"@NAME_VERSION@\" -D$(SOUND)SOUND
 
 AM_CPPFLAGS = -DLOCALEDIR=\"$(localedir)\" \
@@ -256,12 +270,6 @@ AM_CPPFLAGS = -DLOCALEDIR=\"$(localedir)\" \
 	-I../intl -I$(top_srcdir)/intl
 
 @BUILD_MINGW32_FALSE@TUXTYPERC = 
-@BUILD_MINGW32_FALSE@DATA_PREFIX = ${pkgdatadir}
-@BUILD_MINGW32_TRUE@DATA_PREFIX = @MINGW32_PACKAGE_DATA_DIR@
-@BUILD_MINGW32_FALSE@VAR_PREFIX = $(pkglocalstatedir)
-@BUILD_MINGW32_TRUE@VAR_PREFIX = @MINGW32_PACKAGE_VAR_DIR@
-@BUILD_MINGW32_FALSE@CONF_PREFIX = $(pkgsysconfdir)
-@BUILD_MINGW32_TRUE@CONF_PREFIX = @MINGW32_PACKAGE_CONF_DIR@
 LDADD = @LIBINTL@
 tuxtype_LDFLAGS = $(LTLIBINTL)
 tuxtype_SOURCES = \
