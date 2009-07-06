@@ -1,3 +1,14 @@
+6 July 2009 (svn.debian.org/tux4kids - revision 1147)
+[ Sarah Frisk <ssfrisk@gmail.com> ]
+	- Fixed spacing issue in ChooseWord()
+	- Fixed random garbage adding in ChooseWord()
+	- Simplified ChooseWord() in general
+	- For the most part ChooseWord() functionality is finished.  What is left is to had a 
+	more comprehensible GUI than what is currently there (which involves figuring out how to 
+	move the wordlist editor from the top left hand corner of the screen).  Also need to make 
+	is so ChooseFile() can create wordlists, but that should be easy since the set up of that 
+	function is very similar to ChooseWord(). 
+
 30 Jun 2009 (svn.debian.org/tux4kids - revision 1119)
 [ David Bruce <davidstuartbruce@gmail.com> ]
         - Build - changed file permissions on installed localstatedir and sysconfdir

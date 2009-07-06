@@ -1930,8 +1930,10 @@ static void ChooseWord(char *words_file)
         switch (event.key.keysym.sym)
         {                               
           case SDLK_RETURN:
-            listening_for_new_word = 1;
-            break;
+			if (number_of_words < MAX_WORD_LISTS)
+				listening_for_new_word = 1;
+			else
+				fprintf(stderr, "Couldn't add new word, this wordlist is full.\n");	
           case SDLK_CAPSLOCK:
           case SDLK_RALT:
           case SDLK_LALT:
@@ -1947,37 +1949,27 @@ static void ChooseWord(char *words_file)
 
         if(i)
         {
-          if (event.key.keysym.sym == SDLK_RETURN)  
-          	{
-				if (listening_for_new_word == 1)
-				{
-					if (number_of_words < MAX_WORD_LISTS)
-					{
-						loc = number_of_words;
-					// need to make it not enter if word list is full
-						titles[loc] = BlackOutline(words_in_list[loc], DEFAULT_MENU_FONT_SIZE, &white );
-	            		select[loc] = BlackOutline(words_in_list[loc], DEFAULT_MENU_FONT_SIZE, &yellow);
-						number_of_words ++;
-						fprintf(stderr, "There are current: %i words\n", number_of_words);
-						fprintf(stderr, "Loc is currently: %i\n", loc);
-					}
-					else
-					{	
-					//	titles[loc] = BlackOutline(words_in_list[loc], DEFAULT_MENU_FONT_SIZE, &white );
-	            	//	select[loc] = BlackOutline(words_in_list[loc], DEFAULT_MENU_FONT_SIZE, &yellow);
-						fprintf(stderr, "This wordlist is full\n");	
-					}
-					listening_for_new_word = 0;
-			    }
-			}
-                           
-          len = ConvertFromUTF8(temp, words_in_list[loc], FNLEN);
-          temp[len] = toupper(event.key.keysym.unicode);
+		  // If it's listening for a new word, from having last pressed enter, create a whole new word
+		  // with a length of 0, else get the current length of the highlighted word
+          if (listening_for_new_word) {
+			loc = number_of_words;
+			number_of_words++;
+			listening_for_new_word = 0;
+			len = 0;
+		  } else {
+			len = ConvertFromUTF8(temp, words_in_list[loc], FNLEN);
+		  }
+		  
+		  // Add the character to the end of the existing string
+		  temp[len] = toupper(event.key.keysym.unicode);
           temp[len + 1] = 0;
           ConvertToUTF8(temp,words_in_list[loc], FNLEN);
+
+		  // Copy back to the on-screen list
           titles[loc] = BlackOutline(words_in_list[loc], DEFAULT_MENU_FONT_SIZE, &white );
           select[loc] = BlackOutline(words_in_list[loc], DEFAULT_MENU_FONT_SIZE, &yellow);
-          i = 0;
+          
+		  i = 0;
           break;
         }
     }
