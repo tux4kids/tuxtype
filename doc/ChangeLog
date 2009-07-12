@@ -1,3 +1,8 @@
+12 July 2009 (svn.debian.org/tux4kids - revision 1184)
+[Sarah Frisk <ssfrisk@gmail.com> ]
+	-fixed bug where deleting all the words in a word list causes the program to
+	crash.  Instead, you can delete all but one word, which shall remain.
+
 11 July 2009 (svn.debian.org/tux4kids - revision 1183
 [Sarah Frisk <ssfrisk@gmail.com> ]
 	- added icons for word list editor and placed them in data/images/menu.  Still

@@ -486,6 +486,7 @@ void TitleScreen(void)
     {
 //		editWordlists();
 //      not_implemented();
+	
      ChooseFile();
       redraw = 1;
     }
@@ -1580,6 +1581,7 @@ static void ChooseFile(void)
   sprintf(fn , "%s" , settings.var_data_path);
   fprintf(stderr , "%s", settings.var_data_path);
 
+
   themesDir = opendir(fn);
 
   if (!themesDir)
@@ -1601,7 +1603,7 @@ static void ChooseFile(void)
     if (strcmp("CVS", themesFile->d_name)==0)
       continue;
 
-    sprintf(fn, "%s/%s" , settings.var_data_path, themesFile->d_name); //sprintf(fn, "%s/words/%s",settings.default_data_path, themesFile->d_name); 
+    sprintf(fn, "%s/%s" , settings.var_data_path, themesFile->d_name); 
 
     /* CheckFile() returns 2 if dir, 1 if file, 0 if neither: */
     if (CheckFile(fn) == 1)
@@ -1618,23 +1620,22 @@ static void ChooseFile(void)
     select[i] = BlackOutline(fileNames[i], DEFAULT_MENU_FONT_SIZE, &yellow);
   }
  
+	SDL_BlitSurface(CurrentBkgd(), NULL, screen, NULL);
 
- //
-//	SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 0, 0, 0));
   /* set initial rect sizes */
-  SDL_BlitSurface(CurrentBkgd(), NULL, screen, NULL);	
-	bkg = LoadImage("wordlist.png", IMG_COLORKEY);
+
+	//bkg = LoadImage("wordlist.png", IMG_COLORKEY);
  
-    titleRects[0].y = 300;
+
+    titleRects[0].y = 10;
 	titleRects[0].w = titleRects[0].h =  0; 
-	titleRects[0].x = 400;
+	titleRects[0].x = 900;
   for (i = 1; i<8; i++)
   {
     titleRects[i].y = titleRects[i-1].y + 50;
-	titleRects[i].w = titleRects[i].h = 200;
-	titleRects[i].x = 500;
+	titleRects[i].w = titleRects[i].h = 0;
+	titleRects[i].x = 900;
   }
-
 
   while (!stop)
   {
@@ -1668,7 +1669,7 @@ static void ChooseFile(void)
           if (event.key.keysym.sym == SDLK_ESCAPE)
           {
            // settings.use_english = old_use_english;
-            strncpy(settings.theme_data_path, old_theme_path, FNLEN - 1);
+            //strncpy(settings.theme_data_path, old_theme_path, FNLEN - 1);
             stop = 1; 
             break; 
           }
@@ -1751,6 +1752,7 @@ static void ChooseFile(void)
 
 static void ChooseWord(char *words_file)
 {
+	/* Need to figure out how to handle empty lists */
   static SDL_Surface* titles[MAX_WORD_LISTS] = {NULL};
   static SDL_Surface* select[MAX_WORD_LISTS] = {NULL};
   static SDL_Surface *left = NULL, *right = NULL;
@@ -1796,6 +1798,7 @@ static void ChooseWord(char *words_file)
   }
 
   bkg = LoadImage("main_bkg.png", IMG_REGULAR);
+	 SDL_BlitSurface(CurrentBkgd(), NULL, screen, NULL);	
 
   left = LoadImage("left.png", IMG_ALPHA);
   leftRect.w = left->w; leftRect.h = left->h;
@@ -1850,39 +1853,47 @@ static void ChooseWord(char *words_file)
         i = 1;
 
         if (event.key.keysym.sym == SDLK_BACKSPACE)
+		
         {
-          len = ConvertFromUTF8(temp, words_in_list[loc], FNLEN); //len=int, temp=wchar_T, words_in_list=char, FNLEN=int, loc=int
-          if (len > 1) {                               
+	
+          	len = ConvertFromUTF8(temp, words_in_list[loc], FNLEN); 
+          	if (len > 1 && number_of_words > 1) {                               
             // remove the last character from the string
-            temp[len - 1] = temp[len];
-            len = ConvertToUTF8(temp, words_in_list[loc], FNLEN);
-            titles[loc] = BlackOutline(words_in_list[loc], DEFAULT_MENU_FONT_SIZE, &white );                     
-            select[loc] = BlackOutline(words_in_list[loc], DEFAULT_MENU_FONT_SIZE, &yellow);  
-          } 
+            	temp[len - 1] = temp[len];
+            	len = ConvertToUTF8(temp, words_in_list[loc], FNLEN);
+            	titles[loc] = BlackOutline(words_in_list[loc], DEFAULT_MENU_FONT_SIZE, &white );
+            	select[loc] = BlackOutline(words_in_list[loc], DEFAULT_MENU_FONT_SIZE, &yellow);  
+			}
+       
 		else {
             // we have to remove the word from the list // 
-			int x = 0;
-			number_of_words--;
-			fprintf(stderr, "There are current: %i words\n", number_of_words);
-			for (x = loc; x <= number_of_words; x++)
-			{
-				if (x < number_of_words)
+				fprintf(stderr, "The number of words is %i\n", number_of_words);
+				fprintf(stderr, "The length is %i \n", len);
+			if (number_of_words > 1)
+			{	
+				int x = 0;
+				number_of_words--;
+				fprintf(stderr, "There are current: %i words\n", number_of_words);
+				for (x = loc; x <= number_of_words; x++)
 				{
-					len = ConvertFromUTF8(temp, words_in_list[x + 1], FNLEN);
-					len = ConvertToUTF8(temp, words_in_list[x], FNLEN);
-					titles[x] = BlackOutline(words_in_list[x], DEFAULT_MENU_FONT_SIZE, &white );                     
-		            select[x] = BlackOutline(words_in_list[x], DEFAULT_MENU_FONT_SIZE, &yellow);				
+					if (x < number_of_words)
+					{
+						len = ConvertFromUTF8(temp, words_in_list[x + 1], FNLEN);
+						len = ConvertToUTF8(temp, words_in_list[x], FNLEN);
+						titles[x] = BlackOutline(words_in_list[x], DEFAULT_MENU_FONT_SIZE, &white );                     
+		            	select[x] = BlackOutline(words_in_list[x], DEFAULT_MENU_FONT_SIZE, &yellow);				
+					}
+					else
+					{
+						titles[x] = NULL;
+						select[x] = NULL;
+					}
 				}
-				else
-				{
-					titles[x] = NULL;
-					select[x] = NULL;
-				}
+				if (loc == number_of_words)
+					loc --;
 			}
-			if (loc == number_of_words)
-				loc --;
 				
-			titles[loc] = BlackOutline(words_in_list[loc], DEFAULT_MENU_FONT_SIZE, &white );                     
+			titles[loc] = BlackOutline(words_in_list[loc], DEFAULT_MENU_FONT_SIZE, &white );                 
 	        select[loc] = BlackOutline(words_in_list[loc], DEFAULT_MENU_FONT_SIZE, &yellow);	
 		
 			//handle deleation of words better, right now don't really do that
@@ -1956,6 +1967,7 @@ static void ChooseWord(char *words_file)
 			number_of_words++;
 			listening_for_new_word = 0;
 			len = 0;
+			
 		  } else {
 			len = ConvertFromUTF8(temp, words_in_list[loc], FNLEN);
 		  }
