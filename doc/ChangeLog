@@ -1,3 +1,8 @@
+13 July 2009 (svn.debian.org/tux4kids - revision 1191)
+[Sarah Frisk <ssfrisk@gmail.com> ]
+	-changed the names of the word*.png files to fit the list*.png conventions 
+	titlescreen.c was looking for.  Menu icon now appears in-game.
+
 12 July 2009 (svn.debian.org/tux4kids - revision 1184)
 [Sarah Frisk <ssfrisk@gmail.com> ]
 	-fixed bug where deleting all the words in a word list causes the program to
