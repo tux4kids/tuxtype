@@ -1857,7 +1857,7 @@ static void ChooseWord(char *words_file)
         {
 	
           	len = ConvertFromUTF8(temp, words_in_list[loc], FNLEN); 
-          	if (len > 1 && number_of_words > 1) {                               
+          	if (len > 1 && number_of_words > 1 && loc > 0) {                               
             // remove the last character from the string
             	temp[len - 1] = temp[len];
             	len = ConvertToUTF8(temp, words_in_list[loc], FNLEN);
@@ -1869,7 +1869,7 @@ static void ChooseWord(char *words_file)
             // we have to remove the word from the list // 
 				fprintf(stderr, "The number of words is %i\n", number_of_words);
 				fprintf(stderr, "The length is %i \n", len);
-			if (number_of_words > 1)
+			if (number_of_words > 1 && loc > 0)
 			{	
 				int x = 0;
 				number_of_words--;
