@@ -1,67 +1,72 @@
-## Makefile.am for tuxtype - data/images:
+## Makefile.am for tuxtype - images/menu:
 ## Process with Automake to create Makefile.in
 
-SUBDIRS = backgrounds \
-  cities \
-  comets \
-  hands \
-  icons \
-  keyboard \
-  menu \
-  status \
-  tux
+images_menudir = $(pkgdatadir)/images/menu
 
-imagesdir = $(pkgdatadir)/images
-
-dist_images_DATA = README_IMAGES.TXT \
-  down.png \
-  fishy-.png \
-  fishy0.png \
-  fishy1.png \
-  fishy2.png \
-  fishy3.png \
-  hidden.jpg \
-  insert1.png \
-  kcas1_1.jpg \
-  kcas1_2.jpg \
-  kcas1_3.jpg \
-  kcas1_4.jpg \
-  kcas2_1.jpg \
-  kcas2_2.jpg \
-  kcas2_3.jpg \
-  kcas2_4.jpg \
-  kcas3_1.jpg \
-  kcas3_2.jpg \
-  kcas3_3.jpg \
-  kcas3_4.jpg \
-  left.png \
-  line2.png \
-  main_bkg.png \
-  num_0.png \
-  nosound.png \
-  num_1.png \
-  num_2.png \
-  num_3.png \
-  num_4.png \
-  num_5.png \
-  num_6.png \
-  num_7.png \
-  num_8.png \
-  num_9.png \
-  pract.png \
-  right.png \
-  splat0.png \
-  sound.png \
-  standby.png \
-  title1.png \
-  tutor-alpha.png \
-  tutor-alpha2.png \
-  tutor.png \
-  tutor2.png \
-  tutor3.png \
-  tux0.png \
-  tux1.png \
-  tux2.png \
-  tux3.png \
-  up.png \
-  world.png
+dist_images_menu_DATA = cascade0.png\
+cascade1.png\
+cascade10.png\
+cascade2.png\
+cascade3.png\
+cascade4.png\
+cascade5.png\
+cascade6.png\
+cascade7.png\
+cascade8.png\
+cascade9.png\
+cascaded.png\
+comet0.png\
+comet1.png\
+comet2.png\
+comet3.png\
+comet4.png\
+comet5.png\
+cometd.png\
+keyboard0.png\
+keyboard1.png\
+keyboard2.png\
+keyboardd.png\
+keycas0.png\
+keycas1.png\
+keycas2.png\
+keycas3.png\
+keycas4.png\
+keycas5.png\
+keycas6.png\
+keycas7.png\
+keycas8.png\
+keycas9.png\
+keycasd.png\
+lesson0.png\
+lesson1.png\
+lesson2.png\
+lesson3.png\
+lessond.png\
+main0.png\
+main1.png\
+main2.png\
+main3.png\
+main4.png\
+main5.png\
+main6.png\
+main7.png\
+maind.png\
+quit0.png\
+quit1.png\
+quit2.png\
+quit3.png\
+quit4.png\
+quit5.png\
+quit6.png\
+quit7.png\
+quit8.png\
+quitd.png\
+reg0.png\
+reg1.png\
+reg2.png\
+sel0.png\
+sel1.png\
+sel2.png\
+tux_config0.png\
+tux_config1.png\
+tux_configd.png
