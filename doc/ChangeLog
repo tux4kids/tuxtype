@@ -1,3 +1,8 @@
+20 July 2009
+[Sarah Frisk <ssfrisk@gmail.com> ]
+	-Started setting up visually the word list editor
+	-Some issues with loading images and making them appear.  Attempting to fix this.
+
 14 July 2009(svn.debian.org/tux4kids - revision 1208)
 [Sarah Frisk <ssfrisk@gmail.com> ]
 	- made it so you can't edit the first word in a wordlist, since this is the title.

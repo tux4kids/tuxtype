@@ -37,6 +37,7 @@ dist_images_DATA = README_IMAGES.TXT \
   left.png \
   line2.png \
   main_bkg.png \
+  NewWordList.png \
   num_0.png \
   nosound.png \
   num_1.png \
@@ -64,4 +65,5 @@ dist_images_DATA = README_IMAGES.TXT \
   tux2.png \
   tux3.png \
   up.png \
+  wordlist.png \
   world.png

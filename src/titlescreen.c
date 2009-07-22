@@ -21,6 +21,7 @@
 #include "funcs.h"
 #include "titlescreen.h"
 #include "SDL_extras.h"
+#include "SDL_image.h"
 #include "convert_utf.h"
 
 /* --- media for menus --- */
@@ -1557,8 +1558,10 @@ static void ChooseFile(void)
 {
   SDL_Surface* titles[MAX_WORD_LISTS] = {NULL};
   SDL_Surface* select[MAX_WORD_LISTS] = {NULL};
+  SDL_Surface *picture = NULL;
   SDL_Surface* bkg = NULL;
- 
+  SDL_Surface *s1 = NULL, *s2 = NULL, *s3 = NULL, *s4 = NULL;   //this is text
+  SDL_Rect locText;
 
   static SDL_Rect titleRects[8];
   int stop = 0;
@@ -1620,21 +1623,47 @@ static void ChooseFile(void)
     select[i] = BlackOutline(fileNames[i], DEFAULT_MENU_FONT_SIZE, &yellow);
   }
  
+	
+	
+ /* Text and instructions */
+
+	s1 = BlackOutline(gettext_noop("Word List Editor"), 25, &yellow);
+	s2 = BlackOutline(gettext_noop("To add a new wordlist, click the 'New Wordlist' button (it's not there)"), 18, &white);
+	s3 = BlackOutline(gettext_noop("To edit current word lists, either click on the wordlist, or use the arrow keys to navigate and press return"), 18, &white);
+	s4 = BlackOutline(gettext_noop("To exit Word List Editor, press ESC"), 18, &white);	
+
+
+	picture = LoadImage("NewWordList.png", IMG_ALPHA);
+	LOG( "ChooseFile() - drawing screen\n");
+	
 	SDL_BlitSurface(CurrentBkgd(), NULL, screen, NULL);
+    locText.x = screen->w/2 - (s1->w/2); locText.y = 10;
+    SDL_BlitSurface( s1, NULL, screen, &locText);
+    locText.x = screen->w/2 - (s2->w/2); locText.y = 60;
+    SDL_BlitSurface( s2, NULL, screen, &locText);
+    locText.x = screen->w/2 - (s3->w/2); locText.y = 90;
+    SDL_BlitSurface(s3, NULL, screen, &locText);
+    locText.x = screen->w/2 - (s4->w/2); locText.y = 120;
+    SDL_BlitSurface( s4, NULL, screen, &locText);
+	 locText.x = screen->w/3 * 2; locText.y = 200;
+	SDL_BlitSurface( picture, NULL, screen, &locText);
+
+	
+    SDL_UpdateRect(screen, 0, 0, 0, 0);
+	
+	
+
 
   /* set initial rect sizes */
-
-	//bkg = LoadImage("wordlist.png", IMG_COLORKEY);
- 
-
-    titleRects[0].y = 10;
+	
+    titleRects[0].y = screen->h / 3;
 	titleRects[0].w = titleRects[0].h =  0; 
-	titleRects[0].x = 900;
+	titleRects[0].x = screen->w / 2;
   for (i = 1; i<8; i++)
   {
     titleRects[i].y = titleRects[i-1].y + 50;
 	titleRects[i].w = titleRects[i].h = 0;
-	titleRects[i].x = 900;
+	titleRects[i].x = screen->w /2;
   }
 
   while (!stop)
@@ -1725,6 +1754,8 @@ static void ChooseFile(void)
           SDL_BlitSurface(select[loc], NULL, screen, &titleRects[i % 8]);
         else
           SDL_BlitSurface(titles[i], NULL, screen, &titleRects[i % 8]);
+		 SDL_BlitSurface(CurrentBkgd(), &locText, screen, &locText);
+		SDL_UpdateRect(screen, locText.x, locText.y, locText.w, locText.h);
       }
 
       SDL_UpdateRect(screen, 0, 0, 0 ,0);
@@ -1742,8 +1773,13 @@ static void ChooseFile(void)
     SDL_FreeSurface(select[i]);
   }
 
+  SDL_FreeSurface(s1);
+  SDL_FreeSurface(s2);
+  SDL_FreeSurface(s3);
+  SDL_FreeSurface(s4);
+  s1 = s2 = s3 = s4 = NULL;
   
-  SDL_FreeSurface(bkg);
+
  
   bkg = NULL;  /* the other pointers are going out of scope so we don't */
                /* have to worry about setting them to NULL              */
@@ -2058,79 +2094,4 @@ static void ChooseWord(char *words_file)
 }              
 
 
- void editWordlists(void)
-{
-  SDL_Surface *s1 = NULL, *s2 = NULL, *s3 = NULL, *s4 = NULL;   //this is text
-  SDL_Rect loc;    // location of surface
-  int finished = 0, i;
-
-  LOG( "editWordlists() - creating text\n" );
-
-
-  s1 = BlackOutline( gettext_noop("This is the Wordlist Configure Page"), DEFAULT_MENU_FONT_SIZE, &white);
-  s2 = BlackOutline( gettext_noop("This feature is not ready yet"), DEFAULT_MENU_FONT_SIZE, &white);
-  s3 = BlackOutline( gettext_noop("But hopefully it will be soon"), DEFAULT_MENU_FONT_SIZE, &white);
-  s4 = BlackOutline( "-Sarah", DEFAULT_MENU_FONT_SIZE, &white);
-
-
-  if (s1 && s2 && s3 && s4)
-  {
-    LOG( "editWordlists() - drawing screen\n" );
-
-    SDL_BlitSurface(CurrentBkgd(), NULL, screen, NULL);
-    loc.x = screen->w/2 - (s1->w/2); loc.y = 10;
-    SDL_BlitSurface( s1, NULL, screen, &loc);
-    loc.x = screen->w/2 - (s2->w/2); loc.y = 60;
-    SDL_BlitSurface( s2, NULL, screen, &loc);
-    loc.x = screen->w/2 - (s3->w/2); loc.y = 110;
-    SDL_BlitSurface(s3, NULL, screen, &loc);
-    loc.x = screen->w/2 - (s4->w/2); loc.y = 160;
-    SDL_BlitSurface( s4, NULL, screen, &loc);
-
-    loc.y = screen->h - 280;
-
-    SDL_UpdateRect(screen, 0, 0, 0, 0);
-
-    i = 0;
-	ChooseFile();
-
-	
-
-    while (!finished)
-    {
-      while (SDL_PollEvent(&event)) 
-      {
-        switch (event.type)
-        {
-          case SDL_QUIT:
-            exit(0);
-          case SDL_MOUSEBUTTONDOWN:
-          case SDL_KEYDOWN:
-            finished = 1;
-        }
-      }
-
-      i++;
-
-      if (i %5 == 0)
-      {
- //       NEXT_FRAME(tux);
-        SDL_BlitSurface(CurrentBkgd(), &loc, screen, &loc);
- //       SDL_BlitSurface(tux->frame[tux->cur], NULL, screen, &loc);
-        SDL_UpdateRect(screen, loc.x, loc.y, loc.w, loc.h);
-      }
-
-      SDL_Delay(40);
-    }
-  }
-  else
-    fprintf(stderr, "editWordlists() - could not load needed graphic\n");
-
-  SDL_FreeSurface(s1);
-  SDL_FreeSurface(s2);
-  SDL_FreeSurface(s3);
-  SDL_FreeSurface(s4);
-  s1 = s2 = s3 = s4 = NULL;
-
-}
-
+ 
