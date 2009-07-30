@@ -65,5 +65,5 @@ dist_images_DATA = README_IMAGES.TXT \
   tux2.png \
   tux3.png \
   up.png \
-  wordlist.png \
+##  wordlist.png \
   world.png
