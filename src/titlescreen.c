@@ -21,7 +21,6 @@
 #include "funcs.h"
 #include "titlescreen.h"
 #include "SDL_extras.h"
-#include "SDL_image.h"
 #include "convert_utf.h"
 
 /* --- media for menus --- */
@@ -1551,6 +1550,9 @@ static int chooseWordlist(void)
 }
 
 
+/* NOTE ChooseFile() is the function to pick custom word lists to edit. */
+/* We should change the name to something more descriptive.             */
+
 static void ChooseFile(void)
 {
   SDL_Surface* titles[MAX_WORD_LISTS] = {NULL};
@@ -1564,11 +1566,11 @@ static void ChooseFile(void)
   int stop = 0;
   int loc = 0;
   int old_loc = 1;
-int number_of_lists = 0;
+  int number_of_lists = 0;
 
   int themes = 0;
   int i;
-int result = 0;
+  int result = 0;
   char fn[FNLEN];                             
   char fileNames[MAX_WORD_LISTS][FNLEN];
     char wordTypes[MAX_WORD_LISTS][FNLEN];
@@ -1606,16 +1608,15 @@ int result = 0;
     if (themesFile->d_name[0] == '.') 
       continue;
 
-    if (strcmp("CVS", themesFile->d_name)==0)
-    continue;
+    if (strcmp("CVS", themesFile->d_name) == 0)
+      continue;
 
- sprintf(fn, "%s/%s" , settings.var_data_path, themesFile->d_name); 
-	
+    snprintf(fn, FNLEN, "%s/%s" , settings.var_data_path, themesFile->d_name); 
 
     /* CheckFile() returns 2 if dir, 1 if file, 0 if neither: */
     if (CheckFile(fn) == 1)
-	{
-		/* We know it opens safely because CheckFile() returned 1 */
+    {
+      /* We know it opens safely because CheckFile() returned 1 */
       fp = fopen(fn,"r");
       /* HACK: we should get the names from file :) */
       if (EOF ==fscanf(fp, "%[^\n]\n", wordTypes[themes]))
@@ -1624,8 +1625,7 @@ int result = 0;
       wordTypes[themes][0] = toupper(wordTypes[themes][0]);
       fclose(fp);
       strncpy( fileNames[themes++], themesFile->d_name, FNLEN-1 );
-	}
-
+    }
   } while (1);
   
   
