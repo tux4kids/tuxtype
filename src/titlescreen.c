@@ -485,9 +485,6 @@ void TitleScreen(void)
 
     if (menu_opt == EDIT_WORDLIST)
     {
-//		editWordlists();
-//      not_implemented();
-	
      ChooseFile();
       redraw = 1;
     }
@@ -1553,8 +1550,7 @@ static int chooseWordlist(void)
   return 1;
 }
 
-/* NOTE this is the page for the user to edit word lists - we */
-/* should come up with a more fitting name for this function. */
+
 static void ChooseFile(void)
 {
   SDL_Surface* titles[MAX_WORD_LISTS] = {NULL};
@@ -1568,62 +1564,68 @@ static void ChooseFile(void)
   int stop = 0;
   int loc = 0;
   int old_loc = 1;
+int number_of_lists = 0;
 
-  //FIXME "themes" as a name doesn't apply here
   int themes = 0;
   int i;
-  char fn[FNLEN];
+int result = 0;
+  char fn[FNLEN];                             
   char fileNames[MAX_WORD_LISTS][FNLEN];
+    char wordTypes[MAX_WORD_LISTS][FNLEN];
 
   int old_use_english;
   char old_theme_path[FNLEN];
 
-  FILE* fp;
+  FILE* fp = NULL;
+  FILE* tempFile = NULL;
+ 
 
   DIR* themesDir = NULL;
   struct dirent* themesFile = NULL;
-
-
-
-  /* First we scan the word list directory and create a list of all the */
-  /* files we find there:                                               */
-
-
-  // Set fn to the path for our modifiable word lists:
+                                              
   sprintf(fn , "%s" , settings.var_data_path);
   fprintf(stderr , "%s", settings.var_data_path);
+
 
   themesDir = opendir(fn);
 
   if (!themesDir)
   {
-    fprintf(stderr, "ChooseFile() - cannot open custom word list directory!");
+    fprintf(stderr, "Choosefile() - cannot open themes directory!");
     return;
   }
 
-  //Copy all the filenames from the word list directory:
   do
   {
     themesFile = readdir(themesDir);
     if (!themesFile)
       break;
 
-    if(themes >= MAX_WORD_LISTS)
-      break;
+   /* we ignore any hidden file and CVS */
 
-    /* we ignore any hidden file and CVS */
     if (themesFile->d_name[0] == '.') 
       continue;
 
-    if (strcmp("CVS", themesFile->d_name) == 0)
-      continue;
+    if (strcmp("CVS", themesFile->d_name)==0)
+    continue;
 
-    snprintf(fn, FNLEN, "%s/%s" , settings.var_data_path, themesFile->d_name); 
+ sprintf(fn, "%s/%s" , settings.var_data_path, themesFile->d_name); 
+	
 
     /* CheckFile() returns 2 if dir, 1 if file, 0 if neither: */
     if (CheckFile(fn) == 1)
-      strncpy(fileNames[themes++], themesFile->d_name, FNLEN-1);
-    
+	{
+		/* We know it opens safely because CheckFile() returned 1 */
+      fp = fopen(fn,"r");
+      /* HACK: we should get the names from file :) */
+      if (EOF ==fscanf(fp, "%[^\n]\n", wordTypes[themes]))
+        continue;
+      /* Make sure theme name is capitalized: */
+      wordTypes[themes][0] = toupper(wordTypes[themes][0]);
+      fclose(fp);
+      strncpy( fileNames[themes++], themesFile->d_name, FNLEN-1 );
+	}
+
   } while (1);
   
   
@@ -1631,46 +1633,37 @@ static void ChooseFile(void)
 
   for (i = 0; i < themes; i++)
   {
-    titles[i] = BlackOutline(fileNames[i], DEFAULT_MENU_FONT_SIZE, &white);
-    select[i] = BlackOutline(fileNames[i], DEFAULT_MENU_FONT_SIZE, &yellow);
+    titles[i] = BlackOutline(wordTypes[i], DEFAULT_MENU_FONT_SIZE, &white);
+    select[i] = BlackOutline(wordTypes[i], DEFAULT_MENU_FONT_SIZE, &yellow);
   }
  
-
-
-  /* Now we draw the screen: */	
+	
 	
  /* Text and instructions */
 
-  s1 = BlackOutline(gettext_noop("Word List Editor"), 25, &yellow);
-  s2 = BlackOutline(gettext_noop("To add a new wordlist, click the 'New Wordlist' button (it's not there)"), 18, &white);
-  s3 = BlackOutline(gettext_noop("To edit current word lists, either click on the wordlist, or use the arrow keys to navigate and press return"), 18, &white);
-  s4 = BlackOutline(gettext_noop("To exit Word List Editor, press ESC"), 18, &white);	
+	s1 = BlackOutline(gettext_noop("Word List Editor"), 25, &yellow);
+	s2 = BlackOutline(gettext_noop("To add a new wordlist, click the 'New Wordlist' button (it's not there)"), 18, &white);
+	s3 = BlackOutline(gettext_noop("To edit current word lists, either click on the wordlist, or use the arrow keys to navigate and press return"), 18, &white);
+	s4 = BlackOutline(gettext_noop("To exit Word List Editor, press ESC"), 18, &white);	
 
-  picture = LoadImage("NewWordList.png", IMG_ALPHA);
-  LOG( "ChooseFile() - drawing screen\n");
+
+	picture = LoadImage("NewWordList.png", IMG_ALPHA);
+	LOG( "ChooseFile() - drawing screen\n");
+	
+	SDL_BlitSurface(CurrentBkgd(), NULL, screen, NULL);
+    locText.x = screen->w/2 - (s1->w/2); locText.y = 10;
+    SDL_BlitSurface( s1, NULL, screen, &locText);
+    locText.x = screen->w/2 - (s2->w/2); locText.y = 60;
+    SDL_BlitSurface( s2, NULL, screen, &locText);
+    locText.x = screen->w/2 - (s3->w/2); locText.y = 90;
+    SDL_BlitSurface(s3, NULL, screen, &locText);
+    locText.x = screen->w/2 - (s4->w/2); locText.y = 120;
+    SDL_BlitSurface( s4, NULL, screen, &locText);
+	 locText.x = screen->w/3 * 2; locText.y = 200;
+	SDL_BlitSurface( picture, NULL, screen, &locText);
 
 	
-  /* FIXME we should test all the SDL_Surface* pointers to be sure     */
-  /* they aren't NULL before we try to blit them so we don't segfault. */
-  SDL_BlitSurface(CurrentBkgd(), NULL, screen, NULL);
-
-  locText.x = screen->w/2 - (s1->w/2); locText.y = 10;
-  SDL_BlitSurface( s1, NULL, screen, &locText);
-
-  locText.x = screen->w/2 - (s2->w/2); locText.y = 60;
-  SDL_BlitSurface( s2, NULL, screen, &locText);
-
-  locText.x = screen->w/2 - (s3->w/2); locText.y = 90;
-  SDL_BlitSurface(s3, NULL, screen, &locText);
-
-  locText.x = screen->w/2 - (s4->w/2); locText.y = 120;
-  SDL_BlitSurface( s4, NULL, screen, &locText);
-
-  locText.x = screen->w/3 * 2; locText.y = 200;
-  SDL_BlitSurface( picture, NULL, screen, &locText);
-
-  // Trigger refresh of entire screen:	
-  SDL_UpdateRect(screen, 0, 0, 0, 0);
+    SDL_UpdateRect(screen, 0, 0, 0, 0);
 	
 	
 
@@ -1686,7 +1679,6 @@ static void ChooseFile(void)
 	titleRects[i].w = titleRects[i].h = 0;
 	titleRects[i].x = screen->w /2;
   }
-
 
   while (!stop)
   {
@@ -1763,7 +1755,7 @@ static void ChooseFile(void)
     {
       int start;
 
-//      SDL_BlitSurface(CurrentBkgd(), NULL, screen, NULL );
+      SDL_BlitSurface( bkg, NULL, screen, NULL );
 
       //if (loc) SetupPaths(fileNames[loc]); else SetupPaths(NULL);
 
@@ -1776,9 +1768,8 @@ static void ChooseFile(void)
           SDL_BlitSurface(select[loc], NULL, screen, &titleRects[i % 8]);
         else
           SDL_BlitSurface(titles[i], NULL, screen, &titleRects[i % 8]);
-
-        SDL_BlitSurface(CurrentBkgd(), &locText, screen, &locText);
-//        SDL_UpdateRect(screen, locText.x, locText.y, locText.w, locText.h);
+		 SDL_BlitSurface(CurrentBkgd(), &locText, screen, &locText);
+		SDL_UpdateRect(screen, locText.x, locText.y, locText.w, locText.h);
       }
 
       SDL_UpdateRect(screen, 0, 0, 0 ,0);
@@ -1809,8 +1800,6 @@ static void ChooseFile(void)
 }
 
 
-
-/* Need better descriptive name for this function - EditWords() or such */
 static void ChooseWord(char *words_file)
 {
 	/* Need to figure out how to handle empty lists */
@@ -1818,7 +1807,7 @@ static void ChooseWord(char *words_file)
   static SDL_Surface* select[MAX_WORD_LISTS] = {NULL};
   static SDL_Surface *left = NULL, *right = NULL;
   static SDL_Rect leftRect, rightRect;
-//  SDL_Surface* bkg = NULL;
+  SDL_Surface* bkg = NULL;
   SDL_Rect titleRects[8];
   int stop = 0;
   int loc = 0;
@@ -1858,8 +1847,8 @@ static void ChooseWord(char *words_file)
     select[i] = BlackOutline(words_in_list[i], DEFAULT_MENU_FONT_SIZE, &yellow);
   }
 
-//  bkg = LoadImage("main_bkg.png", IMG_REGULAR);
-//	 SDL_BlitSurface(CurrentBkgd(), NULL, screen, NULL);	
+  bkg = LoadImage("main_bkg.png", IMG_REGULAR);
+	 SDL_BlitSurface(CurrentBkgd(), NULL, screen, NULL);	
 
   left = LoadImage("left.png", IMG_ALPHA);
   leftRect.w = left->w; leftRect.h = left->h;
@@ -1918,7 +1907,7 @@ static void ChooseWord(char *words_file)
         {
 	
           	len = ConvertFromUTF8(temp, words_in_list[loc], FNLEN); 
-          	if (len > 1 && number_of_words > 1 && loc > 0) {                               
+          	if (len > 1 && number_of_words > 1 && loc != 0) {                               
             // remove the last character from the string
             	temp[len - 1] = temp[len];
             	len = ConvertToUTF8(temp, words_in_list[loc], FNLEN);
@@ -1930,7 +1919,7 @@ static void ChooseWord(char *words_file)
             // we have to remove the word from the list // 
 				fprintf(stderr, "The number of words is %i\n", number_of_words);
 				fprintf(stderr, "The length is %i \n", len);
-			if (number_of_words > 1 && loc > 0)
+			if (number_of_words > 1 && loc != 0)
 			{	
 				int x = 0;
 				number_of_words--;
@@ -2049,7 +2038,7 @@ static void ChooseWord(char *words_file)
 
     if(!stop)
     {
-      SDL_BlitSurface(CurrentBkgd(), NULL, screen, NULL );
+      SDL_BlitSurface( bkg, NULL, screen, NULL );
 
 //	if (loc) SetupPaths(fileNames[loc]); else SetupPaths(NULL);	
 
@@ -2111,10 +2100,10 @@ static void ChooseWord(char *words_file)
     SDL_FreeSurface(select[i]);
   }
 
-//  SDL_FreeSurface(bkg);
+  SDL_FreeSurface(bkg);
   SDL_FreeSurface(left);
   SDL_FreeSurface(right);
-//  bkg = NULL;  /* the other pointers are going out of scope so we don't */
+  bkg = NULL;  /* the other pointers are going out of scope so we don't */
                /* have to worry about setting them to NULL              */
 }              
 

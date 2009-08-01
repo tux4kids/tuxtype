@@ -1,3 +1,10 @@
+29 July 2009
+[Sarah Frisk <ssfrisk@gmail.com> ]
+	-Changed it so that wordlists are by the the name of the first word in file
+	-Discovered what is causing images not showing up.  Apparently there is some memory issue that I've been working on for several days that causes any custom images not to appear when wordlists are added.  
+	Line issue:  strncpy( fileNames[themes++], themesFile->d_name, FNLEN-1 );
+	Commenting this out makes images show up again, but unfortunately makes the program unusable since we don't actually have a wordlist to work with.
+
 20 July 2009
 [Sarah Frisk <ssfrisk@gmail.com> ]
 	-Started setting up visually the word list editor

@@ -42,6 +42,15 @@ lesson1.png\
 lesson2.png\
 lesson3.png\
 lessond.png\
+list0.png\
+list1.png\
+list2.png\
+list3.png\
+list4.png\
+list5.png\
+list6.png\
+list7.png\
+listd.png\
 main0.png\
 main1.png\
 main2.png\
