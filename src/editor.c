@@ -25,63 +25,62 @@
 
 void ChooseListToEdit(void)
 {
-  SDL_Surface* titles[MAX_WORD_LISTS] = {NULL};
-  SDL_Surface* select[MAX_WORD_LISTS] = {NULL};
   SDL_Surface *picture = NULL;
-  SDL_Surface* bkg = NULL;
-  SDL_Surface *s1 = NULL, *s2 = NULL, *s3 = NULL, *s4 = NULL;   //this is text
+  //this is text:
+  SDL_Surface *s1 = NULL, *s2 = NULL, *s3 = NULL, *s4 = NULL;   
   SDL_Rect locText;
+  SDL_Rect button_rect;
 
-  static SDL_Rect titleRects[8];
   int stop = 0;
   int loc = 0;
   int old_loc = 1;
-  int number_of_lists = 0;
-
-  int themes = 0;
+  int num_lists = 0;
   int i;
-  int result = 0;
+
+
+  //Arrays for the list of editable word lists:
+  char file_names[MAX_WORD_LISTS][FNLEN];  //names of the files containing lists
+  char list_titles[MAX_WORD_LISTS][FNLEN]; //text list name to be displayed
+  //Surfaces of list_titles[] rendered for graphical display:
+  SDL_Surface* white_titles_surf[MAX_WORD_LISTS] = {NULL};  //unselected titles - white lettering; 
+  SDL_Surface* yellow_titles_surf[MAX_WORD_LISTS] = {NULL}; //selected titles - yellow lettering
+  // Rects where list names will be drawn on screen:
+  static SDL_Rect titleRects[8];
+
+  //Temporary holders and ptrs used while scanning list directory:
   char fn[FNLEN];                             
-  char fileNames[MAX_WORD_LISTS][FNLEN];
-    char wordTypes[MAX_WORD_LISTS][FNLEN];
-
-  int old_use_english;
-  char old_theme_path[FNLEN];
-
   FILE* fp = NULL;
-  FILE* tempFile = NULL;
- 
+  DIR* lists_dir = NULL;
+  struct dirent* list_dirent = NULL;
 
-  DIR* themesDir = NULL;
-  struct dirent* themesFile = NULL;
-                                              
+  DEBUGCODE { fprintf(stderr , "%s", settings.var_data_path); }
+
+  //Try to open directory for modifiable word lists:
   sprintf(fn , "%s" , settings.var_data_path);
-  fprintf(stderr , "%s", settings.var_data_path);
+  lists_dir = opendir(fn);
 
-
-  themesDir = opendir(fn);
-
-  if (!themesDir)
+  if (!lists_dir)
   {
-    fprintf(stderr, "Choosefile() - cannot open themes directory!");
+    fprintf(stderr, "ChooseListToEdit() - cannot open custom word list directory!\n");
     return;
   }
 
-  do
+  //Now scan through directory and gather file names and list titles:
+  while (1)
   {
-    themesFile = readdir(themesDir);
-    if (!themesFile)
+    list_dirent = readdir(lists_dir);
+    if (!list_dirent)
       break;
 
    /* we ignore any hidden file and CVS */
 
-    if (themesFile->d_name[0] == '.') 
+    if (list_dirent->d_name[0] == '.') 
       continue;
 
-    if (strcmp("CVS", themesFile->d_name) == 0)
+    if (strcmp("CVS", list_dirent->d_name) == 0)
       continue;
 
-    snprintf(fn, FNLEN, "%s/%s" , settings.var_data_path, themesFile->d_name); 
+    snprintf(fn, FNLEN, "%s/%s" , settings.var_data_path, list_dirent->d_name); 
 
     /* CheckFile() returns 2 if dir, 1 if file, 0 if neither: */
     if (CheckFile(fn) == 1)
@@ -89,65 +88,63 @@ void ChooseListToEdit(void)
       /* We know it opens safely because CheckFile() returned 1 */
       fp = fopen(fn,"r");
       /* HACK: we should get the names from file :) */
-      if (EOF ==fscanf(fp, "%[^\n]\n", wordTypes[themes]))
+      if (EOF ==fscanf(fp, "%[^\n]\n", list_titles[num_lists]))
         continue;
-      /* Make sure theme name is capitalized: */
-      wordTypes[themes][0] = toupper(wordTypes[themes][0]);
+      /* Make sure list title is capitalized: */
+      list_titles[num_lists][0] = toupper(list_titles[num_lists][0]);
       fclose(fp);
-      strncpy( fileNames[themes++], themesFile->d_name, FNLEN-1 );
+      strncpy(file_names[num_lists++], list_dirent->d_name, FNLEN-1);
     }
-  } while (1);
-  
-  
-  closedir(themesDir);
+  }
+  closedir(lists_dir);
 
-  for (i = 0; i < themes; i++)
+
+  /* Render SDL_Surfaces of title text for later blitting: */
+  for (i = 0; i < num_lists; i++)
   {
-    titles[i] = BlackOutline(wordTypes[i], DEFAULT_MENU_FONT_SIZE, &white);
-    select[i] = BlackOutline(wordTypes[i], DEFAULT_MENU_FONT_SIZE, &yellow);
+    white_titles_surf[i] = BlackOutline(list_titles[i], DEFAULT_MENU_FONT_SIZE, &white);
+    yellow_titles_surf[i] = BlackOutline(list_titles[i], DEFAULT_MENU_FONT_SIZE, &yellow);
   }
  
-	
-	
- /* Text and instructions */
+  /* Render text and instructions */
+  s1 = BlackOutline(gettext_noop("Word List Editor"), 25, &yellow);
+  s2 = BlackOutline(gettext_noop("To add a new wordlist, click the 'New Wordlist' button (it's not there)"), 18, &white);
+  //FIXME this is going to be too long for one line.
+  s3 = BlackOutline(gettext_noop("To edit current word lists, either click on the wordlist, or use the arrow keys to navigate and press return"), 18, &white);
+  s4 = BlackOutline(gettext_noop("To exit Word List Editor, press ESC"), 18, &white);	
 
-	s1 = BlackOutline(gettext_noop("Word List Editor"), 25, &yellow);
-	s2 = BlackOutline(gettext_noop("To add a new wordlist, click the 'New Wordlist' button (it's not there)"), 18, &white);
-	s3 = BlackOutline(gettext_noop("To edit current word lists, either click on the wordlist, or use the arrow keys to navigate and press return"), 18, &white);
-	s4 = BlackOutline(gettext_noop("To exit Word List Editor, press ESC"), 18, &white);	
+  /* Load image of new word list button: */
+  picture = LoadImage("NewWordList.png", IMG_ALPHA);
+  if(picture != NULL)
+    printf("picture loaded successfully\n");
+  LOG( "ChooseFile() - drawing screen\n");
 
+  SDL_BlitSurface(CurrentBkgd(), NULL, screen, NULL);
+  locText.x = screen->w/2 - (s1->w/2); locText.y = 10;
+  SDL_BlitSurface( s1, NULL, screen, &locText);
+  locText.x = screen->w/2 - (s2->w/2); locText.y = 60;
+  SDL_BlitSurface( s2, NULL, screen, &locText);
+  locText.x = screen->w/2 - (s3->w/2); locText.y = 90;
+  SDL_BlitSurface(s3, NULL, screen, &locText);
+  locText.x = screen->w/2 - (s4->w/2); locText.y = 120;
+  SDL_BlitSurface( s4, NULL, screen, &locText);
 
-	picture = LoadImage("NewWordList.png", IMG_ALPHA);
-	LOG( "ChooseFile() - drawing screen\n");
-	
-	SDL_BlitSurface(CurrentBkgd(), NULL, screen, NULL);
-    locText.x = screen->w/2 - (s1->w/2); locText.y = 10;
-    SDL_BlitSurface( s1, NULL, screen, &locText);
-    locText.x = screen->w/2 - (s2->w/2); locText.y = 60;
-    SDL_BlitSurface( s2, NULL, screen, &locText);
-    locText.x = screen->w/2 - (s3->w/2); locText.y = 90;
-    SDL_BlitSurface(s3, NULL, screen, &locText);
-    locText.x = screen->w/2 - (s4->w/2); locText.y = 120;
-    SDL_BlitSurface( s4, NULL, screen, &locText);
-	 locText.x = screen->w/3 * 2; locText.y = 200;
-	SDL_BlitSurface( picture, NULL, screen, &locText);
+  button_rect.x = screen->w/3 * 2; button_rect.y = 200;
+  SDL_BlitSurface(picture, NULL, screen, &button_rect);
 
-	
-    SDL_UpdateRect(screen, 0, 0, 0, 0);
-	
-	
+  SDL_UpdateRect(screen, 0, 0, 0, 0);
 
 
   /* set initial rect sizes */
-	
-    titleRects[0].y = screen->h / 3;
-	titleRects[0].w = titleRects[0].h =  0; 
-	titleRects[0].x = screen->w / 2;
+  titleRects[0].y = screen->h / 3;
+  titleRects[0].w = titleRects[0].h =  0; 
+  titleRects[0].x = screen->w / 2;
+
   for (i = 1; i<8; i++)
   {
     titleRects[i].y = titleRects[i-1].y + 50;
-	titleRects[i].w = titleRects[i].h = 0;
-	titleRects[i].x = screen->w /2;
+    titleRects[i].w = titleRects[i].h = 0;
+    titleRects[i].x = screen->w /2;
   }
 
   while (!stop)
@@ -160,7 +157,7 @@ void ChooseListToEdit(void)
           break;
 
         case SDL_MOUSEMOTION:
-          for (i = 0; (i < 8) && (loc - (loc % 8) + i < themes); i++)
+          for (i = 0; (i < 8) && (loc - (loc % 8) + i < num_lists); i++)
             if (inRect(titleRects[i], event.motion.x, event.motion.y))
             {
               loc = loc - (loc % 8) + i;
@@ -169,11 +166,11 @@ void ChooseListToEdit(void)
           break;     /* out of switch-case */
 
         case SDL_MOUSEBUTTONDOWN: 
-          for (i = 0; (i < 8) && (loc - (loc % 8) + i <themes); i++) 
+          for (i = 0; (i < 8) && (loc - (loc % 8) + i <num_lists); i++) 
             if (inRect(titleRects[i], event.button.x, event.button.y))
             {
               loc = loc - (loc % 8) + i;
-              EditWordList(fileNames[loc]);
+              EditWordList(file_names[loc]);
               break;
             }
           break;
@@ -189,7 +186,7 @@ void ChooseListToEdit(void)
 
           if (event.key.keysym.sym == SDLK_RETURN) 
           {
-            EditWordList(fileNames[loc]);
+            EditWordList(file_names[loc]);
             loc = 0;
             break;
           }
@@ -204,7 +201,7 @@ void ChooseListToEdit(void)
           if ((event.key.keysym.sym == SDLK_RIGHT)
            || (event.key.keysym.sym == SDLK_PAGEDOWN))
           {
-            if (loc - (loc % 8) + 8 < themes)
+            if (loc - (loc % 8) + 8 < num_lists)
               loc = (loc - (loc % 8) + 8);
           }
 
@@ -216,7 +213,7 @@ void ChooseListToEdit(void)
 
           if (event.key.keysym.sym == SDLK_DOWN)
           {
-            if (loc + 1 < themes)
+            if (loc + 1 < num_lists)
               loc++;
           }
       }
@@ -225,19 +222,20 @@ void ChooseListToEdit(void)
     {
       int start;
 
-      SDL_BlitSurface( bkg, NULL, screen, NULL );
+      if(CurrentBkgd())
+        SDL_BlitSurface(CurrentBkgd(), NULL, screen, NULL);
 
       //if (loc) SetupPaths(fileNames[loc]); else SetupPaths(NULL);
 
       start = loc - (loc % 8);
 
-      for (i = start; i < MIN (start + 8,themes); i++)
+      for (i = start; i < MIN (start + 8,num_lists); i++)
       {
-        titleRects[i % 8].x = 320 - (titles[i]->w/2);
+        titleRects[i % 8].x = 320 - (white_titles_surf[i]->w/2);
         if (i == loc)
-          SDL_BlitSurface(select[loc], NULL, screen, &titleRects[i % 8]);
+          SDL_BlitSurface(yellow_titles_surf[loc], NULL, screen, &titleRects[i % 8]);
         else
-          SDL_BlitSurface(titles[i], NULL, screen, &titleRects[i % 8]);
+          SDL_BlitSurface(white_titles_surf[i], NULL, screen, &titleRects[i % 8]);
 		 SDL_BlitSurface(CurrentBkgd(), &locText, screen, &locText);
 		SDL_UpdateRect(screen, locText.x, locText.y, locText.w, locText.h);
       }
@@ -248,25 +246,25 @@ void ChooseListToEdit(void)
     old_loc = loc;
   }
 
+  /* NOTE pointers going out of scope so don't need to set them to NULL, */
+  /* but we should do that if we move this into a cleanup function.      */
   /* --- clear graphics before quitting --- */ 
-
-  for (i = 0; i<themes; i++)
-
+  for (i = 0; i < num_lists; i++)
   {
-    SDL_FreeSurface(titles[i]);
-    SDL_FreeSurface(select[i]);
+    if(white_titles_surf[i])
+      SDL_FreeSurface(white_titles_surf[i]);
+    if(yellow_titles_surf[i])
+      SDL_FreeSurface(yellow_titles_surf[i]);
   }
 
-  SDL_FreeSurface(s1);
-  SDL_FreeSurface(s2);
-  SDL_FreeSurface(s3);
-  SDL_FreeSurface(s4);
-  s1 = s2 = s3 = s4 = NULL;
-  
-
- 
-  bkg = NULL;  /* the other pointers are going out of scope so we don't */
-               /* have to worry about setting them to NULL              */
+  if(s1)
+    SDL_FreeSurface(s1);
+  if(s2)
+    SDL_FreeSurface(s2);
+  if(s3)
+    SDL_FreeSurface(s3);
+  if(s4)
+    SDL_FreeSurface(s4);
 }
 
 

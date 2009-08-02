@@ -1560,6 +1560,7 @@ static void ChooseFile(void)
   SDL_Surface* bkg = NULL;
   SDL_Surface *s1 = NULL, *s2 = NULL, *s3 = NULL, *s4 = NULL;   //this is text
   SDL_Rect locText;
+  SDL_Rect button_rect;
 
   static SDL_Rect titleRects[8];
   int stop = 0;
@@ -1645,11 +1646,14 @@ static void ChooseFile(void)
 	s3 = BlackOutline(gettext_noop("To edit current word lists, either click on the wordlist, or use the arrow keys to navigate and press return"), 18, &white);
 	s4 = BlackOutline(gettext_noop("To exit Word List Editor, press ESC"), 18, &white);	
 
+//	picture = LoadImage("right.png", IMG_ALPHA);
 
 	picture = LoadImage("NewWordList.png", IMG_ALPHA);
 	LOG( "ChooseFile() - drawing screen\n");
-	
-	SDL_BlitSurface(CurrentBkgd(), NULL, screen, NULL);
+        if(picture != NULL)
+          printf("picture loaded successfully\n");
+
+    SDL_BlitSurface(CurrentBkgd(), NULL, screen, NULL);
     locText.x = screen->w/2 - (s1->w/2); locText.y = 10;
     SDL_BlitSurface( s1, NULL, screen, &locText);
     locText.x = screen->w/2 - (s2->w/2); locText.y = 60;
@@ -1657,9 +1661,10 @@ static void ChooseFile(void)
     locText.x = screen->w/2 - (s3->w/2); locText.y = 90;
     SDL_BlitSurface(s3, NULL, screen, &locText);
     locText.x = screen->w/2 - (s4->w/2); locText.y = 120;
-    SDL_BlitSurface( s4, NULL, screen, &locText);
-	 locText.x = screen->w/3 * 2; locText.y = 200;
-	SDL_BlitSurface( picture, NULL, screen, &locText);
+    SDL_BlitSurface(s4, NULL, screen, &locText);
+
+    button_rect.x = screen->w/3 * 2; button_rect.y = 200;
+    SDL_BlitSurface(picture, NULL, screen, &button_rect);
 
 	
     SDL_UpdateRect(screen, 0, 0, 0, 0);
