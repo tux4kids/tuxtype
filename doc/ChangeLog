@@ -1,4 +1,9 @@
-29 July 2009
+30 Jun 2009 (svn.debian.org/tux4kids - revision 1325)
+[ David Bruce <davidstuartbruce@gmail.com> ]
+        - Created files editor.h/c for word list editing code as titlescreen is really just
+        supposed to be the menu system.  Copied ChooseFile() and ChooseWord() into these files
+        and renamed them ChooseListToEdit() and EditWordList().  They are not yet active code.
+
 [Sarah Frisk <ssfrisk@gmail.com> ]
 	-Changed it so that wordlists are by the the name of the first word in file
 	-Discovered what is causing images not showing up.  Apparently there is some memory issue that I've been working on for several days that causes any custom images not to appear when wordlists are added.  

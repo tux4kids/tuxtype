@@ -117,7 +117,8 @@ typedef struct game_option_type{
 #define DEFAULT_O_LIVES 0
 #define DEFAULT_SOUND_VOL 100
 #define DEFAULT_HIDDEN 0
-#define CUSTOM_WORD_PATH		"/usr/local/var/tuxtype"
+//#define CUSTOM_WORD_PATH		"/usr/local/var/tuxtype"
+#define MAX_WORD_LISTS 100
 
 
 

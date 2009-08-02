@@ -1184,7 +1184,6 @@ static void not_implemented(void)
 
 
 
-#define MAX_WORD_LISTS 100
 
 /* returns 0 if user pressed escape ...
  *         1 if word list was set correctly

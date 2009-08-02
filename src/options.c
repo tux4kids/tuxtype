@@ -33,7 +33,7 @@ void Opts_Initialize(void)
 {
   strncpy(settings.theme_font_name, DEFAULT_FONT_NAME, FNLEN);
   strncpy(settings.theme_locale_name, DEFAULT_LOCALE, FNLEN);
-  strncpy(settings.custom_word_path, CUSTOM_WORD_PATH, FNLEN);
+  strncpy(settings.custom_word_path, VAR_PREFIX, FNLEN);
   settings.use_english = DEFAULT_USE_ENGLISH;
   settings.fullscreen = DEFAULT_FULLSCREEN;
   settings.sys_sound = DEFAULT_SYS_SOUND;

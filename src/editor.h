@@ -15,4 +15,8 @@
 #ifndef EDITOR_H
 #define EDITOR_H
 
+
+void ChooseListToEdit(void);
+void EditWordList(char* words_file);
+
 #endif
