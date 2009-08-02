@@ -27,7 +27,7 @@ void ChooseListToEdit(void)
 {
   SDL_Surface* new_button = NULL;
   //this is text:
-  SDL_Surface *s1 = NULL, *s2 = NULL, *s3 = NULL, *s4 = NULL;   
+  SDL_Surface *s1 = NULL, *s2 = NULL, *s3 = NULL, *s4 = NULL;
   SDL_Rect locText;
   SDL_Rect button_rect;
 
@@ -192,26 +192,26 @@ void ChooseListToEdit(void)
         case SDL_KEYDOWN:
           if (event.key.keysym.sym == SDLK_ESCAPE)
           {
-           // settings.use_english = old_use_english;
-            //strncpy(settings.theme_data_path, old_theme_path, FNLEN - 1);
             stop = 1; 
             break; 
           }
 
-          if (event.key.keysym.sym == SDLK_RETURN) 
+          // User going to actual word editing:
+          if ((event.key.keysym.sym == SDLK_RETURN)
+           || (event.key.keysym.sym == SDLK_SPACE))
           {
             EditWordList(file_names[loc]);
             loc = 0;
             break;
           }
-
+          // Go to top of previous page:
           if ((event.key.keysym.sym == SDLK_LEFT)
            || (event.key.keysym.sym == SDLK_PAGEUP))
           {
             if (loc - (loc % 8) - 8 >= 0)
               loc = loc - (loc % 8) - 8;
           }
-
+          // Go to top of next page:
           if ((event.key.keysym.sym == SDLK_RIGHT)
            || (event.key.keysym.sym == SDLK_PAGEDOWN))
           {
@@ -282,15 +282,18 @@ void ChooseListToEdit(void)
 }
 
 
-void EditWordList(char *words_file)
+/* FIXME we already have a GenerateWordList() function in alphabet.c       */
+/* that puts all the words from  a supplied file name into word_list[][] - */
+/* let's not duplicate that code.                                          */
+void EditWordList(char* words_file)
 {
 	/* Need to figure out how to handle empty lists */
-  static SDL_Surface* titles[MAX_WORD_LISTS] = {NULL};
-  static SDL_Surface* select[MAX_WORD_LISTS] = {NULL};
+  static SDL_Surface* white_words[MAX_NUM_WORDS] = {NULL};
+  static SDL_Surface* yellow_words[MAX_NUM_WORDS] = {NULL};
   static SDL_Surface *left = NULL, *right = NULL;
   static SDL_Rect leftRect, rightRect;
-  SDL_Surface* bkg = NULL;
-  SDL_Rect titleRects[8];
+//  SDL_Surface* bkg = NULL;
+  SDL_Rect word_rects[8];
   int stop = 0;
   int loc = 0;
   int old_loc = 1;
@@ -302,255 +305,278 @@ void EditWordList(char *words_file)
   int listening_for_new_word = 0;
   char fn[FNLEN];
   char str[FNLEN];
-  char words_in_list[MAX_WORD_LISTS][FNLEN];
+  char words_in_list[MAX_NUM_WORDS][MAX_WORD_SIZE + 1];
   
   wchar_t temp[FNLEN], temp2[FNLEN];
   
-  /* save previous settings in case we back out: */
- // old_use_english = settings.use_english;
- // strncpy(old_theme_path, settings.theme_data_path, FNLEN - 1);
 
-	//internationalization required
+  //We should be able to use GenerateWordList() in place of this next block:
   sprintf(fn , "%s/%s", settings.var_data_path,  words_file);
-
   fp = fopen(fn,"r");
-  
-  number_of_words = 0;
-  
+  number_of_words = 0;  
   while(!feof(fp))
     if (EOF ==fscanf(fp, "%[^\n]\n", words_in_list[number_of_words++]))
       continue;
-  
   fclose(fp);                                       
 
-  for (i = 0; i<number_of_words; i++)
-  {
-    titles[i] = BlackOutline(words_in_list[i], DEFAULT_MENU_FONT_SIZE, &white);
-    select[i] = BlackOutline(words_in_list[i], DEFAULT_MENU_FONT_SIZE, &yellow);
-  }
 
-  bkg = LoadImage("main_bkg.png", IMG_REGULAR);
-	 SDL_BlitSurface(CurrentBkgd(), NULL, screen, NULL);	
+
+  /* Prepare needed SDL_Surfaces: */
+
+  /* Render the words in white and yellow: */
+  for (i = 0; i < number_of_words; i++)
+  {
+    white_words[i] = BlackOutline(words_in_list[i], DEFAULT_MENU_FONT_SIZE, &white);
+    yellow_words[i] = BlackOutline(words_in_list[i], DEFAULT_MENU_FONT_SIZE, &yellow);
+  }
 
   left = LoadImage("left.png", IMG_ALPHA);
-  leftRect.w = left->w; leftRect.h = left->h;
-  leftRect.x = 320 - 100 - (leftRect.w/2); leftRect.y = 430;
-
   right = LoadImage("right.png", IMG_ALPHA);
-  rightRect.w = right->w; rightRect.h = right->h;
-  rightRect.x = 320 + 100 - (rightRect.w/2); rightRect.y = 430;
 
-	/* set initial rect sizes */ 
-  titleRects[0].y = 30;
-  titleRects[0].w = titleRects[0].h = titleRects[0].x = 0;
-  for (i = 1; i<8; i++)
+  // FIXME blitting doesn't really go here
+  SDL_BlitSurface(CurrentBkgd(), NULL, screen, NULL);	
+
+
+  /* Set up SDL_Rect locations for later blitting: */
+  leftRect.w = left->w;
+  leftRect.h = left->h;
+  leftRect.x = 320 - 100 - (leftRect.w/2);
+  leftRect.y = 430;
+
+  rightRect.w = right->w;
+  rightRect.h = right->h;
+  rightRect.x = 320 + 100 - (rightRect.w/2);
+  rightRect.y = 430;
+
+  word_rects[0].y = 30;
+  word_rects[0].w = word_rects[0].h = word_rects[0].x = 0;
+
+  for (i = 1; i < 8; i++)
+
   {
-    titleRects[i].y = titleRects[i-1].y + 50;
-    titleRects[i].w = titleRects[i].h = titleRects[i].x = 0;
+    word_rects[i].y = word_rects[i - 1].y + 50;
+    word_rects[i].w = word_rects[i].h = word_rects[i].x = 0;
   }
-  
+
+
+  /* Main event loop for word editor: */
   while (!stop) 
   {
-   while (SDL_PollEvent(&event)) 
-    switch (event.type)
+    while (SDL_PollEvent(&event)) 
     {
-      case SDL_QUIT:
-        exit(0);
-        break;
-
-      case SDL_MOUSEBUTTONDOWN: 
-        if (inRect(leftRect, event.button.x, event.button.y)) 
-          if (loc - (loc % 8) - 8 >= 0) 
-          {
-            loc = loc - (loc % 8) - 8;
-            break;
-          }
-
-        if (inRect(rightRect, event.button.x, event.button.y)) 
-          if (loc - (loc % 8) + 8 < number_of_words)
-          {
-            loc = loc - (loc % 8) + 8;
-            break;
-          }
-
-        for (i = 0; (i < 8) && (loc - (loc % 8) + i < number_of_words); i++)
-          if (inRect(titleRects[i], event.motion.x, event.motion.y))
-          {
-            loc = loc - (loc % 8) + i;
-             break;
-          }
-        break;
-
-      case SDL_KEYDOWN:
-        i = 1;
-
-        if (event.key.keysym.sym == SDLK_BACKSPACE)
-		
-        {
-	
-          	len = ConvertFromUTF8(temp, words_in_list[loc], FNLEN); 
-          	if (len > 1 && number_of_words > 1 && loc != 0) {                               
-            // remove the last character from the string
-            	temp[len - 1] = temp[len];
-            	len = ConvertToUTF8(temp, words_in_list[loc], FNLEN);
-            	titles[loc] = BlackOutline(words_in_list[loc], DEFAULT_MENU_FONT_SIZE, &white );
-            	select[loc] = BlackOutline(words_in_list[loc], DEFAULT_MENU_FONT_SIZE, &yellow);  
-			}
-       
-		else {
-            // we have to remove the word from the list // 
-				fprintf(stderr, "The number of words is %i\n", number_of_words);
-				fprintf(stderr, "The length is %i \n", len);
-			if (number_of_words > 1 && loc != 0)
-			{	
-				int x = 0;
-				number_of_words--;
-				fprintf(stderr, "There are current: %i words\n", number_of_words);
-				for (x = loc; x <= number_of_words; x++)
-				{
-					if (x < number_of_words)
-					{
-						len = ConvertFromUTF8(temp, words_in_list[x + 1], FNLEN);
-						len = ConvertToUTF8(temp, words_in_list[x], FNLEN);
-						titles[x] = BlackOutline(words_in_list[x], DEFAULT_MENU_FONT_SIZE, &white );                     
-		            	select[x] = BlackOutline(words_in_list[x], DEFAULT_MENU_FONT_SIZE, &yellow);				
-					}
-					else
-					{
-						titles[x] = NULL;
-						select[x] = NULL;
-					}
-				}
-				if (loc == number_of_words)
-					loc --;
-			}
-				
-			titles[loc] = BlackOutline(words_in_list[loc], DEFAULT_MENU_FONT_SIZE, &white );                 
-	        select[loc] = BlackOutline(words_in_list[loc], DEFAULT_MENU_FONT_SIZE, &yellow);	
-		
-			//handle deleation of words better, right now don't really do that
-         }
-          break;
-        }
-
-        if (event.key.keysym.sym == SDLK_ESCAPE) 
-        {
-          stop = 1;
-          break; 
-        }
-
-        if ((event.key.keysym.sym == SDLK_LEFT)
-         || (event.key.keysym.sym == SDLK_PAGEUP))
-        {
-          if (loc - (loc % 8) - 8 >= 0)
-            loc = loc - (loc % 8) - 8;
-          break;
-        }
-
-        if ((event.key.keysym.sym == SDLK_RIGHT)
-         || (event.key.keysym.sym == SDLK_PAGEDOWN))
-        {
-          if (loc - (loc % 8) + 8 < number_of_words)
-            loc = (loc - (loc % 8) + 8);
-          break;
-        }
-
-        if (event.key.keysym.sym == SDLK_UP)
-        {
-          if (loc > 0)
-            loc--;
-          break;
-        }
-
-        if (event.key.keysym.sym == SDLK_DOWN)
-        {
-          if (loc + 1 < number_of_words)
-            loc++;
-          break;
-        }
-        
-        
-        switch (event.key.keysym.sym)
-        {                               
-          case SDLK_RETURN:
-			if (number_of_words < MAX_WORD_LISTS)
-				listening_for_new_word = 1;
-			else
-				fprintf(stderr, "Couldn't add new word, this wordlist is full.\n");	
-          case SDLK_CAPSLOCK:
-          case SDLK_RALT:
-          case SDLK_LALT:
-          case SDLK_RSHIFT:
-          case SDLK_LSHIFT:
-          case SDLK_RCTRL:
-          case SDLK_LCTRL:
-            i=0;
-            break;
-          default:  // ignore any other keys 
-            {}
-        }
-
-        if(i)
-        {
-		  // If it's listening for a new word, from having last pressed enter, create a whole new word
-		  // with a length of 0, else get the current length of the highlighted word
-          if (listening_for_new_word) {
-			loc = number_of_words;
-			number_of_words++;
-			listening_for_new_word = 0;
-			len = 0;
-			
-		  } else {
-			len = ConvertFromUTF8(temp, words_in_list[loc], FNLEN);
-		  }
-		  
-		  // Add the character to the end of the existing string
-		  temp[len] = toupper(event.key.keysym.unicode);
-          temp[len + 1] = 0;
-          ConvertToUTF8(temp,words_in_list[loc], FNLEN);
-
-		  // Copy back to the on-screen list
-          titles[loc] = BlackOutline(words_in_list[loc], DEFAULT_MENU_FONT_SIZE, &white );
-          select[loc] = BlackOutline(words_in_list[loc], DEFAULT_MENU_FONT_SIZE, &yellow);
-          
-		  i = 0;
-          break;
-        }
-    }
-
-    if(!stop)
-    {
-      SDL_BlitSurface( bkg, NULL, screen, NULL );
-
-//	if (loc) SetupPaths(fileNames[loc]); else SetupPaths(NULL);	
-
-      start = loc - (loc % 8);
-      for (i = start; i < MIN(start + 8,number_of_words); i++)
+      switch (event.type)
       {
-        titleRects[i % 8].x = 320 - (titles[i]->w/2);
-        if (i == loc)
-          SDL_BlitSurface(select[loc], NULL, screen, &titleRects[i%8]);
-        else
-         SDL_BlitSurface(titles[i], NULL, screen, &titleRects[i%8]);
+        case SDL_QUIT:
+        {
+          exit(0);
+          break;
+        }
+
+        case SDL_MOUSEBUTTONDOWN:
+        { 
+          if (inRect(leftRect, event.button.x, event.button.y)) 
+            if (loc - (loc % 8) - 8 >= 0) 
+            {
+              loc = loc - (loc % 8) - 8;
+              break;
+            }
+
+          if (inRect(rightRect, event.button.x, event.button.y)) 
+            if (loc - (loc % 8) + 8 < number_of_words)
+            {
+              loc = loc - (loc % 8) + 8;
+              break;
+            }
+
+          for (i = 0; (i < 8) && (loc - (loc % 8) + i < number_of_words); i++)
+          {
+            if (inRect(word_rects[i], event.motion.x, event.motion.y))
+            {
+              loc = loc - (loc % 8) + i;
+               break;
+            }
+          }
+          break;
+        }
+
+        case SDL_KEYDOWN:
+        {
+          i = 1;
+
+          if (event.key.keysym.sym == SDLK_BACKSPACE)
+          {
+            len = ConvertFromUTF8(temp, words_in_list[loc], FNLEN); 
+            if (len > 1 && number_of_words > 1 && loc != 0)
+            {                               
+              // remove the last character from the string
+              temp[len - 1] = temp[len];
+              len = ConvertToUTF8(temp, words_in_list[loc], FNLEN);
+              white_words[loc] = BlackOutline(words_in_list[loc], DEFAULT_MENU_FONT_SIZE, &white );
+              yellow_words[loc] = BlackOutline(words_in_list[loc], DEFAULT_MENU_FONT_SIZE, &yellow);  
+            }
+            else
+            {
+              // we have to remove the word from the list // 
+              fprintf(stderr, "The number of words is %i\n", number_of_words);
+              fprintf(stderr, "The length is %i \n", len);
+
+              if (number_of_words > 1 && loc != 0)
+              {	
+                int x = 0;
+                number_of_words--;
+                fprintf(stderr, "There are current: %i words\n", number_of_words);
+
+                for (x = loc; x <= number_of_words; x++)
+                {
+                  if (x < number_of_words)
+                  {
+                    len = ConvertFromUTF8(temp, words_in_list[x + 1], FNLEN);
+                    len = ConvertToUTF8(temp, words_in_list[x], FNLEN);
+                    white_words[x] = BlackOutline(words_in_list[x], DEFAULT_MENU_FONT_SIZE, &white ); 
+                    yellow_words[x] = BlackOutline(words_in_list[x], DEFAULT_MENU_FONT_SIZE, &yellow);
+                  }
+                  else
+                  {
+                    white_words[x] = NULL;
+                    yellow_words[x] = NULL;
+                  }
+                }
+
+                if (loc == number_of_words)
+                  loc --;
+              }
+
+              white_words[loc] = BlackOutline(words_in_list[loc], DEFAULT_MENU_FONT_SIZE, &white );                 
+              yellow_words[loc] = BlackOutline(words_in_list[loc], DEFAULT_MENU_FONT_SIZE, &yellow);	
+
+			//handle deleation of words better, right now don't really do that
+            }
+            break;
+          }  // end of handling of SDLK_BACKSPACE
+
+          if (event.key.keysym.sym == SDLK_ESCAPE) 
+          {
+            stop = 1;
+            break; 
+          }
+
+          if ((event.key.keysym.sym == SDLK_LEFT)
+           || (event.key.keysym.sym == SDLK_PAGEUP))
+          {
+            if (loc - (loc % 8) - 8 >= 0)
+              loc = loc - (loc % 8) - 8;
+            break;
+          }
+
+          if ((event.key.keysym.sym == SDLK_RIGHT)
+           || (event.key.keysym.sym == SDLK_PAGEDOWN))
+          {
+            if (loc - (loc % 8) + 8 < number_of_words)
+              loc = (loc - (loc % 8) + 8);
+            break;
+          }
+
+          if (event.key.keysym.sym == SDLK_UP)
+          {
+            if (loc > 0)
+              loc--;
+            break;
+          }
+
+          if (event.key.keysym.sym == SDLK_DOWN)
+          {
+            if (loc + 1 < number_of_words)
+              loc++;
+            break;
+          }
+        
+        
+          switch (event.key.keysym.sym)
+          {                               
+            case SDLK_RETURN:
+              if (number_of_words < MAX_WORD_LISTS)
+                listening_for_new_word = 1;
+              else
+                fprintf(stderr, "Couldn't add new word, this wordlist is full.\n");	
+              case SDLK_CAPSLOCK:
+              case SDLK_RALT:
+              case SDLK_LALT:
+              case SDLK_RSHIFT:
+              case SDLK_LSHIFT:
+              case SDLK_RCTRL:
+              case SDLK_LCTRL:
+                i = 0;
+                break;
+              default:  // ignore any other keys 
+                {}
+          }
+
+          if(i)  //FIXME what is i?
+          {
+            // If it's listening for a new word, from having last pressed enter, create a whole new word
+            // with a length of 0, else get the current length of the highlighted word
+            if (listening_for_new_word)
+            {
+              loc = number_of_words;
+              number_of_words++;
+              listening_for_new_word = 0;
+              len = 0;
+            }
+            else
+            {
+              len = ConvertFromUTF8(temp, words_in_list[loc], FNLEN);
+            }
+
+            // Add the character to the end of the existing string
+            temp[len] = toupper(event.key.keysym.unicode);
+            temp[len + 1] = 0;
+            ConvertToUTF8(temp,words_in_list[loc], FNLEN);
+
+            // Copy back to the on-screen list
+            white_words[loc] = BlackOutline(words_in_list[loc], DEFAULT_MENU_FONT_SIZE, &white );
+            yellow_words[loc] = BlackOutline(words_in_list[loc], DEFAULT_MENU_FONT_SIZE, &yellow);
+
+            i = 0;
+            break;
+          }
+        }  // end of CASE SDL_KEYDOWN:
+      }  // end of 'switch (event.type)'
+
+      /* Redraw screen: */
+      /* FIXME looks like we are redrawing every time through loop whether */
+      /* we need it or not.                                                */
+      if(!stop)
+      {
+        SDL_BlitSurface(CurrentBkgd(), NULL, screen, NULL );
+        start = loc - (loc % 8);
+        for (i = start; i < MIN(start + 8, number_of_words); i++)
+        {
+          word_rects[i % 8].x = 320 - (white_words[i]->w/2);
+          if (i == loc)
+            SDL_BlitSurface(yellow_words[loc], NULL, screen, &word_rects[i % 8]);
+          else
+            SDL_BlitSurface(white_words[i], NULL, screen, &word_rects[i % 8]);
+        }
+
+        /* --- draw right and left arrow buttons --- */
+        if (start > 0) 
+          SDL_BlitSurface( left, NULL, screen, &leftRect );
+        if (start + 8 < number_of_words) 
+          SDL_BlitSurface(right, NULL, screen, &rightRect);
+
+        SDL_UpdateRect(screen, 0, 0, 0 ,0);
       }
+      SDL_Delay(40);  // I assume throttling so we don't eat all CPU
+      old_loc = loc;
+    }  // End of 'while (SDL_PollEvent(&event))' loop
+  }  // End of 'while(!stop)' loop
 
-      /* --- draw buttons --- */
+  /* End of main event loop */
 
-      if (start > 0) 
-        SDL_BlitSurface( left, NULL, screen, &leftRect );
 
-      if (start + 8 < number_of_words) 
-        SDL_BlitSurface(right, NULL, screen, &rightRect);
-
-      SDL_UpdateRect(screen, 0, 0, 0 ,0);
-    }
-    //SDL_Delay(40);
-    old_loc = loc;
-  }
-
-	/*FIXME: somehow when this is first saved, there is a space between
-	each of the new words in the saved file.  This is fixed upon reloading the
-	word list*/
+  /*FIXME: somehow when this is first saved, there is a space between
+  each of the new words in the saved file.  This is fixed upon reloading the
+  word list*/
 
   /* Write changes to file, if possible: */   
   fprintf(stderr, "In ChooseWord(), about to write changes\n");
@@ -575,18 +601,24 @@ void EditWordList(char *words_file)
   }        
   
   /* --- clear graphics before quitting --- */ 
-  /* FIXME none of this is safe if any of the images is NULL */
   for (i = 0; i < MAX_WORD_LISTS; i++)
   {
-    SDL_FreeSurface(titles[i]);
-    SDL_FreeSurface(select[i]);
+    if(white_words[i] != NULL)
+    {
+      SDL_FreeSurface(white_words[i]);
+      white_words[i] = NULL;
+    }
+    if(yellow_words[i] != NULL)
+    {
+      SDL_FreeSurface(yellow_words[i]);
+      yellow_words[i] = NULL;
+    }
   }
 
-  SDL_FreeSurface(bkg);
   SDL_FreeSurface(left);
   SDL_FreeSurface(right);
-  bkg = NULL;  /* the other pointers are going out of scope so we don't */
-               /* have to worry about setting them to NULL              */
+  /* the pointers are going out of scope so we don't */
+  /* have to worry about setting them to NULL              */
 }              
 
 

@@ -118,7 +118,6 @@ typedef struct game_option_type{
 #define DEFAULT_SOUND_VOL 100
 #define DEFAULT_HIDDEN 0
 //#define CUSTOM_WORD_PATH		"/usr/local/var/tuxtype"
-#define MAX_WORD_LISTS 100
 
 
 
@@ -146,6 +145,8 @@ typedef struct game_option_type{
 /* that can be present within a word list: */
 #define MAX_NUM_WORDS   500
 #define MAX_WORD_SIZE   8
+#define MAX_WORD_LISTS 100
+
 #define MAX_UNICODES    1024
 
 #define WAIT_MS		2500
