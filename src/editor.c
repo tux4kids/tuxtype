@@ -25,7 +25,7 @@
 
 void ChooseListToEdit(void)
 {
-  SDL_Surface *picture = NULL;
+  SDL_Surface* new_button = NULL;
   //this is text:
   SDL_Surface *s1 = NULL, *s2 = NULL, *s3 = NULL, *s4 = NULL;   
   SDL_Rect locText;
@@ -54,6 +54,13 @@ void ChooseListToEdit(void)
   struct dirent* list_dirent = NULL;
 
   DEBUGCODE { fprintf(stderr , "%s", settings.var_data_path); }
+
+
+  /* First part - scan through our word list directory and create lists */
+  /* of the filenames and titles (first lines in files).                */
+  /* NOTE we could use scandir() to do almost all of this as we do      */
+  /* in tuxmath.                                                        */
+
 
   //Try to open directory for modifiable word lists:
   sprintf(fn , "%s" , settings.var_data_path);
@@ -99,6 +106,8 @@ void ChooseListToEdit(void)
   closedir(lists_dir);
 
 
+
+
   /* Render SDL_Surfaces of title text for later blitting: */
   for (i = 0; i < num_lists; i++)
   {
@@ -114,11 +123,11 @@ void ChooseListToEdit(void)
   s4 = BlackOutline(gettext_noop("To exit Word List Editor, press ESC"), 18, &white);	
 
   /* Load image of new word list button: */
-  picture = LoadImage("NewWordList.png", IMG_ALPHA);
-  if(picture != NULL)
-    printf("picture loaded successfully\n");
+  new_button = LoadImage("NewWordList.png", IMG_ALPHA);
   LOG( "ChooseFile() - drawing screen\n");
 
+
+  /* Draw the initial text and images that won't change as list is examined: */
   SDL_BlitSurface(CurrentBkgd(), NULL, screen, NULL);
   locText.x = screen->w/2 - (s1->w/2); locText.y = 10;
   SDL_BlitSurface( s1, NULL, screen, &locText);
@@ -130,7 +139,7 @@ void ChooseListToEdit(void)
   SDL_BlitSurface( s4, NULL, screen, &locText);
 
   button_rect.x = screen->w/3 * 2; button_rect.y = 200;
-  SDL_BlitSurface(picture, NULL, screen, &button_rect);
+  SDL_BlitSurface(new_button, NULL, screen, &button_rect);
 
   SDL_UpdateRect(screen, 0, 0, 0, 0);
 
@@ -140,16 +149,21 @@ void ChooseListToEdit(void)
   titleRects[0].w = titleRects[0].h =  0; 
   titleRects[0].x = screen->w / 2;
 
-  for (i = 1; i<8; i++)
+  for (i = 1; i < 8; i++)
   {
     titleRects[i].y = titleRects[i-1].y + 50;
     titleRects[i].w = titleRects[i].h = 0;
     titleRects[i].x = screen->w /2;
   }
 
+  
+  /* Event loop for this screen: */
   while (!stop)
   {
+
+    /* Handle user input: */
     while (SDL_PollEvent(&event))
+    {
       switch (event.type)
       {
         case SDL_QUIT:
@@ -217,7 +231,9 @@ void ChooseListToEdit(void)
               loc++;
           }
       }
+    }  //End of user event handling
 
+    /* Redraw if a different menu entry is selected: */
     if (old_loc != loc)
     {
       int start;
@@ -225,19 +241,17 @@ void ChooseListToEdit(void)
       if(CurrentBkgd())
         SDL_BlitSurface(CurrentBkgd(), NULL, screen, NULL);
 
-      //if (loc) SetupPaths(fileNames[loc]); else SetupPaths(NULL);
-
       start = loc - (loc % 8);
 
-      for (i = start; i < MIN (start + 8,num_lists); i++)
+      for (i = start; i < MIN (start + 8, num_lists); i++)
       {
         titleRects[i % 8].x = 320 - (white_titles_surf[i]->w/2);
         if (i == loc)
           SDL_BlitSurface(yellow_titles_surf[loc], NULL, screen, &titleRects[i % 8]);
         else
           SDL_BlitSurface(white_titles_surf[i], NULL, screen, &titleRects[i % 8]);
-		 SDL_BlitSurface(CurrentBkgd(), &locText, screen, &locText);
-		SDL_UpdateRect(screen, locText.x, locText.y, locText.w, locText.h);
+        SDL_BlitSurface(CurrentBkgd(), &locText, screen, &locText);
+	SDL_UpdateRect(screen, locText.x, locText.y, locText.w, locText.h);
       }
 
       SDL_UpdateRect(screen, 0, 0, 0 ,0);
