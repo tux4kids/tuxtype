@@ -18,6 +18,6 @@
 
 void ChooseListToEdit(void);
 void EditWordList(char* words_file);
-void CreateNewWordList(void);
+int CreateNewWordList(void);
 
 #endif

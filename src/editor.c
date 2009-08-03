@@ -36,6 +36,7 @@ void ChooseListToEdit(void)
   int old_loc = 1;
   int num_lists = 0;
   int i;
+  int redraw = 0;
 
 
   //Arrays for the list of editable word lists:
@@ -116,11 +117,11 @@ void ChooseListToEdit(void)
   }
  
   /* Render text and instructions */
-  s1 = BlackOutline(gettext_noop("Word List Editor"), 25, &yellow);
-  s2 = BlackOutline(gettext_noop("To add a new wordlist, click the 'New Wordlist' button (it's not there)"), 18, &white);
+  s1 = BlackOutline(gettext_noop("Word List Editor"), 20, &yellow);
+  s2 = BlackOutline(gettext_noop("To add a new wordlist, click the 'New Wordlist' button (it's not there)"), 11, &white);
   //FIXME this is going to be too long for one line.
-  s3 = BlackOutline(gettext_noop("To edit current word lists, either click on the wordlist, or use the arrow keys to navigate and press return"), 18, &white);
-  s4 = BlackOutline(gettext_noop("To exit Word List Editor, press ESC"), 18, &white);	
+  s3 = BlackOutline(gettext_noop("To edit current word lists, either click on the wordlist, or use the arrow keys to navigate and press RETURN"), 11, &white);
+  s4 = BlackOutline(gettext_noop("To exit Word List Editor, press ESC"), 11, &white);	
 
   /* Load image of new word list button: */
   new_button = LoadImage("NewWordList.png", IMG_ALPHA);
@@ -131,31 +132,32 @@ void ChooseListToEdit(void)
   SDL_BlitSurface(CurrentBkgd(), NULL, screen, NULL);
   locText.x = screen->w/2 - (s1->w/2); locText.y = 10;
   SDL_BlitSurface( s1, NULL, screen, &locText);
-  locText.x = screen->w/2 - (s2->w/2); locText.y = 60;
+  locText.x = screen->w/2 - (s2->w/2); locText.y = 50;
   SDL_BlitSurface( s2, NULL, screen, &locText);
-  locText.x = screen->w/2 - (s3->w/2); locText.y = 90;
+  locText.x = screen->w/2 - (s3->w/2); locText.y = 70;
   SDL_BlitSurface(s3, NULL, screen, &locText);
-  locText.x = screen->w/2 - (s4->w/2); locText.y = 120;
+  locText.x = screen->w/2 - (s4->w/2); locText.y = 90;
   SDL_BlitSurface( s4, NULL, screen, &locText);
 
   button_rect.x = screen->w/3 * 2; button_rect.y = 200;
   SDL_BlitSurface(new_button, NULL, screen, &button_rect);
 
-  SDL_UpdateRect(screen, 0, 0, 0, 0);
+ 
 
 
   /* set initial rect sizes */
   titleRects[0].y = screen->h / 3;
-  titleRects[0].w = titleRects[0].h =  0; 
-  titleRects[0].x = screen->w / 2;
+  //titleRects[0].w = titleRects[0].h =  0; 
+  titleRects[0].x = screen->w / 10;
 
   for (i = 1; i < 8; i++)
   {
-    titleRects[i].y = titleRects[i-1].y + 50;
-    titleRects[i].w = titleRects[i].h = 0;
-    titleRects[i].x = screen->w /2;
+    titleRects[i].y = titleRects[i-1].y + 25;
+    //titleRects[i].w = titleRects[i].h = 0;
+    titleRects[i].x = screen->w / 10;
   }
 
+ SDL_UpdateRect(screen, 0, 0, 0, 0);
   
   /* Event loop for this screen: */
   while (!stop)
@@ -181,13 +183,17 @@ void ChooseListToEdit(void)
 
         case SDL_MOUSEBUTTONDOWN: 
 			if (inRect(button_rect, event.button.x, event.button.y)) 
+			{
 				CreateNewWordList();
+				redraw = 1;
+			}
 
           for (i = 0; (i < 8) && (loc - (loc % 8) + i <num_lists); i++) 
             if (inRect(titleRects[i], event.button.x, event.button.y))
             {
               loc = loc - (loc % 8) + i;
               EditWordList(file_names[loc]);
+			  redraw = 1;
               break;
             }
 			
@@ -206,6 +212,7 @@ void ChooseListToEdit(void)
           {
             EditWordList(file_names[loc]);
             loc = 0;
+			redraw = 1;
             break;
           }
           // Go to top of previous page:
@@ -238,19 +245,36 @@ void ChooseListToEdit(void)
     }  //End of user event handling
 
 
+
+
+
+
     /* Redraw if a different menu entry is selected: */
-    if (old_loc != loc)
+    if (old_loc != loc || redraw == 1)
     {
       int start;
+	   redraw = 0;
 
-      if(CurrentBkgd())
-        SDL_BlitSurface(CurrentBkgd(), NULL, screen, NULL);
+      //if(CurrentBkgd())
+      SDL_BlitSurface(CurrentBkgd(), NULL, screen, NULL);
+
+	  locText.x = screen->w/2 - (s1->w/2); locText.y = 10;
+	  SDL_BlitSurface( s1, NULL, screen, &locText);
+	  locText.x = screen->w/2 - (s2->w/2); locText.y = 50;
+	  SDL_BlitSurface( s2, NULL, screen, &locText);
+	  locText.x = screen->w/2 - (s3->w/2); locText.y = 70;
+	  SDL_BlitSurface(s3, NULL, screen, &locText);
+	  locText.x = screen->w/2 - (s4->w/2); locText.y = 90;
+	  SDL_BlitSurface( s4, NULL, screen, &locText);
+
+	  button_rect.x = screen->w/3 * 2; button_rect.y = 200;
+	  SDL_BlitSurface(new_button, NULL, screen, &button_rect);
 
       start = loc - (loc % 8);
 
       for (i = start; i < MIN (start + 8, num_lists); i++)
       {
-        titleRects[i % 8].x = 320 - (white_titles_surf[i]->w/2);
+        //titleRects[i % 8].x = 320 - (white_titles_surf[i]->w/2);
         if (i == loc)
           SDL_BlitSurface(yellow_titles_surf[loc], NULL, screen, &titleRects[i % 8]);
         else
@@ -628,7 +652,7 @@ void EditWordList(char* words_file)
 
 
 /** Private functions **/
-void CreateNewWordList(void)
+int CreateNewWordList(void)
 {
 	fprintf(stderr, "Creating a New Word List!!!");
 	int stop = 0;
@@ -652,14 +676,16 @@ void CreateNewWordList(void)
 	CANCEL_button = LoadImage("wordlist_button.png", IMG_ALPHA);
 	
 	
-	OK_rect.x = screen->w/4; OK_rect.y = 200;
+
+	
+	OK_rect.x = screen->w/4; OK_rect.y = screen->h/3 * 2;
   	SDL_BlitSurface(OK_button, NULL, screen, &OK_rect);
-	OK_rect_text.x = screen->w/4 + 150; OK_rect_text.y = 250;
+	OK_rect_text.x = screen->w/4 + (OK_button->w/2) - OK->w/2; OK_rect_text.y =  screen->h/3 * 2 + (OK -> h/2);
 	SDL_BlitSurface(OK, NULL, screen, &OK_rect_text);
 
-	CANCEL_rect.x = screen->w/4 * 2; CANCEL_rect.y = 200;
+	CANCEL_rect.x = screen->w/4 * 2; CANCEL_rect.y = screen->h/3 * 2;
   	SDL_BlitSurface(CANCEL_button, NULL, screen, &CANCEL_rect);
-	CANCEL_rect_text.x = screen->w/4 * 2 + 150; CANCEL_rect_text.y = 250;
+	CANCEL_rect_text.x = screen->w/4 * 2 + (CANCEL_button->w/2 - CANCEL->w/2); CANCEL_rect_text.y =  screen->h/3 * 2 + (CANCEL->h/2);
   	SDL_BlitSurface(CANCEL, NULL, screen, &CANCEL_rect_text);
 
 
@@ -688,13 +714,20 @@ void CreateNewWordList(void)
     	}
    }/*end user event handling **/
 
-	if(stop = 1)
+	if(stop == 1)
 	{
-		
+	
 		//we free stuff
 		SDL_FreeSurface(OK_button);
 		SDL_FreeSurface(CANCEL_button);
+		SDL_FreeSurface(OK);
+		SDL_FreeSurface(CANCEL);
+		OK = CANCEL = OK_button = CANCEL_button = NULL;
+		return stop;
+		
 	}
+	
+
 }
 
 
