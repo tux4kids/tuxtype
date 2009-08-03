@@ -26,6 +26,8 @@
 void ChooseListToEdit(void)
 {
   SDL_Surface* new_button = NULL;
+   SDL_Surface* remove_button = NULL;
+  SDL_Surface* done_button = NULL;
   //this is text:
   SDL_Surface *s1 = NULL, *s2 = NULL, *s3 = NULL, *s4 = NULL;
   SDL_Rect locText;
@@ -124,7 +126,10 @@ void ChooseListToEdit(void)
   s4 = BlackOutline(gettext_noop("To exit Word List Editor, press ESC"), 11, &white);	
 
   /* Load image of new word list button: */
-  new_button = LoadImage("NewWordList.png", IMG_ALPHA);
+  new_button = LoadImage("wordlist_button.png", IMG_ALPHA);
+  remove_button = LoadImage("wordlist_button.png", IMG_ALPHA);
+  done_button = LoadImage("wordlist_button.png", IMG_ALPHA);
+
   LOG( "ChooseFile() - drawing screen\n");
 
 
@@ -139,10 +144,15 @@ void ChooseListToEdit(void)
   locText.x = screen->w/2 - (s4->w/2); locText.y = 90;
   SDL_BlitSurface( s4, NULL, screen, &locText);
 
-  button_rect.x = screen->w/3 * 2; button_rect.y = 200;
-  SDL_BlitSurface(new_button, NULL, screen, &button_rect);
+   button_rect.x = screen->w - new_button->w - 20; 
+  button_rect.y = screen->h/3;
+   SDL_BlitSurface(new_button, NULL, screen, &button_rect);
+  button_rect.y += new_button->h + 10;
+  SDL_BlitSurface(remove_button, NULL, screen, &button_rect);
+  button_rect.y += new_button->h + 10;
+  SDL_BlitSurface(done_button, NULL, screen, &button_rect);
 
- 
+  SDL_UpdateRect(screen, 0, 0, 0, 0); 
 
 
   /* set initial rect sizes */
@@ -246,9 +256,6 @@ void ChooseListToEdit(void)
 
 
 
-
-
-
     /* Redraw if a different menu entry is selected: */
     if (old_loc != loc || redraw == 1)
     {
@@ -306,6 +313,12 @@ void ChooseListToEdit(void)
     SDL_FreeSurface(s3);
   if(s4)
     SDL_FreeSurface(s4);
+  if(new_button)
+    SDL_FreeSurface(new_button);
+  if(remove_button)
+    SDL_FreeSurface(remove_button);
+  if(done_button)
+    SDL_FreeSurface(done_button);
 }
 
 
@@ -676,7 +689,7 @@ int CreateNewWordList(void)
 	CANCEL_button = LoadImage("wordlist_button.png", IMG_ALPHA);
 	
 	
-
+	SDL_BlitSurface(CurrentBkgd(), NULL, screen, NULL);
 	
 	OK_rect.x = screen->w/4; OK_rect.y = screen->h/3 * 2;
   	SDL_BlitSurface(OK_button, NULL, screen, &OK_rect);

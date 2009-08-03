@@ -1,3 +1,9 @@
+3 Aug 2009 (svn.debian.org/tux4kids - revision 1344)
+[Sarah Frisk <ssfrisk@gmail.com> ]
+	- Set all buttons in editor to the wordlist_button, which is
+	a blank button that can be written over, and fits in the smaller
+	version of the program.
+
 3 Aug 2009 (svn.debian.org/tux4kids - revision 1343)
 [Sarah Frisk <ssfrisk@gmail.com> ]
 	- Changed button sizes for the wordlist_button
