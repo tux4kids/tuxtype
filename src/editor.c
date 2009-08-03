@@ -180,6 +180,9 @@ void ChooseListToEdit(void)
           break;     /* out of switch-case */
 
         case SDL_MOUSEBUTTONDOWN: 
+			if (inRect(button_rect, event.button.x, event.button.y)) 
+				CreateNewWordList();
+
           for (i = 0; (i < 8) && (loc - (loc % 8) + i <num_lists); i++) 
             if (inRect(titleRects[i], event.button.x, event.button.y))
             {
@@ -187,6 +190,7 @@ void ChooseListToEdit(void)
               EditWordList(file_names[loc]);
               break;
             }
+			
           break;
 
         case SDL_KEYDOWN:
@@ -291,7 +295,6 @@ void EditWordList(char* words_file)
   static SDL_Surface* yellow_words[MAX_NUM_WORDS] = {NULL};
   static SDL_Surface *left = NULL, *right = NULL;
   static SDL_Rect leftRect, rightRect;
-//  SDL_Surface* bkg = NULL;
   SDL_Rect word_rects[8];
   int stop = 0;
   int loc = 0;
@@ -310,13 +313,15 @@ void EditWordList(char* words_file)
   
 
   //We should be able to use GenerateWordList() in place of this next block:
+	//NOTE: Works originally, but upon returning to editorlist, the word selected
+	// is not there, since all words in the wordlist are deleted
   sprintf(fn , "%s/%s", settings.var_data_path,  words_file);
-  fp = fopen(fn,"r");
-  number_of_words = 0;  
-  while(!feof(fp))
-    if (EOF ==fscanf(fp, "%[^\n]\n", words_in_list[number_of_words++]))
+ 	fp = fopen(fn,"r");
+ 	number_of_words = 0;  
+  	while(!feof(fp))
+   if (EOF ==fscanf(fp, "%[^\n]\n", words_in_list[number_of_words++]))
       continue;
-  fclose(fp);                                       
+  	fclose(fp);                                       
 
 
 
@@ -394,6 +399,7 @@ void EditWordList(char* words_file)
               loc = loc - (loc % 8) + i;
                break;
             }
+
           }
           break;
         }
@@ -619,6 +625,77 @@ void EditWordList(char* words_file)
   /* the pointers are going out of scope so we don't */
   /* have to worry about setting them to NULL              */
 }              
+
+
+/** Private functions **/
+void CreateNewWordList(void)
+{
+	fprintf(stderr, "Creating a New Word List!!!");
+	int stop = 0;
+	SDL_Surface* OK_button = NULL;
+	SDL_Surface* CANCEL_button = NULL;
+	SDL_Surface *OK = NULL, *CANCEL = NULL;
+	SDL_Rect OK_rect; 
+	SDL_Rect CANCEL_rect;
+	SDL_Rect OK_rect_text; 
+	SDL_Rect CANCEL_rect_text;
+	
+	//Creates a box thing, tells user to enter in name of list.  Click OK, or CANCEL
+	//FIXME: Text in boxes needs work
+	//FIXME: Create a rect for user to enter stuff, and a pretty box to go around everything
+	//FIDME: Change size of boxes
+	
+	OK = BlackOutline(gettext_noop("OK"), 25, &yellow);
+	CANCEL = BlackOutline(gettext_noop("CANCEL"), 25, &yellow);
+	
+	OK_button = LoadImage("wordlist_button.png", IMG_ALPHA);
+	CANCEL_button = LoadImage("wordlist_button.png", IMG_ALPHA);
+	
+	
+	OK_rect.x = screen->w/4; OK_rect.y = 200;
+  	SDL_BlitSurface(OK_button, NULL, screen, &OK_rect);
+	OK_rect_text.x = screen->w/4 + 150; OK_rect_text.y = 250;
+	SDL_BlitSurface(OK, NULL, screen, &OK_rect_text);
+
+	CANCEL_rect.x = screen->w/4 * 2; CANCEL_rect.y = 200;
+  	SDL_BlitSurface(CANCEL_button, NULL, screen, &CANCEL_rect);
+	CANCEL_rect_text.x = screen->w/4 * 2 + 150; CANCEL_rect_text.y = 250;
+  	SDL_BlitSurface(CANCEL, NULL, screen, &CANCEL_rect_text);
+
+
+  	SDL_UpdateRect(screen, 0, 0, 0, 0);
+
+
+  	while (!stop) 
+  	{
+    	while (SDL_PollEvent(&event)) 
+    	{
+			 switch (event.type)
+			{
+        		case SDL_MOUSEBUTTONDOWN: 
+					if (inRect(OK_rect, event.button.x, event.button.y)) 
+					{
+						//do something else
+						// Check if anything is written
+							//if yes, save
+							//if not, don't do anything?
+						stop = 1;
+					}
+					if (inRect(CANCEL_rect, event.button.x, event.button.y)) 
+						stop = 1;
+       				break;
+			}
+    	}
+   }/*end user event handling **/
+
+	if(stop = 1)
+	{
+		
+		//we free stuff
+		SDL_FreeSurface(OK_button);
+		SDL_FreeSurface(CANCEL_button);
+	}
+}
 
 
  

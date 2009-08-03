@@ -1,5 +1,11 @@
-<<<<<<< .mine
-2 Aug 2009 (svn.debian.org/tux4kids - revision 1325)
+
+3 Aug 2009 (svn.debian.org/tux4kids - revision 1336)
+[Sarah Frisk <ssfrisk@gmail.com> ]
+	-  Worked on the function to create new word list
+	-  Added buttons
+
+	-Code in editor.c is now active.
+2 Aug 2009 (svn.debian.org/tux4kids - revision 1335)
 [Sarah Frisk <ssfrisk@gmail.com> ]
 	- Fixed drawing issues in editor.c, everything now draws correctly in the ChooseListToEdit(). 
 	-Code in editor.c is now active.

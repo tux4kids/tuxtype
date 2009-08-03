@@ -14,7 +14,6 @@ SUBDIRS = backgrounds \
 imagesdir = $(pkgdatadir)/images
 
 dist_images_DATA = README_IMAGES.TXT \
-  Done.png \
   down.png \
   fishy-.png \
   fishy0.png \
@@ -51,7 +50,6 @@ dist_images_DATA = README_IMAGES.TXT \
   num_8.png \
   num_9.png \
   pract.png \
-  RemWordList.png \
   right.png \
   splat0.png \
   sound.png \
@@ -67,4 +65,5 @@ dist_images_DATA = README_IMAGES.TXT \
   tux2.png \
   tux3.png \
   up.png \
+  wordlist_button.png\
   world.png
