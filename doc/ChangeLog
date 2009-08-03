@@ -1,4 +1,13 @@
+<<<<<<< .mine
+2 Aug 2009 (svn.debian.org/tux4kids - revision 1325)
+[Sarah Frisk <ssfrisk@gmail.com> ]
+	- Fixed drawing issues in editor.c, everything now draws correctly in the ChooseListToEdit(). 
+	-Code in editor.c is now active.
+
+30 Jun 2009 (svn.debian.org/tux4kids - revision 1325)
+=======
 02 Aug 2009 (svn.debian.org/tux4kids - revision 1334)
+>>>>>>> .r1334
 [ David Bruce <davidstuartbruce@gmail.com> ]
         - ChooseListToEdit() and EditWordList() in editor.h/c now used by program, old functions
         commented out.  Code cleanup ongoing.  Added two more copies of NewWordList.png - to be
