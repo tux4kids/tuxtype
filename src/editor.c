@@ -26,12 +26,14 @@
 void ChooseListToEdit(void)
 {
   SDL_Surface* new_button = NULL;
-   SDL_Surface* remove_button = NULL;
+  SDL_Surface* remove_button = NULL;
   SDL_Surface* done_button = NULL;
+  SDL_Surface *NEW = NULL, *REMOVE = NULL, *DONE = NULL;
   //this is text:
   SDL_Surface *s1 = NULL, *s2 = NULL, *s3 = NULL, *s4 = NULL;
   SDL_Rect locText;
-  SDL_Rect button_rect;
+  SDL_Rect button_rect[3];
+  SDL_Rect button_text_rect[3]; 
 
   int stop = 0;
   int loc = 0;
@@ -121,9 +123,12 @@ void ChooseListToEdit(void)
   /* Render text and instructions */
   s1 = BlackOutline(gettext_noop("Word List Editor"), 20, &yellow);
   s2 = BlackOutline(gettext_noop("To add a new wordlist, click the 'New Wordlist' button (it's not there)"), 11, &white);
-  //FIXME this is going to be too long for one line.
   s3 = BlackOutline(gettext_noop("To edit current word lists, either click on the wordlist, or use the arrow keys to navigate and press RETURN"), 11, &white);
   s4 = BlackOutline(gettext_noop("To exit Word List Editor, press ESC"), 11, &white);	
+
+  NEW = BlackOutline(gettext_noop("NEW"), 25, &yellow);
+  DONE = BlackOutline(gettext_noop("DONE"), 25, &yellow);
+  REMOVE = BlackOutline(gettext_noop("REMOVE"), 25, &yellow);
 
   /* Load image of new word list button: */
   new_button = LoadImage("wordlist_button.png", IMG_ALPHA);
@@ -144,13 +149,30 @@ void ChooseListToEdit(void)
   locText.x = screen->w/2 - (s4->w/2); locText.y = 90;
   SDL_BlitSurface( s4, NULL, screen, &locText);
 
-   button_rect.x = screen->w - new_button->w - 20; 
-  button_rect.y = screen->h/3;
-   SDL_BlitSurface(new_button, NULL, screen, &button_rect);
-  button_rect.y += new_button->h + 10;
-  SDL_BlitSurface(remove_button, NULL, screen, &button_rect);
-  button_rect.y += new_button->h + 10;
-  SDL_BlitSurface(done_button, NULL, screen, &button_rect);
+
+
+
+  button_rect[New].x = screen->w - new_button->w - 20; 
+  button_rect[New].y = screen->h/3;
+  SDL_BlitSurface(new_button, NULL, screen, &button_rect[New]);
+  button_text_rect[New].x = screen->w - new_button->w - 20 + (new_button->w/2 - NEW->w/2); 
+  button_text_rect[New].y = screen->h/3 + (NEW->h/2);
+  SDL_BlitSurface(NEW, NULL, screen, &button_text_rect[New]);
+
+  button_rect[Remove].x = button_rect[New].x;
+  button_rect[Remove].y = button_rect[New].y + remove_button->h + 10;
+  SDL_BlitSurface(remove_button, NULL, screen, &button_rect[Remove]);
+  button_text_rect[Remove].x = screen->w - remove_button->w - 20 + (remove_button->w/2 - REMOVE->w/2); 
+  button_text_rect[Remove].y =  button_text_rect[New].y + remove_button->h + 10;
+  SDL_BlitSurface(REMOVE, NULL, screen, &button_text_rect[Remove]);
+
+  button_rect[Done].x = button_rect[Remove].x;
+  button_rect[Done].y = button_rect[Remove].y + done_button->h + 10;
+  SDL_BlitSurface(done_button, NULL, screen, &button_rect[Done]);
+  button_text_rect[Done].x = screen->w - done_button->w - 20 + (done_button->w/2 - DONE->w/2); 
+  button_text_rect[Done].y = button_text_rect[Remove].y + done_button->h + 10;
+  SDL_BlitSurface(DONE, NULL, screen, &button_text_rect[Done]);
+
 
   SDL_UpdateRect(screen, 0, 0, 0, 0); 
 
@@ -192,7 +214,7 @@ void ChooseListToEdit(void)
           break;     /* out of switch-case */
 
         case SDL_MOUSEBUTTONDOWN: 
-			if (inRect(button_rect, event.button.x, event.button.y)) 
+			if (inRect(button_rect[New], event.button.x, event.button.y)) 
 			{
 				CreateNewWordList();
 				redraw = 1;
@@ -274,8 +296,8 @@ void ChooseListToEdit(void)
 	  locText.x = screen->w/2 - (s4->w/2); locText.y = 90;
 	  SDL_BlitSurface( s4, NULL, screen, &locText);
 
-	  button_rect.x = screen->w/3 * 2; button_rect.y = 200;
-	  SDL_BlitSurface(new_button, NULL, screen, &button_rect);
+	//  button_rect.x = screen->w/3 * 2; button_rect.y = 200;
+	//  SDL_BlitSurface(new_button, NULL, screen, &button_rect);
 
       start = loc - (loc % 8);
 
@@ -319,6 +341,12 @@ void ChooseListToEdit(void)
     SDL_FreeSurface(remove_button);
   if(done_button)
     SDL_FreeSurface(done_button);
+  if(NEW)
+	SDL_FreeSurface(NEW);
+  if(REMOVE)
+	SDL_FreeSurface(REMOVE);
+  if(DONE)
+	SDL_FreeSurface(DONE);
 }
 
 

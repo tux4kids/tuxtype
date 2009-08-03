@@ -20,4 +20,8 @@ void ChooseListToEdit(void);
 void EditWordList(char* words_file);
 int CreateNewWordList(void);
 
+#define New 0
+#define Remove 1
+#define Done 2
+
 #endif
