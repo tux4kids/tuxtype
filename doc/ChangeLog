@@ -1,3 +1,10 @@
+3 Aug 2009 (svn.debian.org/tux4kids -revision 1350)
+[Sarah Frisk <ssfrisk@gmail.com> }
+	-Filled out functionality in the creating new wordlist
+	function, however as of yet it does not actually save the wordlist
+	and there are several bugs to fix.  However, basic functionality
+	is there.
+
 3 Aug 2009 (svn.debian.org/tux4kids -revision 1349)
 [Sarah Frisk <ssfrisk@gmail.com> }
 	-Worked on removing file function.  Currently doesn't work.

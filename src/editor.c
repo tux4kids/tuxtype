@@ -181,13 +181,13 @@ void ChooseListToEdit(void)
 
   /* set initial rect sizes */
   titleRects[0].y = screen->h / 3;
-  //titleRects[0].w = titleRects[0].h =  0; 
+  titleRects[0].w = titleRects[0].h =  0; 
   titleRects[0].x = screen->w / 10;
 
   for (i = 1; i < 8; i++)
   {
     titleRects[i].y = titleRects[i-1].y + 25;
-    //titleRects[i].w = titleRects[i].h = 0;
+    titleRects[i].w = titleRects[i].h = 0;
     titleRects[i].x = screen->w / 10;
   }
 
@@ -734,10 +734,20 @@ int CreateNewWordList(void)
 	SDL_Surface* OK_button = NULL;
 	SDL_Surface* CANCEL_button = NULL;
 	SDL_Surface *OK = NULL, *CANCEL = NULL;
+	SDL_Surface *NewWordlist = NULL;
+	SDL_Surface *Direction = NULL;
 	SDL_Rect OK_rect; 
 	SDL_Rect CANCEL_rect;
 	SDL_Rect OK_rect_text; 
 	SDL_Rect CANCEL_rect_text;
+	SDL_Rect Text;
+	SDL_Rect Directions_rect;
+	
+	char wordlist[MAX_WORD_SIZE + 1];
+	wchar_t temp[FNLEN];
+
+	int len = 0; //len = length, 
+	int i = 0; //i = checks for keydown
 	
 	//Creates a box thing, tells user to enter in name of list.  Click OK, or CANCEL
 	//FIXME: Text in boxes needs work
@@ -763,6 +773,11 @@ int CreateNewWordList(void)
 	CANCEL_rect_text.x = screen->w/4 * 2 + (CANCEL_button->w/2 - CANCEL->w/2); CANCEL_rect_text.y =  screen->h/3 * 2 + (CANCEL->h/2);
   	SDL_BlitSurface(CANCEL, NULL, screen, &CANCEL_rect_text);
 
+  	Text.y = screen->h / 3;
+  	Text.w = Text.h =  0; 
+  	Text.x = screen->w /2;
+	//SDL_BlitSurface(NewWordlist, NULL, screen, &Text);
+
 
   	SDL_UpdateRect(screen, 0, 0, 0, 0);
 
@@ -784,10 +799,89 @@ int CreateNewWordList(void)
 					}
 					if (inRect(CANCEL_rect, event.button.x, event.button.y)) 
 						stop = 1;
-       				break;
+					break;
+				
+				case SDL_KEYDOWN:
+					i = 1; //A Key has been pressed
+					
+					if (event.key.keysym.sym == SDLK_BACKSPACE)
+					{
+						len = ConvertFromUTF8(temp, wordlist, FNLEN);
+						if (len > 0)
+						{
+							temp[len - 1] = temp[len];
+							len = ConvertToUTF8(temp, wordlist, FNLEN);
+							NewWordlist = BlackOutline(wordlist, DEFAULT_MENU_FONT_SIZE, &yellow);
+							fprintf(stderr, "Word: %s\n", wordlist);
+						//	SDL_BlitSurface(NewWordlist, NULL, screen, &Text);
+						}
+						else
+						{
+							//we do nothing
+						}
+						i = 0;
+					}
+				
+					switch (event.key.keysym.sym)
+					{
+						case SDLK_RETURN:
+								//does same thing as pressing OK
+						case SDLK_ESCAPE:
+							stop = 1;
+						case SDLK_LEFT:
+						case SDLK_PAGEUP:
+						case SDLK_RIGHT:
+						case SDLK_UP:
+						case SDLK_DOWN:
+						case SDLK_CAPSLOCK:
+		              	case SDLK_RALT:
+		              	case SDLK_LALT:
+		              	case SDLK_RSHIFT:
+		              	case SDLK_LSHIFT:
+		              	case SDLK_RCTRL:
+		              	case SDLK_LCTRL:
+		                	i = 0;
+		                	break;
+		              	default:  // ignore any other keys 
+		                	{}
+	
+					}
+
+		
+					if (i)
+					{
+						//if (len != 0)
+						len = ConvertFromUTF8(temp, wordlist, FNLEN);
+						// adds a character
+						temp[len] = toupper(event.key.keysym.unicode);
+						temp[len + 1] = 0;
+						ConvertToUTF8(temp, wordlist, FNLEN);
+						
+						//Copy back into onscreen
+						fprintf(stderr, "Word: %s\n", wordlist);
+						NewWordlist = BlackOutline(wordlist, DEFAULT_MENU_FONT_SIZE, &yellow);
+					
+							i = 0;
+							break;
+					} 			
 			}
     	}
+
+	/*Redraw Screen*/
+	if(!stop)
+	{
+		Text.y = screen->h / 3;
+	  	Text.w = Text.h =  0; 
+	  	Text.x = screen->w /2;
+		SDL_BlitSurface(NewWordlist, NULL, screen, &Text);
+		SDL_UpdateRect(screen, 0, 0, 0, 0);
+	}
+		
    }/*end user event handling **/
+
+
+
+	
 
 	if(stop == 1)
 	{
@@ -797,6 +891,9 @@ int CreateNewWordList(void)
 		SDL_FreeSurface(CANCEL_button);
 		SDL_FreeSurface(OK);
 		SDL_FreeSurface(CANCEL);
+		SDL_FreeSurface(NewWordlist);
+		SDL_FreeSurface(Direction);
+		
 		OK = CANCEL = OK_button = CANCEL_button = NULL;
 		
 	}
@@ -892,7 +989,7 @@ int ChooseRemoveList(void)
 /* This is currently not deleting the word, attempting to figure out why 'remove' isn't working*/
 int RemoveList(char* words_file)
 {
-	const char fn[FNLEN];
+	char fn[FNLEN];
 	fprintf(stderr, "Deleting a file\n");
 	
 	sprintf(fn , "%s/%s" , settings.var_data_path, words_file);
