@@ -41,6 +41,7 @@ void ChooseListToEdit(void)
   int num_lists = 0;
   int i;
   int redraw = 0;
+  int delete = 0;
 
 
   //Arrays for the list of editable word lists:
@@ -220,12 +221,32 @@ void ChooseListToEdit(void)
 				redraw = 1;
 			}
 
+			if (inRect(button_rect[Remove], event.button.x, event.button.y))
+			{
+				//pop up something?
+				delete = 1;
+			}
+			
+			if (inRect(button_rect[Done], event.button.x, event.button.y)) 
+			{
+				stop = 1; 
+	            break;
+			}
+
           for (i = 0; (i < 8) && (loc - (loc % 8) + i <num_lists); i++) 
             if (inRect(titleRects[i], event.button.x, event.button.y))
             {
-              loc = loc - (loc % 8) + i;
-              EditWordList(file_names[loc]);
-			  redraw = 1;
+				if (!delete)
+				{
+              		loc = loc - (loc % 8) + i;
+              		EditWordList(file_names[loc]);
+			  		redraw = 1;
+				}
+				else
+					{
+						//do this bit of code
+						delete = 0;
+					}
               break;
             }
 			
@@ -282,22 +303,29 @@ void ChooseListToEdit(void)
     if (old_loc != loc || redraw == 1)
     {
       int start;
-	   redraw = 0;
+	  
 
-      //if(CurrentBkgd())
-      SDL_BlitSurface(CurrentBkgd(), NULL, screen, NULL);
+      if(CurrentBkgd())
+      	SDL_BlitSurface(CurrentBkgd(), NULL, screen, NULL);
 
-	  locText.x = screen->w/2 - (s1->w/2); locText.y = 10;
-	  SDL_BlitSurface( s1, NULL, screen, &locText);
-	  locText.x = screen->w/2 - (s2->w/2); locText.y = 50;
-	  SDL_BlitSurface( s2, NULL, screen, &locText);
-	  locText.x = screen->w/2 - (s3->w/2); locText.y = 70;
-	  SDL_BlitSurface(s3, NULL, screen, &locText);
-	  locText.x = screen->w/2 - (s4->w/2); locText.y = 90;
-	  SDL_BlitSurface( s4, NULL, screen, &locText);
+		/*FIXME: simplify this into a function*/
 
-	//  button_rect.x = screen->w/3 * 2; button_rect.y = 200;
-	//  SDL_BlitSurface(new_button, NULL, screen, &button_rect);
+		SDL_BlitSurface(CurrentBkgd(), NULL, screen, NULL);
+		locText.x = screen->w/2 - (s1->w/2); locText.y = 10;
+		SDL_BlitSurface( s1, NULL, screen, &locText);
+		locText.x = screen->w/2 - (s2->w/2); locText.y = 50;
+		SDL_BlitSurface( s2, NULL, screen, &locText);
+		locText.x = screen->w/2 - (s3->w/2); locText.y = 70;
+		SDL_BlitSurface(s3, NULL, screen, &locText);
+		locText.x = screen->w/2 - (s4->w/2); locText.y = 90;
+		SDL_BlitSurface( s4, NULL, screen, &locText);
+
+	  	SDL_BlitSurface(new_button, NULL, screen, &button_rect[New]);
+	  	SDL_BlitSurface(NEW, NULL, screen, &button_text_rect[New]);
+		SDL_BlitSurface(remove_button, NULL, screen, &button_rect[Remove]);
+		SDL_BlitSurface(REMOVE, NULL, screen, &button_text_rect[Remove]);
+		SDL_BlitSurface(done_button, NULL, screen, &button_rect[Done]);
+		SDL_BlitSurface(DONE, NULL, screen, &button_text_rect[Done]);
 
       start = loc - (loc % 8);
 
@@ -305,11 +333,14 @@ void ChooseListToEdit(void)
       {
         //titleRects[i % 8].x = 320 - (white_titles_surf[i]->w/2);
         if (i == loc)
-          SDL_BlitSurface(yellow_titles_surf[loc], NULL, screen, &titleRects[i % 8]);
+        	SDL_BlitSurface(yellow_titles_surf[loc], NULL, screen, &titleRects[i % 8]);
         else
-          SDL_BlitSurface(white_titles_surf[i], NULL, screen, &titleRects[i % 8]);
+        	SDL_BlitSurface(white_titles_surf[i], NULL, screen, &titleRects[i % 8]);
         SDL_UpdateRect(screen, titleRects[i%8].x, titleRects[i%8].y, titleRects[i%8].w, titleRects[i%8].h);
 	  }
+		  SDL_UpdateRect(screen, 0, 0, 0, 0); 
+		 redraw = 0;
+	
     }
     SDL_Delay(40);
     old_loc = loc;
