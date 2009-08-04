@@ -19,6 +19,7 @@
 #include "SDL_image.h"
 #include "convert_utf.h"
 #include "editor.h"
+#include <stdio.h> 
 
 /* NOTE ChooseFile() is the function to pick custom word lists to edit. */
 /* We should change the name to something more descriptive.             */
@@ -224,7 +225,8 @@ void ChooseListToEdit(void)
 			if (inRect(button_rect[Remove], event.button.x, event.button.y))
 			{
 				//pop up something?
-				delete = 1;
+				delete = ChooseRemoveList();
+				redraw = 1;
 			}
 			
 			if (inRect(button_rect[Done], event.button.x, event.button.y)) 
@@ -243,10 +245,11 @@ void ChooseListToEdit(void)
 			  		redraw = 1;
 				}
 				else
-					{
-						//do this bit of code
-						delete = 0;
-					}
+				{
+					//do this bit of code
+					delete = RemoveList(file_names[loc]);
+					redraw = 1;
+				}
               break;
             }
 			
@@ -795,11 +798,115 @@ int CreateNewWordList(void)
 		SDL_FreeSurface(OK);
 		SDL_FreeSurface(CANCEL);
 		OK = CANCEL = OK_button = CANCEL_button = NULL;
-		return stop;
 		
 	}
-	
+	return stop;
+}
 
+int ChooseRemoveList(void)
+{
+	fprintf(stderr, "Do you want to pick a list to delete?");
+	int stop = 0;
+	int result = 0;
+	SDL_Surface* OK_button = NULL;
+	SDL_Surface* CANCEL_button = NULL;
+	SDL_Surface *OK = NULL, *CANCEL = NULL;
+	SDL_Surface *Directions = NULL;
+	SDL_Rect Directions_rect;
+	SDL_Rect OK_rect; 
+	SDL_Rect CANCEL_rect;
+	SDL_Rect OK_rect_text; 
+	SDL_Rect CANCEL_rect_text;
+
+	OK = BlackOutline(gettext_noop("OK"), 25, &yellow);
+	CANCEL = BlackOutline(gettext_noop("NEVERMIND"), 25, &yellow);
+
+	OK_button = LoadImage("wordlist_button.png", IMG_ALPHA);
+	CANCEL_button = LoadImage("wordlist_button.png", IMG_ALPHA);
+	
+	Directions = BlackOutline(gettext_noop("Select the wordlist you would like to delete"), 18, &white);
+
+
+	SDL_BlitSurface(CurrentBkgd(), NULL, screen, NULL);
+
+	OK_rect.x = screen->w/4; OK_rect.y = screen->h/3 * 2;
+  	SDL_BlitSurface(OK_button, NULL, screen, &OK_rect);
+	OK_rect_text.x = screen->w/4 + (OK_button->w/2) - OK->w/2; OK_rect_text.y =  screen->h/3 * 2 + (OK -> h/2);
+	SDL_BlitSurface(OK, NULL, screen, &OK_rect_text);
+
+	CANCEL_rect.x = screen->w/4 * 2; CANCEL_rect.y = screen->h/3 * 2;
+  	SDL_BlitSurface(CANCEL_button, NULL, screen, &CANCEL_rect);
+	CANCEL_rect_text.x = screen->w/4 * 2 + (CANCEL_button->w/2 - CANCEL->w/2); CANCEL_rect_text.y =  screen->h/3 * 2 + (CANCEL->h/2);
+  	SDL_BlitSurface(CANCEL, NULL, screen, &CANCEL_rect_text);
+
+
+	Directions_rect.x = screen->w/2 - (Directions->w/2);
+	Directions_rect.y = screen->h/3;
+	SDL_BlitSurface(Directions, NULL, screen, &Directions_rect);
+	
+  	SDL_UpdateRect(screen, 0, 0, 0, 0);
+
+
+  	while (!stop) 
+  	{
+    	while (SDL_PollEvent(&event)) 
+    	{
+			 switch (event.type)
+			{
+        		case SDL_MOUSEBUTTONDOWN: 
+					if (inRect(OK_rect, event.button.x, event.button.y)) 
+					{
+						//do something else
+						// Check if anything is written
+							//if yes, save
+							//if not, don't do anything?
+						result = 1;	
+						stop = 1;
+					}
+					if (inRect(CANCEL_rect, event.button.x, event.button.y)) 
+					{	
+						result = 0;
+						stop = 1;
+					}
+       				break;
+			}
+    	}
+   }/*end user event handling **/
+
+	if(stop == 1)
+	{
+
+		//we free stuff
+		SDL_FreeSurface(OK_button);
+		SDL_FreeSurface(CANCEL_button);
+		SDL_FreeSurface(OK);
+		SDL_FreeSurface(CANCEL);
+		OK = CANCEL = OK_button = CANCEL_button = NULL;
+	}
+	
+	return result;
+	
+}
+
+
+/* This is currently not deleting the word, attempting to figure out why 'remove' isn't working*/
+int RemoveList(char* words_file)
+{
+	const char fn[FNLEN];
+	fprintf(stderr, "Deleting a file\n");
+	
+	sprintf(fn , "%s/%s" , settings.var_data_path, words_file);
+
+	fprintf(stderr, "Remove file %s\n", fn);
+	
+	
+	if (remove(fn) != 0 )
+	    fprintf(stderr, "Error deleting file\n");
+	 else
+	    fprintf(stderr, "File successfully deleted\n");
+	
+ 	return 0;
+	
 }
 
 

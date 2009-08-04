@@ -18,7 +18,11 @@
 
 void ChooseListToEdit(void);
 void EditWordList(char* words_file);
+
+
 int CreateNewWordList(void);
+int ChooseRemoveList(void);
+int RemoveList(char* words_file);
 
 #define New 0
 #define Remove 1
