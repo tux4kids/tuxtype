@@ -1,3 +1,11 @@
+4 Aug 2009 (svn.debian.org/tux4kids -revision 1361)
+[Sarah Frisk <ssfrisk@gmail.com> }
+	-Worked on drawing issues in NewWordList()
+	- Need to fix a bug where after typing in NewWordList(), program
+	crashes when pressing cancel/save
+	- Need to make program save when pressing ENTER or 'OK', however
+	trying to fix above bug first
+
 3 Aug 2009 (svn.debian.org/tux4kids -revision 1350)
 [Sarah Frisk <ssfrisk@gmail.com> }
 	-Filled out functionality in the creating new wordlist

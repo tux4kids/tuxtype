@@ -20,7 +20,7 @@ void ChooseListToEdit(void);
 void EditWordList(char* words_file);
 
 
-int CreateNewWordList(void);
+void CreateNewWordList(void);
 int ChooseRemoveList(void);
 int RemoveList(char* words_file);
 
