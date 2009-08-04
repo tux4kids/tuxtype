@@ -1,3 +1,9 @@
+tuxtype (1.7.5.dfsg1-2) UNRELEASED; urgency=low
+
+  * Bump standards version to 3.8.2, no changes needed. 
+
+ -- Holger Levsen <holger@debian.org>  Tue, 04 Aug 2009 12:58:48 +0200
+
 tuxtype (1.7.5.dfsg1-1) unstable; urgency=low
 
   * New upstream release, addressing several issues, primarily translation
