@@ -1,3 +1,9 @@
+5 Aug 2009 (svn.debian.org/tux4kids -revision 1365)
+[Sarah Frisk <ssfrisk@gmail.com> }
+	-Program now successfully creates/removes/changes files
+	-Bug to be fixed: program crashes at the end of NewWordList(),
+	however, it does save the new word list.
+
 4 Aug 2009 (svn.debian.org/tux4kids -revision 1361)
 [Sarah Frisk <ssfrisk@gmail.com> }
 	-Worked on drawing issues in NewWordList()

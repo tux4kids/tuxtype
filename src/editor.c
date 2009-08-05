@@ -733,6 +733,7 @@ void CreateNewWordList(void)
 {
 	fprintf(stderr, "Creating a New Word List!!!");
 	int stop = 0;
+	int save = 0;
 	SDL_Surface* OK_button = NULL;
 	SDL_Surface* CANCEL_button = NULL;
 	SDL_Surface *OK = NULL, *CANCEL = NULL;
@@ -750,6 +751,9 @@ void CreateNewWordList(void)
 
 	int len = 0; //len = length, 
 	int i = 0; //i = checks for keydown
+	
+	FILE* fp = NULL;
+	char fn[FNLEN];
 	
 	//Creates a box thing, tells user to enter in name of list.  Click OK, or CANCEL
 	//FIXME: Text in boxes needs work
@@ -803,6 +807,7 @@ void CreateNewWordList(void)
 						// Check if anything is written
 							//if yes, save
 							//if not, don't do anything?
+						save = 1;	
 						stop = 1;
 						break;
 						
@@ -852,6 +857,7 @@ void CreateNewWordList(void)
 								if (len != 0)
 								{
 									fprintf(stderr, "Save the wordlist\n");
+									save = 1;
 									i = 0;
 									stop = 1;
 									break;
@@ -860,7 +866,7 @@ void CreateNewWordList(void)
 								{
 									fprintf(stderr, "Word needs an actual length\n");
 									i = 0;
-									stop = 1;
+									//stop = 1;
 									break;
 								}
 		                	i = 0;
@@ -918,6 +924,21 @@ void CreateNewWordList(void)
 
 		fprintf(stderr, "Check Two\n");
 
+		
+		/* Creating file, if possible */
+		if (save == 1)
+		{
+			sprintf(fn, "%s/%s.txt", settings.var_data_path, wordlist);
+			fprintf(stderr, "File to be saved: %s\n", fn);
+			fp = fopen(fn, "a+");
+			fprintf(stderr, "Opened File\n");
+			fprintf(fp,"%s", wordlist);
+			fprintf(stderr, "Wrote file\n");
+			fclose(fp);	
+			fprintf(stderr, "Closed file\n");
+		}
+		
+	
 	
 		//we free stuff  
 		if(OK_button)
