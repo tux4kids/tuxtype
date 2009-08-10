@@ -1,3 +1,7 @@
+9 Aug 2009 (svn.debian.org/tux4kids -revision 1405)
+[Sarah Frisk <ssfrisk@gmail.com> }
+	-Bus error bug is fixed.  Final cosmetic issues should be fixed tomorrow.
+
 5 Aug 2009 (svn.debian.org/tux4kids -revision 1365)
 [Sarah Frisk <ssfrisk@gmail.com> }
 	-Program now successfully creates/removes/changes files

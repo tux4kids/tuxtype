@@ -746,8 +746,8 @@ void CreateNewWordList(void)
 	SDL_Rect Text;
 	SDL_Rect Directions_rect;
 	
-	char wordlist[MAX_WORD_SIZE + 1];
-	wchar_t temp[FNLEN];
+	char wordlist[MAX_WORD_SIZE+1];
+	wchar_t temp[MAX_WORD_SIZE+1];
 
 	int len = 0; //len = length, 
 	int i = 0; //i = checks for keydown
@@ -758,7 +758,7 @@ void CreateNewWordList(void)
 	//Creates a box thing, tells user to enter in name of list.  Click OK, or CANCEL
 	//FIXME: Text in boxes needs work
 	//FIXME: Create a rect for user to enter stuff, and a pretty box to go around everything
-	//FIDME: Change size of boxes
+	//FIXME: Change size of boxes
 	
 	OK = BlackOutline(gettext_noop("OK"), 25, &yellow);
 	CANCEL = BlackOutline(gettext_noop("CANCEL"), 25, &yellow);
@@ -827,11 +827,11 @@ void CreateNewWordList(void)
 					
 					if (event.key.keysym.sym == SDLK_BACKSPACE)
 					{
-						len = ConvertFromUTF8(temp, wordlist, FNLEN);
+						len = ConvertFromUTF8(temp, wordlist, MAX_WORD_SIZE);
 						if (len > 0)
 						{
 							temp[len - 1] = temp[len];
-							len = ConvertToUTF8(temp, wordlist, FNLEN);
+							len = ConvertToUTF8(temp, wordlist, MAX_WORD_SIZE);
 							NewWordlist = BlackOutline(wordlist, DEFAULT_MENU_FONT_SIZE, &yellow);
 							fprintf(stderr, "Word: %s\n", wordlist);
 						}
@@ -846,6 +846,7 @@ void CreateNewWordList(void)
 					if(event.key.keysym.sym == SDLK_ESCAPE)
 					{
 						stop = 1;
+						i = 0;
 						break;
 					}
 					
@@ -879,17 +880,19 @@ void CreateNewWordList(void)
 					if (i) //if it is typing time
 					{
 
-						len = ConvertFromUTF8(temp, wordlist, FNLEN);
+						len = ConvertFromUTF8(temp, wordlist, MAX_WORD_SIZE);
 						
-						// adds a character to the end of existing string
-						temp[len] = toupper(event.key.keysym.unicode);
-						temp[len + 1] = 0;
-						ConvertToUTF8(temp, wordlist, FNLEN);
+						if (len < MAX_WORD_SIZE) {
+							// adds a character to the end of existing string
+							temp[len] = toupper(event.key.keysym.unicode);
+							temp[len + 1] = 0;
+						}
+						len = ConvertToUTF8(temp, wordlist, MAX_WORD_SIZE);
+						fprintf(stderr, "TEMP: %s\n", wordlist);
 						
 						//Copy back into onscreen
-						fprintf(stderr, "Word: %s\n", wordlist);
 						NewWordlist = BlackOutline(wordlist, DEFAULT_MENU_FONT_SIZE, &yellow);
-					
+						
 						i = 0;
 						break;
 					} // end of if(i)			
