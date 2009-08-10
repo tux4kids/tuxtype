@@ -43,6 +43,7 @@ void ChooseListToEdit(void)
   int i;
   int redraw = 0;
   int delete = 0;
+  int change = 0;
 
 
   //Arrays for the list of editable word lists:
@@ -218,10 +219,8 @@ void ChooseListToEdit(void)
         case SDL_MOUSEBUTTONDOWN: 
 			if (inRect(button_rect[New], event.button.x, event.button.y)) 
 			{
-				CreateNewWordList();
-				fprintf(stderr, "Check Four\n");
-				redraw = 1;
-				fprintf(stderr, "Check Five\n");
+				change = CreateNewWordList();			
+				
 			}
 
 			if (inRect(button_rect[Remove], event.button.x, event.button.y))
@@ -249,8 +248,8 @@ void ChooseListToEdit(void)
 				else
 				{
 					//do this bit of code
-					delete = RemoveList(file_names[loc]);
-					redraw = 1;
+					change = RemoveList(file_names[loc]);
+					delete = 0;
 				}
               break;
             }
@@ -301,6 +300,69 @@ void ChooseListToEdit(void)
           }
       }
     }  //End of user event handling
+
+	/* reload the list if it has been changed */
+	if (change)
+	{
+
+		num_lists = 0;
+		//Try to open directory for modifiable word lists:
+	  sprintf(fn , "%s" , settings.var_data_path);
+	  lists_dir = opendir(fn);
+
+	  if (!lists_dir)
+	  {
+	    fprintf(stderr, "ChooseListToEdit() - cannot open custom word list directory!\n");
+	    return;
+	  }
+
+	  //Now scan through directory and gather file names and list titles:
+	  while (1)
+	  {
+	    list_dirent = readdir(lists_dir);
+	    if (!list_dirent)
+	      break;
+
+	   /* we ignore any hidden file and CVS */
+
+	    if (list_dirent->d_name[0] == '.') 
+	      continue;
+
+	    if (strcmp("CVS", list_dirent->d_name) == 0)
+	      continue;
+
+	    snprintf(fn, FNLEN, "%s/%s" , settings.var_data_path, list_dirent->d_name); 
+
+	    /* CheckFile() returns 2 if dir, 1 if file, 0 if neither: */
+	    if (CheckFile(fn) == 1)
+	    {
+	      /* We know it opens safely because CheckFile() returned 1 */
+	      fp = fopen(fn,"r");
+	      /* HACK: we should get the names from file :) */
+	      if (EOF ==fscanf(fp, "%[^\n]\n", list_titles[num_lists]))
+	        continue;
+	      /* Make sure list title is capitalized: */
+	      list_titles[num_lists][0] = toupper(list_titles[num_lists][0]);
+	      fclose(fp);
+	      strncpy(file_names[num_lists++], list_dirent->d_name, FNLEN-1);
+	    }
+	  }
+	  closedir(lists_dir);
+
+
+	// white_titles_surf[MAX_WORD_LISTS] = {NULL};  
+	// yellow_titles_surf[MAX_WORD_LISTS] = {NULL};
+
+
+	  /* Render SDL_Surfaces of title text for later blitting: */
+	  for (i = 0; i < num_lists; i++)
+	  {
+	    white_titles_surf[i] = BlackOutline(list_titles[i], DEFAULT_MENU_FONT_SIZE, &white);
+	    yellow_titles_surf[i] = BlackOutline(list_titles[i], DEFAULT_MENU_FONT_SIZE, &yellow);
+	  }
+	change = 0;	
+	redraw = 1;
+	}
 
 
 
@@ -729,7 +791,7 @@ void EditWordList(char* words_file)
 
 
 /** Private functions **/
-void CreateNewWordList(void)
+int CreateNewWordList(void)
 {
 	fprintf(stderr, "Creating a New Word List!!!");
 	int stop = 0;
@@ -959,7 +1021,7 @@ void CreateNewWordList(void)
 		
 		fprintf(stderr, "Check Three\n");
 	//	OK = CANCEL = OK_button = CANCEL_button = NULL;
-//return 0;
+		return save;
 }
 
 int ChooseRemoveList(void)
@@ -1060,11 +1122,17 @@ int RemoveList(char* words_file)
 	
 	
 	if (remove(fn) != 0 )
+	{
 	    fprintf(stderr, "Error deleting file\n");
+		return 0; //no change
+	}
 	 else
+	{
 	    fprintf(stderr, "File successfully deleted\n");
+		return 1; //change made
+	}
 	
- 	return 0;
+ 	
 	
 }
 
