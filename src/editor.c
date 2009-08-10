@@ -32,6 +32,10 @@ void ChooseListToEdit(void)
   SDL_Surface *NEW = NULL, *REMOVE = NULL, *DONE = NULL;
   //this is text:
   SDL_Surface *s1 = NULL, *s2 = NULL, *s3 = NULL, *s4 = NULL;
+	//buttons for left + right
+  static SDL_Surface *left = NULL, *right = NULL;
+  static SDL_Rect leftRect, rightRect;
+
   SDL_Rect locText;
   SDL_Rect button_rect[3];
   SDL_Rect button_text_rect[3]; 
@@ -133,10 +137,14 @@ void ChooseListToEdit(void)
   DONE = BlackOutline(gettext_noop("DONE"), 25, &yellow);
   REMOVE = BlackOutline(gettext_noop("REMOVE"), 25, &yellow);
 
-  /* Load image of new word list button: */
+  /* Load image of new/remove/done buttons: */
   new_button = LoadImage("wordlist_button.png", IMG_ALPHA);
   remove_button = LoadImage("wordlist_button.png", IMG_ALPHA);
   done_button = LoadImage("wordlist_button.png", IMG_ALPHA);
+
+	/*Load image for left and right buttons: */
+  left = LoadImage("left.png", IMG_ALPHA);
+  right = LoadImage("right.png", IMG_ALPHA);
 
   LOG( "ChooseFile() - drawing screen\n");
 
@@ -151,8 +159,6 @@ void ChooseListToEdit(void)
   SDL_BlitSurface(s3, NULL, screen, &locText);
   locText.x = screen->w/2 - (s4->w/2); locText.y = 90;
   SDL_BlitSurface( s4, NULL, screen, &locText);
-
-
 
 
   button_rect[New].x = screen->w - new_button->w - 20; 
@@ -175,6 +181,16 @@ void ChooseListToEdit(void)
   button_text_rect[Done].x = screen->w - done_button->w - 20 + (done_button->w/2 - DONE->w/2); 
   button_text_rect[Done].y = button_text_rect[Remove].y + done_button->h + 10;
   SDL_BlitSurface(DONE, NULL, screen, &button_text_rect[Done]);
+
+  leftRect.w = left->w;
+  leftRect.h = left->h;
+  leftRect.x = 320 - 100 - (leftRect.w/2); //edit
+  leftRect.y = 430; //edit
+
+  rightRect.w = right->w;
+  rightRect.h = right->h;
+  rightRect.x = 320 + 100 - (rightRect.w/2);
+  rightRect.y = 430;
 
 
   SDL_UpdateRect(screen, 0, 0, 0, 0); 
@@ -217,6 +233,21 @@ void ChooseListToEdit(void)
           break;     /* out of switch-case */
 
         case SDL_MOUSEBUTTONDOWN: 
+
+			if (inRect(leftRect, event.button.x, event.button.y)) 
+		      if (loc - (loc % 8) - 8 >= 0) 
+		      {
+		        loc = loc - (loc % 8) - 8;
+		        break;
+		      }
+
+		    if (inRect(rightRect, event.button.x, event.button.y)) 
+		      if (loc - (loc % 8) + 8 < num_lists)
+		      {
+		        loc = loc - (loc % 8) + 8;
+		        break;
+		      }
+		
 			if (inRect(button_rect[New], event.button.x, event.button.y)) 
 			{
 				change = CreateNewWordList();			
@@ -405,6 +436,14 @@ void ChooseListToEdit(void)
         	SDL_BlitSurface(white_titles_surf[i], NULL, screen, &titleRects[i % 8]);
         SDL_UpdateRect(screen, titleRects[i%8].x, titleRects[i%8].y, titleRects[i%8].w, titleRects[i%8].h);
 	  }
+	
+		/* --- draw right and left arrow buttons --- */
+	      if (start > 0) 
+	        SDL_BlitSurface( left, NULL, screen, &leftRect );
+	      if (start + 8 < num_lists) 
+	        SDL_BlitSurface(right, NULL, screen, &rightRect);
+	
+	
 		  SDL_UpdateRect(screen, 0, 0, 0, 0); 
 		 redraw = 0;
 	
@@ -818,10 +857,8 @@ int CreateNewWordList(void)
 	char fn[FNLEN];
 	
 	//Creates a box thing, tells user to enter in name of list.  Click OK, or CANCEL
-	//FIXME: Text in boxes needs work
 	//FIXME: Create a rect for user to enter stuff, and a pretty box to go around everything
-	//FIXME: Change size of boxes
-	
+
 	OK = BlackOutline(gettext_noop("OK"), 25, &yellow);
 	CANCEL = BlackOutline(gettext_noop("CANCEL"), 25, &yellow);
 	
@@ -844,8 +881,6 @@ int CreateNewWordList(void)
   	Text.y = screen->h / 3;
   	Text.w = Text.h =  0; 
   	Text.x = screen->w /2;
-	//SDL_BlitSurface(NewWordlist, NULL, screen, &Text);
-
 
   	SDL_UpdateRect(screen, 0, 0, 0, 0);
 
@@ -865,18 +900,22 @@ int CreateNewWordList(void)
 				{
 					if (inRect(OK_rect, event.button.x, event.button.y)) 
 					{
-						//do something else
-						// Check if anything is written
-							//if yes, save
-							//if not, don't do anything?
-						save = 1;	
-						stop = 1;
-						break;
+			
+						if (len != 0)
+						{
+							fprintf(stderr, "Save the wordlist\n");
+							save = 1;
+							stop = 1;				
+						}
+						else
+						{
+							fprintf(stderr, "Word needs an actual length\n");
+						}
 						
 					}
 					if (inRect(CANCEL_rect, event.button.x, event.button.y)) 
 					{
-						fprintf(stderr, "Check One\n");
+						
 						stop = 1;
 						break;
 					}
@@ -921,15 +960,12 @@ int CreateNewWordList(void)
 								{
 									fprintf(stderr, "Save the wordlist\n");
 									save = 1;
-									i = 0;
 									stop = 1;
 									break;
 								}
 								else
 								{
 									fprintf(stderr, "Word needs an actual length\n");
-									i = 0;
-									//stop = 1;
 									break;
 								}
 		                	i = 0;

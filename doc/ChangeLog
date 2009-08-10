@@ -1,6 +1,11 @@
+10 Aug 2009 (svn.debian.org/tux4kids -revision 1407)
+[Sarah Frisk <ssfrisk@gmail.com> }
+	-Left and right arrows now show up
+	-adding a word list now checks for empty wordlists
+
 10 Aug 2009 (svn.debian.org/tux4kids -revision 1406)
 [Sarah Frisk <ssfrisk@gmail.com> }
-	-Screen is redrawn properly after a wordlist is added/deleated
+	-Screen is redrawn properly after a wordlist is added/deleted
 
 9 Aug 2009 (svn.debian.org/tux4kids -revision 1405)
 [Sarah Frisk <ssfrisk@gmail.com> }
