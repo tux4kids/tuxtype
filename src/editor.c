@@ -46,13 +46,12 @@ void ChooseListToEdit(void)
   int num_lists = 0;
   int i;
   int redraw = 0;
-  int delete = 0;
   int change = 0;
 
 
   //Arrays for the list of editable word lists:
   char file_names[MAX_WORD_LISTS][FNLEN];  //names of the files containing lists
-  char list_titles[MAX_WORD_LISTS][FNLEN]; //text list name to be displayed
+  char list_titles[MAX_WORD_LISTS][MAX_WORD_SIZE]; //text list name to be displayed
   //Surfaces of list_titles[] rendered for graphical display:
   SDL_Surface* white_titles_surf[MAX_WORD_LISTS] = {NULL};  //unselected titles - white lettering; 
   SDL_Surface* yellow_titles_surf[MAX_WORD_LISTS] = {NULL}; //selected titles - yellow lettering
@@ -163,34 +162,29 @@ void ChooseListToEdit(void)
 
   button_rect[New].x = screen->w - new_button->w - 20; 
   button_rect[New].y = screen->h/3;
-  SDL_BlitSurface(new_button, NULL, screen, &button_rect[New]);
   button_text_rect[New].x = screen->w - new_button->w - 20 + (new_button->w/2 - NEW->w/2); 
   button_text_rect[New].y = screen->h/3 + (NEW->h/2);
-  SDL_BlitSurface(NEW, NULL, screen, &button_text_rect[New]);
 
   button_rect[Remove].x = button_rect[New].x;
   button_rect[Remove].y = button_rect[New].y + remove_button->h + 10;
-  SDL_BlitSurface(remove_button, NULL, screen, &button_rect[Remove]);
   button_text_rect[Remove].x = screen->w - remove_button->w - 20 + (remove_button->w/2 - REMOVE->w/2); 
   button_text_rect[Remove].y =  button_text_rect[New].y + remove_button->h + 10;
-  SDL_BlitSurface(REMOVE, NULL, screen, &button_text_rect[Remove]);
 
   button_rect[Done].x = button_rect[Remove].x;
   button_rect[Done].y = button_rect[Remove].y + done_button->h + 10;
-  SDL_BlitSurface(done_button, NULL, screen, &button_rect[Done]);
   button_text_rect[Done].x = screen->w - done_button->w - 20 + (done_button->w/2 - DONE->w/2); 
   button_text_rect[Done].y = button_text_rect[Remove].y + done_button->h + 10;
-  SDL_BlitSurface(DONE, NULL, screen, &button_text_rect[Done]);
 
   leftRect.w = left->w;
   leftRect.h = left->h;
-  leftRect.x = 320 - 100 - (leftRect.w/2); //edit
-  leftRect.y = 430; //edit
+  leftRect.x = screen->w/10 - (leftRect.w/2);
+  leftRect.y = 415;
 
   rightRect.w = right->w;
   rightRect.h = right->h;
-  rightRect.x = 320 + 100 - (rightRect.w/2);
-  rightRect.y = 430;
+  rightRect.x = screen->w/10 + 100 - (rightRect.w/2);
+  rightRect.y = 415;
+
 
 
   SDL_UpdateRect(screen, 0, 0, 0, 0); 
@@ -508,19 +502,19 @@ void EditWordList(char* words_file)
   char str[FNLEN];
   char words_in_list[MAX_NUM_WORDS][MAX_WORD_SIZE + 1];
   
-  wchar_t temp[FNLEN], temp2[FNLEN];
+  wchar_t temp[MAX_WORD_SIZE + 1];
   
 
   //We should be able to use GenerateWordList() in place of this next block:
 	//NOTE: Works originally, but upon returning to editorlist, the word selected
 	// is not there, since all words in the wordlist are deleted
-  sprintf(fn , "%s/%s", settings.var_data_path,  words_file);
- 	fp = fopen(fn,"r");
- 	number_of_words = 0;  
-  	while(!feof(fp))
-   if (EOF ==fscanf(fp, "%[^\n]\n", words_in_list[number_of_words++]))
-      continue;
-  	fclose(fp);                                       
+    sprintf(fn , "%s/%s", settings.var_data_path,  words_file);
+	fp = fopen(fn,"r");
+	number_of_words = 0;  
+	while(!feof(fp))
+ 		if (EOF ==fscanf(fp, "%[^\n]\n", words_in_list[number_of_words++]))
+    		continue;
+	fclose(fp);                                   
 
 
 
@@ -537,28 +531,30 @@ void EditWordList(char* words_file)
   right = LoadImage("right.png", IMG_ALPHA);
 
   // FIXME blitting doesn't really go here
-  SDL_BlitSurface(CurrentBkgd(), NULL, screen, NULL);	
+ // SDL_BlitSurface(CurrentBkgd(), NULL, screen, NULL);	
 
 
   /* Set up SDL_Rect locations for later blitting: */
   leftRect.w = left->w;
   leftRect.h = left->h;
-  leftRect.x = 320 - 100 - (leftRect.w/2);
-  leftRect.y = 430;
+  leftRect.x = screen->w/10 - (leftRect.w/2);
+  leftRect.y = 415;
 
   rightRect.w = right->w;
   rightRect.h = right->h;
-  rightRect.x = 320 + 100 - (rightRect.w/2);
-  rightRect.y = 430;
+  rightRect.x = screen->w/10 + 100 - (rightRect.w/2);
+  rightRect.y = 415;
 
-  word_rects[0].y = 30;
-  word_rects[0].w = word_rects[0].h = word_rects[0].x = 0;
+  word_rects[0].y = screen->h / 3;
+  word_rects[0].w = word_rects[0].h = 0;
+  word_rects[0].x = screen->w / 10;
 
   for (i = 1; i < 8; i++)
 
   {
-    word_rects[i].y = word_rects[i - 1].y + 50;
-    word_rects[i].w = word_rects[i].h = word_rects[i].x = 0;
+    word_rects[i].y = word_rects[i - 1].y + 25;
+	word_rects[i].w = word_rects[i].h = 0;
+	word_rects[i].x = screen->w / 10;
   }
 
 
@@ -609,12 +605,12 @@ void EditWordList(char* words_file)
 
           if (event.key.keysym.sym == SDLK_BACKSPACE)
           {
-            len = ConvertFromUTF8(temp, words_in_list[loc], FNLEN); 
+            len = ConvertFromUTF8(temp, words_in_list[loc], MAX_WORD_SIZE); 
             if (len > 1 && number_of_words > 1 && loc != 0)
             {                               
               // remove the last character from the string
               temp[len - 1] = temp[len];
-              len = ConvertToUTF8(temp, words_in_list[loc], FNLEN);
+              len = ConvertToUTF8(temp, words_in_list[loc], MAX_WORD_SIZE);
               white_words[loc] = BlackOutline(words_in_list[loc], DEFAULT_MENU_FONT_SIZE, &white );
               yellow_words[loc] = BlackOutline(words_in_list[loc], DEFAULT_MENU_FONT_SIZE, &yellow);  
             }
@@ -624,32 +620,41 @@ void EditWordList(char* words_file)
               fprintf(stderr, "The number of words is %i\n", number_of_words);
               fprintf(stderr, "The length is %i \n", len);
 
-              if (number_of_words > 1 && loc != 0)
-              {	
-                int x = 0;
-                number_of_words--;
-                fprintf(stderr, "There are current: %i words\n", number_of_words);
-
-                for (x = loc; x <= number_of_words; x++)
-                {
-                  if (x < number_of_words)
-                  {
-                    len = ConvertFromUTF8(temp, words_in_list[x + 1], FNLEN);
-                    len = ConvertToUTF8(temp, words_in_list[x], FNLEN);
-                    white_words[x] = BlackOutline(words_in_list[x], DEFAULT_MENU_FONT_SIZE, &white ); 
-                    yellow_words[x] = BlackOutline(words_in_list[x], DEFAULT_MENU_FONT_SIZE, &yellow);
-                  }
-                  else
-                  {
-                    white_words[x] = NULL;
-                    yellow_words[x] = NULL;
-                  }
-                }
-
-                if (loc == number_of_words)
+			
+			if (number_of_words > 1 && loc != 0)
+			{	
+				int x = 0;
+				number_of_words --;
+				fprintf(stderr, "There are current: %i words\n", number_of_words);
+				
+				for(x = loc; x <= number_of_words; x++)
+				{
+					if(x < number_of_words && loc != 0)
+					{
+						len = ConvertFromUTF8(temp, words_in_list[x + 1], MAX_WORD_SIZE);
+						fprintf(stderr, "X = %i\n", x);
+						fprintf(stderr, "word in list = %s\n", words_in_list[x + 1]);
+					//	fprintf(stderr, "temp = %s\n", temp);
+						len = ConvertToUTF8(temp, words_in_list[x], MAX_WORD_SIZE);
+						white_words[x] = BlackOutline(words_in_list[x], DEFAULT_MENU_FONT_SIZE, &white ); 
+		                yellow_words[x] = BlackOutline(words_in_list[x], DEFAULT_MENU_FONT_SIZE, &yellow);
+					}
+					else
+					{
+						//words_in_list[x] = 0;
+						white_words[x] = NULL;
+	                    yellow_words[x] = NULL;
+						
+					}
+			
+				}
+				
+				if (loc == number_of_words)
                   loc --;
-              }
 
+				
+				fprintf(stderr, "There are current: %i words\n", number_of_words);
+			}
               white_words[loc] = BlackOutline(words_in_list[loc], DEFAULT_MENU_FONT_SIZE, &white );                 
               yellow_words[loc] = BlackOutline(words_in_list[loc], DEFAULT_MENU_FONT_SIZE, &yellow);	
 
@@ -726,16 +731,16 @@ void EditWordList(char* words_file)
               listening_for_new_word = 0;
               len = 0;
             }
-            else
-            {
-              len = ConvertFromUTF8(temp, words_in_list[loc], FNLEN);
-            }
-			if (loc != 0)
+            else if (!listening_for_new_word)
+			{
+            len = ConvertFromUTF8(temp, words_in_list[loc], MAX_WORD_SIZE);
+		    }
+			if (loc != 0 && len < MAX_WORD_SIZE -1)
 			{
             // Add the character to the end of the existing string
             temp[len] = toupper(event.key.keysym.unicode);
             temp[len + 1] = 0;
-            ConvertToUTF8(temp,words_in_list[loc], FNLEN);
+            ConvertToUTF8(temp,words_in_list[loc], MAX_WORD_SIZE);
 
             // Copy back to the on-screen list
             white_words[loc] = BlackOutline(words_in_list[loc], DEFAULT_MENU_FONT_SIZE, &white );
@@ -750,13 +755,26 @@ void EditWordList(char* words_file)
       /* Redraw screen: */
       /* FIXME looks like we are redrawing every time through loop whether */
       /* we need it or not.                                                */
+
+	  word_rects[0].y = screen->h / 3;
+	  word_rects[0].w = word_rects[0].h = 0;
+	  word_rects[0].x = screen->w / 10;
+
+	  for (i = 1; i < 8; i++)
+
+	  {
+	    word_rects[i].y = word_rects[i - 1].y + 25;
+		word_rects[i].w = word_rects[i].h = 0;
+		word_rects[i].x = screen->w / 10;
+	  }
+	
       if(!stop)
       {
         SDL_BlitSurface(CurrentBkgd(), NULL, screen, NULL );
         start = loc - (loc % 8);
         for (i = start; i < MIN(start + 8, number_of_words); i++)
         {
-          word_rects[i % 8].x = 320 - (white_words[i]->w/2);
+          word_rects[i % 8].x = screen->w / 10;
           if (i == loc)
             SDL_BlitSurface(yellow_words[loc], NULL, screen, &word_rects[i % 8]);
           else
@@ -785,17 +803,19 @@ void EditWordList(char* words_file)
 
   /* Write changes to file, if possible: */   
   fprintf(stderr, "In ChooseWord(), about to write changes\n");
-  fp = fopen(fn,"w");
+  fp = fopen(fn,"w+");
 
   if (fp)
   { 
     fseek(fp, 0, SEEK_SET);
-    fprintf(fp, "%s", str);
+    //fprintf(fp, "%s", str);
     i = 0;
 
-    while(i < number_of_words)                     
+    while(i < number_of_words) 
+    {
+	  fprintf(stderr, "%s\n", words_in_list[i]);
       fprintf(fp, "%s\n", words_in_list[i++]);
-  
+  	}
     fclose(fp); 
     fp = NULL;
     fprintf(stderr, "In ChooseWord(), changes written successfully\n");
