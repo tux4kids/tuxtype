@@ -1,3 +1,8 @@
+10 Aug 2009 (svn.debian.org/tux4kids -revision 1408)
+[Sarah Frisk <ssfrisk@gmail.com> }
+	-Test for the new wordlist function is now centered
+	-pressing cancel now redraws the screen
+
 10 Aug 2009 (svn.debian.org/tux4kids -revision 1407)
 [Sarah Frisk <ssfrisk@gmail.com> }
 	-Left and right arrows now show up

@@ -251,7 +251,8 @@ void ChooseListToEdit(void)
 			if (inRect(button_rect[New], event.button.x, event.button.y)) 
 			{
 				change = CreateNewWordList();			
-				
+				if (!change)
+					redraw = 1;
 			}
 
 			if (inRect(button_rect[Remove], event.button.x, event.button.y))
@@ -484,6 +485,10 @@ void ChooseListToEdit(void)
 	SDL_FreeSurface(REMOVE);
   if(DONE)
 	SDL_FreeSurface(DONE);
+  if(left)
+	SDL_FreeSurface(left);
+  if(right)
+  	SDL_FreeSurface(right);
 }
 
 
@@ -733,7 +738,8 @@ void EditWordList(char* words_file)
             {
               len = ConvertFromUTF8(temp, words_in_list[loc], FNLEN);
             }
-
+			if (loc != 0)
+			{
             // Add the character to the end of the existing string
             temp[len] = toupper(event.key.keysym.unicode);
             temp[len + 1] = 0;
@@ -742,7 +748,7 @@ void EditWordList(char* words_file)
             // Copy back to the on-screen list
             white_words[loc] = BlackOutline(words_in_list[loc], DEFAULT_MENU_FONT_SIZE, &white );
             yellow_words[loc] = BlackOutline(words_in_list[loc], DEFAULT_MENU_FONT_SIZE, &yellow);
-
+			}
             i = 0;
             break;
           }
@@ -1014,7 +1020,10 @@ int CreateNewWordList(void)
 				
 				Text.y = screen->h / 3;
 	  			Text.w = Text.h =  0; 
-	  			Text.x = screen->w /2;
+				if (len > 0)
+					Text.x = screen->w /2 - NewWordlist->w/2;
+				else
+					Text.x = screen->w /2;
 				SDL_BlitSurface(NewWordlist, NULL, screen, &Text);
 				SDL_UpdateRect(screen, 0, 0, 0, 0);
 			}
@@ -1023,9 +1032,6 @@ int CreateNewWordList(void)
 	} // End of 'while(!stop)' loop
 
 
-		fprintf(stderr, "Check Two\n");
-
-		
 		/* Creating file, if possible */
 		if (save == 1)
 		{
@@ -1055,7 +1061,6 @@ int CreateNewWordList(void)
 		if(Direction)
 			SDL_FreeSurface(Direction);
 		
-		fprintf(stderr, "Check Three\n");
 	//	OK = CANCEL = OK_button = CANCEL_button = NULL;
 		return save;
 }
