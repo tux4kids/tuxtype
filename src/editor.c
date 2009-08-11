@@ -258,8 +258,8 @@ void ChooseListToEdit(void)
 			if (inRect(button_rect[Remove], event.button.x, event.button.y))
 			{
 				//pop up something?
-				delete = ChooseRemoveList();
-				redraw = 1;
+				ChooseRemoveList(list_titles[loc]);
+				change = 1;
 			}
 			
 			if (inRect(button_rect[Done], event.button.x, event.button.y)) 
@@ -271,18 +271,10 @@ void ChooseListToEdit(void)
           for (i = 0; (i < 8) && (loc - (loc % 8) + i <num_lists); i++) 
             if (inRect(titleRects[i], event.button.x, event.button.y))
             {
-				if (!delete)
-				{
-              		loc = loc - (loc % 8) + i;
-              		EditWordList(file_names[loc]);
-			  		redraw = 1;
-				}
-				else
-				{
-					//do this bit of code
-					change = RemoveList(file_names[loc]);
-					delete = 0;
-				}
+				loc = loc - (loc % 8) + i;
+              	EditWordList(file_names[loc]);
+			  	redraw = 1;
+				
               break;
             }
 			
@@ -845,7 +837,8 @@ int CreateNewWordList(void)
 	SDL_Surface* CANCEL_button = NULL;
 	SDL_Surface *OK = NULL, *CANCEL = NULL;
 	SDL_Surface *NewWordlist = NULL;
-	SDL_Surface *Direction = NULL;
+	SDL_Surface *Direction1 = NULL;
+	SDL_Surface *Direction2 = NULL;
 	SDL_Rect OK_rect; 
 	SDL_Rect CANCEL_rect;
 	SDL_Rect OK_rect_text; 
@@ -855,6 +848,8 @@ int CreateNewWordList(void)
 	
 	char wordlist[MAX_WORD_SIZE+1];
 	wchar_t temp[MAX_WORD_SIZE+1];
+	
+	wordlist[0] = 0;
 
 	int len = 0; //len = length, 
 	int i = 0; //i = checks for keydown
@@ -871,8 +866,19 @@ int CreateNewWordList(void)
 	OK_button = LoadImage("wordlist_button.png", IMG_ALPHA);
 	CANCEL_button = LoadImage("wordlist_button.png", IMG_ALPHA);
 	
+	Direction1 = BlackOutline(gettext_noop("Create a New Wordlist"), 20, &yellow);
+	Direction2 = BlackOutline(gettext_noop("Type the name of your new wordlist and press 'ok' or 'RETURN' to save"), 12, &white);
 	
 	SDL_BlitSurface(CurrentBkgd(), NULL, screen, NULL);
+	
+	
+	Directions_rect.x = screen->w/2 - Direction1->w/2; 
+	Directions_rect.y = screen->h/3;
+  	SDL_BlitSurface(Direction1, NULL, screen, &Directions_rect);
+	Directions_rect.x = screen->w/2 - Direction2->w/2; 
+	Directions_rect.y += 30;
+	SDL_BlitSurface(Direction2, NULL, screen, &Directions_rect);
+	
 	
 	OK_rect.x = screen->w/4; OK_rect.y = screen->h/3 * 2;
   	SDL_BlitSurface(OK_button, NULL, screen, &OK_rect);
@@ -884,7 +890,7 @@ int CreateNewWordList(void)
 	CANCEL_rect_text.x = screen->w/4 * 2 + (CANCEL_button->w/2 - CANCEL->w/2); CANCEL_rect_text.y =  screen->h/3 * 2 + (CANCEL->h/2);
   	SDL_BlitSurface(CANCEL, NULL, screen, &CANCEL_rect_text);
 
-  	Text.y = screen->h / 3;
+  	Text.y = screen->h / 2;
   	Text.w = Text.h =  0; 
   	Text.x = screen->w /2;
 
@@ -983,7 +989,8 @@ int CreateNewWordList(void)
 		
 					if (i) //if it is typing time
 					{
-
+						fprintf(stderr, "TEMP 1: %s\n", wordlist);
+						
 						len = ConvertFromUTF8(temp, wordlist, MAX_WORD_SIZE);
 						
 						if (len < MAX_WORD_SIZE) {
@@ -992,7 +999,7 @@ int CreateNewWordList(void)
 							temp[len + 1] = 0;
 						}
 						len = ConvertToUTF8(temp, wordlist, MAX_WORD_SIZE);
-						fprintf(stderr, "TEMP: %s\n", wordlist);
+						fprintf(stderr, "TEMP 2: %s\n", wordlist);
 						
 						//Copy back into onscreen
 						NewWordlist = BlackOutline(wordlist, DEFAULT_MENU_FONT_SIZE, &yellow);
@@ -1007,7 +1014,14 @@ int CreateNewWordList(void)
 			if(!stop)
 			{
 				SDL_BlitSurface(CurrentBkgd(), NULL, screen, NULL );
-				
+						
+				Directions_rect.x = screen->w/2 - Direction1->w/2; 
+				Directions_rect.y = screen->h/3;
+			  	SDL_BlitSurface(Direction1, NULL, screen, &Directions_rect);
+				Directions_rect.x = screen->w/2 - Direction2->w/2; 
+				Directions_rect.y += 30;
+				SDL_BlitSurface(Direction2, NULL, screen, &Directions_rect);
+			
 				OK_rect.x = screen->w/4; OK_rect.y = screen->h/3 * 2;
 				SDL_BlitSurface(OK_button, NULL, screen, &OK_rect);
 				OK_rect_text.x = screen->w/4 + (OK_button->w/2) - OK->w/2; OK_rect_text.y =  screen->h/3 * 2 + (OK -> h/2);
@@ -1018,7 +1032,7 @@ int CreateNewWordList(void)
 				CANCEL_rect_text.x = screen->w/4 * 2 + (CANCEL_button->w/2 - CANCEL->w/2); CANCEL_rect_text.y =  screen->h/3 * 2 + (CANCEL->h/2);
 				SDL_BlitSurface(CANCEL, NULL, screen, &CANCEL_rect_text);
 				
-				Text.y = screen->h / 3;
+				Text.y = screen->h / 2;
 	  			Text.w = Text.h =  0; 
 				if (len > 0)
 					Text.x = screen->w /2 - NewWordlist->w/2;
@@ -1058,14 +1072,17 @@ int CreateNewWordList(void)
 			SDL_FreeSurface(CANCEL);
 		if(NewWordlist)
 			SDL_FreeSurface(NewWordlist);
-		if(Direction)
-			SDL_FreeSurface(Direction);
+		if(Direction1)
+			SDL_FreeSurface(Direction1);
+		if(Direction2)
+			SDL_FreeSurface(Direction2);
+		
 		
 	//	OK = CANCEL = OK_button = CANCEL_button = NULL;
 		return save;
 }
 
-int ChooseRemoveList(void)
+int ChooseRemoveList(char *filename)
 {
 	fprintf(stderr, "Do you want to pick a list to delete?");
 	int stop = 0;
@@ -1074,6 +1091,8 @@ int ChooseRemoveList(void)
 	SDL_Surface* CANCEL_button = NULL;
 	SDL_Surface *OK = NULL, *CANCEL = NULL;
 	SDL_Surface *Directions = NULL;
+	SDL_Surface *wordname = NULL;
+	SDL_Rect wordname_rect;
 	SDL_Rect Directions_rect;
 	SDL_Rect OK_rect; 
 	SDL_Rect CANCEL_rect;
@@ -1086,7 +1105,8 @@ int ChooseRemoveList(void)
 	OK_button = LoadImage("wordlist_button.png", IMG_ALPHA);
 	CANCEL_button = LoadImage("wordlist_button.png", IMG_ALPHA);
 	
-	Directions = BlackOutline(gettext_noop("Select the wordlist you would like to delete"), 18, &white);
+	Directions = BlackOutline(gettext_noop("Do you want to delete this wordlist:"), 18, &white);
+	wordname = BlackOutline(filename, 18, &white);
 
 
 	SDL_BlitSurface(CurrentBkgd(), NULL, screen, NULL);
@@ -1106,6 +1126,11 @@ int ChooseRemoveList(void)
 	Directions_rect.y = screen->h/3;
 	SDL_BlitSurface(Directions, NULL, screen, &Directions_rect);
 	
+	wordname_rect.x = screen->w/2 - (wordname->w/2);
+	wordname_rect.y = screen->h/3 + 30;
+	SDL_BlitSurface(wordname, NULL, screen, &wordname_rect);
+	
+	
   	SDL_UpdateRect(screen, 0, 0, 0, 0);
 
 
@@ -1118,10 +1143,8 @@ int ChooseRemoveList(void)
         		case SDL_MOUSEBUTTONDOWN: 
 					if (inRect(OK_rect, event.button.x, event.button.y)) 
 					{
-						//do something else
-						// Check if anything is written
-							//if yes, save
-							//if not, don't do anything?
+						int a = RemoveList(filename);
+						
 						result = 1;	
 						stop = 1;
 					}
@@ -1143,6 +1166,8 @@ int ChooseRemoveList(void)
 		SDL_FreeSurface(CANCEL_button);
 		SDL_FreeSurface(OK);
 		SDL_FreeSurface(CANCEL);
+		SDL_FreeSurface(Directions);
+		SDL_FreeSurface(wordname);
 		OK = CANCEL = OK_button = CANCEL_button = NULL;
 	}
 	
@@ -1151,13 +1176,12 @@ int ChooseRemoveList(void)
 }
 
 
-/* This is currently not deleting the word, attempting to figure out why 'remove' isn't working*/
 int RemoveList(char* words_file)
 {
 	char fn[FNLEN];
 	fprintf(stderr, "Deleting a file\n");
 	
-	sprintf(fn , "%s/%s" , settings.var_data_path, words_file);
+	sprintf(fn , "%s/%s.txt" , settings.var_data_path, words_file);
 
 	fprintf(stderr, "Remove file %s\n", fn);
 	
