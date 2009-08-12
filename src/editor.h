@@ -21,7 +21,7 @@ void EditWordList(char* words_file);
 
 
 int CreateNewWordList(void);
-int ChooseRemoveList(char *filename);
+int ChooseRemoveList(char *name, char *filename);
 int RemoveList(char* words_file);
 
 #define New 0
