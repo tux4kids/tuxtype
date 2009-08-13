@@ -504,7 +504,8 @@ void EditWordList(char* words_file)
   char fn[FNLEN];
   char str[FNLEN];
   char words_in_list[MAX_NUM_WORDS][MAX_WORD_SIZE + 1];
-  
+  int blank = 0;
+
   wchar_t temp[MAX_WORD_SIZE + 1];
   
 
@@ -524,10 +525,10 @@ void EditWordList(char* words_file)
   /* Prepare needed SDL_Surfaces: */
 
   /* Render the words in white and yellow: */
-  for (i = 0; i < number_of_words-1; i++)
+  for (i = 0; i < number_of_words; i++)
   {
-    white_words[i] = BlackOutline(words_in_list[i+1], DEFAULT_MENU_FONT_SIZE, &white);
-    yellow_words[i] = BlackOutline(words_in_list[i+1], DEFAULT_MENU_FONT_SIZE, &yellow);
+    white_words[i] = BlackOutline(words_in_list[i], DEFAULT_MENU_FONT_SIZE, &white);
+    yellow_words[i] = BlackOutline(words_in_list[i], DEFAULT_MENU_FONT_SIZE, &yellow);
   }
 
   left = LoadImage("left.png", IMG_ALPHA);
@@ -610,14 +611,14 @@ void EditWordList(char* words_file)
 
           if (event.key.keysym.sym == SDLK_BACKSPACE)
           {
-            len = ConvertFromUTF8(temp, words_in_list[loc+1], MAX_WORD_SIZE); 
+            len = ConvertFromUTF8(temp, words_in_list[loc], MAX_WORD_SIZE); 
             if (len > 1 && number_of_words > 1)
             {                               
               // remove the last character from the string
               temp[len - 1] = temp[len];
-              len = ConvertToUTF8(temp, words_in_list[loc+1], MAX_WORD_SIZE);
-              white_words[loc] = BlackOutline(words_in_list[loc+1], DEFAULT_MENU_FONT_SIZE, &white );
-              yellow_words[loc] = BlackOutline(words_in_list[loc+1], DEFAULT_MENU_FONT_SIZE, &yellow);  
+              len = ConvertToUTF8(temp, words_in_list[loc], MAX_WORD_SIZE);
+              white_words[loc] = BlackOutline(words_in_list[loc], DEFAULT_MENU_FONT_SIZE, &white );
+              yellow_words[loc] = BlackOutline(words_in_list[loc], DEFAULT_MENU_FONT_SIZE, &yellow);  
             }
             else
             {
@@ -636,13 +637,13 @@ void EditWordList(char* words_file)
 				{
 					if(x < number_of_words)
 					{
-						len = ConvertFromUTF8(temp, words_in_list[x+2], MAX_WORD_SIZE);
+						len = ConvertFromUTF8(temp, words_in_list[x+1], MAX_WORD_SIZE);
 						fprintf(stderr, "X = %i\n", x);
 						fprintf(stderr, "word in list = %s\n", words_in_list[x]);
 					//	fprintf(stderr, "temp = %s\n", temp);
-						len = ConvertToUTF8(temp, words_in_list[x+1], MAX_WORD_SIZE);
-						white_words[x] = BlackOutline(words_in_list[x+1], DEFAULT_MENU_FONT_SIZE, &white ); 
-		                yellow_words[x] = BlackOutline(words_in_list[x+1], DEFAULT_MENU_FONT_SIZE, &yellow);
+						len = ConvertToUTF8(temp, words_in_list[x], MAX_WORD_SIZE);
+						white_words[x] = BlackOutline(words_in_list[x], DEFAULT_MENU_FONT_SIZE, &white ); 
+		                yellow_words[x] = BlackOutline(words_in_list[x], DEFAULT_MENU_FONT_SIZE, &yellow);
 					}
 					else
 					{
@@ -660,8 +661,8 @@ void EditWordList(char* words_file)
 				
 				fprintf(stderr, "There are current: %i words\n", number_of_words);
 			}
-              white_words[loc] = BlackOutline(words_in_list[loc+1], DEFAULT_MENU_FONT_SIZE, &white );                 
-              yellow_words[loc] = BlackOutline(words_in_list[loc+1], DEFAULT_MENU_FONT_SIZE, &yellow);	
+              white_words[loc] = BlackOutline(words_in_list[loc], DEFAULT_MENU_FONT_SIZE, &white );                 
+              yellow_words[loc] = BlackOutline(words_in_list[loc], DEFAULT_MENU_FONT_SIZE, &yellow);	
 
 			//handle deleation of words better, right now don't really do that
             }
@@ -708,9 +709,12 @@ void EditWordList(char* words_file)
           switch (event.key.keysym.sym)
           {                               
             case SDLK_RETURN:
+				fprintf(stderr, "number of words: %i", number_of_words);	
               if (number_of_words < MAX_WORD_LISTS)
                 listening_for_new_word = 1;
-              else
+			//  else if (blank == 1)
+			//	loc = number_of_words;
+		 	  else
                 fprintf(stderr, "Couldn't add new word, this wordlist is full.\n");	
               case SDLK_CAPSLOCK:
               case SDLK_RALT:
@@ -727,7 +731,8 @@ void EditWordList(char* words_file)
 
           if(i)  //FIXME what is i?
           {
-				 fprintf(stderr, "loc is  = %i\n", loc);	
+				 fprintf(stderr, "loc  = %i\n", loc);
+				 fprintf(stderr, "number of words  = %i\n", number_of_words);	
             // If it's listening for a new word, from having last pressed enter, create a whole new word
             // with a length of 0, else get the current length of the highlighted word
             if (listening_for_new_word)
@@ -736,22 +741,24 @@ void EditWordList(char* words_file)
               number_of_words++;
               listening_for_new_word = 0;
               len = 0;
+		  	 //blank = 1;
             }
             else if (!listening_for_new_word)
 			{
-            len = ConvertFromUTF8(temp, words_in_list[loc+1], MAX_WORD_SIZE);
+			//	if ( loc == number_of_words)
+			//		blank = 0;
+            	len = ConvertFromUTF8(temp, words_in_list[loc], MAX_WORD_SIZE);
 		    }
 			if (len < MAX_WORD_SIZE -1)
 			{
-				
             // Add the character to the end of the existing string
             temp[len] = toupper(event.key.keysym.unicode);
             temp[len + 1] = 0;
-            ConvertToUTF8(temp,words_in_list[loc + 1], MAX_WORD_SIZE);
+            ConvertToUTF8(temp,words_in_list[loc], MAX_WORD_SIZE);
 
             // Copy back to the on-screen list
-            white_words[loc] = BlackOutline(words_in_list[loc+1], DEFAULT_MENU_FONT_SIZE, &white );
-            yellow_words[loc] = BlackOutline(words_in_list[loc+1], DEFAULT_MENU_FONT_SIZE, &yellow);
+            white_words[loc] = BlackOutline(words_in_list[loc], DEFAULT_MENU_FONT_SIZE, &white );
+            yellow_words[loc] = BlackOutline(words_in_list[loc], DEFAULT_MENU_FONT_SIZE, &yellow);
 			}
             i = 0;
             break;
@@ -811,7 +818,7 @@ void EditWordList(char* words_file)
 
   /* Write changes to file, if possible: */   
   fprintf(stderr, "In ChooseWord(), about to write changes\n");
-  fp = fopen(fn,"w+");
+  fp = fopen(fn,"w");
 
   if (fp)
   { 
@@ -821,8 +828,9 @@ void EditWordList(char* words_file)
 
     while(i < number_of_words) 
     {
+      fprintf(fp, "%s\n", words_in_list[i]);
 	  fprintf(stderr, "%s\n", words_in_list[i]);
-      fprintf(fp, "%s\n", words_in_list[i++]);
+		i++;
   	}
     fclose(fp); 
     fp = NULL;
