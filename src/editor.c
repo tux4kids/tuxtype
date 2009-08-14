@@ -51,10 +51,10 @@ void ChooseListToEdit(void)
 
   //Arrays for the list of editable word lists:
   char file_names[MAX_WORD_LISTS][FNLEN];  //names of the files containing lists
-  char list_titles[MAX_WORD_LISTS][MAX_WORD_SIZE]; //text list name to be displayed
+  char list_titles[MAX_WORD_LISTS][MAX_WORD_SIZE+1]; //text list name to be displayed
   //Surfaces of list_titles[] rendered for graphical display:
-  SDL_Surface* white_titles_surf[MAX_WORD_LISTS] = {NULL};  //unselected titles - white lettering; 
-  SDL_Surface* yellow_titles_surf[MAX_WORD_LISTS] = {NULL}; //selected titles - yellow lettering
+  SDL_Surface* white_titles_surf[MAX_WORD_LISTS + 1] = {NULL};  //unselected titles - white lettering; 
+  SDL_Surface* yellow_titles_surf[MAX_WORD_LISTS + 1] = {NULL}; //selected titles - yellow lettering
   // Rects where list names will be drawn on screen:
   static SDL_Rect titleRects[8];
 

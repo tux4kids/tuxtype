@@ -1,3 +1,8 @@
+13 Aug 2009 (svn.debian.org/tux4kids -revision 1432)
+[Sarah Frisk <ssfrisk@gmail.com> }
+	- Fixed a bug in ChooseWordList() where file names longer than 8 char
+	were mixing up with other filenames in the display
+
 13 Aug 2009 (svn.debian.org/tux4kids -revision 1430)
 [Sarah Frisk <ssfrisk@gmail.com> }
 	- Fixed bug/garbage issues
