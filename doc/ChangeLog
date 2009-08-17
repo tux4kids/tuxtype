@@ -1,3 +1,9 @@
+16 Aug 2009 (svn.debian.org/tux4kids -revision 1452)
+[Sarah Frisk <ssfrisk@gmail.com> }
+	- Added directions for wordlist editor
+	- fixed bugs in wordlist editor
+	- made it so the name of the wordlist does not appear in the wordlist while editing
+
 13 Aug 2009 (svn.debian.org/tux4kids -revision 1432)
 [Sarah Frisk <ssfrisk@gmail.com> }
 	- Fixed a bug in ChooseWordList() where file names longer than 8 char
