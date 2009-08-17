@@ -31,12 +31,12 @@ void ChooseListToEdit(void)
   SDL_Surface* done_button = NULL;
   SDL_Surface *NEW = NULL, *REMOVE = NULL, *DONE = NULL;
   //this is text:
-  SDL_Surface *s1 = NULL, *s2 = NULL, *s3 = NULL, *s4 = NULL, *s5 = NULL;
+  SDL_Surface *directions[5] = {NULL};
 	//buttons for left + right
   static SDL_Surface *left = NULL, *right = NULL;
   static SDL_Rect leftRect, rightRect;
 
-  SDL_Rect locText;
+  SDL_Rect directions_Rect[5];
   SDL_Rect button_rect[3];
   SDL_Rect button_text_rect[3]; 
 
@@ -44,7 +44,7 @@ void ChooseListToEdit(void)
   int loc = 0;
   int old_loc = 1;
   int num_lists = 0;
-  int i;
+int i, j = 0;
   int redraw = 0;
   int change = 0;
 
@@ -129,11 +129,11 @@ void ChooseListToEdit(void)
   }
  
   /* Render text and instructions */
-  s1 = BlackOutline(gettext_noop("Word List Editor"), 20, &yellow);
-  s2 = BlackOutline(gettext_noop("To add a new word list, click the 'NEW' button"), 11, &white);
-  s3 = BlackOutline(gettext_noop("To remove a word list, select the wordlist with the arrow buttons, then click the 'REMOVE' button or the 'DELETE' key"), 11, &white);
-  s4 = BlackOutline(gettext_noop("To edit a word list, select the wordlist with the arrow buttons, then press the 'RETURN' key"), 11, &white);
-  s5 = BlackOutline(gettext_noop("To exit Word List Editor, press the 'ESC' key, or click on the 'DONE' button"), 11, &white);	
+  directions[0] = BlackOutline(gettext_noop("Word List Editor"), 20, &yellow);
+  directions[1] = BlackOutline(gettext_noop("To add a new word list, click the 'NEW' button"), 11, &white);
+  directions[2] = BlackOutline(gettext_noop("To remove a word list, select the wordlist with the arrow buttons, then click the 'REMOVE' button or the 'DELETE' key"), 11, &white);
+  directions[3] = BlackOutline(gettext_noop("To edit a word list, select the wordlist with the arrow buttons, then press the 'RETURN' key"), 11, &white);
+  directions[4] = BlackOutline(gettext_noop("To exit Word List Editor, press the 'ESC' key, or click on the 'DONE' button"), 11, &white);	
 
   max_title_size = BlackOutline(gettext_noop("WWWWWWWWW"), DEFAULT_MENU_FONT_SIZE, &yellow);
 
@@ -154,17 +154,23 @@ void ChooseListToEdit(void)
 
 
   /* Draw the initial text and images that won't change as list is examined: */
-  SDL_BlitSurface(CurrentBkgd(), NULL, screen, NULL);
-  locText.x = screen->w/2 - (s1->w/2); locText.y = 10;
-  SDL_BlitSurface( s1, NULL, screen, &locText);
-  locText.x = screen->w/2 - (s2->w/2); locText.y = 50;
-  SDL_BlitSurface( s2, NULL, screen, &locText);
-  locText.x = screen->w/2 - (s3->w/2); locText.y = 70;
-  SDL_BlitSurface(s3, NULL, screen, &locText);
-  locText.x = screen->w/2 - (s4->w/2); locText.y = 90;
-  SDL_BlitSurface( s4, NULL, screen, &locText);
-  locText.x = screen->w/2 - (s5->w/2); locText.y = 110;
-  SDL_BlitSurface( s5, NULL, screen, &locText);
+	
+	directions_Rect[0].x = screen->w/2 - (directions[0]->w/2);
+	directions_Rect[0].y = 10;
+	directions_Rect[0].w = directions[0]->w;
+	directions_Rect[0].h = directions[0]->h;
+
+	j = 30;
+	
+	for (i = 1; i < 5; i++)
+	{
+		j += 20;
+		directions_Rect[i].x = screen->w/2 - (directions[i]->w/2);
+		directions_Rect[i].y = j;
+		directions_Rect[i].w = directions[i]->w;
+		directions_Rect[i].h = directions[i]->h;
+	}
+
 
 
   button_rect[New].x = screen->w - new_button->w - 20; 
@@ -191,10 +197,6 @@ void ChooseListToEdit(void)
   rightRect.h = right->h;
   rightRect.x = screen->w/10 + 100 - (rightRect.w/2);
   rightRect.y = 415;
-
-
-
-  SDL_UpdateRect(screen, 0, 0, 0, 0); 
 
 
   /* set initial rect sizes */
@@ -224,15 +226,6 @@ void ChooseListToEdit(void)
         case SDL_QUIT:
           exit(0);
           break;
-
-    //    case SDL_MOUSEMOTION:
-    //      for (i = 0; (i < 8) && (loc - (loc % 8) + i < num_lists); i++)
-    //        if (inRect(titleRects[i], event.motion.x, event.motion.y))
-    //        {
-    //          loc = loc - (loc % 8) + i;
-    //          break; /* out of for loop */
-    //        }
-    //     break;     /* out of switch-case */
 
         case SDL_MOUSEBUTTONDOWN: 
 
@@ -398,17 +391,9 @@ void ChooseListToEdit(void)
 
 		/*FIXME: simplify this into a function*/
 
-  	SDL_BlitSurface(CurrentBkgd(), NULL, screen, NULL);
-  	locText.x = screen->w/2 - (s1->w/2); locText.y = 10;
-  	SDL_BlitSurface( s1, NULL, screen, &locText);
-  	locText.x = screen->w/2 - (s2->w/2); locText.y = 50;
-  	SDL_BlitSurface( s2, NULL, screen, &locText);
-  	locText.x = screen->w/2 - (s3->w/2); locText.y = 70;
-  	SDL_BlitSurface(s3, NULL, screen, &locText);
-  	locText.x = screen->w/2 - (s4->w/2); locText.y = 90;
-  	SDL_BlitSurface( s4, NULL, screen, &locText);
-  	locText.x = screen->w/2 - (s5->w/2); locText.y = 110;
-  	SDL_BlitSurface( s5, NULL, screen, &locText);
+	for (i = 0; i < 5; i++)
+		SDL_BlitSurface( directions[i], NULL, screen, &directions_Rect[i]);
+
 
 	  	SDL_BlitSurface(new_button, NULL, screen, &button_rect[New]);
 	  	SDL_BlitSurface(NEW, NULL, screen, &button_text_rect[New]);
@@ -455,17 +440,12 @@ void ChooseListToEdit(void)
       SDL_FreeSurface(yellow_titles_surf[i]);
   }
 
+	for (i = 0; i < 5; i ++)
+  	{
+		if(directions[i])
+			SDL_FreeSurface(directions[i]);
+	}
 
-  if(s1)
-    SDL_FreeSurface(s1);
-  if(s2)
-    SDL_FreeSurface(s2);
-  if(s3)
-    SDL_FreeSurface(s3);
-  if(s4)
-    SDL_FreeSurface(s4);
-	if(s5)
-  		SDL_FreeSurface(s5);
   if(new_button)
     SDL_FreeSurface(new_button);
   if(remove_button)
@@ -496,9 +476,9 @@ void EditWordList(char* words_file)
   static SDL_Surface *left = NULL, *right = NULL;
   static SDL_Surface *wordlist_name = NULL;
   static SDL_Surface *title = NULL;
-static SDL_Surface *directions[4] = {NULL};
-static SDL_Rect directions_Rect[4];
-static SDL_Rect titleRect;
+  static SDL_Surface *directions[4] = {NULL};
+  static SDL_Rect directions_Rect[4];
+  static SDL_Rect titleRect;
   static SDL_Rect leftRect, rightRect;
   static SDL_Rect wordlist_name_rect;
   SDL_Rect word_rects[8];
@@ -512,9 +492,7 @@ static SDL_Rect titleRect;
 int i,len,j = 0; 
   int listening_for_new_word = 0;
   char fn[FNLEN];
-  char str[FNLEN];
   char words_in_list[MAX_NUM_WORDS][MAX_WORD_SIZE + 1];
-  int blank = 0;
 
   wchar_t temp[MAX_WORD_SIZE + 1];
   
@@ -726,7 +704,7 @@ int i,len,j = 0;
           if ((event.key.keysym.sym == SDLK_RIGHT)
            || (event.key.keysym.sym == SDLK_PAGEDOWN))
           {
-            if (loc - (loc % 8) + 8 < number_of_words)
+            if (loc - (loc % 8) + 8 < number_of_words-1)
               loc = (loc - (loc % 8) + 8);
 			fprintf(stderr, "loc  = %i\n", loc);
             break;
@@ -809,18 +787,6 @@ int i,len,j = 0;
       /* Redraw screen: */
       /* FIXME looks like we are redrawing every time through loop whether */
       /* we need it or not.                                                */
-
-//	  word_rects[0].y = screen->h / 3;
-//	  word_rects[0].w = word_rects[0].h = 0;
-//	  word_rects[0].x = screen->w / 10;
-
-//	  for (i = 1; i < 8; i++)
-
-//	  {
-//	    word_rects[i].y = word_rects[i - 1].y + 25;
-//		word_rects[i].w = word_rects[i].h = 0;
-//		word_rects[i].x = screen->w / 10;
-//	  }
 	
       if(!stop)
       {
@@ -842,7 +808,7 @@ int i,len,j = 0;
         /* --- draw right and left arrow buttons --- */
         if (start > 0) 
           SDL_BlitSurface( left, NULL, screen, &leftRect );
-        if (start + 8 < number_of_words) 
+        if (start + 8 < number_of_words-1) 
           SDL_BlitSurface(right, NULL, screen, &rightRect);
 
         SDL_UpdateRect(screen, 0, 0, 0 ,0);
@@ -898,6 +864,13 @@ int i,len,j = 0;
       yellow_words[i] = NULL;
     }
   }
+
+	for (i = 0; i < 4; i ++)
+	{
+		if(directions[i])
+			SDL_FreeSurface(directions[i]);
+	}
+
 
   SDL_FreeSurface(left);
   SDL_FreeSurface(right);
