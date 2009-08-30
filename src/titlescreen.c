@@ -624,19 +624,19 @@ void TitleScreen(void)
 
     if (menu_opt == INSTRUCT)
     {
-//      unload_media();
-      not_implemented();
+//       not_implemented();
+       unload_media();
 
-//       switch (sub_menu)
-//       {
-//         case CASCADE: InstructCascade(); break;
-//         case LASER:   InstructLaser();   break;
-//       }
+      switch (sub_menu)
+      {
+        case CASCADE: InstructCascade(); break;
+        case LASER:   InstructLaser();   break;
+      }
 
-//      load_media();
+      load_media();
 
-//      if (settings.menu_music)
-//        MusicLoad( "tuxi.ogg", -1 );
+      if (settings.menu_music)
+        MusicLoad( "tuxi.ogg", -1 );
 
       redraw = 1;
     }

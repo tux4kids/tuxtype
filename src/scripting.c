@@ -65,7 +65,6 @@ void InstructCascade(void)
 void InstructLaser(void)
 {
   char fn[FNLEN]; 
-  int i;
 
   /* Try theme script first: */
   if (!settings.use_english)
@@ -73,11 +72,7 @@ void InstructLaser(void)
 
   if (load_script( fn ) == 0) /* meaning successful load */
   {
-    for (i = 0; i < 20; i++)
-    {
-      run_script();
-      SDL_Delay(500);
-    }
+    run_script();
     return;
   }
 
@@ -87,13 +82,8 @@ void InstructLaser(void)
   if (load_script( fn ) != 0)
     return; // bail if any errors occur
 
-  for (i = 0; i < 20; i++)
-  {
-    run_script();
-    SDL_Delay(500);
-  }
+  run_script();
 }
-
 
 void ProjectInfo(void)
 {
@@ -192,9 +182,13 @@ int TestLesson(void)
     if (strlen(script_file->d_name) < 5)
       continue;
 
-    /* Don't show project info file: */
-    if (strcmp(script_file->d_name, "projectInfo.xml") == 0)
+    /* Don't show project info file or instructions files */
+    if (strcmp(script_file->d_name, "projectInfo.xml") == 0 ||
+        strcmp(script_file->d_name, "laser.xml") == 0 ||
+        strcmp(script_file->d_name, "cascade.xml") == 0)
       continue;
+
+
 
     if (strcmp(&script_file->d_name[strlen(script_file->d_name) - 4],".xml"))
       continue;
@@ -965,13 +959,39 @@ static void run_script(void)
     if (curPage->background)
     {
       SDL_Surface* img = LoadImage(curPage->background, IMG_ALPHA|IMG_NOT_REQUIRED);
-      SDL_BlitSurface(img, NULL, screen, NULL);
+
+      /* hack: since this is the background it needs to scale when in fullscreen
+       * but shouldn't every image scale when in fullscreen? assuming svg is for that... -MDT */
+      if (settings.fullscreen)
+      {
+        SDL_Surface* fsimg = zoom(img, fs_res_x, fs_res_y);
+        SDL_BlitSurface(fsimg, NULL, screen, NULL);
+        SDL_FreeSurface(fsimg);
+      }
+      else
+      { 
+        SDL_BlitSurface(img, NULL, screen, NULL);
+      } 
+
       SDL_FreeSurface(img);
+
     }
     else if (curScript->background)
     {
       SDL_Surface* img = LoadImage(curScript->background, IMG_ALPHA|IMG_NOT_REQUIRED);
-      SDL_BlitSurface(img, NULL, screen, NULL);
+
+      /* hack: since this is the background it needs to scale when in fullscreen -MDT */
+      if (settings.fullscreen)
+      { 
+        SDL_Surface* fsimg = zoom(img, fs_res_x, fs_res_y);
+        SDL_BlitSurface(fsimg, NULL, screen, NULL);
+        SDL_FreeSurface(fsimg);
+      }
+      else
+      { 
+        SDL_BlitSurface(img, NULL, screen, NULL);
+      } 
+
       SDL_FreeSurface(img);
     }
 
