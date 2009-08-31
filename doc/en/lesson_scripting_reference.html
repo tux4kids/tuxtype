@@ -1,0 +1,222 @@
+<HTML>
+<BODY>
+<H1>TuxType Custom Scripting Reference</H1>
+<h3>Contents</h3>
+<a href="#introduction">Introduction</a><BR>
+<a href="#locations">File Locations</a><BR>
+<a href="#basics">The Basics</a><BR>
+<a href="#hierarchy">XML Tag Hierarchy</a><BR>
+<a href="#samples">Samples</a><BR>
+<a href="#tags">Tag Reference</a><BR>
+
+<BR><BR><BR><BR>
+<a name="introduction">
+<h4>Introduction</h4>
+Tuxtype lessons can be customized with relative ease.  It just takes a little<BR>
+imagination, and a text editor.<BR>
+<BR>
+<a name="locations">
+<h4>File Locations</h4>
+Tuxtype first looks in your language (theme) directory for lesson files<BR>
+<B>(Non-English Users Only)</B><BR>
+eg: (&lt;TuxType directory&gt;/data/themes/&lt;language&gt;/scripts/),<BR><BR>
+or in the default directory if you are using TuxType in english<BR>
+(&lt;TuxType directory&gt;/data/scripts/)<BR>
+<BR>
+If there is not a scripts folder in your language (theme) directory,  You may<BR>
+safely create it<BR>
+<BR>
+<a name="basics">
+<h4>The Basics</h4>
+Tuxtype will attempt to load any xml file contained in your scripts directory.<BR>
+Each XML file represents one entry in the lessons menu.<BR>
+<BR>
+<font color="#FF0000">note:  TuxType will NOT load cascade.xml, laser.xml, or ProjectInfo.xml.  These<BR>
+are custom scripts used elsewhere in the program.  <B>DO NOT DELETE THEM!</B><BR></font>
+<BR>
+The tags that TuxType recognizes are listed below.  You MUST<BR>
+open every script with the &lt;script&gt; tag, and enclosed within<BR>
+the script tags there must be at least one &lt;page&gt; tag.  To have<BR>
+any sort of functionality, you should include the &lt;prac&gt; tag within<BR>
+your page tags to provide a typing lesson.<BR>
+<BR>
+This is not mandatory however.<BR>
+<BR>
+You could if you like, just create a page with instructions in text and<BR>
+images for student reference.  If you do so, include a &lt;waitforinput&gt;<BR>
+tag so that the screen does not disappear before being read.  Simply hitting<BR>
+space at this point will take you to the next page in the lesson, or to the<BR>
+main menu, if there are no more pages in the lesson.<BR>
+<BR>
+<a name="hierarchy">
+<h4>Section Hierarchy</h4>
+Your script should honor the following hierarchy<BR>
+<BR>
+script<BR>
+|--page<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;|--text<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;|--img<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;|--wav<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;|--prac<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;|--waitforinput<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;|--waitforchar<BR>
+<BR>
+<a name="samples">
+<h4>Examples</h4>
+Finally, here are some sample lesson scripts showing working examples of<BR>
+TuxType lessons<BR>
+
+<a href="#simple">Example: The simplest script</a><BR>
+<a href="#complex">Example: A little more complex</a>
+<BR><BR><BR><BR><BR><BR>
+<a name="tags">
+<H1>Tag Reference</H1>
+<H2>&lt;script&gt;</H2>
+<B>starts a script (mandatory)</B><BR>
+<H4> attributes:</H4>
+    <li>title - title of the script<BR>
+    <li>bgcolor - solid background color for the script<BR>
+    <li>background - image to display as the background<BR>
+    <li>fgcolor - foreground (text) color<BR>
+<BR><BR><BR>
+<H2>&lt;page&gt;</H2>
+starts a new page for the script (mandatory)<BR><BR>
+(must be enclose within a script section)
+<H4> attributes:</H4>
+  <li>background - background image for the page
+  <li>title - page title
+  <li>bgcolor - solid background color for the page
+  <li>fgcolor - foreground (text) color for the page
+<BR><BR><BR>
+<H2>&lt;text&gt;</H2> - displays static text in the script<BR><BR>
+(must be enclosed within a page section)
+<H4> attributes:</H4>
+  <li>size - size of the font
+  <li>align - screen alignment (center/middle, left, right)
+  <li>color - text color
+  <li>x - upper left x coordinate of the text (overrides align attribute)
+  <li>y - upper left y coordinate of text
+<BR><BR><BR>
+<H2>&lt;img&gt;</H2> -embeds an image on the page<BR><BR>
+(must be enclosed within a page section)
+<H4> attributes:</H4>
+  <li>onclickplay - the filename of a sound to play when the user clicks the image
+  <li>x - upper left x coordinate of the image (overrides align attribute)
+  <li>y - upper left y coordinate of the image
+  <li>src - name of the image file, theme image directory is checked first, then the default (data/images) directory is checked
+  <li>align - screen alignment (center/middle, left, right)
+<BR><BR><BR>
+<H2>&lt;wav&gt;</H2> - embeds a sound file into the page (wav format)<BR><BR>
+(must be enclosed within a page section)
+<H4> attributes:</H4>
+  <li>src - name of the wav file
+  <li>loop - whether or not to loop the sound after it has finished playing, 0=no 1=yes
+<BR><BR><BR>
+<H2>&lt;prac&gt;</H2> - practice typing, any text here will create a typing lesson<BR><BR>
+(must be enclosed within a page section)
+<H4> attributes:</H4>
+  <li>size - text size for the lesson
+  <li>goal - target time, in seconds for the lesson (currently does nothing)
+  <li>align - text alignment for the lesson
+  <li>color - text color for the lesson
+<BR><BR><BR>
+<H2>&lt;waitforinput&gt;</H2> - pauses script until some sort of input is given
+<H4>valid keys</H4>
+  <li>escape - quit the script
+  <li>left arrow - go back one page
+  <li>right arrow, space, return - go to the next page
+<BR><BR><BR>
+<H2>&lt;waitforchar&gt;</H2>
+pauses the script until the p key is pressed or the user quits the script using escape
+
+
+<BR><BR><BR><BR><BR><BR>
+<h1>Samples</H1>
+<a name="simple"><H2>The Simplest Script</H2></a><BR>
+In this barebones example, the lesson would go directly to the typing screen,
+<BR>and display the words "hello world!" for the student to type.<BR>
+<pre>
+<font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">script</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>
+  <font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">page</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>
+    <font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">prac</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>hello world!<font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">/prac</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>
+  <font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">/page</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>
+<font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">/script</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>
+</pre>
+ <BR>
+<BR><BR><BR><BR><BR><BR>
+<a name="complex"><H2>A More Complex Example</H2></a><BR>
+In this example, a few information screens are presented before the lesson,<BR>
+including one that shows an image of a keyboard with the relevant keys showing.<BR>
+after the lesson is complete, the user is shown a congratulatory message.<BR>
+<pre>
+<font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">script</font> <font color="#2040a0">title=</font><font color="#008000">&quot;Test Lesson&quot;</font> <font color="#2040a0">bgcolor=</font><font color="#008000">&quot;#3f4f1f&quot;</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>
+   <font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">page</font> <font color="#2040a0">title=</font><font color="#008000">&quot;Introduction to Example Lesson&quot;</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>
+   <font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">text</font> <font color="#2040a0">align=</font><font color="#008000">&quot;center&quot;</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>The Lesson that follows is only an example<font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">/text</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>
+   <font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">text</font> <font color="#2040a0">align=</font><font color="#008000">&quot;center&quot;</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>lesson to help you to see how to write lessons.<font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">/text</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>
+   <font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">text</font> <font color="#2040a0">align=</font><font color="#008000">&quot;center&quot;</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>To start writing your own lessons, edit the file,<font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">/text</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>
+   <font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">text</font> <font color="#2040a0">align=</font><font color="#008000">&quot;center&quot;</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>&quot;Lesson_1.xml&quot; in your &quot;TuxType/data/scripts&quot;<font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">/text</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>
+   <font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">text</font> <font color="#2040a0">align=</font><font color="#008000">&quot;center&quot;</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>directory.<font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">/text</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>
+   <font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">text</font> <font color="#2040a0">align=</font><font color="#008000">&quot;center&quot;</font> <font color="#2040a0">y=</font><font color="#008000">&quot;300&quot;</font><font color="4444FF"><strong>&gt;</strong></font></strong></font> PRESS SPACE TO START THE LESSON!<font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">/text</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>
+  <font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">waitforinput/</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>
+   <font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">/page</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>
+   <font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">page</font> <font color="#2040a0">title=</font><font color="#008000">&quot;Home Row Keys&quot;</font> <font color="#2040a0">bgcolor=</font><font color="#008000">&quot;#3f7f3f&quot;</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>
+   <font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">img</font> <font color="#2040a0">src=</font><font color="#008000">&quot;/keyboard/keyboard-us.png&quot;</font> <font color="#2040a0">x=</font><font color="#008000">&quot;45&quot;</font> <font color="#2040a0">y=</font><font color="#008000">&quot;220&quot;</font><font color="#2040a0">/</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>
+   <font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">text</font> <font color="#2040a0">align=</font><font color="#008000">&quot;center&quot;</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>In this exercise we practice the home row keys.<font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">/text</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>
+   <font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">text</font> <font color="#2040a0">align=</font><font color="#008000">&quot;center&quot;</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>asdfjkl;asdfjkl;asdfjkl;<font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">/text</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>
+   <font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">text</font> <font color="#2040a0">align=</font><font color="#008000">&quot;center&quot;</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>To start practicing hit the p key<font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">/text</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>
+   <font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">text</font> <font color="#2040a0">color=</font><font color="#008000">&quot;#000000&quot;</font> <font color="#2040a0">x=</font><font color="#008000">&quot;100&quot;</font> <font color="#2040a0">y=</font><font color="#008000">&quot;273&quot;</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>A<font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">/text</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>
+   <font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">text</font> <font color="#2040a0">color=</font><font color="#008000">&quot;#000000&quot;</font> <font color="#2040a0">x=</font><font color="#008000">&quot;130&quot;</font> <font color="#2040a0">y=</font><font color="#008000">&quot;273&quot;</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>S<font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">/text</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>
+   <font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">text</font> <font color="#2040a0">color=</font><font color="#008000">&quot;#000000&quot;</font> <font color="#2040a0">x=</font><font color="#008000">&quot;160&quot;</font> <font color="#2040a0">y=</font><font color="#008000">&quot;273&quot;</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>D<font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">/text</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>
+   <font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">text</font> <font color="#2040a0">color=</font><font color="#008000">&quot;#000000&quot;</font> <font color="#2040a0">x=</font><font color="#008000">&quot;190&quot;</font> <font color="#2040a0">y=</font><font color="#008000">&quot;273&quot;</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>F<font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">/text</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>
+   <font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">text</font> <font color="#2040a0">color=</font><font color="#008000">&quot;#000000&quot;</font> <font color="#2040a0">x=</font><font color="#008000">&quot;320&quot;</font> <font color="#2040a0">y=</font><font color="#008000">&quot;273&quot;</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>J<font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">/text</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>
+   <font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">text</font> <font color="#2040a0">color=</font><font color="#008000">&quot;#000000&quot;</font> <font color="#2040a0">x=</font><font color="#008000">&quot;350&quot;</font> <font color="#2040a0">y=</font><font color="#008000">&quot;273&quot;</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>K<font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">/text</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>
+   <font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">text</font> <font color="#2040a0">color=</font><font color="#008000">&quot;#000000&quot;</font> <font color="#2040a0">x=</font><font color="#008000">&quot;380&quot;</font> <font color="#2040a0">y=</font><font color="#008000">&quot;273&quot;</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>L<font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">/text</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>
+   <font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">text</font> <font color="#2040a0">color=</font><font color="#008000">&quot;#000000&quot;</font> <font color="#2040a0">x=</font><font color="#008000">&quot;410&quot;</font> <font color="#2040a0">y=</font><font color="#008000">&quot;273&quot;</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>;<font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">/text</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>
+  <font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">waitforchar/</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>
+   <font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">prac</font> <font color="#2040a0">goal=</font><font color="#008000">&quot;15&quot;</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>asdfjkl;asdfjkl;asdfjkl;<font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">/prac</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>
+   <font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">prac</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>asdfjkl;asdfjkl;asdfjkl;<font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">/prac</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>
+   <font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">prac</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>asdfjkl;asdfjkl;asdfjkl;<font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">/prac</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>
+   <font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">/page</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>
+ <font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">page</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>
+   <font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">img</font> <font color="#2040a0">src=</font><font color="#008000">&quot;keyboard/space.png&quot;</font> <font color="#2040a0">x=</font><font color="#008000">&quot;200&quot;</font> <font color="#2040a0">y=</font><font color="#008000">&quot;160&quot;</font><font color="#2040a0">/</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>
+   <font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">img</font> <font color="#2040a0">src=</font><font color="#008000">&quot;keyboard/larrow.png&quot;</font> <font color="#2040a0">x=</font><font color="#008000">&quot;460&quot;</font> <font color="#2040a0">y=</font><font color="#008000">&quot;18&quot;</font><font color="#2040a0">/</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>
+   <font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">img</font> <font color="#2040a0">src=</font><font color="#008000">&quot;keyboard/esc.png&quot;</font> <font color="#2040a0">x=</font><font color="#008000">&quot;515&quot;</font> <font color="#2040a0">y=</font><font color="#008000">&quot;50&quot;</font><font color="#2040a0">/</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>
+   <font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">text</font> <font color="#2040a0">align=</font><font color="#008000">&quot;center&quot;</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>Great Job!<font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">/text</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>
+   <font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">text</font> <font color="#2040a0">align=</font><font color="#008000">&quot;left&quot;</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>         To repeat the last exercise, press<font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">/text</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>
+   <font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">text</font> <font color="#2040a0">align=</font><font color="#008000">&quot;center&quot;</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>To go back to the main menu hit<font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">/text</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>
+   <font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">text</font> <font color="#2040a0">align=</font><font color="#008000">&quot;center&quot;</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>To continue on to the next exercise,<font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">/text</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>
+   <font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">text</font> <font color="#2040a0">align=</font><font color="#008000">&quot;center&quot;</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>press<font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">/text</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>
+   <font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">text</font> <font color="#2040a0">align=</font><font color="#008000">&quot;center&quot;</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>Space<font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">/text</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>
+   <font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">text</font><font color="4444FF"><strong>&gt;</strong></font></strong></font><font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">/text</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>
+   <font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">text</font><font color="4444FF"><strong>&gt;</strong></font></strong></font><font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">/text</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>
+   <font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">text</font><font color="4444FF"><strong>&gt;</strong></font></strong></font><font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">/text</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>
+   <font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">text</font> <font color="#2040a0">align=</font><font color="#008000">&quot;center&quot;</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>Next Exercise:<font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">/text</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>
+   <font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">text</font> <font color="#2040a0">align=</font><font color="#008000">&quot;center&quot;</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>lad lass dad sad fad gas had jag ask;<font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">/text</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>
+   <font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">waitforinput/</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>
+ <font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">/page</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>
+ <font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">page</font> <font color="#2040a0">title=</font><font color="#008000">&quot;Home Row Keys&quot;</font> <font color="#2040a0">bgcolor=</font><font color="#008000">&quot;#b07bc6&quot;</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>
+   <font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">img</font> <font color="#2040a0">src=</font><font color="#008000">&quot;/keyboard/keyboard-us.png&quot;</font> <font color="#2040a0">x=</font><font color="#008000">&quot;45&quot;</font> <font color="#2040a0">y=</font><font color="#008000">&quot;220&quot;</font><font color="#2040a0">/</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>
+   <font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">text</font> <font color="#2040a0">align=</font><font color="#008000">&quot;center&quot;</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>In this exercise we practice the home row keys,<font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">/text</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>
+   <font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">text</font> <font color="#2040a0">align=</font><font color="#008000">&quot;center&quot;</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>but, a little bit differently!<font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">/text</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>
+   <font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">text</font> <font color="#2040a0">align=</font><font color="#008000">&quot;center&quot;</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>See how fast you are at this one!<font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">/text</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>
+   <font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">text</font> <font color="#2040a0">align=</font><font color="#008000">&quot;center&quot;</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>lad lass dad sad fad gas had jag ask;<font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">/text</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>
+   <font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">text</font> <font color="#2040a0">align=</font><font color="#008000">&quot;center&quot;</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>To start practicing hit the p key<font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">/text</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>
+   <font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">text</font> <font color="#2040a0">color=</font><font color="#008000">&quot;#000000&quot;</font> <font color="#2040a0">x=</font><font color="#008000">&quot;100&quot;</font> <font color="#2040a0">y=</font><font color="#008000">&quot;273&quot;</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>A<font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">/text</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>
+   <font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">text</font> <font color="#2040a0">color=</font><font color="#008000">&quot;#000000&quot;</font> <font color="#2040a0">x=</font><font color="#008000">&quot;130&quot;</font> <font color="#2040a0">y=</font><font color="#008000">&quot;273&quot;</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>S<font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">/text</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>
+   <font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">text</font> <font color="#2040a0">color=</font><font color="#008000">&quot;#000000&quot;</font> <font color="#2040a0">x=</font><font color="#008000">&quot;160&quot;</font> <font color="#2040a0">y=</font><font color="#008000">&quot;273&quot;</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>D<font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">/text</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>
+   <font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">text</font> <font color="#2040a0">color=</font><font color="#008000">&quot;#000000&quot;</font> <font color="#2040a0">x=</font><font color="#008000">&quot;190&quot;</font> <font color="#2040a0">y=</font><font color="#008000">&quot;273&quot;</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>F<font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">/text</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>
+   <font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">text</font> <font color="#2040a0">color=</font><font color="#008000">&quot;#000000&quot;</font> <font color="#2040a0">x=</font><font color="#008000">&quot;320&quot;</font> <font color="#2040a0">y=</font><font color="#008000">&quot;273&quot;</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>J<font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">/text</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>
+   <font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">text</font> <font color="#2040a0">color=</font><font color="#008000">&quot;#000000&quot;</font> <font color="#2040a0">x=</font><font color="#008000">&quot;350&quot;</font> <font color="#2040a0">y=</font><font color="#008000">&quot;273&quot;</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>K<font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">/text</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>
+   <font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">text</font> <font color="#2040a0">color=</font><font color="#008000">&quot;#000000&quot;</font> <font color="#2040a0">x=</font><font color="#008000">&quot;380&quot;</font> <font color="#2040a0">y=</font><font color="#008000">&quot;273&quot;</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>L<font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">/text</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>
+   <font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">text</font> <font color="#2040a0">color=</font><font color="#008000">&quot;#000000&quot;</font> <font color="#2040a0">x=</font><font color="#008000">&quot;410&quot;</font> <font color="#2040a0">y=</font><font color="#008000">&quot;273&quot;</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>;<font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">/text</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>
+   <font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">waitforchar/</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>
+   <font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">prac</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>lad lass dad sad fad gas had jag ask; lad lass dad sad fad gas had jag ask;<font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">/prac</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>
+   <font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">prac</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>lad lass dad sad fad gas had jag ask; lad lass dad sad fad gas had jag ask;<font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">/prac</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>
+   <font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">prac</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>lad lass dad sad fad gas had jag ask; lad lass dad sad fad gas had jag ask;<font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">/prac</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>
+ <font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">/page</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>
+<font color="#2040a0"><strong><font color="4444FF"><strong>&lt;</strong></font><font color="#2040a0">/script</font><font color="4444FF"><strong>&gt;</strong></font></strong></font>
+</pre>
+
+</BODY>
+</HTML>
+
