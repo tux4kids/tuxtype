@@ -583,14 +583,14 @@ static int load_script(const char* fn)
                 {
                     found = 0;
                 }
-            {
+            }
 
         } while ( fscanf_result != EOF && !found );
         
         /* -- if we reached the end of the file and saw no close to the comment, generate a warning -- */
         if ( !found && fscanf_result == EOF )
         {
-            fprintf(stderr, "XML Warning: End of file reached looking for the end of a comment.\n", fn);
+            fprintf(stderr, "XML Warning: End of file reached looking for the end of a comment.\n");
             break;
         }
 

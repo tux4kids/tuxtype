@@ -212,7 +212,8 @@ int PlayCascade(int diflevel)
 
       if (settings.sys_sound)
       {
-        sprintf(filename, "kmus%i.wav", curlevel + 1);
+          sprintf(filename, "amidst_the_raindrops.ogg");
+//        sprintf(filename, "kmus%i.wav", curlevel + 1);
         MusicLoad( filename, -1 );
       }
 
