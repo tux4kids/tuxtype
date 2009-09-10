@@ -33,17 +33,7 @@ get permission or any acknowledgement back to the author"):
 win.wav 	 	
 winfinal.wav
 
-
 Emmett Plant (emmett@sonivius.com) is the author of tuxi.ogg and released it in the public domain.
-
-
-The following files were either declared to be in the public domain, or were allowed to be used
-freely in non-commercial products. 
-
-kmus1.wav		
-kmus2.wav
-kmus3.wav
-kmus4.wav 
 
 This game is under the Gnu GPL (again, see COPYING) and is open-source. While
 this does not preclude it from being included in a commercial packade (such as a
@@ -55,3 +45,13 @@ with a Gnu GPL software title) please contact me at hart@geekcomix.com
 
 Thx.
 
+-----------------------------------------
+
+10 Sep 2009
+
+ADDENDUM - the previously present files with license problems (kmus1-4.wav, click.wav) have all been removed
+and replaced with 100% free and redistributable alternatives.  I believe the sound files in Tux Typing are
+now fully compliant with the Debian Free Software Guidelines.
+
+David Bruce
+<davidstuartbruce@gmail.com>

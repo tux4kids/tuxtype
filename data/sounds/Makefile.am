@@ -4,6 +4,7 @@
 soundsdir = $(pkgdatadir)/sounds
 
 dist_sounds_DATA = tuxi.ogg \
+  amidst_the_raindrops.ogg	\
   alarm.wav \
   bite.wav \
   buzz.wav \
@@ -11,10 +12,6 @@ dist_sounds_DATA = tuxi.ogg \
   excuseme.wav \
   explosion.wav \
   harp.wav \
-  kmus1.wav \
-  kmus2.wav \
-  kmus3.wav \
-  kmus4.wav \
   laser.wav \
   lose.wav \
   pause.wav \
