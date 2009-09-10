@@ -559,12 +559,12 @@ static int load_script(const char* fn)
                      {
                          // str needs another line, this one is used up
                          fscanf_result = fscanf(f, "%[^\n]\n", str);
+                         tmpStr = str;
                          
                          // we may get consecutive comment lines
                          if (fscanf_result != EOF && strncmp("<!--", str, 4) == 0)
                          {
                              found = 0;
-                             tmpStr = str;
                          }
                      }
                  }
