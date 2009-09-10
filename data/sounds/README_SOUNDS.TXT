@@ -44,8 +44,6 @@ kmus1.wav
 kmus2.wav
 kmus3.wav
 kmus4.wav 
-click.wav
-
 
 This game is under the Gnu GPL (again, see COPYING) and is open-source. While
 this does not preclude it from being included in a commercial packade (such as a

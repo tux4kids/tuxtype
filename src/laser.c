@@ -318,7 +318,7 @@ int PlayLaserGame(int diff_level)
 			while (tux_img == old_tux_img)
 				tux_img = IMG_TUX_CONSOLE1 + (rand() % 3);
 
-			PlaySound(sounds[SND_CLICK]);
+			PlaySound(sounds[SND_TOCK]);
 		}
       
       

@@ -156,7 +156,7 @@ enum {
   SND_ALARM,
   SND_SHIELDSDOWN,
   SND_EXPLOSION,
-  SND_CLICK,
+  SND_TOCK,
   NUM_SOUNDS
 };
 
@@ -168,7 +168,7 @@ static char* sound_filenames[NUM_SOUNDS] = {
   "alarm.wav",
   "shieldsdown.wav",
   "explosion.wav",
-  "click.wav"
+  "tock.wav"
 };
 
 
