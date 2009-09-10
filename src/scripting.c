@@ -544,37 +544,46 @@ static int load_script(const char* fn)
 
         do
         {
-            for ( tmpStr = str; strlen(tmpStr) >= 3; ++tmpStr )
+            // search the current line for comment end
+            for ( tmpStr = str; strlen(tmpStr) >= 3 && !found; ++tmpStr )
             {    
                  if (strncmp("-->",tmpStr, 3) == 0)
                  {
                      found = 1;
-                     tmpStr += 3;
-                     if (strlen(tmpStr) > 0)
-                     {
-                         // copy the rest of the line into str for processing
-                         strncpy(str, tmpStr, strlen(tmpStr));
-                     }
-                     else
-                     {
-                         // str needs another line, this one is used up
-                         fscanf_result = fscanf(f, "%[^\n]\n", str);
-                         tmpStr = str;
-                         
-                         // we may get consecutive comment lines
-                         if (fscanf_result != EOF && strncmp("<!--", str, 4) == 0)
-                         {
-                             found = 0;
-                         }
-                     }
                  }
             }
 
+            // if the comment end was not found get another line
             if (!found)
             {
                 fscanf_result = fscanf(f, "%[^\n]\n", str);
                 tmpStr = str;
             }
+
+            // we did find the end of the comment
+            else
+            {
+                // move past the comment end tag
+                tmpStr += 3;
+ 
+                if (strlen(tmpStr) > 0)
+                {
+                    // copy the rest of the line into str for processing
+                    strncpy(str, tmpStr, strlen(tmpStr));
+                }
+                else
+                {
+                    // str needs another line, this one is used up
+                    fscanf_result = fscanf(f, "%[^\n]\n", str);
+                    tmpStr = str;
+                }
+                
+                // if the next line is a comment, start all over again
+                if (fscanf_result != EOF && strncmp("<!--", str, 4) == 0)
+                {
+                    found = 0;
+                }
+            {
 
         } while ( fscanf_result != EOF && !found );
         
