@@ -545,10 +545,12 @@ static int load_script(const char* fn)
         do
         {
             // search the current line for comment end
-            for ( tmpStr = str; strlen(tmpStr) >= 3 && !found; ++tmpStr )
+            for ( tmpStr = str; strlen(tmpStr) >= 3 && !found; tmpStr++ )
             {    
                  if (strncmp("-->",tmpStr, 3) == 0)
                  {
+                     // move past the comment end tag
+                     tmpStr += 2;
                      found = 1;
                  }
             }
@@ -563,13 +565,12 @@ static int load_script(const char* fn)
             // we did find the end of the comment
             else
             {
-                // move past the comment end tag
-                tmpStr += 3;
  
                 if (strlen(tmpStr) > 0)
                 {
                     // copy the rest of the line into str for processing
                     strncpy(str, tmpStr, strlen(tmpStr));
+                    str[strlen(tmpStr)] = '\0';
                 }
                 else
                 {
@@ -590,7 +591,7 @@ static int load_script(const char* fn)
         /* -- if we reached the end of the file and saw no close to the comment, generate a warning -- */
         if ( !found && fscanf_result == EOF )
         {
-            fprintf(stderr, "XML Warning: End of file reached looking for the end of a comment.\n");
+            fprintf(stderr, "XML Warning: End of file reached looking for the end of a comment.\n", fn);
             break;
         }
 
