@@ -507,7 +507,7 @@ void TitleScreen(void)
       if (settings.menu_music)
         MusicUnload( );
 
-      TestLesson();
+      XMLLesson();
 
       load_media();
 

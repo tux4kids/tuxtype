@@ -92,7 +92,7 @@ int Phrases(wchar_t* practice_phrase);
 
 
 /* In scripting.c: */
-int TestLesson(void);
+int XMLLesson(void);
 void ProjectInfo(void);
 void InstructCascade(void);
 void InstructLaser(void);

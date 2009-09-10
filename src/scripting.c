@@ -107,9 +107,9 @@ void ProjectInfo(void)
   run_script();
 }
 
-/* NOTE - confusing function name - this is the function that allows the user */
+/* This is the function that allows the user */
 /* to select a lesson from the menu.                                          */
-int TestLesson(void)
+int XMLLesson(void)
 {
   SDL_Surface* titles[MAX_LESSONS] = {NULL};
   SDL_Surface* select[MAX_LESSONS] = {NULL};
@@ -130,7 +130,7 @@ int TestLesson(void)
   DIR* script_dir = NULL;
   struct dirent* script_file = NULL;
 
-  LOG("Entering TestLesson():\n");
+  LOG("Entering XMLLesson():\n");
 
   /* First look in theme path, if desired: */
   if (!settings.use_english)
@@ -156,7 +156,7 @@ int TestLesson(void)
 
   if (!found)
   {
-    fprintf(stderr, "TestLesson(): Error finding script directory!\n");
+    fprintf(stderr, "XMLLesson(): Error finding script directory!\n");
     return 0;
   }
 
@@ -219,7 +219,7 @@ int TestLesson(void)
   /* Get out if needed surface not loaded successfully: */
   if (!CurrentBkgd() || !left || !right)
   {
-    fprintf(stderr, "TestLesson(): needed image not available\n");
+    fprintf(stderr, "XMLLesson(): needed image not available\n");
   
     for (i = 0; i < num_scripts; i++)
     {
@@ -416,7 +416,7 @@ int TestLesson(void)
   run_script();
   SDL_ShowCursor(1);
 
-  LOG("Leave TestLesson()\n");
+  LOG("Leave XMLLesson()\n");
 
   return 1;
 }
@@ -535,6 +535,62 @@ static int load_script(const char* fn)
     int fscanf_result = fscanf(f, "%[^\n]\n", str);
     if (fscanf_result == EOF)
       break;
+
+    if (strncmp("<!--", str, 4) == 0)
+    {
+        /* -- comment section found, ignore everything until comment close -- */
+        int found = 0;
+        char* tmpStr;
+
+        do
+        {
+            for ( tmpStr = str; strlen(tmpStr) >= 3; ++tmpStr )
+            {    
+                 if (strncmp("-->",tmpStr, 3) == 0)
+                 {
+                     found = 1;
+                     tmpStr += 3;
+                     if (strlen(tmpStr) > 0)
+                     {
+                         // copy the rest of the line into str for processing
+                         strncpy(str, tmpStr, strlen(tmpStr));
+                     }
+                     else
+                     {
+                         // str needs another line, this one is used up
+                         fscanf_result = fscanf(f, "%[^\n]\n", str);
+                         
+                         // we may get consecutive comment lines
+                         if (fscanf_result != EOF && strncmp("<!--", str, 4) == 0)
+                         {
+                             found = 0;
+                             tmpStr = str;
+                         }
+                     }
+                 }
+            }
+
+            if (!found)
+            {
+                fscanf_result = fscanf(f, "%[^\n]\n", str);
+                tmpStr = str;
+            }
+
+        } while ( fscanf_result != EOF && !found );
+        
+        /* -- if we reached the end of the file and saw no close to the comment, generate a warning -- */
+        if ( !found && fscanf_result == EOF )
+        {
+            fprintf(stderr, "XML Warning: End of file reached looking for the end of a comment.\n", fn);
+            break;
+        }
+
+        /* -- don't continue processing if at EOF -- */
+        if (fscanf_result == EOF)
+        {
+            break;
+        }
+    }
 
     if (strncmp("<script", str, 7) == 0)
     {
@@ -1101,7 +1157,9 @@ static void run_script(void)
                 continue;
 
               tmp[toshow] = 0;
+ 
               img = SimpleText(tmp, (int)curItem->size, col);
+
               if (img)
               { 
                 if (img->w + 20 < screen->w)
