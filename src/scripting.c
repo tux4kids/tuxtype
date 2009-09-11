@@ -24,6 +24,7 @@
 /* Local function prototypes: */
 static void clear_items(itemType* i);
 static void clear_pages(pageType* p);
+static void clear_sounds(void);
 static void close_script(void);
 static SDL_Color* get_color(const char* in);
 static int get_int(const char* in);
@@ -625,7 +626,9 @@ static int load_script(const char* fn)
     {
       if (curScript==NULL)
       {
-        fprintf(stderr, "CRITICAL XML ERROR: <page> should be in a <script> in file %s line (todo)", fn); return 0;
+        fprintf(stderr, "CRITICAL XML ERROR: <page> should be in a <script> in file %s line (todo)", fn);
+        close_script();
+        return 0;
       }
 
       if (curScript->pages==NULL)
@@ -660,7 +663,9 @@ static int load_script(const char* fn)
     {
       if (curPage == NULL)
       {
-        fprintf(stderr, "CRITICAL XML ERROR: <text> should be in a <page> in file %s line (todo)", fn); return 0;
+        fprintf(stderr, "CRITICAL XML ERROR: <text> should be in a <page> in file %s line (todo)", fn);
+        close_script();
+        return 0;
       }
 
       if (curPage->items == NULL) 
@@ -747,6 +752,7 @@ static int load_script(const char* fn)
         fprintf(stderr,
                 "CRITICAL XML ERROR: <img> should be in a <page> in file %s line (todo)",
                fn);
+        close_script();
         return 0; //Return control to the main program for a clean exit
       }
 
@@ -807,6 +813,7 @@ static int load_script(const char* fn)
         fprintf(stderr,
                 "CRITICAL XML ERROR: <wav> should be in a <page> in file %s line (todo)",
                 fn);
+        close_script();
         return 0;  /* Return control to main program for a clean exit */
       }
 
@@ -849,6 +856,7 @@ static int load_script(const char* fn)
         fprintf(stderr,
                 "CRITICAL XML ERROR: <prac> should be in a <page> in file %s line (todo)",
                 fn);
+        close_script();
         return 0; /* Return control to the main program for a clean exit */
       }
 
@@ -930,6 +938,7 @@ static int load_script(const char* fn)
         fprintf(stderr,
                "CRITICAL XML ERROR: <waitforinput> should be in a <page> in file %s line (todo)",
                 fn);
+        close_script();
         return 0;
       }
 
@@ -954,6 +963,7 @@ static int load_script(const char* fn)
         fprintf(stderr,
                "CRITICAL XML ERROR: <waitforchar> should be in a <page> in file %s line (todo)",
                fn);
+        close_script();
         return 0;
       }
 
@@ -1481,7 +1491,3 @@ static void close_script(void)
     curScript = NULL;
   }
 }
-
-
-
-
