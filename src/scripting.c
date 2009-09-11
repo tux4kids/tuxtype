@@ -262,7 +262,7 @@ int XMLLesson(void)
       switch (event.type)
       {
         case SDL_QUIT:
-          exit(0); /* FIXME may need to cleanup memory and exit more cleanly */
+          return 0; /* Return control to the main program so we can exit cleanly */
           break;
 
         case SDL_MOUSEMOTION:
@@ -625,7 +625,7 @@ static int load_script(const char* fn)
     {
       if (curScript==NULL)
       {
-        fprintf(stderr, "CRITICAL XML ERROR: <page> should be in a <script> in file %s line (todo)", fn); exit(1);
+        fprintf(stderr, "CRITICAL XML ERROR: <page> should be in a <script> in file %s line (todo)", fn); return 0;
       }
 
       if (curScript->pages==NULL)
@@ -660,7 +660,7 @@ static int load_script(const char* fn)
     {
       if (curPage == NULL)
       {
-        fprintf(stderr, "CRITICAL XML ERROR: <text> should be in a <page> in file %s line (todo)", fn); exit(1);
+        fprintf(stderr, "CRITICAL XML ERROR: <text> should be in a <page> in file %s line (todo)", fn); return 0;
       }
 
       if (curPage->items == NULL) 
@@ -747,7 +747,7 @@ static int load_script(const char* fn)
         fprintf(stderr,
                 "CRITICAL XML ERROR: <img> should be in a <page> in file %s line (todo)",
                fn);
-        exit(1); //FIXME should call cleanup() or maybe just return without exiting
+        return 0; //Return control to the main program for a clean exit
       }
 
       if (curPage->items == NULL)
@@ -807,7 +807,7 @@ static int load_script(const char* fn)
         fprintf(stderr,
                 "CRITICAL XML ERROR: <wav> should be in a <page> in file %s line (todo)",
                 fn);
-        exit(1);  /* FIXME call Cleanup() to exit */
+        return 0;  /* Return control to main program for a clean exit */
       }
 
       if (curPage->items == NULL)
@@ -849,7 +849,7 @@ static int load_script(const char* fn)
         fprintf(stderr,
                 "CRITICAL XML ERROR: <prac> should be in a <page> in file %s line (todo)",
                 fn);
-        exit(1); /* FIXME call cleanup() rather than exit() */
+        return 0; /* Return control to the main program for a clean exit */
       }
 
       if (curPage->items == NULL)
@@ -930,7 +930,7 @@ static int load_script(const char* fn)
         fprintf(stderr,
                "CRITICAL XML ERROR: <waitforinput> should be in a <page> in file %s line (todo)",
                 fn);
-        exit(1);
+        return 0;
       }
 
       if (curPage->items == NULL)
@@ -954,7 +954,7 @@ static int load_script(const char* fn)
         fprintf(stderr,
                "CRITICAL XML ERROR: <waitforchar> should be in a <page> in file %s line (todo)",
                fn);
-        exit(1);
+        return 0;
       }
 
       if (curPage->items == NULL)
