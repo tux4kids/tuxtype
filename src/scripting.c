@@ -24,7 +24,6 @@
 /* Local function prototypes: */
 static void clear_items(itemType* i);
 static void clear_pages(pageType* p);
-static void clear_sounds(void);
 static void close_script(void);
 static SDL_Color* get_color(const char* in);
 static int get_int(const char* in);
@@ -1240,7 +1239,11 @@ static void run_script(void)
         {
           // HACK, we need to make sure no more than 8 sounds or so..
           sounds[numWavs] = LoadSound( curItem->data );
-          Mix_PlayChannel( numWavs, sounds[numWavs], -curItem->loop );
+
+          // let audio.c handle calls to SDL_mixer
+          //Mix_PlayChannel( numWavs, sounds[numWavs], -curItem->loop );
+          
+          PlaySoundLoop( sounds[numWavs], -curItem->loop );
           numWavs++;
           break;
         }
@@ -1268,7 +1271,9 @@ static void run_script(void)
                   for (j=0; j<numClicks; j++) 
                   {
                     if (inRect(clickRects[j], event.button.x, event.button.y))
-                     Mix_PlayChannel(numWavs + j, clickWavs[j], 0);
+                     PlaySound( clickWavs[j] );
+                     // let audio.c handle calls to SDL_mixer
+                     //Mix_PlayChannel(numWavs + j, clickWavs[j], 0);
                   }
                   break;
                 }
@@ -1404,15 +1409,22 @@ static void run_script(void)
 
       if (settings.sys_sound)
       {
+        // halt all the channels before we try to free the sounds
+        audioHaltChannel(-1);
+
         for (i=0; i<numWavs; i++)
         {
-          Mix_HaltChannel(i);
+          // let audio.c handle calls to SDL_mixer
+          //Mix_HaltChannel(i);
+
           Mix_FreeChunk(sounds[i]);
         }
 
         for (i = 0; i < numClicks; i++)
         {
-          Mix_HaltChannel(i + numWavs);
+          // let audio.c handle calls to SDL_mixer
+          //Mix_HaltChannel(i + numWavs);
+
           Mix_FreeChunk(clickWavs[i]);
         }
       }

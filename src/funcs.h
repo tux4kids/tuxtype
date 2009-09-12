@@ -54,6 +54,8 @@ wchar_t GetLastKey(void);
 
 /* In audio.c:   */
 void PlaySound(Mix_Chunk* snd);
+void PlaySoundLoop(Mix_Chunk* snd, int loops);
+void audioHaltChannel(int channel);
 void MusicLoad(const char* musicFilename, int repeatQty);
 void MusicUnload(void);
 void MusicPlay(Mix_Music* musicData, int repeatQty);

@@ -21,13 +21,27 @@
 
 static Mix_Music* defaultMusic = NULL; // holds music for audioMusicLoad/unload
 
-
+// play sound once
 void PlaySound(Mix_Chunk* snd)
 {
-  if(!snd) return;
-  if (!settings.sys_sound) return;
+  PlaySoundLoop(snd, 0);
+}
 
-  Mix_PlayChannel(-1, snd, 0);
+// play sound with optional repeats, or -1 for infinite
+void PlaySoundLoop(Mix_Chunk* snd, int loops)
+{
+  if(!snd)
+    return;
+  if (!settings.sys_sound)
+    return;
+
+  Mix_PlayChannel(-1, snd, loops);
+}
+
+// halt a channel or -1 for all
+void audioHaltChannel(int channel)
+{
+    Mix_HaltChannel(channel);
 }
 
 /* MusicLoad attempts to load and play the music file 
