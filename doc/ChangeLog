@@ -1,3 +1,10 @@
+12 Sep 2009 (svn.debian.org/tux4kids - revision 1532) 
+[ David Bruce <davidstuartbruce@gmail.com> ]
+        - Media - new music files and backgrounds contributed by Caroline Ford,
+         some old sounds (the ones with suboptimal free licensing) removed - Tux
+         Typing is now 100% DFSG-compliant. Relevant Makefile.am's adapted.
+        - playgame.c adapted to use new music files.
+
 10 Sep 2009 (svn.debian.org/tux4kids - revision 1504) 
 [ Matthew Trey <tux4kids@treyhome.com> ]
         - Scripting - added code so the script parser recognizes comments in

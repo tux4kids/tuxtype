@@ -9,6 +9,7 @@ dist_sounds_DATA = tuxi.ogg \
   bite.wav \
   buzz.wav \
   cheer.wav \
+  chiptune2.ogg	\
   excuseme.wav \
   explosion.wav \
   harp.wav \

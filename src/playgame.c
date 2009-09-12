@@ -212,8 +212,11 @@ int PlayCascade(int diflevel)
 
       if (settings.sys_sound)
       {
+        //TODO make use of more music files
+        if(rand() % 2) 
           sprintf(filename, "amidst_the_raindrops.ogg");
-//        sprintf(filename, "kmus%i.wav", curlevel + 1);
+        else
+          sprintf(filename, "chiptune2.ogg");
         MusicLoad( filename, -1 );
       }
 

@@ -62,4 +62,3 @@ image is royalty free from same places as *cas*.gif files above
 are. But what's significant about it is that it's a special hidden
 background level. Simply use "tuxtype --hidden" to use it as the
 default background for level 4 on each difficulty level! Enjoy! ;)
-
