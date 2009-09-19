@@ -867,9 +867,11 @@ static void laser_add_comet(int diff_level)
           int i = 0;
           comet_type* prev_comet = NULL;
 
-          if(!word || wcslen(word) == 0)
+          if(!word
+             || (wcslen(word) == 0)
+             || (wcslen(word) > NUM_CITIES - 1))
           {
-            fprintf(stderr, "Error - GetWord() returned NULL or zero-length word\n");
+            fprintf(stderr, "Error - GetWord() returned NULL, zero-length, or too-long word\n");
             return; 
           }
 

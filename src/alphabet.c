@@ -558,12 +558,15 @@ int GenerateWordList(const char* wordFn)
       continue;
     }
 
-    if (length > MAX_WORD_SIZE)
-    {
-      fprintf(stderr, "Word '%s' not added - exceeds %d characters\n",
-              temp_word, MAX_WORD_SIZE);
-      continue;
-    }
+    //NOTE now the cascade and laser games have their own checks for how long of words
+    //they can actually handle, so we let long words in now - DSB
+
+//     if (length > MAX_WORD_SIZE)
+//     {
+//       fprintf(stderr, "Word '%s' not added - exceeds %d characters\n",
+//               temp_word, MAX_WORD_SIZE);
+//       continue;
+//     }
 
     if (num_words >= MAX_NUM_WORDS)
     {

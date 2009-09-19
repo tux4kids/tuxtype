@@ -942,7 +942,7 @@ in the key cascade game
 *****************************/
 static void SpawnFishies(int diflevel, int* fishies, int* frame)
 {
-  int i, spacing;
+  int i, spacing, max_length;
   wchar_t* new_word;
 
   LOG("Enter SpawnFishies()\n");
@@ -993,14 +993,23 @@ static void SpawnFishies(int diflevel, int* fishies, int* frame)
       return;
   }
 
-  /* See if we get a valid word before we move on: */
-  new_word = GetWord();
+  /* See how long of a word will fit the length of our screen: */
+  max_length = screen->w / fish_sprite->frame[0]->w;
 
+  do
+  {
+    new_word = GetWord();
+    if (!new_word) break;
+  }
+  while(wcslen(new_word) > max_length);
+
+  /* See if we get a valid word before we move on: */
   if (!new_word)
   {
     fprintf(stderr, "SpawnFishies() - could not get word - returning.\n");
     return;
   }
+
 
   /* If we get to here, it should be OK to actually spawn the fishy: */
   fish_object[*fishies].word = new_word;

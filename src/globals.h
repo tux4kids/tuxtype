@@ -145,7 +145,7 @@ typedef struct game_option_type{
 /* Limits on word list size, word length, and on the number of distinct characters */
 /* that can be present within a word list: */
 #define MAX_NUM_WORDS   500
-#define MAX_WORD_SIZE   8
+#define MAX_WORD_SIZE   20
 #define MAX_UNICODES    1024
 
 #define WAIT_MS		2500
