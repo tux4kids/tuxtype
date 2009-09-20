@@ -303,6 +303,7 @@ data/themes/euskara/images/Makefile
 data/themes/euskara/words/Makefile
 data/themes/french/Makefile
 data/themes/french/words/Makefile
+data/themes/french/scripts/Makefile
 data/themes/greek/Makefile
 data/themes/greek/words/Makefile
 data/themes/gujarati/Makefile

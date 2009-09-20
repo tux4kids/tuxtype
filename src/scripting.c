@@ -298,7 +298,10 @@ int XMLLesson(void)
             if (inRect(titleRects[i], event.button.x, event.button.y))
             {
               loc = loc - (loc % 8) + i;
-              sprintf(fn, "%s/scripts/%s", settings.default_data_path, script_filenames[loc]);
+              if(settings.use_english)
+                sprintf(fn, "%s/scripts/%s", settings.default_data_path, script_filenames[loc]);
+              else
+                sprintf(fn, "%s/scripts/%s", settings.theme_data_path, script_filenames[loc]);
               stop = 1;
               break; 
             }
@@ -315,8 +318,10 @@ int XMLLesson(void)
 
           if (event.key.keysym.sym == SDLK_RETURN)
           {
-            sprintf(fn, "%s/scripts/%s", settings.default_data_path, script_filenames[loc]);
-            stop = 1;
+            if(settings.use_english)
+              sprintf(fn, "%s/scripts/%s", settings.default_data_path, script_filenames[loc]);
+            else
+              sprintf(fn, "%s/scripts/%s", settings.theme_data_path, script_filenames[loc]);            stop = 1;
             break;
           }
 
@@ -591,7 +596,7 @@ static int load_script(const char* fn)
         /* -- if we reached the end of the file and saw no close to the comment, generate a warning -- */
         if ( !found && fscanf_result == EOF )
         {
-            fprintf(stderr, "XML Warning: End of file reached looking for the end of a comment.\n", fn);
+            fprintf(stderr, "XML Warning: End of file reached looking for the end of a comment.\n");
             break;
         }
 

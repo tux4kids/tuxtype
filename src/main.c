@@ -134,7 +134,7 @@ int main(int argc, char *argv[])
     s3 = bind_textdomain_codeset(PACKAGE, "UTF-8");
     s4 = textdomain(PACKAGE);
 
-    DEBUGCODE
+//    DEBUGCODE
     {
       fprintf(stderr, "PACKAGE = %s\n", PACKAGE);
       fprintf(stderr, "TUXLOCALE = %s\n", TUXLOCALE);
