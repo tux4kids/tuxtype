@@ -1,14 +1,3 @@
 -Clean up this TODO and reflect the current status!
 
--Replace the five remaining files which are non-free accoring to 
- Debians Free Software Guidelines with free ones. click.wav and
- kmus(1-4).wav are only free for non-commercial use.
-
-Replacements:
-
-In SVN
-newclick.wav (Creative Commons BY 3.0: author Mike Koenig)
-chiptune2.ogg (GFDL 1.2+: author Wikipedia User Mysid)
-amidst_the_raindrops.ogg (GFDL 1.2+ author: Wikipedia User Wickethewok)
-
-Not added to code yet as it felt a bit rude to change the music without discussion. ~secretlondon 7 sept 09
+...
