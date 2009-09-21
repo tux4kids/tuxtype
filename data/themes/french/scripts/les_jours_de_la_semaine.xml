@@ -12,7 +12,7 @@
        <text color="#000000" x="100" y="273">A</text>
        <text color="#000000" x="130" y="273">S</text>
       <waitforchar/>
-      <prac>Lundi Mardi Mercredi Jeudi Vendredi Samedi Dimanche Lundi Mardi Mercredi Jeudi Vendredi Samedi Dimanche Lundi Mardi Mercredi Jeudi Vendredi Samedi Dimanche Lundi Mardi Mercredi Jeudi Vendredi Samedi Dimanche</prac>
+      <prac>lundi mardi mercredi jeudi vendredi samedi dimanche lundi mardi mercredi jeudi vendredi samedi dimanche lundi mardi mercredi jeudi vendredi samedi dimanche lundi mardi mercredi jeudi vendredi samedi dimanche</prac>
       </page>
       <!--HACK: there is some undesired behavior in scripting.c, this fixes it for now-->
       <page>
