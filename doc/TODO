@@ -15,7 +15,7 @@ Tuxmath:
 
 As you can see, the ideas are similar for both programs.
 
-Apart from GSoC, both programs need ongoing code cleanup, especially tuxtype.  Also, tuxtype could benefit greatly at this point from a refresh of things other than the C code itself - high-resolution backgrounds, completion of rest of menu sprite icons, more word lists and phrase files, etc. 
+Apart from GSoC, both programs need ongoing code cleanup, especially tuxtype.  Also, tuxtype could benefit greatly at this point from a refresh of things other than the C code itself - completion of rest of menu sprite icons, more word lists and phrase files, etc. 
 
 -check that SVN is free of generated files. create release-script, 
 

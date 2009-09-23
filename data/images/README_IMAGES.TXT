@@ -12,42 +12,7 @@ Tux was originally drawn by Larry Ewing <ltlewing@isc.tamu.edu>.
 Certain images used in this game were modified from his original 
 Tux images found at http://www.isc.tamu.edu/~lewing/linux/
 
-The remainder of the images, are from a number of public domain
-sources. Specifically, they are from the National Oceanic and
-Atmospheric Administration (NOAA) and the U.S. Fish and Wildlife
-Service (FWS). The archives for these services were accessed
-through the GIMP-Savvy web-site at
-
-http://gimp-savvy.com/PHOTO-ARCHIVE/
-
-Those images which were obtained from either of these US
-government agencies were:
-
-kcas1_1.gif
-kcas1_2.gif
-kcas1_3.gif
-kcas1_4.gif
-kcas2_1.gif
-kcas2_2.gif
-kcas2_3.gif
-kcas2_4.gif
-kcas3_1.gif
-kcas3_2.gif
-kcas3_3.gif
-kcas3_4.gif
-
-wcas1_1.gif
-wcas1_2.gif
-wcas1_3.gif
-wcas1_4.gif
-wcas2_1.gif
-wcas2_2.gif
-wcas2_3.gif
-wcas2_4.gif
-wcas3_1.gif
-wcas3_2.gif
-wcas3_3.gif
-wcas3_4.gif
+The remainder of the images are featured images from Wikimedia Commons. 
 
 I'm pretty sure that covers everything that may potentially
 cause problems... but just in case I left something out, I can

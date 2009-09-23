@@ -8,7 +8,10 @@ dist_words_DATA = alphabet.txt \
   astronomy.txt \
   colors.txt \
   fingers.txt \
+  fruit.txt \
+  numbers.txt \
   plants.txt \
+  shapes.txt \
   words1.txt \
   words2.txt \
   words3.txt
