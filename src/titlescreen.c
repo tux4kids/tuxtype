@@ -1327,10 +1327,12 @@ static int chooseWordlist(void)
   leftRect.w = left->w;
   leftRect.h = left->h;
   leftRect.x = screen->w/2 - 80 - (leftRect.w/2);
-  leftRect.y = screen->h/2 - 50;
+  leftRect.y = screen->h - 50;
 
-  rightRect.w = right->w; rightRect.h = right->h;
-  rightRect.x = screen->w/2 + 80 - (rightRect.w/2); rightRect.y = screen->h/2 - 50;
+  rightRect.w = right->w;
+  rightRect.h = right->h;
+  rightRect.x = screen->w/2 + 80 - (rightRect.w/2);
+  rightRect.y = screen->h - 50;
 
   /* set initial rect sizes */
   titleRects[0].y = 30;
