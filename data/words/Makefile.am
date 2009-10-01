@@ -9,9 +9,11 @@ dist_words_DATA = alphabet.txt \
   colors.txt \
   fingers.txt \
   fruit.txt \
+  geography.txt \
   numbers.txt \
   plants.txt \
   shapes.txt \
+  trees.txt \
   words1.txt \
   words2.txt \
   words3.txt
