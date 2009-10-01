@@ -22,6 +22,7 @@
 #include "titlescreen.h"
 #include "SDL_extras.h"
 #include "convert_utf.h"
+#include "editor.h"
 
 /* --- media for menus --- */
 
@@ -484,8 +485,10 @@ void TitleScreen(void)
 
     if (menu_opt == EDIT_WORDLIST)
     {
-      not_implemented();
+//      not_implemented();
 //      ChooseFile();
+      ChooseListToEdit();
+
       redraw = 1;
     }
 
@@ -1281,6 +1284,66 @@ static int chooseWordlist(void)
 
   closedir(wordsDir);	
  
+
+/* Adding custom wordlists */
+ 
+    sprintf(wordPath,"%s", settings.var_data_path);
+    if (!CheckFile(wordPath))
+    {
+      fprintf(stderr, "chooseWordList() - data path contains no wordlist dir \n");
+      return 0;
+    }
+ 
+
+  /* If we get to here, we know there is at least a wordlist directory */
+  /* but not necessarily any valid files.                              */
+
+  DEBUGCODE { fprintf(stderr, "wordPath is: %s\n", wordPath); }
+
+
+  /* FIXME looks like a place for scandir() - or our own w32_scandir() */
+  /* create a list of all the .txt files */
+
+  wordsDir = opendir( wordPath );	
+
+  do
+  {
+    wordsFile = readdir(wordsDir);
+    if (!wordsFile)
+      break; /* Loop continues until break occurs */
+
+    /* must have at least .txt at the end */
+    if (strlen(wordsFile->d_name) < 5)
+      continue;
+
+    if (strcmp(&wordsFile->d_name[strlen(wordsFile->d_name) -4 ],".txt"))
+      continue;
+
+    sprintf(wordlistFile[lists], "%s/%s", wordPath, wordsFile->d_name);
+
+    /* load the name for the wordlist from the file ... (1st line) */
+    tempFile = fopen( wordlistFile[lists], "r" );
+    if (!tempFile)
+      continue;
+
+    result = fscanf(tempFile, "%[^\n]\n", wordlistName[lists]);
+    if (result == EOF)
+      continue;
+
+    /* check to see if it has a \r at the end of it (dos format!) */
+    if (wordlistName[lists][strlen(wordlistName[lists]) - 1] == '\r')
+      wordlistName[lists][strlen(wordlistName[lists]) - 1] = '\0';
+
+    lists++;
+
+    fclose(tempFile);
+  } while (1); /* Loop continues until break occurs */
+
+  closedir(wordsDir);
+
+
+
+
  DEBUGCODE { fprintf(stderr, "Found %d .txt file(s) in words dir\n", lists); }
 
 
@@ -1491,6 +1554,7 @@ static int chooseWordlist(void)
 
   return 1;
 }
+
 
 
 static void ChooseFile(void)
