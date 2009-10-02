@@ -1,5 +1,5 @@
 # Process this file with autoconf to produce a configure script.
-AC_INIT([Tux Typing],[1.7.5],[tux4kids-tuxtype-dev@lists.alioth.debian.org],[tuxtype])
+AC_INIT([Tux Typing],[1.7.6],[tux4kids-tuxtype-dev@lists.alioth.debian.org],[tuxtype])
 AC_CONFIG_SRCDIR([src/playgame.c])
 
 AC_PREREQ(2.61)
@@ -40,11 +40,6 @@ AC_PROG_RANLIB
 AC_PROG_YACC
 
 
-#AC_PREFIX_DEFAULT(/usr/local)
-#if test "x$prefix" = "xNONE"; then
-#  prefix=$ac_default_prefix
-#  ac_configure_args="$ac_configure_args --prefix $prefix"
-#fi
 
 # -----------------------------------------------------------------------
 # Checks for libraries.
@@ -237,7 +232,9 @@ fi
 NSI_INSTALL_DIR=mingw32
 AC_SUBST(NSI_INSTALL_DIR)
 
+dnl FIXME the following line is a non-portable hack: 
 NSI_DLL_DIR=~/tuxtype_dll
+
 AC_ARG_WITH(dll-directory,AS_HELP_STRING([--with-dll-directory=path],[set the path where dll for TuxType are [$(NSI_DLL_DIR)]]), dll_path=$withval, dll_path=no)
 
 AM_CONDITIONAL(NSI_BUILD, test $dll_path = no)
@@ -360,11 +357,10 @@ data/words/Makefile
 doc/Makefile
 doc/en/Makefile
 intl/Makefile
+
 po/Makefile.in
 nsis/tuxtype.nsi
-src/Makefile
-])
-##tuxtype.spec])
+src/Makefile])
 
 AC_OUTPUT
 
