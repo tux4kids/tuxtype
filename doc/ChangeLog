@@ -1,3 +1,4 @@
+
 12 Sep 2009 (svn.debian.org/tux4kids - revision 1532) 
 [ David Bruce <davidstuartbruce@gmail.com> ]
         - Media - new music files and backgrounds contributed by Caroline Ford,
@@ -18,7 +19,7 @@
 		  instruction scripts, fixed scripting background image so that it scales
 		  properly in fullscreen
 		- Scripting - Added some basic scripts so that new users will have a
-		  complete lesson set out of the box. Added a howto	in the docs.
+		  complete lesson set out of the box. Added a howto in the docs.
 		  
 10 Jun 2009 (svn.debian.org/tux4kids - revision 1034)
 [ David Bruce <davidstuartbruce@gmail.com> ]
