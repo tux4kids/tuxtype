@@ -810,6 +810,69 @@ static int load_script(const char* fn)
         }
       }
     }
+    else if (strncmp("<bkgd", str, 5) == 0)
+    {
+      if (curPage == NULL)
+      {
+        fprintf(stderr,
+                "CRITICAL XML ERROR: <bkgd> should be in a <page> in file %s line (todo)",
+               fn);
+        close_script();
+        return 0; //Return control to the main program for a clean exit
+      }
+
+      if (curPage->items == NULL)
+      {
+        curItem = (itemType*)calloc(1, sizeof(itemType));
+        curPage->items = curItem;
+      }
+      else 
+      {
+        curItem->next = (itemType*)calloc(1, sizeof(itemType));
+        curItem = curItem->next;
+      }
+
+      curItem->type = itemBKGD;
+      curItem->x = curItem->y = -1;
+
+      /* FIXME most of these flags won't apply to backgrounds - DSB */
+
+      for (i = 6; i < strlen(str); i++) 
+      {
+        if ((str[i] == 'o') && strncmp("onclickplay", &str[i], 11) == 0)
+          curItem->onclick = get_quote(&str[i + 3]);
+
+        if ((str[i] == 'x') && strncmp(" x=", &str[i - 1], 3) == 0)
+          curItem->x = get_int(&str[i + 2]);
+
+        if ((str[i] == 'y') && strncmp(" y=", &str[i - 1], 3) == 0)
+          curItem->y = get_int(&str[i + 2]);
+
+        if ((str[i] == 's') && strncmp("src", &str[i], 3) == 0)
+          curItem->data = get_quote(&str[i + 3]);
+
+        if ((str[i] == 'a') && strncmp("align", &str[i], 5) == 0)
+        {
+          char* t = get_quote(&str[i + 5]);
+
+          if (strlen(t) >= 1)
+          {
+            if ((t[0] == 'l') || (t[0] == 'L'))
+               curItem->align='l';	// left
+
+            if ((t[0] == 'c') || (t[0]=='C'))
+               curItem->align='c';	// center
+
+            if ((t[0] == 'r') || (t[0]=='R'))
+               curItem->align='r';	// right
+
+            if ((t[0] == 'm') || (t[0]=='M'))
+               curItem->align='c';	// let 'm'iddle work as "center"
+          }
+          free(t);
+        }
+      }
+    }
     else if (strncmp("<wav", str, 4) == 0)
     {
       if (curPage == NULL)
@@ -859,6 +922,7 @@ static int load_script(const char* fn)
       {
         fprintf(stderr,
                 "CRITICAL XML ERROR: <prac> should be in a <page> in file %s line (todo)",
+
                 fn);
         close_script();
         return 0; /* Return control to the main program for a clean exit */
@@ -1001,6 +1065,10 @@ static int load_script(const char* fn)
 }
 
 
+
+/* FIXME we need to somehow support scaling of the background images, at least. */
+/* Perhaps we should create a new xml type - perhaps "<bkgd" - to allow the     */
+/* backgrounds to be recognized by this function and scaled appropriately - DSB */
 static void run_script(void)
 {
   /* FIXME FNLEN doesn't make sense for size of these arrays */

@@ -485,10 +485,7 @@ void TitleScreen(void)
 
     if (menu_opt == EDIT_WORDLIST)
     {
-//      not_implemented();
-//      ChooseFile();
       ChooseListToEdit();
-
       redraw = 1;
     }
 

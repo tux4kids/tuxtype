@@ -21,7 +21,7 @@
 
 static const int DEFAULT_SCRIPT_FONT_SIZE = 24;
 
-enum { itemTEXT, itemIMG, itemWAV, itemPRAC, itemWFIN, itemWFCH };
+enum { itemTEXT, itemIMG, itemBKGD, itemWAV, itemPRAC, itemWFIN, itemWFCH };
 
 /* linked list of elements for a page */
 struct item {
