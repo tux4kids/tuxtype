@@ -1,7 +1,7 @@
-<script title="Comet Zap Instructions" background="main_bkg.jpg">
+<script title="Comet Zap Instructions">
   <page>
-  <img src="main_bkg.png" x="0" y="0">
-  <text align="center" size="28">Save The Cities From Falling Comets!</text>
+    <bkgd src="main_bkg.png">
+    <text align="center" size="28">Save The Cities From Falling Comets!</text>
     <text align="center"t>Help Tux aim his laser beam by typing</text>
     <text align="center">the letters on the comets.  Type quickly,</text>
     <text align="center">because if Tux can't destroy the comets</text>

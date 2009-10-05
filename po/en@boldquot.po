@@ -31,8 +31,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tuxtype 1.7.5\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2009-06-11 21:00-0500\n"
-"PO-Revision-Date: 2009-06-11 21:00-0500\n"
+"POT-Creation-Date: 2009-09-25 18:33-0500\n"
+"PO-Revision-Date: 2009-09-25 18:33-0500\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -40,7 +40,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: src/loaders.c:88 src/main.c:145 src/playgame.c:624
+#: src/loaders.c:88 src/main.c:145 src/playgame.c:628
 msgid "Fish"
 msgstr "Fish"
 
@@ -68,35 +68,35 @@ msgstr "Press escape again to return to menu"
 msgid "Press space bar to return to game"
 msgstr "Press space bar to return to game"
 
-#: src/playgame.c:622
+#: src/playgame.c:626
 msgid "Level"
 msgstr "Level"
 
-#: src/playgame.c:623
+#: src/playgame.c:627
 msgid "Lives"
 msgstr "Lives"
 
-#: src/playgame.c:626 src/titlescreen.c:90
+#: src/playgame.c:630 src/titlescreen.c:90
 msgid "Easy"
 msgstr "Easy"
 
-#: src/playgame.c:627 src/titlescreen.c:91
+#: src/playgame.c:631 src/titlescreen.c:91
 msgid "Medium"
 msgstr "Medium"
 
-#: src/playgame.c:628 src/titlescreen.c:92
+#: src/playgame.c:632 src/titlescreen.c:92
 msgid "Hard"
 msgstr "Hard"
 
-#: src/playgame.c:629
+#: src/playgame.c:633
 msgid "Practice"
 msgstr "Practice"
 
-#: src/playgame.c:640
+#: src/playgame.c:644
 msgid "Congratulations"
 msgstr "Congratulations"
 
-#: src/playgame.c:644
+#: src/playgame.c:648
 msgid "Oh No!"
 msgstr "Oh No!"
 

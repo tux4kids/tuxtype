@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tux Typing 1.5.16\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2009-06-11 21:00-0500\n"
+"POT-Creation-Date: 2009-09-25 18:33-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/loaders.c:88 src/main.c:145 src/playgame.c:624
+#: src/loaders.c:88 src/main.c:145 src/playgame.c:628
 msgid "Fish"
 msgstr "Arraina"
 
@@ -44,37 +44,37 @@ msgstr "Sakatu berriz eskape menura itzultzeko"
 msgid "Press space bar to return to game"
 msgstr "Sakatu berriz bitarte-barra jokora itzultzeko"
 
-#: src/playgame.c:622
+#: src/playgame.c:626
 msgid "Level"
 msgstr "Maila"
 
-#: src/playgame.c:623
+#: src/playgame.c:627
 msgid "Lives"
 msgstr "Bizitzak"
 
 # levels for Cascade game:
-#: src/playgame.c:626 src/titlescreen.c:90
+#: src/playgame.c:630 src/titlescreen.c:90
 msgid "Easy"
 msgstr "Erreza"
 
-#: src/playgame.c:627 src/titlescreen.c:91
+#: src/playgame.c:631 src/titlescreen.c:91
 msgid "Medium"
 msgstr "Ertaina"
 
-#: src/playgame.c:628 src/titlescreen.c:92
+#: src/playgame.c:632 src/titlescreen.c:92
 msgid "Hard"
 msgstr "Gaitza"
 
 # general stuff
-#: src/playgame.c:629
+#: src/playgame.c:633
 msgid "Practice"
 msgstr "Trebakuntza"
 
-#: src/playgame.c:640
+#: src/playgame.c:644
 msgid "Congratulations"
 msgstr "Zorionak"
 
-#: src/playgame.c:644
+#: src/playgame.c:648
 msgid "Oh No!"
 msgstr "Oi ez!"
 

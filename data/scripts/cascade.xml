@@ -1,7 +1,6 @@
 <script title="Fish Cascade Instructions">
   <page>
-    <img src="lessons_bkg.png" x="0" y="0">
-    <img src="main_bkg.png" x="0" y="0">
+    <bkgd src="main_bkg.png">
     <img src="tux/stand-.png" x="100" y="330">
     <text color="#FFFFFF" align="center" size="32">Help Tux Eat Fish!</text>
     <text color="#FFFFFF" align="center">Tux is very hungry! Eating</text>

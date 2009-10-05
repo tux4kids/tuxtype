@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tux Typing 1.5.16\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2009-06-11 21:00-0500\n"
+"POT-Creation-Date: 2009-09-25 18:33-0500\n"
 "PO-Revision-Date: 2008-08-22 12:36+0530\n"
 "Last-Translator: Amitakhya Phukan <aphukan@redhat.com>\n"
 "Language-Team: American English <kde-i18n-doc@lists.kde.org>\n"
@@ -15,7 +15,7 @@ msgstr ""
 "X-Generator: KAider 0.1\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: src/loaders.c:88 src/main.c:145 src/playgame.c:624
+#: src/loaders.c:88 src/main.c:145 src/playgame.c:628
 msgid "Fish"
 msgstr "Fish"
 
@@ -43,35 +43,35 @@ msgstr "তালিকালৈ ঘূৰি যাবলৈ পুনঃ escap
 msgid "Press space bar to return to game"
 msgstr "খেললৈ ঘূৰি যাবলৈ space bar টিপক"
 
-#: src/playgame.c:622
+#: src/playgame.c:626
 msgid "Level"
 msgstr "স্তৰ"
 
-#: src/playgame.c:623
+#: src/playgame.c:627
 msgid "Lives"
 msgstr "জীৱন"
 
-#: src/playgame.c:626 src/titlescreen.c:90
+#: src/playgame.c:630 src/titlescreen.c:90
 msgid "Easy"
 msgstr "সহজ"
 
-#: src/playgame.c:627 src/titlescreen.c:91
+#: src/playgame.c:631 src/titlescreen.c:91
 msgid "Medium"
 msgstr "মাধ্যম"
 
-#: src/playgame.c:628 src/titlescreen.c:92
+#: src/playgame.c:632 src/titlescreen.c:92
 msgid "Hard"
 msgstr "কঠোৰ"
 
-#: src/playgame.c:629
+#: src/playgame.c:633
 msgid "Practice"
 msgstr "অভ্যাস"
 
-#: src/playgame.c:640
+#: src/playgame.c:644
 msgid "Congratulations"
 msgstr "অভিনন্দন"
 
-#: src/playgame.c:644
+#: src/playgame.c:648
 msgid "Oh No!"
 msgstr "অঃ নহয়!"
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tux Typing 1.5.16\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2009-06-11 21:00-0500\n"
+"POT-Creation-Date: 2009-09-25 18:33-0500\n"
 "PO-Revision-Date: 2007-09-25 09:50-0000\n"
 "Last-Translator: Ousmane Faty Ndongo et Dominique Rochefort <alfanet@anafa."
 "org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/loaders.c:88 src/main.c:145 src/playgame.c:624
+#: src/loaders.c:88 src/main.c:145 src/playgame.c:628
 msgid "Fish"
 msgstr "Jën yi"
 
@@ -45,37 +45,37 @@ msgstr "Bësaatal ci skep ngir dellu ci njël li"
 msgid "Press space bar to return to game"
 msgstr "Bësal banqaasu teqale ngir fo"
 
-#: src/playgame.c:622
+#: src/playgame.c:626
 msgid "Level"
 msgstr "Tollu tollu"
 
-#: src/playgame.c:623
+#: src/playgame.c:627
 msgid "Lives"
 msgstr "Dund yi"
 
 # levels for Cascade game:
-#: src/playgame.c:626 src/titlescreen.c:90
+#: src/playgame.c:630 src/titlescreen.c:90
 msgid "Easy"
 msgstr "Yomb"
 
-#: src/playgame.c:627 src/titlescreen.c:91
+#: src/playgame.c:631 src/titlescreen.c:91
 msgid "Medium"
 msgstr "Ci diggante bi"
 
-#: src/playgame.c:628 src/titlescreen.c:92
+#: src/playgame.c:632 src/titlescreen.c:92
 msgid "Hard"
 msgstr "Dëgër"
 
 # general stuff
-#: src/playgame.c:629
+#: src/playgame.c:633
 msgid "Practice"
 msgstr "Jëf ji"
 
-#: src/playgame.c:640
+#: src/playgame.c:644
 msgid "Congratulations"
 msgstr "Waaw góor"
 
-#: src/playgame.c:644
+#: src/playgame.c:648
 msgid "Oh No!"
 msgstr "Déedéet!"
 

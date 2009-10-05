@@ -835,44 +835,14 @@ static int load_script(const char* fn)
       curItem->type = itemBKGD;
       curItem->x = curItem->y = -1;
 
-      /* FIXME most of these flags won't apply to backgrounds - DSB */
 
       for (i = 6; i < strlen(str); i++) 
       {
-        if ((str[i] == 'o') && strncmp("onclickplay", &str[i], 11) == 0)
-          curItem->onclick = get_quote(&str[i + 3]);
-
-        if ((str[i] == 'x') && strncmp(" x=", &str[i - 1], 3) == 0)
-          curItem->x = get_int(&str[i + 2]);
-
-        if ((str[i] == 'y') && strncmp(" y=", &str[i - 1], 3) == 0)
-          curItem->y = get_int(&str[i + 2]);
-
         if ((str[i] == 's') && strncmp("src", &str[i], 3) == 0)
           curItem->data = get_quote(&str[i + 3]);
-
-        if ((str[i] == 'a') && strncmp("align", &str[i], 5) == 0)
-        {
-          char* t = get_quote(&str[i + 5]);
-
-          if (strlen(t) >= 1)
-          {
-            if ((t[0] == 'l') || (t[0] == 'L'))
-               curItem->align='l';	// left
-
-            if ((t[0] == 'c') || (t[0]=='C'))
-               curItem->align='c';	// center
-
-            if ((t[0] == 'r') || (t[0]=='R'))
-               curItem->align='r';	// right
-
-            if ((t[0] == 'm') || (t[0]=='M'))
-               curItem->align='c';	// let 'm'iddle work as "center"
-          }
-          free(t);
-        }
       }
     }
+
     else if (strncmp("<wav", str, 4) == 0)
     {
       if (curPage == NULL)
@@ -1066,9 +1036,7 @@ static int load_script(const char* fn)
 
 
 
-/* FIXME we need to somehow support scaling of the background images, at least. */
-/* Perhaps we should create a new xml type - perhaps "<bkgd" - to allow the     */
-/* backgrounds to be recognized by this function and scaled appropriately - DSB */
+
 static void run_script(void)
 {
   /* FIXME FNLEN doesn't make sense for size of these arrays */
@@ -1204,8 +1172,30 @@ static void run_script(void)
               clickRects[numClicks].h = loc.h;
               numClicks++;
             }
+
+            SDL_FreeSurface(img);
           }
-          SDL_FreeSurface(img);
+          break;
+        }
+
+        case itemBKGD:
+        {
+          SDL_Surface* img = LoadImage(curItem->data, IMG_ALPHA|IMG_NOT_REQUIRED);
+          if (img)
+          {
+            /* hack: since this is the background it needs to scale when in fullscreen -MDT */
+            if (settings.fullscreen)
+            {
+              SDL_Surface* fsimg = zoom(img, fs_res_x, fs_res_y);
+              SDL_BlitSurface(fsimg, NULL, screen, NULL);
+              SDL_FreeSurface(fsimg);
+            }
+            else
+            {
+              SDL_BlitSurface(img, NULL, screen, NULL);
+            }
+            SDL_FreeSurface(img);
+          }
           break;
         }
 
