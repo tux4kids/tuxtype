@@ -3,6 +3,16 @@
 
 scriptsdir = $(pkgdatadir)/scripts
 
+if BUILD_MINGW32
+  TEXT_KLUDGE=./sed-windows.sh
+else
+  TEXT_KLUDGE=./sed-linux.sh
+endif
+
+
+all-am:
+	${TEXT_KLUDGE}
+
 dist_scripts_DATA = projectInfo.xml \
   cascade.xml \
   laser.xml \
