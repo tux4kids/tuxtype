@@ -11,7 +11,7 @@ endif
 
 
 all-am:
-	${TEXT_KLUDGE}
+	cd $(srcdir); ${TEXT_KLUDGE}
 
 dist_scripts_DATA = projectInfo.xml \
   cascade.xml \
