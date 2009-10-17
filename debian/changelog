@@ -1,8 +1,9 @@
-tuxtype (1.7.5.dfsg1-2) UNRELEASED; urgency=low
+tuxtype (1.7.5.dfsg1-2) unstable; urgency=low
 
-  * Bump standards version to 3.8.2, no changes needed. 
+  * Bump standards version to 3.8.3, no changes needed. 
+  * Make tuxtype-data-nonfree a suggests: again. (Closes: #551315)
 
- -- Holger Levsen <holger@debian.org>  Tue, 04 Aug 2009 12:58:48 +0200
+ -- Holger Levsen <holger@debian.org>  Sat, 17 Oct 2009 09:24:32 +0000
 
 tuxtype (1.7.5.dfsg1-1) unstable; urgency=low
 

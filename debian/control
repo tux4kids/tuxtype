@@ -2,7 +2,7 @@ Source: tuxtype
 Section: games
 Priority: optional
 Maintainer: Holger Levsen <holger@debian.org>
-Standards-Version: 3.8.2
+Standards-Version: 3.8.3
 Build-Depends: debhelper (>=5.0.42), libsdl-mixer1.2-dev, libsdl-image1.2-dev, libsdl1.2-dev, libsdl-ttf2.0-dev, libsdl-pango-dev, librsvg2-dev
 Homepage: http://tux4kids.alioth.debian.org
 Vcs-Svn: svn://svn.debian.org/svn/tux4kids/tuxtype/
@@ -11,7 +11,8 @@ Vcs-Browser: http://svn.debian.org/wsvn/tux4kids/tuxtype/
 Package: tuxtype
 Architecture: any
 Depends: ${shlibs:Depends}, ttf-sil-andika (>=1.0.basic-1), tuxtype-data 
-Recommends: ttf-sil-doulos, tuxtype-data-nonfree, ttf-bengali-fonts, ttf-devanagari-fonts, ttf-gujarati-fonts, ttf-kannada-fonts, ttf-oriya-fonts, ttf-punjabi-fonts, ttf-tamil-fonts, ttf-telugu-fonts
+Recommends: ttf-sil-doulos, ttf-bengali-fonts, ttf-devanagari-fonts, ttf-gujarati-fonts, ttf-kannada-fonts, ttf-oriya-fonts, ttf-punjabi-fonts, ttf-tamil-fonts, ttf-telugu-fonts
+Suggests: tuxtype-data-nonfree
 Description:  Educational Typing Tutor Game Starring Tux
  TuxTyping is an educational typing tutorial game starring
  Tux, the Linux Penguin. The player guides Tux to eat fish
