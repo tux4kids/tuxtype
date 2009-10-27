@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tux Typing 1.5.16\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2009-09-25 18:33-0500\n"
+"POT-Creation-Date: 2009-10-27 12:49-0500\n"
 "PO-Revision-Date: 2005-02-12 13:13+0100\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <i18n-nn@lister.ping.uio.no>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.9.1\n"
 
-#: src/loaders.c:88 src/main.c:145 src/playgame.c:628
+#: src/loaders.c:88 src/main.c:147 src/playgame.c:628
 msgid "Fish"
 msgstr "Fisk"
 
@@ -52,15 +52,15 @@ msgstr "Nivå"
 msgid "Lives"
 msgstr "Liv"
 
-#: src/playgame.c:630 src/titlescreen.c:90
+#: src/playgame.c:630 src/titlescreen.c:89
 msgid "Easy"
 msgstr "Lett"
 
-#: src/playgame.c:631 src/titlescreen.c:91
+#: src/playgame.c:631 src/titlescreen.c:90
 msgid "Medium"
 msgstr "Middels"
 
-#: src/playgame.c:632 src/titlescreen.c:92
+#: src/playgame.c:632 src/titlescreen.c:91
 msgid "Hard"
 msgstr "Vanskeleg"
 
@@ -100,76 +100,76 @@ msgstr ""
 msgid "Accuracy"
 msgstr ""
 
-#: src/titlescreen.c:90
+#: src/titlescreen.c:89
 msgid "Fish Cascade"
 msgstr "Fiskefall"
 
-#: src/titlescreen.c:90
+#: src/titlescreen.c:89
 msgid "Space Cadet"
 msgstr "Nybegynnar"
 
-#: src/titlescreen.c:90
+#: src/titlescreen.c:89
 msgid "Edit Word Lists"
 msgstr "Rediger ordliste"
 
-#: src/titlescreen.c:91
+#: src/titlescreen.c:90
 msgid "Comet Zap"
 msgstr "Kometknusing"
 
-#: src/titlescreen.c:91
+#: src/titlescreen.c:90
 msgid "Pilot"
 msgstr "Erfaren"
 
-#: src/titlescreen.c:91
+#: src/titlescreen.c:90
 msgid "Phrase Typing"
 msgstr ""
 
-#: src/titlescreen.c:92
+#: src/titlescreen.c:91
 msgid "Lessons"
 msgstr "Opplæring"
 
-#: src/titlescreen.c:92
+#: src/titlescreen.c:91
 msgid "Ace"
 msgstr "Profesjonell"
 
 #
-#: src/titlescreen.c:92
+#: src/titlescreen.c:91
 msgid "Project Info"
 msgstr "Prosjektinfo"
 
-#: src/titlescreen.c:93
+#: src/titlescreen.c:92
 msgid "Options"
 msgstr "Oppsett"
 
-#: src/titlescreen.c:93
+#: src/titlescreen.c:92
 msgid "Instructions"
 msgstr "Hjelp"
 
-#: src/titlescreen.c:93
+#: src/titlescreen.c:92
 msgid "Commander"
 msgstr "Ekspert"
 
-#: src/titlescreen.c:93
+#: src/titlescreen.c:92
 msgid "Setup Language"
 msgstr "Språk"
 
-#: src/titlescreen.c:94
+#: src/titlescreen.c:93
 msgid "Quit"
 msgstr "Avslutt"
 
-#: src/titlescreen.c:94
+#: src/titlescreen.c:93
 msgid "Main Menu"
 msgstr "Hovudmeny"
 
-#: src/titlescreen.c:1115
+#: src/titlescreen.c:1113
 msgid "Work In Progress!"
 msgstr "Uferdig!"
 
-#: src/titlescreen.c:1116
+#: src/titlescreen.c:1114
 msgid "This feature is not ready yet"
 msgstr "Denne funksjonen er ikkje klar enno."
 
-#: src/titlescreen.c:1117
+#: src/titlescreen.c:1115
 msgid "Discuss the future of TuxTyping at"
 msgstr "Diskuter neste versjon av Tux Typing på"
 

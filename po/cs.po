@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tux Typing 1.5.16\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2009-09-25 18:33-0500\n"
+"POT-Creation-Date: 2009-10-27 12:49-0500\n"
 "PO-Revision-Date: 2007-11-10 16:36+0100\n"
 "Last-Translator: JardaK <krejci@zstenis.com>\n"
 "Language-Team: czech <cs@li.org>\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Plural-Forms:  nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
 #
-#: src/loaders.c:88 src/main.c:145 src/playgame.c:628
+#: src/loaders.c:88 src/main.c:147 src/playgame.c:628
 msgid "Fish"
 msgstr "Ryba"
 
@@ -64,17 +64,17 @@ msgid "Lives"
 msgstr "Životy"
 
 #
-#: src/playgame.c:630 src/titlescreen.c:90
+#: src/playgame.c:630 src/titlescreen.c:89
 msgid "Easy"
 msgstr "Snadná"
 
 #
-#: src/playgame.c:631 src/titlescreen.c:91
+#: src/playgame.c:631 src/titlescreen.c:90
 msgid "Medium"
 msgstr "Střední"
 
 #
-#: src/playgame.c:632 src/titlescreen.c:92
+#: src/playgame.c:632 src/titlescreen.c:91
 msgid "Hard"
 msgstr "Těžká"
 
@@ -118,91 +118,91 @@ msgid "Accuracy"
 msgstr ""
 
 #
-#: src/titlescreen.c:90
+#: src/titlescreen.c:89
 msgid "Fish Cascade"
 msgstr "Vodopád ryb"
 
 #
-#: src/titlescreen.c:90
+#: src/titlescreen.c:89
 msgid "Space Cadet"
 msgstr "Nováček"
 
 #
-#: src/titlescreen.c:90
+#: src/titlescreen.c:89
 msgid "Edit Word Lists"
 msgstr "Uprav seznamy slov"
 
 #
-#: src/titlescreen.c:91
+#: src/titlescreen.c:90
 msgid "Comet Zap"
 msgstr "Sestřelování komet"
 
 #
-#: src/titlescreen.c:91
+#: src/titlescreen.c:90
 msgid "Pilot"
 msgstr "Pilot"
 
-#: src/titlescreen.c:91
+#: src/titlescreen.c:90
 msgid "Phrase Typing"
 msgstr ""
 
 #
-#: src/titlescreen.c:92
+#: src/titlescreen.c:91
 msgid "Lessons"
 msgstr "Lekce"
 
 #
-#: src/titlescreen.c:92
+#: src/titlescreen.c:91
 msgid "Ace"
 msgstr "Eso"
 
 #
-#: src/titlescreen.c:92
+#: src/titlescreen.c:91
 msgid "Project Info"
 msgstr "Info o projektu"
 
 #
-#: src/titlescreen.c:93
+#: src/titlescreen.c:92
 msgid "Options"
 msgstr "Možnosti"
 
 #
-#: src/titlescreen.c:93
+#: src/titlescreen.c:92
 msgid "Instructions"
 msgstr "Instrukce"
 
 #
-#: src/titlescreen.c:93
+#: src/titlescreen.c:92
 msgid "Commander"
 msgstr "Kapitán"
 
 #
-#: src/titlescreen.c:93
+#: src/titlescreen.c:92
 msgid "Setup Language"
 msgstr "Vyber jazyk"
 
 #
-#: src/titlescreen.c:94
+#: src/titlescreen.c:93
 msgid "Quit"
 msgstr "Ukončit"
 
 #
-#: src/titlescreen.c:94
+#: src/titlescreen.c:93
 msgid "Main Menu"
 msgstr "Hlavní menu"
 
 #
-#: src/titlescreen.c:1115
+#: src/titlescreen.c:1113
 msgid "Work In Progress!"
 msgstr "Ve výstavbě!"
 
 #
-#: src/titlescreen.c:1116
+#: src/titlescreen.c:1114
 msgid "This feature is not ready yet"
 msgstr "Tato vlastnost ještě nefunguje"
 
 #
-#: src/titlescreen.c:1117
+#: src/titlescreen.c:1115
 msgid "Discuss the future of TuxTyping at"
 msgstr "Diskutuj o budoucnosti TuxTyping na"
 

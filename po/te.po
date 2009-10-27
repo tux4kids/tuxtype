@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tuxtype\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2009-09-25 18:33-0500\n"
+"POT-Creation-Date: 2009-10-27 12:49-0500\n"
 "PO-Revision-Date: 2008-08-28 17:58+0530\n"
 "Last-Translator: Krishna Babu K <kkrothap@redhat.com>\n"
 "Language-Team: Telugu <en@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n!=1);\n"
 "\n"
 
-#: src/loaders.c:88 src/main.c:145 src/playgame.c:628
+#: src/loaders.c:88 src/main.c:147 src/playgame.c:628
 msgid "Fish"
 msgstr "చాప"
 
@@ -53,15 +53,15 @@ msgstr "స్థాయి"
 msgid "Lives"
 msgstr "అవకాశాలు"
 
-#: src/playgame.c:630 src/titlescreen.c:90
+#: src/playgame.c:630 src/titlescreen.c:89
 msgid "Easy"
 msgstr "తేలికైన"
 
-#: src/playgame.c:631 src/titlescreen.c:91
+#: src/playgame.c:631 src/titlescreen.c:90
 msgid "Medium"
 msgstr "మధ్యతరగతి"
 
-#: src/playgame.c:632 src/titlescreen.c:92
+#: src/playgame.c:632 src/titlescreen.c:91
 msgid "Hard"
 msgstr "కష్టమైన"
 
@@ -101,75 +101,75 @@ msgstr ""
 msgid "Accuracy"
 msgstr ""
 
-#: src/titlescreen.c:90
+#: src/titlescreen.c:89
 msgid "Fish Cascade"
 msgstr "చాప నీటిగుంట"
 
-#: src/titlescreen.c:90
+#: src/titlescreen.c:89
 msgid "Space Cadet"
 msgstr "వింహగ పక్షులు"
 
-#: src/titlescreen.c:90
+#: src/titlescreen.c:89
 msgid "Edit Word Lists"
 msgstr "పదముల జాబితాను సరిచేయి"
 
-#: src/titlescreen.c:91
+#: src/titlescreen.c:90
 msgid "Comet Zap"
 msgstr "కామెట్ జాప్"
 
-#: src/titlescreen.c:91
+#: src/titlescreen.c:90
 msgid "Pilot"
 msgstr "చోదకుడు(పైలెట్)"
 
-#: src/titlescreen.c:91
+#: src/titlescreen.c:90
 msgid "Phrase Typing"
 msgstr ""
 
-#: src/titlescreen.c:92
+#: src/titlescreen.c:91
 msgid "Lessons"
 msgstr "పాఠములు"
 
-#: src/titlescreen.c:92
+#: src/titlescreen.c:91
 msgid "Ace"
 msgstr "ఏస్"
 
-#: src/titlescreen.c:92
+#: src/titlescreen.c:91
 msgid "Project Info"
 msgstr "ప్రాజక్ట్‍ సమాచారం"
 
-#: src/titlescreen.c:93
+#: src/titlescreen.c:92
 msgid "Options"
 msgstr "ఐచ్చికాలు"
 
-#: src/titlescreen.c:93
+#: src/titlescreen.c:92
 msgid "Instructions"
 msgstr "సూచనలు"
 
-#: src/titlescreen.c:93
+#: src/titlescreen.c:92
 msgid "Commander"
 msgstr "ఆదేశకుడు"
 
-#: src/titlescreen.c:93
+#: src/titlescreen.c:92
 msgid "Setup Language"
 msgstr "భాషను అమర్చు"
 
-#: src/titlescreen.c:94
+#: src/titlescreen.c:93
 msgid "Quit"
 msgstr "నిష్క్రమించు"
 
-#: src/titlescreen.c:94
+#: src/titlescreen.c:93
 msgid "Main Menu"
 msgstr "ప్రధాన మెనూ"
 
-#: src/titlescreen.c:1115
+#: src/titlescreen.c:1113
 msgid "Work In Progress!"
 msgstr "పని జరుగుతోంది!"
 
-#: src/titlescreen.c:1116
+#: src/titlescreen.c:1114
 msgid "This feature is not ready yet"
 msgstr "ఈ సౌలభ్యం యింకా సిద్ధము కాలేదు"
 
-#: src/titlescreen.c:1117
+#: src/titlescreen.c:1115
 msgid "Discuss the future of TuxTyping at"
 msgstr "TuxTyping యొక్క భవిష్యత్తు యిక్కడ చర్చించండి"
 

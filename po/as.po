@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tux Typing 1.5.16\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2009-09-25 18:33-0500\n"
+"POT-Creation-Date: 2009-10-27 12:49-0500\n"
 "PO-Revision-Date: 2008-08-22 12:36+0530\n"
 "Last-Translator: Amitakhya Phukan <aphukan@redhat.com>\n"
 "Language-Team: American English <kde-i18n-doc@lists.kde.org>\n"
@@ -15,7 +15,7 @@ msgstr ""
 "X-Generator: KAider 0.1\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: src/loaders.c:88 src/main.c:145 src/playgame.c:628
+#: src/loaders.c:88 src/main.c:147 src/playgame.c:628
 msgid "Fish"
 msgstr "Fish"
 
@@ -51,15 +51,15 @@ msgstr "স্তৰ"
 msgid "Lives"
 msgstr "জীৱন"
 
-#: src/playgame.c:630 src/titlescreen.c:90
+#: src/playgame.c:630 src/titlescreen.c:89
 msgid "Easy"
 msgstr "সহজ"
 
-#: src/playgame.c:631 src/titlescreen.c:91
+#: src/playgame.c:631 src/titlescreen.c:90
 msgid "Medium"
 msgstr "মাধ্যম"
 
-#: src/playgame.c:632 src/titlescreen.c:92
+#: src/playgame.c:632 src/titlescreen.c:91
 msgid "Hard"
 msgstr "কঠোৰ"
 
@@ -99,75 +99,75 @@ msgstr ""
 msgid "Accuracy"
 msgstr ""
 
-#: src/titlescreen.c:90
+#: src/titlescreen.c:89
 msgid "Fish Cascade"
 msgstr "Fish Cascade"
 
-#: src/titlescreen.c:90
+#: src/titlescreen.c:89
 msgid "Space Cadet"
 msgstr "Space Cadet"
 
-#: src/titlescreen.c:90
+#: src/titlescreen.c:89
 msgid "Edit Word Lists"
 msgstr "শব্দৰ তালিকা সম্পাদন কৰক"
 
-#: src/titlescreen.c:91
+#: src/titlescreen.c:90
 msgid "Comet Zap"
 msgstr "Comet Zap"
 
-#: src/titlescreen.c:91
+#: src/titlescreen.c:90
 msgid "Pilot"
 msgstr "পাইলট"
 
-#: src/titlescreen.c:91
+#: src/titlescreen.c:90
 msgid "Phrase Typing"
 msgstr ""
 
-#: src/titlescreen.c:92
+#: src/titlescreen.c:91
 msgid "Lessons"
 msgstr "পাঠ"
 
-#: src/titlescreen.c:92
+#: src/titlescreen.c:91
 msgid "Ace"
 msgstr "Ace"
 
-#: src/titlescreen.c:92
+#: src/titlescreen.c:91
 msgid "Project Info"
 msgstr "পৰিকল্পনাৰ তথ্য"
 
-#: src/titlescreen.c:93
+#: src/titlescreen.c:92
 msgid "Options"
 msgstr "বিকল্প"
 
-#: src/titlescreen.c:93
+#: src/titlescreen.c:92
 msgid "Instructions"
 msgstr "নিৰ্দেশ"
 
-#: src/titlescreen.c:93
+#: src/titlescreen.c:92
 msgid "Commander"
 msgstr "কামান্ডাৰ"
 
-#: src/titlescreen.c:93
+#: src/titlescreen.c:92
 msgid "Setup Language"
 msgstr "প্ৰতিষ্ঠাৰ ভাষা"
 
-#: src/titlescreen.c:94
+#: src/titlescreen.c:93
 msgid "Quit"
 msgstr "বাহিৰ হওক"
 
-#: src/titlescreen.c:94
+#: src/titlescreen.c:93
 msgid "Main Menu"
 msgstr "মূখ্য তালিকা"
 
-#: src/titlescreen.c:1115
+#: src/titlescreen.c:1113
 msgid "Work In Progress!"
 msgstr "কাম চলি আছে‌!"
 
-#: src/titlescreen.c:1116
+#: src/titlescreen.c:1114
 msgid "This feature is not ready yet"
 msgstr "এই গুণ এতিয়া প্ৰস্তুত নহয়"
 
-#: src/titlescreen.c:1117
+#: src/titlescreen.c:1115
 msgid "Discuss the future of TuxTyping at"
 msgstr "TuxTyping ৰ গুণৰ আলোচনা ইয়াত কৰক"
 

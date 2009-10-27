@@ -60,3 +60,8 @@ dist_scripts_DATA = projectInfo.xml \
   basic_lesson_41.xml \
   basic_lesson_42.xml \
   basic_lesson_43.xml 
+
+EXTRA_DIST = sed-linux.rules \
+  sed-linux.sh \
+  sed-windows.rules \
+  sed-windows.sh
