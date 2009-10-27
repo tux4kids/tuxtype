@@ -93,8 +93,8 @@ int PlayCascade(int diflevel)
   int won_level = 0;
   int quitting = 0;
   int curlevel = 0;
-  int i;
-  int curlives;
+  int i = 0;
+  int curlives = 0;
   int oldlives = 0;
   int oldfish_left = 0;
   int fish_left = 0;
@@ -402,7 +402,7 @@ int PlayCascade(int diflevel)
       }
       else
       {
-        fprintf(stderr, "Did not achieve desired frame rate!\n");
+        LOG("Did not achieve desired frame rate!\n");
       }
     }  /* End per-frame game loop - level completed */
 
