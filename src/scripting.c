@@ -21,6 +21,11 @@
 #include "SDL_extras.h"
 #include "convert_utf.h"
 
+/* Use our replacement scandir() if platform lacks it: */
+#ifndef HAVE_SCANDIR
+#include "scandir.h"
+#endif
+
 /* Local function prototypes: */
 static void clear_items(itemType* i);
 static void clear_pages(pageType* p);

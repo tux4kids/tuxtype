@@ -75,7 +75,8 @@ tuxtype_SOURCES = 	\
 	convert_utf.c	\
 	options.c	\
 	mysetenv.c	\
-	editor.c
+	editor.c	\
+	scandir.c
 
 TuxType_SOURCES  = $(tuxtype_SOURCES)
 # The rc file has something to do with the icon in Windows, IIRC
@@ -94,4 +95,5 @@ EXTRA_DIST = titlescreen.h \
 	gettext.h	\
 	compiler.h	\
 	mysetenv.h	\
-	editor.h
+	editor.h	\
+	scandir.h
