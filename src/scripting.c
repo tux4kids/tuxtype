@@ -20,11 +20,7 @@
 #define MAX_LESSONS 100
 #include "SDL_extras.h"
 #include "convert_utf.h"
-
-/* Use our replacement scandir() if platform lacks it: */
-#ifndef HAVE_SCANDIR
 #include "scandir.h"
-#endif
 
 /* Local function prototypes: */
 static void clear_items(itemType* i);
@@ -36,7 +32,7 @@ static char* get_quote(const char* in);
 static char hex2int(char b, char s);
 static int load_script(const char* fn);
 static void run_script(void);
-
+static int is_xml_file(const struct dirent* xml_dirent);
 /************************************************************************/
 /*                                                                      */ 
 /*         "Public" functions (callable throughout program)             */
@@ -122,18 +118,25 @@ int XMLLesson(void)
   SDL_Rect leftRect, rightRect;
   SDL_Rect titleRects[8];
 
+  char* fgets_return_val;
+  int nchars;
+  struct dirent **script_list_dirents = NULL;
+  int i = 0;
+  int scriptIterator = 0;  //Iterator over matching files in script dir
+  int length = 0;
+  int scripts = 0;         //Iterator over accepted (& parsed) script files
+  int num_scripts = 0;
+  char script_path[FNLEN];
+  char script_filenames[MAX_LESSONS][FNLEN];
+  char fn[FNLEN]; 
+  DIR* script_dir = NULL;
+
+  struct dirent* script_file = NULL;
   int stop = 0;
   int loc = 0;
   int old_loc = 1;
-  int num_scripts = 0;
   int found = 0;
-  int i;
-  char script_path[FNLEN];
-  char script_filenames[MAX_LESSONS][200];
-  char fn[FNLEN]; 
 
-  DIR* script_dir = NULL;
-  struct dirent* script_file = NULL;
 
   LOG("Entering XMLLesson():\n");
 
@@ -172,40 +175,92 @@ int XMLLesson(void)
   DEBUGCODE { fprintf(stderr, "script_path is: %s\n", script_path); }
 
 
-  /* FIXME looks like a place for scandir() - or our own w32_scandir() */
   /* create a list of all the .xml files */
+  num_scripts = scandir(script_path, &script_list_dirents, is_xml_file, alphasort);
 
-  script_dir = opendir(script_path);	
-
-  do
+  for (scriptIterator = 0, scripts = 0;
+       scriptIterator < num_scripts && scripts < MAX_LESSONS;
+       scriptIterator++)
   {
-    script_file = readdir(script_dir);
-    if (!script_file)
-      break;
+    /* Copy over the filename: */
+    nchars = snprintf(script_filenames[scripts], FNLEN, "%s",
+                      script_list_dirents[scriptIterator]->d_name);
 
-    /* must have at least '.xml' at the end */
-    if (strlen(script_file->d_name) < 5)
+    /* Skip (actually clobber) any invalid or undesired files: */
+    if (nchars < 0 || nchars >= FNLEN)
       continue;
-
     /* Don't show project info file or instructions files */
-    if (strcmp(script_file->d_name, "projectInfo.xml") == 0 ||
-        strcmp(script_file->d_name, "laser.xml") == 0 ||
-        strcmp(script_file->d_name, "cascade.xml") == 0)
+    if (strcmp(script_filenames[scripts], "projectInfo.xml") == 0 ||
+        strcmp(script_filenames[scripts], "laser.xml") == 0 ||
+        strcmp(script_filenames[scripts], "cascade.xml") == 0)
       continue;
 
+    DEBUGCODE
+    {
+      fprintf(stderr, "Found script file %d:\t%s\n", scripts, script_filenames[scripts]);
+    }
+
+    /* Increment the iterator for correctly-parsed lesson files */
+    scripts++;
+  }
+
+//  DEBUGCODE  
+  {
+    fprintf(stderr, "Before undesired files screened out:\n");
+    for(i = 0; i < num_scripts; i++)
+      fprintf(stderr, "script %d filename: %s\n", i,
+              script_list_dirents[i]->d_name);
+    fprintf(stderr, "After undesired files screened out:\n");
+    for(i = 0; i < scripts; i++)
+      fprintf(stderr, "script %d filename: %s\n", i,
+              script_filenames[i]);
+  }
 
 
-    if (strcmp(&script_file->d_name[strlen(script_file->d_name) - 4],".xml"))
-      continue;
+  /* Now free the individual dirents. We do this on a second pass */
+  /* because of the "continue" approach used to error handling.   */
+  for (scriptIterator = 0; scriptIterator < num_scripts; scriptIterator++)
+    free(script_list_dirents[scriptIterator]);
+  free(script_list_dirents);
 
-    sprintf(script_filenames[num_scripts], "%s", script_file->d_name);
-    num_scripts++;
-    DEBUGCODE { fprintf(stderr, "Adding XML file no. %d: %s\n",
-                num_scripts, script_filenames[num_scripts]); }
+  /* Adjust num_scripts for any skipped files: */
+  num_scripts = scripts;
 
-  } while (1); /* Leave loop when readdir() returns NULL */
+//START OF OLD IMPLEMENTATION
+//   num_scripts = 0;
+//   script_dir = opendir(script_path);	
+//   do
+//   {
+//     script_file = readdir(script_dir);
+//     if (!script_file)
+//       break;
+// 
+//     /* must have at least '.xml' at the end */
+//     if (strlen(script_file->d_name) < 5)
+//       continue;
+// 
+//     /* Don't show project info file or instructions files */
+//     if (strcmp(script_file->d_name, "projectInfo.xml") == 0 ||
+//         strcmp(script_file->d_name, "laser.xml") == 0 ||
+//         strcmp(script_file->d_name, "cascade.xml") == 0)
+//       continue;
+// 
+// 
+//     if (strcmp(&script_file->d_name[strlen(script_file->d_name) - 4],".xml"))
+//       continue;
+// 
+//     sprintf(script_filenames[num_scripts], "%s", script_file->d_name);
+//     num_scripts++;
+//     DEBUGCODE { fprintf(stderr, "Adding XML file no. %d: %s\n",
+//                 num_scripts, script_filenames[num_scripts]); }
+// 
+//   } while (1); /* Leave loop when readdir() returns NULL */
+// 
+//   closedir(script_dir);	
 
-  closedir(script_dir);	
+// END OF OLD IMPLEMENTATION
+
+
 
   DEBUGCODE { fprintf(stderr, "Found %d . xml file(s) in script dir\n", num_scripts); }
 
@@ -1572,4 +1627,13 @@ static void close_script(void)
     /* -- and remember you did -- */
     curScript = NULL;
   }
+}
+
+
+/* NOTE we just check to see if the name ends in ".xml", but we don't */
+/* verify that it really contains XML.                                */
+static int is_xml_file(const struct dirent* xml_dirent)
+{
+  const char* ending = &xml_dirent->d_name[strlen(xml_dirent->d_name) - 4]; 
+  return (0 == strncasecmp(ending, ".xml", 4));
 }
