@@ -109,7 +109,10 @@ void ProjectInfo(void)
 }
 
 /* This is the function that allows the user */
-/* to select a lesson from the menu.                                          */
+/* to select a lesson from the menu.         */
+/* FIXME we ought to display descriptive titles from the lessons, */
+/* rather than just the filenames.  We also should consider a     */
+/* "gold stars" system like in TuxMath - DSB                      */
 int XMLLesson(void)
 {
   SDL_Surface* titles[MAX_LESSONS] = {NULL};

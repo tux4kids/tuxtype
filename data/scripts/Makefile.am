@@ -16,7 +16,6 @@ all-am:
 dist_scripts_DATA = projectInfo.xml \
   cascade.xml \
   laser.xml \
-  00_Scripting_Sample.xml \
   basic_lesson_01.xml \
   basic_lesson_02.xml \
   basic_lesson_03.xml \
