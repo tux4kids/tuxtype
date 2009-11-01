@@ -121,20 +121,16 @@ int XMLLesson(void)
   SDL_Rect leftRect, rightRect;
   SDL_Rect titleRects[8];
 
-  char* fgets_return_val;
   int nchars;
   struct dirent **script_list_dirents = NULL;
   int i = 0;
   int scriptIterator = 0;  //Iterator over matching files in script dir
-  int length = 0;
   int scripts = 0;         //Iterator over accepted (& parsed) script files
   int num_scripts = 0;
   char script_path[FNLEN];
   char script_filenames[MAX_LESSONS][FNLEN];
   char fn[FNLEN]; 
-  DIR* script_dir = NULL;
 
-  struct dirent* script_file = NULL;
   int stop = 0;
   int loc = 0;
   int old_loc = 1;

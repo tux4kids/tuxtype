@@ -18,7 +18,25 @@
 #ifndef GLOBALS_H
 #define GLOBALS_H
 
+// Autoheader-derived defs in here:
 #include "config.h"
+
+// C library includes:
+#include <string.h>
+#include <wchar.h>
+#include <math.h>
+#include <time.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <sys/stat.h>
+#include <dirent.h>
+#include <locale.h>
+
+// SDL includes:
+#include "SDL.h"
+#include "SDL_image.h"
+#include "SDL_mixer.h"
+/* NOTE only SDL_extras.c/.h now knows about SDL_ttf or SDL_Pango. */
 
 // Translation stuff: 
 #include "gettext.h"
@@ -36,43 +54,24 @@
 #define DATA_PREFIX "./data"
 #endif
 
-
 #ifdef WIN32
 #define TUXLOCALE "./locale"
 #else
 #define TUXLOCALE LOCALEDIR
 #endif
 
-
+// FIXME if we really need these, make them into functions rather than
+// "evil" macros
 #define to_upper(c) (((c) >= 'a' && (c) <= 'z') ? (c) -32 : (c))
 #define COL2RGB( col ) SDL_MapRGB( screen->format, col->r, col->g, col->b )
-
-#define FNLEN	256
-
-#define RES_X	640
-#define RES_Y	480
-#define BPP	32
-
-#include <string.h>
-#include <wchar.h>
-#include <math.h>
-#include <time.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <sys/stat.h>
-#include <dirent.h>
-#include <locale.h>
-
-#include "SDL.h"
-#include "SDL_image.h"
-#include "SDL_mixer.h"
-/* NOTE only SDL_extras.c/.h now knows about SDL_ttf or SDL_Pango. */
-
-
 #define MIN(x,y) ((x) < (y) ? (x) : (y))
 #define MAX(x,y) ((x) > (y) ? (x) : (y))
 
-/* Goal is to have all global settings here */
+
+
+#define FNLEN	256
+
+
 /* (renamed from 'settings' to match tuxmath) */
 typedef struct game_option_type{
   char default_data_path[FNLEN];  // for static read-only data
@@ -99,6 +98,7 @@ typedef struct game_option_type{
   int hidden; // Read the README file in the image directory for info on this ;)
 } game_option_type;
 
+
 /* Default values for game_option_type struct */
 /* They can be changed in the struct to other values at run-time */
 #define DEFAULT_FONT_NAME       "AndikaDesRevG.ttf"
@@ -121,8 +121,20 @@ typedef struct game_option_type{
 #define DEFAULT_HIDDEN 0
 
 
+/* Goal is to have all global settings here */
+/* FIXME get rid of as much global data as possible, esp. pointers */
+extern game_option_type settings;
+extern SDL_Surface* screen;
+extern SDL_Event  event;
 
-/* LOGGING works as such:
+/* these will store the resolution used by the OS when we start, so we */
+/* can run fullscreen at the user's preferred resolution:              */
+extern int fs_res_x;
+extern int fs_res_y;
+
+
+
+/* #defines for run-time debugging output:
  *
  * - Use LOG if you want to output a string LOG( "Hello World");
  *   
@@ -142,6 +154,15 @@ typedef struct game_option_type{
 #define DOUT(x) if (settings.debug_on) fprintf(stderr, "%s = %d\n", #x, x);
 
 
+
+
+/* Various preprocessor constants: ------------------------- */
+
+
+#define RES_X	640
+#define RES_Y	480
+#define BPP	32
+
 /* Limits on word list size, word length, and on the number of distinct characters */
 /* that can be present within a word list: */
 #define MAX_NUM_WORDS   500
@@ -153,13 +174,6 @@ typedef struct game_option_type{
 #define	FRAMES_PER_SEC	15
 #define FULL_CIRCLE	140
 
-/* Menu Prototypes */
-enum Game_Type { 
-  QUIT_GAME, CASCADE, OPTIONS, LESSONS,
-  INSTRUCT_CASCADE, CASCADE1, CASCADE2, CASCADE3, CASCADE4,
-  INSTRUCT_LASER, LASER1, LASER2, LASER3, LASER4,
-  PHRASE_TYPING, ASDF, ALL, MAIN, SET_LANGUAGE, PROJECT_INFO, NOT_CODED,
-  LEVEL1, LEVEL2, LEVEL3, LEVEL4, LASER, INSTRUCT, EDIT_WORDLIST, NONE};
 
 /* Title sequence constants */
 #define PRE_ANIM_FRAMES	 10
@@ -179,23 +193,19 @@ enum Game_Type {
 #define REG_RGBA 16,16,96,96
 #define SEL_RGBA 16,16,128,128
 
+#define MUSIC_FADE_OUT_MS	80
+
+/* Menu Prototypes */
+enum Game_Type { 
+  QUIT_GAME, CASCADE, OPTIONS, LESSONS,
+  INSTRUCT_CASCADE, CASCADE1, CASCADE2, CASCADE3, CASCADE4,
+  INSTRUCT_LASER, LASER1, LASER2, LASER3, LASER4,
+  PHRASE_TYPING, ASDF, ALL, MAIN, SET_LANGUAGE, PROJECT_INFO, NOT_CODED,
+  LEVEL1, LEVEL2, LEVEL3, LEVEL4, LASER, INSTRUCT, EDIT_WORDLIST, NONE};
+
 //Game difficulty levels
 enum { EASY, MEDIUM, HARD, INSANE, INF_PRACT };
 #define NUM_LEVELS  4
-
-extern game_option_type settings;
-
-/* FIXME get rid of as much global data as possible, esp. pointers */
-
-extern SDL_Surface* screen;
-
-/* these will store the resolution used by the OS when we start, so we */
-/* can run fullscreen at the user's preferred resolution:              */
-extern int fs_res_x;
-extern int fs_res_y;
-
-extern SDL_Event  event;
-
 
 enum 
 {
@@ -210,7 +220,6 @@ enum
   NUM_WAVES
 };
 
-#define MUSIC_FADE_OUT_MS	80
 
 /* For TransWipe(): */
 enum
