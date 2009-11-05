@@ -45,9 +45,11 @@ uninstall-local:
 # on upgrade?:
 install-data-hook:
 	$(MKDIR_P) -m 777 $(DESTDIR)$(pkglocalstatedir)
+	$(MKDIR_P) -m 777 $(DESTDIR)$(pkglocalstatedir)/words
 	$(MKDIR_P) -m 777 $(DESTDIR)$(pkgsysconfdir)
 
 uninstall-hook:
+	rm -rf $(DESTDIR)$(pkglocalstatedir)/words
 	rm -rf $(DESTDIR)$(pkglocalstatedir)
 	rm -rf $(DESTDIR)$(pkgsysconfdir)
 

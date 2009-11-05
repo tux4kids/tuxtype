@@ -1284,7 +1284,7 @@ static int chooseWordlist(void)
 
 /* Adding custom wordlists */
  
-    sprintf(wordPath,"%s", settings.var_data_path);
+    sprintf(wordPath,"%s/words", settings.var_data_path);
     if (!CheckFile(wordPath))
     {
       fprintf(stderr, "chooseWordList() - data path contains no wordlist dir \n");

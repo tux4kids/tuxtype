@@ -64,7 +64,7 @@ void ChooseListToEdit(void)
   DIR* lists_dir = NULL;
   struct dirent* list_dirent = NULL;
 
-  DEBUGCODE { fprintf(stderr , "%s", settings.var_data_path); }
+  DEBUGCODE { fprintf(stderr , "%s/words", settings.var_data_path); }
 
 
   /* First part - scan through our word list directory and create lists */
@@ -74,7 +74,7 @@ void ChooseListToEdit(void)
 
 
   //Try to open directory for modifiable word lists:
-  sprintf(fn , "%s" , settings.var_data_path);
+  sprintf(fn , "%s/words" , settings.var_data_path);
   lists_dir = opendir(fn);
 
   if (!lists_dir)
@@ -98,7 +98,14 @@ void ChooseListToEdit(void)
     if (strcmp("CVS", list_dirent->d_name) == 0)
       continue;
 
-    snprintf(fn, FNLEN, "%s/%s" , settings.var_data_path, list_dirent->d_name); 
+    /* must have at least .txt at the end */
+    if (strlen(list_dirent->d_name) < 5)
+      continue;
+
+    if (strcmp(&list_dirent->d_name[strlen(list_dirent->d_name) -4 ],".txt"))
+      continue;
+
+    snprintf(fn, FNLEN, "%s/words/%s" , settings.var_data_path, list_dirent->d_name); 
 
     /* CheckFile() returns 2 if dir, 1 if file, 0 if neither: */
     if (CheckFile(fn) == 1)
@@ -315,7 +322,7 @@ void ChooseListToEdit(void)
     {
       num_lists = 0;
       //Try to open directory for modifiable word lists:
-      sprintf(fn , "%s" , settings.var_data_path);
+      sprintf(fn , "%s/words" , settings.var_data_path);
       lists_dir = opendir(fn);
 
       if (!lists_dir)
@@ -338,7 +345,7 @@ void ChooseListToEdit(void)
         if (strcmp("CVS", list_dirent->d_name) == 0)
           continue;
 
-        snprintf(fn, FNLEN, "%s/%s" , settings.var_data_path, list_dirent->d_name); 
+        snprintf(fn, FNLEN, "%s/words/%s" , settings.var_data_path, list_dirent->d_name); 
 
         /* CheckFile() returns 2 if dir, 1 if file, 0 if neither: */
         if (CheckFile(fn) == 1)
@@ -493,7 +500,7 @@ void EditWordList(char* words_file)
   //We should be able to use GenerateWordList() in place of this next block:
   //NOTE: Works originally, but upon returning to editorlist, the word selected
   // is not there, since all words in the wordlist are deleted
-  sprintf(fn , "%s/%s", settings.var_data_path,  words_file);
+  sprintf(fn , "%s/words/%s", settings.var_data_path,  words_file);
   fp = fopen(fn,"r");
   number_of_words = 0;  
   while(!feof(fp))
@@ -1113,7 +1120,7 @@ int CreateNewWordList(void)
   /* Creating file, if possible */
   if (save == 1)
   {
-    sprintf(fn, "%s/%s.txt", settings.var_data_path, wordlist);
+    sprintf(fn, "%s/words/%s.txt", settings.var_data_path, wordlist);
     DEBUGCODE{ fprintf(stderr, "File to be saved: %s\n", fn); }
 
     fp = fopen(fn, "a+");
@@ -1248,7 +1255,7 @@ int RemoveList(char* words_file)
   char fn[FNLEN];
   LOG("Enter RemoveList()\n");
 
-  sprintf(fn , "%s/%s" , settings.var_data_path, words_file);
+  sprintf(fn , "%s/words/%s" , settings.var_data_path, words_file);
 
   DEBUGCODE{ fprintf(stderr, "Remove file %s\n", fn); }
 
