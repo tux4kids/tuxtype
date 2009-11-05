@@ -840,7 +840,7 @@ void EditWordList(char* words_file)
   word list*/
 
   /* Write changes to file, if possible: */
-  LOG("In ChooseWord(), about to write changes\n");
+  LOG("In EditWordList(), about to write changes\n");
   fp = fopen(fn,"w");
 
   if (fp)
@@ -861,12 +861,12 @@ void EditWordList(char* words_file)
 
     fclose(fp); 
     fp = NULL;
-    LOG("In ChooseWord(), changes written successfully\n");
+    LOG("In EditWordList(), changes written successfully\n");
   }
   else
   {
     DEBUGCODE
-    { fprintf(stderr, "In ChooseWord(), unable to open %s for writing\n", fn); }
+    { fprintf(stderr, "In EditWordList(), unable to open %s for writing\n", fn); }
   }
 
   /* --- clear graphics before quitting --- */ 

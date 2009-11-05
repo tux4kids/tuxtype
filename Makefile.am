@@ -44,8 +44,8 @@ uninstall-local:
 # Sould we skip uninstall of these directories to avoid clobbering user-created files
 # on upgrade?:
 install-data-hook:
-	$(MKDIR_P) -m 755 $(DESTDIR)$(pkglocalstatedir)
-	$(MKDIR_P) -m 755 $(DESTDIR)$(pkgsysconfdir)
+	$(MKDIR_P) -m 777 $(DESTDIR)$(pkglocalstatedir)
+	$(MKDIR_P) -m 777 $(DESTDIR)$(pkgsysconfdir)
 
 uninstall-hook:
 	rm -rf $(DESTDIR)$(pkglocalstatedir)

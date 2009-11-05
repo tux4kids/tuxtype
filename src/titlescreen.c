@@ -1250,6 +1250,8 @@ static int chooseWordlist(void)
     if (!wordsFile)
       break; /* Loop continues until break occurs */
 
+    DEBUGCODE { fprintf(stderr, "wordsFile name is: %s\n", wordsFile->d_name); }
+
     /* must have at least .txt at the end */
     if (strlen(wordsFile->d_name) < 5)
       continue;
@@ -1306,6 +1308,8 @@ static int chooseWordlist(void)
     wordsFile = readdir(wordsDir);
     if (!wordsFile)
       break; /* Loop continues until break occurs */
+
+    DEBUGCODE { fprintf(stderr, "wordsFile name is: %s\n", wordsFile->d_name); }
 
     /* must have at least .txt at the end */
     if (strlen(wordsFile->d_name) < 5)
