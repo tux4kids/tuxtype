@@ -503,10 +503,30 @@ void EditWordList(char* words_file)
   sprintf(fn , "%s/words/%s", settings.var_data_path,  words_file);
   fp = fopen(fn,"r");
   number_of_words = 0;  
-  while(!feof(fp))
-    if (EOF ==fscanf(fp, "%[^\n]\n", words_in_list[number_of_words++]))
-      continue;
-  fclose(fp);                                   
+
+  //Doing this with fgets() rather than fscanf() because the line delimiter
+  //may be either '\n' (Linux/Unix) or '\r' (Windows)
+  if(fp)
+  {
+    char* p = NULL;
+    while (fgets(words_in_list[number_of_words], MAX_WORD_SIZE, fp))
+    {
+      /* Get rid of \n or \r at end: */
+      p = strchr(words_in_list[number_of_words], '\n');
+      if(p)
+        *p = '\0';
+      p = strchr(words_in_list[number_of_words], '\r');
+      if(p)
+        *p = '\0';
+
+      number_of_words++;
+
+      DEBUGCODE{ fprintf(stderr, "Read word \"%s\" from file, number_of_words = %d\n",
+                 words_in_list[number_of_words - 1], number_of_words); }
+    }
+  }
+  fclose(fp);
+  fp = NULL;
 
   /* Prepare needed SDL_Surfaces: */
 
@@ -852,18 +872,13 @@ void EditWordList(char* words_file)
 
   if (fp)
   { 
-    fseek(fp, 0, SEEK_SET);
-    //fprintf(fp, "%s", str);
-
-    DEBUGCODE
+//    fseek(fp, 0, SEEK_SET);
+    i = 0;
+    while(i < number_of_words) 
     {
-      i = 0;
-      while(i < number_of_words) 
-      {
-        fprintf(fp, "%s\n", words_in_list[i]);
-        fprintf(stderr, "%s\n", words_in_list[i]);
-        i++;
-      }
+      fprintf(fp, "%s\n", words_in_list[i]);
+      DEBUGCODE{ fprintf(stderr, "Writing \"%s\" to file\n", words_in_list[i]); }
+      i++;
     }
 
     fclose(fp); 
@@ -1123,7 +1138,7 @@ int CreateNewWordList(void)
     sprintf(fn, "%s/words/%s.txt", settings.var_data_path, wordlist);
     DEBUGCODE{ fprintf(stderr, "File to be saved: %s\n", fn); }
 
-    fp = fopen(fn, "a+");
+    fp = fopen(fn, "w");
     if(fp)
     {
       DEBUGCODE{ fprintf(stderr, "Opened File\n"); }
