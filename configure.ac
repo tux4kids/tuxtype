@@ -283,6 +283,9 @@ data/themes/bokmal/images/status/Makefile
 data/themes/brazilian-portuguese/Makefile
 data/themes/brazilian-portuguese/images/Makefile
 data/themes/brazilian-portuguese/words/Makefile
+data/themes/bulgarian/Makefile
+data/themes/bulgarian/words/Makefile
+data/themes/bulgarian/scripts/Makefile
 data/themes/catalan/Makefile
 data/themes/catalan/words/Makefile
 data/themes/czech/Makefile
