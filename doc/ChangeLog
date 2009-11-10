@@ -1,3 +1,8 @@
+09 Nov 2009 (svn.debian.org/tux4kids - revision 1640) 
+[ David Bruce <davidstuartbruce@gmail.com> ]
+Version 1.8.0
+        - Sarah Frisk's word list editor from GSoC 2009 has been merged in as
+          a new, somewhat "beta" feature.
 
 12 Sep 2009 (svn.debian.org/tux4kids - revision 1532) 
 [ David Bruce <davidstuartbruce@gmail.com> ]
