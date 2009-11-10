@@ -94,7 +94,9 @@ rm -rf $(find . -type d -name .xvpics)
 %configure --disable-rpath \
            --prefix=%_prefix \
            --localstatedir=%_localstatedir \
-           --sysconfdir=%_sysconfdir
+           --sysconfdir=%_sysconfdir \
+           --without-rsvg
+
 make %{?jobs:-j %jobs}
 
 
