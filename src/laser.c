@@ -368,11 +368,11 @@ int PlayLaserGame(int diff_level)
 					if (cities[comets[i].city].shields) {
 						cities[comets[i].city].shields = 0;
 						PlaySound(sounds[SND_SHIELDSDOWN]);
-						laser_add_score(-500 * (diff_level+1));
+						laser_add_score(-50 * (diff_level+1));
 					} else {
 						cities[comets[i].city].expl = CITY_EXPL_START;
 						PlaySound(sounds[SND_EXPLOSION]);
-						laser_add_score(-1000 * (diff_level+1));
+						laser_add_score(-100 * (diff_level+1));
 					}
 
 					tux_anim = IMG_TUX_FIST1;

@@ -210,7 +210,7 @@ static int load_settings_filename(const char* fn)
 
   if (!fp)
   {
-    fprintf(stderr, "load_settings_filename(): no theme-specific settings found%s\n",fn);
+    fprintf(stderr, "load_settings_filename(): no theme-specific settings found: %s\n",fn);
     return -1;
   }
 	
@@ -327,19 +327,22 @@ void SaveSettings(void)
 	
 	/* set the settings directory/file */
 
-	#ifdef WIN32
-        //MDTTEMP: Commented out the next line and added the next 2 lines after
-		//_mkdir( "userdata" );  // just in case try to create save location
-		snprintf( fn, FNLEN-1, (const char*)"%s/TuxType", getenv("APPDATA") );
-		_mkdir( fn );  // just in case try to create save location
-        // MDTTEMP: Commented out the next line and added the line after
-		//snprintf( fn, FNLEN-1, "userdata/settings.txt" );
-		snprintf( fn, FNLEN-1, "%s/TuxType/settings.txt", getenv("APPDATA"));
-	#else
-		snprintf( fn, FNLEN-1, (const char*)"%s/.tuxtype", getenv("HOME") );
-		mkdir( fn, 0755 ); // just in case try to create save location
-		snprintf( fn, FNLEN-1, (const char*)"%s/.tuxtype/settings.txt", getenv("HOME") );
-	#endif
+	//#ifdef WIN32
+    //    //MDTTEMP: Commented out the next line and added the next 2 lines after
+	//	//_mkdir( "userdata" );  // just in case try to create save location
+	//	snprintf( fn, FNLEN-1, (const char*)"%s/TuxType", getenv("APPDATA") );
+	//	_mkdir( fn );  // just in case try to create save location
+    //    // MDTTEMP: Commented out the next line and added the line after
+	//	//snprintf( fn, FNLEN-1, "userdata/settings.txt" );
+	//	snprintf( fn, FNLEN-1, "%s/TuxType/settings.txt", getenv("APPDATA"));
+	//#else
+	//	snprintf( fn, FNLEN-1, (const char*)"%s/.tuxtype", getenv("HOME") );
+	//	mkdir( fn, 0755 ); // just in case try to create save location
+	//	snprintf( fn, FNLEN-1, (const char*)"%s/.tuxtype/settings.txt", getenv("HOME") );
+	//#endif
+	
+	// Use the settings.user_settings_path member
+	snprintf( fn, FNLEN-1, (const char*)"%s/settings.txt", settings.user_settings_path );
 
 
 	DEBUGCODE { printf("SaveSettings: settings file is '%s'\n", fn ); }
@@ -386,6 +389,11 @@ void SaveSettings(void)
 
 int SetupPaths(const char* theme_dir)
 {
+  //DEBUGCODE
+  //{
+    fprintf(stderr, "Entering SetupPaths()\n");
+  //}
+
   settings.use_english = 1; // default is to use English if we cannot find theme
   char fn[FNLEN];           // used later when setting settings.user_settings_path
 
