@@ -59,13 +59,11 @@ void ChooseListToEdit(void)
   SDL_Surface *max_title_size = NULL; //using this to figure out size of wordlist name
 
   //Temporary holders and ptrs used while scanning list directory:
+  char wordsDir[FNLEN];
   char fn[FNLEN];                             
   FILE* fp = NULL;
   DIR* lists_dir = NULL;
   struct dirent* list_dirent = NULL;
-
-  DEBUGCODE { fprintf(stderr , "%s/words", settings.var_data_path); }
-
 
   /* First part - scan through our word list directory and create lists */
   /* of the filenames and titles (first lines in files).                */
@@ -73,9 +71,19 @@ void ChooseListToEdit(void)
   /* in tuxmath.                                                        */
 
 
-  //Try to open directory for modifiable word lists:
-  sprintf(fn , "%s/words" , settings.var_data_path);
-  lists_dir = opendir(fn);
+  //Try to open a directory for modifiable word lists:
+
+  sprintf(wordsDir, "%s/words", settings.user_settings_path);
+  if (CheckFile(wordsDir))
+  {
+    DEBUGCODE { fprintf(stderr, "User specific wordlist path found: %s\n", wordsDir); }
+  }
+  else
+  {
+    DEBUGCODE { fprintf(stderr , "Editor: checking directory: %s/words", settings.var_data_path); }
+    sprintf(wordsDir , "%s/words" , settings.var_data_path);
+  }
+  lists_dir = opendir(wordsDir);
 
   if (!lists_dir)
   {
@@ -105,7 +113,7 @@ void ChooseListToEdit(void)
     if (strcmp(&list_dirent->d_name[strlen(list_dirent->d_name) -4 ],".txt"))
       continue;
 
-    snprintf(fn, FNLEN, "%s/words/%s" , settings.var_data_path, list_dirent->d_name); 
+    snprintf(fn, FNLEN, "%s/%s" , wordsDir, list_dirent->d_name); 
 
     /* CheckFile() returns 2 if dir, 1 if file, 0 if neither: */
     if (CheckFile(fn) == 1)
@@ -322,7 +330,7 @@ void ChooseListToEdit(void)
     {
       num_lists = 0;
       //Try to open directory for modifiable word lists:
-      sprintf(fn , "%s/words" , settings.var_data_path);
+      sprintf(fn , "%s" , wordsDir);
       lists_dir = opendir(fn);
 
       if (!lists_dir)
@@ -345,7 +353,7 @@ void ChooseListToEdit(void)
         if (strcmp("CVS", list_dirent->d_name) == 0)
           continue;
 
-        snprintf(fn, FNLEN, "%s/words/%s" , settings.var_data_path, list_dirent->d_name); 
+        snprintf(fn, FNLEN, "%s/%s" , wordsDir, list_dirent->d_name); 
 
         /* CheckFile() returns 2 if dir, 1 if file, 0 if neither: */
         if (CheckFile(fn) == 1)

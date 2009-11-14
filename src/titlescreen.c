@@ -1213,23 +1213,32 @@ static int chooseWordlist(void)
 
   /* find the directory to load wordlists from */
 
-  /* Check under theme directory first, if theme selected: */
-  if (!settings.use_english)  /* Using theme: */
+  /* First Check the user's personal settings */
+  sprintf(wordPath, "%s/words", settings.user_settings_path);
+  if (CheckFile(wordPath))
   {
-    sprintf(wordPath,"%s/words", settings.theme_data_path);
-    if (!CheckFile(wordPath))
-    {
-      fprintf(stderr, "chooseWordList() - theme contains no wordlist dir \n");
-      return 0;
-    }
+    DEBUGCODE { fprintf(stderr, "User specific wordlist path found: %s\n", wordPath); }
   }
-  else  /* No theme selected - using English: */
+  /* If nothing found, check under theme directory, if theme selected: */
+  else
   {
-    sprintf(wordPath,"%s/words", settings.default_data_path);
-    if (!CheckFile(wordPath))
+    if (!settings.use_english)  /* Using theme: */
     {
-      fprintf(stderr, "chooseWordList() - data path contains no wordlist dir \n");
-      return 0;
+      sprintf(wordPath,"%s/words", settings.theme_data_path);
+      if (!CheckFile(wordPath))
+      {
+        fprintf(stderr, "chooseWordList() - theme contains no wordlist dir \n");
+        return 0;
+      }
+    }
+    else  /* No user settings or theme selected - using English: */
+    {
+      sprintf(wordPath,"%s/words", settings.default_data_path);
+      if (!CheckFile(wordPath))
+      {
+        fprintf(stderr, "chooseWordList() - data path contains no wordlist dir \n");
+        return 0;
+      }
     }
   }
 
