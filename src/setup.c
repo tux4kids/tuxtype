@@ -387,6 +387,7 @@ void SaveSettings(void)
 int SetupPaths(const char* theme_dir)
 {
   settings.use_english = 1; // default is to use English if we cannot find theme
+  char fn[FNLEN];           // used later when setting settings.user_settings_path
 
   if (CheckFile(DATA_PREFIX))
   {
@@ -490,6 +491,48 @@ int SetupPaths(const char* theme_dir)
   {
     fprintf(stderr, "Error - VAR_PREFIX = '%s' not found!\n", VAR_PREFIX);
     return 0;
+  }
+
+  /* Determine the user data path (for user specific settings)  this would normally be     */
+  /* /home/user/.tuxtype for POSIX systems or Documents and Settings/user/Application Data */
+  /* for windows systems                                                                   */
+  #ifdef WIN32
+    snprintf( fn, FNLEN-1, (const char*)"%s/TuxType", getenv("APPDATA") );
+  #else
+    snprintf( fn, FNLEN-1, (const char*)"%s/.tuxtype", getenv("HOME") );
+  #endif
+
+  if (CheckFile(fn))
+  {
+    strncpy(settings.user_settings_path, fn, FNLEN - 1);
+    DEBUGCODE {fprintf(stderr, "path '%s' found, copying to settings.user_settings_path\n", fn);}
+  }
+  else
+  {
+    fprintf(stderr, "Error - User Settings Path = '%s' not found, I will attempt to create it.\n", fn);
+  #ifdef WIN32
+     _mkdir( fn );
+  #else
+     _mkdir( fn, 0755 );
+  #endif
+    if (CheckFile(fn))
+    {
+      strncpy(settings.user_settings_path, fn, FNLEN - 1);
+      DEBUGCODE {fprintf(stderr, "path '%s' successfully created, copy to settings.user_settings_path\n", fn);}
+    }
+    else
+    {
+      fprintf(stderr, "Error - Could not create: '%s', falling back to the global settings.\n", fn);
+  #ifdef WIN32
+      strncpy(settings.user_settings_path, "userdata", FNLEN - 1);
+  #else
+      // FIXME: in this fallback case if we are forced to use global settings, and /etc/tuxtype
+      // contains those settings we can't write to it, so use /tmp  -but then we have nothing to
+      // read from, copy the global settings to temp first?  Or just forget about saving the settings
+      // when we exit? - MDT
+      strncpy(settings.user_settings_path, "/tmp", FNLEN - 1);
+  #endif
+    }
   }
 
   return 1;	
