@@ -183,7 +183,9 @@ void LoadSettings(void)
   /* set the settings directory/file */
 
 #ifdef WIN32
-  snprintf(fn, FNLEN - 1, "userdata/settings.txt");
+  // MDTTEMP: commented out the next line and added the line after
+  // snprintf(fn, FNLEN - 1, "userdata/settings.txt");
+  snprintf( fn, FNLEN-1, "%s/TuxType/settings.txt", getenv("APPDATA"));
   LOG("WIN32 defined\n");
 #else
   snprintf(fn, FNLEN - 1, (const char*)"%s/.tuxtype/settings.txt", getenv("HOME"));
@@ -326,8 +328,13 @@ void SaveSettings(void)
 	/* set the settings directory/file */
 
 	#ifdef WIN32
-		_mkdir( "userdata" );  // just in case try to create save location
-		snprintf( fn, FNLEN-1, "userdata/settings.txt" );
+        //MDTTEMP: Commented out the next line and added the next 2 lines after
+		//_mkdir( "userdata" );  // just in case try to create save location
+		snprintf( fn, FNLEN-1, (const char*)"%s/TuxType", getenv("APPDATA") );
+		_mkdir( fn );  // just in case try to create save location
+        // MDTTEMP: Commented out the next line and added the line after
+		//snprintf( fn, FNLEN-1, "userdata/settings.txt" );
+		snprintf( fn, FNLEN-1, "%s/TuxType/settings.txt", getenv("APPDATA"));
 	#else
 		snprintf( fn, FNLEN-1, (const char*)"%s/.tuxtype", getenv("HOME") );
 		mkdir( fn, 0755 ); // just in case try to create save location
