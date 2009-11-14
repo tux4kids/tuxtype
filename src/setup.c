@@ -248,20 +248,20 @@ static int load_settings_fp(FILE* fp)
 
     DEBUGCODE {fprintf(stderr, "%s = %s", setting, value );}
       //For now we are not reading or saving the language selection: 
-//    if (strncmp( setting, "lang", FNLEN ) == 0 )
-//    {
-//      DEBUGCODE {fprintf(stderr, "LoadSettings: Setting language to %s\n", value);}
-//      strncpy(settings.lang, value, FNLEN - 1);
-//      setting_found = 1;
-//      SetupPaths(value); /* Does this really belong here? */ 
-//    }
-//    else
-    if (strncmp( setting, "o_lives", FNLEN ) == 0 )
+      //MDTTEMP: uncommented the following 8 lines and joined the else to the if on line 259
+    if (strncmp( setting, "lang", FNLEN ) == 0 )
+    {
+      DEBUGCODE {fprintf(stderr, "LoadSettings: Setting language to %s\n", value);}
+      strncpy(settings.lang, value, FNLEN - 1);
+      setting_found = 1;
+      SetupPaths(value); /* Does this really belong here? */ 
+    }
+    else if (strncmp( setting, "o_lives", FNLEN ) == 0 )
     {
       DEBUGCODE {fprintf(stderr, "LoadSettings: Setting lives to %s\n", value);}
       settings.o_lives = atoi(value);
       setting_found = 1;
-   }
+    }
     else if (strncmp( setting, "mus_volume", FNLEN ) == 0 )
     {
       DEBUGCODE {fprintf(stderr, "LoadSettings: Setting music volume to %s\n", value);}
@@ -349,8 +349,9 @@ void SaveSettings(void)
 	/* Save all the settings here! */
 //NOTE for now, don't save theme because things get screwed up if the language
 // doesn't match the LANG environmental variable - DSB
-//	if (strncmp(settings.theme_name, "", FNLEN) != 0)
-//		fprintf( settingsFile, "lang=%s\n", settings.theme_name );
+// MDTTEMP: uncommented the following 2 lines
+	if (strncmp(settings.theme_name, "", FNLEN) != 0)
+		fprintf( settingsFile, "lang=%s\n", settings.theme_name );
 	if (settings.o_lives > 9)
 		fprintf( settingsFile, "o_lives=%d\n", settings.o_lives );
 
