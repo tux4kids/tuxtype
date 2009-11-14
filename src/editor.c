@@ -501,14 +501,28 @@ void EditWordList(char* words_file)
   int i, len, j = 0; 
   int listening_for_new_word = 0;
   char fn[FNLEN];
+  char wordsDir[FNLEN];
   char words_in_list[MAX_NUM_WORDS][MAX_WORD_SIZE + 1];
 
   wchar_t temp[MAX_WORD_SIZE + 1];
 
+  // get appropriate directory
+  sprintf(wordsDir, "%s/words", settings.user_settings_path);
+  if (CheckFile(wordsDir))
+  {
+    DEBUGCODE { fprintf(stderr, "User specific wordlist path found: %s\n", wordsDir); }
+  }
+  else
+  {
+    DEBUGCODE { fprintf(stderr , "Editor: checking directory: %s/words", settings.var_data_path); }
+    sprintf(wordsDir , "%s/words" , settings.var_data_path);
+  }
+
+
   //We should be able to use GenerateWordList() in place of this next block:
   //NOTE: Works originally, but upon returning to editorlist, the word selected
   // is not there, since all words in the wordlist are deleted
-  sprintf(fn , "%s/words/%s", settings.var_data_path,  words_file);
+  sprintf(fn , "%s/%s", wordsDir,  words_file);
   fp = fopen(fn,"r");
   number_of_words = 0;  
 
@@ -950,6 +964,7 @@ int CreateNewWordList(void)
   SDL_Rect Directions_rect;
   FILE* fp = NULL;
   char fn[FNLEN];
+  char wordsDir[FNLEN];
   char wordlist[MAX_WORD_SIZE + 1];
   wchar_t temp[MAX_WORD_SIZE + 1];
   wordlist[0] = 0;
@@ -1143,7 +1158,7 @@ int CreateNewWordList(void)
   /* Creating file, if possible */
   if (save == 1)
   {
-    sprintf(fn, "%s/words/%s.txt", settings.var_data_path, wordlist);
+    sprintf(fn, "%s/%s.txt", wordsDir, wordlist);
     DEBUGCODE{ fprintf(stderr, "File to be saved: %s\n", fn); }
 
     fp = fopen(fn, "w");
@@ -1276,9 +1291,21 @@ int ChooseRemoveList(char *name, char *filename)
 int RemoveList(char* words_file)
 {
   char fn[FNLEN];
+  char wordsDir[FNLEN];
   LOG("Enter RemoveList()\n");
+  // get appropriate directory
+  sprintf(wordsDir, "%s/words", settings.user_settings_path);
+  if (CheckFile(wordsDir))
+  {
+    DEBUGCODE { fprintf(stderr, "User specific wordlist path found: %s\n", wordsDir); }
+  }
+  else
+  {
+    DEBUGCODE { fprintf(stderr , "Editor: checking directory: %s/words", settings.var_data_path); }
+    sprintf(wordsDir , "%s/words" , settings.var_data_path);
+  }
 
-  sprintf(fn , "%s/words/%s" , settings.var_data_path, words_file);
+  sprintf(fn , "%s/%s" , wordsDir, words_file);
 
   DEBUGCODE{ fprintf(stderr, "Remove file %s\n", fn); }
 

@@ -19,4 +19,8 @@ Apart from GSoC, both programs need ongoing code cleanup, especially tuxtype.  A
 
 -check that SVN is free of generated files. create release-script, 
 
+- change location of custom word lists in Windows build to user's application data folder
+- tweaking of display for word list editor with better user feedback
+- display xml lesson files using title rather than file name
+- have tuxtype automatically go into either the OS locale, or perhaps the selected locale from the previous session, rather than always English.
 
