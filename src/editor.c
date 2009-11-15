@@ -971,6 +971,19 @@ int CreateNewWordList(void)
 
   LOG("Enter CreateNewWordList()\n");
 
+  // get appropriate directory
+  sprintf(wordsDir, "%s/words", settings.user_settings_path);
+  if (CheckFile(wordsDir))
+  {
+    DEBUGCODE { fprintf(stderr, "User specific wordlist path found: %s\n", wordsDir); }
+  }
+  else
+  {
+    DEBUGCODE { fprintf(stderr , "Editor: checking directory: %s/words", settings.var_data_path); }
+    sprintf(wordsDir , "%s/words" , settings.var_data_path);
+  }
+
+
   //Creates a box thing, tells user to enter in name of list.  Click OK, or CANCEL
   //FIXME: Create a rect for user to enter stuff, and a pretty box to go around everything
 

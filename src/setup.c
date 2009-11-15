@@ -521,7 +521,7 @@ int SetupPaths(const char* theme_dir)
   #ifdef WIN32
      _mkdir( fn );
   #else
-     _mkdir( fn, 0755 );
+     mkdir( fn, 0755 );
   #endif
     if (CheckFile(fn))
     {
