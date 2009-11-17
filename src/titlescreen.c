@@ -1213,14 +1213,7 @@ static int chooseWordlist(void)
 
   /* find the directory to load wordlists from */
 
-  /* First Check the user's personal settings */
-  sprintf(wordPath, "%s/words", settings.user_settings_path);
-  if (CheckFile(wordPath))
-  {
-    DEBUGCODE { fprintf(stderr, "User specific wordlist path found: %s\n", wordPath); }
-  }
-  /* If nothing found, check under theme directory, if theme selected: */
-  else
+  /* First we add the bundled word lists in either NLS or default theme: */
   {
     if (!settings.use_english)  /* Using theme: */
     {
@@ -1245,14 +1238,13 @@ static int chooseWordlist(void)
   /* If we get to here, we know there is at least a wordlist directory */
   /* but not necessarily any valid files.                              */
 
-  DEBUGCODE { fprintf(stderr, "wordPath is: %s\n", wordPath); }
+  DEBUGCODE { fprintf(stderr, "bundled wordPath is: %s\n", wordPath); }
 
 
   /* FIXME looks like a place for scandir() - or our own w32_scandir() */
+  /* FIXME we also have this block of code repeated three times - DSB  */
   /* create a list of all the .txt files */
-
   wordsDir = opendir( wordPath );	
-
   do
   {
     wordsFile = readdir(wordsDir);
@@ -1287,85 +1279,124 @@ static int chooseWordlist(void)
 
     fclose(tempFile);
   } while (1); /* Loop continues until break occurs */
-
   closedir(wordsDir);	
+
+  
+  
+  /* Adding global custom wordlists ------------------------------------ */
  
-
-/* Adding custom wordlists */
- 
-    sprintf(wordPath,"%s/words", settings.var_data_path);
-    if (!CheckFile(wordPath))
-    {
-      fprintf(stderr, "chooseWordList() - data path contains no wordlist dir \n");
-      return 0;
-    }
- 
-
-  /* If we get to here, we know there is at least a wordlist directory */
-  /* but not necessarily any valid files.                              */
-
-  DEBUGCODE { fprintf(stderr, "wordPath is: %s\n", wordPath); }
-
-
-  /* FIXME looks like a place for scandir() - or our own w32_scandir() */
-  /* create a list of all the .txt files */
-
-  wordsDir = opendir( wordPath );	
-
-  do
+  sprintf(wordPath,"%s/words", settings.var_data_path);
+  if (!CheckFile(wordPath))
   {
-    wordsFile = readdir(wordsDir);
-    if (!wordsFile)
-      break; /* Loop continues until break occurs */
+    fprintf(stderr, "chooseWordList() -  path \"%s\" not found\n", settings.var_data_path);
+  }
+  else
+  {
+    /* If we get to here, we know there is at least a wordlist directory */
+    /* but not necessarily any valid files.                              */
 
-    DEBUGCODE { fprintf(stderr, "wordsFile name is: %s\n", wordsFile->d_name); }
+    DEBUGCODE { fprintf(stderr, "global custom wordPath is: %s\n", wordPath); }
 
-    /* must have at least .txt at the end */
-    if (strlen(wordsFile->d_name) < 5)
-      continue;
+    /* FIXME looks like a place for scandir() - or our own w32_scandir() */
+    /* create a list of all the .txt files */
+    wordsDir = opendir( wordPath );	
+    do
+    {
+      wordsFile = readdir(wordsDir);
+      if (!wordsFile)
+        break; /* Loop continues until break occurs */
 
-    if (strcmp(&wordsFile->d_name[strlen(wordsFile->d_name) -4 ],".txt"))
-      continue;
+      DEBUGCODE { fprintf(stderr, "wordsFile name is: %s\n", wordsFile->d_name); }
 
-    sprintf(wordlistFile[lists], "%s/%s", wordPath, wordsFile->d_name);
+      /* must have at least .txt at the end */
+      if (strlen(wordsFile->d_name) < 5)
+        continue;
 
-    /* load the name for the wordlist from the file ... (1st line) */
-    tempFile = fopen( wordlistFile[lists], "r" );
-    if (!tempFile)
-      continue;
+      if (strcmp(&wordsFile->d_name[strlen(wordsFile->d_name) -4 ],".txt"))
+        continue;
 
-    result = fscanf(tempFile, "%[^\n]\n", wordlistName[lists]);
-    if (result == EOF)
-      continue;
+      sprintf(wordlistFile[lists], "%s/%s", wordPath, wordsFile->d_name);
 
-    /* check to see if it has a \r at the end of it (dos format!) */
-    if (wordlistName[lists][strlen(wordlistName[lists]) - 1] == '\r')
-      wordlistName[lists][strlen(wordlistName[lists]) - 1] = '\0';
+      /* load the name for the wordlist from the file ... (1st line) */
+      tempFile = fopen( wordlistFile[lists], "r" );
+      if (!tempFile)
+        continue;
 
-    lists++;
+      result = fscanf(tempFile, "%[^\n]\n", wordlistName[lists]);
+      if (result == EOF)
+        continue;
 
-    fclose(tempFile);
-  } while (1); /* Loop continues until break occurs */
+      /* check to see if it has a \r at the end of it (dos format!) */
+      if (wordlistName[lists][strlen(wordlistName[lists]) - 1] == '\r')
+        wordlistName[lists][strlen(wordlistName[lists]) - 1] = '\0';
 
-  closedir(wordsDir);
+      lists++;
 
+      fclose(tempFile);
+    } while (1); /* Loop continues until break occurs */
+    closedir(wordsDir);
+  }
+  
+  /* Now add any lists in the user's personal settings path: ------------ */
 
+  sprintf(wordPath,"%s/words", settings.user_settings_path);
+  if (!CheckFile(wordPath))
+  {
+    fprintf(stderr, "chooseWordList() -  path \"%s\" not found\n", settings.user_settings_path);
+  }
+  else
+  {
+    /* If we get to here, we know there is at least a wordlist directory */
+    /* but not necessarily any valid files.                              */
 
+    DEBUGCODE { fprintf(stderr, "user-specific wordPath is: %s\n", wordPath); }
 
- DEBUGCODE { fprintf(stderr, "Found %d .txt file(s) in words dir\n", lists); }
+    /* FIXME looks like a place for scandir() - or our own w32_scandir() */
+    /* create a list of all the .txt files */
+    wordsDir = opendir( wordPath );	
+    do
+    {
+      wordsFile = readdir(wordsDir);
+      if (!wordsFile)
+        break; /* Loop continues until break occurs */
 
+      DEBUGCODE { fprintf(stderr, "wordsFile name is: %s\n", wordsFile->d_name); }
 
+      /* must have at least .txt at the end */
+      if (strlen(wordsFile->d_name) < 5)
+        continue;
 
-  /* let the user pick the list */
+      if (strcmp(&wordsFile->d_name[strlen(wordsFile->d_name) -4 ],".txt"))
+        continue;
+
+      sprintf(wordlistFile[lists], "%s/%s", wordPath, wordsFile->d_name);
+
+      /* load the name for the wordlist from the file ... (1st line) */
+      tempFile = fopen( wordlistFile[lists], "r" );
+      if (!tempFile)
+        continue;
+
+      result = fscanf(tempFile, "%[^\n]\n", wordlistName[lists]);
+      if (result == EOF)
+        continue;
+
+      /* check to see if it has a \r at the end of it (dos format!) */
+      if (wordlistName[lists][strlen(wordlistName[lists]) - 1] == '\r')
+        wordlistName[lists][strlen(wordlistName[lists]) - 1] = '\0';
+
+      lists++;
+
+      fclose(tempFile);
+    } while (1); /* Loop continues until break occurs */
+    closedir(wordsDir);
+  }
+
+  DEBUGCODE { fprintf(stderr, "Found %d .txt file(s) in words dir\n", lists); }
+
+  
+  /* Done scanning for word lists, now display them for user selection: */
 
   /* Render SDL_Surfaces for list entries: */
-//  titles[0] = BlackOutline( _("Alphabet"), font, &white );
-//  select[0] = BlackOutline( _("Alphabet"), font, &yellow);
-
-  /* NOTE - no longer hard-coding titles[0] to be alphabet - themes  */
-  /* should include a regular word list file called "alphabet.txt"   */
-  /* Should sort the list and always put the alphabet file first, if */
-  /* present.                                                        */
   for (i = 0; i < lists; i++)
   {
     titles[i] = BlackOutline( wordlistName[i], DEFAULT_MENU_FONT_SIZE, &white );

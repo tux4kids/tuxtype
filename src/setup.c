@@ -389,10 +389,10 @@ void SaveSettings(void)
 
 int SetupPaths(const char* theme_dir)
 {
-  //DEBUGCODE
-  //{
+  DEBUGCODE
+  {
     fprintf(stderr, "Entering SetupPaths()\n");
-  //}
+  }
 
   settings.use_english = 1; // default is to use English if we cannot find theme
   char fn[FNLEN];           // used later when setting settings.user_settings_path
@@ -436,7 +436,6 @@ int SetupPaths(const char* theme_dir)
       /* an explicit statement to use the default(                  */
       strncpy(settings.theme_font_name, DEFAULT_FONT_NAME, FNLEN);
       
-
       /* Load fontname or any other theme-specific settings: */
       sprintf(theme_settings_path, "%s/settings.txt", full_theme_path);
 
@@ -465,12 +464,6 @@ int SetupPaths(const char* theme_dir)
   }
 
 
-  DEBUGCODE
-  {
-    fprintf(stderr, "Leaving SetupPaths():\n");
-    fprintf(stderr, "default_data_path: '%s'\n", settings.default_data_path);
-    fprintf(stderr, "theme_data_path: '%s'\n\n", settings.theme_data_path);
-  }
 
   /* Now check for VAR_PREFIX (for modifiable data shared by all users, */ 
   /* such as custom word lists, high scores, etc:                       */
@@ -490,16 +483,17 @@ int SetupPaths(const char* theme_dir)
   /* Now check for CONF_PREFIX (for program wide settings that apply to all users). */ 
   /* This would typically be /etc/tuxtype if tuxtype is installed by a distro pkg,  */
   /* or /usr/local/etc/tuxtype if the package is built locally                      */
-  if (CheckFile(VAR_PREFIX))
+  if (CheckFile(CONF_PREFIX))
   {
-    strncpy(settings.var_data_path, VAR_PREFIX, FNLEN - 1);
-    DEBUGCODE {fprintf(stderr, "path '%s' found, copy to settings.var_data_path\n", VAR_PREFIX);}
+    strncpy(settings.global_settings_path, CONF_PREFIX, FNLEN - 1);
+    DEBUGCODE {fprintf(stderr, "path '%s' found, copy to settings.global_settings_path\n", CONF_PREFIX);}
   }
   else
   {
-    fprintf(stderr, "Error - VAR_PREFIX = '%s' not found!\n", VAR_PREFIX);
+    fprintf(stderr, "Error - CONF_PREFIX = '%s' not found!\n", CONF_PREFIX);
     return 0;
   }
+
 
   /* Determine the user data path (for user specific settings)  this would normally be     */
   /* /home/user/.tuxtype for POSIX systems or Documents and Settings/user/Application Data */
@@ -530,17 +524,29 @@ int SetupPaths(const char* theme_dir)
     }
     else
     {
+      //NOTE this shouldn't happen, right? We should always be able to make a directory
+      //in our own home folder - DSB
       fprintf(stderr, "Error - Could not create: '%s', falling back to the global settings.\n", fn);
   #ifdef WIN32
       strncpy(settings.user_settings_path, "userdata", FNLEN - 1);
   #else
       // FIXME: in this fallback case if we are forced to use global settings, and /etc/tuxtype
-      // contains those settings we can't write to it, so use /tmp  -but then we have nothing to
+      // contains those settings we can't write to it, so use /tmp - but then we have nothing to
       // read from, copy the global settings to temp first?  Or just forget about saving the settings
       // when we exit? - MDT
       strncpy(settings.user_settings_path, "/tmp", FNLEN - 1);
   #endif
     }
+  }
+
+DEBUGCODE
+  {
+    fprintf(stderr, "Leaving SetupPaths():\n");
+    fprintf(stderr, "default_data_path: '%s'\n", settings.default_data_path);
+    fprintf(stderr, "theme_data_path: '%s'\n\n", settings.theme_data_path);
+    fprintf(stderr, "var_data_path: '%s'\n\n", settings.var_data_path);
+    fprintf(stderr, "user_settings_path: '%s'\n\n", settings.user_settings_path);
+    fprintf(stderr, "global_settings_path: '%s'\n\n", settings.global_settings_path);
   }
 
   return 1;	

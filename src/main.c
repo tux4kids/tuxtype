@@ -34,13 +34,16 @@ int main(int argc, char *argv[])
   Uint32 lib_flags = 0;
   int i;
 
-
-
   srand(time(NULL));
 
+  //FIXME we should inspect return values and bail if these functions fail:
   Opts_Initialize(); // First, initialize settings with hard-coded defaults 
   // This sets settings.default_data_path to the default theme file path:
-  SetupPaths(NULL);
+  if(!SetupPaths(NULL))
+  {  
+    fprintf(stderr, "Error - SetupPaths() failed, exiting program.\n");
+    return 0;
+  }  
   LoadSettings();    // Second, read saved any saved settings
 
   // Third, check command line args as these should override saved settings
