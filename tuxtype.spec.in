@@ -154,5 +154,9 @@ rm -rf %buildroot
 %_datadir/pixmaps/*
 %_datadir/applications/*
 %_datadir/%progname
+%attr(766, root, root) %_localstatedir/%progname
+%attr(766, root, root) %_localstatedir/%progname/words
+%attr(766, root, root) %_sysconfdir/%progname
+
 
 %changelog
