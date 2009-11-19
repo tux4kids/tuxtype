@@ -635,7 +635,7 @@ static void LoadOthers(void)
 	number_max_w = 0;
 	for (i = 0; i < NUM_NUMS; i++) {
 		sprintf(filename, "num_%i.png", i);
-		number[i] = LoadImage( filename, IMG_COLORKEY );
+		number[i] = LoadImage( filename, IMG_ALPHA );
 		if (number[i]->w > number_max_w)
 			number_max_w = number[i]->w;
 	}
@@ -706,8 +706,8 @@ static void LoadFishies(void)
 
 	LOG( "=LoadFishies()\n" );
 
-	fish_sprite = LoadSprite( "fishy", IMG_COLORKEY );
-	splat_sprite = LoadSprite( "splat", IMG_COLORKEY );
+	fish_sprite = LoadSprite( "fishy", IMG_ALPHA );
+	splat_sprite = LoadSprite( "splat", IMG_ALPHA );
 
 	for (i = 0; i < MAX_FISHIES_HARD; i++) {
 		fish_object[i].alive = 1;
@@ -729,7 +729,7 @@ static void LoadTuxAnims(void)
 	LOG( "=LoadTuxAnims(): Loading Tux Animations\n" );
 
 	for ( i=0; i < TUX_NUM_STATES; i++ ) {
-		tux_object.spr[i][RIGHT] = LoadSprite( tux_sprite_fns[i], IMG_COLORKEY ); 
+		tux_object.spr[i][RIGHT] = LoadSprite( tux_sprite_fns[i], IMG_ALPHA ); 
 		tux_object.spr[i][LEFT] = FlipSprite( tux_object.spr[i][RIGHT], 1, 0 ); 
 	}
 

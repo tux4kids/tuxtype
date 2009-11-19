@@ -874,8 +874,8 @@ static int practice_load_media(void)
   }
 
   /* load tux sprites: */
-  tux_win = LoadSprite("tux/win", IMG_COLORKEY);
-  tux_stand = LoadSprite("tux/stand", IMG_COLORKEY);
+  tux_win = LoadSprite("tux/win", IMG_ALPHA);
+  tux_stand = LoadSprite("tux/stand", IMG_ALPHA);
   /* load needed sounds: */
   wrong = LoadSound("buzz.wav");
   cheer = LoadSound("cheer.wav");
