@@ -1288,7 +1288,7 @@ static int chooseWordlist(void)
   sprintf(wordPath,"%s/words", settings.var_data_path);
   if (!CheckFile(wordPath))
   {
-    fprintf(stderr, "chooseWordList() -  path \"%s\" not found\n", wordPath);
+    DEBUGCODE { fprintf(stderr, "chooseWordList() -  path \"%s\" not found\n", wordPath); }
   }
   else
   {
@@ -1342,7 +1342,7 @@ static int chooseWordlist(void)
   sprintf(wordPath,"%s/words", settings.user_settings_path);
   if (!CheckFile(wordPath))
   {
-    fprintf(stderr, "chooseWordList() -  path \"%s\" not found\n", wordPath);
+    DEBUGCODE { fprintf(stderr, "chooseWordList() -  path \"%s\" not found\n", wordPath); }
   }
   else
   {
