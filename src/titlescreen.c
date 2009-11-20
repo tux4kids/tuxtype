@@ -86,11 +86,11 @@ const char* menu_icon[][6] =
      
 static const char* menu_text[] = 
 {"", "",            "",             "",            ""    ,
- "",gettext_noop("Fish Cascade"),gettext_noop("Easy"),gettext_noop("Space Cadet"),gettext_noop("Edit Word Lists"),
- "",gettext_noop("Comet Zap"),gettext_noop("Medium"),gettext_noop("Pilot"),gettext_noop("Phrase Typing"),
- "",gettext_noop("Lessons"),gettext_noop("Hard"), gettext_noop("Ace"),gettext_noop("Project Info"),
- "", gettext_noop("Options"),gettext_noop("Instructions"),gettext_noop("Commander"),gettext_noop("Setup Language"),
- "", gettext_noop("Quit"),gettext_noop("Main Menu"),gettext_noop("Main Menu"),gettext_noop("Main Menu")};
+ "",N_("Fish Cascade"),N_("Easy"),N_("Space Cadet"),N_("Edit Word Lists"),
+ "",N_("Comet Zap"),N_("Medium"),N_("Pilot"),N_("Phrase Typing"),
+ "",N_("Lessons"),N_("Hard"), N_("Ace"),N_("Project Info"),
+ "", N_("Options"),N_("Instructions"),N_("Commander"),N_("Setup Language"),
+ "", N_("Quit"),N_("Main Menu"),N_("Main Menu"),N_("Main Menu")};
 
 
 
@@ -1110,9 +1110,9 @@ static void not_implemented(void)
 
   LOG( "NotImplemented() - creating text\n" );
 
-  s1 = BlackOutline( gettext_noop("Work In Progress!"), DEFAULT_MENU_FONT_SIZE, &white);
-  s2 = BlackOutline( gettext_noop("This feature is not ready yet"), DEFAULT_MENU_FONT_SIZE, &white);
-  s3 = BlackOutline( gettext_noop("Discuss the future of TuxTyping at"), DEFAULT_MENU_FONT_SIZE, &white);
+  s1 = BlackOutline( _("Work In Progress!"), DEFAULT_MENU_FONT_SIZE, &white);
+  s2 = BlackOutline( _("This feature is not ready yet"), DEFAULT_MENU_FONT_SIZE, &white);
+  s3 = BlackOutline( _("Discuss the future of TuxTyping at"), DEFAULT_MENU_FONT_SIZE, &white);
   s4 = BlackOutline( "http://tux4kids.alioth.debian.org/", DEFAULT_MENU_FONT_SIZE, &white);
 
   tux = LoadSprite("tux/tux-egypt", IMG_ALPHA);
