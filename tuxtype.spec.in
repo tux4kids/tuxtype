@@ -1,8 +1,8 @@
-## tuxtype.spec.in - process with configure to substitute in PACKAGE
-## VERSION strings
+## tuxtype.spec.in - process with configure to fill in current
+## PACKAGE and VERSION strings
 #
 #
-# spec file for package tuxtype 
+# spec file for package tuxtype
 #
 # This file and all modifications and additions to the pristine
 # package are under the same license as the package itself.
@@ -11,15 +11,16 @@
 # norootforbuild
 
 Name:           @PACKAGE@
-Obsoletes: 	tuxtype_preview <= @VERSION@
-Provides:  	tuxtype_preview = @VERSION@
-Summary:        Typing tutor for children
-Url:            http://alioth.debian.org/projects/tux4kids/
+Version:        @VERSION@
+Obsoletes:      tuxtype_preview <= @VERSION@
+Provides:       tuxtype_preview = @VERSION@
 %define         realname @PACKAGE@
 %define         progname @PACKAGE@
-License:        GNU General Public License (GPL) v2, Open Font License v1.1, free (BSD-like) license
+
+Summary:        Typing tutor for children
+Url:            http://alioth.debian.org/projects/tux4kids/
+License:        GNU General Public License (GPL) v2, Creative Commons Attribution ShareAlike 3.0, Public Domain
 Group:          Amusements/Teaching/Language
-Version:        @VERSION@
 Release:        1
 Vendor:         openSUSE-Education
 
@@ -29,12 +30,13 @@ BuildRequires:  SDL_image-devel >= 1.2.2
 #BuildRequires:  SDL_ttf-devel > 2.0.8
 BuildRequires:  SDL-devel
 BuildRequires:  SDL_mixer-devel
+#BuildRequires:  SDL_net-devel
 BuildRequires:  SDL_Pango-devel
-BuildRequires:  librsvg2-devel
+#BuildRequires:  librsvg2-devel
 BuildRequires:  ImageMagick
 
 %if 0%{?suse_version}
-BuildRequires:  update-desktop-files
+BuildRequires:  update-desktop-files  
 BuildRequires:  fdupes
 %endif
 
@@ -51,8 +53,8 @@ Requires(postun): desktop-file-utils
 BuildRequires: pulseaudio-esound-compat
 %endif  
 
+BuildRoot:      %{_tmppath}/%{progname}-%{version}-build
 
-BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
 %description
 Tux Typing is an educational typing tutor game starring Tux, the Linux
@@ -67,15 +69,19 @@ Authors:
     Current maintainer and programming lead:
     David Bruce <davidstuartbruce@gmail.com>
 
+    Holger Levsen <holger@debian.org>
     Jesse Andrews <jdandr2@uky.edu>
     Calvin Arndt <calarndt@tux4kids.org>
-    Sam Hart <hart@geekcomix.com>  --- Sam started it all with TuxType 1!!!
+    Sam Hart <hart@geekcomix.com>
     Jacob Greig <bombastic@firstlinux.net>
     Sreyas Kurumanghat <k.sreyas@gmail.com>
     Sreerenj Balachandran <bsreerenj@gmail.com>
     Vimal Ravi <vimal_ravi@rediff.com>
     Prince K. Antony <prince.kantony@gmail.com>
     Mobin Mohan <mobinmohan@gmail.com>
+    Matthew Trey <tux4kids@treyhome.com>
+    Sarah Frisk <ssfrisk@gmail.com>
+    Caroline Ford <secretlondon@googlemail.com>
 
 
 # prep section: ---------------------------------------------------------
@@ -93,10 +99,9 @@ rm -rf $(find . -type d -name .xvpics)
 %build
 %configure --disable-rpath \
            --prefix=%_prefix \
-           --localstatedir=%_localstatedir \
+           --localstatedir=%_localstatedir/lib \
            --sysconfdir=%_sysconfdir \
            --without-rsvg
-
 make %{?jobs:-j %jobs}
 
 
@@ -104,7 +109,12 @@ make %{?jobs:-j %jobs}
 # install section: ---------------------------------------------------------
 
 %install
-install -d %buildroot/{%_bindir,%_datadir/pixmaps,%_datadir/applications,%_datadir/%progname,%_defaultdocdir/%progname}
+install -d %buildroot/%_bindir
+install -d %buildroot/%_datadir/pixmaps
+install -d %buildroot/%_datadir/applications
+install -d %buildroot/%_datadir/%progname
+install -d %buildroot/%_defaultdocdir/%progname
+
 make DESTDIR=%{buildroot} install
 install -m 644 data/images/icons/icon.png %buildroot%_datadir/pixmaps/%progname.png
 
@@ -154,9 +164,9 @@ rm -rf %buildroot
 %_datadir/pixmaps/*
 %_datadir/applications/*
 %_datadir/%progname
-%attr(766, root, root) %_localstatedir/%progname
-%attr(766, root, root) %_localstatedir/%progname/words
-%attr(766, root, root) %_sysconfdir/%progname
+%attr(755, root, root) %_localstatedir/lib/%progname
+%attr(755, root, root) %_localstatedir/lib/%progname/words
+%attr(755, root, root) %_sysconfdir/%progname
 
 
 %changelog
