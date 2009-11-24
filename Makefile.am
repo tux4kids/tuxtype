@@ -44,9 +44,14 @@ uninstall-local:
 # Sould we skip uninstall of these directories to avoid clobbering user-created files
 # on upgrade?:
 install-data-hook:
-	$(MKDIR_P) -m 777 $(DESTDIR)$(pkglocalstatedir)
-	$(MKDIR_P) -m 777 $(DESTDIR)$(pkglocalstatedir)/words
-	$(MKDIR_P) -m 777 $(DESTDIR)$(pkgsysconfdir)
+# Global configuration (e.g. /etc/tuxtype):
+	$(MKDIR_P) -m 755 $(DESTDIR)$(pkgsysconfdir)
+# Global sites for game state data (e.g. /var/games/tuxtype):
+	$(MKDIR_P) -m 2755 $(DESTDIR)$(pkglocalstatedir)
+	$(MKDIR_P) -m 2755 $(DESTDIR)$(pkglocalstatedir)/words
+	chown root:games $(DESTDIR)$(pkglocalstatedir)
+	chown root:games $(DESTDIR)$(pkglocalstatedir)/words
+
 
 uninstall-hook:
 	rm -rf $(DESTDIR)$(pkglocalstatedir)/words
@@ -96,7 +101,8 @@ dist_with_fonts_bzip2:
 ## Subsequent commands then copy the needed files into NSI_INSTALL_DIR,
 ## which has the exact directory structure of the self-contained
 ## 'TuxType' folder that gets installed onto the Windows machine.
-
+## This is similar in principle to the construction of a .deb or .rpm
+## package, although the build procedure is not nearly as robust.
 install-nsi-local: all
 ## create NSI_TEMP_INSTALL_DIR and install to that location:
 	$(INSTALL) -d $(NSI_TEMP_INSTALL_DIR)

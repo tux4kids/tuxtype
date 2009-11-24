@@ -103,7 +103,7 @@ rm -rf $(find . -type d -name .xvpics)
 %build
 %configure --disable-rpath \
            --prefix=%_prefix \
-           --localstatedir=%_localstatedir/lib \
+           --localstatedir=%_localstatedir/games \
            --sysconfdir=%_sysconfdir \
            --without-rsvg
 make %{?jobs:-j %jobs}
@@ -168,9 +168,13 @@ rm -rf %buildroot
 %_datadir/pixmaps/*
 %_datadir/applications/*
 %_datadir/%progname
-%attr(755, root, root) %_localstatedir/lib/%progname
-%attr(755, root, root) %_localstatedir/lib/%progname/words
 %attr(755, root, root) %_sysconfdir/%progname
+
+# create game state directories modifiable by members of "games" group:
+%attr(2755, root, root) %_localstatedir/games/%progname
+%attr(2755, root, root) %_localstatedir/games/%progname/words
+chown root:games %_localstatedir/games/%progname
+chown root:games %_localstatedir/games/%progname/words
 
 
 %changelog
