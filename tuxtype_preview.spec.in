@@ -16,6 +16,7 @@
 # norootforbuild
 
 Name:           @PACKAGE@_preview
+Version:        @VERSION@
 Obsoletes:      tuxtype <= @VERSION@
 Provides:       tuxtype = @VERSION@
 %define         realname @PACKAGE@
