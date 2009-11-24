@@ -167,10 +167,8 @@ rm -rf %buildroot
 %attr(755, root, root) %_sysconfdir/%progname
 
 # create game state directories modifiable by members of "games" group:
-%attr(2755, root, root) %_localstatedir/games/%progname
-%attr(2755, root, root) %_localstatedir/games/%progname/words
-chown root:games %_localstatedir/games/%progname
-chown root:games %_localstatedir/games/%progname/words
+%attr(2755, root, games) %_localstatedir/games/%progname
+%attr(2755, root, games) %_localstatedir/games/%progname/words
 
 
 %changelog
