@@ -192,8 +192,9 @@ int PlayCascade(int diflevel)
       if (diflevel == INF_PRACT)
         sprintf(filename, "pract.png");
       else
-        sprintf(filename, "kcas%i_%i.jpg", diflevel+1, curlevel+1);
-
+      {	
+        sprintf(filename, "kcas%d.jpg", rand() % 12);
+      }
       /* ---  Special Hidden Code  --- */
 
       if (settings.hidden && curlevel == 3)

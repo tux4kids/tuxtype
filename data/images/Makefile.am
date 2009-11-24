@@ -22,18 +22,18 @@ dist_images_DATA = README_IMAGES.TXT \
   fishy3.png \
   hidden.jpg \
   insert1.png \
-  kcas1_1.jpg \
-  kcas1_2.jpg \
-  kcas1_3.jpg \
-  kcas1_4.jpg \
-  kcas2_1.jpg \
-  kcas2_2.jpg \
-  kcas2_3.jpg \
-  kcas2_4.jpg \
-  kcas3_1.jpg \
-  kcas3_2.jpg \
-  kcas3_3.jpg \
-  kcas3_4.jpg \
+  kcas0.jpg \
+  kcas1.jpg \
+  kcas2.jpg \
+  kcas3.jpg \
+  kcas4.jpg \
+  kcas5.jpg \
+  kcas6.jpg \
+  kcas7.jpg \
+  kcas8.jpg \
+  kcas9.jpg \
+  kcas10.jpg \
+  kcas11.jpg \
   left.png \
   line2.png \
   main_bkg.png \
