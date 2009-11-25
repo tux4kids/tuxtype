@@ -1,3 +1,24 @@
+tuxtype (1.8.0-1) UNRELEASED; urgency=low
+
+  * New upstream release, quoting from the upstream changelog:
+    - new music files and backgrounds contributed by Caroline Ford,
+      some old sounds (the ones with suboptimal free licensing) removed -
+      Tux Typing is now 100% DFSG-compliant (Closes: #400924)
+    - fixed a problem that was causing the wrong key to flash in the bottom
+      row of keys
+    - game Instructions - simplified and reactivated cascade and laser game
+      instruction scripts, fixed scripting background image so that it scales
+      properly in fullscreen
+    - scripting - Added some basic scripts so that new users will have a
+      complete lesson set out of the box. Added a howto in the docs.
+    - Sarah Frisk's word list editor from GSoC 2009 has been merged in as
+      a new, somewhat "beta" feature. (Closes: #94986)
+  * tuxtype.postinst: Make tuxtype binary and shared wordlist directory 
+    setgid games, so that wordlists can be edited and shared. This is done
+    with dpkg-statoverride, so local admins can override this decission.
+
+ -- Holger Levsen <holger@debian.org>  Tue, 17 Nov 2009 15:27:25 +0100
+
 tuxtype (1.7.5.dfsg1-2) unstable; urgency=low
 
   * Bump standards version to 3.8.3, no changes needed. 

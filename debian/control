@@ -12,7 +12,6 @@ Package: tuxtype
 Architecture: any
 Depends: ${shlibs:Depends}, ttf-sil-andika (>=1.0.basic-1), tuxtype-data 
 Recommends: ttf-sil-doulos, ttf-bengali-fonts, ttf-devanagari-fonts, ttf-gujarati-fonts, ttf-kannada-fonts, ttf-oriya-fonts, ttf-punjabi-fonts, ttf-tamil-fonts, ttf-telugu-fonts
-Suggests: tuxtype-data-nonfree
 Description:  Educational Typing Tutor Game Starring Tux
  TuxTyping is an educational typing tutorial game starring
  Tux, the Linux Penguin. The player guides Tux to eat fish
@@ -26,6 +25,9 @@ Description:  Educational Typing Tutor Game Starring Tux
 Package: tuxtype-data
 Architecture: all
 Recommends: tuxtype
+Replaces: tuxtype-data-nonfree
+Conflicts: tuxtype-data-nonfree
+Provides: tuxtype-data-nonfree 
 Description:  Data files for the Educational Typing Tutor Game Starring Tux
  This package contains graphics, sound, themes and wordlist files for tuxtype.
  .
