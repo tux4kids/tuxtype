@@ -1,4 +1,4 @@
-tuxtype (1.8.0-1) UNRELEASED; urgency=low
+tuxtype (1.8.0-1) unstable; urgency=low
 
   * New upstream release, quoting from the upstream changelog:
     - new music files and backgrounds contributed by Caroline Ford,
@@ -17,7 +17,7 @@ tuxtype (1.8.0-1) UNRELEASED; urgency=low
     setgid games, so that wordlists can be edited and shared. This is done
     with dpkg-statoverride, so local admins can override this decission.
 
- -- Holger Levsen <holger@debian.org>  Tue, 17 Nov 2009 15:27:25 +0100
+ -- Holger Levsen <holger@debian.org>  Wed, 25 Nov 2009 13:17:11 +0100
 
 tuxtype (1.7.5.dfsg1-2) unstable; urgency=low
 
