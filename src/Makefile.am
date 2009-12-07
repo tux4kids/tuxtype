@@ -97,4 +97,4 @@ EXTRA_DIST =		\
 	scripting.h	\
 	SDL_extras.h	\
 	snow.h		\
-        titlescreen.h \
+        titlescreen.h 
