@@ -57,43 +57,44 @@ LDADD = @LIBINTL@
 tuxtype_LDFLAGS = $(LTLIBINTL)
 
 tuxtype_SOURCES = 	\
-	playgame.c	\
-	main.c		\
-	titlescreen.c	\
-	loaders.c	\
-	setup.c		\
-	laser.c		\
 	alphabet.c	\
-	theme.c		\
-	practice.c	\
 	audio.c		\
-	snow.c		\
+	convert_utf.c	\
+	editor.c	\
+	laser.c		\
+	loaders.c	\
+	main.c		\
+	mysetenv.c	\
+	options.c	\
+	pause.c		\
+	pixels.c	\
+	playgame.c	\
+	practice.c	\
+	scandir.c	\
 	scripting.c	\
 	SDL_extras.c	\
-	pixels.c	\
-	pause.c		\
-	convert_utf.c	\
-	options.c	\
-	mysetenv.c	\
-	editor.c	\
-	scandir.c
-
+	setup.c		\
+	snow.c		\
+	theme.c		\
+	titlescreen.c
 TuxType_SOURCES  = $(tuxtype_SOURCES)
+
 # The rc file has something to do with the icon in Windows, IIRC
 #TuxType_SOURCES  = $(tuxtype_SOURCES) tuxtyperc.rc
 
-EXTRA_DIST = titlescreen.h \
-	playgame.h 	\
-	laser.h		\
-	globals.h 	\
+EXTRA_DIST =		\
+	compiler.h	\
+	convert_utf.h	\
+	editor.h	\
 	funcs.h 	\
+	gettext.h	\
+	globals.h 	\
+	laser.h		\
+	mysetenv.h	\
 	pixels.h	\
+	playgame.h 	\
+	scandir.h
 	scripting.h	\
 	SDL_extras.h	\
 	snow.h		\
-	convert_utf.h	\
-	gettext.h	\
-	compiler.h	\
-	mysetenv.h	\
-	editor.h	\
-	scandir.h
+        titlescreen.h \
