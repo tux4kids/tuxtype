@@ -172,7 +172,9 @@ rm -rf %buildroot
 %attr(755, root, root) %_sysconfdir/%progname
 
 # create game state directories modifiable by members of "games" group:
-%attr(2755, root, games) %_localstatedir/games/%progname
+#%attr(2755, root, games) %_localstatedir/games/%progname
+# Perhaps only the words dir needs to have the non-default permissions:
+%_localstatedir/games/%progname
 %attr(2755, root, games) %_localstatedir/games/%progname/words
 
 
