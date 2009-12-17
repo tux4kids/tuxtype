@@ -619,7 +619,7 @@ int Phrases(wchar_t* pphrase )
         start = a;
 
         total += keytimes[cursor];
-        sprintf(time_str, "%.2f sec", (float) total / 1000);
+        sprintf(time_str, "%.2f %s", (float) total / 1000, N_("sec"));
         sprintf(chars_typed_str, "%d", correct_chars);
         sprintf(cpm_str, "%.1f", (float) correct_chars /((float)total/60000));
         sprintf(wpm_str, "%.1f", (float) ((float) correct_chars/5) /((float) total/60000));

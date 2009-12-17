@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tuxtype2\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2009-11-19 20:52-0600\n"
+"POT-Creation-Date: 2009-12-17 07:15-0600\n"
 "PO-Revision-Date: 2008-12-02 19:51+0100\n"
 "Last-Translator: Göran Uddeborg <goeran@uddeborg.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/loaders.c:88 src/main.c:150 src/playgame.c:628
+#: src/loaders.c:88 src/main.c:150 src/playgame.c:629
 msgid "Fish"
 msgstr "Fisk"
 
@@ -43,39 +43,43 @@ msgstr "Tryck escape igen för att komma tillbaka till menyn"
 msgid "Press space bar to return to game"
 msgstr "Tryck mellanslag för att fortsätta spela"
 
-#: src/playgame.c:626
+#: src/playgame.c:627
 msgid "Level"
 msgstr "Nivå"
 
-#: src/playgame.c:627
+#: src/playgame.c:628
 msgid "Lives"
 msgstr "Liv"
 
 # levels for Cascade game:
-#: src/playgame.c:630 src/titlescreen.c:89
+#: src/playgame.c:631 src/titlescreen.c:89
 msgid "Easy"
 msgstr "Lätt"
 
-#: src/playgame.c:631 src/titlescreen.c:90
+#: src/playgame.c:632 src/titlescreen.c:90
 msgid "Medium"
 msgstr "Mellan"
 
-#: src/playgame.c:632 src/titlescreen.c:91
+#: src/playgame.c:633 src/titlescreen.c:91
 msgid "Hard"
 msgstr "Svårt"
 
 # general stuff
-#: src/playgame.c:633
+#: src/playgame.c:634
 msgid "Practice"
 msgstr "Övning"
 
-#: src/playgame.c:644
+#: src/playgame.c:645
 msgid "Congratulations"
 msgstr "Gratulerar"
 
-#: src/playgame.c:648
+#: src/playgame.c:649
 msgid "Oh No!"
 msgstr "Åh nej!"
+
+#: src/practice.c:622
+msgid "sec"
+msgstr ""
 
 #: src/practice.c:1433
 msgid "Time"

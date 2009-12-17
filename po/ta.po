@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tuxtype\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2009-11-19 20:52-0600\n"
+"POT-Creation-Date: 2009-12-17 07:15-0600\n"
 "PO-Revision-Date: 2008-08-22 12:41+0530\n"
 "Last-Translator: Felix I <ifelix25@gmail.com>, 2008\n"
 "Language-Team:  <en@li.org>\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
 
-#: src/loaders.c:88 src/main.c:150 src/playgame.c:628
+#: src/loaders.c:88 src/main.c:150 src/playgame.c:629
 msgid "Fish"
 msgstr "ஃபிஷ்"
 
@@ -43,37 +43,41 @@ msgstr "மெனுவுக்கு செல்ல மீண்டும் 
 msgid "Press space bar to return to game"
 msgstr "விளையாட்டுக்கு செல்ல space barஐ அழுத்தவும்"
 
-#: src/playgame.c:626
+#: src/playgame.c:627
 msgid "Level"
 msgstr "நிலை"
 
-#: src/playgame.c:627
+#: src/playgame.c:628
 msgid "Lives"
 msgstr "லைவ்ஸ்"
 
-#: src/playgame.c:630 src/titlescreen.c:89
+#: src/playgame.c:631 src/titlescreen.c:89
 msgid "Easy"
 msgstr "எளியது"
 
-#: src/playgame.c:631 src/titlescreen.c:90
+#: src/playgame.c:632 src/titlescreen.c:90
 msgid "Medium"
 msgstr "நடுத்தரம்"
 
-#: src/playgame.c:632 src/titlescreen.c:91
+#: src/playgame.c:633 src/titlescreen.c:91
 msgid "Hard"
 msgstr "கடினம்"
 
-#: src/playgame.c:633
+#: src/playgame.c:634
 msgid "Practice"
 msgstr "பயிற்சி"
 
-#: src/playgame.c:644
+#: src/playgame.c:645
 msgid "Congratulations"
 msgstr "வாழ்த்துக்கள்"
 
-#: src/playgame.c:648
+#: src/playgame.c:649
 msgid "Oh No!"
 msgstr "இல்லை!"
+
+#: src/practice.c:622
+msgid "sec"
+msgstr ""
 
 #: src/practice.c:1433
 msgid "Time"
