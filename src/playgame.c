@@ -25,8 +25,8 @@ email                : tuxtype-dev@tux4kids.net
 
 
 /* Should these be constants? */
-static int tux_max_width;                // the max width of the images of tux
-static int number_max_w;                 // the max width of a number image
+static int tux_max_width = 0;                // the max width of the images of tux
+static int number_max_w = 0;                 // the max width of a number image
 
 
 //static SDL_Surface* background = NULL;
@@ -64,7 +64,7 @@ static void FreeGame(void);
 static int int_restrict(int a, int x, int b);
 static void LoadFishies(void);
 static void LoadOthers(void);
-static void LoadTuxAnims(void);
+static int LoadTuxAnims(void);
 static void MoveFishies(int* fishies, int* splats, int* lifes, int* frame);
 static void MoveTux(int frame, int fishies);
 static void next_tux_frame(void);
@@ -125,7 +125,13 @@ int PlayCascade(int diflevel)
 
 //	SNOW_init();
 
-  LoadTuxAnims(); 
+  if(!LoadTuxAnims())
+  {
+    fprintf(stderr, "PlayCascade() - LoadTuxAnims() failed - returning to menu!\n\n\n");
+    FreeGame();
+    return 0;
+  }
+  
   LoadFishies();
   LoadOthers();
 
@@ -724,22 +730,31 @@ static void LoadFishies(void)
 /******************************
 LoadTuxAnims : Load the Tux graphics and animations
 *******************************/
-static void LoadTuxAnims(void)
+static int LoadTuxAnims(void)
 {
-	int i;
-	int height = 0;                //temp width/height varis to determine max's
+  int i;
+  int height = 0;                //temp width/height varis to determine max's
 
-	LOG( "=LoadTuxAnims(): Loading Tux Animations\n" );
+  LOG("LoadTuxAnims(): Loading Tux Animations\n");
 
-	for ( i=0; i < TUX_NUM_STATES; i++ ) {
-		tux_object.spr[i][RIGHT] = LoadSprite( tux_sprite_fns[i], IMG_ALPHA ); 
-		tux_object.spr[i][LEFT] = FlipSprite( tux_object.spr[i][RIGHT], 1, 0 ); 
-	}
+  for (i = 0 ; i < TUX_NUM_STATES; i++)
+  {
+    tux_object.spr[i][RIGHT] = LoadSprite(tux_sprite_fns[i], IMG_ALPHA); 
+    /* make sure image got loaded: */
+    if(tux_object.spr[i][RIGHT] == NULL)
+    {
+      fprintf(stderr, "Warning - image %d failed to load\n", i);
+      return 0;
+    }
+    tux_object.spr[i][LEFT] = FlipSprite(tux_object.spr[i][RIGHT], 1, 0); 
+  }
 
-	tux_max_width = tux_object.spr[TUX_STANDING][RIGHT]->frame[0]->w;
-	height        = tux_object.spr[TUX_STANDING][RIGHT]->frame[0]->h;
+  tux_max_width = tux_object.spr[TUX_STANDING][RIGHT]->frame[0]->w;
+  height = tux_object.spr[TUX_STANDING][RIGHT]->frame[0]->h;
 
-	LOG( "=LoadTuxAnims(): END\n" );
+  LOG("LoadTuxAnims(): END\n");
+
+  return 1;
 }
 
 /******************************
