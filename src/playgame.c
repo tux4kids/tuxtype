@@ -250,87 +250,89 @@ int PlayCascade(int diflevel)
         {
           if (event.type == SDL_KEYDOWN)
           {
-            if (event.key.keysym.sym == SDLK_F11) 
-              SDL_SaveBMP(screen, "screenshot.bmp");
-
-            if (event.key.keysym.sym == SDLK_F6)
+            switch (event.key.keysym.sym)
             {
-              settings.o_lives = settings.o_lives - 10;
-              curlives = curlives - 10;
-            }
+              case SDLK_F11:
+                SDL_SaveBMP(screen, "screenshot.bmp");
+                break;
 
-            if (event.key.keysym.sym == SDLK_F7)
-            {
-              settings.o_lives = settings.o_lives + 10;
-              curlives = curlives + 10;
-            }
+              case SDLK_F6:
+                settings.o_lives = settings.o_lives - 10;
+                curlives = curlives - 10;
+                break;
 
-            /* FIXME could be improved - currently clears out all words    */
-            /* in play at time of switch, so could be used to avoid losing */
-            if (event.key.keysym.sym == SDLK_F10)
-            {
-              /* first wipe out old blits because screen size is changing */
-              /* and otherwise we would segfault:                         */
-              ResetBlitQueue();
-              //numupdates = 0;
+              case SDLK_F7:
+                settings.o_lives = settings.o_lives + 10;
+                curlives = curlives + 10;
+                break;
 
-              SwitchScreenMode();
-
-              DrawBackground();
-              ResetObjects();
-
-            }
-
-            if (event.key.keysym.sym == SDLK_F12)
-            {
-//              SNOW_toggle();
-            }
-
-            if (event.key.keysym.sym == SDLK_ESCAPE)
-            {
-              /* Pause() returns 1 if quitting, */
-              /* 0 if returning to game:        */
-              if (Pause() == 1)
-              {
-                playing_level = 0;
-                still_playing = 0;
-                quitting = 1;
-              }
-              else  /* Returning to game */
+              case SDLK_F10:
+                /* NOTE this could be used to "cheat" by wiping out all the */
+                /* current words if the player is about to lose.            */
+                /* first wipe out old blits because screen size is changing */
+                /* and otherwise we would segfault:                         */
+                ResetBlitQueue();
+                //numupdates = 0;
+                SwitchScreenMode();
                 DrawBackground();
+                ResetObjects();
+                break;
+
+              case SDLK_F12:
+                // SNOW_toggle();
+                break;
+
+              case SDLK_ESCAPE:
+                /* Pause() returns 1 if quitting, */
+                /* 0 if returning to game:        */
+                if (Pause() == 1)
+                {
+                  playing_level = 0;
+                  still_playing = 0;
+                  quitting = 1;
+                }
+                else  /* Returning to game */
+                  DrawBackground();
+                break;
+
+              /*  Don't count modifier keys as keystrokes in game: */ 
+	      case SDLK_RSHIFT:
+	      case SDLK_LSHIFT:
+              case SDLK_RCTRL:
+	      case SDLK_LCTRL:
+	      case SDLK_RALT: 
+              case SDLK_LALT:
+	      case SDLK_RMETA:
+	      case SDLK_LMETA:
+              case SDLK_LSUPER:
+              case SDLK_RSUPER:
+                break;
+
+              default:
+              /*----------------------------------------------------*/
+              /* Some other key - player is actually typing!!!!!!!! */
+              /*----------------------------------------------------*/
+
+                /* See what Unicode value was typed: */
+                key_unicode = event.key.keysym.unicode;
+
+                DEBUGCODE
+                {fprintf(stderr, "\nkey_unicode = %d\twchar_t = %lc\t\n", key_unicode, key_unicode);}
+
+                /* For now, the cascade game is case-insensitive for input, */
+                /* with only uppercase for answers:                         */
+                if (key_unicode >= 97 && key_unicode <= 122)
+                  key_unicode -= 32;  //convert lowercase to uppercase
+                if (key_unicode >= 224 && key_unicode <= 255)
+                  key_unicode -= 32; //same for non-US Western European chars
+
+                LOG ("After checking for lower case:\n");
+                DEBUGCODE
+                {fprintf(stderr, "key_unicode = %d\twchar_t = %lc\\n\n", key_unicode, key_unicode);}
+
+                /* Now update with case-folded value: */
+                UpdateTux(key_unicode, fishies, frame);
             }
-
-            /*----------------------------------------------------*/
-            /* Some other key - player is actually typing!!!!!!!! */
-            /*----------------------------------------------------*/
-
-            /* See what Unicode value was typed: */
-            key_unicode = event.key.keysym.unicode;
-
-            DEBUGCODE
-            {
-              fprintf(stderr,
-                      "\nkey_unicode = %d\twchar_t = %lc\t\n",
-                      key_unicode, key_unicode);
-            }
-
-            /* For now, the cascade game is case-insensitive for input, */
-            /* with only uppercase for answers:                         */
-            if (key_unicode >= 97 && key_unicode <= 122)
-              key_unicode -= 32;  //convert lowercase to uppercase
-            if (key_unicode >= 224 && key_unicode <= 255)
-              key_unicode -= 32; //same for non-US chars
-
-            LOG ("After checking for lower case:\n");
-            DEBUGCODE
-            {
-              fprintf(stderr,
-                      "key_unicode = %d\twchar_t = %lc\\n\n",
-                      key_unicode, key_unicode);
-            }
-
-            /* Now update with case-folded value: */
-            UpdateTux(key_unicode, fishies, frame);
           }
         }
       }   /* ------ End of 'while' loop for handling user input ------- */
