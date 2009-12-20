@@ -256,7 +256,7 @@ void TitleScreen(void)
   while (!done) 
   {
 
-    start=SDL_GetTicks();
+    start = SDL_GetTicks();
 
     /* ---process input queue --- */
 
@@ -269,11 +269,15 @@ void TitleScreen(void)
     {
       switch (event.type)
       {
-
+        /* Update "selection" if mouse moves within a menu entry: */
         case SDL_MOUSEMOTION:
         {
           cursor.x = event.motion.x;
           cursor.y = event.motion.y;
+
+	  for (j = 1; j <= TITLE_MENU_ITEMS; j++)
+            if (inRect(menu_button[j], cursor.x, cursor.y))
+              key_menu = j;
           break;
         }
 
@@ -752,8 +756,8 @@ void TitleScreen(void)
 
     /* --- check if mouse is in a menu option --- */
 
-    key_menu = 0;
-
+//    key_menu = 0;
+/*
     for (j = 1; j <= TITLE_MENU_ITEMS; j++)
     {
       if ((cursor.x >= menu_button[j].x && cursor.x <= (menu_button[j].x + menu_button[j].w)) &&
@@ -762,7 +766,7 @@ void TitleScreen(void)
         key_menu = j; // update menu to point
         break;        // Don't need to check rest of menu
       }
-    }
+    }*/
 
 
     /* --- return old selection to unselected state --- */
