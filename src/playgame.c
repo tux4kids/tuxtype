@@ -237,7 +237,7 @@ int PlayCascade(int diflevel)
       /* --- Poll input queue, get keyboard info --- */
       while (SDL_PollEvent(&event))
       {
-        if ( event.type == SDL_QUIT )
+        if (event.type == SDL_QUIT)
         {
           exit(0); /* FIXME does memory get cleaned up properly if we do this? */
         }
@@ -245,8 +245,13 @@ int PlayCascade(int diflevel)
         {
           if (event.type == SDL_KEYDOWN)
           {
+	    switch (event.key.keysym.sym)
+	    {
+	      case SDLK_F11:
+                SDL_SaveBMP(screen, "screenshot.bmp");
+
+	    }
             if (event.key.keysym.sym == SDLK_F11) 
-              SDL_SaveBMP(screen, "screenshot.bmp");
 
             if (event.key.keysym.sym == SDLK_F6)
             {
