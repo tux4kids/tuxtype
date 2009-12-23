@@ -19,10 +19,12 @@ if BUILD_MINGW32
   DATA_PREFIX=@MINGW32_PACKAGE_DATA_DIR@
   VAR_PREFIX=@MINGW32_PACKAGE_VAR_DIR@
   CONF_PREFIX=@MINGW32_PACKAGE_CONF_DIR@
+  IM_PREFIX=@MINGW32_PACKAGE_IM_DIR@
 else
   DATA_PREFIX=${pkgdatadir}
   VAR_PREFIX=${pkglocalstatedir}
   CONF_PREFIX=${pkgsysconfdir}
+  IM_PREFIX=${pkgdatadir}/input_methods
 endif
 
 
@@ -34,12 +36,14 @@ AM_CFLAGS=-Wall -g \
         -DDATA_PREFIX=\"$(DATA_PREFIX)\" \
         -DVAR_PREFIX=\"$(VAR_PREFIX)\" \
         -DCONF_PREFIX=\"$(CONF_PREFIX)\" \
+        -DIM_PREFIX=\"$(IM_PREFIX)\" \
         -DDEBUG \
 	-DVERSION=\"@NAME_VERSION@\" -D$(SOUND)SOUND
 
 AM_CPPFLAGS = -DLOCALEDIR=\"$(localedir)\" \
 	-DLOCALSTATEDIR=\"$(pkglocalstatedir)\" \
 	-DSYSCONFDIRDIR=\"$(pkgsysconfdir)\" \
+	-DIMDIR=\"$(pkgdatadir)/input_methods\" \
 	-I../intl -I$(top_srcdir)/intl
 
 if BUILD_MINGW32
@@ -61,6 +65,7 @@ tuxtype_SOURCES = 	\
 	audio.c		\
 	convert_utf.c	\
 	editor.c	\
+	input_methods.c	\
 	laser.c		\
 	loaders.c	\
 	main.c		\
@@ -89,11 +94,12 @@ EXTRA_DIST =		\
 	funcs.h 	\
 	gettext.h	\
 	globals.h 	\
+	input_methods.h	\
 	laser.h		\
 	mysetenv.h	\
 	pixels.h	\
 	playgame.h 	\
-	scandir.h
+	scandir.h	\
 	scripting.h	\
 	SDL_extras.h	\
 	snow.h		\

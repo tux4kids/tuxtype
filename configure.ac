@@ -202,15 +202,19 @@ AC_CHECK_FUNCS([__argz_count __argz_next __argz_stringify atexit bcopy floor get
 MINGW32_PACKAGE_DATA_DIR="data"
 AC_SUBST(MINGW32_PACKAGE_DATA_DIR)
 
+dnl FIXME this isn't a good place on a well-administered Windows system
 # Where to keep modifiable shared data files:
 MINGW32_PACKAGE_VAR_DIR="data"
 AC_SUBST(MINGW32_PACKAGE_VAR_DIR)
 
+dnl FIXME this isn't a good place on a well-administered Windows system
 # Where to keep machine-wide (i.e for all users) config files:
 MINGW32_PACKAGE_CONF_DIR="data"
 AC_SUBST(MINGW32_PACKAGE_CONF_DIR)
 
-
+# Location of input method files: 
+MINGW32_PACKAGE_IM_DIR="data/input_methods"
+AC_SUBST(MINGW32_PACKAGE_IM_DIR)
 
 
 
