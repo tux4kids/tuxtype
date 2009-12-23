@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tux Typing 1.5.16\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2009-12-17 07:15-0600\n"
+"POT-Creation-Date: 2009-12-22 13:15-0600\n"
 "PO-Revision-Date: 2005-02-12 13:13+0100\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <i18n-nn@lister.ping.uio.no>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.9.1\n"
 
-#: src/loaders.c:88 src/main.c:150 src/playgame.c:629
+#: src/loaders.c:88 src/main.c:150 src/playgame.c:637
 msgid "Fish"
 msgstr "Fisk"
 
@@ -44,35 +44,35 @@ msgstr "Trykk «Escape» for å gå tilbake til hovudmenyen."
 msgid "Press space bar to return to game"
 msgstr "Trykk mellomromstasten for å gå tilbake til spelet."
 
-#: src/playgame.c:627
+#: src/playgame.c:635
 msgid "Level"
 msgstr "Nivå"
 
-#: src/playgame.c:628
+#: src/playgame.c:636
 msgid "Lives"
 msgstr "Liv"
 
-#: src/playgame.c:631 src/titlescreen.c:89
+#: src/playgame.c:639 src/titlescreen.c:89
 msgid "Easy"
 msgstr "Lett"
 
-#: src/playgame.c:632 src/titlescreen.c:90
+#: src/playgame.c:640 src/titlescreen.c:90
 msgid "Medium"
 msgstr "Middels"
 
-#: src/playgame.c:633 src/titlescreen.c:91
+#: src/playgame.c:641 src/titlescreen.c:91
 msgid "Hard"
 msgstr "Vanskeleg"
 
-#: src/playgame.c:634
+#: src/playgame.c:642
 msgid "Practice"
 msgstr "Øving"
 
-#: src/playgame.c:645
+#: src/playgame.c:653
 msgid "Congratulations"
 msgstr "Gratulerer!"
 
-#: src/playgame.c:649
+#: src/playgame.c:657
 msgid "Oh No!"
 msgstr "Uff!"
 
@@ -165,15 +165,15 @@ msgstr "Avslutt"
 msgid "Main Menu"
 msgstr "Hovudmeny"
 
-#: src/titlescreen.c:1113
+#: src/titlescreen.c:1117
 msgid "Work In Progress!"
 msgstr "Uferdig!"
 
-#: src/titlescreen.c:1114
+#: src/titlescreen.c:1118
 msgid "This feature is not ready yet"
 msgstr "Denne funksjonen er ikkje klar enno."
 
-#: src/titlescreen.c:1115
+#: src/titlescreen.c:1119
 msgid "Discuss the future of TuxTyping at"
 msgstr "Diskuter neste versjon av Tux Typing på"
 

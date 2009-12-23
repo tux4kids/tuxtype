@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tux Typing 1.5.16\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2009-12-17 07:15-0600\n"
+"POT-Creation-Date: 2009-12-22 13:15-0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Mobin M <mobinmohan@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #
-#: src/loaders.c:88 src/main.c:150 src/playgame.c:629
+#: src/loaders.c:88 src/main.c:150 src/playgame.c:637
 msgid "Fish"
 msgstr "माछा"
 
@@ -49,42 +49,42 @@ msgid "Press space bar to return to game"
 msgstr "खेलमा फर्कन स्पेस बार  थिच्नुहोस । "
 
 #
-#: src/playgame.c:627
+#: src/playgame.c:635
 msgid "Level"
 msgstr "श्रेणी"
 
 #
-#: src/playgame.c:628
+#: src/playgame.c:636
 msgid "Lives"
 msgstr "जिवनहरु"
 
 #
-#: src/playgame.c:631 src/titlescreen.c:89
+#: src/playgame.c:639 src/titlescreen.c:89
 msgid "Easy"
 msgstr "सजिलो"
 
 #
-#: src/playgame.c:632 src/titlescreen.c:90
+#: src/playgame.c:640 src/titlescreen.c:90
 msgid "Medium"
 msgstr "मध्यम"
 
 #
-#: src/playgame.c:633 src/titlescreen.c:91
+#: src/playgame.c:641 src/titlescreen.c:91
 msgid "Hard"
 msgstr "कठिन"
 
 #
-#: src/playgame.c:634
+#: src/playgame.c:642
 msgid "Practice"
 msgstr "प्रशिक्षण"
 
 #
-#: src/playgame.c:645
+#: src/playgame.c:653
 msgid "Congratulations"
 msgstr "तपाइलाई बधाई छ!!!"
 
 #
-#: src/playgame.c:649
+#: src/playgame.c:657
 msgid "Oh No!"
 msgstr "हेत्तेरिका!.."
 
@@ -191,17 +191,17 @@ msgid "Main Menu"
 msgstr "मुख्य मेनु"
 
 #
-#: src/titlescreen.c:1113
+#: src/titlescreen.c:1117
 msgid "Work In Progress!"
 msgstr "काम हुदैछ!!!!!!!!"
 
 #
-#: src/titlescreen.c:1114
+#: src/titlescreen.c:1118
 msgid "This feature is not ready yet"
 msgstr "यो सुबिधा अहिले उपलब्ध हुनसक्दैन!!!!"
 
 #
-#: src/titlescreen.c:1115
+#: src/titlescreen.c:1119
 msgid "Discuss the future of TuxTyping at"
 msgstr " टक्शटाइप को भविष्य बारेमा छलफल गर्नुहोस ।"
 

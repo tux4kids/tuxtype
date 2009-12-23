@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tr\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2009-12-17 07:15-0600\n"
+"POT-Creation-Date: 2009-12-22 13:15-0600\n"
 "PO-Revision-Date: 2008-12-11 15:08+0200\n"
 "Last-Translator: Doruk Fisek <dfisek@fisek.com.tr>\n"
 "Language-Team: Turkish <gnu-tr-u12a@lists.sourceforge.net>\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
 
-#: src/loaders.c:88 src/main.c:150 src/playgame.c:629
+#: src/loaders.c:88 src/main.c:150 src/playgame.c:637
 msgid "Fish"
 msgstr "Balık"
 
@@ -43,35 +43,35 @@ msgstr "Menüye dönmek için tekrar esc'ye basın"
 msgid "Press space bar to return to game"
 msgstr "Oyuna dönmek için boşluk tuşuna basın"
 
-#: src/playgame.c:627
+#: src/playgame.c:635
 msgid "Level"
 msgstr "Düzey"
 
-#: src/playgame.c:628
+#: src/playgame.c:636
 msgid "Lives"
 msgstr "Yaşamlar"
 
-#: src/playgame.c:631 src/titlescreen.c:89
+#: src/playgame.c:639 src/titlescreen.c:89
 msgid "Easy"
 msgstr "Kolay"
 
-#: src/playgame.c:632 src/titlescreen.c:90
+#: src/playgame.c:640 src/titlescreen.c:90
 msgid "Medium"
 msgstr "Orta"
 
-#: src/playgame.c:633 src/titlescreen.c:91
+#: src/playgame.c:641 src/titlescreen.c:91
 msgid "Hard"
 msgstr "Zor"
 
-#: src/playgame.c:634
+#: src/playgame.c:642
 msgid "Practice"
 msgstr "Alıştırma"
 
-#: src/playgame.c:645
+#: src/playgame.c:653
 msgid "Congratulations"
 msgstr "Tebrikler"
 
-#: src/playgame.c:649
+#: src/playgame.c:657
 msgid "Oh No!"
 msgstr "Oo Hayır!"
 
@@ -163,15 +163,15 @@ msgstr "Çıkış"
 msgid "Main Menu"
 msgstr "Ana Menü"
 
-#: src/titlescreen.c:1113
+#: src/titlescreen.c:1117
 msgid "Work In Progress!"
 msgstr "Çalışmalar Sürüyor!"
 
-#: src/titlescreen.c:1114
+#: src/titlescreen.c:1118
 msgid "This feature is not ready yet"
 msgstr "Bu özellik henüz hazır değil"
 
-#: src/titlescreen.c:1115
+#: src/titlescreen.c:1119
 msgid "Discuss the future of TuxTyping at"
 msgstr "Tuxtyping'in geleceğinin tartışıldığı liste :"
 

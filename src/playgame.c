@@ -22,7 +22,7 @@ email                : tuxtype-dev@tux4kids.net
 #include "playgame.h"
 #include "snow.h"
 #include "SDL_extras.h"
-
+#include "input_methods.h"
 
 /* Should these be constants? */
 static int tux_max_width = 0;                // the max width of the images of tux
@@ -42,8 +42,8 @@ static Mix_Chunk* sound[NUM_WAVES];
 static sprite* fish_sprite = NULL;
 static sprite* splat_sprite = NULL;
 
-
-
+/* For input_methods.c processing of Asian text input: */
+static IM_DATA im_data;
 
 
 /* Local function prototypes: */
@@ -61,6 +61,8 @@ static void EraseNumbers(int num, int x, int y, int places);
 
 static float float_restrict(float a, float x, float b);
 static void FreeGame(void);
+//static void HandleKey(SDL_keysym* key_sym);
+static void HandleKey(SDL_keysym* key_sym);
 static int int_restrict(int a, int x, int b);
 static void LoadFishies(void);
 static void LoadOthers(void);
@@ -134,6 +136,10 @@ int PlayCascade(int diflevel)
   
   LoadFishies();
   LoadOthers();
+
+  /* Initialize input_methods system: */
+//  im_init(&im_data, get_current_language());
+  im_init(&im_data, 0); //will need function to put in correct language code:
 
   /* Make sure everything in the word list is "typable" according to the current */
   /* theme's keyboard.lst:                                                       */
@@ -1551,6 +1557,72 @@ static void draw_bar(int curlevel, int diflevel, int curlives, int oldlives, int
 }
 
 
+/* Here we process the latest keystroke with the input_methods system. */ 
+/* Depending on whether the current language uses a single keystroke   */
+/* or multiple keystrokes per letter, we may or may not change what is displayed. */
+static void HandleKey(SDL_keysym* key_sym)
+{
+  static int redraw = 0;
+  wchar_t* im_cp = im_data.s;
+  int texttool_len = 0;
+  wchar_t texttool_str[256];
+  
+  /* Discard previous # of redraw characters */
+  if((int)texttool_len <= redraw) 
+    texttool_len = 0;
+  else texttool_len -= redraw;
+    texttool_str[texttool_len] = L'\0';
+
+  /* Read IM, remember how many to redraw next iteration */
+  redraw = im_read(&im_data, *key_sym);
+
+  /* Queue each character to be displayed */
+  while(*im_cp)
+  {
+    if (*im_cp == L'\b')
+    {
+      if (texttool_len > 0)
+      {
+        texttool_len--;
+        texttool_str[texttool_len] = 0;
+//        do_render_cur_text(0);
+      }
+    }
+    else if (*im_cp == L'\r')
+    {
+      if (texttool_len > 0)
+      {
+//        rec_undo_buffer();
+//        do_render_cur_text(1);
+        texttool_len = 0;
+      }
+      im_softreset(&im_data);
+    }
+    else if (*im_cp == L'\t')
+    {
+      if (texttool_len > 0)
+      {
+//        rec_undo_buffer();
+//        do_render_cur_text(1);
+//        cursor_x = min(cursor_x + cursor_textwidth, canvas->w);
+        texttool_len = 0;
+      }
+      im_softreset(&im_data);
+    }
+    //FIXME look up iswprint()
+    else if (1) //(iswprint(*im_cp))
+    {
+      if (texttool_len < (sizeof(texttool_str) / sizeof(wchar_t)) - 1)
+      {
+        texttool_str[texttool_len++] = *im_cp;
+        texttool_str[texttool_len] = 0;
+//        do_render_cur_text(0);
+      }
+    }
+
+    im_cp++;
+  } /* while(*im_cp) */
+}
 
 
 

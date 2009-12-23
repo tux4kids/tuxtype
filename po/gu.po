@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tuxtype\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2009-12-17 07:15-0600\n"
+"POT-Creation-Date: 2009-12-22 13:15-0600\n"
 "PO-Revision-Date: 2008-08-28 16:17+0530\n"
 "Last-Translator: Sweta Kothari <swkothar@redhat.com>\n"
 "Language-Team: Gujarati\n"
@@ -16,7 +16,7 @@ msgstr ""
 "X-Generator: KBabel 1.11.4\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n"
 
-#: src/loaders.c:88 src/main.c:150 src/playgame.c:629
+#: src/loaders.c:88 src/main.c:150 src/playgame.c:637
 msgid "Fish"
 msgstr "માછલી"
 
@@ -44,35 +44,35 @@ msgstr "મેનુ ને પાછુ લાવવા માટે ફરી�
 msgid "Press space bar to return to game"
 msgstr "રમતને પાછુ લાવવા માટે space પટ્ટીને દબાવો"
 
-#: src/playgame.c:627
+#: src/playgame.c:635
 msgid "Level"
 msgstr "સ્તર"
 
-#: src/playgame.c:628
+#: src/playgame.c:636
 msgid "Lives"
 msgstr "જીવો"
 
-#: src/playgame.c:631 src/titlescreen.c:89
+#: src/playgame.c:639 src/titlescreen.c:89
 msgid "Easy"
 msgstr "સરળ"
 
-#: src/playgame.c:632 src/titlescreen.c:90
+#: src/playgame.c:640 src/titlescreen.c:90
 msgid "Medium"
 msgstr "માધ્યમ"
 
-#: src/playgame.c:633 src/titlescreen.c:91
+#: src/playgame.c:641 src/titlescreen.c:91
 msgid "Hard"
 msgstr "સખત"
 
-#: src/playgame.c:634
+#: src/playgame.c:642
 msgid "Practice"
 msgstr "પ્રયાસ"
 
-#: src/playgame.c:645
+#: src/playgame.c:653
 msgid "Congratulations"
 msgstr "અભિનંદન"
 
-#: src/playgame.c:649
+#: src/playgame.c:657
 msgid "Oh No!"
 msgstr "અરે નહિં!"
 
@@ -164,15 +164,15 @@ msgstr "બહાર નીકળો"
 msgid "Main Menu"
 msgstr "મુખ્ય મેનુ"
 
-#: src/titlescreen.c:1113
+#: src/titlescreen.c:1117
 msgid "Work In Progress!"
 msgstr "પ્રગતિમાં કામ છે!"
 
-#: src/titlescreen.c:1114
+#: src/titlescreen.c:1118
 msgid "This feature is not ready yet"
 msgstr "આ લક્ષણ હજુ તૈયાર નથી"
 
-#: src/titlescreen.c:1115
+#: src/titlescreen.c:1119
 msgid "Discuss the future of TuxTyping at"
 msgstr "TuxTyping ને ભવિષ્યમાં ચર્ચા કરો"
 

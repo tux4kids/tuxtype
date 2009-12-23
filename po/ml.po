@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tuxtype\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2009-12-17 07:15-0600\n"
+"POT-Creation-Date: 2009-12-22 13:15-0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Mobin M <mobinmohan@gmail.com>\n"
 "Language-Team: Swathanthra|സ്വതന്ത്ര Malayalam|മലയാളം Computing|കമ്പ്യൂട്ടിങ്ങ് <smc-"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/loaders.c:88 src/main.c:150 src/playgame.c:629
+#: src/loaders.c:88 src/main.c:150 src/playgame.c:637
 msgid "Fish"
 msgstr "മത്സ്യം"
 
@@ -45,35 +45,35 @@ msgstr "പുറത്തോട്ടുപോകാന്‍ വീണ്ട�
 msgid "Press space bar to return to game"
 msgstr "കളിയില്‍ തിരിച്ചെത്താന്‍ സ്പെയ്സ് കീ അടിക്കുക"
 
-#: src/playgame.c:627
+#: src/playgame.c:635
 msgid "Level"
 msgstr "തട്ട്"
 
-#: src/playgame.c:628
+#: src/playgame.c:636
 msgid "Lives"
 msgstr "ആയുസ്സ്"
 
-#: src/playgame.c:631 src/titlescreen.c:89
+#: src/playgame.c:639 src/titlescreen.c:89
 msgid "Easy"
 msgstr "എളുപ്പം"
 
-#: src/playgame.c:632 src/titlescreen.c:90
+#: src/playgame.c:640 src/titlescreen.c:90
 msgid "Medium"
 msgstr "ഇടത്തരം"
 
-#: src/playgame.c:633 src/titlescreen.c:91
+#: src/playgame.c:641 src/titlescreen.c:91
 msgid "Hard"
 msgstr "ബുദ്ധിമുട്ടുള്ളത്"
 
-#: src/playgame.c:634
+#: src/playgame.c:642
 msgid "Practice"
 msgstr "പരിശീലനം"
 
-#: src/playgame.c:645
+#: src/playgame.c:653
 msgid "Congratulations"
 msgstr "കൊള്ളാലോ!!!"
 
-#: src/playgame.c:649
+#: src/playgame.c:657
 msgid "Oh No!"
 msgstr "അയ്യോ!.."
 
@@ -165,15 +165,15 @@ msgstr "പുറത്തു കടക്കുക"
 msgid "Main Menu"
 msgstr "പ്രധാന മെനു"
 
-#: src/titlescreen.c:1113
+#: src/titlescreen.c:1117
 msgid "Work In Progress!"
 msgstr "പണി നടക്കുന്നുണ്ടല്ലോ"
 
-#: src/titlescreen.c:1114
+#: src/titlescreen.c:1118
 msgid "This feature is not ready yet"
 msgstr "ഇത് ഇതുവരെ ശരിയാക്കിയിട്ടില്ല."
 
-#: src/titlescreen.c:1115
+#: src/titlescreen.c:1119
 msgid "Discuss the future of TuxTyping at"
 msgstr "ടക്സ് ടൈപ്പിന്റെ  ഭാവി ചര്‍ച്ചചെയ്യാനായി ഇവിടെ പോകുക"
 

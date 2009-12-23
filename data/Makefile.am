@@ -1,7 +1,13 @@
 ## Makefile.am for tuxtype - data:
 ## Process with Automake to create Makefile.in
 
-SUBDIRS = images scripts sounds themes words fonts
+SUBDIRS = fonts	\
+  im	\
+  images	\
+  scripts	\
+  sounds	\
+  themes	\
+  words
 
 ##tuxtypedatadir = $(pkgdatadir)
 

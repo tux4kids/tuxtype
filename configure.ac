@@ -263,6 +263,7 @@ tuxtype.spec
 tuxtype_preview.spec
 data/Makefile
 data/fonts/Makefile
+data/im/Makefile
 data/images/Makefile
 data/images/backgrounds/Makefile
 data/images/cities/Makefile

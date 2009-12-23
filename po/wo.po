@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tux Typing 1.5.16\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2009-12-17 07:15-0600\n"
+"POT-Creation-Date: 2009-12-22 13:15-0600\n"
 "PO-Revision-Date: 2007-09-25 09:50-0000\n"
 "Last-Translator: Ousmane Faty Ndongo et Dominique Rochefort <alfanet@anafa."
 "org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/loaders.c:88 src/main.c:150 src/playgame.c:629
+#: src/loaders.c:88 src/main.c:150 src/playgame.c:637
 msgid "Fish"
 msgstr "Jën yi"
 
@@ -45,37 +45,37 @@ msgstr "Bësaatal ci skep ngir dellu ci njël li"
 msgid "Press space bar to return to game"
 msgstr "Bësal banqaasu teqale ngir fo"
 
-#: src/playgame.c:627
+#: src/playgame.c:635
 msgid "Level"
 msgstr "Tollu tollu"
 
-#: src/playgame.c:628
+#: src/playgame.c:636
 msgid "Lives"
 msgstr "Dund yi"
 
 # levels for Cascade game:
-#: src/playgame.c:631 src/titlescreen.c:89
+#: src/playgame.c:639 src/titlescreen.c:89
 msgid "Easy"
 msgstr "Yomb"
 
-#: src/playgame.c:632 src/titlescreen.c:90
+#: src/playgame.c:640 src/titlescreen.c:90
 msgid "Medium"
 msgstr "Ci diggante bi"
 
-#: src/playgame.c:633 src/titlescreen.c:91
+#: src/playgame.c:641 src/titlescreen.c:91
 msgid "Hard"
 msgstr "Dëgër"
 
 # general stuff
-#: src/playgame.c:634
+#: src/playgame.c:642
 msgid "Practice"
 msgstr "Jëf ji"
 
-#: src/playgame.c:645
+#: src/playgame.c:653
 msgid "Congratulations"
 msgstr "Waaw góor"
 
-#: src/playgame.c:649
+#: src/playgame.c:657
 msgid "Oh No!"
 msgstr "Déedéet!"
 
@@ -174,15 +174,15 @@ msgid "Main Menu"
 msgstr "Njël li ëpp solo"
 
 # work in progress stuff
-#: src/titlescreen.c:1113
+#: src/titlescreen.c:1117
 msgid "Work In Progress!"
 msgstr "Ñi ngi koy defar!"
 
-#: src/titlescreen.c:1114
+#: src/titlescreen.c:1118
 msgid "This feature is not ready yet"
 msgstr "Pareegul"
 
-#: src/titlescreen.c:1115
+#: src/titlescreen.c:1119
 msgid "Discuss the future of TuxTyping at"
 msgstr "Wax ci ëlëgu TuxTyping ak"
 
