@@ -1,7 +1,7 @@
 # vim: noai et ts=4 tw=0
 # with a few tiny modifications by Phil Harper(philh@theopencd.org)
 # modified for tuxmath by Yves Combe (yves@ycombe.net)
-# modified for tuxtype by David Bruce (dbruce@tampabay.rr.com)
+# modified for tuxtype by David Bruce (davidstuartbruce@gmail.com)
 
 !define PKG_VERSION "@VERSION@"
 !define PKG_PREFIX  "tuxtype"

@@ -7,7 +7,7 @@
     email                : hart@geekcomix.com
  
   Modified by David Bruce
-  dbruce@tampabay.rr.com
+  davidstuartbruce@gmail.com
   2007
 
 ***************************************************************************/

@@ -4,7 +4,7 @@
                              -------------------
     begin                : Wed July 11 2007
     copyright            : (C) 2000 by David Bruce
-                           dbruce@tampabay.rr.com
+                           davidstuartbruce@gmail.com
 
     project email        : tuxmath-devel@sourceforge.net
     website              : http://tux4kids.alioth.debian.org

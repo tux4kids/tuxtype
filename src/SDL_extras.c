@@ -4,7 +4,7 @@
 * Description: a few handy functions for using SDL graphics.
 *
 *
-* Author: David Bruce,,, <dbruce@tampabay.rr.com>, (C) 2007
+* Author: David Bruce,,, <davidstuartbruce@gmail.com>, (C) 2007
 *
 * Copyright: GPL v3 or later
 *

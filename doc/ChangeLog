@@ -235,11 +235,11 @@ Version 1.7.0
 	- Features added so that the information about the keyboard gets updated each time the game is run.
 
 13 Apr 2008 - svn revision 460
-[ David Bruce <dbruce@tampabay.rr.com> ]
+[ David Bruce <davidstuartbruce@gmail.com> ]
        - fixed small typo bug in alphabet.c (thanks Patrick Winnertz)
 
 29 Mar 2008 - svn revision 451
-[ David Bruce <dbruce@tampabay.rr.com> ]
+[ David Bruce <davidstuartbruce@gmail.com> ]
        - new branch made called "tuxtype-new", code reorganized with
        - more standard subdirs "src", "data", "doc"; Makefile.am's
          and configure.ac updated accordingly.  After some tweaking,
@@ -250,21 +250,21 @@ Version 1.7.0
          to reorganization.
 
 23 Mar 2008
-[ David Bruce <dbruce@tampabay.rr.com> ]
+[ David Bruce <davidstuartbruce@gmail.com> ]
        - Nepali theme contributed by Vikal Acharya and Shakeel Shrestha
 
 22 Feb 2008
-[ David Bruce <dbruce@tampabay.rr.com> ]
+[ David Bruce <davidstuartbruce@gmail.com> ]
        - replaced many of menu icon images with new shiny ones.
 
 19 Feb 2008
-[ David Bruce <dbruce@tampabay.rr.com> ]
+[ David Bruce <davidstuartbruce@gmail.com> ]
        - updated remainder of Makefile.am's to use automake
          variables rather than hard-coded 'install' and 'uninstall'
          targets.
 
 15 Feb 2008
-[ David Bruce <dbruce@tampabay.rr.com> ]
+[ David Bruce <davidstuartbruce@gmail.com> ]
        - start of rewrite of Makefile.am's for data heirarchy
          to use automake more correctly.
 
@@ -277,22 +277,22 @@ v. 1.5.17 - UNRELEASED
 
 v. 1.5.16 - svn revision 347
 29 Nov 2007
-[ David Bruce <dbruce@tampabay.rr.com> ]
+[ David Bruce <davidstuartbruce@gmail.com> ]
        - added Czech theme, contributed by:
          Jaroslav Krejčí (JardaK) - <krejci@zstenis.com>
 
 28 Nov 2007
-[ David Bruce <dbruce@tampabay.rr.com> ]
+[ David Bruce <davidstuartbruce@gmail.com> ]
        - Corrected Russian keyboard.lst.
        - Possible bugfix that may have prevented recognition of chars
          beyond 255 in cascade and comet zap games.
 
 19 Nov 2007
-[ David Bruce <dbruce@tampabay.rr.com> ]
+[ David Bruce <davidstuartbruce@gmail.com> ]
        - added Wolof theme by Issa Dominique Rochefort.
 
 11 Oct 2007
-[ David Bruce <dbruce@tampabay.rr.com> ]
+[ David Bruce <davidstuartbruce@gmail.com> ]
        - updated all Makefile.am's to use the currently-preferred "MKDIR_P"
          instead of "mkinstalldirs"; removed multiple redundant invocations
          of "mkinstalldirs".
@@ -300,7 +300,7 @@ v. 1.5.16 - svn revision 347
          properly with automake 1.10.
 
 15 Sep 2007
-[ David Bruce <dbruce@tampabay.rr.com> ]
+[ David Bruce <davidstuartbruce@gmail.com> ]
        - "make dist" no longer includes fonts - added new Makefile target,
          "make dist_with_fonts" that does include them. Thanks to Ralf 
           Wildenhues <Ralf.Wildenhues@gmx.de> for autotools help via
@@ -308,7 +308,7 @@ v. 1.5.16 - svn revision 347
 
 v 1.5.15 - svn revision 255
 15 Sep 2007
-[ David Bruce <dbruce@tampabay.rr.com> ]
+[ David Bruce <davidstuartbruce@gmail.com> ]
        - alphabet.c - fixed crash occurring in BlackOutline_SDLPango() when 
          passed empty string (see Debian Bug #439071)
        - alphabet.c - added code to check words in list to see if they have
@@ -324,7 +324,7 @@ v 1.5.15 - svn revision 255
 
 v 1.5.14 - svn revision 240
 15 Sep 2007
-[ David Bruce <dbruce@tampabay.rr.com> ]
+[ David Bruce <davidstuartbruce@gmail.com> ]
        - scripting.c - added UTF-8 to wchar_t conversion at needed point
          when calling Phrases() (line ~1200).
        - some corrections and editing of scripts projectInfo.xml, cascade.xml,
@@ -354,7 +354,7 @@ Tux Type Indic Team:
 
 v 1.5.13
 08 Sep 2007
-[ David Bruce <dbruce@tampabay.rr.com> ]
+[ David Bruce <davidstuartbruce@gmail.com> ]
        - more work on practice.c - nearly all strings changed to 
          wchar_t arrays, should be able to support Unicode in
          practice phrases.
