@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tuxtype\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2009-12-22 13:15-0600\n"
+"POT-Creation-Date: 2010-01-15 13:40-0600\n"
 "PO-Revision-Date: 2008-08-28 16:08+0530\n"
 "Last-Translator: Rajesh Ranjan <rranjan@redhat.com>\n"
 "Language-Team: Hindi <hindi.sf.net>\n"
@@ -20,7 +20,7 @@ msgstr ""
 "\n"
 "\n"
 
-#: src/loaders.c:88 src/main.c:150 src/playgame.c:637
+#: src/loaders.c:88 src/main.c:150 src/playgame.c:643
 msgid "Fish"
 msgstr "मछली"
 
@@ -48,35 +48,35 @@ msgstr "मेन्यू में वापस जाने के लिए 
 msgid "Press space bar to return to game"
 msgstr "खेल में वापस जाने के लिए स्थान पट्टी दबाएँ"
 
-#: src/playgame.c:635
+#: src/playgame.c:641
 msgid "Level"
 msgstr "स्तर"
 
-#: src/playgame.c:636
+#: src/playgame.c:642
 msgid "Lives"
 msgstr "जीवनदान"
 
-#: src/playgame.c:639 src/titlescreen.c:89
+#: src/playgame.c:645 src/titlescreen.c:89
 msgid "Easy"
 msgstr "आसान"
 
-#: src/playgame.c:640 src/titlescreen.c:90
+#: src/playgame.c:646 src/titlescreen.c:90
 msgid "Medium"
 msgstr "थोड़ा कठिन"
 
-#: src/playgame.c:641 src/titlescreen.c:91
+#: src/playgame.c:647 src/titlescreen.c:91
 msgid "Hard"
 msgstr "कठिन"
 
-#: src/playgame.c:642
+#: src/playgame.c:648
 msgid "Practice"
 msgstr "अभ्यास"
 
-#: src/playgame.c:653
+#: src/playgame.c:659
 msgid "Congratulations"
 msgstr "बधाई"
 
-#: src/playgame.c:657
+#: src/playgame.c:663
 msgid "Oh No!"
 msgstr "अरे नहीं!"
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tux Typing 1.5.16\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2009-12-22 13:15-0600\n"
+"POT-Creation-Date: 2010-01-15 13:40-0600\n"
 "PO-Revision-Date: 2007-11-10 16:36+0100\n"
 "Last-Translator: JardaK <krejci@zstenis.com>\n"
 "Language-Team: czech <cs@li.org>\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Plural-Forms:  nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
 #
-#: src/loaders.c:88 src/main.c:150 src/playgame.c:637
+#: src/loaders.c:88 src/main.c:150 src/playgame.c:643
 msgid "Fish"
 msgstr "Ryba"
 
@@ -54,42 +54,42 @@ msgid "Press space bar to return to game"
 msgstr "Stiskni mezerník pro návrat do hry"
 
 #
-#: src/playgame.c:635
+#: src/playgame.c:641
 msgid "Level"
 msgstr "Úroveň"
 
 #
-#: src/playgame.c:636
+#: src/playgame.c:642
 msgid "Lives"
 msgstr "Životy"
 
 #
-#: src/playgame.c:639 src/titlescreen.c:89
+#: src/playgame.c:645 src/titlescreen.c:89
 msgid "Easy"
 msgstr "Snadná"
 
 #
-#: src/playgame.c:640 src/titlescreen.c:90
+#: src/playgame.c:646 src/titlescreen.c:90
 msgid "Medium"
 msgstr "Střední"
 
 #
-#: src/playgame.c:641 src/titlescreen.c:91
+#: src/playgame.c:647 src/titlescreen.c:91
 msgid "Hard"
 msgstr "Těžká"
 
 #
-#: src/playgame.c:642
+#: src/playgame.c:648
 msgid "Practice"
 msgstr "Procvičování"
 
 #
-#: src/playgame.c:653
+#: src/playgame.c:659
 msgid "Congratulations"
 msgstr "Gratuluji"
 
 #
-#: src/playgame.c:657
+#: src/playgame.c:663
 msgid "Oh No!"
 msgstr "Ach jo!"
 

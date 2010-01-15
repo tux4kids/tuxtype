@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2009-12-22 13:15-0600\n"
+"POT-Creation-Date: 2010-01-15 13:40-0600\n"
 "PO-Revision-Date: 2009-12-16 23:09+0800\n"
 "Last-Translator: PockeyLam <pockey@greenboard.org.cn>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: src/loaders.c:88 src/main.c:150 src/playgame.c:637
+#: src/loaders.c:88 src/main.c:150 src/playgame.c:643
 msgid "Fish"
 msgstr "小鱼"
 
@@ -44,35 +44,35 @@ msgstr "请按<Esc>键并返回主菜单"
 msgid "Press space bar to return to game"
 msgstr "请按<空格>键并回到游戏练习"
 
-#: src/playgame.c:635
+#: src/playgame.c:641
 msgid "Level"
 msgstr "级别"
 
-#: src/playgame.c:636
+#: src/playgame.c:642
 msgid "Lives"
 msgstr "生命"
 
-#: src/playgame.c:639 src/titlescreen.c:89
+#: src/playgame.c:645 src/titlescreen.c:89
 msgid "Easy"
 msgstr "容易"
 
-#: src/playgame.c:640 src/titlescreen.c:90
+#: src/playgame.c:646 src/titlescreen.c:90
 msgid "Medium"
 msgstr "中等难度"
 
-#: src/playgame.c:641 src/titlescreen.c:91
+#: src/playgame.c:647 src/titlescreen.c:91
 msgid "Hard"
 msgstr "困难"
 
-#: src/playgame.c:642
+#: src/playgame.c:648
 msgid "Practice"
 msgstr "练习"
 
-#: src/playgame.c:653
+#: src/playgame.c:659
 msgid "Congratulations"
 msgstr "恭喜"
 
-#: src/playgame.c:657
+#: src/playgame.c:663
 msgid "Oh No!"
 msgstr "不好了！"
 

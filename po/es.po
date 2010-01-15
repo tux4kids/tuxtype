@@ -8,14 +8,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tux Typing 1.5.16\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2009-12-22 13:15-0600\n"
+"POT-Creation-Date: 2010-01-15 13:40-0600\n"
 "PO-Revision-Date: 2007-09-16 19:00+0000\n"
 "Last-Translator: Amaya Rodrigo <amaya@debian.org>\n"
 "Language-Team: Spanish\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/loaders.c:88 src/main.c:150 src/playgame.c:637
+#: src/loaders.c:88 src/main.c:150 src/playgame.c:643
 msgid "Fish"
 msgstr "Pescado"
 
@@ -43,37 +43,37 @@ msgstr "Pulsa Esc para regresar al menú"
 msgid "Press space bar to return to game"
 msgstr "Pulsa la barra espaciadora para regresar al juego"
 
-#: src/playgame.c:635
+#: src/playgame.c:641
 msgid "Level"
 msgstr "Nivel"
 
-#: src/playgame.c:636
+#: src/playgame.c:642
 msgid "Lives"
 msgstr "Vidas"
 
 # niveles para juego de cascada:
-#: src/playgame.c:639 src/titlescreen.c:89
+#: src/playgame.c:645 src/titlescreen.c:89
 msgid "Easy"
 msgstr "Fácil"
 
-#: src/playgame.c:640 src/titlescreen.c:90
+#: src/playgame.c:646 src/titlescreen.c:90
 msgid "Medium"
 msgstr "Medio"
 
-#: src/playgame.c:641 src/titlescreen.c:91
+#: src/playgame.c:647 src/titlescreen.c:91
 msgid "Hard"
 msgstr "Difícil"
 
 # Cosas generales
-#: src/playgame.c:642
+#: src/playgame.c:648
 msgid "Practice"
 msgstr "Practicar"
 
-#: src/playgame.c:653
+#: src/playgame.c:659
 msgid "Congratulations"
 msgstr "¡Felicidades!"
 
-#: src/playgame.c:657
+#: src/playgame.c:663
 msgid "Oh No!"
 msgstr "¡Oh, no!"
 

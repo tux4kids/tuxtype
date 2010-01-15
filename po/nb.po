@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tux Typing 1.5.16\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2009-12-22 13:15-0600\n"
+"POT-Creation-Date: 2010-01-15 13:40-0600\n"
 "PO-Revision-Date: 2005-10-20 21:24+0200\n"
 "Last-Translator: Trond Mæhlum <trondm@skolelinux.no>\n"
 "Language-Team: Norwegian Bokmål <i18n-nb@lister.ping.uio.no>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "X-Generator: KBabel 1.11\n"
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
 
-#: src/loaders.c:88 src/main.c:150 src/playgame.c:637
+#: src/loaders.c:88 src/main.c:150 src/playgame.c:643
 msgid "Fish"
 msgstr "Fisk"
 
@@ -45,35 +45,35 @@ msgstr "Trykk «Escape» for å gå tilbake til hovedmenyen."
 msgid "Press space bar to return to game"
 msgstr "Trykk mellomrom for å gå tilbake til spillet."
 
-#: src/playgame.c:635
+#: src/playgame.c:641
 msgid "Level"
 msgstr "Nivå"
 
-#: src/playgame.c:636
+#: src/playgame.c:642
 msgid "Lives"
 msgstr "Liv"
 
-#: src/playgame.c:639 src/titlescreen.c:89
+#: src/playgame.c:645 src/titlescreen.c:89
 msgid "Easy"
 msgstr "Lett"
 
-#: src/playgame.c:640 src/titlescreen.c:90
+#: src/playgame.c:646 src/titlescreen.c:90
 msgid "Medium"
 msgstr "Middels"
 
-#: src/playgame.c:641 src/titlescreen.c:91
+#: src/playgame.c:647 src/titlescreen.c:91
 msgid "Hard"
 msgstr "Vanskelig"
 
-#: src/playgame.c:642
+#: src/playgame.c:648
 msgid "Practice"
 msgstr "Øving"
 
-#: src/playgame.c:653
+#: src/playgame.c:659
 msgid "Congratulations"
 msgstr "Gratulerer!"
 
-#: src/playgame.c:657
+#: src/playgame.c:663
 msgid "Oh No!"
 msgstr "Uff!"
 
