@@ -350,6 +350,8 @@ data/themes/russian/Makefile
 data/themes/russian/images/Makefile
 data/themes/russian/images/status/Makefile
 data/themes/russian/words/Makefile
+data/themes/suomi/Makefile
+data/themes/suomi/words/Makefile
 data/themes/svenska/Makefile
 data/themes/svenska/words/Makefile
 data/themes/swahili/Makefile
