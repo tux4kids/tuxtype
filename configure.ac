@@ -145,11 +145,11 @@ if test "x$with_rsvg" = xyes; then
   AC_DEFINE([HAVE_RSVG],[1],[Define to 1 if you have the `libRSVG` library])
 fi
 
-dnl Check for (somewhat) higher-level math functions - needed for SDL_extras
-dnl AC_CHECK_LIB([m],
-dnl              [csin],
-dnl              ,
-dnl              [AC_MSG_ERROR([Math library not found - functions in <math.h> may not be available.])])
+Check for (somewhat) higher-level math functions - needed for SDL_extras
+AC_CHECK_LIB([m],
+              [csin],
+              ,
+              [AC_MSG_ERROR([Math library not found - functions in <math.h> may not be available.])])
 
 
 # --------------------------------------------------------------------------------------
