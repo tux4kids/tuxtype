@@ -1,0 +1,62 @@
+diff --git a/configure.ac b/configure.ac
+index 3f42772..b290ff6 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -45,16 +45,6 @@ AC_PROG_YACC
+ # Checks for libraries.
+ # -----------------------------------------------------------------------
+ 
+-# Check for SDL 
+-SDL_VERSION=1.2.0
+-
+-AM_PATH_SDL($SDL_VERSION, :,
+-         AC_MSG_ERROR([SDL version $SDL_VERSION not found! http://www.libsdl.org]) 
+-) 
+-
+-CFLAGS="$CFLAGS $SDL_CFLAGS" 
+-
+-
+ # Check platform - see if WinMain needed:
+ AC_MSG_CHECKING([for native Win32])
+ case "$host" in
+@@ -70,12 +60,21 @@ AC_MSG_RESULT([$native_win32])
+ AM_CONDITIONAL(BUILD_MINGW32, test $native_win32 = yes)
+ 
+ if test $native_win32 = yes; then
+-  LIBS="$LIBS -lmingw32 -lSDLmain -lSDL"
+-else
+-  LIBS="$LIBS $SDL_LIBS"
+-fi
+ 
++# Check for SDL, SDL_image, SDL_mixer and SDL_Pango
++PKG_CHECK_MODULES([SDL], [sdl >= 1.2.0 SDL_image SDL_mixer SDL_Pango])
++CFLAGS="$CFLAGS $SDL_CFLAGS" 
++LIBS="$LIBS $SDL_LIBS"
+ 
++else
++
++dnl Check for SDL:
++SDL_VERSION=1.2.0
++AM_PATH_SDL($SDL_VERSION, :,
++         AC_MSG_ERROR([SDL version $SDL_VERSION not found! http://www.libsdl.org]) 
++) 
++CFLAGS="$CFLAGS $SDL_CFLAGS" 
++LIBS="$LIBS $SDL_LIBS"
+ 
+ dnl Check for SDL_image: 
+ AC_CHECK_LIB([SDL_image], 
+@@ -108,12 +107,13 @@ AC_CHECK_LIB([SDL_Pango],
+               AC_MSG_FAILURE([SDL_Pango test failed (--without-sdlpango to disable)])])
+ fi
+ 
+-if [test "x$with_sdlpango" = xno]; then
++fi
++
++
+ AC_CHECK_LIB([SDL_ttf],
+              [TTF_Init],
+              ,
+              [AC_MSG_ERROR([SDL_ttf not found! http://www.libsdl.org/projects/SDL_ttf])])
+-fi
+ 
+ dnl Check for libRSVG and cairo. SVG support is enabled by default
