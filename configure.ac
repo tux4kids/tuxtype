@@ -145,7 +145,7 @@ if test "x$with_rsvg" = xyes; then
   AC_DEFINE([HAVE_RSVG],[1],[Define to 1 if you have the `libRSVG` library])
 fi
 
-Check for (somewhat) higher-level math functions - needed for SDL_extras
+dnl Check for (somewhat) higher-level math functions - needed for SDL_extras
 AC_CHECK_LIB([m],
               [csin],
               ,
