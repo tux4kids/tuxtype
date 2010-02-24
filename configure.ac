@@ -59,21 +59,27 @@ AC_MSG_RESULT([$native_win32])
 
 AM_CONDITIONAL(BUILD_MINGW32, test $native_win32 = yes)
 
+
+dnl ---------------------------------------------------------
 dnl For crossbuild with mingw-cross-env, we use pkg_config,
 dnl but for native linux build we use AC_CHECK_LIB because
 dnl some distros (incl. Debian) don't support pkg_config for
 dnl the SDL libraries:
+dnl ---------------------------------------------------------
+
 AS_IF([test "x$native_win32" = xyes],
+dnl What we do for mingw crossbuild:
 [
 	# Check for SDL, SDL_image, SDL_mixer and SDL_Pango
-	[echo "mingw crossbuild detected"],
+	[echo "Mingw crossbuild detected - using pkgconfig to check for SDL libs:"],
 	PKG_CHECK_MODULES([SDL], [sdl >= 1.2.0 SDL_image SDL_mixer SDL_Pango])
 	CFLAGS="$CFLAGS $SDL_CFLAGS" 
 	LIBS="$LIBS $SDL_LIBS"
 ],
 [test "x$native_win32" = xno],
+dnl What we do if not doing mingw crossbuild:
 [
-	dnl Check for SDL:
+	# Check for SDL:
 	SDL_VERSION=1.2.0
 	AM_PATH_SDL($SDL_VERSION, :,
 		 AC_MSG_ERROR([SDL version $SDL_VERSION not found! http://www.libsdl.org]) 
@@ -81,13 +87,13 @@ AS_IF([test "x$native_win32" = xyes],
 	CFLAGS="$CFLAGS $SDL_CFLAGS" 
 	LIBS="$LIBS $SDL_LIBS"
 
-	dnl Check for SDL_image: 
+	# Check for SDL_image: 
 	AC_CHECK_LIB([SDL_image], 
 		     [IMG_Load],
 		     ,
 		     [AC_MSG_ERROR([SDL_image not found! http://www.libsdl.org/projects/SDL_image])])
 
-	dnl Check for SDL_mixer:. 
+	# Check for SDL_mixer:. 
 	AC_CHECK_LIB([SDL_mixer], 
 		     [Mix_OpenAudio], 
 		     ,
@@ -100,7 +106,7 @@ AS_IF([test "x$native_win32" = xyes],
 
 	AC_ARG_WITH([sdlpango],
 		    [AS_HELP_STRING([--without-sdlpango],
-		    [don't use SDL_Pango even if available])],
+		    [Do not use SDL_Pango even if available])],
 		    [],
 		    [with_sdlpango=yes])
 
@@ -112,7 +118,8 @@ AS_IF([test "x$native_win32" = xyes],
 		      AC_MSG_FAILURE([SDL_Pango test failed (--without-sdlpango to disable)])])
 	fi
 ],
-[echo mingw crossbuild status not specified])
+dnl This message means the test variable was not set to either "yes" or "no"
+[echo Warning - mingw crossbuild status not specified])
 
 
 AC_CHECK_LIB([SDL_ttf],
