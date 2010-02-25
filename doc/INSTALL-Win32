@@ -14,7 +14,7 @@ Previous Project Manager:
 Developers:
 	Jacob Greig <bombastic@firstlinux.net>
 	Jesse Andrews <jdandr2@sheffield.cslab.uky.edu>
-    Matthew Trey <tux4kids@treyhome.com>
+	Matthew Trey <tux4kids@treyhome.com>
 Original Windows Port by:
 	Olivier Dagenais <olivier_dagenais@canada.com>
 Windows Crossbuild by:
@@ -35,6 +35,10 @@ select alternate location (perhaps if you are logged in as a user
 without privileges to write to C:\Program Files).
 4. The installer will create menu entries and a desktop icon for Tux
 Typing if permissions allow.
+
+
+Cross-building the Win32 Installer Package on a Linux Host:
+==========================================================
 
 Please read the COPYING.TXT file for the copyright for Tux Typing,
 and read the SDL-COPYING.TXT file for the copyright information for
