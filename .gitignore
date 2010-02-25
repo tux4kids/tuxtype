@@ -35,5 +35,10 @@ tuxmath_preview.spec
 build/
 buildw32/
 
+# But don't ignore crossbuild scripts:
+!buildw32/cross-configure.sh
+!buildw32/cross-make.sh
+!buildw32/ttwin.sh
+
 # Ignore backup files:
 *~
