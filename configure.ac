@@ -62,7 +62,7 @@ AM_CONDITIONAL(BUILD_MINGW32, test $native_win32 = yes)
 
 dnl ---------------------------------------------------------
 dnl For crossbuild with mingw-cross-env, we use pkg_config,
-dnl but for native linux build we use AC_CHECK_LIB because
+dnl but for native linux build we use #AC_CHECK_LIB() because
 dnl some distros (incl. Debian) don't support pkg_config for
 dnl the SDL libraries:
 dnl ---------------------------------------------------------
@@ -80,6 +80,7 @@ dnl What we do for mingw crossbuild:
 dnl What we do if not doing mingw crossbuild:
 [
 	# Check for SDL:
+        [echo "Mingw crossbuild not detected - using #AC_CHECK_LIB() for SDL libs:"],
 	SDL_VERSION=1.2.0
 	AM_PATH_SDL($SDL_VERSION, :,
 		 AC_MSG_ERROR([SDL version $SDL_VERSION not found! http://www.libsdl.org]) 
@@ -120,6 +121,11 @@ dnl What we do if not doing mingw crossbuild:
 ],
 dnl This message means the test variable was not set to either "yes" or "no"
 [echo Warning - mingw crossbuild status not specified])
+
+dnl ----------------------------------------------------------------------------
+dnl End of AS_IF() conditional -------------------------------------------------
+dnl ---------------------------------------------------------------------------
+
 
 
 AC_CHECK_LIB([SDL_ttf],
