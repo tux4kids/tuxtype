@@ -38,6 +38,9 @@ void GraphicsInit(void)
   const SDL_VideoInfo* video_info = SDL_GetVideoInfo();
   Uint32 surface_mode = 0;
 
+  DEBUGCODE
+  { fprintf(stderr, "Entering GraphicsInit()\n"); };
+
   //Set application's icon:
   seticon();
   //Set caption:
@@ -140,10 +143,13 @@ void LibInit(Uint32 lib_flags)
     }
   }
 
-
 // atexit(SDL_Quit); // fire and forget... 
 
   LOG( "-SDL Library init'd successfully\n" );
+
+  LOG( "-about to call Mix_OpenAudio()\n" );
+  DEBUGCODE
+  { printf(stderr, "settings.sys_sound = %d\n", settings.sys_sound): }
 
   /* FIXME should read settings before we do this: */ 
   if (settings.sys_sound)

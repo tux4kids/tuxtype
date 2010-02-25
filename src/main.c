@@ -82,7 +82,7 @@ int main(int argc, char *argv[])
          || (strcmp(argv[i], "--version") == 0))
       {
         fprintf(stderr, "\n%s, Version %s\n", PACKAGE, VERSION);
-        fprintf(stderr, "Copyright 2000-2009 Sam Hart, Jesse Andrews, David Bruce, and the Tux4Kids team.\n");
+        fprintf(stderr, "Copyright 2000-2010 Sam Hart, Jesse Andrews, David Bruce, and the Tux4Kids team.\n");
         fprintf(stderr, "Tux4Kids website: http://tux4kids.alioth.debian.org\n");
         fprintf(stderr, "This software is licensed under the GNU General Public License, Version 2 or later, and compatible media licenses.\n");
         fprintf(stderr, "See COPYING file for licensing details.\n\n");
