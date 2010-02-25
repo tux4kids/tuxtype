@@ -148,7 +148,7 @@ void LibInit(Uint32 lib_flags)
   LOG( "-SDL Library init'd successfully\n" );
 
   DEBUGCODE
-  { printf(stderr, "settings.sys_sound = %d\n", settings.sys_sound); }
+  { fprintf(stderr, "settings.sys_sound = %d\n", settings.sys_sound); }
 
   /* FIXME should read settings before we do this: */ 
   if (settings.sys_sound)
