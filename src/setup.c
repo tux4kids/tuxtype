@@ -147,13 +147,13 @@ void LibInit(Uint32 lib_flags)
 
   LOG( "-SDL Library init'd successfully\n" );
 
-  LOG( "-about to call Mix_OpenAudio()\n" );
   DEBUGCODE
-  { printf(stderr, "settings.sys_sound = %d\n", settings.sys_sound): }
+  { printf(stderr, "settings.sys_sound = %d\n", settings.sys_sound); }
 
   /* FIXME should read settings before we do this: */ 
   if (settings.sys_sound)
   {
+    LOG( "-about to call Mix_OpenAudio()\n" );
     if (Mix_OpenAudio(22050, AUDIO_S16, 1, 2048) == -1)
     {
       fprintf( stderr, "Warning: couldn't set 22050 Hz 8-bit audio\n - Reasons: %s\n", SDL_GetError());
