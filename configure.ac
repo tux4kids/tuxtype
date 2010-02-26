@@ -22,9 +22,22 @@ AC_SUBST(NAME_VERSION)
 
 # To link gettext library
 AC_GNU_SOURCE
-AM_GNU_GETTEXT
+#AM_GNU_GETTEXT
+#AM_GNU_GETTEXT_VERSION([0.17])
+#AM_GNU_GETTEXT_INTL_SUBDIR
+
+
+# Needed for gettext:
 AM_GNU_GETTEXT_VERSION([0.17])
-AM_GNU_GETTEXT_INTL_SUBDIR
+
+dnl NOTE - build using external intl lib whenever possible:
+AM_GNU_GETTEXT([external])
+dnl If build with external intl fails, comment out the above line 
+dnl and uncomment the one below to use the included intl subdirectory.
+dnl This used to be needed for the Windows crossbuild but is no longer
+dnl needed.
+#AM_GNU_GETTEXT
+
 
 # ----------------------------------------------------------------------
 # Checks for programs.

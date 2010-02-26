@@ -11,7 +11,6 @@ pkgsysconfdir = $(sysconfdir)/$(PACKAGE)
 
 SUBDIRS = data \
 	doc	\
-	intl	\
 	po	\
 	src
 
