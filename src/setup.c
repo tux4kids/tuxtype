@@ -153,14 +153,39 @@ void LibInit(Uint32 lib_flags)
   /* FIXME should read settings before we do this: */ 
   if (settings.sys_sound) //can be turned off with "--nosound" runtime flag
   {
-    fprintf(stderr, "-about to call Mix_OpenAudio()\n");
-    if (Mix_OpenAudio(22050, AUDIO_S16, 1, 2048) == -1)
-    {
-      fprintf(stderr, "Warning: couldn't set 22050 Hz 8-bit audio\n - Reasons: %s\n", SDL_GetError());
+    int initted = 1;
+
+    /* For SDL_mixer 1.2.10, we call Mix_Init() first: */  
+#ifdef HAVE_MIX_INIT
+    /* Try to initialize all supported formats, if possible: */    
+    int flags = MIX_INIT_FLAC | MIX_INIT_MOD | MIX_INIT_MP3 | MIX_INIT_OGG; 
+    initted = Mix_Init(flags);
+    /* We don't really need FLAC or mp3 support: */
+    if(initted & MIX_INIT_FLAC != MIX_INIT_FLAC)
+      LOG("NOTE - no support for FLAC\n"); 
+    if(initted & MIX_INIT_MP3 != MIX_INIT_MP3)
+      LOG("NOTE - no support for MP3\n");
+    /* We do need ogg and mod: */
+    if(initted & (MIX_INIT_OGG | MIX_INIT_MOD) != (MIX_INIT_OGG | MIX_INIT_MOD))
+    {	    
+      fprintf(stderr, "Mix_Init: Failed to init required ogg and mod support!\n");
+      fprintf(stderr, "Mix_Init: %s\n", Mix_GetError());
       settings.sys_sound = 0;
+      initted = 0;
     }
-    else
-      fprintf(stderr, "Mix_OpenAudio() successful\n");
+#endif    
+
+    /* Make sure Mix_Init() either succeeded or wasn't required: */
+    if(initted)
+    {	    
+      if (Mix_OpenAudio(22050, AUDIO_S16, 2, 2048) == -1)
+      {
+        fprintf(stderr, "Warning: couldn't set 22050 Hz 8-bit audio\n - Reasons: %s\n", SDL_GetError());
+        settings.sys_sound = 0;
+      }
+      else
+        LOG("Mix_OpenAudio() successful\n");
+    }
   }
 
   LOG( "-about to init SDL text library (SDL_ttf or SDL_Pango\n" );
