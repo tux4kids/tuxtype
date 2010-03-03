@@ -156,6 +156,7 @@ void LibInit(Uint32 lib_flags)
   if (settings.sys_sound) //can be turned off with "--nosound" runtime flag
   {
     int initted = 1;
+
     /* For SDL_mixer 1.2.10 and later, we must call Mix_Init() before any */
     /* other SDL_mixer functions. We can see what types of audio files    */
     /* are supported at this time (ogg and mod are required):             */

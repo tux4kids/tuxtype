@@ -136,7 +136,7 @@ AC_CHECK_LIB([SDL_ttf],
 dnl Check for libRSVG and cairo. SVG support is enabled by default
 
 AC_ARG_WITH([rsvg],
-            [AS_HELP_STRING([--without-rsvg],[don't use libRSVG even if available])],
+            [AS_HELP_STRING([--without-rsvg],[do not use libRSVG even if available])],
             [with_rsvg=no],
             [with_rsvg=yes])
 
