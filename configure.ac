@@ -210,7 +210,7 @@ AC_FUNC_STAT
 AC_FUNC_STRCOLL
 AC_FUNC_STRTOD
 AC_FUNC_VPRINTF
-AC_CHECK_FUNCS([__argz_count __argz_next __argz_stringify atexit bcopy floor getcwd getenv localeconv localtime_r memmove mempcpy memset mkdir munmap nl_langinfo pow putenv scandir setenv setlocale stpcpy strcasecmp strchr strcspn strdup strncasecmp strndup strstr strtoul])
+AC_CHECK_FUNCS([__argz_count __argz_next __argz_stringify atexit bcopy floor getcwd getenv localeconv localtime_r memmove mempcpy memset Mix_Init mkdir munmap nl_langinfo pow putenv scandir setenv setlocale stpcpy strcasecmp strchr strcspn strdup strncasecmp strndup strstr strtoul])
 
 
 
