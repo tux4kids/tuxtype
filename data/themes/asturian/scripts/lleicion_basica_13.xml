@@ -1,0 +1,40 @@
+<script title="Lleición de Test" bgcolor="#3f4f1f">
+       <page title="Introducción a la Lleición d'Exemplu">
+       <text align="center">La lletra e</text>
+       <text align="center">Nesta lleición vas deprender ónde ta la lletra e.</text>
+       <text align="center" y="300"> ¡CALCA ESPACIU PA ENTAMAR LA LLEICIÓN!</text>
+      <waitforinput/>
+       </page>
+       <page title="La lletra e" bgcolor="#3f7f3f">
+       <img src="/keyboard/keyboard.png" x="45" y="220"/>
+       <text align="center">Nesti exerciciu vamos prauticar cola lletra e.</text>
+       <text align="center">Pa entamar calca na lletra p</text>
+       <text color="#000000" x="100" y="280">A</text>
+       <text color="#000000" x="130" y="280">S</text>
+       <text color="#000000" x="160" y="280">D</text>
+       <text color="#000000" x="190" y="280">F</text>
+       <text color="#000000" x="220" y="280">G</text>
+       <text color="#000000" x="250" y="280">H</text>
+       <text color="#000000" x="285" y="280">J</text>
+       <text color="#000000" x="315" y="280">K</text>
+       <text color="#000000" x="345" y="280">L</text>
+       <text color="#000000" x="385" y="280">;</text>
+       <text color="#000000" x="90" y="250">Q</text>
+       <text color="#000000" x="118" y="250">W</text>
+       <text color="#000000" x="152" y="250">E</text>
+      <waitforchar/>
+      <prac>eee ded ede eed dde def fed wee wee eej adee egfd dkee eeñw eaea haee ddee eseg eñg eaf faee dse eee ded ede eed dde def fed</prac>
+      </page>
+      <!--HACK: there is some undesired behavior in scripting.c, this fixes it for now-->
+      <page>
+      </page>
+      <page>
+       <img src="keyboard/space.png" x="200" y="160"/>
+       <img src="keyboard/larrow.png" x="460" y="18"/>
+       <img src="keyboard/esc.png" x="515" y="50"/>
+       <text align="center">¡Perbién!</text>
+       <text align="left"></text>
+       <text align="center">Pa tornar al menú principal</text>
+       <text align="center">Calca espaciu</text>
+       <waitforinput/>
+     </page>    
