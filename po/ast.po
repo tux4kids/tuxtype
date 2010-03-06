@@ -1,0 +1,184 @@
+# ASTURIAN TRANSLATION FOR TUXTYPING.
+# This file is distributed under the same license as the tuxmath package.
+# XANDRU ARMESTO <xandru@softastur.org>, 2009.
+# Xandru Armesto <xandru@softastur.org>, 2010.
+msgid ""
+msgstr ""
+"Project-Id-Version: tuxtype 1.8.0\n"
+"Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
+"POT-Creation-Date: 2009-12-17 07:15-0600\n"
+"PO-Revision-Date: 2010-03-06 08:26+0200\n"
+"Last-Translator: Xandru Armesto <xandru@softastur.org>\n"
+"Language-Team: Asturian Team alministradores@softastur.org\n"
+"Language: ast\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Virtaal 0.5.2\n"
+"X-Poedit-Language: Asturian\n"
+
+#: src/loaders.c:88
+#: src/main.c:150
+#: src/playgame.c:629
+msgid "Fish"
+msgstr "Pexe"
+
+#: src/pause.c:277
+msgid "Sound Effects Volume"
+msgstr "Volume de los Efeutos de Soníu"
+
+#: src/pause.c:286
+msgid "Music Volume"
+msgstr "Volume de la Música"
+
+#: src/pause.c:297
+msgid "Sound & Music Disabled"
+msgstr "Soníu y Música Torgaos"
+
+#: src/pause.c:307
+msgid "Paused!"
+msgstr "¡Pausa!"
+
+#: src/pause.c:316
+msgid "Press escape again to return to menu"
+msgstr "Calca \"escape\" otra vuelta pa tornar al menú"
+
+#: src/pause.c:325
+msgid "Press space bar to return to game"
+msgstr "Calca \"espaciu\" pa tornar al xuegu"
+
+#: src/playgame.c:627
+msgid "Level"
+msgstr "Nivel"
+
+#: src/playgame.c:628
+msgid "Lives"
+msgstr "Vides"
+
+#: src/playgame.c:631
+#: src/titlescreen.c:89
+msgid "Easy"
+msgstr "Fácil"
+
+#: src/playgame.c:632
+#: src/titlescreen.c:90
+msgid "Medium"
+msgstr "Mediu"
+
+#: src/playgame.c:633
+#: src/titlescreen.c:91
+msgid "Hard"
+msgstr "Difícil"
+
+#: src/playgame.c:634
+msgid "Practice"
+msgstr "Practicar"
+
+#: src/playgame.c:645
+msgid "Congratulations"
+msgstr "Norabona"
+
+#: src/playgame.c:649
+msgid "Oh No!"
+msgstr "¡Oh, Non!"
+
+#: src/practice.c:622
+msgid "sec"
+msgstr "seg."
+
+#: src/practice.c:1433
+msgid "Time"
+msgstr "Tiempu"
+
+#: src/practice.c:1437
+msgid "Chars"
+msgstr "Gráficos"
+
+#: src/practice.c:1441
+msgid "CPM"
+msgstr "CPM"
+
+#: src/practice.c:1445
+msgid "WPM"
+msgstr "WPM"
+
+#: src/practice.c:1449
+msgid "Errors"
+msgstr "Errores"
+
+#: src/practice.c:1453
+msgid "Accuracy"
+msgstr "Precisión"
+
+#: src/titlescreen.c:89
+msgid "Fish Cascade"
+msgstr "Cascada de Pexes"
+
+#: src/titlescreen.c:89
+msgid "Space Cadet"
+msgstr "Cadete Espacial"
+
+#: src/titlescreen.c:89
+msgid "Edit Word Lists"
+msgstr "Editar les Llistes de Pallabres"
+
+#: src/titlescreen.c:90
+msgid "Comet Zap"
+msgstr "Cometes"
+
+#: src/titlescreen.c:90
+msgid "Pilot"
+msgstr "Pilotu"
+
+#: src/titlescreen.c:90
+msgid "Phrase Typing"
+msgstr "Mecanografía de Frase"
+
+#: src/titlescreen.c:91
+msgid "Lessons"
+msgstr "Lleiciones"
+
+#: src/titlescreen.c:91
+msgid "Ace"
+msgstr "As"
+
+#: src/titlescreen.c:91
+msgid "Project Info"
+msgstr "Información del Proyeutu"
+
+#: src/titlescreen.c:92
+msgid "Options"
+msgstr "Opciones"
+
+#: src/titlescreen.c:92
+msgid "Instructions"
+msgstr "Instrucciones"
+
+#: src/titlescreen.c:92
+msgid "Commander"
+msgstr "Comandante"
+
+#: src/titlescreen.c:92
+msgid "Setup Language"
+msgstr "Llingua"
+
+#: src/titlescreen.c:93
+msgid "Quit"
+msgstr "Colar"
+
+#: src/titlescreen.c:93
+msgid "Main Menu"
+msgstr "Menú Principal"
+
+#: src/titlescreen.c:1113
+msgid "Work In Progress!"
+msgstr "¡Trabayando nello!"
+
+#: src/titlescreen.c:1114
+msgid "This feature is not ready yet"
+msgstr "Esta función nun ta preparada entá"
+
+#: src/titlescreen.c:1115
+msgid "Discuss the future of TuxTyping at"
+msgstr "Alderica al rodiu del futuru de TuxTyping en"
