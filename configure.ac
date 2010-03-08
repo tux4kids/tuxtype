@@ -149,7 +149,7 @@ AC_CHECK_LIB([SDL_ttf],
 dnl Check for libRSVG and cairo. SVG support is enabled by default
 
 AC_ARG_WITH([rsvg],
-            [AS_HELP_STRING([--without-rsvg],[don't use libRSVG even if available])],
+            [AS_HELP_STRING([--without-rsvg],[do not use libRSVG even if available])],
             [with_rsvg=no],
             [with_rsvg=yes])
 
@@ -223,7 +223,7 @@ AC_FUNC_STAT
 AC_FUNC_STRCOLL
 AC_FUNC_STRTOD
 AC_FUNC_VPRINTF
-AC_CHECK_FUNCS([__argz_count __argz_next __argz_stringify atexit bcopy floor getcwd getenv localeconv localtime_r memmove mempcpy memset mkdir munmap nl_langinfo pow putenv scandir setenv setlocale stpcpy strcasecmp strchr strcspn strdup strncasecmp strndup strstr strtoul])
+AC_CHECK_FUNCS([__argz_count __argz_next __argz_stringify atexit bcopy floor getcwd getenv localeconv localtime_r memmove mempcpy memset Mix_Init mkdir munmap nl_langinfo pow putenv scandir setenv setlocale stpcpy strcasecmp strchr strcspn strdup strncasecmp strndup strstr strtoul])
 
 
 
