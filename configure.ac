@@ -83,11 +83,19 @@ dnl ---------------------------------------------------------
 AS_IF([test "x$native_win32" = xyes],
 dnl What we do for mingw crossbuild:
 [
-	# Check for SDL, SDL_image, SDL_mixer and SDL_Pango
+	dnl Check for SDL, SDL_image, SDL_mixer and SDL_Pango
 	[echo "Mingw crossbuild detected - using pkgconfig to check for SDL libs:"],
 	PKG_CHECK_MODULES([SDL], [sdl >= 1.2.0 SDL_image SDL_mixer SDL_Pango])
+	dnl The above macro does not set autoheader values, so do it now:
+	dnl Note that we could do the same for SDL_mixer and SDL_image,
+	dnl but we don't use those autoheaders in the program.
+	PKG_CHECK_EXISTS(SDL_Pango,
+			 [AC_DEFINE(HAVE_LIBSDL_PANGO,1)],
+			 [AC_DEFINE(HAVE_LIBSDL_PANGO,0)])
+
 	CFLAGS="$CFLAGS $SDL_CFLAGS" 
 	LIBS="$LIBS $SDL_LIBS"
+
 ],
 [test "x$native_win32" = xno],
 dnl What we do if not doing mingw crossbuild:
@@ -141,10 +149,16 @@ dnl ---------------------------------------------------------------------------
 
 
 
+dnl We only use SDL_ttf if SDL_Pango not available:
+
+if [test "x$with_sdlpango" = xno]; then
 AC_CHECK_LIB([SDL_ttf],
              [TTF_Init],
              ,
              [AC_MSG_ERROR([SDL_ttf not found! http://www.libsdl.org/projects/SDL_ttf])])
+fi
+
+
 
 dnl Check for libRSVG and cairo. SVG support is enabled by default
 
@@ -223,7 +237,7 @@ AC_FUNC_STAT
 AC_FUNC_STRCOLL
 AC_FUNC_STRTOD
 AC_FUNC_VPRINTF
-AC_CHECK_FUNCS([__argz_count __argz_next __argz_stringify atexit bcopy floor getcwd getenv localeconv localtime_r memmove mempcpy memset Mix_Init mkdir munmap nl_langinfo pow putenv scandir setenv setlocale stpcpy strcasecmp strchr strcspn strdup strncasecmp strndup strstr strtoul])
+AC_CHECK_FUNCS([__argz_count __argz_next __argz_stringify atexit bcopy floor getcwd getenv localeconv localtime_r memmove mempcpy memset Mix_Init mkdir munmap nl_langinfo pow putenv scandir SDLPango_CreateContext_GivenFontDesc setenv setlocale stpcpy strcasecmp strchr strcspn strdup strncasecmp strndup strstr strtoul])
 
 
 

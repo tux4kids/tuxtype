@@ -1142,6 +1142,9 @@ int EraseObject(SDL_Surface* surf, int x, int y)
 SDLPango_Context* context = NULL;
 static SDLPango_Matrix* SDL_Colour_to_SDLPango_Matrix(const SDL_Color* cl);
 static int Set_SDL_Pango_Font_Size(int size);
+
+
+
 /*-- file-scope variables and local file prototypes for SDL_ttf-based code: */
 #else
 #include "SDL_ttf.h"
@@ -1445,7 +1448,13 @@ static int Set_SDL_Pango_Font_Size(int size)
       SDLPango_FreeContext(context);
     context = NULL;
     snprintf(buf, sizeof(buf), "%s %d", settings.theme_font_name, (int)((size * 3)/4));
+#ifdef HAVE_SDLPANGO_CREATECONTEXT_GIVENFONTDESC
     context =  SDLPango_CreateContext_GivenFontDesc(buf);
+#else
+    fprintf(stderr, "SDL_Pango version is missing needed function:\n"
+		    "SDLPango_CreateContext_GivenFontDesc()\n"
+		    "Will not be able to set font size.\n");
+#endif    
   }
 
   if (!context)
