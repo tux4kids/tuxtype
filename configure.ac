@@ -22,9 +22,22 @@ AC_SUBST(NAME_VERSION)
 
 # To link gettext library
 AC_GNU_SOURCE
-AM_GNU_GETTEXT
+#AM_GNU_GETTEXT
+#AM_GNU_GETTEXT_VERSION([0.17])
+#AM_GNU_GETTEXT_INTL_SUBDIR
+
+
+# Needed for gettext:
 AM_GNU_GETTEXT_VERSION([0.17])
-AM_GNU_GETTEXT_INTL_SUBDIR
+
+dnl NOTE - build using external intl lib whenever possible:
+AM_GNU_GETTEXT([external])
+dnl If build with external intl fails, comment out the above line 
+dnl and uncomment the one below to use the included intl subdirectory.
+dnl This used to be needed for the Windows crossbuild but is no longer
+dnl needed.
+#AM_GNU_GETTEXT
+
 
 # ----------------------------------------------------------------------
 # Checks for programs.
@@ -45,16 +58,6 @@ AC_PROG_YACC
 # Checks for libraries.
 # -----------------------------------------------------------------------
 
-# Check for SDL 
-SDL_VERSION=1.2.0
-
-AM_PATH_SDL($SDL_VERSION, :,
-         AC_MSG_ERROR([SDL version $SDL_VERSION not found! http://www.libsdl.org]) 
-) 
-
-CFLAGS="$CFLAGS $SDL_CFLAGS" 
-
-
 # Check platform - see if WinMain needed:
 AC_MSG_CHECKING([for native Win32])
 case "$host" in
@@ -69,44 +72,84 @@ AC_MSG_RESULT([$native_win32])
 
 AM_CONDITIONAL(BUILD_MINGW32, test $native_win32 = yes)
 
-if test $native_win32 = yes; then
-  LIBS="$LIBS -lmingw32 -lSDLmain -lSDL"
-else
-  LIBS="$LIBS $SDL_LIBS"
-fi
+
+dnl ---------------------------------------------------------
+dnl For crossbuild with mingw-cross-env, we use pkg_config,
+dnl but for native linux build we use #AC_CHECK_LIB() because
+dnl some distros (incl. Debian) don't support pkg_config for
+dnl the SDL libraries:
+dnl ---------------------------------------------------------
+
+AS_IF([test "x$native_win32" = xyes],
+dnl What we do for mingw crossbuild:
+[
+	dnl Check for SDL, SDL_image, SDL_mixer and SDL_Pango
+	[echo "Mingw crossbuild detected - using pkgconfig to check for SDL libs:"],
+	PKG_CHECK_MODULES([SDL], [sdl >= 1.2.0 SDL_image SDL_mixer SDL_Pango])
+	dnl The above macro does not set autoheader values, so do it now:
+	dnl Note that we could do the same for SDL_mixer and SDL_image,
+	dnl but we don't use those autoheaders in the program.
+	PKG_CHECK_EXISTS(SDL_Pango,
+			 [AC_DEFINE(HAVE_LIBSDL_PANGO,1)],
+			 [AC_DEFINE(HAVE_LIBSDL_PANGO,0)])
+
+	CFLAGS="$CFLAGS $SDL_CFLAGS" 
+	LIBS="$LIBS $SDL_LIBS"
+
+],
+[test "x$native_win32" = xno],
+dnl What we do if not doing mingw crossbuild:
+[
+	# Check for SDL:
+        [echo "Mingw crossbuild not detected - using #AC_CHECK_LIB() for SDL libs:"],
+	SDL_VERSION=1.2.0
+	AM_PATH_SDL($SDL_VERSION, :,
+		 AC_MSG_ERROR([SDL version $SDL_VERSION not found! http://www.libsdl.org]) 
+	) 
+	CFLAGS="$CFLAGS $SDL_CFLAGS" 
+	LIBS="$LIBS $SDL_LIBS"
+
+	# Check for SDL_image: 
+	AC_CHECK_LIB([SDL_image], 
+		     [IMG_Load],
+		     ,
+		     [AC_MSG_ERROR([SDL_image not found! http://www.libsdl.org/projects/SDL_image])])
+
+	# Check for SDL_mixer:. 
+	AC_CHECK_LIB([SDL_mixer], 
+		     [Mix_OpenAudio], 
+		     ,
+		     [AC_MSG_ERROR([SDL_mixer not found! http://www.libsdl.org/projects/SDL_mixer])])
+
+
+	dnl SDL_Pango is enabled by default.
+	dnl If SDL_Pango disabled at configure time, or if we can't find it,
+	dnl we look for SDL_ttf:
+
+	AC_ARG_WITH([sdlpango],
+		    [AS_HELP_STRING([--without-sdlpango],
+		    [Do not use SDL_Pango even if available])],
+		    [],
+		    [with_sdlpango=yes])
+
+	if test "x$with_sdlpango" != xno; then
+	AC_CHECK_LIB([SDL_Pango],
+		     [SDLPango_Init],
+		     ,
+		     [with_sdlpango=no;
+		      AC_MSG_FAILURE([SDL_Pango test failed (--without-sdlpango to disable)])])
+	fi
+],
+dnl This message means the test variable was not set to either "yes" or "no"
+[echo Warning - mingw crossbuild status not specified])
+
+dnl ----------------------------------------------------------------------------
+dnl End of AS_IF() conditional -------------------------------------------------
+dnl ---------------------------------------------------------------------------
 
 
 
-dnl Check for SDL_image: 
-AC_CHECK_LIB([SDL_image], 
-             [IMG_Load],
-             ,
-             [AC_MSG_ERROR([SDL_image not found! http://www.libsdl.org/projects/SDL_image])])
-
-dnl Check for SDL_mixer:. 
-AC_CHECK_LIB([SDL_mixer], 
-             [Mix_OpenAudio], 
-             ,
-             [AC_MSG_ERROR([SDL_mixer not found! http://www.libsdl.org/projects/SDL_mixer])])
-
-
-dnl SDL_Pango is enabled by default.
-dnl If SDL_Pango disabled at configure time, or if we can't find it,
-dnl we look for SDL_ttf:
-
-AC_ARG_WITH([sdlpango],
-            [AS_HELP_STRING([--without-sdlpango],
-            [don't use SDL_Pango even if available])],
-            [],
-            [with_sdlpango=yes])
-
-if test "x$with_sdlpango" != xno; then
-AC_CHECK_LIB([SDL_Pango],
-             [SDLPango_Init],
-             ,
-             [with_sdlpango=no;
-              AC_MSG_FAILURE([SDL_Pango test failed (--without-sdlpango to disable)])])
-fi
+dnl We only use SDL_ttf if SDL_Pango not available:
 
 if [test "x$with_sdlpango" = xno]; then
 AC_CHECK_LIB([SDL_ttf],
@@ -115,10 +158,12 @@ AC_CHECK_LIB([SDL_ttf],
              [AC_MSG_ERROR([SDL_ttf not found! http://www.libsdl.org/projects/SDL_ttf])])
 fi
 
+
+
 dnl Check for libRSVG and cairo. SVG support is enabled by default
 
 AC_ARG_WITH([rsvg],
-            [AS_HELP_STRING([--without-rsvg],[don't use libRSVG even if available])],
+            [AS_HELP_STRING([--without-rsvg],[do not use libRSVG even if available])],
             [with_rsvg=no],
             [with_rsvg=yes])
 
@@ -192,7 +237,7 @@ AC_FUNC_STAT
 AC_FUNC_STRCOLL
 AC_FUNC_STRTOD
 AC_FUNC_VPRINTF
-AC_CHECK_FUNCS([__argz_count __argz_next __argz_stringify atexit bcopy floor getcwd getenv localeconv localtime_r memmove mempcpy memset mkdir munmap nl_langinfo pow putenv scandir setenv setlocale stpcpy strcasecmp strchr strcspn strdup strncasecmp strndup strstr strtoul])
+AC_CHECK_FUNCS([__argz_count __argz_next __argz_stringify atexit bcopy floor getcwd getenv localeconv localtime_r memmove mempcpy memset Mix_Init mkdir munmap nl_langinfo pow putenv scandir SDLPango_CreateContext_GivenFontDesc setenv setlocale stpcpy strcasecmp strchr strcspn strdup strncasecmp strndup strstr strtoul])
 
 
 

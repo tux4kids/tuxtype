@@ -11,7 +11,6 @@ pkgsysconfdir = $(sysconfdir)/$(PACKAGE)
 
 SUBDIRS = data \
 	doc	\
-	intl	\
 	po	\
 	src
 
@@ -107,6 +106,8 @@ install-nsi-local: all
 ## create NSI_TEMP_INSTALL_DIR and install to that location:
 	$(INSTALL) -d $(NSI_TEMP_INSTALL_DIR)
 	$(MAKE) $(AM_MAKEFLAGS) DESTDIR=$(NSI_TEMP_INSTALL_DIR) install
+## remove bundled fonts now that we have SDL_Pango in crossbuild:
+##	rm -rf $(NSI_TEMP_INSTALL_DIR)/$(pkgdatadir)/fonts;
 ## create NSI_INSTALL_DIR/data dir and copy data files to that location:
 	$(INSTALL) -d $(top_builddir)/$(NSI_INSTALL_DIR)/data;
 	(cd $(NSI_TEMP_INSTALL_DIR)/$(pkgdatadir); \

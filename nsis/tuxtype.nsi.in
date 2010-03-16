@@ -47,7 +47,7 @@ AutoCloseWindow     true
 Section
   SetOutPath $INSTDIR
   File "mingw32\${APP_EXE}"
-  File "mingw32\*.dll"
+#  File "mingw32\*.dll"
   SetOutPath $INSTDIR\data
   File /r "mingw32\data\*.*"
   SetOutPath $INSTDIR\doc

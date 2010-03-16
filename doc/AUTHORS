@@ -23,8 +23,8 @@ Sarah Frisk <ssfrisk@gmail.com>
 
 Packaging & Ports:
 ------------------
-Holger Levsen <holger@debian.org> - (Debian packager, project maintainer)
-David Bruce <davidstuartbruce@gmail.com> - (Windows crossbuild using Linux host)
+Holger Levsen <holger@debian.org> - (Debian packager)
+David Bruce <davidstuartbruce@gmail.com> - (Windows crossbuild using Linux host, OpenSUSE Build Service rpm packages, MacPorts build)
 Alex Shorthouse <ashorthouse@rsd13.org>  - (more recent Mac OSX port)
 Luc Shrivers <Begasus@skynet.be> - (BeOS/Haiku port)
 
@@ -71,6 +71,6 @@ Mobin Mohan <mobinmohan@gmail.com> - (for Indic language support)
 Ralf Wildenhues <Ralf.Wildenhues@gmx.de> - (for Autotools help via mailing lists)
 Bruno Haible <bruno@haible.de> - (for invaluable help with Gettext)
 Caroline Ford <secretlondon@googlemail.com> - (for contribution of media files and Ubuntu help).
-Volker Grabsch <GET EMAIL AND VERIFY SPELLING> - (for mingw-cross-env build and Autoconf help).
+Volker Grabsch <vog@notjusthosting.com> - creator of mingw-cross-env crossbuild environment, addition of several libs to mingw-cross-env to support Tux4Kids, help with advanced Autoconf usage for crossbuild.
 
 Note: The Andika,Doulos, and Charis fonts are from SIL International and are licensed under the Open Font License, Version 1.1 (see "OFL.txt" in this directory for the full license text). 
