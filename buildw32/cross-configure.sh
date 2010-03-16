@@ -10,10 +10,14 @@ export CONFIG_SHELL
 # Set PREFIX, BUILD, TARGET, and CONFIG_PATH according to your build machine:
 
 # Path to crossbuild setup:
-#PREFIX=/usr/local/mingw
-PREFIX=/usr/local/mingw-cross-env/usr
+# NOTE: this corresponds with a default mingw-cross-env location
+# of "/opt/mingw-cross-env".  If mingw-cross-env is installed at
+# e.g. "$HOME/mingw", set PREFIX to "$HOME/mingw/usr"
+PREFIX=/opt/mingw-cross-env/usr
 
-# Architecture of the build machine itself:
+# NOTE: AFAICT, the key point seems to be that $BUILD is
+# different from $TARGET to trigger "cross-compile" mode.
+# This value appears to work even on 32-bit Linux
 BUILD=x86_64-linux
 
 # Architecture of the build machine's crossbuild setup

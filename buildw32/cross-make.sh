@@ -5,8 +5,10 @@
 # and lightly modified by David Bruce <davidstuartbruce@gmail.com>
 
 # Path to crossbuild setup:
-#PREFIX=/usr/local/mingw
-PREFIX=/usr/local/mingw-cross-env/usr
+# NOTE: this corresponds with a default mingw-cross-env location
+# of "/opt/mingw-cross-env".  If mingw-cross-env is installed at
+# e.g. "$HOME/mingw", set PREFIX to "$HOME/mingw/usr"
+PREFIX=/opt/mingw-cross-env/usr
 
 # Architecture of the build machine's crossbuild setup
 # as located by PREFIX:
