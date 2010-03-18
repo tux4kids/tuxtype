@@ -83,11 +83,11 @@ dnl ---------------------------------------------------------
 AS_IF([test "x$native_win32" = xyes],
 dnl What we do for mingw crossbuild:
 [
-	dnl Check for SDL, SDL_image, SDL_mixer and SDL_Pango
+	dnl Check for SDL, SDL_mixer and SDL_Pango
 	[echo "Mingw crossbuild detected - using pkgconfig to check for SDL libs:"],
-	PKG_CHECK_MODULES([SDL], [sdl >= 1.2.0 SDL_image SDL_mixer SDL_Pango])
+	PKG_CHECK_MODULES([SDL], [sdl >= 1.2.0 SDL_mixer SDL_Pango])
 	dnl The above macro does not set autoheader values, so do it now:
-	dnl Note that we could do the same for SDL_mixer and SDL_image,
+	dnl Note that we could do the same for SDL_mixer,
 	dnl but we don't use those autoheaders in the program.
 	PKG_CHECK_EXISTS(SDL_Pango,
 			 [AC_DEFINE(HAVE_LIBSDL_PANGO,1)],
@@ -109,11 +109,6 @@ dnl What we do if not doing mingw crossbuild:
 	CFLAGS="$CFLAGS $SDL_CFLAGS" 
 	LIBS="$LIBS $SDL_LIBS"
 
-	# Check for SDL_image: 
-	AC_CHECK_LIB([SDL_image], 
-		     [IMG_Load],
-		     ,
-		     [AC_MSG_ERROR([SDL_image not found! http://www.libsdl.org/projects/SDL_image])])
 
 	# Check for SDL_mixer:. 
 	AC_CHECK_LIB([SDL_mixer], 
@@ -147,7 +142,27 @@ dnl ----------------------------------------------------------------------------
 dnl End of AS_IF() conditional -------------------------------------------------
 dnl ---------------------------------------------------------------------------
 
+dnl In the following checks we attempt to use pkg-config if available, falling
+dnl back to #AC_CHECK_LIB if #PKG_CHECK_EXISTS fails:
 
+dnl Check for SDL_image:
+
+PKG_CHECK_EXISTS([SDL_image],
+	[SDL_IMAGE_CFLAGS=""
+	 SDL_IMAGE_LIBS=""
+	 PKG_CHECK_MODULES([SDL_IMAGE],
+			   [SDL_image],
+			   ,
+			   [AC_MSG_ERROR([SDL_image not found! http://www.libsdl.org/projects/SDL_image])])
+	 CFLAGS="$CFLAGS $SDL_IMAGE_CFLAGS"
+	 LIBS="$LIBS $SDL_IMAGE_LIBS"],
+
+	[AC_CHECK_LIB([SDL_image], 
+		     [IMG_Load],
+		     ,
+		     [AC_MSG_ERROR([SDL_image not found! http://www.libsdl.org/projects/SDL_image])]
+	)]
+)
 
 dnl We only use SDL_ttf if SDL_Pango not available:
 
