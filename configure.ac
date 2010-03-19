@@ -83,18 +83,13 @@ dnl ---------------------------------------------------------
 AS_IF([test "x$native_win32" = xyes],
 dnl What we do for mingw crossbuild:
 [
-	dnl Check for SDL and SDL_Pango
-	[echo "Mingw crossbuild detected - using pkgconfig to check for SDL libs:"],
-	PKG_CHECK_MODULES([SDL], [sdl >= 1.2.0 SDL_Pango])
-	dnl The above macro does not set autoheader values, so do it now:
-	PKG_CHECK_EXISTS(SDL_Pango,
-			 [AC_DEFINE(HAVE_LIBSDL_PANGO,1)],
-			 [AC_DEFINE(HAVE_LIBSDL_PANGO,0)])
-
+	dnl Check for SDL
+	[echo "Mingw crossbuild detected - using pkgconfig to check for SDL:"],
+	PKG_CHECK_MODULES([SDL], [sdl >= 1.2.0])
 	CFLAGS="$CFLAGS $SDL_CFLAGS" 
 	LIBS="$LIBS $SDL_LIBS"
-
 ],
+
 [test "x$native_win32" = xno],
 dnl What we do if not doing mingw crossbuild:
 [
@@ -106,28 +101,12 @@ dnl What we do if not doing mingw crossbuild:
 	) 
 	CFLAGS="$CFLAGS $SDL_CFLAGS" 
 	LIBS="$LIBS $SDL_LIBS"
-
-
-	dnl SDL_Pango is enabled by default.
-	dnl If SDL_Pango disabled at configure time, or if we can't find it,
-	dnl we look for SDL_ttf:
-
-	AC_ARG_WITH([sdlpango],
-		    [AS_HELP_STRING([--without-sdlpango],
-		    [Do not use SDL_Pango even if available])],
-		    [],
-		    [with_sdlpango=yes])
-
-	if test "x$with_sdlpango" != xno; then
-	AC_CHECK_LIB([SDL_Pango],
-		     [SDLPango_Init],
-		     ,
-		     [with_sdlpango=no;
-		      AC_MSG_FAILURE([SDL_Pango test failed (--without-sdlpango to disable)])])
-	fi
 ],
+
 dnl This message means the test variable was not set to either "yes" or "no"
-[echo Warning - mingw crossbuild status not specified])
+[echo Warning - mingw crossbuild status not specified]
+)
+
 
 dnl ----------------------------------------------------------------------------
 dnl End of AS_IF() conditional -------------------------------------------------
@@ -135,11 +114,14 @@ dnl ---------------------------------------------------------------------------
 
 
 
-
+dnl ---------------------------------------------------------------------------
 dnl In the following checks we attempt to use pkg-config if available, falling
-dnl back to #AC_CHECK_LIB if #PKG_CHECK_EXISTS fails:
+dnl back to #AC_CHECK_LIB if #PKG_CHECK_EXISTS fails.  The idea is to get away
+dnl from relying on checks for a specific OS, and relying on feature checks
+dnl instead.
+dnl ---------------------------------------------------------------------------
 
-dnl Check for SDL_image:
+dnl Check for SDL_image: ------------------------------------------------------
 
 PKG_CHECK_EXISTS([SDL_image],
 	dnl Use pkg-config if possible:
@@ -163,9 +145,9 @@ PKG_CHECK_EXISTS([SDL_image],
 
 
 
-dnl Check for SDL_mixer:
+dnl Check for SDL_mixer: --------------------------------------------------------
 
-PKG_CHECK_EXISTS([SDL_image],
+PKG_CHECK_EXISTS([SDL_mixer],
 	dnl Use pkg-config if possible:
 	[SDL_MIXER_CFLAGS=""
 	 SDL_MIXER_LIBS=""
@@ -186,8 +168,46 @@ PKG_CHECK_EXISTS([SDL_image],
 )
 
 
+dnl Check for SDL_Pango: --------------------------------------------------------
 
-dnl We only use SDL_ttf if SDL_Pango not available:
+dnl SDL_Pango is enabled by default.
+dnl If SDL_Pango disabled at configure time, or if we can't find it,
+dnl we look for SDL_ttf:
+
+AC_ARG_WITH([sdlpango],
+	    [AS_HELP_STRING([--without-sdlpango],
+	    [Do not use SDL_Pango even if available])],
+	    [],
+	    [with_sdlpango=yes]
+)
+
+if test "x$with_sdlpango" != xno; then
+PKG_CHECK_EXISTS([SDL_Pango],
+	dnl Use pkg-config if possible:
+	[SDL_PANGO_CFLAGS=""
+	 SDL_PANGO_LIBS=""
+	 PKG_CHECK_MODULES([SDL_PANGO],
+			   [SDL_Pango],
+			   ,
+			   [with_sdlpango=no;
+			    AC_MSG_FAILURE([SDL_Pango test failed (--without-sdlpango to disable)])])
+	 CFLAGS="$CFLAGS $SDL_PANGO_CFLAGS"
+	 LIBS="$LIBS $SDL_PANGO_LIBS"
+	 AC_DEFINE([HAVE_LIBSDL_PANGO],[1],[Define to 1 if you have the `SDL_Pango` library])
+	],
+	dnl Fallback if we can't use pkg-config:
+	[AC_CHECK_LIB([SDL_Pango], 
+		     [SDLPango_Init],
+		     ,
+		     [with_sdlpango=no;
+		      AC_MSG_FAILURE([SDL_Pango test failed (--without-sdlpango to disable)])]
+	)]
+)
+fi
+
+
+	
+dnl We only use SDL_ttf if SDL_Pango not available: --------------------------------------
 
 if [test "x$with_sdlpango" = xno]; then
 AC_CHECK_LIB([SDL_ttf],
