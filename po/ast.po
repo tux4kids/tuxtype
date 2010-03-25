@@ -6,21 +6,19 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tuxtype 1.8.0\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2009-12-17 07:15-0600\n"
+"POT-Creation-Date: 2010-01-15 13:40-0600\n"
 "PO-Revision-Date: 2010-03-06 08:26+0200\n"
 "Last-Translator: Xandru Armesto <xandru@softastur.org>\n"
 "Language-Team: Asturian Team alministradores@softastur.org\n"
-"Language: ast\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: ast\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Virtaal 0.5.2\n"
 "X-Poedit-Language: Asturian\n"
 
-#: src/loaders.c:88
-#: src/main.c:150
-#: src/playgame.c:629
+#: src/loaders.c:88 src/main.c:150 src/playgame.c:643
 msgid "Fish"
 msgstr "Pexe"
 
@@ -48,38 +46,35 @@ msgstr "Calca \"escape\" otra vuelta pa tornar al menú"
 msgid "Press space bar to return to game"
 msgstr "Calca \"espaciu\" pa tornar al xuegu"
 
-#: src/playgame.c:627
+#: src/playgame.c:641
 msgid "Level"
 msgstr "Nivel"
 
-#: src/playgame.c:628
+#: src/playgame.c:642
 msgid "Lives"
 msgstr "Vides"
 
-#: src/playgame.c:631
-#: src/titlescreen.c:89
+#: src/playgame.c:645 src/titlescreen.c:89
 msgid "Easy"
 msgstr "Fácil"
 
-#: src/playgame.c:632
-#: src/titlescreen.c:90
+#: src/playgame.c:646 src/titlescreen.c:90
 msgid "Medium"
 msgstr "Mediu"
 
-#: src/playgame.c:633
-#: src/titlescreen.c:91
+#: src/playgame.c:647 src/titlescreen.c:91
 msgid "Hard"
 msgstr "Difícil"
 
-#: src/playgame.c:634
+#: src/playgame.c:648
 msgid "Practice"
 msgstr "Practicar"
 
-#: src/playgame.c:645
+#: src/playgame.c:659
 msgid "Congratulations"
 msgstr "Norabona"
 
-#: src/playgame.c:649
+#: src/playgame.c:663
 msgid "Oh No!"
 msgstr "¡Oh, Non!"
 
@@ -171,14 +166,14 @@ msgstr "Colar"
 msgid "Main Menu"
 msgstr "Menú Principal"
 
-#: src/titlescreen.c:1113
+#: src/titlescreen.c:1117
 msgid "Work In Progress!"
 msgstr "¡Trabayando nello!"
 
-#: src/titlescreen.c:1114
+#: src/titlescreen.c:1118
 msgid "This feature is not ready yet"
 msgstr "Esta función nun ta preparada entá"
 
-#: src/titlescreen.c:1115
+#: src/titlescreen.c:1119
 msgid "Discuss the future of TuxTyping at"
 msgstr "Alderica al rodiu del futuru de TuxTyping en"
