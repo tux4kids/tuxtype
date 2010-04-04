@@ -10,10 +10,10 @@
        <img src="/keyboard/keyboard-us.png" x="45" y="220"/>
        <text align="center">In this exercise we practice the f key.</text>
        <text align="center">To start practicing hit the p key</text>
-       <text color="#000000" x="100" y="273">A</text>
-       <text color="#000000" x="130" y="273">S</text>
-       <text color="#000000" x="160" y="273">D</text>
-       <text color="#000000" x="190" y="273">F</text>
+       <text color="#000000" x="100" y="280">A</text>
+       <text color="#000000" x="130" y="280">S</text>
+       <text color="#000000" x="160" y="280">D</text>
+       <text color="#000000" x="190" y="280">F</text>
       <waitforchar/>
       <prac>fff fff fff fff fff ffa aff ffss ffs fsd sff fsfs sffs dsf fdfa fsad affd sffs ffs afa adff fdda fff fff fff fff fff ffa aff</prac>
       </page>

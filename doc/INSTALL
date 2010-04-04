@@ -1,5 +1,5 @@
 Tux Typing 1.8.1
-24 Feb 2010
+04 Apr 2010
 
 NOTE - this document is reasonably correct but not completely current.
 It will updated as the maintainer's time allows. For GNU/Linux users, you
@@ -37,7 +37,7 @@ Quick Installation
  SDL_Pango            http://sdlpango.sourceforge.net
 
  SDL_Pango will be used if found as it provides complex rendering needed
- for many non-Western languages.
+ for many non-Western languages. If SDL_Pango is not available, it is necessary to disable use of this library at configure time with "--without-sdlpango".
 
  Tuxtype links to librsvg if available, as we will soon use SVG graphics, but
  for now it is fine to disable this with "--without-rsvg" at configure time.
@@ -71,7 +71,7 @@ the corresponding Makefile.am's.  You should not need to do this if you are buil
 a tuxtype*.tar.gz (but will need to do this if building from a Subversion checkout).
 
 Note - if you have SDL_Pango available, you can use the package without bundled fonts (e.g. 
-tuxtype-1.8.0.tar.gz).  The tarball with the bundled fonts, e.g. tuxtype_w_fonts-1.8.0.tar.gz.
+tuxtype-1.8.1.tar.gz).  The tarball with the bundled fonts, e.g. tuxtype_w_fonts-1.8.1.tar.gz.
 will work fine whether or not SDL_Pango is available.  The unused fonts will simply take up about 2.5 MB on your hard drive.
 
 We want this to work for everybody, everywhere, if it doesn't

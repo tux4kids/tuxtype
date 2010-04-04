@@ -1,3 +1,13 @@
+04 Apr 2010 (git.debian.org/tux4kids/tuxtype.git - tag = "version-1.8.1"
+[ David Bruce <davidstuartbruce@gmail.com> ]
+Version 1.8.1
+	- Several minor enhancements - git commit messages now serving as
+	primary documentation of development, rather than this changelog.
+	- Fish cascade backgrounds now selected randomly.
+	- Fish cascade graphics now use true alpha channel rather than SDL
+	colorkey.
+	- Some fixes related to file location of custom word lists.
+
 09 Nov 2009 (svn.debian.org/tux4kids - revision 1640) 
 [ David Bruce <davidstuartbruce@gmail.com> ]
 Version 1.8.0
