@@ -391,6 +391,7 @@ void TitleScreen(void)
 
 
             case SDLK_UP:
+	    case SDLK_k:
             {
               if (settings.menu_sound)
                 PlaySound(snd_move);
@@ -402,6 +403,7 @@ void TitleScreen(void)
 
 
             case SDLK_DOWN:
+	    case SDLK_j:
             {
               key_menu++;
               if (settings.menu_sound)
