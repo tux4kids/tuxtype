@@ -1533,13 +1533,17 @@ static int chooseWordlist(void)
               loc = (loc - (loc % 8) + 8);
           }
 
-          if (event.key.keysym.sym == SDLK_UP)
+          if ((event.key.keysym.sym == SDLK_UP)
+	     ||
+	      (event.key.keysym.sym == SDLK_k))
           {
             if (loc > 0)
               loc--;
           }
 
-          if (event.key.keysym.sym == SDLK_DOWN)
+          if ((event.key.keysym.sym == SDLK_DOWN)
+	     ||
+	      (event.key.keysym.sym == SDLK_j))
           {
             if (loc+1<lists)
               loc++;
