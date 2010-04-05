@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tuxtype 1.8.0\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2010-01-15 13:40-0600\n"
+"POT-Creation-Date: 2010-04-04 12:17-0500\n"
 "PO-Revision-Date: 2010-03-06 08:26+0200\n"
 "Last-Translator: Xandru Armesto <xandru@softastur.org>\n"
 "Language-Team: Asturian Team alministradores@softastur.org\n"
@@ -166,14 +166,14 @@ msgstr "Colar"
 msgid "Main Menu"
 msgstr "Menú Principal"
 
-#: src/titlescreen.c:1117
+#: src/titlescreen.c:1119
 msgid "Work In Progress!"
 msgstr "¡Trabayando nello!"
 
-#: src/titlescreen.c:1118
+#: src/titlescreen.c:1120
 msgid "This feature is not ready yet"
 msgstr "Esta función nun ta preparada entá"
 
-#: src/titlescreen.c:1119
+#: src/titlescreen.c:1121
 msgid "Discuss the future of TuxTyping at"
 msgstr "Alderica al rodiu del futuru de TuxTyping en"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tux Typing 1.5.16\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2010-01-15 13:40-0600\n"
+"POT-Creation-Date: 2010-04-04 12:17-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Mobin M <mobinmohan@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -173,17 +173,17 @@ msgid "Main Menu"
 msgstr "Main Menu"
 
 # work in progress stuff
-#: src/titlescreen.c:1117
+#: src/titlescreen.c:1119
 #, fuzzy
 msgid "Work In Progress!"
 msgstr "Work in Progress!"
 
-#: src/titlescreen.c:1118
+#: src/titlescreen.c:1120
 #, fuzzy
 msgid "This feature is not ready yet"
 msgstr "this feature is not ready yet"
 
-#: src/titlescreen.c:1119
+#: src/titlescreen.c:1121
 msgid "Discuss the future of TuxTyping at"
 msgstr "Discuss the future of TuxTyping at"
 

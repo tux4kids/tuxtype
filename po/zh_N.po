@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2010-01-15 13:40-0600\n"
+"POT-Creation-Date: 2010-04-04 12:17-0500\n"
 "PO-Revision-Date: 2009-12-16 23:09+0800\n"
 "Last-Translator: PockeyLam <pockey@greenboard.org.cn>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -164,15 +164,15 @@ msgstr "退出"
 msgid "Main Menu"
 msgstr "主菜单"
 
-#: src/titlescreen.c:1117
+#: src/titlescreen.c:1119
 msgid "Work In Progress!"
 msgstr "进行中！"
 
-#: src/titlescreen.c:1118
+#: src/titlescreen.c:1120
 msgid "This feature is not ready yet"
 msgstr "目前还没有这个功能"
 
-#: src/titlescreen.c:1119
+#: src/titlescreen.c:1121
 msgid "Discuss the future of TuxTyping at"
 msgstr "希望讨论企鹅打字项目的未来发展，请到"
 
