@@ -80,6 +80,9 @@ dnl some distros (incl. Debian) don't support pkg_config for
 dnl the SDL libraries:
 dnl ---------------------------------------------------------
 
+dnl FIXME should eliminate test for win32 for SDL check as
+dnl we did for other libs.
+
 AS_IF([test "x$native_win32" = xyes],
 dnl What we do for mingw crossbuild:
 [
