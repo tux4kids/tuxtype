@@ -1,26 +1,14 @@
-Updated 10 Jun 2009
+Updated 04 Apr 2010
 
-Briefly, here is what we are working on for GSoC 2009:
+Briefly, here are some current issues:
 
 Tuxtype:
-  - svg support
-  - addition of user-specific search path for word and phrase lists, so people can add their own content more readily.
-  - config/admin tool using gui toolkit (e.g. Qt4 but could be something else)
-  - perhaps LAN support
-
-Tuxmath:
-  - svg support
-  - config/admin tool using gui toolkit (e.g. Qt4 but could be something else)
-  - LAN multiplayer mode - need refactoring into client/server architecture (could be applied to tuxtype also).
-
-As you can see, the ideas are similar for both programs.
-
-Apart from GSoC, both programs need ongoing code cleanup, especially tuxtype.  Also, tuxtype could benefit greatly at this point from a refresh of things other than the C code itself - completion of rest of menu sprite icons, more word lists and phrase files, etc. 
-
--check that SVN is free of generated files. create release-script, 
-
-- change location of custom word lists in Windows build to user's application data folder
-- tweaking of display for word list editor with better user feedback
-- display xml lesson files using title rather than file name
-- have tuxtype automatically go into either the OS locale, or perhaps the selected locale from the previous session, rather than always English.
-
+	- Code: still needs a lot of cleanup.  Tuxtype could benefit markedly from the reorganization using libt4k-common.
+	- Build: mingw-cross-env crossbuild not ready for general consumption.
+		- SDL_mixer 1.2.11 exits unexpectedly on initial call to Mix_OpenAudio(), reason not yet clear.
+		- SDL_Pango builds successfully, but resultant program does not display any text when run under Windows.
+		- If SDL_Pango disabled, configure script fails to link to SDL_ttf.
+	- Build: need current binary build for Mac OS-X
+	- Input methods: tuxtype does not correctly handle keyboard input that uses more than one keypress for each character (such as Asian languages).  The input methods code from tuxpaint has been added to the source tree, but is not yet actually used.
+	- "Content" - could use better lessons to actually teach touch typing in a systematic fashion.
+	- Should display lesson names rather than simply file names, and would be good to have "gold stars" as in tuxmath.

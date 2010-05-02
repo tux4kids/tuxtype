@@ -1,0 +1,29 @@
+<script title="Comet Zap Instructions" background="main_bkg.jpg">
+  <page>
+  <text align="center" size="28">Save The Cities From Falling Comets!</text>
+<waitforinput/>
+ </page>
+  <page>
+  <text align="center" size="28">Save The Cities From Falling Comets!</text>
+<waitforinput/>
+ </page>
+  <page>
+  <text align="center" size="28">Save The Cities From Falling Comets!</text>
+<waitforinput/>
+ </page>
+  <page>
+  <text align="center" size="28">Save The Cities From Falling Comets!</text>
+<waitforinput/>
+ </page>
+  <page>
+  <text align="center" size="28">Save The Cities From Falling Comets!</text>
+<waitforinput/>
+ </page>
+  <page>
+    <text>Tux is very hungry!  Eating fish with letters gives him a tummy ache.</text>
+    <text>Help Tux eat fish by pressing the letters on the fish making</text>
+    <text>them go away so he can eat all the 10 9 8 7 6 5 4 3 2 1 0</text>
+ <waitforinput/>
+ </page>
+</lesson>
+   

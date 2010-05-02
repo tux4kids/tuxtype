@@ -20,10 +20,11 @@ Original Windows Port by:
 Windows Crossbuild by:
 	David Bruce <davidstuartbruce@gmail.com>
 	(based on TuxMath Windows crossbuild by Yves Combe)
+Newer mingw-cross-env crossbuild (still under construction) made possible thanks to extensive help from ming-cross-env maintainer, Volker Grabsch.
 
 To install the binary package for Tux Typing for Windows:
 
-1. Run the nsis installer file (e.g. tuxtype-1.7.3-win32-installer.exe)
+1. Run the nsis installer file (e.g. tuxtype-1.8.1-win32-installer.exe)
 2. Click to review the terms of the GPL.
 (Note - you actually have the legal right to install and run the program
 irrespective of what you think of the GPL, but the NSIS installer

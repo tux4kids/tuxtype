@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tux Typing 1.5.16\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2010-01-15 13:40-0600\n"
+"POT-Creation-Date: 2010-04-04 12:17-0500\n"
 "PO-Revision-Date: 2007-09-25 09:50-0000\n"
 "Last-Translator: Ousmane Faty Ndongo et Dominique Rochefort <alfanet@anafa."
 "org>\n"
@@ -174,15 +174,15 @@ msgid "Main Menu"
 msgstr "Njël li ëpp solo"
 
 # work in progress stuff
-#: src/titlescreen.c:1117
+#: src/titlescreen.c:1119
 msgid "Work In Progress!"
 msgstr "Ñi ngi koy defar!"
 
-#: src/titlescreen.c:1118
+#: src/titlescreen.c:1120
 msgid "This feature is not ready yet"
 msgstr "Pareegul"
 
-#: src/titlescreen.c:1119
+#: src/titlescreen.c:1121
 msgid "Discuss the future of TuxTyping at"
 msgstr "Wax ci ëlëgu TuxTyping ak"
 

@@ -341,7 +341,6 @@ static int load_settings_fp(FILE* fp)
       DEBUGCODE {fprintf(stderr, "load_settings_fp(): Setting theme locale to %s\n", value);}
       strncpy(settings.theme_locale_name, value, FNLEN - 1);
       setting_found = 1;
-      fprintf(stderr, "load_settings_fp(): Setting theme locale to %s\n", value);
     }
     else
       DEBUGCODE {fprintf(stderr, "load_settings_fp(): unrecognized string: %s\n", value);}
