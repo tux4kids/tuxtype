@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tux Typing 1.5.16\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2010-01-15 13:40-0600\n"
+"POT-Creation-Date: 2010-04-04 12:17-0500\n"
 "PO-Revision-Date: 2008-08-22 12:36+0530\n"
 "Last-Translator: Amitakhya Phukan <aphukan@redhat.com>\n"
 "Language-Team: American English <kde-i18n-doc@lists.kde.org>\n"
@@ -163,15 +163,15 @@ msgstr "বাহিৰ হওক"
 msgid "Main Menu"
 msgstr "মূখ্য তালিকা"
 
-#: src/titlescreen.c:1117
+#: src/titlescreen.c:1119
 msgid "Work In Progress!"
 msgstr "কাম চলি আছে‌!"
 
-#: src/titlescreen.c:1118
+#: src/titlescreen.c:1120
 msgid "This feature is not ready yet"
 msgstr "এই গুণ এতিয়া প্ৰস্তুত নহয়"
 
-#: src/titlescreen.c:1119
+#: src/titlescreen.c:1121
 msgid "Discuss the future of TuxTyping at"
 msgstr "TuxTyping ৰ গুণৰ আলোচনা ইয়াত কৰক"
 

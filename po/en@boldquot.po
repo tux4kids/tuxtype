@@ -31,8 +31,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tuxtype 1.8.1\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2010-01-15 13:40-0600\n"
-"PO-Revision-Date: 2010-01-15 13:40-0600\n"
+"POT-Creation-Date: 2010-04-04 12:17-0500\n"
+"PO-Revision-Date: 2010-04-04 12:17-0500\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -188,14 +188,14 @@ msgstr "Quit"
 msgid "Main Menu"
 msgstr "Main Menu"
 
-#: src/titlescreen.c:1117
+#: src/titlescreen.c:1119
 msgid "Work In Progress!"
 msgstr "Work In Progress!"
 
-#: src/titlescreen.c:1118
+#: src/titlescreen.c:1120
 msgid "This feature is not ready yet"
 msgstr "This feature is not ready yet"
 
-#: src/titlescreen.c:1119
+#: src/titlescreen.c:1121
 msgid "Discuss the future of TuxTyping at"
 msgstr "Discuss the future of TuxTyping at"

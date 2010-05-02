@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tux Typing 1.5.16\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2010-01-15 13:40-0600\n"
+"POT-Creation-Date: 2010-04-04 12:17-0500\n"
 "PO-Revision-Date: 2007-11-10 16:36+0100\n"
 "Last-Translator: JardaK <krejci@zstenis.com>\n"
 "Language-Team: czech <cs@li.org>\n"
@@ -196,17 +196,17 @@ msgid "Main Menu"
 msgstr "Hlavní menu"
 
 #
-#: src/titlescreen.c:1117
+#: src/titlescreen.c:1119
 msgid "Work In Progress!"
 msgstr "Ve výstavbě!"
 
 #
-#: src/titlescreen.c:1118
+#: src/titlescreen.c:1120
 msgid "This feature is not ready yet"
 msgstr "Tato vlastnost ještě nefunguje"
 
 #
-#: src/titlescreen.c:1119
+#: src/titlescreen.c:1121
 msgid "Discuss the future of TuxTyping at"
 msgstr "Diskutuj o budoucnosti TuxTyping na"
 

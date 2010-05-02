@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tuxtype\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2010-01-15 13:40-0600\n"
+"POT-Creation-Date: 2010-04-04 12:17-0500\n"
 "PO-Revision-Date: 2008-08-22 12:41+0530\n"
 "Last-Translator: Felix I <ifelix25@gmail.com>, 2008\n"
 "Language-Team:  <en@li.org>\n"
@@ -163,15 +163,15 @@ msgstr "வெளியேறு"
 msgid "Main Menu"
 msgstr "முதன்மை மெனு"
 
-#: src/titlescreen.c:1117
+#: src/titlescreen.c:1119
 msgid "Work In Progress!"
 msgstr "பணி நடைபெறுகிறது!"
 
-#: src/titlescreen.c:1118
+#: src/titlescreen.c:1120
 msgid "This feature is not ready yet"
 msgstr "இந்த வசதி இதுவரை இல்லை"
 
-#: src/titlescreen.c:1119
+#: src/titlescreen.c:1121
 msgid "Discuss the future of TuxTyping at"
 msgstr "TuxTyping எதிர்கால திட்டத்தை இங்கு விவாதிக்கவும்"
 
