@@ -213,7 +213,11 @@ fi
 dnl We only use SDL_ttf if SDL_Pango not available: --------------------------------------
 
 if [test "x$with_sdlpango" = xno]; then
+
+dnl Add freetype link "by hand" until mingw-cross-env takes care
+dnl of this automatically
 LIBS="-lfreetype $LIBS"
+
 AC_CHECK_LIB([SDL_ttf],
              [TTF_Init],
              ,
