@@ -83,37 +83,24 @@ dnl ---------------------------------------------------------
 dnl FIXME should eliminate test for win32 for SDL check as
 dnl we did for other libs.
 
-AS_IF([test "x$native_win32" = xyes],
-dnl What we do for mingw crossbuild:
+dnl Check for SDL
+PKG_CHECK_MODULES([SDL],
+		  [sdl >= 1.2.0],
+		  [],
+		  [sdl_pkg_config_failed=yes])
+dnl If pkg_config fails, try with #AM_PATH_SDL():
+AS_IF([test "x$sdl_pkg_config_failed" = xyes],
 [
-	dnl Check for SDL
-	[echo "Mingw crossbuild detected - using pkgconfig to check for SDL:"],
-	PKG_CHECK_MODULES([SDL], [sdl >= 1.2.0])
-	CFLAGS="$CFLAGS $SDL_CFLAGS" 
-	LIBS="$LIBS $SDL_LIBS"
-],
-
-[test "x$native_win32" = xno],
-dnl What we do if not doing mingw crossbuild:
-[
-	# Check for SDL:
-        [echo "Mingw crossbuild not detected - using #AC_CHECK_LIB() for SDL libs:"],
+        [echo "SDL not detected by pkg_config - trying #AM_PATH_SDL:"],
 	SDL_VERSION=1.2.0
 	AM_PATH_SDL($SDL_VERSION, :,
 		 AC_MSG_ERROR([SDL version $SDL_VERSION not found! http://www.libsdl.org]) 
 	) 
-	CFLAGS="$CFLAGS $SDL_CFLAGS" 
-	LIBS="$LIBS $SDL_LIBS"
-],
-
-dnl This message means the test variable was not set to either "yes" or "no"
-[echo Warning - mingw crossbuild status not specified]
+]
 )
+CFLAGS="$CFLAGS $SDL_CFLAGS" 
+LIBS="$LIBS $SDL_LIBS"
 
-
-dnl ----------------------------------------------------------------------------
-dnl End of AS_IF() conditional -------------------------------------------------
-dnl ---------------------------------------------------------------------------
 
 
 
