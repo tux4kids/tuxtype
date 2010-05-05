@@ -77,11 +77,9 @@ dnl ---------------------------------------------------------
 dnl For crossbuild with mingw-cross-env, we use pkg_config,
 dnl but for native linux build we use #AC_CHECK_LIB() because
 dnl some distros (incl. Debian) don't support pkg_config for
-dnl the SDL libraries:
+dnl all of the SDL libraries:
 dnl ---------------------------------------------------------
 
-dnl FIXME should eliminate test for win32 for SDL check as
-dnl we did for other libs.
 
 dnl Check for SDL
 PKG_CHECK_MODULES([SDL],
@@ -102,19 +100,23 @@ LIBS="$LIBS $SDL_LIBS"
 
 dnl ---------------------------------------------------------------------------
 dnl In the following checks we attempt to use pkg-config if available, falling
-dnl back to #AC_CHECK_LIB if #PKG_CHECK_EXISTS fails.  The idea is to get away
-dnl from relying on checks for a specific OS, and relying on feature checks
-dnl instead.
+dnl back to #AC_CHECK_LIB if #PKG_CHECK_MODULES fails.
 dnl ---------------------------------------------------------------------------
 
 dnl Check for SDL_image: ------------------------------------------------------
 
-PKG_CHECK_MODULES([SDL_IMAGE], [SDL_image],
+PKG_CHECK_MODULES([SDL_IMAGE],
+    [SDL_image],
     ,
-    AC_CHECK_LIB([SDL_image], [IMG_Load],
+    [  
+      [echo "SDL_IMAGE not found via pkg_config, checking with AC_CHECK_LIB:"]
+      AC_CHECK_LIB([SDL_image],
+	[IMG_Load],
         ,
         [AC_MSG_ERROR([SDL_image not found! http://www.libsdl.org/projects/SDL_image])]
-    )
+      )
+      [echo "SDL_IMAGE successfully located"]
+    ]
 )
 
 AC_DEFINE([HAVE_LIBSDL_IMAGE],[1],[Define to 1 if you have the `SDL_image` library])
@@ -124,25 +126,24 @@ LIBS="$LIBS $SDL_IMAGE_LIBS"
 
 dnl Check for SDL_mixer: --------------------------------------------------------
 
-PKG_CHECK_EXISTS([SDL_mixer],
-	dnl Use pkg-config if possible:
-	[SDL_MIXER_CFLAGS=""
-	 SDL_MIXER_LIBS=""
-	 PKG_CHECK_MODULES([SDL_MIXER],
-			   [SDL_mixer],
-			   ,
-			   [AC_MSG_ERROR([SDL_mixer not found! http://www.libsdl.org/projects/SDL_mixer])])
-	 CFLAGS="$CFLAGS $SDL_MIXER_CFLAGS"
-	 LIBS="$LIBS $SDL_MIXER_LIBS"
-	 AC_DEFINE([HAVE_LIBSDL_MIXER],[1],[Define to 1 if you have the `SDL_mixer` library])
-	 ],
-	dnl Fallback if we can't use pkg-config:
-	[AC_CHECK_LIB([SDL_mixer], 
-		     [Mix_OpenAudio],
-		     ,
-		     [AC_MSG_ERROR([SDL_mixer not found! http://www.libsdl.org/projects/SDL_mixer])]
-	)]
+PKG_CHECK_MODULES([SDL_MIXER],
+    [SDL_mixer],
+    ,
+    [
+      [echo "SDL_MIXER not found via pkg_config, checking with AC_CHECK_LIB:"]
+      AC_CHECK_LIB([SDL_mixer],
+	 [Mix_OpenAudio],
+         ,
+         [AC_MSG_ERROR([SDL_mixer not found! http://www.libsdl.org/projects/SDL_mixer])]
+      )
+      [echo "SDL_MIXER successfully located"]
+    ] 
 )
+
+AC_DEFINE([HAVE_LIBSDL_MIXER],[1],[Define to 1 if you have the `SDL_mixer` library])
+CFLAGS="$CFLAGS $SDL_MIXER_CFLAGS"
+LIBS="$LIBS $SDL_MIXER_LIBS"
+
 
 
 dnl Check for SDL_Pango: --------------------------------------------------------
@@ -159,32 +160,28 @@ AC_ARG_WITH([sdlpango],
 )
 
 if test "x$with_sdlpango" != xno; then
-PKG_CHECK_EXISTS([SDL_Pango],
-	dnl Use pkg-config if possible:
-	[SDL_PANGO_CFLAGS=""
-	 SDL_PANGO_LIBS=""
-	 PKG_CHECK_MODULES([SDL_PANGO],
-			   [SDL_Pango],
-			   ,
-			   [with_sdlpango=no;
-			    AC_MSG_FAILURE([SDL_Pango test failed (--without-sdlpango to disable)])])
-	 CFLAGS="$CFLAGS $SDL_PANGO_CFLAGS"
-	 LIBS="$LIBS $SDL_PANGO_LIBS"
-	 AC_DEFINE([HAVE_LIBSDL_PANGO],[1],[Define to 1 if you have the `SDL_Pango` library])
-	],
-	dnl Fallback if we can't use pkg-config:
-	[AC_CHECK_LIB([SDL_Pango], 
-		     [SDLPango_Init],
-		     ,
-		     [with_sdlpango=no;
-		      AC_MSG_FAILURE([SDL_Pango test failed (--without-sdlpango to disable)])]
-	)]
+
+PKG_CHECK_MODULES([SDL_PANGO],
+    [SDL_Pango],
+    ,
+    [
+      [echo "SDL_PANGO not found via pkg_config, checking with AC_CHECK_LIB:"]
+      AC_CHECK_LIB([SDL_Pango],
+	 [SDLPango_Init],
+         ,
+         [AC_MSG_ERROR([SDL_Pango not found! http://sdlpango.sourceforge.net])]
+      )
+      [echo "SDL_PANGO successfully located"]
+    ] 
 )
+
+AC_DEFINE([HAVE_LIBSDL_PANGO],[1],[Define to 1 if you have the `SDL_Pango` library])
+CFLAGS="$CFLAGS $SDL_PANGO_CFLAGS"
+LIBS="$LIBS $SDL_PANGO_LIBS"
+
 fi
-
-
 	
-dnl We only use SDL_ttf if SDL_Pango not available: --------------------------------------
+dnl We only use SDL_ttf if SDL_Pango disabled: --------------------------------------
 
 if [test "x$with_sdlpango" = xno]; then
 
