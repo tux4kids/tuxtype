@@ -85,19 +85,15 @@ dnl we did for other libs.
 
 dnl Check for SDL
 PKG_CHECK_MODULES([SDL],
-		  [sdl >= 1.2.0],
-		  [],
-		  [sdl_pkg_config_failed=yes])
-dnl If pkg_config fails, try with #AM_PATH_SDL():
-AS_IF([test "x$sdl_pkg_config_failed" = xyes],
-[
-        [echo "SDL not detected by pkg_config - trying #AM_PATH_SDL:"],
-	SDL_VERSION=1.2.0
-	AM_PATH_SDL($SDL_VERSION, :,
-		 AC_MSG_ERROR([SDL version $SDL_VERSION not found! http://www.libsdl.org]) 
-	) 
-]
+  [sdl >= 1.2.0],
+  [],
+  [ SDL_VERSION=1.2.0
+    AM_PATH_SDL($SDL_VERSION, :,
+       AC_MSG_ERROR([SDL version $SDL_VERSION not found! http://www.libsdl.org])
+    ) 
+  ]
 )
+
 CFLAGS="$CFLAGS $SDL_CFLAGS" 
 LIBS="$LIBS $SDL_LIBS"
 
@@ -113,26 +109,17 @@ dnl ---------------------------------------------------------------------------
 
 dnl Check for SDL_image: ------------------------------------------------------
 
-PKG_CHECK_EXISTS([SDL_image],
-	dnl Use pkg-config if possible:
-	[SDL_IMAGE_CFLAGS=""
-	 SDL_IMAGE_LIBS=""
-	 PKG_CHECK_MODULES([SDL_IMAGE],
-			   [SDL_image],
-			   ,
-			   [AC_MSG_ERROR([SDL_image not found! http://www.libsdl.org/projects/SDL_image])])
-	 CFLAGS="$CFLAGS $SDL_IMAGE_CFLAGS"
-	 LIBS="$LIBS $SDL_IMAGE_LIBS"
-	 AC_DEFINE([HAVE_LIBSDL_IMAGE],[1],[Define to 1 if you have the `SDL_image` library])
-	 ],
-	dnl Fallback if we can't use pkg-config:
-	[AC_CHECK_LIB([SDL_image], 
-		     [IMG_Load],
-		     ,
-		     [AC_MSG_ERROR([SDL_image not found! http://www.libsdl.org/projects/SDL_image])]
-	)]
+PKG_CHECK_MODULES([SDL_IMAGE], [SDL_image],
+    ,
+    AC_CHECK_LIB([SDL_image], [IMG_Load],
+        ,
+        [AC_MSG_ERROR([SDL_image not found! http://www.libsdl.org/projects/SDL_image])]
+    )
 )
 
+AC_DEFINE([HAVE_LIBSDL_IMAGE],[1],[Define to 1 if you have the `SDL_image` library])
+CFLAGS="$CFLAGS $SDL_IMAGE_CFLAGS"
+LIBS="$LIBS $SDL_IMAGE_LIBS"
 
 
 dnl Check for SDL_mixer: --------------------------------------------------------
