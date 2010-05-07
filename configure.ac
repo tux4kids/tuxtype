@@ -89,8 +89,7 @@ PKG_CHECK_MODULES([SDL],
     AM_PATH_SDL($SDL_VERSION, :,
        AC_MSG_ERROR([SDL version $SDL_VERSION not found! http://www.libsdl.org])
     ) 
-  ]
-)
+  ])
 
 CFLAGS="$CFLAGS $SDL_CFLAGS" 
 LIBS="$LIBS $SDL_LIBS"
@@ -116,8 +115,7 @@ PKG_CHECK_MODULES([SDL_IMAGE],
         [AC_MSG_ERROR([SDL_image not found! http://www.libsdl.org/projects/SDL_image])]
       )
       [echo "SDL_IMAGE successfully located"]
-    ]
-)
+    ])
 
 AC_DEFINE([HAVE_LIBSDL_IMAGE],[1],[Define to 1 if you have the `SDL_image` library])
 CFLAGS="$CFLAGS $SDL_IMAGE_CFLAGS"
@@ -137,8 +135,7 @@ PKG_CHECK_MODULES([SDL_MIXER],
          [AC_MSG_ERROR([SDL_mixer not found! http://www.libsdl.org/projects/SDL_mixer])]
       )
       [echo "SDL_MIXER successfully located"]
-    ] 
-)
+    ])
 
 AC_DEFINE([HAVE_LIBSDL_MIXER],[1],[Define to 1 if you have the `SDL_mixer` library])
 CFLAGS="$CFLAGS $SDL_MIXER_CFLAGS"
@@ -156,43 +153,51 @@ AC_ARG_WITH([sdlpango],
 	    [AS_HELP_STRING([--without-sdlpango],
 	    [Do not use SDL_Pango even if available])],
 	    [],
-	    [with_sdlpango=yes]
-)
+	    [with_sdlpango=yes])
 
 if test "x$with_sdlpango" != xno; then
 
-PKG_CHECK_MODULES([SDL_PANGO],
-    [SDL_Pango],
-    ,
-    [
-      [echo "SDL_PANGO not found via pkg_config, checking with AC_CHECK_LIB:"]
-      AC_CHECK_LIB([SDL_Pango],
-	 [SDLPango_Init],
-         ,
-         [AC_MSG_ERROR([SDL_Pango not found! http://sdlpango.sourceforge.net])]
-      )
-      [echo "SDL_PANGO successfully located"]
-    ] 
-)
+  PKG_CHECK_MODULES([SDL_PANGO],
+      [SDL_Pango],
+      ,
+      [
+        [echo "SDL_PANGO not found via pkg_config, checking with AC_CHECK_LIB:"]
+        AC_CHECK_LIB([SDL_Pango],
+          [SDLPango_Init],
+          ,
+          [AC_MSG_ERROR([SDL_Pango not found! http://sdlpango.sourceforge.net])])
+        [echo "SDL_PANGO successfully located"]
+      ])
 
-AC_DEFINE([HAVE_LIBSDL_PANGO],[1],[Define to 1 if you have the `SDL_Pango` library])
-CFLAGS="$CFLAGS $SDL_PANGO_CFLAGS"
-LIBS="$LIBS $SDL_PANGO_LIBS"
-
+  AC_DEFINE([HAVE_LIBSDL_PANGO],[1],[Define to 1 if you have the `SDL_Pango` library])
+  CFLAGS="$CFLAGS $SDL_PANGO_CFLAGS"
+  LIBS="$LIBS $SDL_PANGO_LIBS"
 fi
 	
 dnl We only use SDL_ttf if SDL_Pango disabled: --------------------------------------
-
+ 
 if [test "x$with_sdlpango" = xno]; then
+  PKG_CHECK_MODULES([FREETYPE], [freetype2],
+	        CFLAGS="$CFLAGS $FREETYPE_CFLAGS"
+                LIBS="$LIBS $FREETYPE_LIBS"
+	        ,
+		[])
 
-dnl Add freetype link "by hand" until mingw-cross-env takes care
-dnl of this automatically
-LIBS="-lfreetype $LIBS"
+  PKG_CHECK_MODULES([SDL_TTF],
+      [SDL_ttf],
+      ,
+      [
+        [echo "SDL_TTF not found via pkg_config, checking with AC_CHECK_LIB:"]
+        AC_CHECK_LIB([SDL_ttf],
+          [TTF_Init],
+          ,
+          [AC_MSG_ERROR([SDL_ttf not found! http://www.libsdl.org/projects/SDL_ttf])])
+        [echo "SDL_TTF successfully located"]
+      ])
 
-AC_CHECK_LIB([SDL_ttf],
-             [TTF_Init],
-             ,
-             [AC_MSG_ERROR([SDL_ttf not found! http://www.libsdl.org/projects/SDL_ttf])])
+  AC_DEFINE([HAVE_LIBSDL_TTF],[1],[Define to 1 if you have the `SDL_ttf` library])
+  CFLAGS="$CFLAGS $SDL_TTF_CFLAGS"
+  LIBS="$LIBS $SDL_TTF_LIBS"
 fi
 
 
@@ -213,6 +218,7 @@ if test "x$with_rsvg" = xyes; then
                     [AC_MSG_FAILURE([libRSVG test failed (--without-rsvg to disable svg support)])])
   CFLAGS="$CFLAGS $RSVG_CFLAGS"
   LIBS="$LIBS $RSVG_LIBS"
+  AC_DEFINE([HAVE_RSVG],[1],[Define to 1 if you have the `libRSVG` library])
 fi
 
 if test "x$with_rsvg" = xyes; then
@@ -224,14 +230,28 @@ if test "x$with_rsvg" = xyes; then
                     [AC_MSG_FAILURE([cairo test failed (--without-rsvg to disable svg support)])])
   CFLAGS="$CFLAGS $CAIRO_CFLAGS"
   LIBS="$LIBS $CAIRO_LIBS"
-  AC_DEFINE([HAVE_RSVG],[1],[Define to 1 if you have the `libRSVG` library])
 fi
 
+
+
 dnl Check for (somewhat) higher-level math functions - needed for SDL_extras
-AC_CHECK_LIB([m],
-              [csin],
-              ,
-              [AC_MSG_ERROR([Math library not found - functions in <math.h> may not be available.])])
+
+PKG_CHECK_MODULES([M],
+    [m],
+    ,
+    [
+      [echo "M (math lib) not found via pkg_config, checking with AC_CHECK_LIB:"]
+      AC_CHECK_LIB([m],
+	 [csin],
+         ,
+         [AC_MSG_ERROR([Math library not found - functions in <math.h> may not be available.])]
+      )
+      [echo "M (math lib) successfully located"]
+    ])
+
+AC_DEFINE([HAVE_LIBM],[1],[Define to 1 if you have the `m` library])
+CFLAGS="$CFLAGS $M_CFLAGS"
+LIBS="$LIBS $M_LIBS"
 
 
 # --------------------------------------------------------------------------------------
@@ -455,4 +475,3 @@ nsis/tuxtype.nsi
 src/Makefile])
 
 AC_OUTPUT
-
