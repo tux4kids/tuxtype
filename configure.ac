@@ -58,19 +58,6 @@ AC_PROG_YACC
 # Checks for libraries.
 # -----------------------------------------------------------------------
 
-# Check platform - see if WinMain needed:
-AC_MSG_CHECKING([for native Win32])
-case "$host" in
-  *-*-mingw*)
-    native_win32=yes
-    ;;
-  *)
-    native_win32=no
-    ;;
-esac
-AC_MSG_RESULT([$native_win32])
-
-AM_CONDITIONAL(BUILD_MINGW32, test $native_win32 = yes)
 
 
 dnl ---------------------------------------------------------
@@ -277,6 +264,29 @@ AC_FUNC_VPRINTF
 AC_CHECK_FUNCS([__argz_count __argz_next __argz_stringify atexit bcopy floor getcwd getenv localeconv localtime_r memmove mempcpy memset Mix_Init mkdir munmap nl_langinfo pow putenv scandir SDLPango_CreateContext_GivenFontDesc setenv setlocale stpcpy strcasecmp strchr strcspn strdup strncasecmp strndup strstr strtoul])
 
 
+
+
+dnl --------------------------------------------------------
+dnl
+dnl Remaining win32 conditional stuff:
+dnl
+dnl --------------------------------------------------------
+
+
+
+# Check platform - see if WinMain needed:
+AC_MSG_CHECKING([for native Win32])
+case "$host" in
+  *-*-mingw*)
+    native_win32=yes
+    ;;
+  *)
+    native_win32=no
+    ;;
+esac
+AC_MSG_RESULT([$native_win32])
+
+AM_CONDITIONAL(BUILD_MINGW32, test $native_win32 = yes)
 
 
 # If using Woe32, we will need to use non-unix locations for various things:
