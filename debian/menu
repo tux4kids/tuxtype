@@ -1,3 +1,3 @@
 ?package(tuxtype):needs="X11" section="Education/Languages"\
-  icon="/usr/share/pixmaps/tuxtype.png" \
+  icon="/usr/share/pixmaps/tuxtype.svg" \
   title="Tux Typing" command="/usr/games/tuxtype"

@@ -61,11 +61,10 @@ install:
 	$(MAKE) install DESTDIR=$(CURDIR)/debian/tmp
 	dh_installdirs -ptuxtype-data  usr/share/
 	dh_installdirs
-	cp $(CURDIR)/icon.png $(CURDIR)/debian/tuxtype/usr/share/pixmaps/tuxtype.png
+	cp $(CURDIR)/debian/tuxtype.svg $(CURDIR)/debian/tuxtype/usr/share/pixmaps/
 	cp $(CURDIR)/tuxtype.desktop \
 		$(CURDIR)/debian/tuxtype/usr/share/applications/tuxtype.desktop
 	rm $(CURDIR)/debian/tmp/usr/share/tuxtype/fonts -Rf
-
 	touch install-stamp
 
 install-arch: install
@@ -74,7 +73,7 @@ install-indep: install
 binary-common:
 	dh_testdir
 	dh_testroot
-	dh_installchangelogs ChangeLog
+	dh_installchangelogs
 	dh_installdocs
 	dh_installmenu
 	dh_installman
