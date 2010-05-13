@@ -1,3 +1,10 @@
+tuxtype (1.8.1-2) UNRELEASED; urgency=low
+
+  * Add ${misc:Depends} to depends of both binary packages.
+  * Provide source/format and set it to 1.0.
+
+ -- Holger Levsen <holger@debian.org>  Thu, 13 May 2010 10:55:05 +0200
+
 tuxtype (1.8.1-1) unstable; urgency=low
 
   * New upstream version, cleanup and bugfix release.
