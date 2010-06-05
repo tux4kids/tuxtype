@@ -3,3 +3,4 @@ usr/share/tuxtype
 usr/share/applications
 usr/share/pixmaps
 var/games/tuxtype/words
+etc/tuxtype
