@@ -1,5 +1,5 @@
 # Process this file with autoconf to produce a configure script.
-AC_INIT([Tux Typing],[1.8.1],[tux4kids-tuxtype-dev@lists.alioth.debian.org],[tuxtype])
+AC_INIT([Tux Typing],[1.8.2],[tux4kids-tuxtype-dev@lists.alioth.debian.org],[tuxtype])
 AC_CONFIG_SRCDIR([src/playgame.c])
 
 AC_PREREQ(2.61)
@@ -462,6 +462,8 @@ data/themes/tamil/Makefile
 data/themes/tamil/words/Makefile
 data/themes/telugu/Makefile
 data/themes/telugu/words/Makefile
+data/themes/thai/Makefile
+data/themes/thai/words/Makefile
 data/themes/wolof/Makefile
 data/themes/wolof/images/Makefile
 data/themes/wolof/words/Makefile
