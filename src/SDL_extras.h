@@ -49,6 +49,14 @@ static const SDL_Color yellow 		= {0xff, 0xff, 0x00, 0x00};
 #define ERASE_MARGIN 5
 
 
+#ifdef HAVE_LIBT4KCOMMON
+# include <t4kcommon.h>
+# define DrawButton T4K_DrawButton
+# define SimpleText T4K_SimpleText
+# define BlackOutline T4K_BlackOutline
+# define Setup_SDL_Text T4K_Setup_SDL_Text
+# define Cleanup_SDL_Text T4K_Cleanup_SDL_Text
+#else
 typedef struct {
   SDL_Surface* frame[MAX_SPRITE_FRAMES];
   SDL_Surface* default_img;
@@ -56,9 +64,14 @@ typedef struct {
   int cur;
 } sprite;
 
-
 /* "Public" function prototypes: */
 void DrawButton(SDL_Rect* target_rect, int radius, Uint8 r, Uint8 g, Uint8 b, Uint8 a);
+int Setup_SDL_Text(void);
+void Cleanup_SDL_Text(void);
+SDL_Surface* BlackOutline(const char* t, int font_size, const SDL_Color* c);
+SDL_Surface* SimpleText(const char *t, int size, const SDL_Color* col);
+#endif //HAVE_LIBT4KCOMMON
+
 void RoundCorners(SDL_Surface* s, Uint16 radius);
 SDL_Surface* Flip(SDL_Surface *in, int x, int y);
 int  inRect(SDL_Rect r, int x, int y);
@@ -80,11 +93,7 @@ int EraseSprite(sprite* img, int x, int y);
 void UpdateScreen(int* frame);
 
 /*Text rendering functions: */
-int Setup_SDL_Text(void);
-void Cleanup_SDL_Text(void);
-SDL_Surface* BlackOutline(const char* t, int font_size, const SDL_Color* c);
 SDL_Surface* BlackOutline_w(const wchar_t* t, int font_size, const SDL_Color* c, int length);
-SDL_Surface* SimpleText(const char *t, int size, const SDL_Color* col);
 //SDL_Surface* SimpleTextWithOffset(const char *t, int size, SDL_Color* col, int *glyph_offset);
 
 #endif

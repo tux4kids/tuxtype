@@ -203,7 +203,6 @@ fi
 
 
 dnl Check for libRSVG and cairo. SVG support is enabled by default
-
 AC_ARG_WITH([rsvg],
             [AS_HELP_STRING([--without-rsvg],[do not use libRSVG even if available])],
             [with_rsvg=no],
@@ -231,6 +230,23 @@ if test "x$with_rsvg" = xyes; then
   CFLAGS="$CFLAGS $CAIRO_CFLAGS"
   LIBS="$LIBS $CAIRO_LIBS"
 fi
+
+
+dnl Use of libt4kcommon is disabled for now by default 
+dnl but can be enabled at configure time for testing and development.
+AC_ARG_WITH([libt4k_common],
+            [AS_HELP_STRING([--with-libt4k_common],[use libt4k_common if available])],
+            [with_libt4k_common=yes],
+            [with_libt4k_common=no])
+
+if test "x$with_libt4k_common" != xno; then
+AC_CHECK_LIB([t4k_common],
+             [InitT4KCommon],
+             ,
+             [with_libt4k_common=no;
+              AC_MSG_FAILURE([libt4k_common test failed (--without-libt4k_common to disable use of libt4k_common)])])
+fi
+
 
 
 
@@ -462,8 +478,6 @@ data/themes/tamil/Makefile
 data/themes/tamil/words/Makefile
 data/themes/telugu/Makefile
 data/themes/telugu/words/Makefile
-data/themes/thai/Makefile
-data/themes/thai/words/Makefile
 data/themes/wolof/Makefile
 data/themes/wolof/images/Makefile
 data/themes/wolof/words/Makefile

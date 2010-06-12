@@ -27,6 +27,7 @@
 /**************************************************************************/
 
 
+#ifndef HAVE_LIBT4KCOMMON
 /* DrawButton() creates and draws a translucent button with */
 /* rounded ends.  All colors and alpha values are supported.*/
 void DrawButton(SDL_Rect* target_rect,
@@ -48,6 +49,7 @@ void DrawButton(SDL_Rect* target_rect,
   SDL_FreeSurface(tmp_surf);
 }
 
+#endif //HAVE_LIBT4KCOMMON
 
 
 void RoundCorners(SDL_Surface* s, Uint16 radius)
@@ -1139,10 +1141,11 @@ int EraseObject(SDL_Surface* surf, int x, int y)
 #ifdef HAVE_LIBSDL_PANGO
 #include "SDL_Pango.h"
 
+#ifndef HAVE_LIBT4K_COMMON
 SDLPango_Context* context = NULL;
 static SDLPango_Matrix* SDL_Colour_to_SDLPango_Matrix(const SDL_Color* cl);
 static int Set_SDL_Pango_Font_Size(int size);
-
+#endif //HAVE_LIBT4K_COMMON
 
 
 /*-- file-scope variables and local file prototypes for SDL_ttf-based code: */
@@ -1162,6 +1165,8 @@ static TTF_Font* load_font(const char* font_name, int font_size);
 /*SDL_Pango or SDL_ttf:                                       */
 
 
+#ifndef HAVE_LIBT4K_COMMON
+//#endif //HAVE_LIBT4K_COMMON
 /* For setup, we either initialize SDL_Pango and set its context, */
 /* or we initialize SDL_ttf:                                      */
 int Setup_SDL_Text(void)
@@ -1334,45 +1339,6 @@ DEBUGCODE
 }
 
 
-
-SDL_Surface* BlackOutline_w(const wchar_t* t, int font_size, const SDL_Color* c, int length)
-{
-  wchar_t wchar_tmp[1024];
-  char tmp[1024];
-  int i;
-
-  // Safety checks:
-  if (!t || !c)
-  {
-    fprintf(stderr, "BlackOutline_w(): invalid ptr parameter, returning.\n");
-    return NULL;
-  }
-
-  if (t[0] == '\0')
-  {
-    fprintf(stderr, "BlackOutline_w(): empty string, returning\n");
-    return NULL;
-  }
-
-  wcsncpy(wchar_tmp, t, length);
-  wchar_tmp[length] = '\0';
-
-  DEBUGCODE
-  {
-    fprintf(stderr, "In BlackOutline_w() - input wchar_t string is: %S\n", wchar_tmp);
-  }
-
-  i = ConvertToUTF8(wchar_tmp, tmp, 1024);
-  //tmp[i] = 0;
-
-  DEBUGCODE
-  {
-    fprintf(stderr, "In BlackOutline_w() - converted UTF8 string is: %s\n", tmp);
-  }
-
-  return BlackOutline(tmp, font_size, c);
-}
-
 /* This (fast) function just returns a non-outlined surf */
 /* using either SDL_Pango or SDL_ttf                     */
 SDL_Surface* SimpleText(const char *t, int size, const SDL_Color* col)
@@ -1414,6 +1380,45 @@ SDL_Surface* SimpleText(const char *t, int size, const SDL_Color* col)
 
   return surf;
 }
+#endif //HAVE_LIBT4K_COMMON
+
+SDL_Surface* BlackOutline_w(const wchar_t* t, int font_size, const SDL_Color* c, int length)
+{
+  wchar_t wchar_tmp[1024];
+  char tmp[1024];
+  int i;
+
+  // Safety checks:
+  if (!t || !c)
+  {
+    fprintf(stderr, "BlackOutline_w(): invalid ptr parameter, returning.\n");
+    return NULL;
+  }
+
+  if (t[0] == '\0')
+  {
+    fprintf(stderr, "BlackOutline_w(): empty string, returning\n");
+    return NULL;
+  }
+
+  wcsncpy(wchar_tmp, t, length);
+  wchar_tmp[length] = '\0';
+
+  DEBUGCODE
+  {
+    fprintf(stderr, "In BlackOutline_w() - input wchar_t string is: %S\n", wchar_tmp);
+  }
+
+  i = ConvertToUTF8(wchar_tmp, tmp, 1024);
+  //tmp[i] = 0;
+
+  DEBUGCODE
+  {
+    fprintf(stderr, "In BlackOutline_w() - converted UTF8 string is: %s\n", tmp);
+  }
+
+  return BlackOutline(tmp, font_size, c);
+}
 
 
 /*-----------------------------------------------------------*/
@@ -1425,6 +1430,7 @@ SDL_Surface* SimpleText(const char *t, int size, const SDL_Color* col)
 
 #ifdef HAVE_LIBSDL_PANGO
 
+#ifndef HAVE_LIBT4K_COMMON
 /* Local functions when using SDL_Pango: -------------------------------      */
 
 /* NOTE the scaling by 3/4 a few lines down represents a conversion from      */
@@ -1494,6 +1500,9 @@ SDLPango_Matrix* SDL_Colour_to_SDLPango_Matrix(const SDL_Color *cl)
 
   return colour;
 }
+
+#endif //HAVE_LIBT4K_COMMON
+
 
 #else
 /* Local functions when using SDL_ttf: */
