@@ -21,9 +21,11 @@
 #include "funcs.h"
 #include "SDL_extras.h"
 
-
+#ifndef HAVE_LIBT4K_COMMON
 int fs_res_x = 0;
 int fs_res_y = 0;
+#endif //HAVE_LIBT4K_COMMON
+
 
 /* Local function prototypes: */
 static void seticon(void);
