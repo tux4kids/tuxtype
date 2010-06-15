@@ -220,7 +220,9 @@ enum
   NUM_WAVES
 };
 
-
+#ifdef HAVE_LIBT4K_COMMON
+# include <t4k_common.h>
+#else
 /* For TransWipe(): */
 enum
 {
@@ -230,6 +232,7 @@ enum
   RANDOM_WIPE,
   NUM_WIPES
 };
+#endif //HAVE_LIBT4K_COMMON
 
 #endif
 

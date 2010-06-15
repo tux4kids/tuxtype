@@ -27,7 +27,7 @@
 /**************************************************************************/
 
 
-#ifndef HAVE_LIBT4KCOMMON
+#ifndef HAVE_LIBT4K_COMMON
 /* DrawButton() creates and draws a translucent button with */
 /* rounded ends.  All colors and alpha values are supported.*/
 void DrawButton(SDL_Rect* target_rect,
@@ -49,7 +49,7 @@ void DrawButton(SDL_Rect* target_rect,
   SDL_FreeSurface(tmp_surf);
 }
 
-#endif //HAVE_LIBT4KCOMMON
+#endif //HAVE_LIBT4K_COMMON
 
 
 void RoundCorners(SDL_Surface* s, Uint16 radius)

@@ -49,8 +49,8 @@ static const SDL_Color yellow 		= {0xff, 0xff, 0x00, 0x00};
 #define ERASE_MARGIN 5
 
 
-#ifdef HAVE_LIBT4KCOMMON
-# include <t4kcommon.h>
+#ifdef HAVE_LIBT4K_COMMON
+# include <t4k_common.h>
 # define DrawButton T4K_DrawButton
 # define SimpleText T4K_SimpleText
 # define BlackOutline T4K_BlackOutline
@@ -70,7 +70,7 @@ int Setup_SDL_Text(void);
 void Cleanup_SDL_Text(void);
 SDL_Surface* BlackOutline(const char* t, int font_size, const SDL_Color* c);
 SDL_Surface* SimpleText(const char *t, int size, const SDL_Color* col);
-#endif //HAVE_LIBT4KCOMMON
+#endif //HAVE_LIBT4K_COMMON
 
 void RoundCorners(SDL_Surface* s, Uint16 radius);
 SDL_Surface* Flip(SDL_Surface *in, int x, int y);
