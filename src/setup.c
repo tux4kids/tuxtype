@@ -204,6 +204,8 @@ void LibInit(Uint32 lib_flags)
 
   LOG( "-about to init SDL text library (SDL_ttf or SDL_Pango\n" );
 
+  //FIXME this function isn't exposed in libt4k_common, but maybe it should be
+  set_font_name(settings.theme_font_name);
   if (!Setup_SDL_Text())
   {
     fprintf( stderr, "Couldn't initialize desired SDL text libary\n" );
