@@ -188,3 +188,5 @@ force-update-gmo-%: check-gettext
 	cd po && $(MAKE) $(AM_MAKEFLAGS) update-gmo
 
 .PHONY: check-gettext update-po update-gmo force-update-gmo nsis
+
+ACLOCAL_AMFLAGS = -I m4

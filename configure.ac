@@ -22,21 +22,8 @@ AC_SUBST(NAME_VERSION)
 
 # To link gettext library
 AC_GNU_SOURCE
-#AM_GNU_GETTEXT
-#AM_GNU_GETTEXT_VERSION([0.17])
-#AM_GNU_GETTEXT_INTL_SUBDIR
-
-
-# Needed for gettext:
-AM_GNU_GETTEXT_VERSION([0.17])
-
-dnl NOTE - build using external intl lib whenever possible:
+dnl NOTE - build using external intl lib:
 AM_GNU_GETTEXT([external])
-dnl If build with external intl fails, comment out the above line 
-dnl and uncomment the one below to use the included intl subdirectory.
-dnl This used to be needed for the Windows crossbuild but is no longer
-dnl needed.
-#AM_GNU_GETTEXT
 
 
 # ----------------------------------------------------------------------
@@ -217,6 +204,22 @@ if test "x$with_rsvg" = xyes; then
                     [AC_MSG_FAILURE([cairo test failed (--without-rsvg to disable svg support)])])
   CFLAGS="$CFLAGS $CAIRO_CFLAGS"
   LIBS="$LIBS $CAIRO_LIBS"
+fi
+
+
+dnl Use of libt4kcommon is now enabled for now by default
+dnl but can be disabled at configure time for testing and development.
+AC_ARG_WITH([libt4k_common],
+	    [AS_HELP_STRING([--without-libt4k_common],[do not use libt4k_common even if available])],
+            [with_libt4k_common=no],
+            [with_libt4k_common=yes])
+
+if test "x$with_libt4k_common" != xno; then
+AC_CHECK_LIB([t4k_common],
+             [InitT4KCommon],
+             ,
+             [with_libt4k_common=no;
+              AC_MSG_FAILURE([libt4k_common test failed (--without-libt4k_common to disable use of libt4k_common)])])
 fi
 
 
@@ -480,8 +483,6 @@ data/themes/wolof/words/Makefile
 data/words/Makefile
 doc/Makefile
 doc/en/Makefile
-intl/Makefile
-
 po/Makefile.in
 nsis/tuxtype.nsi
 src/Makefile])
