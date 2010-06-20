@@ -26,6 +26,7 @@ m4/
 *.m4
 libtool
 ltmain.sh
+Makefile.in.in
 
 # (the specfiles are made from *.spec.in)
 tuxmath.spec
