@@ -24,7 +24,7 @@ AC_SUBST(NAME_VERSION)
 AC_GNU_SOURCE
 dnl NOTE - build using external intl lib:
 AM_GNU_GETTEXT([external])
-
+AM_GNU_GETTEXT_VERSION([0.18])
 
 # ----------------------------------------------------------------------
 # Checks for programs.
