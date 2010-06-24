@@ -1,5 +1,5 @@
 # Process this file with autoconf to produce a configure script.
-AC_INIT([Tux Typing],[1.8.1],[tux4kids-tuxtype-dev@lists.alioth.debian.org],[tuxtype])
+AC_INIT([Tux Typing],[1.8.2],[tux4kids-tuxtype-dev@lists.alioth.debian.org],[tuxtype])
 AC_CONFIG_SRCDIR([src/playgame.c])
 
 AC_PREREQ(2.61)
@@ -177,6 +177,7 @@ fi
 
 
 dnl Check for libRSVG and cairo. SVG support is enabled by default
+
 AC_ARG_WITH([rsvg],
             [AS_HELP_STRING([--without-rsvg],[do not use libRSVG even if available])],
             [with_rsvg=no],
@@ -207,7 +208,6 @@ fi
 
 
 dnl Use of libt4kcommon is now enabled for now by default
-dnl in the "commonification" branch
 dnl but can be disabled at configure time for testing and development.
 AC_ARG_WITH([libt4k_common],
 	    [AS_HELP_STRING([--without-libt4k_common],[do not use libt4k_common even if available])],
@@ -221,7 +221,6 @@ AC_CHECK_LIB([t4k_common],
              [with_libt4k_common=no;
               AC_MSG_FAILURE([libt4k_common test failed (--without-libt4k_common to disable use of libt4k_common)])])
 fi
-
 
 
 
@@ -476,6 +475,8 @@ data/themes/tamil/Makefile
 data/themes/tamil/words/Makefile
 data/themes/telugu/Makefile
 data/themes/telugu/words/Makefile
+data/themes/thai/Makefile
+data/themes/thai/words/Makefile
 data/themes/wolof/Makefile
 data/themes/wolof/images/Makefile
 data/themes/wolof/words/Makefile

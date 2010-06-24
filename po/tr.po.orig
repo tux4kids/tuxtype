@@ -1,83 +1,84 @@
-# Greek translations for Tux Typing package.
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# Mobin M <mobinmohan@gmail.com>, 2008
+# translation of tr.po to Turkish
+# This file is put in the public domain.
 #
-#, fuzzy
+# Doruk Fisek <dfisek@fisek.com.tr>, 2008.
 msgid ""
 msgstr ""
-"Project-Id-Version: Tux Typing 1.5.16\n"
+"Project-Id-Version: tr\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
+<<<<<<< HEAD
+"POT-Creation-Date: 2010-04-04 12:17-0500\n"
+=======
 "POT-Creation-Date: 2010-06-20 11:48-0500\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: el\n"
+>>>>>>> 656e487ba450057e81b26c94c4c35a88f9e24ad3
+"PO-Revision-Date: 2008-12-11 15:08+0200\n"
+"Last-Translator: Doruk Fisek <dfisek@fisek.com.tr>\n"
+"Language-Team: Turkish <gnu-tr-u12a@lists.sourceforge.net>\n"
+"Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
 
 #: src/loaders.c:88 src/main.c:150 src/playgame.c:643
 msgid "Fish"
-msgstr "Ψάρια"
+msgstr "Balık"
 
 #: src/pause.c:277
 msgid "Sound Effects Volume"
-msgstr "Ένταση Ηχητικών Εφφέ"
+msgstr "Ses Efektleri Ses Düzeyi"
 
 #: src/pause.c:286
 msgid "Music Volume"
-msgstr "Ένταση Ήχου"
+msgstr "Müzik Ses Düzeyi"
 
 #: src/pause.c:297
 msgid "Sound & Music Disabled"
-msgstr "Χωρίς Ήχο και Μουσική"
+msgstr "Ses & Müzik Kapalı"
 
 #: src/pause.c:307
 msgid "Paused!"
-msgstr "Πάυση"
+msgstr "Duraklatıldı!"
 
 #: src/pause.c:316
 msgid "Press escape again to return to menu"
-msgstr "Πάτα ξανά το Esc για να γυρίσεις στις επιλογές"
+msgstr "Menüye dönmek için tekrar esc'ye basın"
 
 #: src/pause.c:325
 msgid "Press space bar to return to game"
-msgstr "Πάτα το κενό για να γυρίσεις στο παιχνίδι"
+msgstr "Oyuna dönmek için boşluk tuşuna basın"
 
 #: src/playgame.c:641
 msgid "Level"
-msgstr "Επίπεδο"
+msgstr "Düzey"
 
 #: src/playgame.c:642
 msgid "Lives"
-msgstr "Ζωές"
+msgstr "Yaşamlar"
 
-# levels for Cascade game:
 #: src/playgame.c:645 src/titlescreen.c:89
 msgid "Easy"
-msgstr "1. Εύκολο"
+msgstr "Kolay"
 
 #: src/playgame.c:646 src/titlescreen.c:90
 msgid "Medium"
-msgstr "2. Κανονικό"
+msgstr "Orta"
 
 #: src/playgame.c:647 src/titlescreen.c:91
 msgid "Hard"
-msgstr "3. Δύσκολο"
+msgstr "Zor"
 
-# general stuff
 #: src/playgame.c:648
 msgid "Practice"
-msgstr "Εξάσκηση"
+msgstr "Alıştırma"
 
 #: src/playgame.c:659
 msgid "Congratulations"
-msgstr "Συγχαρητήρια"
+msgstr "Tebrikler"
 
 #: src/playgame.c:663
 msgid "Oh No!"
-msgstr "Ωχ! Όχι"
+msgstr "Oo Hayır!"
 
 #: src/practice.c:622
 msgid "sec"
@@ -109,26 +110,23 @@ msgstr ""
 
 #: src/titlescreen.c:89
 msgid "Fish Cascade"
-msgstr "Φάε τα Ψαράκια"
+msgstr "Balık Çağlayanı"
 
-# "Space Cadet" is level 1 in comet zap
 #: src/titlescreen.c:89
 msgid "Space Cadet"
-msgstr "1. Μαθητευόμενος"
+msgstr "Uzay Tertibi"
 
 #: src/titlescreen.c:89
 msgid "Edit Word Lists"
-msgstr "Διόρθωσε τις Λίστες Λέξεων"
+msgstr "Kelime Listelerini Düzenle"
 
-# types of games
 #: src/titlescreen.c:90
 msgid "Comet Zap"
-msgstr "Κομήτες"
+msgstr "Kuyruklu Yıldız Vur"
 
-# "Pilot" is level 2 in comet zap
 #: src/titlescreen.c:90
 msgid "Pilot"
-msgstr "2. Πιλότος"
+msgstr "Pilot"
 
 #: src/titlescreen.c:90
 msgid "Phrase Typing"
@@ -136,65 +134,52 @@ msgstr ""
 
 #: src/titlescreen.c:91
 msgid "Lessons"
-msgstr "Μαθήματα"
+msgstr "Dersler"
 
-# "Ace" is level 3 in comet zap
 #: src/titlescreen.c:91
 msgid "Ace"
-msgstr "3. Άσσος"
+msgstr "As"
 
 #: src/titlescreen.c:91
 msgid "Project Info"
-msgstr "Πληροφορίες προγράμματος"
+msgstr "Proje Bilgisi"
 
 #: src/titlescreen.c:92
 msgid "Options"
-msgstr "Επιλογές"
+msgstr "Seçenekler"
 
 #: src/titlescreen.c:92
 msgid "Instructions"
-msgstr "Οδηγίες"
+msgstr "Yönergeler"
 
-# "Commander" is level 4 in comet zap
 #: src/titlescreen.c:92
 msgid "Commander"
-msgstr "4. Βετεράνος"
+msgstr "Kumandan"
 
 #: src/titlescreen.c:92
 msgid "Setup Language"
-msgstr "Ρύθμιση Γλώσσας"
+msgstr "Ayar Dili"
 
 #: src/titlescreen.c:93
 msgid "Quit"
-msgstr "Τέλος"
+msgstr "Çıkış"
 
 #: src/titlescreen.c:93
 msgid "Main Menu"
-msgstr "Βασικό Μενού"
+msgstr "Ana Menü"
 
-# work in progress stuff
 #: src/titlescreen.c:1119
 msgid "Work In Progress!"
-msgstr "Εργασία σε εξέλιξη"
+msgstr "Çalışmalar Sürüyor!"
 
 #: src/titlescreen.c:1120
 msgid "This feature is not ready yet"
-msgstr "Αυτό το κομμάτι δεν είναι ακόμη έτοιμο"
+msgstr "Bu özellik henüz hazır değil"
 
 #: src/titlescreen.c:1121
 msgid "Discuss the future of TuxTyping at"
-msgstr "Σχόλια για το TuxTyping"
+msgstr "Tuxtyping'in geleceğinin tartışıldığı liste :"
 
-# general stuff
 #, fuzzy
 #~ msgid "Phrase Practice"
-#~ msgstr "Εξάσκηση"
-
-#~ msgid "Great!"
-#~ msgstr "Μπράβο!"
-
-#~ msgid "Alphabet"
-#~ msgstr "Αλφάβητο"
-
-#~ msgid "Setup Keyboard"
-#~ msgstr "Ρύθμιση Πληκτρολογίου"
+#~ msgstr "Alıştırma"
