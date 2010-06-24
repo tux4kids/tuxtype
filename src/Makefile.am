@@ -58,7 +58,7 @@ endif
 
 
 LDADD = @LIBINTL@
-tuxtype_LDFLAGS = -Wl,-rpath -Wl,/usr/local/lib $(LTLIBINTL)
+tuxtype_LDFLAGS = $(LTLIBINTL)
 
 tuxtype_SOURCES = 	\
 	alphabet.c	\
