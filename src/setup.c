@@ -21,9 +21,11 @@
 #include "funcs.h"
 #include "SDL_extras.h"
 
-
+#ifndef HAVE_LIBT4K_COMMON
 int fs_res_x = 0;
 int fs_res_y = 0;
+#endif //HAVE_LIBT4K_COMMON
+
 
 /* Local function prototypes: */
 static void seticon(void);
@@ -202,6 +204,9 @@ void LibInit(Uint32 lib_flags)
 
   LOG( "-about to init SDL text library (SDL_ttf or SDL_Pango\n" );
 
+#if HAVE_LIBT4K_COMMON
+  T4K_SetFontName(settings.theme_font_name);
+#endif
   if (!Setup_SDL_Text())
   {
     fprintf( stderr, "Couldn't initialize desired SDL text libary\n" );

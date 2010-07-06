@@ -82,11 +82,7 @@ int EraseSprite(sprite* img, int x, int y);
 void UpdateScreen(int* frame);
 
 /*Text rendering functions: */
-int Setup_SDL_Text(void);
-void Cleanup_SDL_Text(void);
-SDL_Surface* BlackOutline(const char* t, int font_size, const SDL_Color* c);
 SDL_Surface* BlackOutline_w(const wchar_t* t, int font_size, const SDL_Color* c, int length);
-SDL_Surface* SimpleText(const char *t, int size, const SDL_Color* col);
 //SDL_Surface* SimpleTextWithOffset(const char *t, int size, SDL_Color* col, int *glyph_offset);
 
 #endif
