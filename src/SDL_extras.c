@@ -27,7 +27,6 @@
 /**************************************************************************/
 
 
-#ifndef HAVE_LIBT4K_COMMON
 /* DrawButton() creates and draws a translucent button with */
 /* rounded ends.  All colors and alpha values are supported.*/
 void DrawButton(SDL_Rect* target_rect,
@@ -49,7 +48,6 @@ void DrawButton(SDL_Rect* target_rect,
   SDL_FreeSurface(tmp_surf);
 }
 
-#endif //HAVE_LIBT4K_COMMON
 
 
 void RoundCorners(SDL_Surface* s, Uint16 radius)
@@ -1141,11 +1139,9 @@ int EraseObject(SDL_Surface* surf, int x, int y)
 #ifdef HAVE_LIBSDL_PANGO
 #include "SDL_Pango.h"
 
-#ifndef HAVE_LIBT4K_COMMON
 SDLPango_Context* context = NULL;
 static SDLPango_Matrix* SDL_Colour_to_SDLPango_Matrix(const SDL_Color* cl);
 static int Set_SDL_Pango_Font_Size(int size);
-#endif //HAVE_LIBT4K_COMMON
 
 
 /*-- file-scope variables and local file prototypes for SDL_ttf-based code: */
@@ -1165,8 +1161,6 @@ static TTF_Font* load_font(const char* font_name, int font_size);
 /*SDL_Pango or SDL_ttf:                                       */
 
 
-#ifndef HAVE_LIBT4K_COMMON
-//#endif //HAVE_LIBT4K_COMMON
 /* For setup, we either initialize SDL_Pango and set its context, */
 /* or we initialize SDL_ttf:                                      */
 int Setup_SDL_Text(void)
@@ -1380,7 +1374,6 @@ SDL_Surface* SimpleText(const char *t, int size, const SDL_Color* col)
 
   return surf;
 }
-#endif //HAVE_LIBT4K_COMMON
 
 SDL_Surface* BlackOutline_w(const wchar_t* t, int font_size, const SDL_Color* c, int length)
 {
@@ -1430,7 +1423,6 @@ SDL_Surface* BlackOutline_w(const wchar_t* t, int font_size, const SDL_Color* c,
 
 #ifdef HAVE_LIBSDL_PANGO
 
-#ifndef HAVE_LIBT4K_COMMON
 /* Local functions when using SDL_Pango: -------------------------------      */
 
 /* NOTE the scaling by 3/4 a few lines down represents a conversion from      */
@@ -1501,7 +1493,6 @@ SDLPango_Matrix* SDL_Colour_to_SDLPango_Matrix(const SDL_Color *cl)
   return colour;
 }
 
-#endif //HAVE_LIBT4K_COMMON
 
 
 #else

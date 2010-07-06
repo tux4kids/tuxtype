@@ -233,7 +233,6 @@ enum
   RANDOM_WIPE,
   NUM_WIPES
 };
-#endif //HAVE_LIBT4K_COMMON
 
 typedef struct {
   SDL_Surface* frame[MAX_SPRITE_FRAMES];
