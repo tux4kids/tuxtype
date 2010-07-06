@@ -99,7 +99,7 @@ void GraphicsInit(void)
     exit(2);
   }
 
-  InitBlitQueue();
+  T4K_InitBlitQueue();
 
 
 

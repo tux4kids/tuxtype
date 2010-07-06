@@ -625,7 +625,7 @@ int TransWipe(const SDL_Surface* newbkg, int type, int segments, int duration)
     type = rand() % NUM_WIPES;
 
 
-  ResetBlitQueue();
+  T4K_ResetBlitQueue();
   frame = 0;
 
   switch(type)
@@ -653,10 +653,10 @@ int TransWipe(const SDL_Surface* newbkg, int type, int segments, int duration)
           dst.h = screen->h;
           SDL_BlitSurface(newbkg, &src, screen, &src);
           SDL_BlitSurface(newbkg, &dst, screen, &dst);
-          AddRect(&src, &src);
-          AddRect(&dst, &dst);
+          T4K_AddRect(&src, &src);
+          T4K_AddRect(&dst, &dst);
         }
-        UpdateScreen(&frame);
+        T4K_UpdateScreen(&frame);
       }
 
       src.x = 0;
@@ -692,10 +692,10 @@ int TransWipe(const SDL_Surface* newbkg, int type, int segments, int duration)
           dst.h = step2;
           SDL_BlitSurface(newbkg, &src, screen, &src);
           SDL_BlitSurface(newbkg, &dst, screen, &dst);
-          AddRect(&src, &src);
-          AddRect(&dst, &dst);
+          T4K_AddRect(&src, &src);
+          T4K_AddRect(&dst, &dst);
         }
-        UpdateScreen(&frame);
+        T4K_UpdateScreen(&frame);
       }
 
       src.x = 0;
@@ -733,8 +733,8 @@ int TransWipe(const SDL_Surface* newbkg, int type, int segments, int duration)
           dst.h = screen->h;
           SDL_BlitSurface(newbkg, &src, screen, &src);
           SDL_BlitSurface(newbkg, &dst, screen, &dst);
-          AddRect(&src, &src);
-          AddRect(&dst, &dst);
+          T4K_AddRect(&src, &src);
+          T4K_AddRect(&dst, &dst);
           y1 = step3 * (j - 0.5) - i * step4 + 1;
           y2 = step3 * (j - 0.5) + i * step4 + 1;
           src.x = 0;
@@ -747,10 +747,10 @@ int TransWipe(const SDL_Surface* newbkg, int type, int segments, int duration)
           dst.h = step4;
           SDL_BlitSurface(newbkg, &src, screen, &src);
           SDL_BlitSurface(newbkg, &dst, screen, &dst);
-          AddRect(&src, &src);
-          AddRect(&dst, &dst);
+          T4K_AddRect(&src, &src);
+          T4K_AddRect(&dst, &dst);
         }
-        UpdateScreen(&frame);
+        T4K_UpdateScreen(&frame);
       }
 
       src.x = 0;
@@ -891,7 +891,7 @@ int DrawSprite(sprite* gfx, int x, int y)
 
   LOG("Leaving DrawSprite()\n");
 
-  return DrawObject(gfx->frame[gfx->cur], x, y);
+  return T4K_DrawObject(gfx->frame[gfx->cur], x, y);
 
 }
 
@@ -1034,7 +1034,7 @@ int EraseSprite(sprite* img, int x, int y)
 
   LOG("Leaving EraseSprite()\n");
 
-  return EraseObject(img->frame[img->cur], x, y);
+  return T4K_EraseObject(img->frame[img->cur], CurrentBkgd(), x, y);
 }
 
 
