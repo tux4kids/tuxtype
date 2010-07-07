@@ -67,7 +67,7 @@ int Pause(void)
 	SDL_ShowCursor(1);
 
 	// Darken the screen...
-	DarkenScreen(1); 
+	T4K_DarkenScreen(1); 
 
 	pause_draw();
 
@@ -129,13 +129,13 @@ int Pause(void)
 			SDL_GetMouseState(&x, &y);
 			/* check to see if they clicked on a button */
 
-			if (inRect(rectUp, x, y)) {
+			if (T4K_inRect(rectUp, x, y)) {
 				mus_volume += 4;
-			} else if (inRect(rectDown, x, y)) {
+			} else if (T4K_inRect(rectDown, x, y)) {
 				mus_volume -= 4;
-			} else if (inRect(rectRight, x, y)) {
+			} else if (T4K_inRect(rectRight, x, y)) {
 				sfx_volume += 4;
-			} else if (inRect(rectLeft, x, y)) {
+			} else if (T4K_inRect(rectLeft, x, y)) {
 				sfx_volume -= 4;
 			} else {
 

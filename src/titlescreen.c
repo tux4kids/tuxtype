@@ -276,7 +276,7 @@ void TitleScreen(void)
           cursor.y = event.motion.y;
 
 	  for (j = 1; j <= TITLE_MENU_ITEMS; j++)
-            if (inRect(menu_button[j], cursor.x, cursor.y))
+            if (T4K_inRect(menu_button[j], cursor.x, cursor.y))
               key_menu = j;
           break;
         }
@@ -290,7 +290,7 @@ void TitleScreen(void)
 
           for (j = 1; j <= TITLE_MENU_ITEMS; j++)
           {
-            if (inRect(menu_button[j], cursor.x, cursor.y))
+            if (T4K_inRect(menu_button[j], cursor.x, cursor.y))
             {
               menu_opt = menu_item[j][menu_depth];
               if (settings.menu_sound)
@@ -306,7 +306,7 @@ void TitleScreen(void)
           }
 
           /* If mouse over speaker, toggle menu music off or on: */
-          if (inRect(spkrdest, cursor.x, cursor.y))
+          if (T4K_inRect(spkrdest, cursor.x, cursor.y))
           {
             if (settings.menu_music)
             {
@@ -354,7 +354,7 @@ void TitleScreen(void)
             /* Toggle screen mode: */
             case SDLK_F10:
             {
-              SwitchScreenMode();
+              T4K_SwitchScreenMode();
               recalc_rects();
               redraw = 1;
               break;
@@ -1464,7 +1464,7 @@ static int chooseWordlist(void)
 
         case SDL_MOUSEMOTION:
           for (i=0; (i<8) && (loc-(loc%8)+i<lists); i++)
-            if (inRect( titleRects[i], event.motion.x, event.motion.y ))
+            if (T4K_inRect( titleRects[i], event.motion.x, event.motion.y ))
             {
               loc = loc-(loc%8)+i;
               break;
@@ -1472,7 +1472,7 @@ static int chooseWordlist(void)
           break;
 
         case SDL_MOUSEBUTTONDOWN:
-          if (inRect( leftRect, event.button.x, event.button.y ))
+          if (T4K_inRect( leftRect, event.button.x, event.button.y ))
           {
             if (loc - (loc % 8) - 8 >= 0)
             {
@@ -1481,7 +1481,7 @@ static int chooseWordlist(void)
             }
           }
 
-          if (inRect(rightRect, event.button.x, event.button.y))
+          if (T4K_inRect(rightRect, event.button.x, event.button.y))
           {
             if (loc - (loc % 8) + 8 < lists)
             {
@@ -1492,7 +1492,7 @@ static int chooseWordlist(void)
 
           for (i = 0; (i < 8) && (loc - (loc % 8) + i < lists); i++)
           {
-            if (inRect(titleRects[i], event.button.x, event.button.y))
+            if (T4K_inRect(titleRects[i], event.button.x, event.button.y))
             {
               loc = loc - (loc % 8) + i;
               ClearWordList(); /* clear old selection */

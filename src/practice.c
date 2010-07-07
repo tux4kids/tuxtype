@@ -401,7 +401,7 @@ int Phrases(wchar_t* pphrase )
             break;
 
           case  SDLK_F10:
-            SwitchScreenMode();
+            T4K_SwitchScreenMode();
             recalc_positions();
             create_labels();
             state = 1;

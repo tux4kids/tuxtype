@@ -238,35 +238,35 @@ void ChooseListToEdit(void)
           break;
 
         case SDL_MOUSEBUTTONDOWN: 
-          if (inRect(leftRect, event.button.x, event.button.y)) 
+          if (T4K_inRect(leftRect, event.button.x, event.button.y)) 
             if (loc - (loc % 8) - 8 >= 0) 
             {
               loc = loc - (loc % 8) - 8;
               break;
             }
 
-          if (inRect(rightRect, event.button.x, event.button.y)) 
+          if (T4K_inRect(rightRect, event.button.x, event.button.y)) 
             if (loc - (loc % 8) + 8 < num_lists)
             {
               loc = loc - (loc % 8) + 8;
               break;
             }
 
-          if (inRect(button_rect[New], event.button.x, event.button.y)) 
+          if (T4K_inRect(button_rect[New], event.button.x, event.button.y)) 
           {
             change = CreateNewWordList();			
             if (!change)
               redraw = 1;
           }
 
-          if (inRect(button_rect[Remove], event.button.x, event.button.y))
+          if (T4K_inRect(button_rect[Remove], event.button.x, event.button.y))
           {
             //pop up something?
             ChooseRemoveList(list_titles[loc], file_names[loc]);
             change = 1;
           }
 
-          if (inRect(button_rect[Done], event.button.x, event.button.y)) 
+          if (T4K_inRect(button_rect[Done], event.button.x, event.button.y)) 
           {
             stop = 1; 
             break;
@@ -630,14 +630,14 @@ void EditWordList(char* words_file)
 
         case SDL_MOUSEBUTTONDOWN:
         { 
-          if (inRect(leftRect, event.button.x, event.button.y)) 
+          if (T4K_inRect(leftRect, event.button.x, event.button.y)) 
             if (loc - (loc % 8) - 8 >= 0) 
             {
               loc = loc - (loc % 8) - 8;
               break;
             }
 
-          if (inRect(rightRect, event.button.x, event.button.y)) 
+          if (T4K_inRect(rightRect, event.button.x, event.button.y)) 
             if (loc - (loc % 8) + 8 < number_of_words)
             {
               loc = loc - (loc % 8) + 8;
@@ -646,7 +646,7 @@ void EditWordList(char* words_file)
 
           for (i = 0; (i < 8) && (loc - (loc % 8) + i < number_of_words); i++)
           {
-            if (inRect(word_rects[i], event.motion.x, event.motion.y))
+            if (T4K_inRect(word_rects[i], event.motion.x, event.motion.y))
             {
               loc = loc - (loc % 8);
                break;
@@ -1035,7 +1035,7 @@ int CreateNewWordList(void)
 
         case SDL_MOUSEBUTTONDOWN: 
         {
-          if (inRect(OK_rect, event.button.x, event.button.y)) 
+          if (T4K_inRect(OK_rect, event.button.x, event.button.y)) 
           {
             if (len == 0)
             {
@@ -1049,7 +1049,7 @@ int CreateNewWordList(void)
             }
           }
 
-          if (inRect(CANCEL_rect, event.button.x, event.button.y)) 
+          if (T4K_inRect(CANCEL_rect, event.button.x, event.button.y)) 
           {
             stop = 1;
             break;
@@ -1271,13 +1271,13 @@ int ChooseRemoveList(char *name, char *filename)
       switch (event.type)
       {
         case SDL_MOUSEBUTTONDOWN: 
-          if (inRect(OK_rect, event.button.x, event.button.y)) 
+          if (T4K_inRect(OK_rect, event.button.x, event.button.y)) 
           {
             RemoveList(filename);
             result = 1;	
             stop = 1;
           }
-          if (inRect(CANCEL_rect, event.button.x, event.button.y))
+          if (T4K_inRect(CANCEL_rect, event.button.x, event.button.y))
           {
             result = 0;
             stop = 1;
