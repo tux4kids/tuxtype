@@ -366,7 +366,7 @@ int unicode_in_key_list(wchar_t uni_char)
 // 
 // 	t[l] = 0;
 // 
-// 	abit = BlackOutline(t, font, &white);
+// 	abit = T4K_BlackOutline(t, font, &white);
 // 
 // 	dst.x = 320 - (abit->w / 2);
 // 	dst.y = 275;
@@ -377,7 +377,7 @@ int unicode_in_key_list(wchar_t uni_char)
 // 
 // 	SDL_FreeSurface(abit);
 // 
-// 	abit = BlackOutline("Alphabet Set To:", font, &white);
+// 	abit = T4K_BlackOutline("Alphabet Set To:", font, &white);
 // 	dst.x = 320 - (abit->w / 2);
 // 	dst.y = 200;
 // 	dst.w = abit->w;

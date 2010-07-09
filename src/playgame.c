@@ -638,14 +638,14 @@ static void LoadOthers(void)
         LOG( " Done rendering letters \n ");
 
 
-	curlev = BlackOutline(gettext("Level"), LABEL_FONT_SIZE, &white);
-	lives  = BlackOutline(gettext("Lives"), LABEL_FONT_SIZE, &white);
-	fish   = BlackOutline(gettext("Fish"), LABEL_FONT_SIZE, &white);
+	curlev = T4K_BlackOutline(gettext("Level"), LABEL_FONT_SIZE, &white);
+	lives  = T4K_BlackOutline(gettext("Lives"), LABEL_FONT_SIZE, &white);
+	fish   = T4K_BlackOutline(gettext("Fish"), LABEL_FONT_SIZE, &white);
 
-	level[0] = BlackOutline(gettext("Easy"), LABEL_FONT_SIZE, &white);
-	level[1] = BlackOutline(gettext("Medium"), LABEL_FONT_SIZE, &white);
-	level[2] = BlackOutline(gettext("Hard"), LABEL_FONT_SIZE, &white);
-	level[3] = BlackOutline(gettext("Practice"), LABEL_FONT_SIZE, &white);
+	level[0] = T4K_BlackOutline(gettext("Easy"), LABEL_FONT_SIZE, &white);
+	level[1] = T4K_BlackOutline(gettext("Medium"), LABEL_FONT_SIZE, &white);
+	level[2] = T4K_BlackOutline(gettext("Hard"), LABEL_FONT_SIZE, &white);
+	level[3] = T4K_BlackOutline(gettext("Practice"), LABEL_FONT_SIZE, &white);
 
 	number_max_w = 0;
 	for (i = 0; i < NUM_NUMS; i++) {
@@ -656,11 +656,11 @@ static void LoadOthers(void)
 	}
 
 	for (i = 0; i < CONGRATS_FRAMES; i++) {
-		congrats[i] = BlackOutline(gettext("Congratulations"), LABEL_FONT_SIZE, &white);
+		congrats[i] = T4K_BlackOutline(gettext("Congratulations"), LABEL_FONT_SIZE, &white);
 	}
 
 	for (i = 0; i < OH_NO_FRAMES; i++) {
-		ohno[i] = BlackOutline(gettext("Oh No!"), LABEL_FONT_SIZE, &white);
+		ohno[i] = T4K_BlackOutline(gettext("Oh No!"), LABEL_FONT_SIZE, &white);
 	}
 	
 	if (settings.sys_sound) {
@@ -702,7 +702,7 @@ static void display_msg(const char* msg, int x, int y)
     return;
 
   SDL_Surface* m;
-  m = BlackOutline(msg, LABEL_FONT_SIZE, &white);
+  m = T4K_BlackOutline(msg, LABEL_FONT_SIZE, &white);
 
   if (m)
   {

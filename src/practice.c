@@ -265,7 +265,7 @@ int Phrases(wchar_t* pphrase )
         }
 
         /* Update timer: */
-        tmpsurf = BlackOutline(time_str, fontsize, &white);
+        tmpsurf = T4K_BlackOutline(time_str, fontsize, &white);
         if (tmpsurf)
         {
           SDL_BlitSurface(tmpsurf, NULL, screen, &time_rect);
@@ -676,7 +676,7 @@ int Phrases(wchar_t* pphrase )
           }
 
 
-          tmpsurf = BlackOutline(time_str, fontsize, &white);
+          tmpsurf = T4K_BlackOutline(time_str, fontsize, &white);
           if (tmpsurf)
           {
             SDL_BlitSurface(CurrentBkgd(), &time_rect, screen, &time_rect);
@@ -685,7 +685,7 @@ int Phrases(wchar_t* pphrase )
             tmpsurf = NULL;
           }
 
-          tmpsurf = BlackOutline(chars_typed_str, fontsize, &white);
+          tmpsurf = T4K_BlackOutline(chars_typed_str, fontsize, &white);
           if (tmpsurf)
           {
             SDL_BlitSurface(CurrentBkgd(), &chars_typed_rect, screen, &chars_typed_rect);
@@ -694,7 +694,7 @@ int Phrases(wchar_t* pphrase )
             tmpsurf = NULL;
           }
 
-          tmpsurf = BlackOutline(cpm_str, fontsize, &white);
+          tmpsurf = T4K_BlackOutline(cpm_str, fontsize, &white);
           if (tmpsurf)
           {
             SDL_BlitSurface(CurrentBkgd(), &cpm_rect, screen, &cpm_rect);
@@ -703,7 +703,7 @@ int Phrases(wchar_t* pphrase )
             tmpsurf = NULL;
           }
 
-          tmpsurf = BlackOutline(wpm_str, fontsize, &white);
+          tmpsurf = T4K_BlackOutline(wpm_str, fontsize, &white);
           if (tmpsurf)
           {
             SDL_BlitSurface(CurrentBkgd(), &wpm_rect, screen, &wpm_rect);
@@ -712,7 +712,7 @@ int Phrases(wchar_t* pphrase )
             tmpsurf = NULL;
           }
 
-          tmpsurf = BlackOutline(errors_str, fontsize, &white);
+          tmpsurf = T4K_BlackOutline(errors_str, fontsize, &white);
           if (tmpsurf)
           {
             SDL_BlitSurface(CurrentBkgd(), &errors_rect, screen, &errors_rect);
@@ -721,7 +721,7 @@ int Phrases(wchar_t* pphrase )
             tmpsurf = NULL;
           }
 
-          tmpsurf = BlackOutline(accuracy_str, fontsize, &white);
+          tmpsurf = T4K_BlackOutline(accuracy_str, fontsize, &white);
           if (tmpsurf)
           {
             SDL_BlitSurface(CurrentBkgd(), &accuracy_rect, screen, &accuracy_rect);
@@ -1430,27 +1430,27 @@ static int create_labels(void)
 {
   if (time_label_srfc)
     SDL_FreeSurface(time_label_srfc); 
-  time_label_srfc = BlackOutline(_("Time"), fontsize, &yellow);
+  time_label_srfc = T4K_BlackOutline(_("Time"), fontsize, &yellow);
 
   if (chars_label_srfc)
     SDL_FreeSurface(chars_label_srfc); 
-  chars_label_srfc = BlackOutline(_("Chars"), fontsize, &yellow);
+  chars_label_srfc = T4K_BlackOutline(_("Chars"), fontsize, &yellow);
 
   if (cpm_label_srfc)
     SDL_FreeSurface(cpm_label_srfc);
-  cpm_label_srfc = BlackOutline(_("CPM"), fontsize, &yellow);
+  cpm_label_srfc = T4K_BlackOutline(_("CPM"), fontsize, &yellow);
 
   if (wpm_label_srfc)
     SDL_FreeSurface(wpm_label_srfc); 
-  wpm_label_srfc = BlackOutline(_("WPM"), fontsize, &yellow);
+  wpm_label_srfc = T4K_BlackOutline(_("WPM"), fontsize, &yellow);
 
   if (errors_label_srfc)
     SDL_FreeSurface(errors_label_srfc); 
-  errors_label_srfc = BlackOutline(_("Errors"), fontsize, &yellow);
+  errors_label_srfc = T4K_BlackOutline(_("Errors"), fontsize, &yellow);
 
   if (accuracy_label_srfc)
     SDL_FreeSurface(accuracy_label_srfc); 
-  accuracy_label_srfc = BlackOutline(_("Accuracy"), fontsize, &yellow);
+  accuracy_label_srfc = T4K_BlackOutline(_("Accuracy"), fontsize, &yellow);
 
   if (time_label_srfc
    && chars_label_srfc

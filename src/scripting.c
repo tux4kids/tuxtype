@@ -267,8 +267,8 @@ int XMLLesson(void)
   /* let the user pick the lesson script */
   for (i = 0; i < num_scripts; i++)
   {
-    titles[i] = BlackOutline( script_filenames[i], DEFAULT_MENU_FONT_SIZE, &white );
-    select[i] = BlackOutline( script_filenames[i], DEFAULT_MENU_FONT_SIZE, &yellow);
+    titles[i] = T4K_BlackOutline( script_filenames[i], DEFAULT_MENU_FONT_SIZE, &white );
+    select[i] = T4K_BlackOutline( script_filenames[i], DEFAULT_MENU_FONT_SIZE, &yellow);
   }
 
   left = LoadImage("left.png", IMG_ALPHA);

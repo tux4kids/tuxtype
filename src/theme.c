@@ -97,12 +97,12 @@ void ChooseTheme(void)
 
   settings.use_english = 1;
 
-  titles[0] = BlackOutline( "English", DEFAULT_MENU_FONT_SIZE, &white );
-  select[0] = BlackOutline( "English", DEFAULT_MENU_FONT_SIZE, &yellow);
+  titles[0] = T4K_BlackOutline( "English", DEFAULT_MENU_FONT_SIZE, &white );
+  select[0] = T4K_BlackOutline( "English", DEFAULT_MENU_FONT_SIZE, &yellow);
   for (i = 1; i < themes; i++)
   {
-    titles[i] = BlackOutline( themeNames[i], DEFAULT_MENU_FONT_SIZE, &white );
-    select[i] = BlackOutline( themeNames[i], DEFAULT_MENU_FONT_SIZE, &yellow);
+    titles[i] = T4K_BlackOutline( themeNames[i], DEFAULT_MENU_FONT_SIZE, &white );
+    select[i] = T4K_BlackOutline( themeNames[i], DEFAULT_MENU_FONT_SIZE, &yellow);
   }
 
   LoadBothBkgds("main_bkg.png");

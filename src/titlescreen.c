@@ -899,8 +899,8 @@ static void load_menu(void)
       }
 
       /* --- create text surfaces --- */
-      reg_text[i][j] = BlackOutline( gettext(menu_text[j + 5 * i]), DEFAULT_MENU_FONT_SIZE, &white);
-      sel_text[i][j] = BlackOutline( gettext(menu_text[j + 5 * i]), DEFAULT_MENU_FONT_SIZE, &yellow);
+      reg_text[i][j] = T4K_BlackOutline( gettext(menu_text[j + 5 * i]), DEFAULT_MENU_FONT_SIZE, &white);
+      sel_text[i][j] = T4K_BlackOutline( gettext(menu_text[j + 5 * i]), DEFAULT_MENU_FONT_SIZE, &yellow);
 
       /* (first make sure ptr valid to avoid segfault) */
       if (sel_text[i][j] && sel_text[i][j]->w > max)
@@ -1116,10 +1116,10 @@ static void not_implemented(void)
 
   LOG( "NotImplemented() - creating text\n" );
 
-  s1 = BlackOutline( _("Work In Progress!"), DEFAULT_MENU_FONT_SIZE, &white);
-  s2 = BlackOutline( _("This feature is not ready yet"), DEFAULT_MENU_FONT_SIZE, &white);
-  s3 = BlackOutline( _("Discuss the future of TuxTyping at"), DEFAULT_MENU_FONT_SIZE, &white);
-  s4 = BlackOutline( "http://tux4kids.alioth.debian.org/", DEFAULT_MENU_FONT_SIZE, &white);
+  s1 = T4K_BlackOutline( _("Work In Progress!"), DEFAULT_MENU_FONT_SIZE, &white);
+  s2 = T4K_BlackOutline( _("This feature is not ready yet"), DEFAULT_MENU_FONT_SIZE, &white);
+  s3 = T4K_BlackOutline( _("Discuss the future of TuxTyping at"), DEFAULT_MENU_FONT_SIZE, &white);
+  s4 = T4K_BlackOutline( "http://tux4kids.alioth.debian.org/", DEFAULT_MENU_FONT_SIZE, &white);
 
   tux = LoadSprite("tux/tux-egypt", IMG_ALPHA);
 
@@ -1404,8 +1404,8 @@ static int chooseWordlist(void)
   /* Render SDL_Surfaces for list entries: */
   for (i = 0; i < lists; i++)
   {
-    titles[i] = BlackOutline( wordlistName[i], DEFAULT_MENU_FONT_SIZE, &white );
-    select[i] = BlackOutline( wordlistName[i], DEFAULT_MENU_FONT_SIZE, &yellow);
+    titles[i] = T4K_BlackOutline( wordlistName[i], DEFAULT_MENU_FONT_SIZE, &white );
+    select[i] = T4K_BlackOutline( wordlistName[i], DEFAULT_MENU_FONT_SIZE, &yellow);
   }
 
   left = LoadImage("left.png", IMG_ALPHA);

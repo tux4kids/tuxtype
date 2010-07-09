@@ -274,7 +274,7 @@ static void pause_draw(void)
 
   if (settings.sys_sound)
   {
-    t = BlackOutline(_("Sound Effects Volume"), pause_font_size1, &white);
+    t = T4K_BlackOutline(_("Sound Effects Volume"), pause_font_size1, &white);
     if (t)
     {	
       s.y = screen->h/2 - 80;
@@ -283,7 +283,7 @@ static void pause_draw(void)
       SDL_FreeSurface(t);
     }
 
-    t = BlackOutline(gettext("Music Volume"), pause_font_size1, &white);
+    t = T4K_BlackOutline(gettext("Music Volume"), pause_font_size1, &white);
     if (t)
     {
       s.y = screen->h/2 + 20;
@@ -294,7 +294,7 @@ static void pause_draw(void)
   }
   else  /* No sound: */
   {
-    t = BlackOutline(gettext("Sound & Music Disabled"), pause_font_size1, &white);
+    t = T4K_BlackOutline(gettext("Sound & Music Disabled"), pause_font_size1, &white);
     if (t)
     {
       s.y = screen->h/2 - 80;
@@ -304,7 +304,7 @@ static void pause_draw(void)
     }
   }
 
-  t = BlackOutline(gettext("Paused!"), pause_font_size2, &white);
+  t = T4K_BlackOutline(gettext("Paused!"), pause_font_size2, &white);
   if (t)
   {
 	s.y = screen->h/2 - 180; //60;
@@ -313,7 +313,7 @@ static void pause_draw(void)
 	SDL_FreeSurface(t);
   }
 
-  t = BlackOutline(gettext("Press escape again to return to menu"), pause_font_size1, &white);
+  t = T4K_BlackOutline(gettext("Press escape again to return to menu"), pause_font_size1, &white);
   if (t)
   {
     s.y = screen->h/2 + 160;
@@ -322,7 +322,7 @@ static void pause_draw(void)
     SDL_FreeSurface(t);
   }
 
-  t = BlackOutline(gettext("Press space bar to return to game"), pause_font_size1, &white);
+  t = T4K_BlackOutline(gettext("Press space bar to return to game"), pause_font_size1, &white);
   if (t)
   {
     s.y = screen->h/2 + 200;
