@@ -58,9 +58,19 @@ SDL_Surface* BlackOutline(const char* t, int font_size, const SDL_Color* c);
 SDL_Surface* BlackOutline_w(const wchar_t* t, int font_size, const SDL_Color* c, int length);
 //SDL_Surface* SimpleTextWithOffset(const char *t, int size, SDL_Color* col, int *glyph_offset);
 
-
-
+/* Blit queue functions: */
+void InitBlitQueue(void);
+void ResetBlitQueue(void);
+int AddRect(SDL_Rect* src, SDL_Rect* dst);
+int DrawSprite(sprite* gfx, int x, int y);
+int EraseSprite(sprite* img, int x, int y);
+int EraseObject(SDL_Surface* surf, int x, int y);
+void UpdateScreen(int* frame);
 #endif //HAVE_LIBT4K_COMMON
+
+
+
+
 
 /* the colors we use throughout the game */
 static const SDL_Color black 		= {0x00, 0x00, 0x00, 0x00};
@@ -69,15 +79,6 @@ static const SDL_Color dark_blue	= {0x00, 0x00, 0x60, 0x00};
 static const SDL_Color red 		= {0xff, 0x00, 0x00, 0x00};
 static const SDL_Color white 		= {0xff, 0xff, 0xff, 0x00};
 static const SDL_Color yellow 		= {0xff, 0xff, 0x00, 0x00};
-
-/* Blit queue functions: */
-void InitBlitQueue(void);
-void ResetBlitQueue(void);
-int AddRect(SDL_Rect* src, SDL_Rect* dst);
-int DrawSprite(sprite* gfx, int x, int y);
-int EraseObject(SDL_Surface* surf, int x, int y);
-int EraseSprite(sprite* img, int x, int y);
-void UpdateScreen(int* frame);
 
 
 /* FIXME get rid of these 'evil' macros */

@@ -249,7 +249,7 @@ int PlayCascade(int diflevel)
       oldlives = curlives;
       oldfish_left = fish_left;
 
-      EraseSprite( tux_object.spr[tux_object.state][tux_object.facing], tux_object.x, tux_object.y );
+      T4K_EraseSprite( tux_object.spr[tux_object.state][tux_object.facing], CurrentBkgd(), tux_object.x, tux_object.y );
 
       /* --- Poll input queue, get keyboard info --- */
       while (SDL_PollEvent(&event))
@@ -515,7 +515,7 @@ int PlayCascade(int diflevel)
         /* Do all pending blits and increment frame counter: */
         T4K_UpdateScreen(&frame);
 
-        EraseSprite( tux_object.spr[tux_object.state][tux_object.facing], tux_object.x, tux_object.y );
+        T4K_EraseSprite( tux_object.spr[tux_object.state][tux_object.facing], CurrentBkgd(), tux_object.x, tux_object.y );
         T4K_EraseObject(temp_text[temp_text_count], CurrentBkgd(), text_rect.x, y_not);
 
         if (!settings.speed_up)
@@ -1301,7 +1301,7 @@ static void MoveFishies(int *fishies, int *splats, int *lifes, int *frame)
     if (fish_object[i].alive) 
     {
       for (j = 0; j < fish_object[i].len; j++)
-        EraseSprite( fish_sprite, fish_object[i].x + (fish_sprite->frame[0]->w*j), fish_object[i].y );
+        T4K_EraseSprite( fish_sprite, CurrentBkgd(), fish_object[i].x + (fish_sprite->frame[0]->w*j), fish_object[i].y );
 	            
       fish_object[i].y += fish_object[i].dy;
 	
@@ -1324,7 +1324,7 @@ static void MoveFishies(int *fishies, int *splats, int *lifes, int *frame)
 			if (splat_object[i].alive>1)
 					T4K_DrawSprite( splat_sprite, splat_object[i].x, splat_object[i].y);
 				else 
-					EraseSprite( splat_sprite, splat_object[i].x, splat_object[i].y);
+					T4K_EraseSprite( splat_sprite, CurrentBkgd(), splat_object[i].x, splat_object[i].y);
 		}
 
 	LOG("Leaving MoveFishies()\n\n");
@@ -1394,7 +1394,7 @@ static void CheckCollision(int fishies, int *fish_left, int frame )
 				fish_object[i].can_eat = 0;
 
 				for (j = 0; j < fish_object[i].len; j++) 
-					EraseSprite(fish_sprite, (fish_object[i].x + (j * fish_sprite->frame[0]->w)), fish_object[i].y);
+					T4K_EraseSprite(fish_sprite, CurrentBkgd(), (fish_object[i].x + (j * fish_sprite->frame[0]->w)), fish_object[i].y);
 
 				*fish_left = *fish_left - 1;
 
@@ -1441,7 +1441,7 @@ static void MoveTux( int frame, int fishies )
 
 	LOG( "Entering MoveTux()\n" );
 
-	EraseSprite( tux_object.spr[tux_object.state][tux_object.facing], tux_object.x, tux_object.y );
+	T4K_EraseSprite( tux_object.spr[tux_object.state][tux_object.facing], CurrentBkgd(), tux_object.x, tux_object.y );
 
 	if (tux_object.state != TUX_GULPING) {
 		for (i=0; i<fishies; i++) 
