@@ -223,7 +223,7 @@ enum
 #ifdef HAVE_LIBT4K_COMMON
 # include <t4k_common.h>
 #else
-
+#error libt4k_common should be used. You may delete this line to fall back on built-in functions at your own peril
 /* For TransWipe(): */
 enum
 {
@@ -243,32 +243,29 @@ typedef struct {
 
 
 /* "Public" function prototypes: */
-void RoundCorners(SDL_Surface* s, Uint16 radius);
-SDL_Surface* Flip(SDL_Surface *in, int x, int y);
-int  inRect(SDL_Rect r, int x, int y);
-void DarkenScreen(Uint8 bits);
-void SwitchScreenMode(void);
-int WaitForKeypress(void);
-SDL_Surface* Blend(SDL_Surface *S1, SDL_Surface *S2, float gamma);
-SDL_Surface* zoom(SDL_Surface * src, int new_w, int new_h);
-int TransWipe(const SDL_Surface* newbkg, int type, int segments, int duration);
+#define T4K_RoundCorners RoundCorners
+#define T4K_Flip Flip
+#define T4K_inRect inRect
+#define T4K_DarkenScreen DarkenScreen
+#define T4K_SwitchScreenMode SwitchScreenMode
+#define T4K_WaitForKeypress WaitForKeypress
+#define T4K_Blend Blend
+#define T4K_zoom zoom
+#define T4K_TransWipe TransWipe
 
 /* Blit queue functions: */
-void InitBlitQueue(void);
-void ResetBlitQueue(void);
-int AddRect(SDL_Rect* src, SDL_Rect* dst);
-int DrawSprite(sprite* gfx, int x, int y);
-int EraseObject(SDL_Surface* surf, int x, int y);
-int EraseSprite(sprite* img, int x, int y);
-void UpdateScreen(int* frame);
+#define T4K_InitBlitQueue InitBlitQueue
+#define T4K_ResetBlitQueue ResetBlitQueue
+#define T4K_AddRect AddRect
+#define T4K_DrawSprite DrawSprite
+#define T4K_EraseObject EraseObject
+#define T4K_EraseSprite EraseSprite
+#define T4K_UpdateScreen UpdateScreen
 
 /*Text rendering functions: */
-int Setup_SDL_Text(void);
-void Cleanup_SDL_Text(void);
-SDL_Surface* BlackOutline(const char* t, int font_size, const SDL_Color* c);
-//SDL_Surface* SimpleTextWithOffset(const char *t, int size, SDL_Color* col, int *glyph_offset);
-
-
+#define T4K_Setup_SDL_Text Setup_SDL_Text
+#define T4K_Cleanup_SDL_Text Cleanup_SDL_Text
+#define T4K_BlackOutline BlackOutline
 
 #if SDL_BYTEORDER == SDL_BIG_ENDIAN
 #define rmask 0xff000000
