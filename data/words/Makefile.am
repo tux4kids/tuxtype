@@ -16,4 +16,5 @@ dist_words_DATA = alphabet.txt \
   trees.txt \
   words1.txt \
   words2.txt \
-  words3.txt
+  words3.txt \
+  lessonData.xml

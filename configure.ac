@@ -207,6 +207,27 @@ if test "x$with_rsvg" = xyes; then
 fi
 
 
+dnl Check for libxml2: --------------------------------------------------------
+
+PKG_CHECK_MODULES([XML2],
+    [libxml-2.0],
+    ,
+    [
+      [echo "LIBXML2 not found via pkg_config, checking with AC_CHECK_LIB:"]
+      AC_CHECK_LIB([xml2],
+	 [xmlParseFile],
+         ,
+         [AC_MSG_ERROR([libxml-2.0 not found: http://www.xmlsoft.org])]
+      )
+      [echo "LIBXML2 successfully located"]
+    ] 
+)
+
+AC_DEFINE([HAVE_LIBXML2],[1],[Define to 1 if you have the `libxml-2.0` library])
+CFLAGS="$CFLAGS $XML2_CFLAGS"
+LIBS="$LIBS $XML2_LIBS"
+
+
 dnl Use of libt4kcommon is now enabled for now by default
 dnl but can be disabled at configure time for testing and development.
 AC_ARG_WITH([libt4k_common],

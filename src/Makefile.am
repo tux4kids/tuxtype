@@ -81,7 +81,9 @@ tuxtype_SOURCES = 	\
 	setup.c		\
 	snow.c		\
 	theme.c		\
-	titlescreen.c
+	titlescreen.c   \
+        schoolmode.c    \
+        manage_xmlLesson.c 
 TuxType_SOURCES  = $(tuxtype_SOURCES)
 
 # The rc file has something to do with the icon in Windows, IIRC
@@ -103,4 +105,6 @@ EXTRA_DIST =		\
 	scripting.h	\
 	SDL_extras.h	\
 	snow.h		\
-        titlescreen.h 
+        titlescreen.h   \
+        schoolmode.h    \
+        manage_xmlLesson.h

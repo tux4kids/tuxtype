@@ -233,3 +233,9 @@ enum
 
 #endif
 
+
+//define SCHOOLMODE for schoolmode specific compiling
+#ifdef HAVE_LIBXML2
+#define SCHOOLMODE 1
+#endif
+

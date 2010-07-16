@@ -19,6 +19,9 @@
 #include "globals.h"
 #include "funcs.h"
 #include "SDL_extras.h"
+//#ifdef SCHOOLMODE
+//#include"schoolmode.h"
+//#endif
 
 SDL_Surface* screen;
 SDL_Event  event;
@@ -173,6 +176,22 @@ int main(int argc, char *argv[])
   LoadLang();
   LoadKeyboard();
 
+
+#ifdef SCHOOLMODE
+if (argc>1)//if not used then argv[1] will segfault in normal game
+ {
+   if (0 == strcmp(argv[1], "--schoolmode") )
+    {
+     if(argc >2)  
+      {  
+       schoolmode(argv[2]);
+      }   
+     else
+        fprintf(stderr, "Required an argument (XML lesson filepath)\n");
+    }
+ }
+//else
+#else
   /* Now actually play the game: */
   TitleScreen();
 
@@ -180,7 +199,7 @@ int main(int argc, char *argv[])
 
   /* Release heap: */
   Cleanup();
-
+#endif
   LOG( "---GAME DONE, EXIT---- Thank you.\n" );
 
   return EXIT_SUCCESS;
