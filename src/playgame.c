@@ -24,10 +24,24 @@ email                : tuxtype-dev@tux4kids.net
 #include "SDL_extras.h"
 #include "input_methods.h"
 
+#ifdef SCHOOLMODE
+#include"manage_xmlLesson.h"
+#include "schoolmode.h"
+
+#endif
+
 /* Should these be constants? */
 static int tux_max_width = 0;                // the max width of the images of tux
 static int number_max_w = 0;                 // the max width of a number image
 
+#ifdef SCHOOLMODE
+// schoolmode options
+//int total_num_fish;
+//for result
+
+//  struct result_fish_cacade result; 
+
+#endif
 
 //static SDL_Surface* background = NULL;
 static SDL_Surface* level[NUM_LEVELS] = {NULL};
@@ -151,6 +165,17 @@ int PlayCascade(int diflevel)
     return 0;
   }
 
+#ifdef SCHOOLMODE
+
+//result = ( struct result_fish_cascade ) malloc(sizeof(struct result_fish_cascade));
+  //if (result == NULL)
+  //{
+    //printf("Allocation of result to store result values failed");
+    //return 0;
+  //}
+
+#endif
+
 
   /*  --------- Begin outer game loop (cycles once per level): ------------- */
 
@@ -165,30 +190,44 @@ int PlayCascade(int diflevel)
       {
         default:
         case EASY:
-          fish_left = MAX_FISHIES_EASY;
-
-          if (settings.o_lives >  LIVES_INIT_EASY)
+      #ifndef SCHOOLMODE   //if not defined 
+         fish_left = MAX_FISHIES_EASY;
+           if (settings.o_lives >  LIVES_INIT_EASY)
             curlives = settings.o_lives;
           else
             curlives = LIVES_INIT_EASY;
+      #else
+            curlives = input_cascade.num_of_lives;  
+            fish_left= input_cascade.fish_per_level;
+      #endif
           break;
 
         case MEDIUM:
+     #ifndef SCHOOLMODE   //if not defined
           fish_left = MAX_FISHIES_MEDIUM;
-
           if (settings.o_lives >  LIVES_INIT_MEDIUM)
             curlives = settings.o_lives;
           else
             curlives =  LIVES_INIT_MEDIUM;
+     #else
+            curlives = input_cascade.num_of_lives;
+           fish_left= input_cascade.fish_per_level;;   
+     #endif
+        
           break;
 
         case HARD:
-          fish_left = MAX_FISHIES_HARD;
-
+     #ifndef SCHOOLMODE   //if not defined         
+           fish_left = MAX_FISHIES_HARD;
           if (settings.o_lives >  LIVES_INIT_HARD)
             curlives = settings.o_lives;
           else
             curlives =  LIVES_INIT_HARD;
+    #else
+            curlives = input_cascade.num_of_lives;  
+           fish_left= input_cascade.fish_per_level;
+    #endif
+    
           break;
       }
 
@@ -248,6 +287,10 @@ int PlayCascade(int diflevel)
 
       oldlives = curlives;
       oldfish_left = fish_left;
+#ifdef SCHOOLMODE
+result_cascade.fish_eaten=input_cascade.fish_per_level-fish_left;
+ result_cascade.level_reached=curlevel+1;
+#endif   
 
       EraseSprite( tux_object.spr[tux_object.state][tux_object.facing], tux_object.x, tux_object.y );
 

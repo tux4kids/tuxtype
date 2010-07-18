@@ -21,4 +21,5 @@ void trans_wipe(SDL_Surface* newbkg, int type, int var1, int var2);
 int schoolmode(char *);
 int display_screen(int);
 
-
+//extern int num_of_lives; //lives for laser or cascade game
+//extern char sm_phrases_path[256]; // path of file for phrases game

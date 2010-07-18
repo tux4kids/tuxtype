@@ -28,13 +28,58 @@ extern int total_no_menus;  // total no of menus
 int manage_xmlLesson(char *);
 
 
+//Both the structs below are similar
+//I could have used a single struct but since the two games
+//laser and cascade are different so decided with two structs
+//for settings from lesson file
+struct settings_laser_game
+{
+char filepath[256];  
+int level; //easy medium hard
+int num_of_lives;
+}; 
+
+struct settings_laser_game input_laser;
+
+//for settings from lesson file
+struct settings_cascade_game
+{
+char filepath[256];  
+int level;  //easy medium hard
+int num_of_lives;
+int fish_per_level;
+}; 
+
+struct settings_cascade_game input_cascade;
+
+
+//for settings from lesson file
+struct settings_phrases_game
+{ 
+char phrases_path[256];
+}; 
+
+struct settings_phrases_game input_phrases;
+
+
+
 
 //for result 
-/*
-struct result_per_wave
+
+struct result_fish_cascade
 {
-int wave_completed;  //bool to store the status of wave
-int wave_no;
-Uint32 wave_time;
+int fish_eaten;  
+int level_reached; 
 }; 
-*/
+
+struct result_fish_cascade result_cascade;
+
+struct result_laser_game
+{
+int wave;  
+int score; 
+}; 
+
+struct result_laser_game result_laser;
+
+

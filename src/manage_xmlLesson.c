@@ -26,7 +26,11 @@
 //Local Function prototypes for reading
 void parse_cascade(xmlNode *);
 void parse_lasergame(xmlNode *);
+void parse_phrases(xmlNode *);
+
 //Local Function prototypes for writing
+void write_cascade();
+void write_laser();
 //initialize read and write 
 int init_readwrite(char *);
 void clean_up();
@@ -44,12 +48,9 @@ int total_no_menus;
 
   char menu_names[MAX_MENU_ITEMS][MENU_ITEM_LENGTH] = {{'\0'}};
 
-char filepath[256],level_string[5];
-int level=-1;
 
- xmlChar *wave;
 
-//extern struct result_per_wave *result; //defined in factoroids.c
+//extern struct result_fish_cascade result; //defined in playgame.c
 
 //char *xml_lesson_path;
 
@@ -91,50 +92,62 @@ return 0;
        i++;   
         parse_cascade(cur_node);
 
-          GenerateWordList(filepath);
-          if(level ==1)
+          GenerateWordList(input_cascade.filepath);
+          if(input_cascade.level ==1)
            PlayCascade( EASY );
           else 
-          if(level ==2)
+          if(input_cascade.level ==2)
            PlayCascade( MEDIUM );
           else 
-          if(level ==3)
+          if(input_cascade.level ==3)
            PlayCascade( HARD );
           else 
-          if(level ==4)
+          if(input_cascade.level ==4)
            PlayCascade( INSANE );
-              level=-1;
+              input_cascade.level=-1;
+ 
+         write_cascade();
     //   game_score=factoroids_schoolmode(0,current_no_of_waves);
       // write_factors();  
  
      }
 
    else if ( cur_node->type == XML_ELEMENT_NODE  &&
-          !xmlStrcmp(cur_node->name, (const xmlChar *) "comet" ) )
+          !xmlStrcmp(cur_node->name, (const xmlChar *) "laser" ) )
      { 
         if(display_screen(i)==-1)    // i highlights the next game to be played
            break;
         i++;         
         parse_lasergame(cur_node);
 
-          GenerateWordList(filepath);
-          if(level ==1)
+          GenerateWordList(input_laser.filepath);
+          if(input_laser.level ==1)
            PlayLaserGame( EASY );
           else 
-          if(level ==2)
+          if(input_laser.level ==2)
           PlayLaserGame( MEDIUM );
           else 
-          if(level ==3)
+          if(input_laser.level ==3)
           PlayLaserGame( HARD );
           else 
-          if(level ==4)
+          if(input_laser.level ==4)
            PlayLaserGame( INSANE ); 
-             level=-1;
+             input_laser.level=-1;
+         write_laser();  
       //  current_no_of_waves=parse_fractions(cur_node);
       // game_score=factoroids_schoolmode(1,current_no_of_waves);
       // write_fractions();   
      }
-  
+
+  else if ( cur_node->type == XML_ELEMENT_NODE  &&
+          !xmlStrcmp(cur_node->name, (const xmlChar *) "phrases" ) )
+     { 
+        if(display_screen(i)==-1)    // i highlights the next game to be played
+           break;
+        i++;   
+      parse_phrases(cur_node);
+            Phrases(NULL);
+     }
 
   }
 
@@ -271,13 +284,19 @@ int i;
      }
 
    else if ( cur_node->type == XML_ELEMENT_NODE  &&
-          !xmlStrcmp(cur_node->name, (const xmlChar *) "comet" ) )
+          !xmlStrcmp(cur_node->name, (const xmlChar *) "laser" ) )
      {  
                 sprintf(menu_names[i], "%s", cur_node->name); 
                 i++;
      }
 
 
+   else if ( cur_node->type == XML_ELEMENT_NODE  &&
+          !xmlStrcmp(cur_node->name, (const xmlChar *) "phrases" ) )
+     {  
+                sprintf(menu_names[i], "%s", cur_node->name); 
+                i++;
+     }
   }
 
 total_no_menus=i;
@@ -312,13 +331,13 @@ return 0;
 //parse cascade
 void parse_cascade(xmlNode *cur_node)
 {
- xmlChar *filename,*level_xml;
+ xmlChar *temp_xml;
  xmlNode *child_node;
-
+  char temp_string[5];
 
        //printf("Element: %s \n", cur_node->name); 
 
-        // For each child of factors: i.e. wave
+
         for(child_node = cur_node->children; child_node != NULL; child_node = child_node->next)
         {
            if ( cur_node->type == XML_ELEMENT_NODE  &&
@@ -326,30 +345,64 @@ void parse_cascade(xmlNode *cur_node)
            {
              
             
-              filename= xmlNodeGetContent(child_node);
-              if(filename)
+              temp_xml= xmlNodeGetContent(child_node);
+              if(temp_xml)
                {
                  //printf("         Wave: %s\n", wave);
-                 sprintf(filepath ,"%s", filename); 
+                 sprintf(input_cascade.filepath ,"%s", temp_xml); 
 
                }
               //xmlFree(filename);
            }          
           else if ( cur_node->type == XML_ELEMENT_NODE  &&
-                !xmlStrcmp(child_node->name, (const xmlChar *)"level") )
+                !xmlStrcmp(child_node->name, (const xmlChar *)"level") )   //this level refers to easy/medium/hard
            {
               
                //the level value is got from XML file
-                level_xml= xmlNodeGetContent(child_node);
-              if(level_xml)
+                temp_xml= xmlNodeGetContent(child_node);
+              if(temp_xml)
                {
-                 sprintf(level_string, "%s", level_xml); 
-                 level=atoi(level_string);
+                 sprintf(temp_string, "%s", temp_xml); 
+                 input_cascade.level=atoi(temp_string);
                    
 
                }
               //xmlFree(level_xml);
            }          
+       else if ( cur_node->type == XML_ELEMENT_NODE  &&
+                !xmlStrcmp(child_node->name, (const xmlChar *)"lives") )
+           {
+              
+               //the level value is got from XML file
+                temp_xml= xmlNodeGetContent(child_node);
+              if(temp_xml)
+               {
+                 sprintf(temp_string, "%s", temp_xml);  
+                 input_cascade.num_of_lives=atoi(temp_string);
+                   
+
+               }
+              //xmlFree(level_xml);
+           }
+       else if ( cur_node->type == XML_ELEMENT_NODE  &&
+                !xmlStrcmp(child_node->name, (const xmlChar *)"fish_per_level") )
+           {
+              
+               //the level value is got from XML file
+                temp_xml= xmlNodeGetContent(child_node);
+              if(temp_xml)
+               {
+                 sprintf(temp_string, "%s", temp_xml);  
+                 input_cascade.fish_per_level=atoi(temp_string);
+                   
+
+               }
+              //xmlFree(level_xml);
+           }
+
+
+
+          
          }
 
 
@@ -359,13 +412,13 @@ void parse_cascade(xmlNode *cur_node)
 //parse lasergame
 void parse_lasergame(xmlNode *cur_node)
 {
- xmlChar *filename,*level_xml;
+ xmlChar *temp_xml;
  xmlNode *child_node;
-
+  char temp_string[5];
 
        //printf("Element: %s \n", cur_node->name); 
 
-        // For each child of factors: i.e. wave
+
         for(child_node = cur_node->children; child_node != NULL; child_node = child_node->next)
         {
            if ( cur_node->type == XML_ELEMENT_NODE  &&
@@ -373,11 +426,11 @@ void parse_lasergame(xmlNode *cur_node)
            {
              
             
-              filename= xmlNodeGetContent(child_node);
-              if(filename)
+              temp_xml= xmlNodeGetContent(child_node);
+              if(temp_xml)
                {
-                 //printf("         Wave: %s\n", wave);
-                 sprintf(filepath ,"%s", filename); 
+
+                 sprintf(input_laser.filepath ,"%s", temp_xml); 
 
                }
               //xmlFree(filename);
@@ -387,20 +440,113 @@ void parse_lasergame(xmlNode *cur_node)
            {
               
                //the level value is got from XML file
-                level_xml= xmlNodeGetContent(child_node);
-              if(level_xml)
+               temp_xml= xmlNodeGetContent(child_node);
+              if(temp_xml)
                {
-                 sprintf(level_string, "%s", level_xml); 
-                 level=atoi(level_string);
+                 sprintf(temp_string, "%s", temp_xml); 
+                 input_laser.level=atoi(temp_string);
                    
 
                }
               //xmlFree(level_xml);
-           }          
+           }         
+         else if ( cur_node->type == XML_ELEMENT_NODE  &&
+                 !xmlStrcmp(child_node->name, (const xmlChar *)"lives") )
+           {
+              
+               //the level value is got from XML file
+                temp_xml= xmlNodeGetContent(child_node);
+              if(temp_xml)
+               {
+                 sprintf(temp_string, "%s", temp_xml);  
+                 input_laser.num_of_lives=atoi(temp_string);
+                   
+
+               }
+              //xmlFree(level_xml);
+           }           
          }
 
 
 }
+
+
+//parse phrases
+void parse_phrases(xmlNode *cur_node)
+{
+ xmlChar *filename;
+ xmlNode *child_node;
+
+
+       //printf("Element: %s \n", cur_node->name); 
+
+        // For each child of factors: i.e. wave
+        for(child_node = cur_node->children; child_node != NULL; child_node = child_node->next)
+        {
+           if ( cur_node->type == XML_ELEMENT_NODE  &&
+                !xmlStrcmp(child_node->name, (const xmlChar *)"phrases_file") )
+           {             
+            
+              filename= xmlNodeGetContent(child_node);
+              if(filename)
+               {
+                 //printf("         Wave: %s\n", wave);
+                 sprintf(input_phrases.phrases_path ,"%s", filename); 
+
+               }
+              //xmlFree(filename);
+           }          
+         
+         }
+
+
+}
+
+
+
+
+
+
+//write cascade
+void write_cascade()
+{
+//int k;
+xmlNodePtr node = NULL;/* node pointer */
+
+node = xmlNewChild(root_write, NULL, BAD_CAST "cascade", NULL);
+
+          
+            sprintf(buff, "%d", result_cascade.level_reached);
+            xmlNewChild(node, NULL, BAD_CAST "level_reached", BAD_CAST buff); 
+
+
+            sprintf(buff, "%d", result_cascade.fish_eaten);
+            xmlNewChild(node, NULL, BAD_CAST "fish_eaten", BAD_CAST buff); 
+
+
+}
+
+
+
+//write laser
+void write_laser()
+{
+//int k;
+xmlNodePtr node = NULL;/* node pointer */
+
+node = xmlNewChild(root_write, NULL, BAD_CAST "laser", NULL);
+
+          
+            sprintf(buff, "%d", result_laser.wave);
+            xmlNewChild(node, NULL, BAD_CAST "wave_reached", BAD_CAST buff); 
+
+
+            sprintf(buff, "%d", result_laser.score);
+            xmlNewChild(node, NULL, BAD_CAST "score", BAD_CAST buff); 
+
+
+}
+
 
 
 void clean_up()
@@ -418,7 +564,6 @@ SDL_FreeSurface(screen);
 //free(input);
 //free(result);
  
-
 
   SDL_Quit();
 /*free the document read*/

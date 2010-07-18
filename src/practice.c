@@ -26,6 +26,10 @@ Sreyas Kurumanghat <k.sreyas@gmail.com>
 #include "SDL_extras.h"
 #include "convert_utf.h"
 
+#ifdef SCHOOLMODE
+#include "manage_xmlLesson.h"
+#endif
+
 #define MAX_PHRASES 256
 #define MAX_PHRASE_LENGTH 256
 #define MAX_WRAP_LINES 10
@@ -35,6 +39,7 @@ Sreyas Kurumanghat <k.sreyas@gmail.com>
 static int fontsize = 0;
 static int medfontsize = 0;
 static int bigfontsize = 0;
+
 
 /* Surfaces for things we want to pre-render: */
 static SDL_Surface* hands = NULL;
@@ -160,7 +165,11 @@ int Phrases(wchar_t* pphrase )
   }
   else
   {
+   #ifdef SCHOOLMODE //if defined
+    num_phrases = load_phrases(input_phrases.phrases_path);  
+   #else
     num_phrases = load_phrases("phrases.txt");
+   #endif
   }
   /* Set up positions for blitting: */
   recalc_positions();
@@ -1207,6 +1216,8 @@ static int load_phrases(const char* phrase_file)
   FILE* fp;
   char fn[FNLEN];
 
+#ifndef SCHOOLMODE  //if not defined
+
   /* If using theme, look there first: */
   if (!settings.use_english)
   {
@@ -1231,6 +1242,18 @@ static int load_phrases(const char* phrase_file)
   }
 
   DEBUGCODE { printf("load_phrases(): phrases file is '%s'\n", fn ); }
+#else
+sprintf(fn , "%s", phrase_file);
+  if (CheckFile(fn))
+      found = 1;
+  
+  if (!found)
+  {
+    fprintf(stderr, "Could not find phrases file '%s' - cannot do Practice\n",
+                   phrase_file);
+    return 0;
+  }
+#endif
 
   /* We know it will open OK because we already ran CheckFile() on it */ 
   fp = fopen(fn, "r");

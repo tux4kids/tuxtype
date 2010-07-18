@@ -21,7 +21,9 @@
 #include "funcs.h"
 #include "SDL_extras.h"
 #include "laser.h"
-
+#ifdef SCHOOLMODE
+#include "manage_xmlLesson.h"
+#endif
 
 #define FPS (1000 / 15)   /* 15 fps max */
 #define CITY_EXPL_START 3 * 5  /* Must be mult. of 5 (number of expl frames) */
@@ -496,6 +498,10 @@ int PlayLaserGame(int diff_level)
 		sprintf(str, "%.6d", score);
 		laser_draw_numbers(str, screen->w - ((images[IMG_NUMBERS]->w / 10) * 6));
       
+                 #ifdef SCHOOLMODE
+                 result_laser.score= score;
+		 result_laser.wave= wave;
+                 #endif                     
       
 		/* Draw comets: */
       
