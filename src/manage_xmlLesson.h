@@ -36,7 +36,7 @@ struct settings_laser_game
 {
 char filepath[256];  
 int level; //easy medium hard
-int num_of_lives;
+//int num_of_lives;
 }; 
 
 struct settings_laser_game input_laser;
@@ -60,6 +60,17 @@ char phrases_path[256];
 }; 
 
 struct settings_phrases_game input_phrases;
+
+
+
+
+//for settings from lesson file
+struct settings_typing_lesson
+{ 
+char filepath[256];
+}; 
+
+struct settings_typing_lesson input_typing_lesson;
 
 
 

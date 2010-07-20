@@ -22,6 +22,10 @@
 #include "convert_utf.h"
 #include "scandir.h"
 
+#ifdef SCHOOLMODE
+#include "manage_xmlLesson.h"
+#endif
+
 /* Local function prototypes: */
 static void clear_items(itemType* i);
 static void clear_pages(pageType* p);
@@ -1640,3 +1644,27 @@ static int is_xml_file(const struct dirent* xml_dirent)
   const char* ending = &xml_dirent->d_name[strlen(xml_dirent->d_name) - 4]; 
   return (0 == strncasecmp(ending, ".xml", 4));
 }
+
+
+#ifdef SCHOOLMODE
+void scripting_schoolmode()
+{
+  /* Getting to here means "stop == 1", try to run chosen script: */
+  if (load_script(input_typing_lesson.filepath) != 0)
+  {
+    fprintf(stderr, "load_script() failed to load '%s'\n",input_typing_lesson.filepath);
+    SDL_ShowCursor(1);
+    return ; // bail if any errors occur
+  }
+
+  DEBUGCODE { fprintf(stderr, "Attempting to run script: %s\n", input_typing_lesson.filepath); }
+
+  run_script();
+  SDL_ShowCursor(1);
+
+  LOG("Leave scripting_schoolmode()\n");
+
+  
+}
+#endif
+

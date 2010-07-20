@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE lessonData []>
+
+<lessonData>
+
+<typing_lesson>
+<filepath>/home/vikas/tuxtype/data/scripts/basic_lesson_10.xml</filepath>
+</typing_lesson>
+
+
+<phrases>
+<phrases_file>/home/vikas/tuxtype/data/phrases.txt</phrases_file>
+</phrases>
+
+<laser>
+<words_file>/home/vikas/tuxtype/data/words/numbers.txt</words_file>
+<level>3</level>
+<lives>22</lives>
+</laser>
+
+
+<fish>
+<words_file>/home/vikas/tuxtype/data/words/numbers.txt</words_file>
+<level>3</level>
+<lives>16</lives>
+<fish_per_level>12</fish_per_level>
+</fish>
+
+
+
+</lessonData>

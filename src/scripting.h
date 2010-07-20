@@ -64,3 +64,8 @@ struct script {
 
 typedef struct script scriptType;
 
+
+#ifdef SCHOOLMODE
+void scripting_schoolmode();
+#endif
+

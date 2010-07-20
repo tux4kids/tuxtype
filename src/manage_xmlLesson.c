@@ -21,13 +21,14 @@
 #include"manage_xmlLesson.h" 
 #include"schoolmode.h"
 #include"SDL_extras.h"
+#include "scripting.h"
 #define PATH_MAX 4096
 
 //Local Function prototypes for reading
 void parse_cascade(xmlNode *);
 void parse_lasergame(xmlNode *);
 void parse_phrases(xmlNode *);
-
+void parse_typing_lesson(xmlNode *);
 //Local Function prototypes for writing
 void write_cascade();
 void write_laser();
@@ -147,6 +148,15 @@ return 0;
         i++;   
       parse_phrases(cur_node);
             Phrases(NULL);
+     }
+  else if ( cur_node->type == XML_ELEMENT_NODE  &&
+          !xmlStrcmp(cur_node->name, (const xmlChar *) "typing_lesson" ) )
+     { 
+        if(display_screen(i)==-1)    // i highlights the next game to be played
+           break;
+        i++;   
+      parse_typing_lesson(cur_node);
+            scripting_schoolmode();
      }
 
   }
@@ -293,6 +303,12 @@ int i;
 
    else if ( cur_node->type == XML_ELEMENT_NODE  &&
           !xmlStrcmp(cur_node->name, (const xmlChar *) "phrases" ) )
+     {  
+                sprintf(menu_names[i], "%s", cur_node->name); 
+                i++;
+     }
+   else if ( cur_node->type == XML_ELEMENT_NODE  &&
+          !xmlStrcmp(cur_node->name, (const xmlChar *) "typing_lesson" ) )
      {  
                 sprintf(menu_names[i], "%s", cur_node->name); 
                 i++;
@@ -450,24 +466,23 @@ void parse_lasergame(xmlNode *cur_node)
                }
               //xmlFree(level_xml);
            }         
-         else if ( cur_node->type == XML_ELEMENT_NODE  &&
-                 !xmlStrcmp(child_node->name, (const xmlChar *)"lives") )
-           {
+  //       else if ( cur_node->type == XML_ELEMENT_NODE  &&
+  //             !xmlStrcmp(child_node->name, (const xmlChar *)"lives") )
+  //           {
               
                //the level value is got from XML file
-                temp_xml= xmlNodeGetContent(child_node);
-              if(temp_xml)
-               {
-                 sprintf(temp_string, "%s", temp_xml);  
-                 input_laser.num_of_lives=atoi(temp_string);
+  //                temp_xml= xmlNodeGetContent(child_node);
+  //            if(temp_xml)
+  //             {
+  //               sprintf(temp_string, "%s", temp_xml);  
+  //               input_laser.num_of_lives=atoi(temp_string);
                    
 
-               }
+  //              }
               //xmlFree(level_xml);
-           }           
-         }
+ //          }           
 
-
+        }
 }
 
 
@@ -504,6 +519,36 @@ void parse_phrases(xmlNode *cur_node)
 
 
 
+//parse typing lesson
+void parse_typing_lesson(xmlNode *cur_node)
+{
+ xmlChar *filename;
+ xmlNode *child_node;
+
+
+       //printf("Element: %s \n", cur_node->name); 
+
+        // For each child of factors: i.e. wave
+        for(child_node = cur_node->children; child_node != NULL; child_node = child_node->next)
+        {
+           if ( cur_node->type == XML_ELEMENT_NODE  &&
+                !xmlStrcmp(child_node->name, (const xmlChar *)"filepath") )
+           {             
+            
+              filename= xmlNodeGetContent(child_node);
+              if(filename)
+               {
+                 //printf("         Wave: %s\n", wave);
+                 sprintf(input_typing_lesson.filepath ,"%s", filename); 
+
+               }
+              //xmlFree(filename);
+           }          
+         
+         }
+
+
+}
 
 
 
