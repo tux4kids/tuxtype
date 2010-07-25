@@ -93,4 +93,6 @@ int score;
 
 struct result_laser_game result_laser;
 
+//used to store whether game was completed or not 
+int *game_completed,current_game_index;
 

@@ -85,6 +85,7 @@ return 0;
 
  for(i=0 , cur_node = root_read->children    ; cur_node != NULL   ;      cur_node = cur_node->next)
   {
+    current_game_index=i;
      if ( cur_node->type == XML_ELEMENT_NODE  &&
           !xmlStrcmp(cur_node->name, (const xmlChar *) "fish" ) )
      {  
@@ -215,11 +216,11 @@ remove(test_file); //got date and time so remove the file
 	snprintf(fn, PATH_MAX, "%s/result%d-%d-%d__%d:%d:%d.xml",write_directory,datetime.tm_year+1900, 
               datetime.tm_mon+1, datetime.tm_mday,datetime.tm_hour,datetime.tm_min,datetime.tm_sec);
 
-      if( xmlSaveFormatFileEnc(fn, doc_write, "UTF-8", 1)==-1)
-          fprintf(stderr,
-              "\nError: couldn't write result file: "
-              "%s\n",fn);
-      else
+//      if( xmlSaveFormatFileEnc(fn, doc_write, "UTF-8", 1)==-1)
+  //        fprintf(stderr,
+    //          "\nError: couldn't write result file: "
+     //         "%s\n",fn);
+   //   else
          printf("\nResult file saved : %s\n",fn);
 
 
@@ -317,7 +318,7 @@ int i;
 
 total_no_menus=i;
 
-
+game_completed=(int *)calloc(i,sizeof(i));
 
 //code related to writing
 
@@ -608,7 +609,7 @@ SDL_FreeSurface(screen);
   
 //free(input);
 //free(result);
- 
+ free(game_completed);
 
   SDL_Quit();
 /*free the document read*/

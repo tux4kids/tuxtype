@@ -67,4 +67,6 @@ dist_images_DATA = README_IMAGES.TXT \
   wordlist_button.png \
   world.png \
   stop.png  \
-  correct.png
+  correct.png \ 
+  lock.png \
+  exclamation.png

@@ -21,7 +21,7 @@
 
 
 //levels displayed on screen at a time
-#define MENUS_ON_SCREEN 6   
+#define MENUS_ON_SCREEN 9   
 SDL_Surface *tux4kids_logo=NULL;
 SDL_Rect logo_rect1,tux4kids_logo_rect;
 SDL_Rect bkgd_rect,rects;
@@ -32,7 +32,7 @@ SDL_Surface* win_bkgd = NULL;
 SDL_Surface* fs_bkgd= NULL;
 
 SDL_Rect stop_rect, prev_rect, next_rect;
-SDL_Surface *stop_button, *prev_arrow, *next_arrow,*img_correct;
+SDL_Surface *stop_button, *prev_arrow, *next_arrow,*img_correct,*img_lock,*img_exclamation;
 
 static Mix_Chunk* snd_welcome = NULL; 
 static Mix_Chunk* snd_move = NULL;
@@ -48,7 +48,7 @@ enum { NO_ONE, CLICK, PAGEUP, PAGEDOWN, STOP_ESC, RESIZED };
 
 
 /* Local function prototypes: */
-void ShowMsg(char*,char*,char*,char*);
+void ShowMsg(char*,char*,char*,char*,char*,char*);
 
 
 int total_no_menus; //defined in parse_xmlLesson.h
@@ -101,7 +101,8 @@ const float next_pos[4] = {0.94, 0.93, 0.06, 0.06};
    next_arrow = LoadImage("right.png", IMG_ALPHA);
 
   img_correct=LoadImage("correct.png", IMG_ALPHA);
-
+  img_lock=LoadImage("lock.png", IMG_ALPHA);
+  img_exclamation=LoadImage("exclamation.png", IMG_ALPHA);
 
  if (settings.menu_sound)
   {
@@ -175,6 +176,7 @@ return 0;
 int display_screen(int selected)
 {
 
+static char *next_game_string;
 int temp,current_no;
 int i = 0;
 
@@ -326,18 +328,18 @@ else
       }
 
  /* Draw background shading for table: */
-      table_bg.x = (screen->w)/2 - (max_width + 20)/2 + 50; //don't draw over Tux
+      table_bg.x = (screen->w) - (max_width + 60) ; //don't draw over Tux
       table_bg.y = 5;
-      table_bg.w = max_width + 20;
-      table_bg.h = screen->h - 100; //- images[IMG_RIGHT]->h;
+      table_bg.w = max_width +20;
+      table_bg.h = screen->h - 80; //- images[IMG_RIGHT]->h;
       DrawButton(&table_bg, 25, SEL_RGBA);
 
  temp=page_no*MENUS_ON_SCREEN; //menu display begins from temp at this page
 
-    srfc = BlackOutline(_("MISSIONS "), 65, &white);
+    srfc = BlackOutline(_("ALL TASKS LIST"), 50, &white);
         if (srfc)
         {
-          button_rect.x = text_rect.x = (screen->w)/2 - (srfc->w)/2 + 50;
+          button_rect.x = text_rect.x = (screen->w)/2 - (srfc->w)/2 + 342;
           button_rect.y = text_rect.y = 10;
           button_rect.w = text_rect.w = srfc->w;
           button_rect.h = text_rect.h = srfc->h+5;
@@ -354,37 +356,164 @@ else
 current_no=total_no_menus-temp;
 
 current_no=(MENUS_ON_SCREEN<current_no)?MENUS_ON_SCREEN:current_no;
-//current_no=min(MENUS_ON_SCREEN,current_no);
+
 
 for(i=0;i<current_no;i++)
 {
    if(temp+i==selected)   
-    srfc = BlackOutline(_(menu_names[temp+i]),55 , &yellow);   //title_font_size
-   else   
-    srfc = BlackOutline(_(menu_names[temp+i]),55 , &white); 
+    {
+     srfc = BlackOutline(_(menu_names[temp+i]),50 , &yellow);   //title_font_size
+     next_game_string=menu_names[temp+i];
+    }	
+   else if(temp+i <selected)   
+    {
+     srfc = BlackOutline(_(menu_names[temp+i]),40 , &white);  
+     
+    }	
+    
+   else if(temp+i >selected)   
+    {
+     srfc = BlackOutline(_(menu_names[temp+i]),40 , &gray);   //title_font_size
+
+    }	 
+    
         if (srfc)
         {
-          text_rect.x = (screen->w)/2 - (srfc->w)/2 + 50;
-          text_rect.y += text_rect.h; /* go to bottom of next line */
+          text_rect.x = (screen->w)/2 - (srfc->w)/2 + 342;
+          text_rect.y += text_rect.h + 10; /* go to bottom of next line */
           text_rect.w = srfc->w;
           text_rect.h = srfc->h;
+          
+           if(temp+i==selected)
+             { 
+               button_rect.x = text_rect.x ;
+               button_rect.y = text_rect.y ;
+               button_rect.w = text_rect.w ;
+               button_rect.h = text_rect.h ;
+               /* add margin to button and draw: */
+               button_rect.x -= 40;
+               button_rect.w += 80;
+               DrawButton(&button_rect, 15, 7, 97, 96, 240);
+
+               button_rect.x = (screen->w) - (max_width + 60);
+               button_rect.y = text_rect.y + 2;
+               button_rect.w = 60 ;
+               button_rect.h = 60 ;
+               /* add margin to button and draw: */
+               button_rect.x += 2;
+               button_rect.w += 4;
+               DrawButton(&button_rect, 15, 0, 255, 0, 240);
+
+               //a new image can be put using the following code
+               /*
+               dest.x =  button_rect.x ;
+               dest.y = text_rect.y ;
+               dest.w = img_correct->w;
+               dest.h = img_correct->h;
+ 
+               SDL_BlitSurface(next_arrow, NULL, screen, &dest);    
+               */  
+             }  
+           else if(temp+i < selected)
+             { 
+               button_rect.x = (screen->w) - (max_width + 60);
+               button_rect.y = text_rect.y ;
+               button_rect.w = 60 ;
+               button_rect.h = 60 ;
+               /* add margin to button and draw: */
+               button_rect.x += 2;
+               button_rect.w += 4;
+               DrawButton(&button_rect, 15, 0, 0, 32, 100);
+               
+
+                if (game_completed[temp+i])
+                {
+                  dest.x =  button_rect.x + 8 ;
+                  dest.y = button_rect.y +10 ; 
+                  dest.w = img_correct->w;
+                  dest.h = img_correct->h;
+                  //dest.w = button_rect.w;
+                  //dest.h = button_rect.h;
+                  SDL_BlitSurface(img_correct, NULL, screen, &dest);    
+                 }      
+                else
+                 
+               {
+                button_rect.x = (screen->w) - (max_width + 60);
+                button_rect.y = text_rect.y + 2;
+                button_rect.w = 60 ;
+                button_rect.h = 60 ;
+                /* add margin to button and draw: */
+                button_rect.x += 2;
+                button_rect.w += 4;
+                DrawButton(&button_rect, 15, 255, 0, 0, 240);
+
+
+                //image can also be displayed by uncommenting by following code is place of color
+                //   dest.x =  button_rect.x + 8 ;
+                //   dest.y = button_rect.y +10 ;
+                //  dest.w = img_exclamation->w;
+                //  dest.h = img_exclamation->h;
+                //   SDL_BlitSurface(img_exclamation, NULL, screen, &dest);    
+                } 
+
+             }  
+           else if(temp+i > selected)
+             { 
+               button_rect.x = (screen->w) - (max_width + 60);
+               button_rect.y = text_rect.y ;
+               button_rect.w = 60 ;
+               button_rect.h = 60 ;
+               /* add margin to button and draw: */
+               button_rect.x += 2;
+               button_rect.w += 4;
+               DrawButton(&button_rect, 15, 0, 0, 32, 100);
+
+               //Load lock image  
+               dest.x =  button_rect.x + 8 ;
+               dest.y = button_rect.y +10 ;
+               dest.w = img_lock->w;
+               dest.h = img_lock->h;
+               //dest.w = button_rect.w;
+               //dest.h = button_rect.h;
+  
+               SDL_BlitSurface(img_lock, NULL, screen, &dest);    
+             }       
+
           SDL_BlitSurface(srfc, NULL, screen, &text_rect);
           SDL_FreeSurface(srfc);
           srfc = NULL;
-         if(temp+i < selected) 
-         {
-          dest.x = text_rect.x  + max_width -140;
-          dest.y = text_rect.y ;
-          dest.w = img_correct->w;
-          dest.h = img_correct->h;
- 
-          SDL_BlitSurface(img_correct, NULL, screen, &dest);    
-         }  
+         
         }
       }
 
 
 }
+
+      srfc = BlackOutline(_(next_game_string),20 , &red); 
+
+  //this can be modified as desired
+      ShowMsg("NOTE : Your next task is to play",next_game_string
+               , "Please try to complete the game.", "You can skip a game by pressing ESC key."
+             ,"Lesson by - Mr X" , "Press ENTER to play the game.");
+
+ srfc = BlackOutline(_("Welcome to TUX4KIDS School Mode!"), 35, &white);
+        if (srfc)
+        {
+          button_rect.x = text_rect.x = (screen->w)/28;
+          button_rect.y = text_rect.y = (screen->h)/24;;
+          button_rect.w = text_rect.w = srfc->w;
+          button_rect.h = text_rect.h = srfc->h+5;
+          /* add margin to button and draw: */
+          button_rect.x -= 10;
+          button_rect.w += 20;
+          DrawButton(&button_rect, 15, 64, 232, 30, 192);
+          /* Now blit text and free surface: */
+          SDL_BlitSurface(srfc, NULL, screen, &text_rect);
+          SDL_FreeSurface(srfc);
+          srfc = NULL;
+        }
+
 
 
       SDL_UpdateRect(screen, 0, 0, 0, 0);
@@ -408,55 +537,89 @@ return 0;
 
 
 
-void ShowMsg(char* str1, char* str2, char* str3, char* str4)
+void ShowMsg(char* str1, char* str2, char* str3, char* str4,char* str5,char *str6)
 {
-  SDL_Surface *s1, *s2, *s3, *s4;
+  SDL_Surface *s1, *s2, *s3, *s4,*s5,*s6;
   SDL_Rect loc;
 
-  s1 = s2 = s3 = s4 = NULL;
+  s1 = s2 = s3 = s4 =s5=s6=NULL;
  if (str1)
-    s1 = BlackOutline(str1, 40, &white);
+    s1 = BlackOutline(str1, 20, &red);
   if (str2)
-    s2 = BlackOutline(str2, 40, &white);
+    s2 = BlackOutline(str2, 30, &red);
   if (str3)
-    s3 = BlackOutline(str3, 25, &white);
+    s3 = BlackOutline(str3, 20, &red);
   /* When we get going with i18n may need to modify following - see below: */
   if (str4)
-    s4 = BlackOutline(str4, 25, &white);
+    s4 = BlackOutline(str4, 20, &red);
+
+  if (str5)
+    s5 = BlackOutline(str5, 20, &red);
+   if (str6)
+    s6 = BlackOutline(str6, 35, &yellow);
+
+ //if (str7)
+   // s7 = BlackOutline(str7, 35, &white);
+
+
+
   /* Draw lines of text (do after drawing Tux so text is in front): */
   if (s1)
   {
-    loc.x = (screen->w / 6) - (s1->w/2); 
-    loc.y = (screen->h / 12)-30 ;
+    loc.x = (screen->w / 4) - 30; 
+    loc.y = (screen->h / 9) + 100;
     SDL_BlitSurface( s1, NULL, screen, &loc);
   }
   if (s2)
   {
-    loc.x = (screen->w/2 ) + (s2->w); 
-    loc.y = (screen->h / 12) - 30;
+    loc.x = (screen->w/4) - 30; 
+    loc.y +=   30 + s1->h ;
     SDL_BlitSurface( s2, NULL, screen, &loc);
   }
   if (s3)
   {
-    loc.x = (screen->w / 4) ; 
-    loc.y = (screen->h / 3)+30 ;
+    loc.x = (screen->w / 4)  - 30; 
+    loc.y +=  30 + s2->h ;
     SDL_BlitSurface( s3, NULL, screen, &loc);
   }
   if (s4)
   {
-    loc.x = (screen->w / 6) - (s4->w/2); 
-    loc.y = (screen->h ) - 100;
+    loc.x = (screen->w / 4) - 30 ; 
+    loc.y += 30 + s3->h;
     SDL_BlitSurface( s4, NULL, screen, &loc);
   }
 
+if (s5)
+  {
+    loc.x = (screen->w / 4) - 30 ; 
+    loc.y += 40 + s4->h;
+    SDL_BlitSurface( s5, NULL, screen, &loc);
+  }
+
+if (s6)
+  {
+    loc.x = (screen->w / 4) - 30 ; 
+    loc.y = screen->h - 50;
+    SDL_BlitSurface( s6, NULL, screen, &loc);
+  }
+
+/*if (s7)
+  {
+    loc.x = (screen->w )/24 ; 
+    loc.y = (screen->h )/24;
+    SDL_BlitSurface( s7, NULL, screen, &loc);
+  }
+*/
   /* and update: */
   SDL_UpdateRect(screen, 0, 0, 0, 0);
-
 
   SDL_FreeSurface(s1);
   SDL_FreeSurface(s2);
   SDL_FreeSurface(s3);
   SDL_FreeSurface(s4);
+  SDL_FreeSurface(s5);
+  SDL_FreeSurface(s6);
+ // SDL_FreeSurface(s7);
 }
 
 

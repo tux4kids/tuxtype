@@ -634,6 +634,10 @@ int PlayLaserGame(int diff_level)
 	}
 	while (!done && !quit);
 
+#ifdef SCHOOLMODE
+ if(done)
+  game_completed[current_game_index]=1;
+#endif
   
   /* Free backgrounds: */
   FreeBothBkgds();

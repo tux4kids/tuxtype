@@ -487,6 +487,10 @@ result_cascade.fish_eaten=input_cascade.fish_per_level-fish_left;
         }
         else
         {
+           #ifdef SCHOOLMODE
+            game_completed[current_game_index]=1;
+            #endif 
+
           LOG( "--->WINNER!\n" );
           done_frames = MAX_END_FRAMES_WIN_GAME;
           still_playing = 0;
