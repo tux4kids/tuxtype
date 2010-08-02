@@ -208,6 +208,14 @@ int Phrases(wchar_t* pphrase )
       /* has changed and the text needs redrawing, or that the screen     */
       /* size has changed:                                                */
       case 1:
+        #ifdef SCHOOLMODE
+         //   for (i = 0; i < MAX_PHRASE_LENGTH; i++)
+         //   keytimes[i] = 0;
+          chars_typed_str[0] = '\0';
+         cursor = 0;
+        wrap_pt = 0;
+        prev_wrap = 0;
+        #endif
         /* Draw bkgd before we start */
         /* NOTE the keyboard and hands will get drawn when we drop through to case 2: */
         SDL_BlitSurface(CurrentBkgd(), NULL, screen, NULL);
@@ -610,11 +618,19 @@ int Phrases(wchar_t* pphrase )
           default: break;
         }
 
+#ifndef SCHOOLMODE
         /* If state has changed as direct result of keypress (e.g. F10), leave */
         /* poll event loop so we don't treat it as a simple 'wrong' key: */
         if (state == 0
          || state == 1)
           continue; 
+#else
+        if (state == 0 || state == 1)
+          {
+            state = 1;  
+              continue; 
+          }  
+#endif
 
         /* Change to uppercase if shift used */
         if(shift_pressed)
@@ -641,6 +657,12 @@ int Phrases(wchar_t* pphrase )
           accuracy = (float)correct_chars/((float) (correct_chars + wrong_chars));
         sprintf(accuracy_str, "%.1f%%", accuracy * 100); 
 
+
+#ifdef SCHOOLMODE
+result_phrases.time=(float) total / 1000;
+result_phrases.correct_chars=correct_chars;
+result_phrases.errors=wrong_chars;
+#endif
 
         /****************************************************/
         /*  ---------- If user typed correct character, handle it: --------------- */
@@ -744,6 +766,7 @@ int Phrases(wchar_t* pphrase )
           /* If player has completed phrase, celebrate! */
           if (cursor == wcslen(phrases[cur_phrase]))
           {
+           #ifndef SCHOOLMODE
             /* Draw Tux celebrating: */
             {
               int done = 0;
@@ -768,7 +791,7 @@ int Phrases(wchar_t* pphrase )
                 SDL_Delay(200);
               }
             }
-
+           #endif
             /* if we are just doing a single phrase passed as arg to function, */
             /* we stop here:                                                   */
             if (once_only)
@@ -781,7 +804,11 @@ int Phrases(wchar_t* pphrase )
               else
                 cur_phrase = 0;
             }
+           #ifndef SCHOOLMODE //not defined 
             state = 0;
+           #else 
+            state = 1;
+           #endif      
           }
         }
         else  /* -------- handle incorrect key press: -------------*/

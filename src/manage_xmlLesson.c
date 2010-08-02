@@ -32,6 +32,8 @@ void parse_typing_lesson(xmlNode *);
 //Local Function prototypes for writing
 void write_cascade();
 void write_laser();
+void write_phrases(int); //for both typing lesson and phrases 
+
 //initialize read and write 
 int init_readwrite(char *);
 void clean_up();
@@ -149,6 +151,7 @@ return 0;
         i++;   
       parse_phrases(cur_node);
             Phrases(NULL);
+      write_phrases(0);     
      }
   else if ( cur_node->type == XML_ELEMENT_NODE  &&
           !xmlStrcmp(cur_node->name, (const xmlChar *) "typing_lesson" ) )
@@ -158,6 +161,7 @@ return 0;
         i++;   
       parse_typing_lesson(cur_node);
             scripting_schoolmode();
+        write_phrases(1);
      }
 
   }
@@ -216,11 +220,11 @@ remove(test_file); //got date and time so remove the file
 	snprintf(fn, PATH_MAX, "%s/result%d-%d-%d__%d:%d:%d.xml",write_directory,datetime.tm_year+1900, 
               datetime.tm_mon+1, datetime.tm_mday,datetime.tm_hour,datetime.tm_min,datetime.tm_sec);
 
-//      if( xmlSaveFormatFileEnc(fn, doc_write, "UTF-8", 1)==-1)
-  //        fprintf(stderr,
-    //          "\nError: couldn't write result file: "
-     //         "%s\n",fn);
-   //   else
+        if( xmlSaveFormatFileEnc(fn, doc_write, "UTF-8", 1)==-1)
+            fprintf(stderr,
+                "\nError: couldn't write result file: "
+                "%s\n",fn);
+        else
          printf("\nResult file saved : %s\n",fn);
 
 
@@ -569,6 +573,31 @@ node = xmlNewChild(root_write, NULL, BAD_CAST "cascade", NULL);
             sprintf(buff, "%d", result_cascade.fish_eaten);
             xmlNewChild(node, NULL, BAD_CAST "fish_eaten", BAD_CAST buff); 
 
+
+}
+
+//write phrases
+void write_phrases(int choice)
+{
+//int k;
+xmlNodePtr node = NULL;/* node pointer */
+if(choice==0)
+node = xmlNewChild(root_write, NULL, BAD_CAST "phrases", NULL);
+else if (choice==1)
+node = xmlNewChild(root_write, NULL, BAD_CAST "typing_lesson", NULL);
+else 
+return;
+          
+            sprintf(buff, "%.2f", result_phrases.time);
+            xmlNewChild(node, NULL, BAD_CAST "time", BAD_CAST buff); 
+
+
+            sprintf(buff, "%d", result_phrases.correct_chars);
+            xmlNewChild(node, NULL, BAD_CAST "correct_chars", BAD_CAST buff); 
+
+
+            sprintf(buff, "%d", result_phrases.errors);
+            xmlNewChild(node, NULL, BAD_CAST "errors", BAD_CAST buff); 
 
 }
 
