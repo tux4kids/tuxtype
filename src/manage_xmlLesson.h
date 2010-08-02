@@ -93,6 +93,17 @@ int score;
 
 struct result_laser_game result_laser;
 
+
+struct result_phrases_game
+{
+float time;
+int correct_chars; 
+int errors;
+}; 
+
+struct result_phrases_game result_phrases;
+
+
 //used to store whether game was completed or not 
 int *game_completed,current_game_index;
 
