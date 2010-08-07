@@ -147,6 +147,10 @@ int Phrases(wchar_t* pphrase )
   char accuracy_str[20];
   SDL_Surface* tmpsurf = NULL;
 
+//#ifdef SCHOOLMODE
+ //int paused=0;
+//#endif
+
   /* Load all needed graphics, strings, sounds.... */
   if (!practice_load_media())
   {
@@ -414,7 +418,11 @@ int Phrases(wchar_t* pphrase )
         switch(event.key.keysym.sym)
         {
           case  SDLK_ESCAPE:
-            quit = 1;
+            //#ifdef SCHOOLMODE
+             //  paused=1;
+            //#else   
+              quit = 1;
+            //#endif 
             break;
 
           case  SDLK_F10:
@@ -662,6 +670,12 @@ int Phrases(wchar_t* pphrase )
 result_phrases.time=(float) total / 1000;
 result_phrases.correct_chars=correct_chars;
 result_phrases.errors=wrong_chars;
+
+		//if (paused) {
+//			quit = Pause();
+//			paused = 0;
+//		}
+
 #endif
 
         /****************************************************/
