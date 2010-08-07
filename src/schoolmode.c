@@ -290,7 +290,7 @@ SDL_UpdateRect(screen, 0, 0, 0, 0);
     }
     frame++;
 
-
+     SDL_Delay(2000);  //wait for 2 seconds  
     fp = fopen(xml_lesson_path, "r");
     if (fp)
      {
@@ -300,7 +300,7 @@ SDL_UpdateRect(screen, 0, 0, 0, 0);
 
      }
     else
-     SDL_Delay(15000);  //wait for 15 seconds  
+     SDL_Delay(10000);  //wait for 10 seconds  
   
 
   }  // End of while (!finished) loop
