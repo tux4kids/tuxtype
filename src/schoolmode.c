@@ -24,7 +24,7 @@
 #define MENUS_ON_SCREEN 9   
 SDL_Surface *tux4kids_logo=NULL;
 SDL_Rect logo_rect1,tux4kids_logo_rect;
-SDL_Rect bkgd_rect,rects;
+SDL_Rect rects;
 
 static SDL_Rect cursor;
 
@@ -49,7 +49,7 @@ enum { NO_ONE, CLICK, PAGEUP, PAGEDOWN, STOP_ESC, RESIZED };
 
 /* Local function prototypes: */
 void ShowMsg(char*,char*,char*,char*,char*,char*);
-void display_wait(char *);
+void display_wait(char *); //the lesson file searching screen
 
 int total_no_menus; //defined in parse_xmlLesson.h
 int no_of_pages;        //no of menu pages to be displayed
@@ -357,9 +357,6 @@ else
     //  table_bg.h = screen->h - 100; //- images[IMG_RIGHT]->h;
    //   DrawButton(&table_bg, 25, SEL_RGBA);
 
-
-    bkgd_rect.x = (screen->w - bkgd_rect.w) / 2;
-    bkgd_rect.y = (screen->h - bkgd_rect.h) / 2;
 
 
 
