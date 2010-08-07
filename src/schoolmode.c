@@ -56,7 +56,6 @@ int no_of_pages;        //no of menu pages to be displayed
 
 
   const int max_width = 500;
-
   const int title_font_size = 32;
   char xml_lesson_path[4096];
  

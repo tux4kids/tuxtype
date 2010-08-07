@@ -670,12 +670,6 @@ int Phrases(wchar_t* pphrase )
 result_phrases.time=(float) total / 1000;
 result_phrases.correct_chars=correct_chars;
 result_phrases.errors=wrong_chars;
-
-		//if (paused) {
-//			quit = Pause();
-//			paused = 0;
-//		}
-
 #endif
 
         /****************************************************/
