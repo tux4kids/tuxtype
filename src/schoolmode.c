@@ -157,7 +157,7 @@ SDL_Delay(2000);
 
 display_wait(mission_path);
 
-manage_xmlLesson(xml_lesson_path);
+manage_xmlLesson(mission_path);
 
 
  if (snd_move)

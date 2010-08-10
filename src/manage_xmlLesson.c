@@ -52,13 +52,13 @@ int total_no_menus;
   char menu_names[MAX_MENU_ITEMS][MENU_ITEM_LENGTH] = {{'\0'}};
 
 
-
+char xml_lesson_path[4096],new_xml_lesson_path[4096];
 //extern struct result_fish_cascade result; //defined in playgame.c
 
 //char *xml_lesson_path;
 
 
-int manage_xmlLesson(char *xml_lesson_path)
+int manage_xmlLesson(char *mission_path)
 {
 xmlNode *cur_node;
 int i;
@@ -226,6 +226,12 @@ remove(test_file); //got date and time so remove the file
                 "%s\n",fn);
         else
          printf("\nResult file saved : %s\n",fn);
+
+
+//move the lesson file to old directory
+snprintf(new_xml_lesson_path, 4096, "%s/old/lessonData.xml", mission_path);
+rename(xml_lesson_path,new_xml_lesson_path);
+
 
 
 clean_up();
