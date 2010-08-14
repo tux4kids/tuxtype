@@ -25,39 +25,34 @@
 SDL_Surface *tux4kids_logo=NULL;
 SDL_Rect logo_rect1,tux4kids_logo_rect;
 SDL_Rect rects;
-
 static SDL_Rect cursor;
-
 SDL_Surface* win_bkgd = NULL;
 SDL_Surface* fs_bkgd= NULL;
-
 SDL_Rect stop_rect, prev_rect, next_rect;
 SDL_Surface *stop_button, *prev_arrow, *next_arrow,*img_correct,*img_lock,*img_exclamation;
+
 
 static Mix_Chunk* snd_welcome = NULL; 
 static Mix_Chunk* snd_move = NULL;
 static Mix_Chunk* snd_select = NULL;
 const char* tux4kids_standby_path = "standby.png";
-//const char* school_bkg_path    = "schoolmode/school_bkg.jpg";
 const char* school_bkg_path="main_bkg.png";
+
 enum { NO_ONE, CLICK, PAGEUP, PAGEDOWN, STOP_ESC, RESIZED };
-
-
-//SDL_Surface* current_bkgd()
- // { return screen->flags & SDL_FULLSCREEN ? fs_bkgd : win_bkgd; }
 
 
 /* Local function prototypes: */
 void ShowMsg(char*,char*,char*,char*,char*,char*);
 void display_wait(char *); //the lesson file searching screen
 
+
+
 int total_no_menus; //defined in parse_xmlLesson.h
 int no_of_pages;        //no of menu pages to be displayed
+const int max_width = 500;
+const int title_font_size = 32;
+char xml_lesson_path[4096];
 
-
-  const int max_width = 500;
-  const int title_font_size = 32;
-  char xml_lesson_path[4096];
  
 void SetRect(SDL_Rect* rect, const float* pos)
 {
@@ -72,13 +67,6 @@ void sm_prerender_all()
 const float stop_pos[4] = {0.94, 0.0, 0.06, 0.06};
 const float prev_pos[4] = {0.87, 0.93, 0.06, 0.06};
 const float next_pos[4] = {0.94, 0.93, 0.06, 0.06};
-//const char* stop_path = "status/stop.svg";
-//const char* prev_path = "status/left.svg";
-//const char* next_path = "status/right.svg";
-
-
-
-
 
   SetRect(&stop_rect, stop_pos);
   if(stop_button)
@@ -87,13 +75,15 @@ const float next_pos[4] = {0.94, 0.93, 0.06, 0.06};
   /* move button to the right */
   stop_rect.x = screen->w - stop_button->w;
 
+
   SetRect(&prev_rect, prev_pos);
   if(prev_arrow)
     SDL_FreeSurface(prev_arrow);
-   prev_arrow  = LoadImage("left.png", IMG_ALPHA);
-  
+   prev_arrow  = LoadImage("left.png", IMG_ALPHA);  
   /* move button to the right */
   prev_rect.x += prev_rect.w - prev_arrow->w;
+
+
 
   SetRect(&next_rect, next_pos);
   if(next_arrow)
@@ -117,16 +107,12 @@ const float next_pos[4] = {0.94, 0.93, 0.06, 0.06};
  
 }
 
-
-
-
-
+//main function for schoolmode
 int schoolmode(char *mission_path)
 {
 
-  tux4kids_logo = LoadImage(tux4kids_standby_path, IMG_REGULAR);
-
   /* display the Standby screen */
+  tux4kids_logo = LoadImage(tux4kids_standby_path, IMG_REGULAR);
   if(tux4kids_logo)
   {
     /*Center horizontally and vertically */
@@ -140,23 +126,21 @@ int schoolmode(char *mission_path)
     SDL_BlitSurface(tux4kids_logo, NULL, screen, &tux4kids_logo_rect);
     SDL_UpdateRect(screen, 0, 0, 0, 0);
     /* Play "harp" greeting sound lifted from Tux Paint */
-  snd_welcome = LoadSound("harp.wav");
+    snd_welcome = LoadSound("harp.wav");
 
-  if (snd_welcome && settings.menu_sound)
- {
-   PlaySound(snd_welcome);
-}
-
-
+    if (snd_welcome && settings.menu_sound)
+     {
+       PlaySound(snd_welcome);
+     } 
     SDL_FreeSurface(tux4kids_logo);
-  }
+   }
+
 
 sm_prerender_all(); //write function declaration too   -- fix
-
 SDL_Delay(2000);
-
 display_wait(mission_path);
 
+//call the main parsing handler
 manage_xmlLesson(mission_path);
 
 
@@ -175,35 +159,27 @@ return 0;
 
 
 
-
-
-
-
+//wait screen for searching lesson file
 void display_wait(char *mission_path)
 {
- SDL_Surface* srfc = NULL;
+  SDL_Surface* srfc = NULL;
   int finished = 0;
   Uint32 frame = 0;
   Uint32 start = 0;
-
-        SDL_Rect text_rect, button_rect;
-
- FILE* fp;
+  SDL_Rect text_rect, button_rect;
+  FILE* fp;
 
 
 snprintf(xml_lesson_path, 4096, "%s/new/lessonData.xml", mission_path);
-
-
 LoadBothBkgds(school_bkg_path);
-
-  SDL_ShowCursor(1);    
+SDL_ShowCursor(1);    
 
 
   while (!finished)
   {
     start = SDL_GetTicks();
-  while (SDL_PollEvent(&event))
-    {
+    while (SDL_PollEvent(&event))
+     {
       switch (event.type)
       {
         case SDL_QUIT:
@@ -213,10 +189,7 @@ LoadBothBkgds(school_bkg_path);
      
         case SDL_MOUSEBUTTONDOWN:
         /* "Stop" button  */
-        {
-  //        cursor.x = event.motion.x;
-//          cursor.y = event.motion.y;
- 
+        { 
           if (inRect(stop_rect, event.button.x, event.button.y ))
           {
             finished = 1;
@@ -243,7 +216,7 @@ LoadBothBkgds(school_bkg_path);
 
        }  
       }
-      SDL_BlitSurface(CurrentBkgd(), NULL, screen, NULL );
+    SDL_BlitSurface(CurrentBkgd(), NULL, screen, NULL );
 
  if (stop_button)
         SDL_BlitSurface(stop_button, NULL, screen, &stop_rect);
@@ -268,10 +241,10 @@ LoadBothBkgds(school_bkg_path);
  srfc = BlackOutline(_("Searching for lesson file ..."), DEFAULT_MENU_FONT_SIZE+10, &white);
         if (srfc)
         {
-         text_rect.x = (screen->w)/2 - srfc->w/2;
-           text_rect.y = (screen->h)/2 ;
-        text_rect.w = srfc->w;
-         text_rect.h = srfc->h;     
+          text_rect.x = (screen->w)/2 - srfc->w/2;
+          text_rect.y = (screen->h)/2 ;
+          text_rect.w = srfc->w;
+          text_rect.h = srfc->h;     
 
           /* Now blit text and free surface: */
           SDL_BlitSurface(srfc, NULL, screen, &text_rect);
@@ -279,9 +252,7 @@ LoadBothBkgds(school_bkg_path);
           srfc = NULL;
         }
 
-
 SDL_UpdateRect(screen, 0, 0, 0, 0);
-
 
     /* Wait so we keep frame rate constant: */
     while ((SDL_GetTicks() - start) < 33)
@@ -296,15 +267,13 @@ SDL_UpdateRect(screen, 0, 0, 0, 0);
      {
       fclose(fp);
       fp = NULL;
-       finished=1;
-
+      finished=1;
      }
     else
      SDL_Delay(10000);  //wait for 10 seconds  
   
 
   }  // End of while (!finished) loop
-
 }
 
 int display_screen(int selected)
@@ -313,18 +282,16 @@ int display_screen(int selected)
 static char *next_game_string;
 int temp,current_no;
 int i = 0;
-
   int finished = 0;
   Uint32 frame = 0;
   Uint32 start = 0;
- SDL_Surface* srfc = NULL;
-        SDL_Rect text_rect, button_rect,dest,table_bg;
+  SDL_Surface* srfc = NULL;
+  SDL_Rect text_rect, button_rect,dest,table_bg;
 
   int page_no = 0;
   int old_page_no = -1; //So menus get drawn first time through
   /* Surfaces, char buffers, and rects for table: */
   
- 
 
 //decide the no of menu pages to be displayed
 no_of_pages=ceil((float)total_no_menus/MENUS_ON_SCREEN);
@@ -334,37 +301,13 @@ if(total_no_menus % MENUS_ON_SCREEN)
 else
  no_of_pages=total_no_menus/MENUS_ON_SCREEN;
   
-
-
-
   LoadBothBkgds(school_bkg_path);
-
   SDL_ShowCursor(1);    
-
-//if(current_bkgd())
-  //{
-    /* FIXME not sure trans_wipe() works in Windows: */
-  //  trans_wipe(current_bkgd(), RANDOM_WIPE, 10, 20);
-    /* Make sure background gets drawn (since trans_wipe() doesn't */
-    /* seem to work reliably as of yet):                          */
-//    SDL_BlitSurface(current_bkgd(), NULL, screen, &bkgd_rect);
- // }
-
-      /* Draw background shading for table: */
-   //   table_bg.x = (screen->w)/2 - (max_width + 20)/2 + 50; //don't draw over Tux
-    //  table_bg.y = 5;
-   //   table_bg.w = max_width + 20;
-    //  table_bg.h = screen->h - 100; //- images[IMG_RIGHT]->h;
-   //   DrawButton(&table_bg, 25, SEL_RGBA);
-
-
-
 
 
   while (!finished)
   {
     start = SDL_GetTicks();
-
     /* Check for user events: */
     while (SDL_PollEvent(&event))
     {
@@ -378,9 +321,7 @@ else
         case SDL_MOUSEBUTTONDOWN:
         /* "Stop" button  */
         {
-  //        cursor.x = event.motion.x;
-//          cursor.y = event.motion.y;
- 
+
           if (inRect(stop_rect, event.button.x, event.button.y ))
           {
             finished = 1;
@@ -489,31 +430,27 @@ else
         }
 
 current_no=total_no_menus-temp;
-
 current_no=(MENUS_ON_SCREEN<current_no)?MENUS_ON_SCREEN:current_no;
 
 
 for(i=0;i<current_no;i++)
 {
-   if(temp+i==selected)   
-    {
-     srfc = BlackOutline(_(menu_names[temp+i]),50 , &yellow);   //title_font_size
-     next_game_string=menu_names[temp+i];
-    }	
-   else if(temp+i <selected)   
-    {
-     srfc = BlackOutline(_(menu_names[temp+i]),40 , &white);  
-     
-    }	
-    
-   else if(temp+i >selected)   
-    {
-     srfc = BlackOutline(_(menu_names[temp+i]),40 , &gray);   //title_font_size
+     if(temp+i==selected)   
+      {
+       srfc = BlackOutline(_(menu_names[temp+i]),50 , &yellow);   //title_font_size
+       next_game_string=menu_names[temp+i];
+      }	
+     else if(temp+i <selected)   
+      {
+       srfc = BlackOutline(_(menu_names[temp+i]),40 , &white);       
+      }	    
+     else if(temp+i >selected)   
+      {
+       srfc = BlackOutline(_(menu_names[temp+i]),40 , &gray);   //title_font_size
+      }	 
 
-    }	 
-    
-        if (srfc)
-        {
+  if (srfc)
+      {
           text_rect.x = table_bg.x+table_bg.w/2 - (srfc->w)/2;
           text_rect.y += text_rect.h + 10; /* go to bottom of next line */
           text_rect.w = srfc->w;
@@ -621,8 +558,6 @@ for(i=0;i<current_no;i++)
          
         }
       }
-
-
 }
 
       srfc = BlackOutline(_(next_game_string),20 , &red); 
@@ -650,13 +585,9 @@ for(i=0;i<current_no;i++)
         }
 
 
-
       SDL_UpdateRect(screen, 0, 0, 0, 0);
-
       old_page_no = page_no;
     
-
-  //  HandleTitleScreenAnimations();
 
     /* Wait so we keep frame rate constant: */
     while ((SDL_GetTicks() - start) < 33)
@@ -693,10 +624,6 @@ void ShowMsg(char* str1, char* str2, char* str3, char* str4,char* str5,char *str
    if (str6)
     s6 = BlackOutline(str6, 35, &yellow);
 
- //if (str7)
-   // s7 = BlackOutline(str7, 35, &white);
-
-
 
   /* Draw lines of text (do after drawing Tux so text is in front): */
   if (s1)
@@ -723,7 +650,6 @@ void ShowMsg(char* str1, char* str2, char* str3, char* str4,char* str5,char *str
     loc.y += 30 + s3->h;
     SDL_BlitSurface( s4, NULL, screen, &loc);
   }
-
 if (s5)
   {
     loc.x = (screen->w / 8) - 80 ; 
@@ -738,13 +664,6 @@ if (s6)
     SDL_BlitSurface( s6, NULL, screen, &loc);
   }
 
-/*if (s7)
-  {
-    loc.x = (screen->w )/24 ; 
-    loc.y = (screen->h )/24;
-    SDL_BlitSurface( s7, NULL, screen, &loc);
-  }
-*/
   /* and update: */
   SDL_UpdateRect(screen, 0, 0, 0, 0);
 
@@ -754,7 +673,6 @@ if (s6)
   SDL_FreeSurface(s4);
   SDL_FreeSurface(s5);
   SDL_FreeSurface(s6);
- // SDL_FreeSurface(s7);
 }
 
 
