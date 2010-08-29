@@ -1,20 +1,31 @@
-/***************************************************************************
- -  file: snow.c
- -  description: this file contains snow for the cascade game
--------------------
-begin                : March 12, 2003
-copyright            : (C) 2003 Jesse Andrews
-email                : tuxtype-dev@tux4kids.net
-***************************************************************************/
+/*
+   snow.c:
 
-/***************************************************************************
-*                                                                         *
-*   This program is free software; you can redistribute it and/or modify  *
-*   it under the terms of the GNU General Public License as published by  *
-*   the Free Software Foundation; either version 2 of the License, or     *
-*   (at your option) any later version.                                   *
-*                                                                         *
-***************************************************************************/
+   Variables and functions for SNOW feature
+
+   Copyright 2003, 2004, 2010.
+   Authors: Jesse Andrews, David Bruce.
+   
+   Project email: <tux4kids-tuxtype-dev@lists.alioth.debian.org>
+   Project website: http://tux4kids.alioth.debian.org
+
+   snow.c is part of Tux Typing, a.k.a "tuxtype".
+
+Tux Typing is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 3 of the License, or
+(at your option) any later version.
+
+Tux Typing is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
 
 #include <stdlib.h>
 #include "SDL.h"

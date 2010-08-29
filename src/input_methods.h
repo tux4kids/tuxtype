@@ -1,36 +1,37 @@
 /*
-  input_methods.h - renamed from Tux Paint's im.h and very lightly modified
-  by David Bruce <davidstuartbruce@gmail.com> for use in Tux Typing and other
-  Tux4Kids programs - 2009-2010.  Adaptation for Tux Typing assisted by Mark
-  K. Kim.  Revised version licensed under GPLv2 or later as described below.
+   input_methods.h - renamed from Tux Paint's im.h and very lightly modified
+   by David Bruce <davidstuartbruce@gmail.com> for use in Tux Typing and other
+   Tux4Kids programs - 2009-2010.  Adaptation for Tux Typing assisted by Mark
+   K. Kim.  Revised version licensed under GPLv3 or later as described below.
   
-  The upstream "pristine" version of this file can be obtained from
-  http://www.tux4kids.org
+   The upstream "pristine" version of this file can be obtained from
+   http://www.tuxpaint.org
+
+   Input method handling
+   Copyright 2007, 2009, 2010 by Mark K. Kim, David Bruce and others.
+   
+   For adapted version in Tux Math, Tux Typing, and t4k_common library:   
+   Project email: <tux4kids-tuxtype-dev@lists.alioth.debian.org>
+   Project website: http://tux4kids.alioth.debian.org
+
+   input_methods.h is part of Tux Typing, a.k.a "tuxtype".
+
+Tux Typing is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 3 of the License, or
+(at your option) any later version.
+
+Tux Typing is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*
-  im.h
 
-  Input method handling
-  Copyright (c) 2007 by Mark K. Kim and others
 
-  This program is free software; you can redistribute it and/or modify
-  it under the terms of the GNU General Public License as published by
-  the Free Software Foundation; either version 2 of the License, or
-  (at your option) any later version.
-
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details.
-
-  You should have received a copy of the GNU General Public License
-  along with this program; if not, write to the Free Software
-  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-  (See COPYING.txt)
-
-  $Id: im.h,v 1.3 2007/05/06 04:00:20 vindaci Exp $
-*/
 
 //#ifndef TUXPAINT_IM_H
 //#define TUXPAINT_IM_H

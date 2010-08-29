@@ -1,20 +1,36 @@
-/***************************************************************************
-                          playgame.h
-  description:
-                             -------------------
-    begin                : Fri May 12 2000
-    copyright            : (C) 2000 by Sam Hart
-    email                : hart@geekcomix.com
- ***************************************************************************/
+/*
+   playgame.h:
 
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
+   
+   Typedefs and #defines used in playgame.c
+
+   Copyright 2000, 2007, 2008, 2009, 2010.
+   Authors: Sam Hart, Jesse Andrews, David Bruce.
+   
+   Project email: <tux4kids-tuxtype-dev@lists.alioth.debian.org>
+   Project website: http://tux4kids.alioth.debian.org
+
+   playgame.h is part of Tux Typing, a.k.a "tuxtype".
+
+Tux Typing is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 3 of the License, or
+(at your option) any later version.
+
+Tux Typing is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
+//NOTE: it looks like all this stuff is only used in playgame.c, so
+//why do we have it in a header file??
+
+
 
 #ifndef __PLAYGAME_H__
 #define __PLAYGAME_H__

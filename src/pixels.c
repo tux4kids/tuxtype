@@ -1,31 +1,40 @@
 /*
-  pixels.c
+   pixels.c
 
-  For Tux Paint
-  Pixel read/write functions
+   For Tux Paint
+   Pixel read/write functions
 
-  Copyright (c) 2002-2006 by Bill Kendrick and others
-  bill@newbreedsoftware.com
-  http://www.newbreedsoftware.com/tuxpaint/
+   bill@newbreedsoftware.com
+   http://www.newbreedsoftware.com/tuxpaint/
 
-  This program is free software; you can redistribute it and/or modify
-  it under the terms of the GNU General Public License as published by
-  the Free Software Foundation; either version 2 of the License, or
-  (at your option) any later version.
+   Brought to tuxmath/tuxtype, slight modified, and license updated to 
+   "GPL3 or later" as detailed below.
+   
+   Copyright 2007, 2008, 2009, 2010.
+   Copyright 2002-2006, 2007, 2008, 2009, 2010.
+   Authors: Bill Kendrick and others from Tux Paint,
+            David Bruce, Brendan Luchen.
+   
+   Project email: <tux4kids-tuxtype-dev@lists.alioth.debian.org>
+   Project website: http://tux4kids.alioth.debian.org
 
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details.
+   pixels.c is part of Tux Typing, a.k.a "tuxtype".
 
-  You should have received a copy of the GNU General Public License
-  along with this program; if not, write to the Free Software
-  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-  (See COPYING.txt)
+Tux Typing is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 3 of the License, or
+(at your option) any later version.
 
-  June 14, 2002 - February 17, 2006
-  $Id: pixels.c,v 1.3 2006/08/27 21:00:55 wkendrick Exp $
+Tux Typing is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
+
 
 #include "pixels.h"
 #include "compiler.h"
