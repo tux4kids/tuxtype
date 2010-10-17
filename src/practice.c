@@ -1,25 +1,32 @@
-/**************************************************************************
-practice.c 
--  description: practice module
--------------------
-begin                : Friday Jan 25, 2003
-copyright            : (C) 2003 by Jesse Andrews
-email                : jdandr2@uky.edu
+/*
+   practice.c:
 
-Revised extensively: 2007 and 2008
-David Bruce <davidstuartbruce@gmail.com>
-Revised extensively: 2008
-Sreyas Kurumanghat <k.sreyas@gmail.com>
-***************************************************************************/
+   Phrase typing activity
 
-/***************************************************************************
-*                                                                         *
-*   This program is free software; you can redistribute it and/or modify  *
-*   it under the terms of the GNU General Public License as published by  *
-*   the Free Software Foundation; either version 2 of the License, or     *
-*   (at your option) any later version.                                   *
-*                                                                         *
-***************************************************************************/
+   Copyright 2003, 2007, 2008, 2009, 2010.
+   Authors: Jesse Andrews, Sreyas Kurumanghat, David Bruce.
+   
+   Project email: <tux4kids-tuxtype-dev@lists.alioth.debian.org>
+   Project website: http://tux4kids.alioth.debian.org
+
+   practice.c is part of Tux Typing, a.k.a "tuxtype".
+
+Tux Typing is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 3 of the License, or
+(at your option) any later version.
+
+Tux Typing is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
+
 
 #include "globals.h"
 #include "funcs.h"

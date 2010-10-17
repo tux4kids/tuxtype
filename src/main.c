@@ -1,20 +1,31 @@
-/***************************************************************************
-                          main.c 
- -  description: main tux type file
-                             -------------------
-    begin                : Tue May  2 13:25:06 MST 2000
-    copyright            : (C) 2000 by Sam Hart
-                         : (C) 2003 by Jesse Andrews
-    email                : tuxtype-dev@tux4kids.net
- ***************************************************************************/
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
+/*
+   main.c:
+   
+   main() function for Tux Typing
+
+   Copyright 2000, 2003, 2007, 2008, 2009, 2010.
+   Authors: Sam Hart, Jesse Andrews, David Bruce.
+   
+   Project email: <tux4kids-tuxtype-dev@lists.alioth.debian.org>
+   Project website: http://tux4kids.alioth.debian.org
+
+   main.c is part of Tux Typing, a.k.a "tuxtype".
+
+Tux Typing is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 3 of the License, or
+(at your option) any later version.
+
+Tux Typing is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
 
 #include "globals.h"
 #include "funcs.h"
@@ -84,7 +95,7 @@ int main(int argc, char *argv[])
         fprintf(stderr, "\n%s, Version %s\n", PACKAGE, VERSION);
         fprintf(stderr, "Copyright 2000-2010 Sam Hart, Jesse Andrews, David Bruce, and the Tux4Kids team.\n");
         fprintf(stderr, "Tux4Kids website: http://tux4kids.alioth.debian.org\n");
-        fprintf(stderr, "This software is licensed under the GNU General Public License, Version 2 or later, and compatible media licenses.\n");
+        fprintf(stderr, "This software is licensed under the GNU General Public License, Version 3 or later, and compatible media licenses.\n");
         fprintf(stderr, "See COPYING file for licensing details.\n\n");
         exit(0);
       }

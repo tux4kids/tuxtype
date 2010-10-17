@@ -26,10 +26,17 @@ m4/
 *.m4
 libtool
 ltmain.sh
+ABOUT-NLS
+depcomp
+missing
+mkinstalldirs
+install-sh
+
+# But don't ignore SDL-specific m4 macros:
+!acinclude.m4
 
 # (the specfiles are made from *.spec.in)
-tuxmath.spec
-tuxmath_preview.spec
+*.spec
 
 # Ignore any untracked files under build/ or buildw32/
 build/

@@ -4,7 +4,13 @@
 
    by Bruno Haible. No copyright or license is mentioned in
    the FAQ, but the text clearly supplies this code
-   to help with difficulties using Gettext under Windows.   */
+   to help with difficulties using Gettext under Windows, and
+   appears to imply that it is released into the public domain.
+
+     - David Bruce
+*/
+
+
 
 #include "config.h"
 
