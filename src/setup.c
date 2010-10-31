@@ -199,7 +199,8 @@ void LibInit(Uint32 lib_flags)
     {
       LOG("About to call Mix_OpenAudio():\n");
 //    if (Mix_OpenAudio(22050, AUDIO_S16, 1, 2048) == -1)
-      if(Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, 1, 2048) == -1)
+      if(Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, 1, 2048) ==
+		      -1)
       {
         fprintf(stderr, "Warning: Mix_OpenAudio() failed\n - Reasons: %s\n", SDL_GetError());
         settings.sys_sound = 0;
