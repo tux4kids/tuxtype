@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tuxtype\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2010-06-20 11:48-0500\n"
+"POT-Creation-Date: 2010-11-27 15:21-0600\n"
 "PO-Revision-Date: 2009-06-24 22:05+0100\n"
 "Last-Translator: Caroline Ford <caroline.ford.work@googlemail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,162 +16,162 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/loaders.c:88 src/main.c:150 src/playgame.c:643
+#: src/loaders.c:98 src/main.c:161 src/playgame.c:654
 msgid "Fish"
 msgstr "Kala"
 
-#: src/pause.c:277
+#: src/pause.c:289
 msgid "Sound Effects Volume"
 msgstr "Efektien äänenvoimakkuus"
 
-#: src/pause.c:286
+#: src/pause.c:298
 msgid "Music Volume"
 msgstr "Musiikin äänenvoimakkuus"
 
-#: src/pause.c:297
+#: src/pause.c:309
 msgid "Sound & Music Disabled"
 msgstr "Äänet ja musiikki poissa päältä"
 
-#: src/pause.c:307
+#: src/pause.c:319
 msgid "Paused!"
 msgstr "Tauko!"
 
-#: src/pause.c:316
+#: src/pause.c:328
 msgid "Press escape again to return to menu"
 msgstr "Paina Esc-näppäintä uudestaan palataksesi valikkoon"
 
-#: src/pause.c:325
+#: src/pause.c:337
 msgid "Press space bar to return to game"
 msgstr "Paina välilyöntiä palataksesi peliin"
 
-#: src/playgame.c:641
+#: src/playgame.c:652
 msgid "Level"
 msgstr "Taso"
 
-#: src/playgame.c:642
+#: src/playgame.c:653
 msgid "Lives"
 msgstr "Elämät"
 
-#: src/playgame.c:645 src/titlescreen.c:89
+#: src/playgame.c:656 src/titlescreen.c:99
 msgid "Easy"
 msgstr "Helppo"
 
-#: src/playgame.c:646 src/titlescreen.c:90
+#: src/playgame.c:657 src/titlescreen.c:100
 msgid "Medium"
 msgstr "Keskitaso"
 
-#: src/playgame.c:647 src/titlescreen.c:91
+#: src/playgame.c:658 src/titlescreen.c:101
 msgid "Hard"
 msgstr "Vaikea"
 
-#: src/playgame.c:648
+#: src/playgame.c:659
 msgid "Practice"
 msgstr "Harjoittelu"
 
-#: src/playgame.c:659
+#: src/playgame.c:670
 msgid "Congratulations"
 msgstr "Onnittelut"
 
-#: src/playgame.c:663
+#: src/playgame.c:674
 msgid "Oh No!"
 msgstr "Voi ei!"
 
-#: src/practice.c:622
+#: src/practice.c:626
 msgid "sec"
 msgstr ""
 
-#: src/practice.c:1433
+#: src/practice.c:1440
 msgid "Time"
 msgstr "Aika"
 
-#: src/practice.c:1437
+#: src/practice.c:1444
 msgid "Chars"
 msgstr "Kirjaimet"
 
-#: src/practice.c:1441
+#: src/practice.c:1448
 msgid "CPM"
 msgstr "CPM"
 
-#: src/practice.c:1445
+#: src/practice.c:1452
 msgid "WPM"
 msgstr "WPM"
 
-#: src/practice.c:1449
+#: src/practice.c:1456
 msgid "Errors"
 msgstr "Virheet"
 
-#: src/practice.c:1453
+#: src/practice.c:1460
 msgid "Accuracy"
 msgstr "Tarkkuus"
 
-#: src/titlescreen.c:89
+#: src/titlescreen.c:99
 msgid "Fish Cascade"
 msgstr "Kalankaappaus"
 
-#: src/titlescreen.c:89
+#: src/titlescreen.c:99
 msgid "Space Cadet"
 msgstr "Avaruuskadetti"
 
-#: src/titlescreen.c:89
+#: src/titlescreen.c:99
 msgid "Edit Word Lists"
 msgstr "Muokkaa Sanalistoja"
 
-#: src/titlescreen.c:90
+#: src/titlescreen.c:100
 msgid "Comet Zap"
 msgstr "Komeetan pamautus"
 
-#: src/titlescreen.c:90
+#: src/titlescreen.c:100
 msgid "Pilot"
 msgstr "Lentäjä"
 
-#: src/titlescreen.c:90
+#: src/titlescreen.c:100
 msgid "Phrase Typing"
 msgstr "Lauseiden kirjoitus"
 
-#: src/titlescreen.c:91
+#: src/titlescreen.c:101
 msgid "Lessons"
 msgstr "Oppitunnit"
 
-#: src/titlescreen.c:91
+#: src/titlescreen.c:101
 msgid "Ace"
 msgstr "Ässä"
 
-#: src/titlescreen.c:91
+#: src/titlescreen.c:101
 msgid "Project Info"
 msgstr "Projektin tiedot"
 
-#: src/titlescreen.c:92
+#: src/titlescreen.c:102
 msgid "Options"
 msgstr "Asetukset"
 
-#: src/titlescreen.c:92
+#: src/titlescreen.c:102
 msgid "Instructions"
 msgstr "Ohjeet"
 
-#: src/titlescreen.c:92
+#: src/titlescreen.c:102
 msgid "Commander"
 msgstr "Päällikkö"
 
-#: src/titlescreen.c:92
+#: src/titlescreen.c:102
 msgid "Setup Language"
 msgstr "Aseta Kieli"
 
-#: src/titlescreen.c:93
+#: src/titlescreen.c:103
 msgid "Quit"
 msgstr "Lopeta"
 
-#: src/titlescreen.c:93
+#: src/titlescreen.c:103
 msgid "Main Menu"
 msgstr "Päävalikko"
 
-#: src/titlescreen.c:1119
+#: src/titlescreen.c:1129
 msgid "Work In Progress!"
 msgstr "Keskeneräinen!"
 
-#: src/titlescreen.c:1120
+#: src/titlescreen.c:1130
 msgid "This feature is not ready yet"
 msgstr "Tämä ominaisuus ei ole vielä valmis"
 
-#: src/titlescreen.c:1121
+#: src/titlescreen.c:1131
 msgid "Discuss the future of TuxTyping at"
 msgstr "Keskustele TuxTypingin tulevaisuudesta"

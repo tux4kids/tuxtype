@@ -1,0 +1,1 @@
+theme_locale_name=he_IL

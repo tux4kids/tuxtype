@@ -447,6 +447,8 @@ data/themes/greek/Makefile
 data/themes/greek/words/Makefile
 data/themes/gujarati/Makefile
 data/themes/gujarati/words/Makefile
+data/themes/hebrew/Makefile
+data/themes/hebrew/words/Makefile
 data/themes/hindi/Makefile
 data/themes/hindi/words/Makefile
 data/themes/italian/Makefile
