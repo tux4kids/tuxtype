@@ -447,6 +447,8 @@ data/themes/greek/Makefile
 data/themes/greek/words/Makefile
 data/themes/gujarati/Makefile
 data/themes/gujarati/words/Makefile
+data/themes/hebrew/Makefile
+data/themes/hebrew/words/Makefile
 data/themes/hindi/Makefile
 data/themes/hindi/words/Makefile
 data/themes/italian/Makefile
@@ -480,6 +482,8 @@ data/themes/oriya/Makefile
 data/themes/oriya/words/Makefile
 data/themes/punjabi/Makefile
 data/themes/punjabi/words/Makefile
+data/themes/romanian/Makefile
+data/themes/romanian/words/Makefile
 data/themes/russian/Makefile
 data/themes/russian/images/Makefile
 data/themes/russian/images/status/Makefile

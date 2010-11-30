@@ -16,6 +16,7 @@ SUBDIRS = armenian \
   french \
   greek \
   gujarati \
+  hebrew \
   hindi \
   italian \
   jamaican \
@@ -27,6 +28,7 @@ SUBDIRS = armenian \
   nynorsk \
   oriya \
   punjabi \
+  romanian \
   russian \
   suomi	\
   svenska \

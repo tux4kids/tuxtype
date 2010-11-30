@@ -1,98 +1,78 @@
-# Czech translations for Tux Typing package.
-# This file is distributed under the same license as the Tux Typing 2 package.
-# Tux Typing 2 czech messages
-# JardaK <krejci@zstenis.com>, 2007.
-# Mobin M <mobinmohan@gmail.com>, 2008
-#
 msgid ""
 msgstr ""
-"Project-Id-Version: Tux Typing 1.5.16\n"
+"Project-Id-Version: Tuxtype\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
 "POT-Creation-Date: 2010-11-27 15:21-0600\n"
-"PO-Revision-Date: 2007-11-10 16:36+0100\n"
-"Last-Translator: JardaK <krejci@zstenis.com>\n"
-"Language-Team: czech <cs@li.org>\n"
-"Language: cs\n"
+"PO-Revision-Date: 2010-11-24 18:33+0300\n"
+"Last-Translator: crengu <crengutamirela@hotmail.com>\n"
+"Language-Team: cool\n"
+"Language: ro\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.4\n"
-"Plural-Forms:  nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
+"20)) ? 1 : 2);;\n"
+"X-Generator: Virtaal 0.6.1\n"
 
-#
 #: src/loaders.c:98 src/main.c:161 src/playgame.c:654
 msgid "Fish"
-msgstr "Ryba"
+msgstr "Peste"
 
-#
 #: src/pause.c:289
 msgid "Sound Effects Volume"
-msgstr "Hlasitost zvuku "
+msgstr "Efecte de sunet Volum"
 
-#
 #: src/pause.c:298
 msgid "Music Volume"
-msgstr "Hlasitost hudby"
+msgstr "Volumul muzicii"
 
-#
 #: src/pause.c:309
 msgid "Sound & Music Disabled"
-msgstr "Vypnout hudbu a zvuk"
+msgstr "Dezactivare sunet si muzică "
 
-#
 #: src/pause.c:319
 msgid "Paused!"
-msgstr "Pauza!"
+msgstr "Pauză!"
 
-#
 #: src/pause.c:328
 msgid "Press escape again to return to menu"
-msgstr "Stiskni klávesu Esc pro návrat do menu"
+msgstr "Apăsati escape din nou pentru a reveni la meniu"
 
-#
 #: src/pause.c:337
 msgid "Press space bar to return to game"
-msgstr "Stiskni mezerník pro návrat do hry"
+msgstr "Apăsati pe bara de spaţiu pentru a reveni la joc"
 
-#
 #: src/playgame.c:652
 msgid "Level"
-msgstr "Úroveň"
+msgstr "Nivel"
 
-#
 #: src/playgame.c:653
 msgid "Lives"
-msgstr "Životy"
+msgstr "Vieti"
 
-#
 #: src/playgame.c:656 src/titlescreen.c:99
 msgid "Easy"
-msgstr "Snadná"
+msgstr "Usor"
 
-#
 #: src/playgame.c:657 src/titlescreen.c:100
 msgid "Medium"
-msgstr "Střední"
+msgstr "Medium"
 
-#
 #: src/playgame.c:658 src/titlescreen.c:101
 msgid "Hard"
-msgstr "Těžká"
+msgstr "Greu"
 
-#
 #: src/playgame.c:659
 msgid "Practice"
-msgstr "Procvičování"
+msgstr "Practică"
 
-#
 #: src/playgame.c:670
 msgid "Congratulations"
-msgstr "Gratuluji"
+msgstr "Felicitări"
 
-#
 #: src/playgame.c:674
 msgid "Oh No!"
-msgstr "Ach jo!"
+msgstr "O Nu!"
 
 #: src/practice.c:626
 msgid "sec"
@@ -100,126 +80,96 @@ msgstr ""
 
 #: src/practice.c:1440
 msgid "Time"
-msgstr ""
+msgstr "Timp"
 
 #: src/practice.c:1444
 msgid "Chars"
-msgstr ""
+msgstr "Caractere"
 
 #: src/practice.c:1448
 msgid "CPM"
-msgstr ""
+msgstr "CPM"
 
 #: src/practice.c:1452
 msgid "WPM"
-msgstr ""
+msgstr "WPM"
 
 #: src/practice.c:1456
 msgid "Errors"
-msgstr ""
+msgstr "Erori"
 
 #: src/practice.c:1460
 msgid "Accuracy"
-msgstr ""
+msgstr "Acuratete"
 
-#
 #: src/titlescreen.c:99
 msgid "Fish Cascade"
-msgstr "Vodopád ryb"
+msgstr "Cascada de peste"
 
-#
 #: src/titlescreen.c:99
 msgid "Space Cadet"
-msgstr "Nováček"
+msgstr "Cadet de Spatiu"
 
-#
 #: src/titlescreen.c:99
 msgid "Edit Word Lists"
-msgstr "Uprav seznamy slov"
+msgstr "Editează lista de cuvinte"
 
-#
 #: src/titlescreen.c:100
 msgid "Comet Zap"
-msgstr "Sestřelování komet"
+msgstr "Aruncare de rachete"
 
-#
 #: src/titlescreen.c:100
 msgid "Pilot"
 msgstr "Pilot"
 
 #: src/titlescreen.c:100
 msgid "Phrase Typing"
-msgstr ""
+msgstr "Tastare frază"
 
-#
 #: src/titlescreen.c:101
 msgid "Lessons"
-msgstr "Lekce"
+msgstr "Lectii"
 
-#
 #: src/titlescreen.c:101
 msgid "Ace"
-msgstr "Eso"
+msgstr "As"
 
-#
 #: src/titlescreen.c:101
 msgid "Project Info"
-msgstr "Info o projektu"
+msgstr "Info proiect"
 
-#
 #: src/titlescreen.c:102
 msgid "Options"
-msgstr "Možnosti"
+msgstr "Optiuni"
 
-#
 #: src/titlescreen.c:102
 msgid "Instructions"
-msgstr "Instrukce"
+msgstr "Instructiuni"
 
-#
 #: src/titlescreen.c:102
 msgid "Commander"
-msgstr "Kapitán"
+msgstr "Comandant"
 
-#
 #: src/titlescreen.c:102
 msgid "Setup Language"
-msgstr "Vyber jazyk"
+msgstr "Setare limbă"
 
-#
 #: src/titlescreen.c:103
 msgid "Quit"
-msgstr "Ukončit"
+msgstr "Iesi"
 
-#
 #: src/titlescreen.c:103
 msgid "Main Menu"
-msgstr "Hlavní menu"
+msgstr "Meniul principal"
 
-#
 #: src/titlescreen.c:1129
 msgid "Work In Progress!"
-msgstr "Ve výstavbě!"
+msgstr "Lucrări în curs!"
 
-#
 #: src/titlescreen.c:1130
 msgid "This feature is not ready yet"
-msgstr "Tato vlastnost ještě nefunguje"
+msgstr "Această caracteristică nu este gata încă"
 
-#
 #: src/titlescreen.c:1131
 msgid "Discuss the future of TuxTyping at"
-msgstr "Diskutuj o budoucnosti TuxTyping na"
-
-#
-#, fuzzy
-#~ msgid "Phrase Practice"
-#~ msgstr "Procvičování"
-
-#
-#~ msgid "Great!"
-#~ msgstr "Skvělé!"
-
-#
-#~ msgid "Alphabet"
-#~ msgstr "Abeceda"
+msgstr "Vorbeste despre viitorul lui TuxTyping la"
