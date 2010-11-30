@@ -27,6 +27,7 @@ SUBDIRS = armenian \
   nynorsk \
   oriya \
   punjabi \
+  romanian \
   russian \
   suomi	\
   svenska \
