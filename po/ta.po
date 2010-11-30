@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tuxtype\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2010-06-20 11:48-0500\n"
+"POT-Creation-Date: 2010-11-26 19:19-0600\n"
 "PO-Revision-Date: 2008-08-22 12:41+0530\n"
 "Last-Translator: Felix I <ifelix25@gmail.com>, 2008\n"
 "Language-Team:  <en@li.org>\n"
@@ -16,163 +16,163 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
 
-#: src/loaders.c:88 src/main.c:150 src/playgame.c:643
+#: src/loaders.c:98 src/main.c:161 src/playgame.c:654
 msgid "Fish"
 msgstr "ஃபிஷ்"
 
-#: src/pause.c:277
+#: src/pause.c:289
 msgid "Sound Effects Volume"
 msgstr "ஒலி விளைவுகளின் ஒலிஅளவு"
 
-#: src/pause.c:286
+#: src/pause.c:298
 msgid "Music Volume"
 msgstr "இசை ஒலிஅளவு"
 
-#: src/pause.c:297
+#: src/pause.c:309
 msgid "Sound & Music Disabled"
 msgstr "ஒலி & இசை செயல்நீக்கப்பட்டது"
 
-#: src/pause.c:307
+#: src/pause.c:319
 msgid "Paused!"
 msgstr "இடைநிறுத்தப்பட்டது!"
 
-#: src/pause.c:316
+#: src/pause.c:328
 msgid "Press escape again to return to menu"
 msgstr "மெனுவுக்கு செல்ல மீண்டும் escape ஐ அழுத்தவும்"
 
-#: src/pause.c:325
+#: src/pause.c:337
 msgid "Press space bar to return to game"
 msgstr "விளையாட்டுக்கு செல்ல space barஐ அழுத்தவும்"
 
-#: src/playgame.c:641
+#: src/playgame.c:652
 msgid "Level"
 msgstr "நிலை"
 
-#: src/playgame.c:642
+#: src/playgame.c:653
 msgid "Lives"
 msgstr "லைவ்ஸ்"
 
-#: src/playgame.c:645 src/titlescreen.c:89
+#: src/playgame.c:656 src/titlescreen.c:99
 msgid "Easy"
 msgstr "எளியது"
 
-#: src/playgame.c:646 src/titlescreen.c:90
+#: src/playgame.c:657 src/titlescreen.c:100
 msgid "Medium"
 msgstr "நடுத்தரம்"
 
-#: src/playgame.c:647 src/titlescreen.c:91
+#: src/playgame.c:658 src/titlescreen.c:101
 msgid "Hard"
 msgstr "கடினம்"
 
-#: src/playgame.c:648
+#: src/playgame.c:659
 msgid "Practice"
 msgstr "பயிற்சி"
 
-#: src/playgame.c:659
+#: src/playgame.c:670
 msgid "Congratulations"
 msgstr "வாழ்த்துக்கள்"
 
-#: src/playgame.c:663
+#: src/playgame.c:674
 msgid "Oh No!"
 msgstr "இல்லை!"
 
-#: src/practice.c:622
+#: src/practice.c:626
 msgid "sec"
 msgstr ""
 
-#: src/practice.c:1433
+#: src/practice.c:1440
 msgid "Time"
 msgstr ""
 
-#: src/practice.c:1437
+#: src/practice.c:1444
 msgid "Chars"
 msgstr ""
 
-#: src/practice.c:1441
+#: src/practice.c:1448
 msgid "CPM"
 msgstr ""
 
-#: src/practice.c:1445
+#: src/practice.c:1452
 msgid "WPM"
 msgstr ""
 
-#: src/practice.c:1449
+#: src/practice.c:1456
 msgid "Errors"
 msgstr ""
 
-#: src/practice.c:1453
+#: src/practice.c:1460
 msgid "Accuracy"
 msgstr ""
 
-#: src/titlescreen.c:89
+#: src/titlescreen.c:99
 msgid "Fish Cascade"
 msgstr "ஃபிஷ் கேஸ்கேட்"
 
-#: src/titlescreen.c:89
+#: src/titlescreen.c:99
 msgid "Space Cadet"
 msgstr "ஸ்பேஸ் கேடெட்"
 
-#: src/titlescreen.c:89
+#: src/titlescreen.c:99
 msgid "Edit Word Lists"
 msgstr "சொல் பட்டியல்களை திருத்து"
 
-#: src/titlescreen.c:90
+#: src/titlescreen.c:100
 msgid "Comet Zap"
 msgstr "கமெட் ஸெப்"
 
-#: src/titlescreen.c:90
+#: src/titlescreen.c:100
 msgid "Pilot"
 msgstr "பைலட்"
 
-#: src/titlescreen.c:90
+#: src/titlescreen.c:100
 msgid "Phrase Typing"
 msgstr ""
 
-#: src/titlescreen.c:91
+#: src/titlescreen.c:101
 msgid "Lessons"
 msgstr "பாடங்கள்"
 
-#: src/titlescreen.c:91
+#: src/titlescreen.c:101
 msgid "Ace"
 msgstr "ஏஸ்"
 
-#: src/titlescreen.c:91
+#: src/titlescreen.c:101
 msgid "Project Info"
 msgstr "திட்ட விவரம்"
 
-#: src/titlescreen.c:92
+#: src/titlescreen.c:102
 msgid "Options"
 msgstr "விருப்பங்கள்"
 
-#: src/titlescreen.c:92
+#: src/titlescreen.c:102
 msgid "Instructions"
 msgstr "தகவல்கள்"
 
-#: src/titlescreen.c:92
+#: src/titlescreen.c:102
 msgid "Commander"
 msgstr "கமெண்டர்"
 
-#: src/titlescreen.c:92
+#: src/titlescreen.c:102
 msgid "Setup Language"
 msgstr "அமைவு மொழி"
 
-#: src/titlescreen.c:93
+#: src/titlescreen.c:103
 msgid "Quit"
 msgstr "வெளியேறு"
 
-#: src/titlescreen.c:93
+#: src/titlescreen.c:103
 msgid "Main Menu"
 msgstr "முதன்மை மெனு"
 
-#: src/titlescreen.c:1119
+#: src/titlescreen.c:1129
 msgid "Work In Progress!"
 msgstr "பணி நடைபெறுகிறது!"
 
-#: src/titlescreen.c:1120
+#: src/titlescreen.c:1130
 msgid "This feature is not ready yet"
 msgstr "இந்த வசதி இதுவரை இல்லை"
 
-#: src/titlescreen.c:1121
+#: src/titlescreen.c:1131
 msgid "Discuss the future of TuxTyping at"
 msgstr "TuxTyping எதிர்கால திட்டத்தை இங்கு விவாதிக்கவும்"
 

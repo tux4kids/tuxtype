@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tuxtype 1.8.0\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2010-06-20 11:48-0500\n"
+"POT-Creation-Date: 2010-11-26 19:19-0600\n"
 "PO-Revision-Date: 2010-03-06 08:26+0200\n"
 "Last-Translator: Xandru Armesto <xandru@softastur.org>\n"
 "Language-Team: Asturian Team alministradores@softastur.org\n"
@@ -18,162 +18,162 @@ msgstr ""
 "X-Generator: Virtaal 0.5.2\n"
 "X-Poedit-Language: Asturian\n"
 
-#: src/loaders.c:88 src/main.c:150 src/playgame.c:643
+#: src/loaders.c:98 src/main.c:161 src/playgame.c:654
 msgid "Fish"
 msgstr "Pexe"
 
-#: src/pause.c:277
+#: src/pause.c:289
 msgid "Sound Effects Volume"
 msgstr "Volume de los Efeutos de Soníu"
 
-#: src/pause.c:286
+#: src/pause.c:298
 msgid "Music Volume"
 msgstr "Volume de la Música"
 
-#: src/pause.c:297
+#: src/pause.c:309
 msgid "Sound & Music Disabled"
 msgstr "Soníu y Música Torgaos"
 
-#: src/pause.c:307
+#: src/pause.c:319
 msgid "Paused!"
 msgstr "¡Pausa!"
 
-#: src/pause.c:316
+#: src/pause.c:328
 msgid "Press escape again to return to menu"
 msgstr "Calca \"escape\" otra vuelta pa tornar al menú"
 
-#: src/pause.c:325
+#: src/pause.c:337
 msgid "Press space bar to return to game"
 msgstr "Calca \"espaciu\" pa tornar al xuegu"
 
-#: src/playgame.c:641
+#: src/playgame.c:652
 msgid "Level"
 msgstr "Nivel"
 
-#: src/playgame.c:642
+#: src/playgame.c:653
 msgid "Lives"
 msgstr "Vides"
 
-#: src/playgame.c:645 src/titlescreen.c:89
+#: src/playgame.c:656 src/titlescreen.c:99
 msgid "Easy"
 msgstr "Fácil"
 
-#: src/playgame.c:646 src/titlescreen.c:90
+#: src/playgame.c:657 src/titlescreen.c:100
 msgid "Medium"
 msgstr "Mediu"
 
-#: src/playgame.c:647 src/titlescreen.c:91
+#: src/playgame.c:658 src/titlescreen.c:101
 msgid "Hard"
 msgstr "Difícil"
 
-#: src/playgame.c:648
+#: src/playgame.c:659
 msgid "Practice"
 msgstr "Practicar"
 
-#: src/playgame.c:659
+#: src/playgame.c:670
 msgid "Congratulations"
 msgstr "Norabona"
 
-#: src/playgame.c:663
+#: src/playgame.c:674
 msgid "Oh No!"
 msgstr "¡Oh, Non!"
 
-#: src/practice.c:622
+#: src/practice.c:626
 msgid "sec"
 msgstr "seg."
 
-#: src/practice.c:1433
+#: src/practice.c:1440
 msgid "Time"
 msgstr "Tiempu"
 
-#: src/practice.c:1437
+#: src/practice.c:1444
 msgid "Chars"
 msgstr "Gráficos"
 
-#: src/practice.c:1441
+#: src/practice.c:1448
 msgid "CPM"
 msgstr "CPM"
 
-#: src/practice.c:1445
+#: src/practice.c:1452
 msgid "WPM"
 msgstr "WPM"
 
-#: src/practice.c:1449
+#: src/practice.c:1456
 msgid "Errors"
 msgstr "Errores"
 
-#: src/practice.c:1453
+#: src/practice.c:1460
 msgid "Accuracy"
 msgstr "Precisión"
 
-#: src/titlescreen.c:89
+#: src/titlescreen.c:99
 msgid "Fish Cascade"
 msgstr "Cascada de Pexes"
 
-#: src/titlescreen.c:89
+#: src/titlescreen.c:99
 msgid "Space Cadet"
 msgstr "Cadete Espacial"
 
-#: src/titlescreen.c:89
+#: src/titlescreen.c:99
 msgid "Edit Word Lists"
 msgstr "Editar les Llistes de Pallabres"
 
-#: src/titlescreen.c:90
+#: src/titlescreen.c:100
 msgid "Comet Zap"
 msgstr "Cometes"
 
-#: src/titlescreen.c:90
+#: src/titlescreen.c:100
 msgid "Pilot"
 msgstr "Pilotu"
 
-#: src/titlescreen.c:90
+#: src/titlescreen.c:100
 msgid "Phrase Typing"
 msgstr "Mecanografía de Frase"
 
-#: src/titlescreen.c:91
+#: src/titlescreen.c:101
 msgid "Lessons"
 msgstr "Lleiciones"
 
-#: src/titlescreen.c:91
+#: src/titlescreen.c:101
 msgid "Ace"
 msgstr "As"
 
-#: src/titlescreen.c:91
+#: src/titlescreen.c:101
 msgid "Project Info"
 msgstr "Información del Proyeutu"
 
-#: src/titlescreen.c:92
+#: src/titlescreen.c:102
 msgid "Options"
 msgstr "Opciones"
 
-#: src/titlescreen.c:92
+#: src/titlescreen.c:102
 msgid "Instructions"
 msgstr "Instrucciones"
 
-#: src/titlescreen.c:92
+#: src/titlescreen.c:102
 msgid "Commander"
 msgstr "Comandante"
 
-#: src/titlescreen.c:92
+#: src/titlescreen.c:102
 msgid "Setup Language"
 msgstr "Llingua"
 
-#: src/titlescreen.c:93
+#: src/titlescreen.c:103
 msgid "Quit"
 msgstr "Colar"
 
-#: src/titlescreen.c:93
+#: src/titlescreen.c:103
 msgid "Main Menu"
 msgstr "Menú Principal"
 
-#: src/titlescreen.c:1119
+#: src/titlescreen.c:1129
 msgid "Work In Progress!"
 msgstr "¡Trabayando nello!"
 
-#: src/titlescreen.c:1120
+#: src/titlescreen.c:1130
 msgid "This feature is not ready yet"
 msgstr "Esta función nun ta preparada entá"
 
-#: src/titlescreen.c:1121
+#: src/titlescreen.c:1131
 msgid "Discuss the future of TuxTyping at"
 msgstr "Alderica al rodiu del futuru de TuxTyping en"

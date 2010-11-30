@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tux Typing 1.5.16\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2010-06-20 11:48-0500\n"
+"POT-Creation-Date: 2010-11-26 19:19-0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,171 +17,171 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/loaders.c:88 src/main.c:150 src/playgame.c:643
+#: src/loaders.c:98 src/main.c:161 src/playgame.c:654
 msgid "Fish"
 msgstr "Ψάρια"
 
-#: src/pause.c:277
+#: src/pause.c:289
 msgid "Sound Effects Volume"
 msgstr "Ένταση Ηχητικών Εφφέ"
 
-#: src/pause.c:286
+#: src/pause.c:298
 msgid "Music Volume"
 msgstr "Ένταση Ήχου"
 
-#: src/pause.c:297
+#: src/pause.c:309
 msgid "Sound & Music Disabled"
 msgstr "Χωρίς Ήχο και Μουσική"
 
-#: src/pause.c:307
+#: src/pause.c:319
 msgid "Paused!"
 msgstr "Πάυση"
 
-#: src/pause.c:316
+#: src/pause.c:328
 msgid "Press escape again to return to menu"
 msgstr "Πάτα ξανά το Esc για να γυρίσεις στις επιλογές"
 
-#: src/pause.c:325
+#: src/pause.c:337
 msgid "Press space bar to return to game"
 msgstr "Πάτα το κενό για να γυρίσεις στο παιχνίδι"
 
-#: src/playgame.c:641
+#: src/playgame.c:652
 msgid "Level"
 msgstr "Επίπεδο"
 
-#: src/playgame.c:642
+#: src/playgame.c:653
 msgid "Lives"
 msgstr "Ζωές"
 
 # levels for Cascade game:
-#: src/playgame.c:645 src/titlescreen.c:89
+#: src/playgame.c:656 src/titlescreen.c:99
 msgid "Easy"
 msgstr "1. Εύκολο"
 
-#: src/playgame.c:646 src/titlescreen.c:90
+#: src/playgame.c:657 src/titlescreen.c:100
 msgid "Medium"
 msgstr "2. Κανονικό"
 
-#: src/playgame.c:647 src/titlescreen.c:91
+#: src/playgame.c:658 src/titlescreen.c:101
 msgid "Hard"
 msgstr "3. Δύσκολο"
 
 # general stuff
-#: src/playgame.c:648
+#: src/playgame.c:659
 msgid "Practice"
 msgstr "Εξάσκηση"
 
-#: src/playgame.c:659
+#: src/playgame.c:670
 msgid "Congratulations"
 msgstr "Συγχαρητήρια"
 
-#: src/playgame.c:663
+#: src/playgame.c:674
 msgid "Oh No!"
 msgstr "Ωχ! Όχι"
 
-#: src/practice.c:622
+#: src/practice.c:626
 msgid "sec"
 msgstr ""
 
-#: src/practice.c:1433
+#: src/practice.c:1440
 msgid "Time"
 msgstr ""
 
-#: src/practice.c:1437
+#: src/practice.c:1444
 msgid "Chars"
 msgstr ""
 
-#: src/practice.c:1441
+#: src/practice.c:1448
 msgid "CPM"
 msgstr ""
 
-#: src/practice.c:1445
+#: src/practice.c:1452
 msgid "WPM"
 msgstr ""
 
-#: src/practice.c:1449
+#: src/practice.c:1456
 msgid "Errors"
 msgstr ""
 
-#: src/practice.c:1453
+#: src/practice.c:1460
 msgid "Accuracy"
 msgstr ""
 
-#: src/titlescreen.c:89
+#: src/titlescreen.c:99
 msgid "Fish Cascade"
 msgstr "Φάε τα Ψαράκια"
 
 # "Space Cadet" is level 1 in comet zap
-#: src/titlescreen.c:89
+#: src/titlescreen.c:99
 msgid "Space Cadet"
 msgstr "1. Μαθητευόμενος"
 
-#: src/titlescreen.c:89
+#: src/titlescreen.c:99
 msgid "Edit Word Lists"
 msgstr "Διόρθωσε τις Λίστες Λέξεων"
 
 # types of games
-#: src/titlescreen.c:90
+#: src/titlescreen.c:100
 msgid "Comet Zap"
 msgstr "Κομήτες"
 
 # "Pilot" is level 2 in comet zap
-#: src/titlescreen.c:90
+#: src/titlescreen.c:100
 msgid "Pilot"
 msgstr "2. Πιλότος"
 
-#: src/titlescreen.c:90
+#: src/titlescreen.c:100
 msgid "Phrase Typing"
 msgstr ""
 
-#: src/titlescreen.c:91
+#: src/titlescreen.c:101
 msgid "Lessons"
 msgstr "Μαθήματα"
 
 # "Ace" is level 3 in comet zap
-#: src/titlescreen.c:91
+#: src/titlescreen.c:101
 msgid "Ace"
 msgstr "3. Άσσος"
 
-#: src/titlescreen.c:91
+#: src/titlescreen.c:101
 msgid "Project Info"
 msgstr "Πληροφορίες προγράμματος"
 
-#: src/titlescreen.c:92
+#: src/titlescreen.c:102
 msgid "Options"
 msgstr "Επιλογές"
 
-#: src/titlescreen.c:92
+#: src/titlescreen.c:102
 msgid "Instructions"
 msgstr "Οδηγίες"
 
 # "Commander" is level 4 in comet zap
-#: src/titlescreen.c:92
+#: src/titlescreen.c:102
 msgid "Commander"
 msgstr "4. Βετεράνος"
 
-#: src/titlescreen.c:92
+#: src/titlescreen.c:102
 msgid "Setup Language"
 msgstr "Ρύθμιση Γλώσσας"
 
-#: src/titlescreen.c:93
+#: src/titlescreen.c:103
 msgid "Quit"
 msgstr "Τέλος"
 
-#: src/titlescreen.c:93
+#: src/titlescreen.c:103
 msgid "Main Menu"
 msgstr "Βασικό Μενού"
 
 # work in progress stuff
-#: src/titlescreen.c:1119
+#: src/titlescreen.c:1129
 msgid "Work In Progress!"
 msgstr "Εργασία σε εξέλιξη"
 
-#: src/titlescreen.c:1120
+#: src/titlescreen.c:1130
 msgid "This feature is not ready yet"
 msgstr "Αυτό το κομμάτι δεν είναι ακόμη έτοιμο"
 
-#: src/titlescreen.c:1121
+#: src/titlescreen.c:1131
 msgid "Discuss the future of TuxTyping at"
 msgstr "Σχόλια για το TuxTyping"
 

@@ -3,6 +3,7 @@
 
 SUBDIRS = armenian \
   assamese \
+  belarussian \
   bokmal \
   bulgarian \
   brazilian-portuguese \

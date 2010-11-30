@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tux Typing 1.5.16\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2010-06-20 11:48-0500\n"
+"POT-Creation-Date: 2010-11-26 19:19-0600\n"
 "PO-Revision-Date: 2008-08-22 12:36+0530\n"
 "Last-Translator: Amitakhya Phukan <aphukan@redhat.com>\n"
 "Language-Team: American English <kde-i18n-doc@lists.kde.org>\n"
@@ -16,163 +16,163 @@ msgstr ""
 "X-Generator: KAider 0.1\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: src/loaders.c:88 src/main.c:150 src/playgame.c:643
+#: src/loaders.c:98 src/main.c:161 src/playgame.c:654
 msgid "Fish"
 msgstr "Fish"
 
-#: src/pause.c:277
+#: src/pause.c:289
 msgid "Sound Effects Volume"
 msgstr "ধ্বনিৰ ফলাফল উচ্চতা"
 
-#: src/pause.c:286
+#: src/pause.c:298
 msgid "Music Volume"
 msgstr "সঙ্গিতৰ ধ্বনিৰ উচ্চতা"
 
-#: src/pause.c:297
+#: src/pause.c:309
 msgid "Sound & Music Disabled"
 msgstr "ধ্বনি & সঙ্গিত নিষ্ক্ৰীয়"
 
-#: src/pause.c:307
+#: src/pause.c:319
 msgid "Paused!"
 msgstr "ৰখোৱা হ'ল!"
 
-#: src/pause.c:316
+#: src/pause.c:328
 msgid "Press escape again to return to menu"
 msgstr "তালিকালৈ ঘূৰি যাবলৈ পুনঃ escape টিপক"
 
-#: src/pause.c:325
+#: src/pause.c:337
 msgid "Press space bar to return to game"
 msgstr "খেললৈ ঘূৰি যাবলৈ space bar টিপক"
 
-#: src/playgame.c:641
+#: src/playgame.c:652
 msgid "Level"
 msgstr "স্তৰ"
 
-#: src/playgame.c:642
+#: src/playgame.c:653
 msgid "Lives"
 msgstr "জীৱন"
 
-#: src/playgame.c:645 src/titlescreen.c:89
+#: src/playgame.c:656 src/titlescreen.c:99
 msgid "Easy"
 msgstr "সহজ"
 
-#: src/playgame.c:646 src/titlescreen.c:90
+#: src/playgame.c:657 src/titlescreen.c:100
 msgid "Medium"
 msgstr "মাধ্যম"
 
-#: src/playgame.c:647 src/titlescreen.c:91
+#: src/playgame.c:658 src/titlescreen.c:101
 msgid "Hard"
 msgstr "কঠোৰ"
 
-#: src/playgame.c:648
+#: src/playgame.c:659
 msgid "Practice"
 msgstr "অভ্যাস"
 
-#: src/playgame.c:659
+#: src/playgame.c:670
 msgid "Congratulations"
 msgstr "অভিনন্দন"
 
-#: src/playgame.c:663
+#: src/playgame.c:674
 msgid "Oh No!"
 msgstr "অঃ নহয়!"
 
-#: src/practice.c:622
+#: src/practice.c:626
 msgid "sec"
 msgstr ""
 
-#: src/practice.c:1433
+#: src/practice.c:1440
 msgid "Time"
 msgstr ""
 
-#: src/practice.c:1437
+#: src/practice.c:1444
 msgid "Chars"
 msgstr ""
 
-#: src/practice.c:1441
+#: src/practice.c:1448
 msgid "CPM"
 msgstr ""
 
-#: src/practice.c:1445
+#: src/practice.c:1452
 msgid "WPM"
 msgstr ""
 
-#: src/practice.c:1449
+#: src/practice.c:1456
 msgid "Errors"
 msgstr ""
 
-#: src/practice.c:1453
+#: src/practice.c:1460
 msgid "Accuracy"
 msgstr ""
 
-#: src/titlescreen.c:89
+#: src/titlescreen.c:99
 msgid "Fish Cascade"
 msgstr "Fish Cascade"
 
-#: src/titlescreen.c:89
+#: src/titlescreen.c:99
 msgid "Space Cadet"
 msgstr "Space Cadet"
 
-#: src/titlescreen.c:89
+#: src/titlescreen.c:99
 msgid "Edit Word Lists"
 msgstr "শব্দৰ তালিকা সম্পাদন কৰক"
 
-#: src/titlescreen.c:90
+#: src/titlescreen.c:100
 msgid "Comet Zap"
 msgstr "Comet Zap"
 
-#: src/titlescreen.c:90
+#: src/titlescreen.c:100
 msgid "Pilot"
 msgstr "পাইলট"
 
-#: src/titlescreen.c:90
+#: src/titlescreen.c:100
 msgid "Phrase Typing"
 msgstr ""
 
-#: src/titlescreen.c:91
+#: src/titlescreen.c:101
 msgid "Lessons"
 msgstr "পাঠ"
 
-#: src/titlescreen.c:91
+#: src/titlescreen.c:101
 msgid "Ace"
 msgstr "Ace"
 
-#: src/titlescreen.c:91
+#: src/titlescreen.c:101
 msgid "Project Info"
 msgstr "পৰিকল্পনাৰ তথ্য"
 
-#: src/titlescreen.c:92
+#: src/titlescreen.c:102
 msgid "Options"
 msgstr "বিকল্প"
 
-#: src/titlescreen.c:92
+#: src/titlescreen.c:102
 msgid "Instructions"
 msgstr "নিৰ্দেশ"
 
-#: src/titlescreen.c:92
+#: src/titlescreen.c:102
 msgid "Commander"
 msgstr "কামান্ডাৰ"
 
-#: src/titlescreen.c:92
+#: src/titlescreen.c:102
 msgid "Setup Language"
 msgstr "প্ৰতিষ্ঠাৰ ভাষা"
 
-#: src/titlescreen.c:93
+#: src/titlescreen.c:103
 msgid "Quit"
 msgstr "বাহিৰ হওক"
 
-#: src/titlescreen.c:93
+#: src/titlescreen.c:103
 msgid "Main Menu"
 msgstr "মূখ্য তালিকা"
 
-#: src/titlescreen.c:1119
+#: src/titlescreen.c:1129
 msgid "Work In Progress!"
 msgstr "কাম চলি আছে‌!"
 
-#: src/titlescreen.c:1120
+#: src/titlescreen.c:1130
 msgid "This feature is not ready yet"
 msgstr "এই গুণ এতিয়া প্ৰস্তুত নহয়"
 
-#: src/titlescreen.c:1121
+#: src/titlescreen.c:1131
 msgid "Discuss the future of TuxTyping at"
 msgstr "TuxTyping ৰ গুণৰ আলোচনা ইয়াত কৰক"
 
