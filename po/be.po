@@ -1,0 +1,179 @@
+# Belarussian translations for Tux Typing package.
+# This file is distributed under the same license as the Tux Typing package.
+#
+# Alexander Geroimenko <a.geroimenko@gmail.com>, 2010.
+msgid ""
+msgstr ""
+"Project-Id-Version: tuxtype 1.8.0\n"
+"Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
+"POT-Creation-Date: 2010-11-30 08:13-0600\n"
+"PO-Revision-Date: 2010-11-30 01:00+0200\n"
+"Last-Translator: \n"
+"Language-Team: Belarusian <>\n"
+"Language: be\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Lokalize 1.1\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: src/loaders.c:98 src/main.c:161 src/playgame.c:654
+msgid "Fish"
+msgstr "Рыб"
+
+#: src/pause.c:289
+msgid "Sound Effects Volume"
+msgstr "Гучнасць гукавых эфектаў"
+
+#: src/pause.c:298
+msgid "Music Volume"
+msgstr "Гучнасць музыкі"
+
+#: src/pause.c:309
+msgid "Sound & Music Disabled"
+msgstr "Музыка і гукі адключаны"
+
+#: src/pause.c:319
+msgid "Paused!"
+msgstr "Прыпынена!"
+
+#: src/pause.c:328
+msgid "Press escape again to return to menu"
+msgstr "Націсніце escape яшчэ раз, каб вярнуцца да меню"
+
+#: src/pause.c:337
+msgid "Press space bar to return to game"
+msgstr "Націсніце прабел, каб вярнуцца ў гульню"
+
+#: src/playgame.c:652
+msgid "Level"
+msgstr "Узровень"
+
+#: src/playgame.c:653
+msgid "Lives"
+msgstr "Жыццяў"
+
+#: src/playgame.c:656 src/titlescreen.c:99
+msgid "Easy"
+msgstr "Просты"
+
+#: src/playgame.c:657 src/titlescreen.c:100
+msgid "Medium"
+msgstr "Сярэдні"
+
+#: src/playgame.c:658 src/titlescreen.c:101
+msgid "Hard"
+msgstr "Цяжкі"
+
+#: src/playgame.c:659
+msgid "Practice"
+msgstr "Практыка"
+
+#: src/playgame.c:670
+msgid "Congratulations"
+msgstr "Віншуем"
+
+#: src/playgame.c:674
+msgid "Oh No!"
+msgstr "Ой, не!"
+
+#: src/practice.c:626
+msgid "sec"
+msgstr ""
+
+#: src/practice.c:1440
+msgid "Time"
+msgstr "Час"
+
+#: src/practice.c:1444
+msgid "Chars"
+msgstr "Знакаў"
+
+#: src/practice.c:1448
+msgid "CPM"
+msgstr "Знакаў у хвіліну"
+
+#: src/practice.c:1452
+msgid "WPM"
+msgstr "Слоў у хвіліну"
+
+#: src/practice.c:1456
+msgid "Errors"
+msgstr "Памылак"
+
+#: src/practice.c:1460
+msgid "Accuracy"
+msgstr "Дакладнасць"
+
+#: src/titlescreen.c:99
+msgid "Fish Cascade"
+msgstr "Каскад рыб"
+
+#: src/titlescreen.c:99
+msgid "Space Cadet"
+msgstr "Касмічны кадэт"
+
+#: src/titlescreen.c:99
+msgid "Edit Word Lists"
+msgstr "Рэдагаванне спіска слоў"
+
+#: src/titlescreen.c:100
+msgid "Comet Zap"
+msgstr "Падзенне камет"
+
+#: src/titlescreen.c:100
+msgid "Pilot"
+msgstr "Пілот"
+
+#: src/titlescreen.c:100
+msgid "Phrase Typing"
+msgstr "Пячатаць фразы"
+
+#: src/titlescreen.c:101
+msgid "Lessons"
+msgstr "Заняткі"
+
+#: src/titlescreen.c:101
+msgid "Ace"
+msgstr "Ас"
+
+#: src/titlescreen.c:101
+msgid "Project Info"
+msgstr "Інфармацыя а праекце"
+
+#: src/titlescreen.c:102
+msgid "Options"
+msgstr "Параметры"
+
+#: src/titlescreen.c:102
+msgid "Instructions"
+msgstr "Інструкцыі"
+
+#: src/titlescreen.c:102
+msgid "Commander"
+msgstr "Капітан"
+
+#: src/titlescreen.c:102
+msgid "Setup Language"
+msgstr "Выбар мовы"
+
+#: src/titlescreen.c:103
+msgid "Quit"
+msgstr "Выхад"
+
+#: src/titlescreen.c:103
+msgid "Main Menu"
+msgstr "Галоўнае меню"
+
+#: src/titlescreen.c:1129
+msgid "Work In Progress!"
+msgstr "Праца працягваецца!"
+
+#: src/titlescreen.c:1130
+msgid "This feature is not ready yet"
+msgstr "Гэта функцыя яшче не гатова"
+
+#: src/titlescreen.c:1131
+msgid "Discuss the future of TuxTyping at"
+msgstr "Абмяркуйце будучыню TuxTyping на"
