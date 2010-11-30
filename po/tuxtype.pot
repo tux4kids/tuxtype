@@ -7,11 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tuxtype 1.8.2\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-<<<<<<< HEAD
-"POT-Creation-Date: 2010-11-26 19:19-0600\n"
-=======
-"POT-Creation-Date: 2010-11-27 15:21-0600\n"
->>>>>>> 34ff912f7216482852845e1e941085ad1651186b
+"POT-Creation-Date: 2010-11-30 08:13-0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"

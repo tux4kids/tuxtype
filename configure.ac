@@ -415,6 +415,8 @@ data/themes/armenian/Makefile
 data/themes/armenian/images/Makefile
 data/themes/assamese/Makefile
 data/themes/assamese/words/Makefile
+data/themes/belarussian/Makefile
+data/themes/belarussian/words/Makefile
 data/themes/bokmal/Makefile
 data/themes/bokmal/words/Makefile
 data/themes/bokmal/images/Makefile
