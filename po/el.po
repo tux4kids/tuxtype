@@ -1,21 +1,21 @@
-# Greek translations for Tux Typing package.
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# Mobin M <mobinmohan@gmail.com>, 2008
+# SOME DESCRIPTIVE TITLE.
+# This file is put in the public domain.
+# Giannis Konstantinidis <gloooabvoe9a@gmail.com>, 2010.
 #
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Tux Typing 1.5.16\n"
+"Project-Id-Version: tuxtype 1.8.2\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
 "POT-Creation-Date: 2010-11-30 08:13-0600\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2010-12-25 00:04+0200\n"
+"Last-Translator: Giannis Konstantinidis <gloooabvoe9a@gmail.com>\n"
+"Language-Team: Giannis Konstantinidis <gloooabvoe9a@gmail.com>\n"
 "Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Greek\n"
+"X-Poedit-Country: GREECE\n"
 
 #: src/loaders.c:98 src/main.c:161 src/playgame.c:654
 msgid "Fish"
@@ -23,27 +23,27 @@ msgstr "Ψάρια"
 
 #: src/pause.c:289
 msgid "Sound Effects Volume"
-msgstr "Ένταση Ηχητικών Εφφέ"
+msgstr "Ένταση ηχητικών εφέ"
 
 #: src/pause.c:298
 msgid "Music Volume"
-msgstr "Ένταση Ήχου"
+msgstr "Ένταση Μουσικής"
 
 #: src/pause.c:309
 msgid "Sound & Music Disabled"
-msgstr "Χωρίς Ήχο και Μουσική"
+msgstr "Ο ήχος και η μουσική απενεργοποιήθηκαν"
 
 #: src/pause.c:319
 msgid "Paused!"
-msgstr "Πάυση"
+msgstr "Παύση!"
 
 #: src/pause.c:328
 msgid "Press escape again to return to menu"
-msgstr "Πάτα ξανά το Esc για να γυρίσεις στις επιλογές"
+msgstr "Πατήστε ξανά escape για να επιστρέψετε στο μενού"
 
 #: src/pause.c:337
 msgid "Press space bar to return to game"
-msgstr "Πάτα το κενό για να γυρίσεις στο παιχνίδι"
+msgstr "Πατήστε το space bar για να επιστρέψετε στο παιχνίδι"
 
 #: src/playgame.c:652
 msgid "Level"
@@ -53,20 +53,18 @@ msgstr "Επίπεδο"
 msgid "Lives"
 msgstr "Ζωές"
 
-# levels for Cascade game:
 #: src/playgame.c:656 src/titlescreen.c:99
 msgid "Easy"
-msgstr "1. Εύκολο"
+msgstr "Εύκολο"
 
 #: src/playgame.c:657 src/titlescreen.c:100
 msgid "Medium"
-msgstr "2. Κανονικό"
+msgstr "Μεσαίο"
 
 #: src/playgame.c:658 src/titlescreen.c:101
 msgid "Hard"
-msgstr "3. Δύσκολο"
+msgstr "Δύσκολο"
 
-# general stuff
 #: src/playgame.c:659
 msgid "Practice"
 msgstr "Εξάσκηση"
@@ -77,75 +75,71 @@ msgstr "Συγχαρητήρια"
 
 #: src/playgame.c:674
 msgid "Oh No!"
-msgstr "Ωχ! Όχι"
+msgstr "Ωχ Όχι!"
 
 #: src/practice.c:626
 msgid "sec"
-msgstr ""
+msgstr "δευτ."
 
 #: src/practice.c:1440
 msgid "Time"
-msgstr ""
+msgstr "Χρόνος"
 
 #: src/practice.c:1444
 msgid "Chars"
-msgstr ""
+msgstr "Χαρακτήρες"
 
 #: src/practice.c:1448
 msgid "CPM"
-msgstr ""
+msgstr "CRM"
 
 #: src/practice.c:1452
 msgid "WPM"
-msgstr ""
+msgstr "WPM"
 
 #: src/practice.c:1456
 msgid "Errors"
-msgstr ""
+msgstr "Σφάλματα"
 
 #: src/practice.c:1460
 msgid "Accuracy"
-msgstr ""
+msgstr "Ευστοχία"
 
 #: src/titlescreen.c:99
 msgid "Fish Cascade"
-msgstr "Φάε τα Ψαράκια"
+msgstr "Καταρράκτης με ψάρια"
 
-# "Space Cadet" is level 1 in comet zap
 #: src/titlescreen.c:99
 msgid "Space Cadet"
-msgstr "1. Μαθητευόμενος"
+msgstr "Αστροναύτης"
 
 #: src/titlescreen.c:99
 msgid "Edit Word Lists"
-msgstr "Διόρθωσε τις Λίστες Λέξεων"
+msgstr "Επεξεργασία καταλόγων με λέξεις"
 
-# types of games
 #: src/titlescreen.c:100
 msgid "Comet Zap"
-msgstr "Κομήτες"
+msgstr "Βροχή από Κομήτες"
 
-# "Pilot" is level 2 in comet zap
 #: src/titlescreen.c:100
 msgid "Pilot"
-msgstr "2. Πιλότος"
+msgstr "Πιλότος"
 
 #: src/titlescreen.c:100
 msgid "Phrase Typing"
-msgstr ""
+msgstr "Δακτυλογράφηση Φράσεων"
 
 #: src/titlescreen.c:101
 msgid "Lessons"
 msgstr "Μαθήματα"
 
-# "Ace" is level 3 in comet zap
 #: src/titlescreen.c:101
 msgid "Ace"
-msgstr "3. Άσσος"
+msgstr "Άσσος"
 
 #: src/titlescreen.c:101
 msgid "Project Info"
-msgstr "Πληροφορίες προγράμματος"
+msgstr "Πληροφορίες Έργου"
 
 #: src/titlescreen.c:102
 msgid "Options"
@@ -155,46 +149,30 @@ msgstr "Επιλογές"
 msgid "Instructions"
 msgstr "Οδηγίες"
 
-# "Commander" is level 4 in comet zap
 #: src/titlescreen.c:102
 msgid "Commander"
-msgstr "4. Βετεράνος"
+msgstr "Διοικητής"
 
 #: src/titlescreen.c:102
 msgid "Setup Language"
-msgstr "Ρύθμιση Γλώσσας"
+msgstr "Ρυθμίσεις Γλώσσας"
 
 #: src/titlescreen.c:103
 msgid "Quit"
-msgstr "Τέλος"
+msgstr "Έξοδος"
 
 #: src/titlescreen.c:103
 msgid "Main Menu"
-msgstr "Βασικό Μενού"
+msgstr "Κύριο Μενού"
 
-# work in progress stuff
 #: src/titlescreen.c:1129
 msgid "Work In Progress!"
-msgstr "Εργασία σε εξέλιξη"
+msgstr "Εργασία σε Εξέλιξη!"
 
 #: src/titlescreen.c:1130
 msgid "This feature is not ready yet"
-msgstr "Αυτό το κομμάτι δεν είναι ακόμη έτοιμο"
+msgstr "Αυτο το στοιχείο δεν είναι έτοιμο ακόμα"
 
 #: src/titlescreen.c:1131
 msgid "Discuss the future of TuxTyping at"
-msgstr "Σχόλια για το TuxTyping"
-
-# general stuff
-#, fuzzy
-#~ msgid "Phrase Practice"
-#~ msgstr "Εξάσκηση"
-
-#~ msgid "Great!"
-#~ msgstr "Μπράβο!"
-
-#~ msgid "Alphabet"
-#~ msgstr "Αλφάβητο"
-
-#~ msgid "Setup Keyboard"
-#~ msgstr "Ρύθμιση Πληκτρολογίου"
+msgstr "Συζητήστε το μέλλον του TuxTyping στο"
