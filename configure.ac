@@ -502,6 +502,8 @@ data/themes/telugu/Makefile
 data/themes/telugu/words/Makefile
 data/themes/thai/Makefile
 data/themes/thai/words/Makefile
+data/themes/ukrainian/Makefile
+data/themes/ukrainian/words/Makefile
 data/themes/wolof/Makefile
 data/themes/wolof/images/Makefile
 data/themes/wolof/words/Makefile

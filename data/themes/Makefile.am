@@ -36,6 +36,7 @@ SUBDIRS = armenian \
   tamil \
   telugu \
   thai \
+  ukrainian \
   wolof
 
 themesdir = $(pkgdatadir)/themes
