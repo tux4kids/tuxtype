@@ -1211,6 +1211,17 @@ static void AddSplat(int* splats, struct fishypoo* f, int* curlives, int* frame)
 }
 
 
+#define NUM_RTL_LANGUAGES 4
+static int RTL()
+{
+  int i;
+  char* languages[NUM_RTL_LANGUAGES] = {"he_IL.utf8", "ar_AE.utf8", "ar_BH.utf8", "ar_DZ.utf8"}; //etc
+  for(i = 0; i< NUM_RTL_LANGUAGES; i++)
+    if (strcmp(settings.theme_locale_name, languages[i])==0)
+      return 1;
+  return 0;
+}
+
 
 
 static void DrawFish(int which)
@@ -1274,9 +1285,11 @@ static void DrawFish(int which)
         j++;
     }
 
+
     LOG ("Now draw each letter:\n");
 
-    for (j = 0; j < wcslen(fish_object[which].word); j++)
+    int length = wcslen(fish_object[which].word);
+    for (j = 0; j < length; j++)
     {
       current_letter = (int)fish_object[which].word[j];
 
@@ -1287,6 +1300,10 @@ static void DrawFish(int which)
 
       /* Set "letter_x" and "letter_y to where we want the letter drawn: */
       letter_x = fish_object[which].x + (j * fish_sprite->frame[0]->w) + x_inset;
+
+      if (RTL())
+	letter_x = fish_object[which].x + ((length-1-j) * fish_sprite->frame[0]->w) + x_inset;
+
       letter_y = fish_object[which].y + y_inset;
 
       if(letter_surface != NULL)
