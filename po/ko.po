@@ -1,0 +1,178 @@
+# Korean translations for Tux Typing package.
+# This file is put in the public domain.
+# Yeongchan Han <absflow@gmail.com>, 2011.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: tuxtype 1.8.1\n"
+"Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
+"POT-Creation-Date: 2010-11-30 08:13-0600\n"
+"PO-Revision-Date: 2011-01-31 19:35+0900\n"
+"Last-Translator: Yeongchan Han <absflow@gmail.com>\n"
+"Language-Team: \n"
+"Language: ko\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Korean\n"
+"X-Poedit-Country: KOREA, REPUBLIC OF\n"
+
+#: src/loaders.c:98 src/main.c:161 src/playgame.c:654
+msgid "Fish"
+msgstr "물고기"
+
+#: src/pause.c:289
+msgid "Sound Effects Volume"
+msgstr "효과음 크기 조절"
+
+#: src/pause.c:298
+msgid "Music Volume"
+msgstr "음악 크기 조절"
+
+#: src/pause.c:309
+msgid "Sound & Music Disabled"
+msgstr "소리 & 음악 비활성화"
+
+#: src/pause.c:319
+msgid "Paused!"
+msgstr "일시 정지!"
+
+#: src/pause.c:328
+msgid "Press escape again to return to menu"
+msgstr "Esc 키를 누르면 메뉴로 이동합니다"
+
+#: src/pause.c:337
+msgid "Press space bar to return to game"
+msgstr "스페이스 바를 누르면 게임으로 돌아갑니다"
+
+#: src/playgame.c:652
+msgid "Level"
+msgstr "단계"
+
+#: src/playgame.c:653
+msgid "Lives"
+msgstr "생명"
+
+#: src/playgame.c:656 src/titlescreen.c:99
+msgid "Easy"
+msgstr "쉬움"
+
+#: src/playgame.c:657 src/titlescreen.c:100
+msgid "Medium"
+msgstr "보통"
+
+#: src/playgame.c:658 src/titlescreen.c:101
+msgid "Hard"
+msgstr "어려움"
+
+#: src/playgame.c:659
+msgid "Practice"
+msgstr "연습"
+
+#: src/playgame.c:670
+msgid "Congratulations"
+msgstr "축하합니다"
+
+#: src/playgame.c:674
+msgid "Oh No!"
+msgstr "안돼!"
+
+#: src/practice.c:626
+msgid "sec"
+msgstr "초"
+
+#: src/practice.c:1440
+msgid "Time"
+msgstr "시간"
+
+#: src/practice.c:1444
+msgid "Chars"
+msgstr "문자 갯수"
+
+#: src/practice.c:1448
+msgid "CPM"
+msgstr "분당 문자 입력"
+
+#: src/practice.c:1452
+msgid "WPM"
+msgstr "분당 단어 입력"
+
+#: src/practice.c:1456
+msgid "Errors"
+msgstr "오류"
+
+#: src/practice.c:1460
+msgid "Accuracy"
+msgstr "정확도"
+
+#: src/titlescreen.c:99
+msgid "Fish Cascade"
+msgstr "물고기 폭포"
+
+#: src/titlescreen.c:99
+msgid "Space Cadet"
+msgstr "우주 비행 훈련생"
+
+#: src/titlescreen.c:99
+msgid "Edit Word Lists"
+msgstr "단어 목록 편집하기"
+
+#: src/titlescreen.c:100
+msgid "Comet Zap"
+msgstr "혜성 낚아채기"
+
+#: src/titlescreen.c:100
+msgid "Pilot"
+msgstr "파일럿"
+
+#: src/titlescreen.c:100
+msgid "Phrase Typing"
+msgstr "문장 타이핑하기"
+
+#: src/titlescreen.c:101
+msgid "Lessons"
+msgstr "배우기"
+
+#: src/titlescreen.c:101
+msgid "Ace"
+msgstr "에이스"
+
+#: src/titlescreen.c:101
+msgid "Project Info"
+msgstr "프로젝트 소개"
+
+#: src/titlescreen.c:102
+msgid "Options"
+msgstr "설정"
+
+#: src/titlescreen.c:102
+msgid "Instructions"
+msgstr "게임 설명"
+
+#: src/titlescreen.c:102
+msgid "Commander"
+msgstr "사령관"
+
+#: src/titlescreen.c:102
+msgid "Setup Language"
+msgstr "언어 설정"
+
+#: src/titlescreen.c:103
+msgid "Quit"
+msgstr "종료"
+
+#: src/titlescreen.c:103
+msgid "Main Menu"
+msgstr "메인 메뉴"
+
+#: src/titlescreen.c:1129
+msgid "Work In Progress!"
+msgstr "작업이 진행 중입니다!"
+
+#: src/titlescreen.c:1130
+msgid "This feature is not ready yet"
+msgstr "이 기능은 아직 준비되지 않았습니다"
+
+#: src/titlescreen.c:1131
+msgid "Discuss the future of TuxTyping at"
+msgstr "TuxTyping의 미래에 대한 논의 :"
