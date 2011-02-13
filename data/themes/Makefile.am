@@ -21,6 +21,7 @@ SUBDIRS = armenian \
   italian \
   jamaican \
   kannada \
+  korean \
   lithuanian \
   malayalam \
   nepali \

@@ -461,6 +461,8 @@ data/themes/jamaican/images/Makefile
 data/themes/jamaican/words/Makefile
 data/themes/kannada/Makefile
 data/themes/kannada/words/Makefile
+data/themes/korean/Makefile
+data/themes/korean/words/Makefile
 data/themes/lithuanian/Makefile
 data/themes/lithuanian/images/Makefile
 data/themes/lithuanian/images/status/Makefile
