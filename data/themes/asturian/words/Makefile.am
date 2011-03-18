@@ -1,9 +1,9 @@
-## Makefile.am for tuxtype - data/words:
+## Makefile.am for tuxtype - data/themes/asturian/words:
 ## Process with Automake to create Makefile.in
 
-wordsdir = $(pkgdatadir)/words
+themes_asturian_wordsdir = $(pkgdatadir)/themes/asturian/words
 
-dist_words_DATA = alphabet.txt \
+dist_themes_asturian_words_DATA = alphabet.txt \
   animals.txt \
   astronomy.txt \
   colors.txt \

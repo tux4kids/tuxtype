@@ -415,6 +415,10 @@ data/themes/armenian/Makefile
 data/themes/armenian/images/Makefile
 data/themes/assamese/Makefile
 data/themes/assamese/words/Makefile
+data/themes/asturian/Makefile
+data/themes/asturian/images/Makefile
+data/themes/asturian/scripts/Makefile
+data/themes/asturian/words/Makefile
 data/themes/belarussian/Makefile
 data/themes/belarussian/words/Makefile
 data/themes/bokmal/Makefile
