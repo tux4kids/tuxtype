@@ -1391,6 +1391,9 @@ void UpdateTux(wchar_t letter_pressed, int fishies, int frame) {
 		}
 
 	if (which!=-1) {
+		char buf[256];
+		sprintf(buf, "google_tts.sh %S &", fish_object[which].word);
+		system(buf);
 		fish_object[which].can_eat = 1;
 		tux_object.wordlen = 0;
 		tux_object.word[0] = 0;

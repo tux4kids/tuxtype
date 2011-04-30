@@ -21,6 +21,8 @@ EXTRA_DIST = tuxtype.spec \
 	Info.plist \
 	config.rpath 
 
+## For experimental Google TTS feature:
+dist_bin_SCRIPTS = google_tts.sh
 
 
 ## These are defined in configure.ac:
