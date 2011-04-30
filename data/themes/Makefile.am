@@ -3,6 +3,7 @@
 
 SUBDIRS = armenian \
   assamese \
+  asturian \
   belarussian \
   bokmal \
   bulgarian \
@@ -21,6 +22,7 @@ SUBDIRS = armenian \
   italian \
   jamaican \
   kannada \
+  korean \
   lithuanian \
   malayalam \
   nepali \

@@ -415,6 +415,10 @@ data/themes/armenian/Makefile
 data/themes/armenian/images/Makefile
 data/themes/assamese/Makefile
 data/themes/assamese/words/Makefile
+data/themes/asturian/Makefile
+data/themes/asturian/images/Makefile
+data/themes/asturian/scripts/Makefile
+data/themes/asturian/words/Makefile
 data/themes/belarussian/Makefile
 data/themes/belarussian/words/Makefile
 data/themes/bokmal/Makefile
@@ -461,6 +465,9 @@ data/themes/jamaican/images/Makefile
 data/themes/jamaican/words/Makefile
 data/themes/kannada/Makefile
 data/themes/kannada/words/Makefile
+data/themes/korean/Makefile
+data/themes/korean/images/Makefile
+data/themes/korean/words/Makefile
 data/themes/lithuanian/Makefile
 data/themes/lithuanian/images/Makefile
 data/themes/lithuanian/images/status/Makefile

@@ -1,17 +1,17 @@
 <script title="Comet Zap Instructions">
   <page>
     <bkgd src="main_bkg.png">
-    <text align="center" size="28">Save The Cities From Falling Comets!</text>
-    <text align="center"t>Help Tux aim his laser beam by typing</text>
-    <text align="center">the letters on the comets.  Type quickly,</text>
-    <text align="center">because if Tux can't destroy the comets</text>
-    <text align="center"t>before they hit the ground, the cities'</text>
-    <text align="center"t>shield will be destroyed.  If they get hit</text>
-    <text align="center">again, the cities themselves will be</text>
-    <text align="center">destroyed!  Lose all of your cities</text>
-    <text align="center">and the game is over.</text>
+    <text align="center" size="28">¡Salva les Ciudaes de los Cometes que Caen!</text>
+    <text align="center"t>¡Ayuda a Tux apuntando los rayos láser escribiendo</text>
+    <text align="center">les lletres de los cometes. ¡Escribi apriesa,</text>
+    <text align="center">porque si Tux nun pue destruir los cometes</text>
+    <text align="center"t>enantes de que choquen, les ciudaes van quedar</text>
+    <text align="center"t> ensin escudos. ¡Y si-yos vuelve a dar otru cometa</text>
+    <text align="center">les ciudaes van desapaecer!</text>
+    <text align="center">Si pierdes toles ciudaes</text>
+    <text align="center">acabóse'l xuegu.</text>
     <text></text>
-    <text align="center" color="#ffffff" size="22">Press Space to Continue!</text>
+    <text align="center" color="#ffffff" size="22">¡Calca espaciu pa siguir!</text>
   </page>
   <waitforinput/>
 </page>
