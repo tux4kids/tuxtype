@@ -3,14 +3,13 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # Mobin M <mobinmohan@gmail.com>, 2008
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Tux Typing 1.5.16\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
 "POT-Creation-Date: 2010-11-30 08:13-0600\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Mobin M <mobinmohan@gmail.com>\n"
+"PO-Revision-Date: 2011-11-22 14:31+0100\n"
+"Last-Translator: Joan Creus <joan.creus.c (_-_at_-_) gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
@@ -23,7 +22,7 @@ msgstr "Peix"
 
 #: src/pause.c:289
 msgid "Sound Effects Volume"
-msgstr "Volum dels efectes de só"
+msgstr "Volum dels efectes de so"
 
 #: src/pause.c:298
 msgid "Music Volume"
@@ -31,21 +30,19 @@ msgstr "Volum de la música"
 
 #: src/pause.c:309
 msgid "Sound & Music Disabled"
-msgstr "S'ha inhabilitat el só i la música"
+msgstr "S'ha inhabilitat el so i la música"
 
 #: src/pause.c:319
 msgid "Paused!"
 msgstr "En pausa!"
 
 #: src/pause.c:328
-#, fuzzy
 msgid "Press escape again to return to menu"
-msgstr "Torneu a prèmer escape per tornar al menú"
+msgstr "Torneu a prémer la tecla d'escapada per tornar al menú"
 
 #: src/pause.c:337
-#, fuzzy
 msgid "Press space bar to return to game"
-msgstr "Premeu 'espai' per tornar al joc"
+msgstr "Premeu la barra espaiadora per tornar al joc"
 
 #: src/playgame.c:652
 msgid "Level"
@@ -62,7 +59,7 @@ msgstr "Fàcil"
 
 #: src/playgame.c:657 src/titlescreen.c:100
 msgid "Medium"
-msgstr "Mitg"
+msgstr "Mitjà"
 
 #: src/playgame.c:658 src/titlescreen.c:101
 msgid "Hard"
@@ -83,31 +80,31 @@ msgstr "Oh No!"
 
 #: src/practice.c:626
 msgid "sec"
-msgstr ""
+msgstr "seg"
 
 #: src/practice.c:1440
 msgid "Time"
-msgstr ""
+msgstr "Temps"
 
 #: src/practice.c:1444
 msgid "Chars"
-msgstr ""
+msgstr "Caràcters"
 
 #: src/practice.c:1448
 msgid "CPM"
-msgstr ""
+msgstr "CPM"
 
 #: src/practice.c:1452
 msgid "WPM"
-msgstr ""
+msgstr "PPM"
 
 #: src/practice.c:1456
 msgid "Errors"
-msgstr ""
+msgstr "Errors"
 
 #: src/practice.c:1460
 msgid "Accuracy"
-msgstr ""
+msgstr "Precisió"
 
 #: src/titlescreen.c:99
 msgid "Fish Cascade"
@@ -134,11 +131,11 @@ msgstr "Pilot"
 
 #: src/titlescreen.c:100
 msgid "Phrase Typing"
-msgstr ""
+msgstr "Escriptura de frases"
 
 #: src/titlescreen.c:101
 msgid "Lessons"
-msgstr "Llissons"
+msgstr "Lliçons"
 
 # "Ace" is level 3 in comet zap
 #: src/titlescreen.c:101
@@ -147,7 +144,7 @@ msgstr "As"
 
 #: src/titlescreen.c:101
 msgid "Project Info"
-msgstr ""
+msgstr "Informació del projecte"
 
 #: src/titlescreen.c:102
 msgid "Options"
@@ -172,17 +169,16 @@ msgstr "Sortir"
 
 #: src/titlescreen.c:103
 msgid "Main Menu"
-msgstr "Menu principal"
+msgstr "Menú principal"
 
 # work in progress stuff
 #: src/titlescreen.c:1129
 msgid "Work In Progress!"
-msgstr "Encara en progres!"
+msgstr "Encara en progrés!"
 
 #: src/titlescreen.c:1130
-#, fuzzy
 msgid "This feature is not ready yet"
-msgstr "Encara no implementat"
+msgstr "Aquesta característica encara no està implementada"
 
 #: src/titlescreen.c:1131
 msgid "Discuss the future of TuxTyping at"
