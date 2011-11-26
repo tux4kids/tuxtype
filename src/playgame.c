@@ -3,8 +3,8 @@
 
    Code for "Fish Cascade" typing activity.
 
-   Copyright 2000, 2003, 2007, 2008, 2009, 2010.
-   Authors: Sam Hart, Jesse Andrews, David Bruce.
+   Copyright 2000, 2003, 2007, 2008, 2009, 2010, 2011.
+   Authors: Sam Hart, Jesse Andrews, David Bruce, George Stephanos.
    
    Project email: <tux4kids-tuxtype-dev@lists.alioth.debian.org>
    Project website: http://tux4kids.alioth.debian.org
@@ -134,7 +134,7 @@ int PlayCascade(int diflevel)
     fprintf(stderr, "->Entering PlayCascade(): level=%i\n", diflevel);
   }
 
-  SDL_ShowCursor(0);
+//  SDL_ShowCursor(0); //don't really need this and it causes a bug on windows
 
 //	SNOW_init();
 
