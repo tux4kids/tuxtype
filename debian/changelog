@@ -2,6 +2,7 @@ tuxtype (1.8.1-5) UNRELEASED; urgency=low
 
   * debian/control:
     - update Vcs-Headers as tuxtype is now maintained in git. 
+    - bump standards version to 3.9.1, no changes needed. 
 
  -- Holger Levsen <holger@debian.org>  Thu, 22 Dec 2011 17:27:36 +0100
 
