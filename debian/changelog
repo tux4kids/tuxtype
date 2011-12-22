@@ -3,7 +3,7 @@ tuxtype (1.8.1-5) unstable; urgency=low
   * debian/control:
     - update Vcs-Headers as tuxtype is now maintained in git. 
     - bump standards version to 3.9.2, no changes needed. 
-  * - depend on either fonts-sil-andika or ttf-sil-andika (Closes: #647533).
+    - depend on either fonts-sil-andika or ttf-sil-andika (Closes: #647533).
       (To ease backporting.)
   * debian/copyright: mention location of upstream GIT repository, instead of
     svn.
