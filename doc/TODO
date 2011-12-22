@@ -1,0 +1,14 @@
+Updated 04 Apr 2010
+
+Briefly, here are some current issues:
+
+Tuxtype:
+	- Code: still needs a lot of cleanup.  Tuxtype could benefit markedly from the reorganization using libt4k-common.
+	- Build: mingw-cross-env crossbuild not ready for general consumption.
+		- SDL_mixer 1.2.11 exits unexpectedly on initial call to Mix_OpenAudio(), reason not yet clear.
+		- SDL_Pango builds successfully, but resultant program does not display any text when run under Windows.
+		- If SDL_Pango disabled, configure script fails to link to SDL_ttf.
+	- Build: need current binary build for Mac OS-X
+	- Input methods: tuxtype does not correctly handle keyboard input that uses more than one keypress for each character (such as Asian languages).  The input methods code from tuxpaint has been added to the source tree, but is not yet actually used.
+	- "Content" - could use better lessons to actually teach touch typing in a systematic fashion.
+	- Should display lesson names rather than simply file names, and would be good to have "gold stars" as in tuxmath.

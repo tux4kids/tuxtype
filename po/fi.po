@@ -1,0 +1,176 @@
+# English translations for Tux Typing package.
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Mobin M <mobinmohan@gmail.com>, 2008
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Tuxtype\n"
+"Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
+"POT-Creation-Date: 2010-04-04 12:17-0500\n"
+"PO-Revision-Date: 2009-06-24 22:05+0100\n"
+"Last-Translator: Caroline Ford <caroline.ford.work@googlemail.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: src/loaders.c:88 src/main.c:150 src/playgame.c:643
+msgid "Fish"
+msgstr "Kala"
+
+#: src/pause.c:277
+msgid "Sound Effects Volume"
+msgstr "Efektien äänenvoimakkuus"
+
+#: src/pause.c:286
+msgid "Music Volume"
+msgstr "Musiikin äänenvoimakkuus"
+
+#: src/pause.c:297
+msgid "Sound & Music Disabled"
+msgstr "Äänet ja musiikki poissa päältä"
+
+#: src/pause.c:307
+msgid "Paused!"
+msgstr "Tauko!"
+
+#: src/pause.c:316
+msgid "Press escape again to return to menu"
+msgstr "Paina Esc-näppäintä uudestaan palataksesi valikkoon"
+
+#: src/pause.c:325
+msgid "Press space bar to return to game"
+msgstr "Paina välilyöntiä palataksesi peliin"
+
+#: src/playgame.c:641
+msgid "Level"
+msgstr "Taso"
+
+#: src/playgame.c:642
+msgid "Lives"
+msgstr "Elämät"
+
+#: src/playgame.c:645 src/titlescreen.c:89
+msgid "Easy"
+msgstr "Helppo"
+
+#: src/playgame.c:646 src/titlescreen.c:90
+msgid "Medium"
+msgstr "Keskitaso"
+
+#: src/playgame.c:647 src/titlescreen.c:91
+msgid "Hard"
+msgstr "Vaikea"
+
+#: src/playgame.c:648
+msgid "Practice"
+msgstr "Harjoittelu"
+
+#: src/playgame.c:659
+msgid "Congratulations"
+msgstr "Onnittelut"
+
+#: src/playgame.c:663
+msgid "Oh No!"
+msgstr "Voi ei!"
+
+#: src/practice.c:622
+msgid "sec"
+msgstr ""
+
+#: src/practice.c:1433
+msgid "Time"
+msgstr "Aika"
+
+#: src/practice.c:1437
+msgid "Chars"
+msgstr "Kirjaimet"
+
+#: src/practice.c:1441
+msgid "CPM"
+msgstr "CPM"
+
+#: src/practice.c:1445
+msgid "WPM"
+msgstr "WPM"
+
+#: src/practice.c:1449
+msgid "Errors"
+msgstr "Virheet"
+
+#: src/practice.c:1453
+msgid "Accuracy"
+msgstr "Tarkkuus"
+
+#: src/titlescreen.c:89
+msgid "Fish Cascade"
+msgstr "Kalankaappaus"
+
+#: src/titlescreen.c:89
+msgid "Space Cadet"
+msgstr "Avaruuskadetti"
+
+#: src/titlescreen.c:89
+msgid "Edit Word Lists"
+msgstr "Muokkaa Sanalistoja"
+
+#: src/titlescreen.c:90
+msgid "Comet Zap"
+msgstr "Komeetan pamautus"
+
+#: src/titlescreen.c:90
+msgid "Pilot"
+msgstr "Lentäjä"
+
+#: src/titlescreen.c:90
+msgid "Phrase Typing"
+msgstr "Lauseiden kirjoitus"
+
+#: src/titlescreen.c:91
+msgid "Lessons"
+msgstr "Oppitunnit"
+
+#: src/titlescreen.c:91
+msgid "Ace"
+msgstr "Ässä"
+
+#: src/titlescreen.c:91
+msgid "Project Info"
+msgstr "Projektin tiedot"
+
+#: src/titlescreen.c:92
+msgid "Options"
+msgstr "Asetukset"
+
+#: src/titlescreen.c:92
+msgid "Instructions"
+msgstr "Ohjeet"
+
+#: src/titlescreen.c:92
+msgid "Commander"
+msgstr "Päällikkö"
+
+#: src/titlescreen.c:92
+msgid "Setup Language"
+msgstr "Aseta Kieli"
+
+#: src/titlescreen.c:93
+msgid "Quit"
+msgstr "Lopeta"
+
+#: src/titlescreen.c:93
+msgid "Main Menu"
+msgstr "Päävalikko"
+
+#: src/titlescreen.c:1119
+msgid "Work In Progress!"
+msgstr "Keskeneräinen!"
+
+#: src/titlescreen.c:1120
+msgid "This feature is not ready yet"
+msgstr "Tämä ominaisuus ei ole vielä valmis"
+
+#: src/titlescreen.c:1121
+msgid "Discuss the future of TuxTyping at"
+msgstr "Keskustele TuxTypingin tulevaisuudesta"

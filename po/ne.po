@@ -1,0 +1,236 @@
+# Nepali translations for Tux Typing package.
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Mobin M <mobinmohan@gmail.com>, 2008
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Tux Typing 1.5.16\n"
+"Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
+"POT-Creation-Date: 2010-04-04 12:17-0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Mobin M <mobinmohan@gmail.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#
+#: src/loaders.c:88 src/main.c:150 src/playgame.c:643
+msgid "Fish"
+msgstr "माछा"
+
+#: src/pause.c:277
+msgid "Sound Effects Volume"
+msgstr "ध्वनिको मात्राको असर"
+
+#: src/pause.c:286
+msgid "Music Volume"
+msgstr "संगितको मात्रा"
+
+#
+#: src/pause.c:297
+msgid "Sound & Music Disabled"
+msgstr "ध्वनि र संगित निष्क्रिय गर्नूहोस ।"
+
+#
+#: src/pause.c:307
+msgid "Paused!"
+msgstr " केहि बेर रोक्नुहोस ।"
+
+#: src/pause.c:316
+msgid "Press escape again to return to menu"
+msgstr "मेनुमा फर्कन इस्केप बटन थिच्नुहोस ।"
+
+#
+#: src/pause.c:325
+msgid "Press space bar to return to game"
+msgstr "खेलमा फर्कन स्पेस बार  थिच्नुहोस । "
+
+#
+#: src/playgame.c:641
+msgid "Level"
+msgstr "श्रेणी"
+
+#
+#: src/playgame.c:642
+msgid "Lives"
+msgstr "जिवनहरु"
+
+#
+#: src/playgame.c:645 src/titlescreen.c:89
+msgid "Easy"
+msgstr "सजिलो"
+
+#
+#: src/playgame.c:646 src/titlescreen.c:90
+msgid "Medium"
+msgstr "मध्यम"
+
+#
+#: src/playgame.c:647 src/titlescreen.c:91
+msgid "Hard"
+msgstr "कठिन"
+
+#
+#: src/playgame.c:648
+msgid "Practice"
+msgstr "प्रशिक्षण"
+
+#
+#: src/playgame.c:659
+msgid "Congratulations"
+msgstr "तपाइलाई बधाई छ!!!"
+
+#
+#: src/playgame.c:663
+msgid "Oh No!"
+msgstr "हेत्तेरिका!.."
+
+#: src/practice.c:622
+msgid "sec"
+msgstr ""
+
+#: src/practice.c:1433
+msgid "Time"
+msgstr ""
+
+#: src/practice.c:1437
+msgid "Chars"
+msgstr ""
+
+#: src/practice.c:1441
+msgid "CPM"
+msgstr ""
+
+#: src/practice.c:1445
+msgid "WPM"
+msgstr ""
+
+#: src/practice.c:1449
+msgid "Errors"
+msgstr ""
+
+#: src/practice.c:1453
+msgid "Accuracy"
+msgstr ""
+
+#
+#: src/titlescreen.c:89
+msgid "Fish Cascade"
+msgstr "माछा क्यास्केड ‍"
+
+#
+#: src/titlescreen.c:89
+msgid "Space Cadet"
+msgstr "‍ स्पेस क्याडेट"
+
+#
+#: src/titlescreen.c:89
+msgid "Edit Word Lists"
+msgstr "शब्द शुचिहरुलाई सम्पादन गर्नुहोस ।"
+
+#
+#: src/titlescreen.c:90
+msgid "Comet Zap"
+msgstr "कमेट ज्याप"
+
+#
+#: src/titlescreen.c:90
+msgid "Pilot"
+msgstr "पाइलट"
+
+#: src/titlescreen.c:90
+msgid "Phrase Typing"
+msgstr ""
+
+#
+#: src/titlescreen.c:91
+msgid "Lessons"
+msgstr "पाठ्य‍क्रमहरु"
+
+#
+#: src/titlescreen.c:91
+msgid "Ace"
+msgstr "एस"
+
+#
+#: src/titlescreen.c:91
+msgid "Project Info"
+msgstr "‍परियोजनाको बारेमा"
+
+#
+#: src/titlescreen.c:92
+msgid "Options"
+msgstr "विकल्पहरु‍"
+
+#
+#: src/titlescreen.c:92
+msgid "Instructions"
+msgstr "निर्देशनहरु "
+
+#
+#: src/titlescreen.c:92
+msgid "Commander"
+msgstr "कमान्डर‍"
+
+#
+#: src/titlescreen.c:92
+msgid "Setup Language"
+msgstr "भाषा समाबिष्ट गर्नुहोस ।"
+
+#
+#: src/titlescreen.c:93
+msgid "Quit"
+msgstr "बन्द गर्नुहोस ।"
+
+#
+#: src/titlescreen.c:93
+msgid "Main Menu"
+msgstr "मुख्य मेनु"
+
+#
+#: src/titlescreen.c:1119
+msgid "Work In Progress!"
+msgstr "काम हुदैछ!!!!!!!!"
+
+#
+#: src/titlescreen.c:1120
+msgid "This feature is not ready yet"
+msgstr "यो सुबिधा अहिले उपलब्ध हुनसक्दैन!!!!"
+
+#
+#: src/titlescreen.c:1121
+msgid "Discuss the future of TuxTyping at"
+msgstr " टक्शटाइप को भविष्य बारेमा छलफल गर्नुहोस ।"
+
+#
+#, fuzzy
+#~ msgid "Phrase Practice"
+#~ msgstr "प्रशिक्षण"
+
+#
+#~ msgid "Great!"
+#~ msgstr "उत्तम अति उत्तम ‍!"
+
+#
+#, fuzzy
+#~ msgid "Next letter "
+#~ msgstr "आगामी अक्षर"
+
+#
+#~ msgid "Alphabet"
+#~ msgstr "वर्णमाला"
+
+#
+#~ msgid "Short Words"
+#~ msgstr "छोटा शब्दहरु"
+
+#
+#~ msgid "Medium Words"
+#~ msgstr "मध्यम शब्दहरु"
+
+#
+#~ msgid "Long Words"
+#~ msgstr "लामा शब्दहरु"

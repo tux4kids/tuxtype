@@ -1,0 +1,117 @@
+%!PS-Adobe-2.0 EPSF-2.0
+%%BoundingBox: 99 303 455 421
+%%HiResBoundingBox: 99 303.000000 455.000000 421.000000
+
+% Made in 2005 by Karl Ove Hufthammer. Placed in the Public Domain.
+% 
+% To create PNG file, run:
+% gs -sDEVICE=pngalpha -sOutputFile=keyboard.png -r118 -dTextAlphaBits=4
+%    -dGraphicsAlphaBits=4 -dEPSCrop -dBATCH -dNOPAUSE keyboard.eps
+
+
+% --- Some eps-specific stuff ---
+%%BeginProlog
+save
+countdictstack
+mark
+newpath
+/showpage {} def
+/setpagedevice {pop} def
+%%EndProlog
+%%Page 1 1
+
+
+% --- The actual program ---
+
+0.7 setlinewidth % Width of outlines
+0.2 setgray     % Colour of outlines
+
+
+% --- Variables ---
+/lengd 20 def                   % Scale
+/space 0.2 lengd mul def        % Space between keys
+/ark 3 def                      % Roundness of keys
+/ecol { 1 setgray } bind def    % Colour for normal keys
+/entcol { .5 setgray } bind def % Colour for 'Enter' key
+/fcol { .8 setgray } bind def   % Colour for 'special' keys
+
+
+% --- Procedures ---
+
+/box % Draw a box at current position. Input: Width and height.
+{
+    /y exch lengd mul def  
+    /x exch lengd mul def
+    newpath 
+    0 y 2 div moveto
+    0 y x y ark arcto
+    x y x 0 ark arcto
+    x 0 0 0 ark arcto
+    0 0 0 y ark arcto
+    closepath
+    x space add 0 translate
+} bind def
+/ebox { box gsave ecol fill grestore stroke } bind def % Empty box
+/fbox { box gsave fcol fill grestore stroke } bind def % Filled box
+/entbox { box gsave entcol fill grestore stroke } bind def % Enter key
+
+
+% --- Start program ---
+100 400 translate
+
+
+% First key row.
+gsave % Not very elegant. Very bad programming practice!
+13 { 1 1 ebox } repeat
+2.1 1 fbox
+grestore
+
+
+% Second row.
+0 lengd space add neg translate
+gsave
+1.4 1 fbox
+12 { 1 1 ebox } repeat
+1.7 1 fbox
+grestore
+
+
+% Third row.
+0 lengd space add neg translate
+gsave
+1.8 1 fbox
+11 { 1 1 ebox } repeat
+2.5 1 entbox
+grestore
+
+
+% Fourth row.
+0 lengd space add neg translate
+gsave
+2.15 1 fbox
+11 { 1 1 ebox } repeat
+2.15 1 fbox
+grestore
+
+
+% Fifth row.
+0 lengd space add neg translate
+gsave
+3 { 1.3 1 fbox } repeat
+7.2 1 fbox
+4 { 1.3 1 fbox } repeat
+grestore
+
+
+stroke
+showpage
+
+
+% --- Some more eps stuff ---
+
+%%Trailer
+cleartomark
+countdictstack
+exch sub { end } repeat
+restore
+%%EOF

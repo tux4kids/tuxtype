@@ -1,0 +1,47 @@
+<script title="Project Info Center" bgcolor="#336699" fgcolor="#ffffff">
+  <page>
+    <img src="line2.png" x="5" y="0"></img>
+    <text size="6"></text>
+    <text size="18" align="center" color="#000000">Tux Typing Project Information</text>
+    <text size="6" align="center"></text>
+    <text size="14" align="center">Please visit one of the TuxType discussion forums at: </text>
+    <text size="16" align="center">http://www.tux4kids.com</text>
+    <text size="16" align="center">mailto://tuxmath-devel@sourceforge.net or irc://freenode/#tux4kids</text>
+    <text size="6" align="center"></text>
+    <text size="16" align="center">Tuxtype is brought to you by the good people of tux4kids. http://tux4kids.com</text>
+    <text size="6" align="center"></text>
+    <text size="16" align="center">Our source code repository is located at http://svn.debian.org/wsvn/tux4kids/tuxtype/</text>
+    <text size="6" align="center"></text>
+    <text size="16" align="center">Tux Typing was the brainchild of Sam Hart, and was subsequently developed</text>
+    <text size="16" align="center">by Jesse D. Andrews. The current lead programmer is:</text>
+    <text size="16" align="center">David Bruce  mailto://davidstuartbruce@gmail.com</text>
+    <text size="16" align="center">Please see the AUTHORS file for many others who have contributed significantly.</text>
+    <text size="4" align="center"></text>
+    <text size="32" align="center" color="#ff003f">BUGS:</text>
+    <text size="16" align="center">Please forward any bugs or suggestions</text>
+    <text size="16" align="center">to mailto://tuxmath-devel@sourceforge.net.</text>
+    <text size="4" align="center"></text>
+    <text size="22" align="center" color="#ff7f3f">Tuxtype is GPL licensed Free Software.</text>
+    <text size="22" align="center" color="#ff7f3f">Please see the COPYING file</text>
+    <text size="22" align="center" color="#000000">Hit SPACE to CONTINUE!!!</text>
+  <waitforinput/>
+</page>
+  <page>
+    <text size="14" align="center"></text>
+    <text size="24" align="center">Scripting How-to</text>
+    <text size="14" align="center">Some one please insert one here and send it to:</text>
+    <text size="14" align="center">carndt@macksrecycling.com</text>
+    <text size="140" align="center"></text>
+    <text size="22" align="center" color="#000000">Hit SPACE to CONTINUE!!!</text>
+<waitforinput/>
+  </page>
+  <page>
+    <text size="14" align="center"></text>
+    <text size="14" align="center">Theming How-to</text>
+    <text size="14" align="center">Someone please write them and send them to:</text>
+    <text size="14" align="center">carndt@macksrecycling.com</text>
+    <text size="140" align="center"></text>
+    <text size="22" align="center" color="#000000">Hit SPACE to CONTINUE!!!</text>
+ <waitforinput/>
+ </page>
+</script>

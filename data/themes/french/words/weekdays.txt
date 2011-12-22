@@ -1,0 +1,8 @@
+Les  jours de la semaine
+LUNDI
+MARDI
+MERCREDI
+JEUDI
+VENDREDI
+SAMEDI
+DIMANCHI

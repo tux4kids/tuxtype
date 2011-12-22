@@ -1,0 +1,76 @@
+Tux Typing Original Author:
+----------
+Sam Hart <hart@geekcomix.com>
+
+Current Maintainer and Lead Coder:
+-------
+David Bruce <davidstuartbruce@gmail.com>
+
+Coders:
+-------
+David Bruce <davidstuartbruce@gmail.com>
+Jesse Andrews <jdandr2@uky.edu>
+Calvin Arndt <calarndt@tux4kids.org>
+Sam Hart <hart@geekcomix.com>
+Jacob Greig <bombastic@firstlinux.net>
+Sreyas Kurumanghat <k.sreyas@gmail.com>
+Sreerenj Balachandran <bsreerenj@gmail.com>
+Vimal Ravi <vimal_ravi@rediff.com>
+Prince K. Antony <prince.kantony@gmail.com>
+Mobin Mohan <mobinmohan@gmail.com>
+Matthew Trey <tux4kids@treyhome.com>
+Sarah Frisk <ssfrisk@gmail.com>
+
+Packaging & Ports:
+------------------
+Holger Levsen <holger@debian.org> - (Debian packager)
+David Bruce <davidstuartbruce@gmail.com> - (Windows crossbuild using Linux host, OpenSUSE Build Service rpm packages, MacPorts build)
+Alex Shorthouse <ashorthouse@rsd13.org>  - (more recent Mac OSX port)
+Luc Shrivers <Begasus@skynet.be> - (BeOS/Haiku port)
+
+(previous packagers:)
+David Marshman <marshy@silvan.demon.co.uk> - (BeOS port/packages)
+Calvin Arndt <calarndt@yahoo.com> - (Red Hat 7.1+ RPMs)
+Olivier Dagenais <olivier_dagenais@canada.com> - (Windows port/packages)
+Jesse Andrews <jdandr2@uky.edu> - (Mac OS port)
+
+Artwork
+-------
+Lake Fryxell, Antarctica by US National Science Foundation. Public domain.
+Fortesque Bay, Tasmania by Wikipedia user Noodle snacks. Licensed under Creative Commons Attribution ShareAlike 3.0.
+Fossil Bay, Tasmania by Wikipedia user Noodle snacks. Licensed under Creative Commons Attribution ShareAlike 3.0.
+Champagne Pool, Wai-O-Tapu thermal wonderland, New Zealand by Christian Mehlführer. Derivative work re-licensed under Creative Commons Attribution 3.0.
+Peyto Lake, Banff National Park, Canada by Tobias Alt. Licensed under Creative Commons Attribution ShareAlike 3.0.
+Anse Source d'Argent, Seychelles by Tobias Alt. Licensed under Creative Commons Attribution ShareAlike 3.0.
+Terrace rice fields in Yunnan Province, China by Jialiang Gao. Licensed under Creative Commons Attribution 3.0.
+Chýnov's cave, Czech Republic by Wikipedia user Chmee2. Licensed under Creative Commons Attribution ShareAlike 3.0.
+Nunâ island, Greenland by Kim Hansen. Licensed under Creative Commons Attribution 3.0.
+Popocatépetl, Mexico by Jakub Hejtmánek. Licensed under Creative Commons Attribution ShareAlike 3.0.
+Perito Moreno Glacier by Luca Galuzzi http://www.galuzzi.it. Derivative work re-licensed under Creative Commons Attribution 3.0.
+Iceberg in Lago Argentina by Ilya Haykinson. Derivative work re-licensed under Creative Commons Attribution 3.0.
+Helix Nebula by NASA. Public domain.
+Spiral galaxy NGC 1672 by NASA. Public domain.
+Sombrero galaxy M104 by NASA. Public domain.
+Saturn eclipse by NASA. Public domain.
+Martian sunset by NASA. Public domain.
+
+Special thanks to:
+------------------
+Rich Bellamy <bellamrm@clarkson.edu> - (for several image patches)
+Frank Ellis <frank3000@usa.net> - (for many submitted bug items and feedback)
+Nicolai Beier <nbeier@tiscali.dk> - (for Danish work in TuxType 2)
+Martin Moeller <martin@liga.dk> - (for Danish word files in TuxType 1)
+Martin Rioux <riomar2000@hotmail.com> - (for French translation in TuxType 1)
+Karl Ove Hufthammer <karl@huftis.org> - (for Norwegian Nynorsk translation work for Tuxtype 2)
+Trond Mæhlum <trondm@skolelinux.no> - (for Norwegian Bokmål translation work for Tuxtype 2)
+Sreyas Kurumanghat <k.sreyas@gmail.com> - (for Indic language support)
+Sreerenj Balachandran <bsreerenj@gmail.com> - (for Indic language support)
+Vimal Ravi <vimal_ravi@rediff.com> - (for Indic language support)
+Prince K. Antony <prince.kantony@gmail.com> - (for Indic language support)
+Mobin Mohan <mobinmohan@gmail.com> - (for Indic language support)
+Ralf Wildenhues <Ralf.Wildenhues@gmx.de> - (for Autotools help via mailing lists)
+Bruno Haible <bruno@haible.de> - (for invaluable help with Gettext)
+Caroline Ford <secretlondon@googlemail.com> - (for contribution of media files and Ubuntu help).
+Volker Grabsch <vog@notjusthosting.com> - creator of mingw-cross-env crossbuild environment, addition of several libs to mingw-cross-env to support Tux4Kids, help with advanced Autoconf usage for crossbuild.
+
+Note: The Andika,Doulos, and Charis fonts are from SIL International and are licensed under the Open Font License, Version 1.1 (see "OFL.txt" in this directory for the full license text). 

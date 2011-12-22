@@ -1,0 +1,51 @@
+<script title="LESSON TWELVE" bgcolor="#3f4f9f">
+   <page title="Malayalam Lesson">
+   <text color="#ffff00" align="center" y="200">പാഠം പന്ത്രണ്ട്</text>
+   <text color="#00ffff" align="center" y="300">തുടങ്ങാന്‍ സ്പേസ് അമര്‍ത്തൂ!</text>
+  <waitforinput/>
+   </page>
+   <page title="Keys" bgcolor="#3f7f3f">
+   <img src="/keyboard/keyboard-us.png" x="30" y="200"/>
+   <text align="center">ഇവിടെ നാം പഠിക്കുന്ന അക്ഷരങ്ങള്‍.</text>
+   <text align="center" color="#ffff00">എ ണ ഷ</text>
+   <text color="#00ffff" align="center">തുടങ്ങാന്‍ സ്പേസ് അമര്‍ത്തുക</text>
+   <text color="#ffff00" x="115" y="325">എ</text>
+   <text color="#ffff00" x="197" y="325">ണ</text>
+   <text color="#ffff00" x="390" y="322">ഷ</text>
+  <waitforchar/>
+   <prac goal="15">എ ണ ഷ ണ ഷ എ ഷ ണ</prac>
+   <prac>എ ണ ഷ ണ ഷ എ ഷ ണ</prac>
+   <prac>ണ ഷ എ ഷ ഷ എ ഷ ണ</prac>
+   </page>
+ <page>
+   <img src="keyboard/space.png" x="200" y="160"/>
+   <img src="keyboard/larrow.png" x="460" y="18"/>
+   <img src="keyboard/esc.png" x="515" y="50"/>
+   <text align="center">അഭിനന്ദനങ്ങള്‍!</text>
+   <text align="left">         To repeat the last exercise, press</text>
+   <text align="center">To go back to the main menu hit</text>
+   <text align="center">To continue on to the next exercise,</text>
+   <text align="center">press</text>
+   <text align="center">Space</text>
+   <text></text>
+   <text></text>
+   <text></text>
+   <text align="center">Next Exercise:</text>
+   <text align="center">എണ എഷ ഷണ ഷഷണ എഎഷ</text> 
+   <waitforinput/>
+ </page>
+ <page title="Keys" bgcolor="#b07bc6">
+   <img src="keyboard/keyboard-us.png" x="30" y="200"/>
+   <text align="center" y="20">അഭ്യാസം</text>
+   <text color="#ffff00" align="center" y="50">എണ എഷ ഷണ ഷഷണ എഎഷ</text>
+   <text color="#00ffff" align="center" y="140">തുടങ്ങാന്‍ സ്പേസ് അമര്‍ത്തുക</text>
+   <text color="#ffff00" x="115" y="325">എ</text>
+   <text color="#ffff00" x="197" y="325">ണ</text>
+   <text color="#ffff00" x="390" y="322">ഷ</text>
+   <waitforchar/>
+   <prac>എണ ഷണ ഷഷണ എഷ ഷണ ഷഷണ എഎഷ</prac>
+   <prac>ഷണ ഷഷണ എണ എഷ ഷണ ഷഷണ എഎഷ</prac>
+   <prac>ഷണ എഷ ഷണ എഷ ഷഷണ എഎഷ ഷഷണ</prac>
+ </page>
+</script>
+

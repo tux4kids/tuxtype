@@ -1,0 +1,1 @@
+theme_locale_name=lt_LT.UTF-8

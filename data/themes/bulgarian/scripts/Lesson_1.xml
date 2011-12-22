@@ -1,0 +1,65 @@
+<script title="Test Lesson" bgcolor="#3f4f1f">
+   <page title="Introduction to Example Lesson">
+   <text align="center">Предстоящият урок е само за пример и ще ви помогне</text>
+   <text align="center">да видите как се пишат уроци.</text>
+   <text align="center">За да започнете да пишете уроци, редактирайте файла </text>
+   <text align="center">"Lesson_1.xml" в папката "tuxtype/data/scripts".</text>
+   <text align="center" y="300"> НАТИСНЕТЕ ИНТЕРВАЛ, ЗА ДА ЗАПОЧНЕ УРОКА!</text>
+  <waitforinput/>
+   </page>
+   <page title="Home Row Keys" bgcolor="#3f7f3f">
+   <img src="/keyboard/keyboard-us.png" x="45" y="220"/>
+   <text align="center">В това занимание ще упражняваме клавишите от домашния ред.</text>
+   <text align="center">asdfjkl;asdfjkl;asdfjkl;</text>
+   <text align="center">За да започне упражнението, натиснете р</text>
+   <text color="#000000" x="100" y="273">A</text>
+   <text color="#000000" x="130" y="273">S</text>
+   <text color="#000000" x="160" y="273">D</text>
+   <text color="#000000" x="190" y="273">F</text>
+   <text color="#000000" x="320" y="273">J</text>
+   <text color="#000000" x="350" y="273">K</text>
+   <text color="#000000" x="380" y="273">L</text>
+   <text color="#000000" x="410" y="273">;</text>
+  <waitforchar/>
+   <prac goal="15">asdfjkl;asdfjkl;asdfjkl;</prac>
+   <prac>asdfjkl;asdfjkl;asdfjkl;</prac>
+   <prac>asdfjkl;asdfjkl;asdfjkl;</prac>
+   </page>
+ <page>
+   <img src="keyboard/space.png" x="200" y="160"/>
+   <img src="keyboard/larrow.png" x="460" y="18"/>
+   <img src="keyboard/esc.png" x="515" y="50"/>
+   <text align="center">Добре направено!</text>
+   <text align="left">         За да повторите последното упражнение,натиснете</text>
+   <text align="center">За да се върнете към главното меню, натиснете</text>
+   <text align="center">За да продължите към следващото занимание,</text>
+   <text align="center">натиснете</text>
+   <text align="center">Интервал</text>
+   <text></text>
+   <text></text>
+   <text></text>
+   <text align="center">Следващо занимание:</text>
+   <text align="center">lad lass dad sad fad gas had jag ask;</text> 
+   <waitforinput/>
+ </page>
+ <page title="Home Row Keys" bgcolor="#b07bc6">
+   <img src="/keyboard/keyboard-us.png" x="45" y="220"/>
+   <text align="center">В това занимание ще упражняваме клавишите от домашния ред,</text>
+   <text align="center">но малко по-различно!</text>
+   <text align="center">Да видим колко бързо ще се справите!</text>   
+   <text align="center">lad lass dad sad fad gas had jag ask;</text>
+   <text align="center">За да започне упражнението, натиснете р</text>
+   <text color="#000000" x="100" y="273">A</text>
+   <text color="#000000" x="130" y="273">S</text>
+   <text color="#000000" x="160" y="273">D</text>
+   <text color="#000000" x="190" y="273">F</text>
+   <text color="#000000" x="320" y="273">J</text>
+   <text color="#000000" x="350" y="273">K</text>
+   <text color="#000000" x="380" y="273">L</text>
+   <text color="#000000" x="410" y="273">;</text>
+   <waitforchar/>
+   <prac>lad lass dad sad fad gas had jag ask; lad lass dad sad fad gas had jag ask;</prac>
+   <prac>lad lass dad sad fad gas had jag ask; lad lass dad sad fad gas had jag ask;</prac>
+   <prac>lad lass dad sad fad gas had jag ask; lad lass dad sad fad gas had jag ask;</prac>
+ </page>
+</script>

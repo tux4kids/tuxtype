@@ -1,0 +1,10 @@
+Lange Wörter (mit ÄÖÜß)
+# Hier kannst du selber Wörter hinzufügen.
+# Zeilen die mit '#' beginnen und Leerzeilen werden ignoriert.
+# Es sind Höchstens 200 Zeilen pro Datei erlaubt
+BÄUERIN
+LÄCHELN
+MÄDCHEN
+SCHÜLER
+ÜBERALL
+FRÜHLING

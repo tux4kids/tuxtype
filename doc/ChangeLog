@@ -1,0 +1,661 @@
+04 Apr 2010 (git.debian.org/tux4kids/tuxtype.git - tag = "version-1.8.1"
+[ David Bruce <davidstuartbruce@gmail.com> ]
+Version 1.8.1
+	- Several minor enhancements - git commit messages now serving as
+	primary documentation of development, rather than this changelog.
+	- Fish cascade backgrounds now selected randomly.
+	- Fish cascade graphics now use true alpha channel rather than SDL
+	colorkey.
+	- Some fixes related to file location of custom word lists.
+
+09 Nov 2009 (svn.debian.org/tux4kids - revision 1640) 
+[ David Bruce <davidstuartbruce@gmail.com> ]
+Version 1.8.0
+        - Sarah Frisk's word list editor from GSoC 2009 has been merged in as
+          a new, somewhat "beta" feature.
+
+12 Sep 2009 (svn.debian.org/tux4kids - revision 1532) 
+[ David Bruce <davidstuartbruce@gmail.com> ]
+        - Media - new music files and backgrounds contributed by Caroline Ford,
+         some old sounds (the ones with suboptimal free licensing) removed - Tux
+         Typing is now 100% DFSG-compliant. Relevant Makefile.am's adapted.
+        - playgame.c adapted to use new music files.
+
+10 Sep 2009 (svn.debian.org/tux4kids - revision 1504) 
+[ Matthew Trey <tux4kids@treyhome.com> ]
+        - Scripting - added code so the script parser recognizes comments in
+		  xml.
+
+31 Aug 2009 (svn.debian.org/tux4kids - revision 1470)
+[ Matthew Trey <tux4kids@treyhome.com> ]
+        - Practice - fixed a problem that was causing the wrong key to flash
+		  in the bottom row of keys
+		- Game Instructions - simplified and reactivated cascade and laser game
+		  instruction scripts, fixed scripting background image so that it scales
+		  properly in fullscreen
+		- Scripting - Added some basic scripts so that new users will have a
+		  complete lesson set out of the box. Added a howto in the docs.
+		  
+10 Jun 2009 (svn.debian.org/tux4kids - revision 1034)
+[ David Bruce <davidstuartbruce@gmail.com> ]
+Version 1.7.5
+        - i18n - fix of problem with GNU gettext convenience string-marking macros
+          due to XGETTEXT_OPTIONS not being set correctly in po/Makevars
+        - Scripting - cleanup of some other menu issues
+        - Build - update of specfile.in's to handle new libs being used for this
+          year's GSoC projects (svg support, LAN support)
+
+08 Jun 2009 (svn.debian.org/tux4kids - revision 1017)
+[ David Bruce <davidstuartbruce@gmail.com> ]
+        - Scripting - fix of bug in scripting.c run_script() where font size left
+          at zero.
+
+06 Jun 2009 (svn.debian.org/tux4kids - revision 1013)
+[ David Bruce <davidstuartbruce@gmail.com> ]
+        - Paths - added support for localstatedir (shared modifiable data, generally
+          located under /var) and sysconfdir (program-wide settings, generally located
+          under /etc) to autotools build system.  Also updated the game_option_type struct
+          to have a field for the shared modifiable data - var_data_path.  This is the
+          intended location for shared custom word lists, high scores, and so forth.
+
+23 Mar 2009 (svn.debian.org/tux4kids - revision 945)
+[ David Bruce <davidstuartbruce@gmail.com> ]
+        - Code organization - TransWipe() and all of the blitting queue functions
+          moved from playgame.c into SDL_extras.c/.h. Some safety checks and other
+          cleanup added along the way.
+
+03 Mar 2009 (svn.debian.org/tux4kids - revision 932)
+Version 1.7.4
+[ David Bruce <davidstuartbruce@gmail.com> ]
+        - Build - configure.ac updated to only link to SDL_ttf when SDL_Pango is
+          unavailable; also added configure option "--without-sdlpango" to facilitate
+          testing of program when SDL_ttf is used.
+
+03 Mar 2009 (svn.debian.org/tux4kids - revision 923)
+[ David Bruce <davidstuartbruce@gmail.com> ]
+        - Text drawing - encapsulation of all calls to SDL_ttf and SDL_Pango to 
+          within SDL_extras.c/.h.  The rest of the program no longer "knows" which
+          text library is being used.  Now, since SDL_ttf is no longer used at all
+          whenever SDL_Pango is available, we don't need any specific fonts for Linux.
+
+22 Feb 2009 svn revision 903
+[ David Bruce <davidstuartbruce@gmail.com> ]
+        - lots of general code cleanup to eliminate most of the compiler warnings, 
+          including removal of remaining incorrect uses of "unsigned char".
+        - addition of "make dist_with_fonts_bzip2" target to help support OpenSUSE
+          build service integration.
+        - beginning of VERSION "1.7.4.preview"
+        - cleanup of alphabet.c with addition of pointer safety checks and fix of 
+          "off-by-one" drawing error in fourth row of keyboard hints graphic.
+
+08 Feb 2009 
+[ David Bruce <davidstuartbruce@gmail.com> ]
+        - cleanup of wchar_t <--> UTF-8 conversion wrapper functions. These are now
+          based on GNU iconv and are in their own file, convert_utf.h/c.  They now
+          take a length parameter for safety against buffer overflows. The Unicode, Inc.
+          implementations in ConvertUTF.h/c have been removed.
+
+
+03 Feb 2009 - svn revision 856
+Version 1.7.3
+[ David Bruce <davidstuartbruce@gmail.com> ]
+        - updated LoadFont() to include the hard-coded hackery for all of the
+          bundled fonts.  Also, (IMPORTANT), now the function attempts to load
+          the default font if it fails to load the desired font, instead of 
+          just segfaulting.  An appropriate message is printed to stderr.
+        - fix to ConvertToUTF8() to support correct behavior on MacOSX
+        - fix to top-level Makefile.am because a file was going into $prefix/doc/PACKAGE
+          rather than the correct $prefix/share/doc/PACKAGE
+
+14 Jan 2009 - svn revision 856
+[ David Bruce <davidstuartbruce@gmail.com> ]
+        - fixed SetupPaths() - really, the correct path should _always_ be 
+          DATA_PREFIX, and SetupPaths() should just confirm that and check for
+          the theme data path under it.  There should be no need for the hard-
+          coded choices, which were just covering up the mistake.
+
+
+14 Jan 2009 - svn revision 844
+
+Version 1.7.2
+[ David Bruce <davidstuartbruce@gmail.com> ]
+        - fixed crashing bug in cascade game in fullscreen due to size of blit
+          queue not being big enough.
+        - fixed drawing glitch in cascade game where words with terminal 'W' had
+          not been getting fully erased in redraw
+        - changed title graphic to "TuxType" instead of "TuxType2"
+        - added opening sound "harp.wav" from Tux Paint.
+        - added rest of fonts needed for remaining Indic languages
+        - changed "warning" output from image loader so it only prints if debug on.
+
+12 Jan 2009 - svn revision 841
+Version 1.7.1
+[ David Bruce <davidstuartbruce@gmail.com> ]
+        - additional code to work around unreliability of setlocale() under 
+          Windows. We now set LANG for both the C compiler and OS as well, using
+          Bruno Haible's my_setenv() function from the GNU Gettext FAQ. Tuxtype
+          now starts in the correct language for the underlying OS, and also
+          switches translations with theme changes. It does not yet automatically
+          pick the correct theme on startup to match the current LANG.
+        - additional code in ConvertToUTF8() to handle Windows' 16-bit wchar_t vs.
+          unix's 32-bit wchar_t.
+
+10 Jan 2009 - svn revision 830
+[ David Bruce <davidstuartbruce@gmail.com> ]
+        - adaptation of menu code for lessons activity so as to be consistent with
+          rest of menus.
+
+
+08 Jan 2009 - svn revision 830
+[ David Bruce <davidstuartbruce@gmail.com> ]
+        - adaptation of menu code for lessons activity so as to be consistent with
+          rest of menus.
+
+06 Jan 2009 - svn revision 822
+[ David Bruce <davidstuartbruce@gmail.com> ]
+        - Bugfix to prevent BlackOutline() from segfault if passed empty string
+        - incorporation of several small patches from OpenSuse (thanks Lars Vogdt)
+
+05 Jan 2009 - svn revision 821
+[ David Bruce <davidstuartbruce@gmail.com> ]
+        - Bugfix for path for bundled fonts - caused error when run on non-Debian
+          systems.
+
+10 Dec 2008 - svn revision 795
+Version 1.7.0
+[ David Bruce <davidstuartbruce@gmail.com> ]
+        - First release following 2008 Google Summer of Code.
+        - Several major enhancements:
+        - GNU gettext used for internationalization (M. Mohan)
+        - Themes and translations for multiple additional
+          Indic languages (M. Mohan)
+        - Graphical keyboard hint system (Sreyas K.)
+        - Rewritten phrase practice activity (D. Bruce)
+        - Fullscreen mode at native resolution (D. Bruce)
+
+2008-11-22  gettextize  <bug-gnu-gettext@gnu.org>
+
+	* m4/gettext.m4: Upgrade to gettext-0.17.
+	* m4/iconv.m4: Upgrade to gettext-0.17.
+	* m4/lib-link.m4: Upgrade to gettext-0.17.
+	* m4/po.m4: Upgrade to gettext-0.17.
+	* m4/intdiv0.m4: Upgrade to gettext-0.17.
+	* m4/intl.m4: Upgrade to gettext-0.17.
+	* m4/intlmacosx.m4: New file, from gettext-0.17.
+	* m4/lock.m4: Upgrade to gettext-0.17.
+	* m4/longlong.m4: Upgrade to gettext-0.17.
+	* m4/printf-posix.m4: Upgrade to gettext-0.17.
+	* m4/size_max.m4: Upgrade to gettext-0.17.
+	* m4/uintmax_t.m4: Upgrade to gettext-0.17.
+	* m4/wint_t.m4: Upgrade to gettext-0.17.
+	* Makefile.am (SUBDIRS): Add intl.
+	* configure.ac (AC_CONFIG_FILES): Add intl/Makefile.
+	(AM_GNU_GETTEXT_VERSION): Bump to 0.17.
+
+05 Nov 2008 - svn revision 765
+[ David Bruce <davidstuartbruce@gmail.com> ]
+        - Practice activity revised to get it to handle single phrase passed as function
+          argument so it again plays nicely with "Lessons"
+
+13 Oct 2008 - svn revision 760
+[ David Bruce <davidstuartbruce@gmail.com> ]
+        - Lots more work on fullscreen mode with Fish Cascade working but a little slow
+        - Practice activity extensively reworked - wrapping of arbitrary length phrases,
+          rearrangement of screen layout, fullscreen mode supported, animated Tux icons,
+          onscreen display of time, chars, words per min, accuracy with gettext support.
+
+22 Aug 2008 - svn revision 668
+[ David Bruce <davidstuartbruce@gmail.com> ]
+        - Extensive revision to support fullscreen mode at resolution of OS rather than only 640x480.
+          Menu system and comet zap work, fish cascade now works in fullscreen but cannot handle
+          toggle of resolution in midstream; practice and lessons still need to be fixed to 
+          handle new fullscreen mode.
+        - Using GNU iconv() instead of Unicode Inc.'s conversion code
+        - SDL_extras brought in from tuxmath for DrawButton(), streamlined BlackOutline(), etc.
+
+18 Aug 2008 -svn revision 652
+[ Mobin Mohan <mobinmohan@gmail.com> ]
+	-GUI for editing wordlist Implemented
+
+18 Aug 2008 - svn revision 647
+[ Sreyas Kurumanghat <k.sreyas@gmail.com ]
+	- Added features to practice game. Now pressing the down arrow presents the next phrase for practice and the escape key quits from the game.
+
+18 Aug 2008 - svn revision 646
+[ Sreyas Kurumanghat <k.sreyas@gmail.com ]
+	- Added pango support and rendering to practice game.
+
+14 Aug 2008 -svn revision 622
+[ Mobin Mohan <mobinmohan@gmail.com> ]
+	-gettextize  <bug-gnu-gettext@gnu.org>
+	-Added GNU Gettext Support
+	-Removed lang.po and created .po file for each theme in po directory
+
+3 Aug 2008 - svn revision 599
+[ Sreyas Kurumanghat <k.sreyas@gmail.com ]
+	- Added keypress details for wrong key pressed in practice.
+
+3 Aug 2008 - svn revision 580
+[ Sreyas Kurumanghat <k.sreyas@gmail.com ]
+	- Added automatic keyboard layout generation in practice.c.
+	- Modified the keyboard.lst file format. The current format can be any of the three below:
+	- char
+	- finger|char
+	- finger|char|latin character
+	- Features added so that the information about the keyboard gets updated each time the game is run.
+
+13 Apr 2008 - svn revision 460
+[ David Bruce <davidstuartbruce@gmail.com> ]
+       - fixed small typo bug in alphabet.c (thanks Patrick Winnertz)
+
+29 Mar 2008 - svn revision 451
+[ David Bruce <davidstuartbruce@gmail.com> ]
+       - new branch made called "tuxtype-new", code reorganized with
+       - more standard subdirs "src", "data", "doc"; Makefile.am's
+         and configure.ac updated accordingly.  After some tweaking,
+         seems to work properly for configuration, "make", "make install",
+         "make uninstall", "make distcheck" - and appears to run
+         correctly on Linux.
+       - version 1.5.17 to be released as last release from tree prior
+         to reorganization.
+
+23 Mar 2008
+[ David Bruce <davidstuartbruce@gmail.com> ]
+       - Nepali theme contributed by Vikal Acharya and Shakeel Shrestha
+
+22 Feb 2008
+[ David Bruce <davidstuartbruce@gmail.com> ]
+       - replaced many of menu icon images with new shiny ones.
+
+19 Feb 2008
+[ David Bruce <davidstuartbruce@gmail.com> ]
+       - updated remainder of Makefile.am's to use automake
+         variables rather than hard-coded 'install' and 'uninstall'
+         targets.
+
+15 Feb 2008
+[ David Bruce <davidstuartbruce@gmail.com> ]
+       - start of rewrite of Makefile.am's for data heirarchy
+         to use automake more correctly.
+
+
+v. 1.5.17 - UNRELEASED
+14 Dec 2007
+[ Holger Levsen <holger@layer-acht.org> ]
+       - corrected Greek theme, contributed by:
+	 Faidon Liambotis <paravoid@debian.org>
+
+v. 1.5.16 - svn revision 347
+29 Nov 2007
+[ David Bruce <davidstuartbruce@gmail.com> ]
+       - added Czech theme, contributed by:
+         Jaroslav Krejčí (JardaK) - <krejci@zstenis.com>
+
+28 Nov 2007
+[ David Bruce <davidstuartbruce@gmail.com> ]
+       - Corrected Russian keyboard.lst.
+       - Possible bugfix that may have prevented recognition of chars
+         beyond 255 in cascade and comet zap games.
+
+19 Nov 2007
+[ David Bruce <davidstuartbruce@gmail.com> ]
+       - added Wolof theme by Issa Dominique Rochefort.
+
+11 Oct 2007
+[ David Bruce <davidstuartbruce@gmail.com> ]
+       - updated all Makefile.am's to use the currently-preferred "MKDIR_P"
+         instead of "mkinstalldirs"; removed multiple redundant invocations
+         of "mkinstalldirs".
+       - ran Autoconf's "autoupdate" to be sure build system will work
+         properly with automake 1.10.
+
+15 Sep 2007
+[ David Bruce <davidstuartbruce@gmail.com> ]
+       - "make dist" no longer includes fonts - added new Makefile target,
+         "make dist_with_fonts" that does include them. Thanks to Ralf 
+          Wildenhues <Ralf.Wildenhues@gmx.de> for autotools help via
+          mailing lists.
+
+v 1.5.15 - svn revision 255
+15 Sep 2007
+[ David Bruce <davidstuartbruce@gmail.com> ]
+       - alphabet.c - fixed crash occurring in BlackOutline_SDLPango() when 
+         passed empty string (see Debian Bug #439071)
+       - alphabet.c - added code to check words in list to see if they have
+         chars not in keyboard.lst, and just leave out these words rather
+         than aborting the game.
+       - Corrected Makefile.am for Malayalam theme so that settings.txt
+         gets installed (needed for font selection to work).
+       - Added numerals and punctuation to German keyboard.lst (likely
+         needs to be done for many other themes).
+
+[ Holger Levsen ]
+	- added updated Spanish translation by Amaya Rodrigo 
+
+v 1.5.14 - svn revision 240
+15 Sep 2007
+[ David Bruce <davidstuartbruce@gmail.com> ]
+       - scripting.c - added UTF-8 to wchar_t conversion at needed point
+         when calling Phrases() (line ~1200).
+       - some corrections and editing of scripts projectInfo.xml, cascade.xml,
+         laser.xml - more work needed.
+
+May-Sep 2007
+Tux Type Indic Team:
+[ Sreyas Kurumanghat <k.sreyas@gmail.com> ]
+[ Sreerenj Balachandran <bsreerenj@gmail.com> ]
+[ Vimal Ravi <vimal_ravi@rediff.com> ]
+[ Prince K. Antony <prince.kantony@gmail.com> ]
+[ Mobin Mohan <mobinmohan@gmail.com> ]
+
+       - added libSDLPango to handle complex rendering issues related with 
+         Indic languages. This will eventually allow support of any of the
+         world's major languages.
+       - added an Indic language theme, Malayalam, which also contains a 
+         lesson area.
+       - new format of keyboard.lst for malayalam theme (now added to other
+         themes too).
+       - created a new file named practice.txt which contains the strings to
+         display in the practice session. Also did a major role in adding 
+         Unicode support in the practice area.
+       - removed old keymap that was limited to Unicode chars 0-255 (now
+         replaced by a scheme that can support any chars in Unicode).
+       - added series of XML lessons for Malayalam theme.
+
+v 1.5.13
+08 Sep 2007
+[ David Bruce <davidstuartbruce@gmail.com> ]
+       - more work on practice.c - nearly all strings changed to 
+         wchar_t arrays, should be able to support Unicode in
+         practice phrases.
+       - simplified format of keyboard.lst - each line now just
+         gives the fingering for a single character (e.g. "0|a").
+         The code to read in the keyboard.lst has been replaced.
+         All keyboard.lst files in the themes are updated to the
+         new format, however the Russian and Greek keyboard.lst files
+         are erroneous and prevent these themes from working.
+         TuxType now relies on the keyboard.lst files to tell it
+         what characters are permissible in the typing activities.
+         (If anyone knows of a cross-platform way to find out from
+         the OS what Unicode values are "typable" with the user's
+         current keyboard setup, please let me know!).
+
+03 Sep 2007
+[ David Bruce ]
+       - practice.c revised significantly to prevent crashes if
+         keyboard.lst erroneous or incomplete - if entry not found
+         in FINGER[] array for a character, fingering hint not
+         shown but program still functions. "Practice" now uses the
+         same RenderLetters() code as the Cascade and Comet Zap
+         activities.
+       - BlackOutLine() for single letters now uses 
+         TTF_RenderUNICODE_Blended() rather than
+         TTF_RenderGlyph_Blended() because the former version
+         renders all glyphs to a consistent baseline, simplifying
+         our code.
+
+26 Aug 2007
+[ David Bruce ]
+       - got rid of autogen.sh - autoreconf is recommended way to
+         do the same thing according to autotools folks.
+       - replaced acinclude.m4 with newer version to get rid of 
+         "underquoted AM_PATH_SDL" message.
+       - fixed bug causing crash on exit from cascade game do to 
+         double free of ptr.
+       - fixed bug with Espanol display of menus.
+       - added "static" keyword to file-scope variables.
+       - moved more of global variables to file or local scope.
+       - added hard-coded hack-work to LoadFont() to support
+         Rachana and Doulos as well as Andika in Debian.
+
+v 1.5.11
+19 Aug 2007
+[ David Bruce ]
+       - Further development of settings struct.
+       - Got rid of realPath[] - paths now part of settings struct.
+       - program now looks for a settings file under the theme dir
+         when a theme is selected, allowing themes to specify a 
+         preferred font (or other settings).
+       - Incorporated most of changes from TuxType-Indic branch.
+         Program will now require SDLPango (as well as pango itself
+         and glib) - for now, pango-related code #ifndef-ed out for
+         win32 until I figure out how to get Windows build to work.
+
+01 Aug 2007
+[ David Bruce ]
+       - Removed KEYMAP array - wasn't being used correctly anyway.
+       - Consolidated many global vars into settings struct.
+       - code cleanup.
+
+v 1.5.10 - 16 Jun 2007
+[ David Bruce ]
+       - Added ConvertUTF.c & .h from Unicode, Inc. to do UTF-8 to wcs
+         encoding conversion when glibc isn't present (i.e., in Windows
+         build). AFAICT, Windows build now handles UTF-8/Unicode properly,
+         or at least behaves the same as *nix build.
+       - Fixed Jamaican theme - words in list needed to be uppercase.
+       - Correct links in HowToTheme.html to current counterparts.
+
+15 Jun 2007
+[ David Bruce ]
+       - Comet Zap fixed to require player to type letters in proper
+         order - "shootable" flag added to comet type.
+       - More code cleanup - mostly adding checks to prevent dereferencing
+         of null or invalid pointers.
+
+07 Jun 2007
+[ David Bruce ]
+       - Code cleanup - funcs.h revised, unneeded "extern" keywords for
+         function prototypes removed, prototypes rearranged into alpha-
+         betical order
+       - All functions now have function prototypes, either in funcs.h or
+         local function prototypes with explicit static scope.
+       - const keyword added to pointer function args when appropriate,
+         usually char* args.
+       - Renaming of some functions and variables to make capitalization 
+         more internally consistent (e.g. ALLCAPS means constant or other
+         preprocessor macro, CamelCase means globally visible, while 
+         local_functions() use lowercase connected by underscores).
+
+29 May 2007
+[ David Bruce ]
+       - Fixed vertical alignment problem with certain non-US characters
+         such as "Å" by checking max_y of each glyph and adjusting
+         appropriately.
+       - Added Doulos font to svn to accomodate Russian, although no code
+         yet to use this font when it is needed.
+       - Added utility function to print keymap - it appears that the
+         existing keymap code is broken, as the KEYMAP[] array winds
+         up with KEYMAP[i] == i for all values no matter what the
+         keyboard.lst file says.
+
+24 May 2007
+[ David Bruce ]
+       - Additional work on UTF-8/Unicode issues - program now scans
+         word list to see what Unicode characters are needed instead
+         of automatically rendering everything from 0-255. It now
+         displays chars beyond this range (e.g. Russian/Cyrillic) as
+         long as the font contains the needed glyphs (which Andika 
+         does not, as of yet). Display "should" now work correctly
+         except for a cosmetic problem with vertical alignment, which
+         should be fixed soon. Files - alphabet.c, playgame.c, laser.c.
+       - Lowercase keystrokes for non-US characters converted to upper-
+         case, just like A-Z.  Not sure this addresses keyboard input
+         problems just yet.
+       - Changed font to Andika design review "G".
+
+v.1.5.9  07 May 2007
+
+[ David Bruce ]
+       - Overhauled internal handling of word lists to handle UTF-8
+         correctly. Now WORDS_use() converts the UTF-8 to wchar_t
+         (i.e. Unicode) arrays for internal handling. The letters for
+         the fish and comets are now generated by black_outline_wchar(),
+         which is a modification of black_outline() that uses
+         TTF_RenderGlyph() instead of TTF_RenderUTF8().  It now seems
+         to work correctly, but for now is limited to the 0-255 range.
+
+v.1.5.8  29 Apr 2007
+
+[ Karl Ove Hufthammer ]
+       - Converted all the translation to use the UTF-8 characters.
+       - Changed word files to UTF-8. 
+	   - Added improved French word files commited by the French
+	     Skolelinux/Debian-edu team during DevCamp in Soissons.
+	   - Added Brazilian Portuguese translation by
+	     Hudson Gonçalves Manieri Figueredo.
+
+[ David Bruce ]
+       - Changed TTF_RenderText to TTF_RenderUTF8 everywhere in 
+         playgame.c, mainly by removing ttf_letter() and using
+         black_outline() instead.
+       - Added some checks for null pointers to prevent segfaults.
+       - Changed backgrounds from png to jpg to save space.
+       - Removed other unused backgrounds
+         (now in people/dbruce/unused_images)
+
+[ David Bruce ] 21 Apr 2007
+       - (mostly) removed used of checkFile() as it doesn't work
+         reliably on Windows and isn't really necessary. 
+
+
+v.1.5.7
+
+[ David Bruce ]
+       - Changed font to Andika (hopefully will have this in Debian
+         and other OS in future so we don't have to bundle it
+         indefinitely)
+       - Fixed black_outline() to make it work more or less as was
+         intended, from what I can tell.
+
+v1.5.6	the "make it simply work, stupid" release (a pun on KISS)
+
+[ Holger Levsen ]
+       - tagged as release in svn
+       - brought back the tuxtype2 logo
+       - updated TODO and README
+       - reverted utf8-changes from r16-20, as utf8 support needs more code
+         changes
+       - workaround debian bug #374062
+       - remove funkbrt.it as its not used
+       - font-loading is still a ugly hack :-( but works on debian with
+         ttf-gentium, which requires a little code-change for a sarge backport
+       - macosx and windows version untested...
+
+v1.5.5   development version, not released (still font+sound issues)
+
+[ Calvin Arndt ]
+       - closing all the mem leaks I know of 
+       - remove redundant print_phrase()
+       - remove hard coded xy positions in print_at() (calculate wrapped y position)
+       - remove uneeded cast in Phrases()
+[ Holger Levsen ]
+       - renamed to tuxtype (from tuxtype2), also modified the logo :)
+       - Solving the sound file licence issues (removed one (tickle.wav, was
+         unused), updated README_SOUNDS.TXT - this is not finished yet!!!!
+       - removed all fonts. The font-handling is still a hack,
+         see loaders.c - it only uses fonts from ttf-freefont
+         and not yet from ttf-dejavu (for non-latini fonts) - and it only
+         works on Debian probably (fixed path, not suitable for Windows,
+         MacOS and probably other linux distributions)
+
+v1.5.4 - Added Norwegian Bokmål translation. Improved Norwegian
+         Nynorsk translation.
+
+v1.5.3 - Initial lesson code started. Changed Set Keyboard to
+	 be a project info page. Fixed CometZap random segfaults on
+	 versions of NT. Added scripting for lessons. Used scripting
+	 mimic old instructions for Fish Cascade. Replaced
+	 SDL_WM_ToggleFullScreen() in favor of a more portable 
+	 routine to accomplish window size toggling. F10 in menu
+	 toggles screen size. Added saving sound volumes and windows
+	 state in the config file. Tuxtype2 now remembers both!
+	 Added translations Euskara, Italian and Jamaican. Added
+	 code for a map and photo for each theme/translation.
+
+v1.5.1 - Changed to get word list name from first line of file.
+         More language fixes. Added spanish translation. Fix 
+	 typos in source. Build system fixes. Added spanish
+	 translation. New word files for nynorsk translation.
+	 Danish translation bug fixes and cleanup. Changed format
+	 of keyboard.lst file. Added mouse click selection in language
+	 screen. And much more. Enjoy!
+
+v1.5.0 - First release in almost a year!!!
+
+v.0.2 - First elliminated need for SDL_Plus (which was useless
+        anyway.)
+
+v.0.3 - FIRST WORKING VERSION OF KEYCASCADE! Works at all
+        difficulty settings and levels.
+
+v.0.4pre1 - KEYCASCADE cleaned up and tweaked (works quite well
+        asside from a /few/ minor quirks). Also added soundFX
+        and music as well as tutorial for KeyCascade.
+
+v.0.4pre2 - Fixed WaitFrame() usage (more coherent now)
+        Also ensured that frame rate can stay constant over
+        different speed systems, and added --speed option.
+
+v.0.4 - Switched from UpdateRect to SDL_Flip() on title screen to
+	try to ensure constant frame-rate on title screen across
+	platforms. Various bug-fixes. Added surface based cursor
+	to titlescreen to prevent cursor-loss on certain systems
+	(such as my laptop >:/ )
+	
+v.0.5pre1 - Begin work on WORDCASCADE: All screens found and added-
+	Added word loading option and words- levels cycle- not
+	yet playable. Also fixed permissions on "missing" as well
+	as added the special hidden option (see readme in image dir).
+	
+v.0.5pre2 - WORDCASCADE now works. May need minor tweaking as time
+  goes by... but I will deal with that eventuality when it occurs.
+
+v.0.5 - Work on docs, small bugfixes for release.
+
+v.0.5-2 - Second 0.5 release. Fixed embarrasing word file location
+	problem!!!
+	
+v.0.6 - Many Mandrake 7.2 fixes. "Free Typing" added. Various code
+	clean-up and bugfixes.
+	
+v.0.7pre1 - Fixed sound bug:
+  (http://sourceforge.net/bugs/?func=detailbug&bug_id=131474&group_id=12715)
+  as well as first BeOS port.
+
+v.0.7 - Major code cleanup. /Probably/ fixed the clipping bug.
+
+v.0.8pre1 - Began work on the Word Cascade Tutorial. Patch to fix some
+        menu glitches.
+
+v.0.8 - Fixed SDL_Flip(..) related bugg in title screen:
+   (http://sourceforge.net/tracker/index.php?func=detail&aid=421508&group_id=12715&atid=112715)
+   as well as minor code clean-up and finish word cascade tutorial.
+
+v.0.9pre1 - Fixed GIF->PNG bug as well as "yellow outline" in gameplay
+   bug (thx to Rich Bellamy <bellamrm@clarkson.edu>)
+
+v.0.9pre2 - Fixed many of the troubles causing the tutorial screen
+   crashes:
+   (http://sourceforge.net/tracker/index.php?func=detail&aid=414339&group_id=12715&atid=112715)
+
+v.0.9pre3 - Added code from Olivier Dagenais <olivier_dagenais@canada.com>
+   which allows for compilation under Win32 using MS VisualC++. Also
+   fixed Kdevelop/SDL integration issues which prevents Tux Typing from
+   compiling on other OSes.
+
+v.0.9 - Fixed the tutorial screen crashing bug. Also removed double buffering
+   support temporarily to resolve the issue later.
+
+v.0.9-1 - Added keyboard support on main menu.
+
+v.1.0pre1 - Added Theming/Alt-Language support (preliminary). Fixed rect clipping
+    blit problem and added option for alpha blitting to emphasize slow falling words.
+    Other misc bugfixes and cleanup. Began transition to KDevelop 1.4 env and
+    future repair of build process.
+
+v.1.0 - Tweaked gameplay speed. Tweaked menu speed. Changed free typing from
+    hard defaults to easy defaults. Fixed word cascade bug:
+    http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=104456&repeatmerged=yes
+
+v1.0.1 - Build process bugfix.

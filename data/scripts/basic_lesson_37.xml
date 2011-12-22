@@ -1,0 +1,67 @@
+<script title="Test Lesson" bgcolor="#3f4f1f">
+       <page title="Introduction to Example Lesson">
+       <text align="center">The 6 Key</text>
+       <text align="center">In this lesson you will be learning where the 6 key</text>
+       <text align="center">is located.</text>
+       <text align="center" y="300"> PRESS SPACE TO START THE LESSON!</text>
+      <waitforinput/>
+       </page>
+       <page title="The 6 Key" bgcolor="#3f7f3f">
+       <img src="/keyboard/keyboard-us.png" x="45" y="220"/>
+       <text align="center">In this exercise we practice the 6 key.</text>
+       <text align="center">To start practicing hit the p key</text>
+       <text color="#000000" x="100" y="280">A</text>
+       <text color="#000000" x="130" y="280">S</text>
+       <text color="#000000" x="160" y="280">D</text>
+       <text color="#000000" x="190" y="280">F</text>
+       <text color="#000000" x="220" y="280">G</text>
+       <text color="#000000" x="250" y="280">H</text>
+       <text color="#000000" x="285" y="280">J</text>
+       <text color="#000000" x="315" y="280">K</text>
+       <text color="#000000" x="345" y="280">L</text>
+       <text color="#000000" x="385" y="280">;</text>
+       <text color="#000000" x="415" y="280">'</text>
+       <text color="#000000" x="90" y="250">Q</text>
+       <text color="#000000" x="118" y="250">W</text>
+       <text color="#000000" x="152" y="250">E</text>
+       <text color="#000000" x="183" y="250">R</text>
+       <text color="#000000" x="212" y="250">T</text>
+       <text color="#000000" x="244" y="250">Y</text>
+       <text color="#000000" x="273" y="250">U</text>
+       <text color="#000000" x="306" y="250">I</text>
+       <text color="#000000" x="334" y="250">O</text>
+       <text color="#000000" x="365" y="250">P</text>
+       <text color="#000000" x="395" y="240">[</text>
+       <text color="#000000" x="425" y="240">]</text>
+       <text color="#000000" x="110" y="310">Z</text>
+       <text color="#000000" x="142" y="310">X</text>
+       <text color="#000000" x="170" y="310">C</text>
+       <text color="#000000" x="202" y="310">V</text>
+       <text color="#000000" x="232" y="310">B</text>
+       <text color="#000000" x="262" y="310">N</text>
+       <text color="#000000" x="292" y="310">M</text>
+       <text color="#000000" x="330" y="310">,</text>
+       <text color="#000000" x="360" y="310">.</text>
+       <text color="#000000" x="387" y="310">/</text>
+       <text color="#000000" x="85" y="220">1</text>
+       <text color="#000000" x="115" y="220">2</text>
+       <text color="#000000" x="145" y="220">3</text>
+       <text color="#000000" x="175" y="220">4</text>
+       <text color="#000000" x="205" y="220">5</text>
+       <text color="#000000" x="235" y="220">6</text>
+      <waitforchar/>
+      <prac>666 j6j 6j6 66j jj6 j6o o6j 66o4 vf66 6s6, 662n 661u 66's km6 iy6 h66p x662 jb6 66v 6ae j66s 665 666 j6j 6j6 66j jj6 j6o o6j</prac>
+      </page>
+      <!--HACK: there is some undesired behavior in scripting.c, this fixes it for now-->
+      <page>
+      </page>
+      <page>
+       <img src="keyboard/space.png" x="200" y="160"/>
+       <img src="keyboard/larrow.png" x="460" y="18"/>
+       <img src="keyboard/esc.png" x="515" y="50"/>
+       <text align="center">Great Job!</text>
+       <text align="left"></text>
+       <text align="center">To go back to the main menu</text>
+       <text align="center">Press Space</text>
+       <waitforinput/>
+     </page>    
