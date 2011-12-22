@@ -1,0 +1,19 @@
+Kurze Wörter (mit ÄÖÜß)
+# Hier kannst du selber Wörter hinzufügen.
+# Zeilen die mit '#' beginnen und Leerzeilen werden ignoriert.
+# Es sind Höchstens 200 Zeilen pro Datei erlaubt
+ÖL
+BÄR
+FÖN
+FÜR
+FUß
+JÄH
+KÜR
+MAß
+MUß
+ÖHR
+ÖSE
+RUß
+SÜß
+TÜR
+ZÄH

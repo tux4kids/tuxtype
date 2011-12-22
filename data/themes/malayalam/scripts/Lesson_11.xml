@@ -1,0 +1,51 @@
+<script title="LESSON ELEVEN" bgcolor="#3f4f9f">
+   <page title="Malayalam Lesson">
+   <text color="#ffff00" align="center" y="200">പാഠം പതിനൊന്ന്</text>
+   <text color="#00ffff" align="center" y="300">തുടങ്ങാന്‍ സ്പേസ് അമര്‍ത്തൂ!</text>
+  <waitforinput/>
+   </page>
+   <page title="Keys" bgcolor="#3f7f3f">
+   <img src="/keyboard/keyboard-us.png" x="30" y="200"/>
+   <text align="center">ഇവിടെ നാം പഠിക്കുന്ന അക്ഷരങ്ങള്‍.</text>
+   <text align="center" color="#ffff00">ഴ ള ശ</text>
+   <text color="#00ffff" align="center">തുടങ്ങാന്‍ സ്പേസ് അമര്‍ത്തുക</text>
+   <text color="#ffff00" x="270" y="325">ഴ</text>
+   <text color="#ffff00" x="308" y="325">ള</text>
+   <text color="#ffff00" x="346" y="325">ശ</text>
+  <waitforchar/>
+   <prac goal="15">ഴ ള ശ ള ശ ഴ ള ശ</prac>
+   <prac>ഴ ള ശ ള ശ ഴ ള ശ</prac>
+   <prac>ഴ ള ശ ള ശ ഴ ള ശ</prac>
+   </page>
+ <page>
+   <img src="keyboard/space.png" x="200" y="160"/>
+   <img src="keyboard/larrow.png" x="460" y="18"/>
+   <img src="keyboard/esc.png" x="515" y="50"/>
+   <text align="center">അഭിനന്ദനങ്ങള്‍!</text>
+   <text align="left">         To repeat the last exercise, press</text>
+   <text align="center">To go back to the main menu hit</text>
+   <text align="center">To continue on to the next exercise,</text>
+   <text align="center">press</text>
+   <text align="center">Space</text>
+   <text></text>
+   <text></text>
+   <text></text>
+   <text align="center">Next Exercise:</text>
+   <text align="center">ശള ശഴ ളശ ളഴ ഴശ ഴള</text> 
+   <waitforinput/>
+ </page>
+ <page title="Keys" bgcolor="#b07bc6">
+   <img src="keyboard/keyboard-us.png" x="30" y="200"/>
+   <text align="center" y="20">അഭ്യാസം</text>
+   <text color="#ffff00" align="center" y="50">ശള ശഴ ളശ ളഴ ഴശ ഴള</text>
+   <text color="#00ffff" align="center" y="140">തുടങ്ങാന്‍ സ്പേസ് അമര്‍ത്തുക</text>
+   <text color="#ffff00" x="270" y="325">ഴ</text>
+   <text color="#ffff00" x="308" y="325">ള</text>
+   <text color="#ffff00" x="346" y="325">ശ</text>
+   <waitforchar/>
+   <prac>ശള ശഴ ളശ ളഴ ഴശ ഴള ളഴ ഴശ ഴള</prac>
+   <prac>ശഴ ളശ ളഴ ഴശ ഴള ളശ ളഴ ഴശ ഴള</prac>
+   <prac>ശള ശഴ ളശ ളശ ളഴ ഴശ ഴള ഴശ ഴള </prac>
+ </page>
+</script>
+

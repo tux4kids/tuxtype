@@ -1,0 +1,188 @@
+<script title="Cascade Instructions">
+  <page>
+    <img src="lessons_bkg.png" x="0" y="0">
+    <img src="tutor-alpha.png" x="0" y="0">
+    <img src="fishy-.png" x="130" y="50">
+    <img src="tux/stand-.png" x="100" y="330">
+    <text color="#ffffff" x="142" y="63" size="22">F</text>
+    <text color="#FFFFFF" align="right" size="32">Help Tux Eat Fish!   </text>
+    <text color="#FFFFFF" align="right">Tux is very hungry! Eating  </text>
+    <text color="#FFFFFF" align="right">fish with  letters gives him  </text>
+    <text color="#FFFFFF" align="right">a  tummy  ache.  Help  Tux  </text>
+    <text color="#FFFFFF" align="right">eat   fish  by  pressing  the  </text>
+    <text color="#FFFFFF" align="right">letters  on the  fish making  </text>
+    <text color="#FFFFFF" align="right">them  go  away  so he  can  </text>
+    <text color="#FFFFFF" align="right">eat them all!                          </text>
+   </page>
+  <page>
+    <img src="tutor-alpha2.png" x="98" y="64">
+    <img src="insert1.png" x="126" y="41">
+    <img src="fishy-.png" x="130" y="52">
+    <img src="tux/stand-.png" x="100" y="330">
+    <text color="#ffffff" x="142" y="65" size="22">F</text>
+   </page>
+  <page>
+    <img src="tutor-alpha2.png" x="98" y="64">
+    <img src="insert1.png" x="126" y="41">
+    <img src="fishy-.png" x="130" y="54">
+    <text color="#ffffff" x="142" y="67" size="22">F</text>
+  </page>
+  <page>
+    <img src="tutor-alpha2.png" x="98" y="64">
+    <img src="insert1.png" x="126" y="41">
+    <img src="fishy-.png" x="130" y="56">
+    <text color="#ffffff" x="142" y="69" size="22">F</text>
+  </page>
+ <page>
+    <img src="tutor-alpha2.png" x="98" y="64">
+    <img src="insert1.png" x="126" y="41">
+    <img src="fishy-.png" x="130" y="58">
+    <text color="#ffffff" x="142" y="71" size="22">F</text>
+  </page>
+ <page>
+    <img src="tutor-alpha2.png" x="98" y="64">
+    <img src="insert1.png" x="126" y="41">
+    <img src="fishy-.png" x="130" y="60">
+    <text color="#ffffff" x="142" y="73" size="22">F</text>
+  </page>
+ <page>
+    <img src="tutor-alpha2.png" x="98" y="64">
+    <img src="insert1.png" x="126" y="41">
+    <img src="fishy-.png" x="130" y="62">
+    <text color="#ffffff" x="142" y="75" size="22">F</text>
+  </page>
+ <page>
+    <img src="tutor-alpha2.png" x="98" y="64">
+    <img src="insert1.png" x="126" y="41">
+    <img src="fishy-.png" x="130" y="64">
+    <text color="#ffffff" x="142" y="77" size="22">F</text>
+  </page>
+ <page>
+    <img src="tutor-alpha2.png" x="98" y="64">
+    <img src="insert1.png" x="126" y="41">
+    <img src="fishy-.png" x="130" y="66">
+    <text color="#ffffff" x="142" y="79" size="22">F</text>
+  </page>
+ <page>
+    <img src="tutor-alpha2.png" x="98" y="64">
+    <img src="insert1.png" x="126" y="41">
+    <img src="fishy-.png" x="130" y="68">
+    <text color="#ffffff" x="142" y="81" size="22">F</text>
+  </page>
+  <page>
+    <img src="tutor-alpha2.png" x="98" y="64">
+    <img src="insert1.png" x="126" y="41">
+    <img src="fishy-.png" x="130" y="70">
+    <text color="#ffffff" x="142" y="83" size="22">F</text>
+  </page>
+  <page>
+    <img src="tutor-alpha2.png" x="98" y="64">
+    <img src="insert1.png" x="126" y="41">
+    <img src="fishy-.png" x="130" y="72">
+    <text color="#ffffff" x="142" y="85" size="22">F</text>
+  </page>
+  <page>
+    <img src="tutor-alpha2.png" x="98" y="64">
+    <img src="insert1.png" x="126" y="41">
+    <img src="fishy-.png" x="130" y="74">
+    <text color="#ffffff" x="142" y="87" size="22">F</text>
+   </page>
+  <page>
+    <img src="tutor-alpha2.png" x="98" y="64">
+    <img src="insert1.png" x="126" y="41">
+    <img src="fishy-.png" x="130" y="76">
+    <text color="#ffffff" x="142" y="89" size="22">F</text>
+   </page>
+  <page>
+    <img src="tutor-alpha2.png" x="98" y="64">
+    <img src="insert1.png" x="126" y="41">
+    <img src="fishy-.png" x="130" y="78">
+    <text color="#ffffff" x="142" y="91" size="22">F</text>
+  </page>
+  <page>
+    <img src="tutor-alpha2.png" x="98" y="64">
+    <img src="insert1.png" x="126" y="41">
+    <img src="fishy-.png" x="130" y="80">
+    <text color="#ffffff" x="142" y="93" size="22">F</text>
+  </page>
+ <page>
+    <img src="tutor-alpha2.png" x="98" y="64">
+    <img src="insert1.png" x="126" y="41">
+    <img src="fishy-.png" x="130" y="82">
+    <text color="#ffffff" x="142" y="95" size="22">F</text>
+  </page>
+ <page>
+    <img src="tutor-alpha2.png" x="98" y="64">
+    <img src="insert1.png" x="126" y="41">
+    <img src="fishy-.png" x="130" y="84">
+    <text color="#ffffff" x="142" y="97" size="22">F</text>
+  </page>
+ <page>
+    <img src="tutor-alpha2.png" x="98" y="64">
+    <img src="insert1.png" x="126" y="41">
+    <img src="fishy-.png" x="130" y="86">
+    <text color="#ffffff" x="142" y="99" size="22">F</text>
+  </page>
+ <page>
+    <img src="tutor-alpha2.png" x="98" y="64">
+    <img src="insert1.png" x="126" y="41">
+    <img src="fishy-.png" x="130" y="88">
+    <text color="#ffffff" x="142" y="101" size="22">F</text>
+  </page>
+ <page>
+    <img src="tutor-alpha2.png" x="98" y="64">
+    <img src="insert1.png" x="126" y="41">
+    <img src="fishy-.png" x="130" y="90">
+    <text color="#ffffff" x="142" y="103" size="22">F</text>
+  </page>
+ <page>
+    <img src="tutor-alpha2.png" x="98" y="64">
+    <img src="insert1.png" x="126" y="41">
+    <img src="fishy-.png" x="130" y="92">
+    <text color="#ffffff" x="142" y="105" size="22">F</text>
+  </page>
+  <page>
+    <img src="tutor-alpha2.png" x="98" y="64">
+    <img src="insert1.png" x="126" y="41">
+    <img src="fishy-.png" x="130" y="94">
+    <text color="#ffffff" x="142" y="107" size="22">F</text>
+  </page>
+  <page>
+    <img src="tutor-alpha2.png" x="98" y="64">
+    <img src="insert1.png" x="126" y="41">
+    <img src="fishy-.png" x="130" y="96">
+    <text color="#ffffff" x="142" y="109" size="22">F</text>
+  </page>
+   <page>
+    <img src="tutor-alpha2.png" x="98" y="64">
+    <img src="insert1.png" x="126" y="41">
+    <img src="fishy-.png" x="130" y="98">
+    <text color="#ffffff" x="142" y="111" size="22">F</text>
+  </page>
+  <page>
+    <img src="tutor-alpha2.png" x="98" y="64">
+    <img src="insert1.png" x="126" y="41">
+    <img src="fishy-.png" x="130" y="100">
+    <text color="#ffffff" x="142" y="113" size="22">F</text>
+  </page>
+ <page>
+    <img src="tutor-alpha2.png" x="98" y="64">
+    <img src="insert1.png" x="126" y="41">
+    <img src="fishy-.png" x="130" y="102">
+    <text color="#ffffff" x="142" y="115" size="22">F</text>
+  </page>
+ <page>
+    <img src="tutor-alpha2.png" x="98" y="64">
+    <img src="insert1.png" x="126" y="41">
+    <img src="fishy-.png" x="130" y="104">
+    <text color="#ffffff" x="142" y="117" size="22">F</text>
+  </page>
+ <page>
+    <img src="tutor-alpha2.png" x="98" y="64">
+    <img src="insert1.png" x="126" y="41">
+    <img src="fishy-.png" x="130" y="106">
+    <text color="#ffffff" x="142" y="119" size="22">F</text>
+    <text color="#ffffff" x="230" y="370" size="22">Press Space to Continue!</text>
+  </page>
+   <waitforinput/>
+  </page></lesson>

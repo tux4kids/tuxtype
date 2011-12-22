@@ -1,0 +1,2 @@
+theme_font_name=DoulosSILR.ttf
+theme_locale_name=cs_CZ.UTF-8

@@ -1,0 +1,167 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>How to create a theme for Tux Typing 1.5.13</title>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+</head>
+<body bgcolor="#ffffff">
+<h2>Theming in Tux Typing 1.5.13</h2>
+<p><i><b>NOTE (Dec 10, 2008) - this document is not very current. Most importantly, native language support now uses the standard GNU gettext libraries.  Also, font selection has been automated by use of SDL_Pango on platforms where is available (GNU/Linux, at this time).  The handling of word lists and custom images is unchanged.  This document will updated as the maintainer's time allows - DSB</i><b></p>
+
+<p>A "Theme" is a method to change the data which Tuxtyping uses.  While this could be used to change the game about Tux and fish, to a game about a Cat and mice, more likely you are interested in making Tuxtyping work in another language. (if you are intersted in creating a new graphical theme like "Racecars" or ... that is cool too, but if things don't act right, please <a href="http://tux4kids.alioth.debian.org">contact us</a>).
+<p>I will walk through how I created the "French" theme in boxes in this text.
+<h3>Difference to Tuxtyping 1.0</h3>
+<p>In Tuxtyping 1.0, to create a theme, you needed to recreate every image file that was used by the game.  This means you had to include every image even if you didn't change it.  Plus all the text in the game were actually pre-created graphics, and the game could only use A-Z.
+<p>In Tuxtyping 1.5, you can can include changes to the image files, but if you don't include one, we will just use the default image included with the default theme (English).  Also instead of all the text in the game being pre-created, it is all rendered, so you can change the font and/or the text very easily.  Plus, you can change it so you include numbers, or anything else you can type!
+
+<center><table bgcolor="#ffcccc" width="80%" border=1 cellspacing=2><tr><td>
+<b>Changes since 1.5.0 Theming Howto</a>:</b>
+<ul><li>Keyboard.lst format changed to eliminate redundant information
+<li>themes.txt is no longer used... we create the list dynamically
+<li>words.lst is no longer used.. we create the list dynamically
+<li>The title of a wordlist is the first line of the file
+</ul>
+All these changes were done to make it even easier to theme...
+</td></tr></table></center>
+
+<h3>Components of a Theme</h3>
+
+<ol>
+<li>Creating the directory and adding it to menu system
+
+<p>Themes are located in the data directory of Tux Typing.  This will be different depending on which operating system you are using.  If you have trouble finding where the data directory is for your system, contact <a href="mailto:tuxmath-devel@lists.sourceforge.net">us</a>.  I will refer to this directory containing themes as <b>data/themes/</b>
+<p>Each theme has its own directory in the <b>data/themes/</b> directory.  For instance if you are creating a French theme, you would create a directory called <b>french</b> in the themes directory, so you have <b>data/themes/french</b>.  All of the data for your theme will be located in this directory.
+<p>Now if you go into the game, you should see a new entry in the "Setup Languages" menu for your theme.
+<center><table bgcolor="#ccccff" width="75%" border=1 cellpadding=4><tr><td> 
+<pre>    cd data/themes
+
+    mkdir french
+</pre>
+
+</td></tr></table></center>
+<br>
+<li>Fonts
+<p>Tux Typing now uses SDL_Pango whenever possible (meaning Linux/Unix) to provide automated font selection and complex rendering for non-Western languages.  At this writing, we are not able to use SDL_Pango in Windows, BeOS, and (for the most part) Mac OS-X.  So if your desired language displays correctly in other apps on your Linux machine, your system already has a usable font and Tux Typing should be able to use it automagically. Hooray!</p>
+<p>For users without SDL_Pango, the task is more difficult. The font needs to be precisely specified by your theme. Tux Typing bundles in eleven True Type fonts to support the included languages.  AndikaDesRevG.ttf is the default, which basically includes the characters for English and Western European languages. If your theme works with Andika font, you do not need to specify anything.  There are ten other fonts bundled in, which add support for Cyrillic, Greek, and several of the Indic languages.  However, Chinese/Japanese/Korean are not covered. If you need to use one of the other bundled fonts (meaning you don't have SDL_Pango), your theme directory needs to have a file "settings.txt" containing a line indicating your font selection, e.g.:
+<br>
+<br>
+theme_font_name=Rachana_w01.ttf
+<br>
+<br>
+Currently, the font name must exactly match one of the supported fonts, or you will wind up with the default.  Note - all non-ASCII text needs to be encoded as UTF-8.  This is not an issue for file names, but it is an issue when adding themes that require Unicode support.
+
+<p>If your language requires a true type font that is not bundled with Tux Typing, you need to copy the *.ttf font file into data/fonts/ (alongside Andika, Doulos, et. al.) and put the exact font file name into your theme's settings.txt file, and Tux Typing will use it.</p>
+
+<p>Again - the whole font selection issue is handled automatically by SDL_Pango, which is for all practical purposes essential for non-Western languages.  Even if you specify the font correctly, you will not get correct rendering of multicharacter strings in many languages without SDL_Pango.  Note, however, that the Comet Zap and Fish Cascade games do not support right-to-left rendering irrespective of what libraries are used.</p>
+
+<center><table bgcolor="#ccccff" width="75%" border=1 cellpadding=4><tr><td> 
+
+
+<p>
+<li>Translation
+<p>To change the words that are within the menus and other parts of the game, you will need to create and edit a <b>lang.po</b> file.  We have created a master lang.po file that is located in the <b>data/themes</b> directory.  To start with, you should copy this file into your theme's directory.
+
+<center><table bgcolor="#ccccff" width="75%" border=1 cellpadding=4><tr><td> 
+<pre>    cd data/themes
+
+    cp lang.po french/lang.po
+</pre>
+</td></tr></table></center>
+
+<p>This file is your your standard "gettext" type .po file.  It is comprised of a sequence of msgid & msgstr pairs.  The msgid is the string of words in English, what you will need to do is after edit each msgstr in the file so it corresponds to the msgid right about it.  If your language uses non-Western Unicode characters, be sure to use a UTF-8 encoding for this file!
+
+<center><table bgcolor="#ccccff" width="75%" border=1 cellpadding=4><tr><td> 
+For instance my <b>data/themes/french/lang.po</b> has the following lines:
+<pre>
+    msgid "Fish"
+    msgstr "le Fish"
+
+    msgid "Lives"
+    msgstr "le Lives"
+
+    msgid "Level"
+    msgstr "le Level"
+
+    msgid "Alphabet"
+    msgstr "le Alphabet"
+</pre>
+
+<br>Since I do not know french, but if I did, I may have had the following in the file:
+<pre>
+    msgid "Fish"
+    msgstr "Poissons"
+</pre>
+</td></tr></table></center>
+<p>
+<li>Setup the keyboard
+<p>Now you need to setup what characters (like ABCDEFGHIJKLMNOPQRSTUVWXYZ), you are going to have the player hit within the game.  There are several things you need to specify.  First let me explain with an example.  In the English version, the arcade-type games (Fish Cascade and Comet Zap) are case-insensitive.  That is, we don't mind if the user hit "A" or "a", we want it to mean the same thing "A" (we choose uppercase (capital) letters since they are easier to read). However, the Phrase Typing activity is case-sensitive, so both should be included. We also need to specify that the player would normally use the "0" finger to hit the key (see image).
+<p>
+<center><img src="numhand.jpg" alt="0 1 2 3 4 5 6 7 8 9"></center> 
+
+<p>So you need to create a <b>keyboard.lst</b> file.  This file will contain all the characters that you wish to be typable.  As of Tuxtype-1.7.0, there is some flexibility in the format of each line of the file.  For Western languages, the preferred format for each line has three characters - finger, then '|' separator, then the character itself, e.g:
+<center>0|A</center>
+<p>
+First you list the finger(s) that the player should use to press this letter, then a seperator |, then the character that the user can press. Each character is on its own line (this is changed from earlier versions of Tux Typing).  Thus, one line should be "0|A" and another line "0|a".</p>
+<p>If somehow you do not know the finger for a character, you can just list the character by itself on the line.  Tux Typing will simply skip the fingering hints when this character is used.</p>
+
+<p>Tux Typing generates the list of allowed characters from this file. This is not the same as your theme's alphabet, which should consist only of the characters that correspond to "letters".
+<p>
+
+<p>For non-Western languages (e.g. all the Indic languages), there is support for also including the corresponding Latin character after the native language character. Thus, each line will have four characters: finger, '|', native character, Latin character.</p>
+<center><table bgcolor="#ccccff" width="75%" border=1 cellpadding=4><tr><td> 
+<pre>    cd data/themes/french
+
+    vi keyboard.lst
+</pre>
+Then I add the following lines to the keyboard.lst file:
+<pre>
+    0|A
+    0|a
+    3|B
+    3|b
+    2|C
+    2|c
+    2|D
+    2|d
+    2|E
+    2|e
+    3|F
+    3|f
+</pre>
+and so on for each letter including non A-Z characters if needed! Tux Typing will use this list to determine which characters to pre-render (as well as for fingering hints), so be sure to include *all* characters needed for your theme, as omitted characters may not be able to be displayed. 
+
+</td></tr></table></center>
+<p>Note - We realize that the keyboard.lst files are tedious and error-prone.  In fact, they are a real pain, both from the themer's and the programmer's perspective. I am trying to find a cross-platform way to query the OS as to what Unicode values can be typed by the user's current keyboard setup - if anyone has any ideas, please post to <a href="mailto:tuxmath-devel@lists.sourceforge.net">the dev list</a>.</p>
+
+<p>
+
+<li>Word Lists
+<p>This is where you create the words that the player will have to type within the game.  The word lists reside within the directory words in your theme's directory.  Create this directory now.
+<center><table bgcolor="#ccccff" width="75%" border=1 cellpadding=4><tr><td> 
+<pre>    cd data/themes/french
+
+    mkdir words
+</pre>
+</td></tr></table></center>
+<p>Then all that is left to be done is to create these word lists (soon this will be able to do this from within the game!)   The first line of each wordlist should be the title of the wordlist.  After that, list all the words (one on each line). If list contains any non-Western Unicode characters (i.e. Unicode value > 256), the file must be encoded as UTF-8.
+For instance <b>data/themes/french/words/words1.txt</b> is:
+<center><table bgcolor="#ccccff" width="75%" border=1 cellpadding=4><tr><td> 
+<pre>    Jesse's French Words
+    LIV
+    POISSION
+</pre>
+</td></tr></table></center>
+<p>The only thing you need to remember is that each word can only be up to 8 characters long.  Also the game ignores ANYTHING after the first space.  If this is an issue, please let us know!
+</ol>
+
+<h3>The <B>MOST</b> important step.</h3>
+<p>You should send this file into the Tux Typing group so that it can be included in the distribution.  That way anyone who downloads Tux Typing can use your theme without having to download your theme as well!
+
+<hr>
+<center><a href="http://tux4kids.alioth.debian.org">TuxTyping Homepage</a> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+<a href="http://alioth.debian.org/forum/?group_id=31080">TuxTyping Forums</a> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+<a href="mailto:davidstuartbruce@gmail.com">davidstuartbruce@gmail.com</a>
+<br><br>
+<font size="-2">Last edited Sept 04, 2007 but by no means fully up-to-date!</font>
+</center>
+</body>

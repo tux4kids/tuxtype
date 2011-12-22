@@ -1,0 +1,42 @@
+Mittellange Wörter (mit ÄÖÜß)
+# Hier kannst du selber Wörter hinzufügen.
+# Zeilen die mit '#' beginnen und Leerzeilen werden ignoriert.
+# Es sind Höchstens 200 Zeilen pro Datei erlaubt
+FÜNF
+GROß
+GRÜN
+KÄSE
+KÖLN
+KÜHL
+LÄRM
+LÖWE
+MÄRZ
+MÖWE
+MÜLL
+ÜBEN
+ÜBER
+WEIß
+DAFÜR
+FÄHRE
+GLÜCK
+HÜFTE
+HÜGEL
+KÜSTE
+LÄNGE
+MÖBEL
+MÖGEN
+MÖHRE
+SCHÖN
+STÜCK
+SÜDEN
+ZÜGEL
+ZWÖLF
+BRÜCKE
+FÜNZIG
+HEIßEN
+KÖRPER
+LÖFFEL
+SPÜLEN
+SÜDPOL
+WÄSCHE
+ZURÜCK

@@ -1,0 +1,196 @@
+# French translations for Tux Typing package.
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Mobin M <mobinmohan@gmail.com>, 2008
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Tux Typing 1.5.16\n"
+"Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
+"POT-Creation-Date: 2010-04-04 12:17-0500\n"
+"PO-Revision-Date: 2009-02-04 14:55+0100\n"
+"Last-Translator: Loïc Martin <loic.martin3@gmail.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: src/loaders.c:88 src/main.c:150 src/playgame.c:643
+msgid "Fish"
+msgstr "Poissons"
+
+#: src/pause.c:277
+msgid "Sound Effects Volume"
+msgstr "Volume des effets sonores"
+
+#: src/pause.c:286
+msgid "Music Volume"
+msgstr "Volume de la musique"
+
+#: src/pause.c:297
+msgid "Sound & Music Disabled"
+msgstr "Musique et son désactivés"
+
+#: src/pause.c:307
+msgid "Paused!"
+msgstr "Pause!"
+
+#: src/pause.c:316
+msgid "Press escape again to return to menu"
+msgstr "Appuyez encore sur la touche d'échappement pour retourner au menu"
+
+#: src/pause.c:325
+msgid "Press space bar to return to game"
+msgstr "Appuyez sur la barre espace pour retourner au jeu"
+
+#: src/playgame.c:641
+msgid "Level"
+msgstr "Niveau"
+
+#: src/playgame.c:642
+msgid "Lives"
+msgstr "Vies"
+
+# levels for Cascade game:
+#: src/playgame.c:645 src/titlescreen.c:89
+msgid "Easy"
+msgstr "Facile"
+
+#: src/playgame.c:646 src/titlescreen.c:90
+msgid "Medium"
+msgstr "Moyen"
+
+#: src/playgame.c:647 src/titlescreen.c:91
+msgid "Hard"
+msgstr "Difficile"
+
+# general stuff
+#: src/playgame.c:648
+msgid "Practice"
+msgstr "Entraînement"
+
+#: src/playgame.c:659
+msgid "Congratulations"
+msgstr "Félicitations"
+
+#: src/playgame.c:663
+msgid "Oh No!"
+msgstr "Oh non!"
+
+#: src/practice.c:622
+msgid "sec"
+msgstr ""
+
+#: src/practice.c:1433
+msgid "Time"
+msgstr ""
+
+#: src/practice.c:1437
+msgid "Chars"
+msgstr ""
+
+#: src/practice.c:1441
+msgid "CPM"
+msgstr ""
+
+#: src/practice.c:1445
+msgid "WPM"
+msgstr ""
+
+#: src/practice.c:1449
+msgid "Errors"
+msgstr ""
+
+#: src/practice.c:1453
+msgid "Accuracy"
+msgstr ""
+
+#: src/titlescreen.c:89
+msgid "Fish Cascade"
+msgstr "Cascade de poissons"
+
+# "Space Cadet" is level 1 in comet zap
+#: src/titlescreen.c:89
+msgid "Space Cadet"
+msgstr "Cadet de l'espace"
+
+#: src/titlescreen.c:89
+msgid "Edit Word Lists"
+msgstr "Éditer les listes de mots"
+
+# types of games
+#: src/titlescreen.c:90
+msgid "Comet Zap"
+msgstr "Destruction de comètes"
+
+# "Pilot" is level 2 in comet zap
+#: src/titlescreen.c:90
+msgid "Pilot"
+msgstr "Pilote"
+
+#: src/titlescreen.c:90
+msgid "Phrase Typing"
+msgstr "Taper des phrases"
+
+#: src/titlescreen.c:91
+msgid "Lessons"
+msgstr "Leçons"
+
+# "Ace" is level 3 in comet zap
+#: src/titlescreen.c:91
+msgid "Ace"
+msgstr "As de l'espace"
+
+#: src/titlescreen.c:91
+msgid "Project Info"
+msgstr "À propos de Tuxtype"
+
+#: src/titlescreen.c:92
+msgid "Options"
+msgstr "Options"
+
+#: src/titlescreen.c:92
+msgid "Instructions"
+msgstr "Instructions"
+
+# "Commander" is level 4 in comet zap
+#: src/titlescreen.c:92
+msgid "Commander"
+msgstr "Commandant"
+
+#: src/titlescreen.c:92
+msgid "Setup Language"
+msgstr "Régler la langue"
+
+#: src/titlescreen.c:93
+msgid "Quit"
+msgstr "Quitter"
+
+#: src/titlescreen.c:93
+msgid "Main Menu"
+msgstr "Menu Principal"
+
+# work in progress stuff
+#: src/titlescreen.c:1119
+msgid "Work In Progress!"
+msgstr "En cours de construction!"
+
+#: src/titlescreen.c:1120
+msgid "This feature is not ready yet"
+msgstr "Cette fonctionnalité n'est pas encore prête"
+
+#: src/titlescreen.c:1121
+msgid "Discuss the future of TuxTyping at"
+msgstr "Discutez du futur de TuxTyping à"
+
+# general stuff
+#, fuzzy
+#~ msgid "Phrase Practice"
+#~ msgstr "Entraînement aux phrases"
+
+#~ msgid "Alphabet"
+#~ msgstr "Alphabet"
+
+#~ msgid "Setup Keyboard"
+#~ msgstr "Régler le clavier"
