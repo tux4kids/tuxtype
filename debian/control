@@ -5,8 +5,8 @@ Maintainer: Holger Levsen <holger@debian.org>
 Standards-Version: 3.8.4
 Build-Depends: debhelper (>=5.0.42), libsdl-mixer1.2-dev, libsdl-image1.2-dev, libsdl1.2-dev, libsdl-ttf2.0-dev, libsdl-pango-dev, librsvg2-dev
 Homepage: http://tux4kids.alioth.debian.org
-Vcs-Svn: svn://svn.debian.org/svn/tux4kids/tuxtype/
-Vcs-Browser: http://svn.debian.org/wsvn/tux4kids/tuxtype/
+Vcs-Git: git://anonscm.debian.org/tux4kids/tuxtype.git
+Vcs-Browser:  http://anonscm.debian.org/git/tux4kids/tuxtype.git
 
 Package: tuxtype
 Architecture: any
