@@ -5,8 +5,8 @@ Sat, 21 Jan 2006 17:58:35 +0000
 
 --------------------------------------------------------------------------------------------
 
-The upstream SVN is available here:
-    svn://svn.debian.org/svn/tux4kids/tuxtype/trunk
+The upstream GIT is available here:
+    http://anonscm.debian.org/gitweb/?p=tux4kids/tuxtype.git
 
 Releases are available here:
     http://tux4kids.alioth.debian.org
