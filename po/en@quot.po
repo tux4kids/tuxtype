@@ -1,6 +1,6 @@
 # English translations for tuxtype package.
 # This file is put in the public domain.
-# Automatically generated, 2011.
+# Automatically generated, 2012.
 #
 # All this catalog "translates" are quotation characters.
 # The msgids must be ASCII and therefore cannot contain real quotation
@@ -26,10 +26,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: tuxtype 1.8.2\n"
+"Project-Id-Version: tuxtype 1.8.3\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2010-11-30 08:13-0600\n"
-"PO-Revision-Date: 2010-11-30 08:13-0600\n"
+"POT-Creation-Date: 2012-02-02 20:16-0600\n"
+"PO-Revision-Date: 2012-02-02 20:16-0600\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
 "Language: en@quot\n"

@@ -52,6 +52,8 @@ Section
   File /r "mingw32\data\*.*"
   SetOutPath $INSTDIR\doc
   File /r "mingw32\doc\*.*"
+  SetOutPath $INSTDIR\fonts
+  File /r "mingw32\fonts\*.*"
   SetOutPath $INSTDIR\locale
   File /r "mingw32\locale\*.*"
 
