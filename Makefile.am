@@ -135,9 +135,29 @@ install-nsi-local: all
 ## Done with NSI_TEMP_INSTALL_DIR so uninstall:
 	$(MAKE) $(AM_MAKEFLAGS) DESTDIR=$(NSI_TEMP_INSTALL_DIR) uninstall
 	rm -rf $(NSI_TEMP_INSTALL_DIR)
-## copy needed dll files into NSI_INSTALL_DIR:
-	-cp $(NSI_DLL_DIR)/*.dll $(top_builddir)/$(NSI_INSTALL_DIR);
 
+## Now using static linkage so shouldn't need following:
+
+## copy needed dll files into NSI_INSTALL_DIR:
+##	-cp $(NSI_DLL_DIR)/*.dll $(top_builddir)/$(NSI_INSTALL_DIR);
+
+
+
+
+## Create NSI_INSTALL_DIR/fonts dir and copy fontconfig's needed
+## fonts dir to that location. 
+
+## NOTE: $(sysconfdir) will point to the etc dir 
+## in the mingw-cross-env installation, where the fontconfig lib will have
+## installed a dir called "fonts" containing the libs config files, most
+## importantly fonts.conf.  This folder must be copied into the same dir on
+## the user's Windows machine as the final TuxMath.exe binary.  It would be 
+## desirable to be able to set this to a location of our choice - DSB.
+	$(INSTALL) -d $(top_builddir)/$(NSI_INSTALL_DIR)/fonts;
+	(cd $(sysconfdir)/fonts; \
+           tar cf -  * ) \
+           | ( cd $(top_builddir)/$(NSI_INSTALL_DIR)/fonts; \
+           tar xf -)
 
 install-nsi-am: install-nsi-local
 
