@@ -7,6 +7,7 @@ dist_words_DATA = alphabet.txt \
   animals.txt \
   astronomy.txt \
   colors.txt \
+  elements.txt \
   fingers.txt \
   fruit.txt \
   geography.txt \
