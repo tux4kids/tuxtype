@@ -1,0 +1,46 @@
+<script title="Δοκιμαστικό μάθημα" bgcolor="#3f4f1f">
+       <page title="Εισαγωγή σε δοκιμαστικό μάθημα">
+       <text align="center">Το πλήκτρο θ</text>
+       <text align="center">Σε αυτό το μάθημα θα διδαχτείς πού βρίσκεται το</text>
+       <text align="center">πλήκτρο θ</text>
+       <text align="center" y="300"> ΠΑΤΑ ΤΟ ΔΙΑΣΤΗΜΑ ΓΙΑ ΝΑ ΞΕΚΙΝΗΣΕΙ ΤΟ ΜΑΘΗΜΑ!</text>
+      <waitforinput/>
+       </page>
+       <page title="Το πλήκτρο +" bgcolor="#3f7f3f">
+       <img src="/keyboard/keyboard-us.png" x="45" y="220"/>
+       <text align="center">Σε αυτή την άσκηση εξασκούμαστε στο πλήκτρο θ.</text>
+       <text align="center">Για να ξεκινήσεις την εξάσκηση, πάτα το πλήκτρο π</text>
+       <text color="#000000" x="100" y="280">Α</text>
+       <text color="#000000" x="130" y="280">Σ</text>
+       <text color="#000000" x="160" y="280">Δ</text>
+       <text color="#000000" x="190" y="280">Φ</text>
+       <text color="#000000" x="220" y="280">Γ</text>
+       <text color="#000000" x="250" y="280">Η</text>
+       <text color="#000000" x="285" y="280">Ξ</text>
+       <text color="#000000" x="315" y="280">Κ</text>
+       <text color="#000000" x="345" y="280">Λ</text>
+       <text color="#000000" x="385" y="280">´</text>
+       <text color="#000000" x="415" y="280">'</text>     
+       <text color="#000000" x="90" y="250">;</text>        
+       <text color="#000000" x="118" y="250">ς</text>
+       <text color="#000000" x="152" y="250">Ε</text>
+       <text color="#000000" x="183" y="250">Ρ</text>
+       <text color="#000000" x="212" y="250">Τ</text>
+       <text color="#000000" x="244" y="250">Υ</text>
+       <text color="#000000" x="273" y="250">Θ</text>      
+      <waitforchar/>
+      <prac>θθθ ξθξ θξθ θθξ ξξθ ξθσ σθξ θθυα θφσ ρ'θθ φεθθ θυα 'κθύ θθφλ ;θθ θθςρ θέ θατλ θτθδ 'ρθ ηθθ θθρ θθθ ξθξ θξθ θθξ ξξθ ξθσ σθξ</prac>
+      </page>
+      <!--HACK: there is some undesired behavior in scripting.c, this fixes it for now-->
+      <page>
+      </page>
+      <page>
+       <img src="keyboard/space.png" x="200" y="160"/>
+       <img src="keyboard/larrow.png" x="460" y="18"/>
+       <img src="keyboard/esc.png" x="515" y="50"/>
+       <text align="center">Καλή δουλειά!</text>
+       <text align="left"></text>
+       <text align="center">Για να επιστρέψεις στο κυρίως μενού</text>
+       <text align="center">Πάτα το Διάστημα</text>
+       <waitforinput/>
+     </page>    
