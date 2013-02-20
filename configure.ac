@@ -451,6 +451,7 @@ data/themes/french/words/Makefile
 data/themes/french/scripts/Makefile
 data/themes/greek/Makefile
 data/themes/greek/words/Makefile
+data/themes/greek/scripts/Makefile
 data/themes/gujarati/Makefile
 data/themes/gujarati/words/Makefile
 data/themes/hebrew/Makefile
