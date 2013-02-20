@@ -1,45 +1,45 @@
-<script title="Test Lesson" bgcolor="#3f4f1f">
-       <page title="Introduction to Example Lesson">
+<script title="Δοκιμαστικό μάθημα" bgcolor="#3f4f1f">
+       <page title="Εισαγωγή σε δοκιμαστικό μάθημα">
        <text align="center">Το πλήκτρο 7</text>
-       <text align="center">Σε αυτό το μάθημα θα διδαχτείς που βρίσκεται το</text>
-       <text align="center">πλήτρο 7</text>
+       <text align="center">Σε αυτό το μάθημα θα διδαχτείς που βρίσκεται</text>
+       <text align="center">το πλήκτρο 7</text>
        <text align="center" y="300"> Πάτα το Διάστημα για να ξεκινήσει το μάθημα!</text>
       <waitforinput/>
        </page>
-       <page title="The 7 Key" bgcolor="#3f7f3f">
+       <page title="Το πλήκτρο 7" bgcolor="#3f7f3f">
        <img src="/keyboard/keyboard-us.png" x="45" y="220"/>
        <text align="center">Σε αυτή την άσκηση εξασκούμαστε στο πλήκτρο 7</text>
        <text align="center">Για να ξεκινήσεις την εξάσκηση, πάτα το πλήκτρο π</text>
-       <text color="#000000" x="100" y="280">A</text>
-       <text color="#000000" x="130" y="280">S</text>
-       <text color="#000000" x="160" y="280">D</text>
-       <text color="#000000" x="190" y="280">F</text>
-       <text color="#000000" x="220" y="280">G</text>
-       <text color="#000000" x="250" y="280">H</text>
-       <text color="#000000" x="285" y="280">J</text>
-       <text color="#000000" x="315" y="280">K</text>
-       <text color="#000000" x="345" y="280">L</text>
-       <text color="#000000" x="385" y="280">;</text>
+       <text color="#000000" x="100" y="280">Α</text>
+       <text color="#000000" x="130" y="280">Σ</text>
+       <text color="#000000" x="160" y="280">Δ</text>
+       <text color="#000000" x="190" y="280">Φ</text>
+       <text color="#000000" x="220" y="280">Γ</text>
+       <text color="#000000" x="250" y="280">Η</text>
+       <text color="#000000" x="285" y="280">Ξ</text>
+       <text color="#000000" x="315" y="280">Κ</text>
+       <text color="#000000" x="345" y="280">Λ</text>
+       <text color="#000000" x="385" y="280">´</text>
        <text color="#000000" x="415" y="280">'</text>
-       <text color="#000000" x="90" y="250">Q</text>
-       <text color="#000000" x="118" y="250">W</text>
-       <text color="#000000" x="152" y="250">E</text>
-       <text color="#000000" x="183" y="250">R</text>
-       <text color="#000000" x="212" y="250">T</text>
-       <text color="#000000" x="244" y="250">Y</text>
-       <text color="#000000" x="273" y="250">U</text>
-       <text color="#000000" x="306" y="250">I</text>
-       <text color="#000000" x="334" y="250">O</text>
-       <text color="#000000" x="365" y="250">P</text>
+       <text color="#000000" x="90" y="250">;</text>
+       <text color="#000000" x="118" y="250">ς</text>
+       <text color="#000000" x="152" y="250">Ε</text>
+       <text color="#000000" x="183" y="250">Ρ</text>
+       <text color="#000000" x="212" y="250">Τ</text>
+       <text color="#000000" x="244" y="250">Υ</text>
+       <text color="#000000" x="273" y="250">Θ</text>
+       <text color="#000000" x="306" y="250">Ι</text>
+       <text color="#000000" x="334" y="250">Ο</text>
+       <text color="#000000" x="365" y="250">Π</text>
        <text color="#000000" x="395" y="240">[</text>
        <text color="#000000" x="425" y="240">]</text>
-       <text color="#000000" x="110" y="310">Z</text>
-       <text color="#000000" x="142" y="310">X</text>
-       <text color="#000000" x="170" y="310">C</text>
-       <text color="#000000" x="202" y="310">V</text>
-       <text color="#000000" x="232" y="310">B</text>
-       <text color="#000000" x="262" y="310">N</text>
-       <text color="#000000" x="292" y="310">M</text>
+       <text color="#000000" x="110" y="310">Ζ</text>
+       <text color="#000000" x="142" y="310">Χ</text>
+       <text color="#000000" x="170" y="310">Ψ</text>
+       <text color="#000000" x="202" y="310">Ω</text>
+       <text color="#000000" x="232" y="310">Β</text>
+       <text color="#000000" x="262" y="310">Ν</text>
+       <text color="#000000" x="292" y="310">Μ</text>
        <text color="#000000" x="330" y="310">,</text>
        <text color="#000000" x="360" y="310">.</text>
        <text color="#000000" x="387" y="310">/</text>

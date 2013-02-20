@@ -1,18 +1,18 @@
-<script title="Test Lesson" bgcolor="#3f4f1f">
-       <page title="Introduction to Example Lesson">
+<script title="Δοκιμαστικό μάθημα" bgcolor="#3f4f1f">
+       <page title="Εισαγωγή σε δοκιμαστικό μάθημα">
        <text align="center">Το πλήκτρο δ</text>
-       <text align="center">Σε αυτό το μάθημα θα διδαχτείς πού βρίσκεται το</text>
-       <text align="center">πλήκτρο δ</text>
+       <text align="center">Σε αυτό το μάθημα θα διδαχτείς πού βρίσκεται</text>
+       <text align="center">το πλήκτρο δ</text>
        <text align="center" y="300"> Πάτα το Διάστημα για να ξεκινήσει το μάθημα!</text>
       <waitforinput/>
        </page>
-       <page title="The d Key" bgcolor="#3f7f3f">
+       <page title="Το πλήκτρο δ" bgcolor="#3f7f3f">
        <img src="/keyboard/keyboard-us.png" x="45" y="220"/>
        <text align="center">Σε αυτή την άσκηση εξασκούμαστε στο πλήκτρο δ</text>
        <text align="center">Για να ξεκινήσεις την εξάσκηση, πάτα το πλήκτρο π</text>
-       <text color="#000000" x="100" y="280">A</text>
-       <text color="#000000" x="130" y="280">S</text>
-       <text color="#000000" x="160" y="280">D</text>
+       <text color="#000000" x="100" y="280">Α</text>
+       <text color="#000000" x="130" y="280">Σ</text>
+       <text color="#000000" x="160" y="280">Δ</text>
       <waitforchar/>
       <prac>δδδ δδδ δδδ δδδ δδδ δδα αδδ αδα δσδα ααδ δαα αδδ δδα σσδδ αδδα σδα δασ δσδα σαδ σαδ αδδα δδσσ ασδσ σδσ δδδ δδδ δδδ δδδ δδδ δδα αδδ</prac>
       </page>

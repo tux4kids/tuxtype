@@ -1,12 +1,12 @@
 <script title="Δοκιμαστικό μάθημα" bgcolor="#3f4f1f">
        <page title="Εισαγωγή σε δοκιμαστικό μάθημα">
        <text align="center">Το πλήκτρο η</text>
-       <text align="center">Σε αυτό το μάθημα θα διδαχτείς πού βρίσκεται το</text>
-       <text align="center">πλήκτρο η</text>
+       <text align="center">Σε αυτό το μάθημα θα διδαχτείς πού βρίσκεται</text>
+       <text align="center">το πλήκτρο η</text>
        <text align="center" y="300"> ΠΑΤΑ ΤΟ ΔΙΑΣΤΗΜΑ ΓΙΑ ΝΑ ΞΕΚΙΝΗΣΕΙ ΤΟ ΜΑΘΗΜΑ!</text>
       <waitforinput/>
        </page>
-       <page title="Το πλήκτρο +" bgcolor="#3f7f3f">
+       <page title="Το πλήκτρο η" bgcolor="#3f7f3f">
        <img src="/keyboard/keyboard-us.png" x="45" y="220"/>
        <text align="center">Σε αυτή την άσκηση εξασκούμαστε στο πλήκτρο η.</text>
        <text align="center">Για να ξεκινήσεις την εξάσκηση, πάτα το πλήκτρο π</text>

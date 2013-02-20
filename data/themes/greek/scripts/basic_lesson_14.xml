@@ -1,12 +1,12 @@
 <script title="Δοκιμαστικό μάθημα" bgcolor="#3f4f1f">
        <page title="Εισαγωγή σε δοκιμαστικό μάθημα">
        <text align="center">Το πλήκτρο ε</text>
-       <text align="center">Σε αυτό το μάθημα θα διδαχτείς πού βρίσκεται το</text>
-       <text align="center">πλήκτρο ε</text>
+       <text align="center">Σε αυτό το μάθημα θα διδαχτείς πού βρίσκεται</text>
+       <text align="center">το πλήκτρο ε</text>
        <text align="center" y="300"> ΠΑΤΑ ΤΟ ΔΙΑΣΤΗΜΑ ΓΙΑ ΝΑ ΞΕΚΙΝΗΣΕΙ ΤΟ ΜΑΘΗΜΑ!</text>
       <waitforinput/>
        </page>
-       <page title="Το πλήκτρο +" bgcolor="#3f7f3f">
+       <page title="Το πλήκτρο ε" bgcolor="#3f7f3f">
        <img src="/keyboard/keyboard-us.png" x="45" y="220"/>
        <text align="center">Σε αυτή την άσκηση εξασκούμαστε στο πλήκτρο ε.</text>
        <text align="center">Για να ξεκινήσεις την εξάσκηση, πάτα το πλήκτρο π</text>
@@ -20,10 +20,10 @@
        <text color="#000000" x="315" y="280">Κ</text>
        <text color="#000000" x="345" y="280">Λ</text>
        <text color="#000000" x="385" y="280">´</text>
-       <text color="#000000" x="415" y="280">'</text>  
-       <text color="#000000" x="90" y="250">:</text>     
+       <text color="#000000" x="415" y="280">'</text>
+       <text color="#000000" x="90" y="250">;</text>
        <text color="#000000" x="118" y="250">ς</text>
-       <text color="#000000" x="152" y="250">Ε</text>    
+       <text color="#000000" x="152" y="250">Ε</text>
       <waitforchar/>
       <prac>εεε δεδ εδε εεδ δδε δεφ φεδ ςεε ςεε εεξ αδεε εγφδ δκεε εε;ς εέεα ηαεε δδεε εδεγ έγ ε'φ φαεε δεσ εεε δεδ εδε εεδ δδε δεφ φεδ</prac>
       </page>

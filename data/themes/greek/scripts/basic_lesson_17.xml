@@ -1,12 +1,12 @@
 <script title="Δοκιμαστικό μάθημα" bgcolor="#3f4f1f">
        <page title="Εισαγωγή σε δοκιμαστικό μάθημα">
        <text align="center">Το πλήκτρο υ</text>
-       <text align="center">Σε αυτό το μάθημα θα διδαχτείς πού βρίσκεται το</text>
-       <text align="center">πλήκτρο υ</text>
+       <text align="center">Σε αυτό το μάθημα θα διδαχτείς πού βρίσκεται</text>
+       <text align="center">το πλήκτρο υ</text>
        <text align="center" y="300"> ΠΑΤΑ ΤΟ ΔΙΑΣΤΗΜΑ ΓΙΑ ΝΑ ΞΕΚΙΝΗΣΕΙ ΤΟ ΜΑΘΗΜΑ!</text>
       <waitforinput/>
        </page>
-       <page title="Το πλήκτρο +" bgcolor="#3f7f3f">
+       <page title="Το πλήκτρο υ" bgcolor="#3f7f3f">
        <img src="/keyboard/keyboard-us.png" x="45" y="220"/>
        <text align="center">Σε αυτή την άσκηση εξασκούμαστε στο πλήκτρο υ.</text>
        <text align="center">Για να ξεκινήσεις την εξάσκηση, πάτα το πλήκτρο π</text>
@@ -20,13 +20,13 @@
        <text color="#000000" x="315" y="280">Κ</text>
        <text color="#000000" x="345" y="280">Λ</text>
        <text color="#000000" x="385" y="280">´</text>
-       <text color="#000000" x="415" y="280">'</text>       
+       <text color="#000000" x="415" y="280">'</text>
        <text color="#000000" x="90" y="250">;</text>
        <text color="#000000" x="118" y="250">ς</text>
        <text color="#000000" x="152" y="250">Ε</text>
        <text color="#000000" x="183" y="250">Ρ</text>
        <text color="#000000" x="212" y="250">Τ</text>
-       <text color="#000000" x="244" y="250">Υ</text>      
+       <text color="#000000" x="244" y="250">Υ</text>
       <waitforchar/>
        <prac>υυυ ξυξ υξυ υυξ ξξυ ξυα αυξ υφη υδ' ξυυ υυξ υυασ γδυυ σ;υ συσλ φυυα υυα αυξ υτσ υηυα λσυ σαυυ υκυη υυυ ξυξ υξυ υυξ ξξυ ξυα αυξ</prac>
       </page>
