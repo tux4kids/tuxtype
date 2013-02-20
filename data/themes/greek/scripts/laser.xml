@@ -1,0 +1,17 @@
+<script title="Οδηγίες για τους Κομήτες">
+  <page>
+    <bkgd src="main_bkg.png">
+    <text align="center" size="28">Σώσε τις πόλεις από τους κομήτες!</text>
+    <text align="center">Βοήθησε τον Τουξ να εστιάσει την ακτίνα λέηζερ του</text>
+    <text align="center">πατώντας τα γράμματα στους κομήτες. Γράψε γρήγορα,</text>
+    <text align="center">γιατί αν ο Τουξ δεν καταστρέψει τους κομήτες πριν</text>
+    <text align="center">χτυπήσουν το έδαφος, οι ασπίδες των πόλεων θα</text>
+    <text align="center">καταστραφούν. Αν ξαναχτυπηθούν, οι ίδιες οι πόλεις</text>
+    <text align="center">θα καταστραφούν! Αν χάσεις όλες τις πόλεις σου το</text>
+    <text align="center">παιχνίδι θα τελειώσει.</text>
+    <text></text>
+    <text align="center" color="#ffffff" size="22">Πάτα το Διάστημα για να συνεχίσεις!</text>
+  </page>
+  <waitforinput/>
+</page>
+</lesson>

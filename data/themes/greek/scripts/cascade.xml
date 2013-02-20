@@ -1,0 +1,17 @@
+<script title="Fish Cascade Instructions">
+  <page>
+    <bkgd src="main_bkg.png">
+    <img src="tux/stand-.png" x="100" y="330">
+    <text color="#FFFFFF" align="center" size="32">Βοήθησε τον Τουξ να φάει ψάρια!</text>
+    <text color="#FFFFFF" align="center">Ο Τουξ είναι πολύ πεινασμένος!</text>
+    <text color="#FFFFFF" align="center">Όταν τρώει ψάρια με γράμματα</text>
+    <text color="#FFFFFF" align="center">πονάει η κοιλιά του. Βοήθησε</text>
+    <text color="#FFFFFF" align="center">τον Τουξ να φάει ψάρια πατώντας</text>
+    <text color="#FFFFFF" align="center">τα γράμματα πάνω στα ψάρια</text>
+    <text color="#FFFFFF" align="center">ώστε να εξαφανίζονται και να</text>
+    <text color="#FFFFFF" align="center">τα φάει όλα!</text>
+    <text></text>
+    <text color="#ffffff" align="center" size="22">Πάτα το Διάστημα για να συνεχίσεις!</text>
+  </page>
+   <waitforinput/>
+  </page></lesson>

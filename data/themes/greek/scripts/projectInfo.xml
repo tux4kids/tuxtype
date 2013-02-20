@@ -1,0 +1,47 @@
+<script title="Project Info Center" bgcolor="#336699" fgcolor="#ffffff">
+  <page>
+    <img src="line2.png" x="5" y="0"></img>
+    <text size="6"></text>
+    <text size="18" align="center" color="#000000">Πληροφορίες για το έργο Tux Typing</text>
+    <text size="6" align="center"></text>
+    <text size="14" align="center">Παρακαλούμε επισκεφθείτε ένα από τα φόρα συζήτησης του TuxType στο: </text>
+    <text size="16" align="center">http://www.tux4kids.com</text>
+    <text size="16" align="center">mailto://tux4kids-tuxtype-dev@lists.alioth.debian.org ή irc://freenode/#tux4kids</text>
+    <text size="6" align="center"></text>
+    <text size="16" align="center">Το Tuxtype διατίθεται από τα μέλη του tux4kids. http://tux4kids.com</text>
+    <text size="6" align="center"></text>
+    <text size="16" align="center">Ο πηγαίος κώδικας είναι διαθέσιμος στο http://anonscm.debian.org/gitweb/?p=tux4kids/tuxtype.git</text>
+    <text size="6" align="center"></text>
+    <text size="16" align="center">Το Tux Typing εμπνεύστηκε ο Sam Hart, και στη συνέχεια αναπτύχθηκε από</text>
+    <text size="16" align="center">τον Jesse D. Andrews. Ο τρέχων βασικός προγραμματιστής είναι ο:</text>
+    <text size="16" align="center">David Bruce  mailto://davidstuartbruce@gmail.com</text>
+    <text size="16" align="center">Παρακαλούμε δείτε το αρχείο AUTHORS για πολλούς άλλους που είχαν σημαντικές συνεισφορές.</text>
+    <text size="4" align="center"></text>
+    <text size="32" align="center" color="#ff003f">ΣΦΑΛΜΑΤΑ:</text>
+    <text size="16" align="center">Παρακαλούμε προωθείστε τυχόν σφάλματα ή προτάσεις</text>
+    <text size="16" align="center">στο mailto://tux4kids-tuxtype-dev@lists.alioth.debian.org.</text>
+    <text size="4" align="center"></text>
+    <text size="22" align="center" color="#ff7f3f">Το TuxType είναι Ελεύθερο Λογισμικό με άδεια GPL.</text>
+    <text size="22" align="center" color="#ff7f3f">Παρακαλούμε δείτε το αρχείο COPYING</text>
+    <text size="22" align="center" color="#000000">Πατήστε το ΔΙΑΣΤΗΜΑ για να ΣΥΝΕΧΙΣΕΤΕ!!!</text>
+  <waitforinput/>
+</page>
+  <page>
+    <text size="14" align="center"></text>
+    <text size="24" align="center">Οδηγίες scripting</text>
+    <text size="14" align="center">Κάποιος να συμπληρώσει οδηγίες και να τις στείλει στο:</text>
+    <text size="14" align="center">carndt@macksrecycling.com</text>
+    <text size="140" align="center"></text>
+    <text size="22" align="center" color="#000000">Πατήστε το ΔΙΑΣΤΗΜΑ για να ΣΥΝΕΧΙΣΕΤΕ!!!</text>
+<waitforinput/>
+  </page>
+  <page>
+    <text size="14" align="center"></text>
+    <text size="14" align="center">Οδηγίες theming</text>
+    <text size="14" align="center">Κάποιος να τις γράψει και να τις στείλει στο:</text>
+    <text size="14" align="center">carndt@macksrecycling.com</text>
+    <text size="140" align="center"></text>
+    <text size="22" align="center" color="#000000">Πατήστε το ΔΙΑΣΤΗΜΑ για να ΣΥΝΕΧΙΣΕΤΕ!!!</text>
+ <waitforinput/>
+ </page>
+</script>
