@@ -205,6 +205,8 @@ int PlayLaserGame(int diff_level)
                                   key_unicode -= 32;  //convert lowercase to uppercase
                                 if (key_unicode >= 224 && key_unicode <= 255)
                                   key_unicode -= 32; //same for non-US chars
+                                if ((key_unicode >= 256) && (key_unicode <= 382))  // Fix for other letters, such as the hungarian letter O with double acute
+                                    key_unicode -= 1;
 
 				LOG ("After checking for lower case:\n");
 				DEBUGCODE
