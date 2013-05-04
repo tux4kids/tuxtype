@@ -1,0 +1,29 @@
+<script title="Project Info Center" bgcolor="#336699" fgcolor="#ffffff">
+  <page>
+    <img src="line2.png" x="5" y="0"></img>
+    <text size="6"></text>
+    <text size="18" align="center" color="#000000">A TuxType projekt</text>
+    <text size="6" align="center"></text>
+    <text size="14" align="center">Látogassa meg a TuxType fórumot itt: </text>
+    <text size="16" align="center">http://www.tux4kids.com,</text>
+    <text size="16" align="center">itt: mailto://tuxmath-devel@sourceforge.net vagy itt: irc://freenode/#tux4kids</text>
+    <text size="6" align="center"></text>
+    <text size="16" align="center">A TuxType a tux4kids csapatának köszönhetően jött létre. http://tux4kids.com</text>
+    <text size="6" align="center"></text>
+    <text size="16" align="center">A projekt forráskódja megtalálható itt: http://svn.debian.org/wsvn/tux4kids/tuxtype/</text>
+    <text size="6" align="center"></text>
+    <text size="16" align="center">A TuxType Sam Hart agyszüleménye, melyet</text>
+    <text size="16" align="center">Jesse D. Andrews fejlesztett. A jelenlegi vezető fejlesző::</text>
+    <text size="16" align="center">David Bruce  mailto://davidstuartbruce@gmail.com</text>
+    <text size="16" align="center">Nyissa meg az AUTHORS fájlt a további fejlesztők listájáért.</text>
+    <text size="4" align="center"></text>
+    <text size="32" align="center" color="#ff003f">PROGRAMHIBÁK:</text>
+    <text size="16" align="center">Bármilyen programhibát vagy javaslatot szívesen fogadunk</text>
+    <text size="16" align="center">a tuxmath-devel@sourceforge.net címen. (angol nyelven)</text>
+    <text size="4" align="center"></text>
+    <text size="22" align="center" color="#ff7f3f">A Tuxtype GPL licenszű szabad szoftver.</text>
+    <text size="22" align="center" color="#ff7f3f">Nyissa meg a COPYING fájlt a másolással kapcsolatos információkért.</text>
+    <text size="22" align="center" color="#000000">Nyomja le a szóközt a továbblépéshez!</text>
+    <waitforinput/>
+  </page>
+</script>

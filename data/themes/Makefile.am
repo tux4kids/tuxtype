@@ -19,6 +19,7 @@ SUBDIRS = armenian \
   gujarati \
   hebrew \
   hindi \
+  hungarian \
   italian \
   jamaican \
   kannada \

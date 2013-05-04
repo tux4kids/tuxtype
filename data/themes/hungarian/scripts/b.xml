@@ -1,0 +1,55 @@
+<script title="Test Lesson" bgcolor="#3f4f1f">
+  <page title="Introduction to Example Lesson">
+    <text align="center">A b billentyű</text>
+    <text align="center">Ebben a leckében megtanulja, hol van a b billentyű</text>
+    <text align="center">a billentyűzeten.</text>
+    <text align="center" y="300"> Nyomja le a szóközt a kezdéshez.</text>
+    <waitforinput/>
+  </page>
+  <page title="A b billentyű" bgcolor="#3f7f3f">
+    <img src="/keyboard/keyboard-us.png" x="45" y="220"/>
+    <text align="center">Ebben a leckében a b billentyűt gyakorolhatja.</text>
+    <text align="center">A gyakorláshoz nyomla le a p betűt.</text>
+    <text color="#000000" x="100" y="280">A</text>
+    <text color="#000000" x="130" y="280">S</text>
+    <text color="#000000" x="160" y="280">D</text>
+    <text color="#000000" x="190" y="280">F</text>
+    <text color="#000000" x="220" y="280">G</text>
+    <text color="#000000" x="250" y="280">H</text>
+    <text color="#000000" x="285" y="280">J</text>
+    <text color="#000000" x="315" y="280">K</text>
+    <text color="#000000" x="345" y="280">L</text>
+    <text color="#000000" x="385" y="280">;</text>
+    <text color="#000000" x="415" y="280">'</text>
+    <text color="#000000" x="90" y="250">Q</text>
+    <text color="#000000" x="118" y="250">W</text>
+    <text color="#000000" x="152" y="250">E</text>
+    <text color="#000000" x="183" y="250">R</text>
+    <text color="#000000" x="212" y="250">T</text>
+    <text color="#000000" x="244" y="250">Y</text>
+    <text color="#000000" x="273" y="250">U</text>
+    <text color="#000000" x="306" y="250">I</text>
+    <text color="#000000" x="334" y="250">O</text>
+    <text color="#000000" x="365" y="250">P</text>
+    <text color="#000000" x="110" y="310">Z</text>
+    <text color="#000000" x="142" y="310">X</text>
+    <text color="#000000" x="170" y="310">C</text>
+    <text color="#000000" x="202" y="310">V</text>
+    <text color="#000000" x="232" y="310">B</text>
+    <waitforchar/>
+    <prac>bbb fbf bfb bbf ffb fbl lbf csb biq ebre baio uqbb b'bs bka qxb qhbb pbb bbfv fbb qbb xbb bifl brr bbb fbf bfb bbf ffb fbl lbf</prac>
+  </page>
+  <!--HACK: there is some undesired behavior in scripting.c, this fixes it for now-->
+  <page>
+  </page>
+  <page>
+    <img src="keyboard/space.png" x="200" y="160"/>
+    <img src="keyboard/larrow.png" x="460" y="18"/>
+    <img src="keyboard/esc.png" x="515" y="50"/>
+    <text align="center">Szép munka!</text>
+    <text align="left"></text>
+    <text align="center">Térjen vissza a főmenübe.</text>
+    <text align="center">Nyomja meg a szóközt.</text>
+    <waitforinput/>
+  </page>
+</script>

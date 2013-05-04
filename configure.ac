@@ -457,6 +457,10 @@ data/themes/hebrew/Makefile
 data/themes/hebrew/words/Makefile
 data/themes/hindi/Makefile
 data/themes/hindi/words/Makefile
+data/themes/hungarian/Makefile
+data/themes/hungarian/images/Makefile
+data/themes/hungarian/scripts/Makefile
+data/themes/hungarian/words/Makefile
 data/themes/italian/Makefile
 data/themes/italian/images/Makefile
 data/themes/italian/words/Makefile

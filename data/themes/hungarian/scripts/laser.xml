@@ -1,0 +1,16 @@
+<script title="Üstököszápor szabályok">
+  <page>
+    <bkgd src="main_bkg.png">
+      <text align="center" size="28">Mentse meg a várost az üstökösöktől.</text>
+      <text align="center">Segítse Tux-ot a lézert írányítani azzal, hogy</text>
+      <text align="center">begépeli az üstökösökön lévő betűket. Gépeljen gyorsan,</text>
+      <text align="center">különben Tux nem tudja lelőni az üstökösöket</text>
+      <text align="center">mielőtt földet érnek, a város pajzsa pedig megsemmisül.</text>
+      <text align="center">Újbóli találat esetén a város is megsemmisül.</text>
+      <text align="center">Ha minden város megsemmisül, a játéknak vége.</text>
+      <text></text>
+      <text align="center" color="#ffffff" size="22">Nyomjon szóközt a folytatáshoz.</text>
+    </bkgd>
+    <waitforinput/>
+  </page>
+</script>

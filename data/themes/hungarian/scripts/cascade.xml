@@ -1,0 +1,15 @@
+<script title="Haleső szabályok">
+  <page>
+    <bkgd src="main_bkg.png"/>
+    <img src="tux/stand-.png" x="100" y="330"/>
+    <text color="#FFFFFF" align="center" size="32">Segítsen Tux-nak halat enni.</text>
+    <text color="#FFFFFF" align="center">Tux nagyon éhes. A betűvel  ellátott</text>
+    <text color="#FFFFFF" align="center">halaktól teli lesz a gyomra.</text>
+    <text color="#FFFFFF" align="center">Ha begépeli a halakon lévő betűket,</text>
+    <text color="#FFFFFF" align="center">Tux meg tudja enni őket.</text>
+    <text color="#FFFFFF" align="center">Etesse meg vele mindet.</text>
+    <text></text>
+    <text color="#ffffff" align="center" size="22">Nyomjon szóközt a folytatáshoz</text>
+  </page>
+  <waitforinput/>
+</script>
