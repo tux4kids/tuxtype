@@ -1,0 +1,184 @@
+# Hungarian translations for tuxtype package.
+# This file is put in the public domain.
+#
+# Bojtos PĂŠter <ptr@ulx.hu>, 2013.
+msgid ""
+msgstr ""
+"Project-Id-Version: tuxtype 1.8.1\n"
+"Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
+"POT-Creation-Date: 2012-02-02 20:16-0600\n"
+"PO-Revision-Date: 2013-05-04 14:14+0100\n"
+"Last-Translator: Bojtos Péter <ptr@ulx.hu>\n"
+"Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
+"Language: hu\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Lokalize 1.5\n"
+
+#: src/loaders.c:98
+#: src/main.c:161
+#: src/playgame.c:654
+msgid "Fish"
+msgstr "Hal"
+
+#: src/pause.c:289
+msgid "Sound Effects Volume"
+msgstr "Hangeffektek hangereje"
+
+#: src/pause.c:298
+msgid "Music Volume"
+msgstr "Zene hangereje"
+
+#: src/pause.c:309
+msgid "Sound & Music Disabled"
+msgstr "Zene és hangok letiltva"
+
+#: src/pause.c:319
+msgid "Paused!"
+msgstr "Szünet!"
+
+#: src/pause.c:328
+msgid "Press escape again to return to menu"
+msgstr "Nyomja le az escape billentyűt a menübe visszatéréshez"
+
+#: src/pause.c:337
+msgid "Press space bar to return to game"
+msgstr "Játék folytatása a szóközzel"
+
+#: src/playgame.c:652
+msgid "Level"
+msgstr "Szint"
+
+#: src/playgame.c:653
+msgid "Lives"
+msgstr "Életek"
+
+#: src/playgame.c:656
+#: src/titlescreen.c:99
+msgid "Easy"
+msgstr "Könnyű"
+
+#: src/playgame.c:657
+#: src/titlescreen.c:100
+msgid "Medium"
+msgstr "Közepes"
+
+#: src/playgame.c:658
+#: src/titlescreen.c:101
+msgid "Hard"
+msgstr "Nehéz"
+
+#: src/playgame.c:659
+msgid "Practice"
+msgstr "Gyakorlás"
+
+#: src/playgame.c:670
+msgid "Congratulations"
+msgstr "Gratulálok"
+
+#: src/playgame.c:674
+msgid "Oh No!"
+msgstr "Jaj ne!"
+
+#: src/practice.c:626
+msgid "sec"
+msgstr "s"
+
+#: src/practice.c:1440
+msgid "Time"
+msgstr "Idő"
+
+#: src/practice.c:1444
+msgid "Chars"
+msgstr "Karakterek"
+
+#: src/practice.c:1448
+msgid "CPM"
+msgstr "KPM"
+
+#: src/practice.c:1452
+msgid "WPM"
+msgstr "SZPM"
+
+#: src/practice.c:1456
+msgid "Errors"
+msgstr "Hibák"
+
+#: src/practice.c:1460
+msgid "Accuracy"
+msgstr "Pontosság"
+
+#: src/titlescreen.c:99
+msgid "Fish Cascade"
+msgstr "Haleső"
+
+#: src/titlescreen.c:99
+msgid "Space Cadet"
+msgstr "Űrkadét"
+
+#: src/titlescreen.c:99
+msgid "Edit Word Lists"
+msgstr "Szólista szerkesztése"
+
+#: src/titlescreen.c:100
+msgid "Comet Zap"
+msgstr "Üstököszápor"
+
+#: src/titlescreen.c:100
+msgid "Pilot"
+msgstr "Pilóta"
+
+#: src/titlescreen.c:100
+msgid "Phrase Typing"
+msgstr "Kifejezés begépelés"
+
+#: src/titlescreen.c:101
+msgid "Lessons"
+msgstr "Leckék"
+
+#: src/titlescreen.c:101
+msgid "Ace"
+msgstr "Ász"
+
+#: src/titlescreen.c:101
+msgid "Project Info"
+msgstr "Projektinformáció"
+
+#: src/titlescreen.c:102
+msgid "Options"
+msgstr "Beállítások"
+
+#: src/titlescreen.c:102
+msgid "Instructions"
+msgstr "Utasítások"
+
+#: src/titlescreen.c:102
+msgid "Commander"
+msgstr "Parancsnok"
+
+#: src/titlescreen.c:102
+msgid "Setup Language"
+msgstr "Nyelv beállítása"
+
+#: src/titlescreen.c:103
+msgid "Quit"
+msgstr "Kilépés"
+
+#: src/titlescreen.c:103
+msgid "Main Menu"
+msgstr "Főmenü"
+
+#: src/titlescreen.c:1129
+msgid "Work In Progress!"
+msgstr "Munka folyamatban"
+
+#: src/titlescreen.c:1130
+msgid "This feature is not ready yet"
+msgstr "Ez a funkció még nincs készen"
+
+#: src/titlescreen.c:1131
+msgid "Discuss the future of TuxTyping at"
+msgstr "Beszélje meg a TuxTyping jövőjét itt:"
+
