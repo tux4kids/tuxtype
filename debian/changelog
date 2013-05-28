@@ -1,4 +1,4 @@
-tuxtype (1.8.1-6) UNRELEASED; urgency=low
+tuxtype (1.8.1-6) unstable; urgency=low
 
   * debian/rules: Build with debhelper 9 style using hardening-wrapper.
   * debian/control:
@@ -7,7 +7,7 @@ tuxtype (1.8.1-6) UNRELEASED; urgency=low
     - Bump standards version to 3.9.4.
     - Fix VCS-Browser URL.
 
- -- Holger Levsen <holger@debian.org>  Tue, 28 May 2013 20:47:48 +0200
+ -- Holger Levsen <holger@debian.org>  Tue, 28 May 2013 20:29:11 +0000
 
 tuxtype (1.8.1-5) unstable; urgency=low
 
