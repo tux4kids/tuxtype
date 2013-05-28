@@ -6,7 +6,7 @@ Standards-Version: 3.9.4
 Build-Depends: debhelper (>=9.20120909~), libsdl-mixer1.2-dev, libsdl-image1.2-dev, libsdl1.2-dev, libsdl-ttf2.0-dev, libsdl-pango-dev, librsvg2-dev
 Homepage: http://tux4kids.alioth.debian.org
 Vcs-Git: git://anonscm.debian.org/tux4kids/tuxtype.git
-Vcs-Browser:  http://anonscm.debian.org/git/tux4kids/tuxtype.git
+Vcs-Browser:  http://anonscm.debian.org/gitweb/?p=tux4kids/tuxtype.git
 
 Package: tuxtype
 Architecture: any
