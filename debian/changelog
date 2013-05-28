@@ -1,8 +1,9 @@
 tuxtype (1.8.1-6) UNRELEASED; urgency=low
 
-  * debian/rules: Build debhelper 9 style.
+  * debian/rules: Build with debhelper 9 style using hardening-wrapper.
   * debian/control:
-    - Raise Build-Depends: to debhelper (>=9.20120909~).
+    - Raise Build-Depends: to debhelper (>=9.20120909~) and add
+      hardening-wrapper to it.
     - Bump standards version to 3.9.4.
     - Fix VCS-Browser URL.
 
