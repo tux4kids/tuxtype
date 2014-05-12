@@ -3,15 +3,33 @@ Section: games
 Priority: optional
 Maintainer: Holger Levsen <holger@debian.org>
 Standards-Version: 3.9.5
-Build-Depends: debhelper (>=9.20120909~), libsdl-mixer1.2-dev, libsdl-image1.2-dev, libsdl1.2-dev, libsdl-ttf2.0-dev, libsdl-pango-dev, librsvg2-dev, hardening-wrapper, autotools-dev
+Build-Depends: debhelper (>=9.20120909~),
+ libsdl-mixer1.2-dev,
+ libsdl-image1.2-dev,
+ libsdl1.2-dev,
+ libsdl-ttf2.0-dev,
+ libsdl-pango-dev,
+ librsvg2-dev,
+ hardening-wrapper,
+ autotools-dev
 Homepage: http://tux4kids.alioth.debian.org
 Vcs-Git: git://anonscm.debian.org/tux4kids/tuxtype.git
 Vcs-Browser:  http://anonscm.debian.org/gitweb/?p=tux4kids/tuxtype.git
 
 Package: tuxtype
 Architecture: any
-Depends: ${misc:Depends}, ${shlibs:Depends}, fonts-sil-andika | ttf-sil-andika (>=1.0.basic-1), tuxtype-data 
-Recommends: ttf-sil-doulos, ttf-bengali-fonts, ttf-devanagari-fonts, ttf-gujarati-fonts, ttf-kannada-fonts, ttf-oriya-fonts, ttf-punjabi-fonts, ttf-tamil-fonts, ttf-telugu-fonts
+Depends: ${misc:Depends}, ${shlibs:Depends},
+ fonts-sil-andika | ttf-sil-andika (>=1.0.basic-1),
+ tuxtype-data
+Recommends: ttf-sil-doulos,
+ ttf-bengali-fonts,
+ ttf-devanagari-fonts,
+ ttf-gujarati-fonts,
+ ttf-kannada-fonts,
+ ttf-oriya-fonts,
+ ttf-punjabi-fonts,
+ ttf-tamil-fonts,
+ ttf-telugu-fonts
 Description:  Educational Typing Tutor Game Starring Tux
  TuxTyping is an educational typing tutorial game starring
  Tux, the Linux Penguin. The player guides Tux to eat fish
