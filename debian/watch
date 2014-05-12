@@ -1,0 +1,6 @@
+version=3
+
+# devscripts/uscan [2.12.6, 2.13.2] are affected by #712261: "406 Not Acceptable"
+
+ http://alioth.debian.org/frs/?group_id=31080 \
+  .*/tuxtype-([0-9.]+)\.tar\.(?:gz|bz2|xz)

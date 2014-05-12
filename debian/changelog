@@ -9,6 +9,7 @@ tuxtype (1.8.1-7) UNRELEASED; urgency=low
     - Replace ttf-indic-fonts and counterparts from depends and recommends
       with fonts- counterparts. Thanks to Vasudev Kamath for providing a nice
       list. (Closes: #738149)
+  * Add debian/watch file.
 
  -- Holger Levsen <holger@debian.org>  Tue, 28 May 2013 23:35:48 +0200
 
