@@ -1,6 +1,7 @@
 tuxtype (1.8.1-7) UNRELEASED; urgency=low
 
   * debian/rules: Don't be verbose by default.
+  * debian/control: Bump standards version to 3.9.5.
 
  -- Holger Levsen <holger@debian.org>  Tue, 28 May 2013 23:35:48 +0200
 
