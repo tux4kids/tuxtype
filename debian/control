@@ -19,17 +19,17 @@ Vcs-Browser:  http://anonscm.debian.org/gitweb/?p=tux4kids/tuxtype.git
 Package: tuxtype
 Architecture: any
 Depends: ${misc:Depends}, ${shlibs:Depends},
- fonts-sil-andika | ttf-sil-andika (>=1.0.basic-1),
+ fonts-sil-andika,
  tuxtype-data
-Recommends: ttf-sil-doulos,
- ttf-bengali-fonts,
- ttf-devanagari-fonts,
- ttf-gujarati-fonts,
- ttf-kannada-fonts,
- ttf-oriya-fonts,
- ttf-punjabi-fonts,
- ttf-tamil-fonts,
- ttf-telugu-fonts
+Recommends: fonts-sil-doulos,
+ fonts-beng,
+ fonts-deva,
+ fonts-gujr,
+ fonts-knda,
+ fonts-orya,
+ fonts-guru,
+ fonts-taml,
+ fonts-telu
 Description:  Educational Typing Tutor Game Starring Tux
  TuxTyping is an educational typing tutorial game starring
  Tux, the Linux Penguin. The player guides Tux to eat fish
