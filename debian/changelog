@@ -1,17 +1,17 @@
-tuxtype (1.8.1-7) UNRELEASED; urgency=low
+tuxtype (1.8.1-7) unstable; urgency=low
 
   * debian/rules:
     - Build --with autotools_dev (Closes: #744531, #727993)
     - Don't be verbose by default.
   * debian/control:
-    - Bump standards version to 3.9.5.
     - Add autotools-dev to build-depends.
     - Replace ttf-indic-fonts and counterparts from depends and recommends
       with fonts- counterparts. Thanks to Vasudev Kamath for providing a nice
       list. (Closes: #738149)
+    - Bump standards version to 3.9.5.
   * Add debian/watch file.
 
- -- Holger Levsen <holger@debian.org>  Tue, 28 May 2013 23:35:48 +0200
+ -- Holger Levsen <holger@debian.org>  Mon, 12 May 2014 09:55:52 +0200
 
 tuxtype (1.8.1-6) unstable; urgency=low
 
