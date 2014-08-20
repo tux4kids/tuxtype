@@ -1,3 +1,21 @@
+19 Aug 2014 (git.debian.org/tux4kids/tuxtype.git - tag = "version-1.8.3"
+[ Holger Levsen <holger@layer-acht.org> ]
+Version 1.8.3
+- Add Hungarian, Belarussian, Romanian, Hebrew, Thai, Suomi, Bulgarian
+- Update German, Catalan, Asturian, Korean, Ukranian, Hindi, Chinese, Greek
+- GPL3+ license updates
+- Source code is now maintained in Git (Version 1.8.2 seems to have been
+  planned in SVN and then never was released...)
+- Update docs
+- Many many small fixes and improvements (for linux, mac and windows), most notably:
+  - R to L display support for Fish Cascade game
+  - Fix of SDL_Pango use for win32
+  - Align letters more accurately on the keyboard.
+  - Significantly reduced the penalty for losing shields/cities in Comet Zap, the player can now end the game with a score other than 0
+  - Added menu navigation with 'j' and 'k'
+  - Fish cascade randomly chooses from the 12 new backgrounds with each level
+  - Word lists can now be loaded from user_settings_path/words (editor and games)
+
 04 Apr 2010 (git.debian.org/tux4kids/tuxtype.git - tag = "version-1.8.1"
 [ David Bruce <davidstuartbruce@gmail.com> ]
 Version 1.8.1
