@@ -3,11 +3,8 @@
 # Uncomment this to turn on verbose mode.
 #export DH_VERBOSE=1
 
-# use hardening-wrapper
-export DEB_BUILD_HARDENING=1
-
 %:
-	dh --with autotools_dev $@
+	dh "$@" --with autotools_dev,autoreconf
 
 override_dh_auto_configure:
 	./configure --host=$(DEB_HOST_GNU_TYPE) --build=$(DEB_BUILD_GNU_TYPE) --prefix=/usr --mandir=\$${prefix}/share/man --infodir=\$${prefix}/share/info --bindir=\$${prefix}/games  --localstatedir=/var/games --sysconfdir=/etc
@@ -19,4 +16,4 @@ override_dh_install:
 override_dh_installdocs:
 	dh_installdocs
 	# I'm not sure I really agree with Debian Policy Manual section 12.7 ...
-	mv debian/tuxtype/usr/share/doc/tuxtype/ChangeLog debian/tuxtype/usr/share/doc/tuxtype/changelog
+	[ ! -d debian/tuxtype ] || mv debian/tuxtype/usr/share/doc/tuxtype/ChangeLog debian/tuxtype/usr/share/doc/tuxtype/changelog

@@ -1,3 +1,14 @@
+tuxtype (1.8.3-1) unstable; urgency=medium
+
+  * New upstream version. (Closes: #700989, #745039, #604909)
+  * Add libt4k-common0-dev, libsdl-net1.2-dev and dh-autoreconf to
+    build-depends.
+  * Remove hardening-wrapper from build-depends, set debian/compat to 9 and
+    let debhelper do the magic.
+  * Support architecture independent (only) builds.
+
+ -- Holger Levsen <holger@debian.org>  Wed, 20 Aug 2014 09:53:36 -0400
+
 tuxtype (1.8.1-7) unstable; urgency=low
 
   * debian/rules:
