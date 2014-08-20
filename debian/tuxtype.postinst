@@ -1,0 +1,17 @@
+#!/bin/sh
+
+set -e
+
+if [ "$1" = "configure" ]; then
+        if [ -d /usr/doc -a -h /usr/doc/tuxtype -a -d /usr/share/doc/tuxtype ]; then
+                rm -f /usr/doc/tuxtype
+        fi
+	# make tuxtype binary and shared wordlist directory setgid games
+	# and allow admin to override this decission
+	dpkg-statoverride --list /usr/games/tuxtype >/dev/null || \
+		dpkg-statoverride --update --add root games 2755 /usr/games/tuxtype
+	dpkg-statoverride --list /var/games/tuxtype/words >/dev/null || \
+		dpkg-statoverride --update --add root games 2775 /var/games/tuxtype/words
+fi
+
+#DEBHELPER#

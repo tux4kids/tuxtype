@@ -1,0 +1,4 @@
+debian/tmp/usr/games	/usr/
+debian/tuxtype.xpm 	/usr/share/pixmaps/
+debian/tuxtype.svg 	/usr/share/pixmaps/
+tuxtype.desktop    	/usr/share/applications/
