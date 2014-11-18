@@ -82,6 +82,7 @@ void LoadLang(void)
 {
   char *s1, *s2, *s3, *s4;
   char buf [30];
+  char tts_language[10];
   s1 = setlocale(LC_ALL, settings.theme_locale_name);
   s2 = bindtextdomain(PACKAGE, TUXLOCALE);
   s3 = bind_textdomain_codeset(PACKAGE, "UTF-8");
@@ -104,6 +105,39 @@ void LoadLang(void)
   snprintf(buf, 30, "%s", settings.theme_locale_name);
   buf[5] = '\0';  //en_US" rather than "en_US.utf8"
   DEBUGCODE { fprintf(stderr, "buf is: %s\n", buf); }
+  
+    
+  /* Loading braille Map */
+  if (settings.braille)
+  {
+	  char file_name[100];
+	  if(settings.use_english){
+			sprintf(file_name,"english.txt");
+	  }
+	  else{
+		  sprintf(file_name,"%s.txt",settings.theme_name);
+	  }
+	  
+	  //If map not found then disable braille mode
+	  if (braille_language_loader(file_name) == 0){
+		  T4K_Tts_say(DEFAULT_VALUE,DEFAULT_VALUE,APPEND
+				,gettext("Braille mode is not available for this language. Braille disabled!"));
+		  DEBUGCODE{  fprintf(stderr,"Braille disabled!"); }
+		  settings.braille = 0;
+	  }
+  }
+
+  /* Setting TTS language 
+   * with code such as ml for malayalam*/
+   sprintf(tts_language,"%.*s",2,buf);
+   if (!T4K_Tts_set_voice(tts_language))
+   {
+	 T4K_Tts_say(DEFAULT_VALUE,DEFAULT_VALUE,APPEND,
+		gettext("Tts is not available for this language. Tts disabled!"));
+     settings.tts = 0;
+     text_to_speech_status = 0;
+   }
+  
 
   if (my_setenv("LANG", buf) == -1)
   {

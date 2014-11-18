@@ -35,10 +35,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "SDL_extras.h"
 #include "input_methods.h"
 
+
 /* Should these be constants? */
 static int tux_max_width = 0;                // the max width of the images of tux
 static int number_max_w = 0;                 // the max width of a number image
-
+static int tts_announcer_switch = 1;
+int braille_letter_pos=0;
 
 //static SDL_Surface* background = NULL;
 static SDL_Surface* level[NUM_LEVELS] = {NULL};
@@ -72,6 +74,12 @@ static void EraseNumbers(int num, int x, int y, int places);
 
 static float float_restrict(float a, float x, float b);
 static void FreeGame(void);
+
+static void stop_tts_announcer();
+static int tts_announcer(void *struct_address);
+
+static void set_braille_letter_pos(int fishies);
+
 //static void HandleKey(SDL_keysym* key_sym);
 static void HandleKey(SDL_keysym* key_sym);
 static int int_restrict(int a, int x, int b);
@@ -86,6 +94,7 @@ static void SpawnFishies(int diflevel, int* fishies, int* frame);
 static void UpdateTux(wchar_t letter_pressed, int fishies, int frame);
 static void WaitFrame(void);
 
+int playing_level,fish_left,curlives;
 
 
 /************************************************************************/
@@ -101,16 +110,16 @@ int PlayCascade(int diflevel)
 {
   char filename[FNLEN];
   int still_playing = 1;
-  int playing_level = 1;
+  playing_level = 1;
   int setup_new_level = 1;
   int won_level = 0;
   int quitting = 0;
   int curlevel = 0;
   int i = 0;
-  int curlives = 0;
+  curlives = 0;
   int oldlives = 0;
   int oldfish_left = 0;
-  int fish_left = 0;
+  fish_left = 0;
   int fishies = 0;
   int local_max_fishies = 1;
   int frame = 0;
@@ -128,11 +137,33 @@ int PlayCascade(int diflevel)
   int temp_text_count;
   Uint16 key_unicode;
   Uint32 last_time, now_time;
+  
+  
+  //Braille Variables
+  wchar_t pressed_letters[1000];
+  int braille_iter;
+
+
+
+  //Structure which contain the address of above struct 
+  //Why ? : Only one argument can be passed through thread    
+  //Structure which contain the address of variables 
+  struct tts_announcer_cascade_data_struct struct_with_data_address;
+  
+  //Giving address of variables
+  struct_with_data_address.address_of_fishies = &fishies;
+
+
+  //Call announcer function in thread which annonces the word to type 
+  if(settings.tts)
+	tts_announcer_thread = SDL_CreateThread(tts_announcer, &struct_with_data_address);
+  
 
   DEBUGCODE
   {
     fprintf(stderr, "->Entering PlayCascade(): level=%i\n", diflevel);
   }
+
 
 //  SDL_ShowCursor(0); //don't really need this and it causes a bug on windows
 
@@ -251,10 +282,16 @@ int PlayCascade(int diflevel)
     }
 
     /*  --------- Begin main game loop (cycles once per frame): ------------- */
-
+	
+	
+	//Inetialising braille variables
+	braille_iter = 0;
+    pressed_letters[braille_iter] = L'\0';
+	
 
     while (playing_level)
     {
+		
       last_time = SDL_GetTicks();
 
       oldlives = curlives;
@@ -305,9 +342,24 @@ int PlayCascade(int diflevel)
                 // SNOW_toggle();
                 break;
 
+
+			   /* Fish left */
+			   case SDLK_F1:
+				tts_announcer_switch = 2;
+				break;
+			
+			   /* lives remaining */
+			   case SDLK_F2:
+				tts_announcer_switch = 3;
+				break;				
+
               case SDLK_ESCAPE:
+				if(settings.tts)
+					stop_tts_announcer();
+				T4K_Tts_say(DEFAULT_VALUE,DEFAULT_VALUE,INTERRUPT,gettext("Game Paused."));
+                
                 /* Pause() returns 1 if quitting, */
-                /* 0 if returning to game:        */
+                /* 0 if returning to game:        */                
                 if (Pause() == 1)
                 {
                   playing_level = 0;
@@ -315,7 +367,13 @@ int PlayCascade(int diflevel)
                   quitting = 1;
                 }
                 else  /* Returning to game */
-                  DrawBackground();
+                {
+				  T4K_Tts_say(DEFAULT_VALUE,DEFAULT_VALUE,INTERRUPT,gettext("Pause Released!"));
+				  //Call announcer function in thread which annonces the word to type
+				  if(settings.tts)
+						tts_announcer_thread = SDL_CreateThread(tts_announcer, &struct_with_data_address);
+				  DrawBackground();
+				}
                 break;
 
               /*  Don't count modifier keys as keystrokes in game: */ 
@@ -329,36 +387,73 @@ int PlayCascade(int diflevel)
 	      case SDLK_LMETA:
               case SDLK_LSUPER:
               case SDLK_RSUPER:
-                break;
+	      //T4K_Tts_say(DEFAULT_VALUE,DEFAULT_VALUE,INTERRUPT,"Please don't press modifier keys!");
+	      break;
 
               default:
               /*----------------------------------------------------*/
               /* Some other key - player is actually typing!!!!!!!! */
               /*----------------------------------------------------*/
 
-                /* See what Unicode value was typed: */
-                key_unicode = event.key.keysym.unicode;
+				/* Store each keys till a key released */
+				if(settings.braille)
+				{
+				   pressed_letters[braille_iter] = event.key.keysym.sym;
+                   braille_iter++;
+                   pressed_letters[braille_iter] = L'\0';   
+				}
+				else
+				{
+					/* See what Unicode value was typed: */
+					key_unicode = event.key.keysym.unicode;
 
-                DEBUGCODE
-                {fprintf(stderr, "\nkey_unicode = %d\twchar_t = %lc\t\n", key_unicode, key_unicode);}
+					DEBUGCODE
+					{fprintf(stderr, "\nkey_unicode = %d\twchar_t = %lc\t\n", key_unicode, key_unicode);}
 
-                /* For now, the cascade game is case-insensitive for input, */
-                /* with only uppercase for answers:                         */
-                if (key_unicode >= 97 && key_unicode <= 122)
-                  key_unicode -= 32;  //convert lowercase to uppercase
-                if (key_unicode >= 224 && key_unicode <= 255)
-                  key_unicode -= 32; //same for non-US Western European chars
-                if ((key_unicode >= 256) && (key_unicode <= 382))  // Fix for other letters, such as the hungarian letter O with double acute
-                    key_unicode -= 1;
+					/* For now, the cascade game is case-insensitive for input, */
+					/* with only uppercase for answers:                         */
+					if (key_unicode >= 97 && key_unicode <= 122)
+					key_unicode -= 32;  //convert lowercase to uppercase
+					if (key_unicode >= 224 && key_unicode <= 255)
+					key_unicode -= 32; //same for non-US Western European chars
+					if ((key_unicode >= 256) && (key_unicode <= 382))  // Fix for other letters, such as the hungarian letter O with double acute
+						key_unicode -= 1;
+					LOG ("After checking for lower case:\n");
+					DEBUGCODE
+					{fprintf(stderr, "key_unicode = %d\twchar_t = %lc\\n\n", key_unicode, key_unicode);}
 
-                LOG ("After checking for lower case:\n");
-                DEBUGCODE
-                {fprintf(stderr, "key_unicode = %d\twchar_t = %lc\\n\n", key_unicode, key_unicode);}
-
-                /* Now update with case-folded value: */
-                UpdateTux(key_unicode, fishies, frame);
+					/* Now update with case-folded value: */
+					UpdateTux(key_unicode, fishies, frame);
+				}
             }
           }
+          else if (event.type == SDL_KEYUP)
+			{
+				/* ----- SDL_KEYUP is Only for Braille Mode -------------*/
+				if(settings.braille)
+				{
+					wcscpy(pressed_letters,arrange_in_order(pressed_letters));
+				    if (wcscmp(pressed_letters,L"") != 0)
+				    {
+					   for(i=0;i<100;i++)
+					   {
+						   if (wcscmp(pressed_letters,braille_key_value_map[i].key) == 0)
+						   {
+							   if (braille_letter_pos == 0)
+									UpdateTux(toupper(braille_key_value_map[i].value_begin[0]), fishies, frame);
+							   else if (braille_letter_pos == 1)
+									UpdateTux(toupper(braille_key_value_map[i].value_middle[0]), fishies, frame);
+							   else
+									UpdateTux(toupper(braille_key_value_map[i].value_end[0]), fishies, frame);																					   
+						   }
+					   }	   
+				   }
+				   /* --- Clearing the pressed_letters  ---- */	
+				   braille_iter = 0;
+				   pressed_letters[braille_iter] = L'\0';
+			
+			  }
+			}
         }
       }   /* ------ End of 'while' loop for handling user input ------- */
 
@@ -446,6 +541,13 @@ int PlayCascade(int diflevel)
       /* Level completed successfully: */
       if (won_level) 
       {
+		 
+		if(settings.tts)
+			stop_tts_announcer();
+  
+        if (settings.sys_sound) 
+          Mix_PlayChannel(WIN_WAV, sound[WIN_WAV], 0);
+
         if (curlevel < 4)  /* Advance to next level */
         {
           LOG( "--->NEXT LEVEL!\n" );
@@ -454,6 +556,7 @@ int PlayCascade(int diflevel)
           xamp = 0;
           yamp = 0;
           won_level = 0;
+          T4K_Tts_say(DEFAULT_VALUE,DEFAULT_VALUE,INTERRUPT,gettext("Congratulation! Welcome to level %d!"),curlevel+1);		
         }
         else
         {
@@ -462,13 +565,9 @@ int PlayCascade(int diflevel)
           still_playing = 0;
           xamp = WIN_GAME_XAMP;
           yamp = WIN_GAME_YAMP;
-
-          if (settings.sys_sound) 
-            Mix_PlayChannel(WINFINAL_WAV, sound[WINFINAL_WAV], 0);
-        }
-
-        if (settings.sys_sound) 
-          Mix_PlayChannel(WIN_WAV, sound[WIN_WAV], 0);
+          T4K_Tts_say(DEFAULT_VALUE,DEFAULT_VALUE,INTERRUPT,
+			gettext("Congratulations! Thank you! please wait till it return to main menu."));
+		}
 
         for (i = 0; i < CONGRATS_FRAMES; i++)
           temp_text[i] = congrats[i];
@@ -484,8 +583,14 @@ int PlayCascade(int diflevel)
         xamp = 0;
         yamp = 0;
 
+        if(settings.tts)
+			stop_tts_announcer();        
+
         if (settings.sys_sound)
           Mix_PlayChannel(LOSE_WAV, sound[LOSE_WAV], 0);
+
+		T4K_Tts_say(DEFAULT_VALUE,DEFAULT_VALUE,INTERRUPT,gettext("yep you miss it. hahh hahh haa. game over! goodbye!"));
+			
 
         for (i = 0; i < OH_NO_FRAMES; i++)
           temp_text[i] = ohno[i];
@@ -533,11 +638,28 @@ int PlayCascade(int diflevel)
 
         if (!settings.speed_up)
           WaitFrame();
+          
       }  /* End of animation for end of game */
-
+     if (still_playing)
+     {
+		fishies = 0; //Otherwise thread will announce old words and cause segfault
+		if(settings.tts)
+			tts_announcer_thread = SDL_CreateThread(tts_announcer, &struct_with_data_address);
+	 }
+	
     }  /* End of post-level wrap-up  */
-
+  
   }  /*   -------- End outer game loop -------------- */
+  
+
+
+  //N.x.L
+  fprintf(stderr,"Exiting game");
+  if(settings.tts)
+	stop_tts_announcer();
+
+
+
 
 //  SNOW_on = 0;
 
@@ -571,7 +693,7 @@ static int check_word( int f ) {
 		return 0;
 
 	for (i=0; i < wcslen(fish_object[f].word); i++) 
-		if (fish_object[f].word[i] != tux_object.word[tux_object.wordlen -                                           wcslen(fish_object[f].word) + i])
+		if (fish_object[f].word[i] != tux_object.word[tux_object.wordlen -  wcslen(fish_object[f].word) + i])
 			return 0;
 
 	return 1;
@@ -1282,7 +1404,7 @@ static void DrawFish(int which)
       }
 
       if (k < 100000)
-        red_letters = tux_object.wordlen - j;	
+		  red_letters = tux_object.wordlen - j;
       else
         j++;
     }
@@ -1397,6 +1519,7 @@ void UpdateTux(wchar_t letter_pressed, int fishies, int frame) {
 		tux_object.wordlen = 0;
 		tux_object.word[0] = 0;
 	}
+	set_braille_letter_pos(fishies);
 
 }
 
@@ -1654,7 +1777,266 @@ static void HandleKey(SDL_keysym* key_sym)
   } /* while(*im_cp) */
 }
 
+/**********************************************************************
+ * This function will announce the bottum most word's in the screen
+ * when one starts typing, the remaining letters will be announced 
+ * till the word end's 
+ * *******************************************************************/
+static int tts_announcer(void *struct_address)
+{
+	struct tts_announcer_cascade_data_struct struct_with_data_address = *((struct tts_announcer_cascade_data_struct*)(struct_address));
+	int fishies,i,j,iter;
+	wchar_t buffer[3000];
+	int fish_object_positions[10];
+	int alive,temp;
+	int pitch_and_rate;
+	int which,correct_position;
+	tts_announcer_switch = 1;
+	int max;
+	
+	while(1)
+	{
+		//Converting and taking the value of fishies from void address structure 
+		fishies = *struct_with_data_address.address_of_fishies;
+		
+		if(tts_announcer_switch == 0)
+			goto end; 
+		else if(tts_announcer_switch == 2)
+		{
+			T4K_Tts_say(DEFAULT_VALUE,DEFAULT_VALUE,INTERRUPT,"fish_left %d!",fish_left);
+			SDL_Delay(20);
+			T4K_Tts_wait();
+			tts_announcer_switch = 1;
+		}
+		else if(tts_announcer_switch == 3)
+		{
+			T4K_Tts_say(DEFAULT_VALUE,DEFAULT_VALUE,INTERRUPT,"%d lives remaining!",curlives);
+			SDL_Delay(20);
+			T4K_Tts_wait();
+			tts_announcer_switch = 1;
+		}			
+		
+		
+		//Wait to finish saying the previus word	
+		T4K_Tts_wait();
+		
+		
+		//Checking the typed
+		if (tux_object.wordlen == 0)
+		{	
+			//Adding the iter of each fish wich are alive and not can_eat
+			for(i=0,j=0;i<fishies;i++)
+			{
+				if (!fish_object[i].can_eat && fish_object[i].alive)
+				{
+					fish_object_positions[j]  = i; 
+					j++;
+				}
+			}
+			alive = j-1;
 
+			//Ordering the fish_object_positions with respect to splat time		
+			if (alive != 0)
+			{
+				for (i=alive;i>0;i--)
+				{
+					for (j=0;j<i;j++)
+					{
+						//Comaparing fish_object[i].splat_time;
+						if (fish_object[fish_object_positions[j]].splat_time > fish_object[fish_object_positions[j+1]].splat_time)
+						{
+							temp = fish_object_positions[j];
+							fish_object_positions[j] = fish_object_positions[j+1];
+							fish_object_positions[j+1] = temp;
+						}
+					}
+				}
+			}
+			
+			//We have to announce only last three otherwise it will make confusion.  
+			if (alive >= 3)
+				max = 2;
+			else
+				max = alive;
+
+			//Using this corrected order to say each words and letters
+			for(i=0;i<=max;i++)
+			{
+				if(tts_announcer_switch == 0)
+					goto end;
+												
+				//Adding the word
+				wcscpy(buffer,fish_object[fish_object_positions[i]].word);
+				iter = wcslen(fish_object[fish_object_positions[i]].word);
+				buffer[iter] = L'.';iter++;
+				buffer[iter] = L' ';iter++;
+				
+				//Appending letters if word is not alphabet
+				if (1<wcslen(fish_object[fish_object_positions[i]].word))
+				{
+					for(j=0;j<wcslen(fish_object[fish_object_positions[i]].word);j++)
+					{
+						buffer[iter] = fish_object[fish_object_positions[i]].word[j];iter++;
+						buffer[iter] = L'.';iter++;
+						buffer[iter] = L' ';iter++;
+					}
+				}
+				//If not ended with '\0' it will say grabage values also
+				buffer[iter] = L'\0'; 
+				
+				//Setting the pitch and rate with respect to y axis
+				pitch_and_rate = ((fish_object[fish_object_positions[i]].y*100)/(screen->h - fish_sprite->frame[0]->h));
+				
+				if (pitch_and_rate < 30)
+					pitch_and_rate = 30;
+				
+				if (pitch_and_rate > 60)
+					pitch_and_rate = 60;
+				
+				T4K_Tts_say(pitch_and_rate,pitch_and_rate,INTERRUPT,"%S",buffer);
+
+				SDL_WaitThread(tts_thread,NULL);
+				SDL_Delay(100);
+			}				
+		}
+		else
+		{
+			//Detecting the corrent typing fish
+			which = -1;
+			for (i=0;i<fishies;i++)
+			{
+				//Comaparing fish_object[i].splat_time;
+				if (!fish_object[i].can_eat && fish_object[i].alive)
+				{
+					j = wcsncmp(fish_object[i].word,tux_object.word,tux_object.wordlen);
+					if (j == 0)
+						which = i;		
+				}
+			}
+
+			if (which != -1)
+			{
+				//Adding the word
+				wcscpy(buffer,fish_object[which].word);
+				iter = wcslen(fish_object[which].word);
+				buffer[iter] = L'.';iter++;
+				buffer[iter] = L' ';iter++;
+			
+				//Adding the remaining letters to be announced.
+				//This is as per my PAPA's suggestion (sathyan)  
+				//Eg : "BLUE. B. L. U. E"
+			
+				//Detecting the correct_position
+				correct_position = 0;
+				for(j=0;j<tux_object.wordlen;j++)
+				{
+					if (tux_object.word[j] == fish_object[which].word[j])
+					{
+						correct_position+=1;
+					}
+					else
+					{
+						tux_object.wordlen = 0;
+						tux_object.word[0] = L'\0';
+						break;
+					}
+				
+				}
+				//Appending each letters from correct_position if word is not alphabet
+				if (1<wcslen(fish_object[which].word))
+				{
+					for(j=correct_position;j<wcslen(fish_object[which].word);j++)
+					{
+						//Skipping if the letter is in orange color. if not it will be appended
+						buffer[iter] = fish_object[which].word[j];iter++;
+						buffer[iter] = L'.';iter++;
+						buffer[iter] = L' ';iter++;
+					}
+				}
+				//If not ended with '\0' it will say grabage values also
+				buffer[iter] = L'\0';
+				
+				//Setting the pitch and rate with respect to y axis
+				pitch_and_rate = ((fish_object[which].y*100)/(screen->h - fish_sprite->frame[0]->h));
+				
+				if (pitch_and_rate < 30)
+					pitch_and_rate = 30;
+				
+				if (pitch_and_rate > 60)
+					pitch_and_rate = 60;
+				 
+				
+				T4K_Tts_say(pitch_and_rate,pitch_and_rate,INTERRUPT,"%S",buffer);				
+				SDL_WaitThread(tts_thread,NULL);
+				SDL_Delay(100);
+				fprintf(stderr,"\nBraille_Letter_Pos = %d",braille_letter_pos);
+			}
+			else
+			{
+				tux_object.wordlen = 0;
+				tux_object.word[0] = L'\0';
+			}
+		
+		}
+	}
+	end:
+	return 0;
+}
+
+/********** Stop annoncing thread safely *********/
+static void stop_tts_announcer()
+{
+	tts_announcer_switch = 0;	
+}
+
+
+/*****************************************************************
+ * Set the Braille letter position 
+ * For some specific language's which have same braille code for
+ * alphabets and signs at begining, middle and end position.
+ ****************************************************************/
+static void set_braille_letter_pos(int fishies)
+{
+	int which,i,correct_position;
+
+    if (tux_object.wordlen == 0)
+    {
+		braille_letter_pos = 0;
+	}
+	else
+	{
+		//Detecting the corrent typing fish
+		which = -1;
+		for (i=0;i<fishies;i++)
+		{
+			//Comaparing fish_object[i].splat_time;
+			if (!fish_object[i].can_eat && fish_object[i].alive)
+			{
+				if (0 == wcsncmp(fish_object[i].word,tux_object.word,tux_object.wordlen))
+					which = i;		
+			}
+		}
+		//Detecting the correct_position if word is not null
+		if (which != -1){
+			correct_position = 0;
+			for(i=0;i<tux_object.wordlen;i++)
+			{
+				if (tux_object.word[i] == fish_object[which].word[i])
+				{
+					correct_position+=1;
+				}
+			}
+			//Braille letter Position should be 2 if next letter is end
+			if (tux_object.wordlen == fish_object[which].len-1)
+				braille_letter_pos = 2;
+			else
+				braille_letter_pos = 1;
+		}
+		else{
+			braille_letter_pos = 0;
+		}
+	}
+}
 
 
 

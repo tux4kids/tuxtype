@@ -26,6 +26,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 
+//TTS Parameters
+#define DEFAULT_VALUE 30
+#define INTERRUPT 0
+#define APPEND 1
 
 #ifndef GLOBALS_H
 #define GLOBALS_H
@@ -79,7 +83,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MIN(x,y) ((x) < (y) ? (x) : (y))
 #define MAX(x,y) ((x) > (y) ? (x) : (y))
 
+//TTS Thread
+SDL_Thread *tts_thread;
 
+//TTS Word announcer Thread
+SDL_Thread *tts_announcer_thread;
 
 #define FNLEN	256
 
@@ -98,6 +106,9 @@ typedef struct game_option_type{
   int use_english;
   int fullscreen;
   int sys_sound;
+  int braille;
+  int tts;
+  int tts_volume;
   int sfx_volume;
   int mus_volume;
   int menu_music;
@@ -110,6 +121,17 @@ typedef struct game_option_type{
   int hidden; // Read the README file in the image directory for info on this ;)
 } game_option_type;
 
+//Declared in t4k_global.h
+extern int text_to_speech_status;
+
+struct braille_dict
+{
+	wchar_t key[100];
+	wchar_t value_begin[100];
+	wchar_t value_middle[100];
+	wchar_t value_end[100];
+}braille_key_value_map[100];
+
 
 /* Default values for game_option_type struct */
 /* They can be changed in the struct to other values at run-time */
@@ -120,6 +142,9 @@ typedef struct game_option_type{
 #define DEFAULT_LOCALE	        "en_US.UTF-8"
 #define DEFAULT_USE_ENGLISH 1
 #define DEFAULT_FULLSCREEN 1
+#define DEFAULT_BRAILLE 0
+#define DEFAULT_TTS 0
+#define DEFAULT_TTS_VOLUME 100
 #define DEFAULT_SYS_SOUND 1
 #define DEFAULT_SFX_VOLUME 100
 #define DEFAULT_MUS_VOLUME 100

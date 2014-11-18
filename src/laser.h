@@ -45,6 +45,8 @@ typedef struct comet_type {
   int shootable;
   struct comet_type* next;
   wchar_t ch;
+  wchar_t* word;
+  int pos;
 } comet_type;
 
 typedef struct city_type {

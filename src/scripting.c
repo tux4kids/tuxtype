@@ -424,7 +424,7 @@ int XMLLesson(void)
 	      (event.key.keysym.sym == SDLK_j))
           {
             if (loc + 1 < num_scripts)
-              loc++;
+              loc++;           
           }
       }
     }
@@ -441,10 +441,15 @@ int XMLLesson(void)
       for (i = start; i <  MIN(start + 8, num_scripts); i++) 
       {
         titleRects[i % 8].x = screen->w/2 - (titles[i]->w/2);
-        if (i == loc)   /* Draw selected text in yellow:  */
+        if (i == loc)
+        {   /* Draw selected text in yellow:  */
           SDL_BlitSurface(select[loc], NULL, screen, &titleRects[i%8]);
-        else            /* Draw unselected text in white: */
+		  T4K_Tts_say(DEFAULT_VALUE,DEFAULT_VALUE,INTERRUPT,"%s",script_filenames[loc]);
+        }
+        else
+        {            /* Draw unselected text in white: */
           SDL_BlitSurface(titles[i], NULL, screen, &titleRects[i%8]);
+	    }
       }
 
       /* --- draw arrow buttons --- */
@@ -1115,6 +1120,12 @@ static int load_script(const char* fn)
 
 static void run_script(void)
 {
+	
+  /* Used to announce the Lesson instruction */
+  char *tts_buffer;
+  tts_buffer = malloc(sizeof(char)*1000000);
+  tts_buffer[0] = '\0';
+	
   /* FIXME FNLEN doesn't make sense for size of these arrays */
   Mix_Chunk* sounds[FNLEN] = {NULL};
 
@@ -1138,7 +1149,7 @@ static void run_script(void)
     int skip = 0;
     int numWavs = 0;
     int numClicks = 0;
-
+    
     curItem = curPage->items;
 
     /* --- setup background color --- */
@@ -1277,6 +1288,9 @@ static void run_script(void)
 
         case itemTEXT:
         {
+		  /* Append each text line's to the lesson instruction */
+          strcat(tts_buffer,curItem->data);
+	
           SDL_Surface* img;
           SDL_Color* col;
 
@@ -1369,9 +1383,13 @@ static void run_script(void)
             }
                     
           } while (shown + 1 < strlen(curItem->data));
+          
 
           break;
+
+          
         }
+        
 
 
         case itemWAV:
@@ -1390,10 +1408,15 @@ static void run_script(void)
 
         case itemWFIN:
         {
+
           int done = 0;
 
           // Make sure everything is on screen 
           SDL_Flip(screen);
+          
+          /* Announce the lesson instruction */
+		  T4K_Tts_say(DEFAULT_VALUE,DEFAULT_VALUE,INTERRUPT,"%s",tts_buffer);
+		  tts_buffer[0] = '\0'; 
 
           while (!done)
           {
@@ -1458,9 +1481,18 @@ static void run_script(void)
 
         case itemWFCH:
         {
+			
           int done = 0;
+          
+          /* Announce the lesson instruction */
+		  T4K_Tts_say(DEFAULT_VALUE,DEFAULT_VALUE,INTERRUPT,"%s",tts_buffer);
+		  tts_buffer[0] = '\0';          
+          
+          
           // Make sure everything is on screen 
           SDL_Flip(screen);
+          
+          
 
           while (!done)
           {
@@ -1538,6 +1570,8 @@ static void run_script(void)
       else
         curItem = curItem->next;
     }
+    
+    
     SDL_Flip(screen);
     SDL_Delay(30);
         
