@@ -344,38 +344,8 @@ int Phrases(wchar_t* pphrase )
               /* If no typing for 0.5 sec, display hint:      */
         if (SDL_GetTicks() - start > 500) 
         {
-      
-          /* Show finger hint, if available. Note that GetFinger() */
-          /* returns negative values on error and never returns a  */
-          /* value greater than 9.                                 */
-          int key = GetIndex(phrases[cur_phrase][cursor]);
-          int fing = GetFinger(key);
-          int shift = GetShift(key);
-          keypress1 = GetKeypress1(key);
-          keypress2 = GetKeypress2(key);
-
-          SDL_BlitSurface(CurrentBkgd(), &hand_loc, screen, &hand_loc);
-          SDL_BlitSurface(hands, NULL, screen, &hand_loc);
-
-          if (fing >= 0) 
-            SDL_BlitSurface(hand[fing], NULL, screen, &hand_loc);
-          SDL_BlitSurface(hand_shift[shift], NULL, screen, &hand_loc);
-
-          if (keypress1)
-          {
-            SDL_BlitSurface(keypress1, NULL, screen, &keyboard_loc);
-            SDL_FreeSurface(keypress1);
-            keypress1 = NULL;
-          }
-
-          if (keypress2)
-          {
-            SDL_BlitSurface(keypress2, NULL, screen, &keyboard_loc);
-            SDL_FreeSurface(keypress2);
-            keypress2 = NULL;
-          }     
-
-          state = 4;
+			set_hand(cursor,cur_phrase);
+			state = 4;     
         }
         break;
 
@@ -396,36 +366,9 @@ int Phrases(wchar_t* pphrase )
 
       case 6:
       {
-        int key = GetIndex(phrases[cur_phrase][cursor]);
-        int fing = GetFinger(key);
-        int shift = GetShift(key);
-        keypress1 = GetKeypress1(key);
-        keypress2 = GetKeypress2(key);
- 
-        SDL_BlitSurface(CurrentBkgd(), &hand_loc, screen, &hand_loc);
-        SDL_BlitSurface(hands, NULL, screen, &hand_loc);
-
-        if (fing >= 0) 
-          SDL_BlitSurface(hand[fing], NULL, screen, &hand_loc);
-
-        SDL_BlitSurface(hand_shift[shift], NULL, screen, &hand_loc);
-
-        if (keypress1)
-        {
-          SDL_BlitSurface(keypress1, NULL, screen, &keyboard_loc);
-          SDL_FreeSurface(keypress1);
-          keypress1 = NULL;
-        }
-
-        if (keypress2)
-        {
-          SDL_BlitSurface(keypress2, NULL, screen, &keyboard_loc);
-          SDL_FreeSurface(keypress2);
-          keypress2 = NULL;
-        }
-
-        state = 13;
-        break;
+		  set_hand(cursor,cur_phrase);
+		  state = 13;
+		  break;
       }
 
       default:
