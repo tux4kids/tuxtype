@@ -214,7 +214,7 @@ void LibInit(Uint32 lib_flags)
 
   if (!Setup_SDL_Text())
   {
-    fprintf( stderr, "Couldn't initialize desired SDL text libary\n" );
+    fprintf( stderr, "Couldn't initialize desired SDL text library\n" );
     exit(2);
   }
 //	atexit(TTF_Quit);
