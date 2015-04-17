@@ -1,0 +1,122 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: Indigenas Sin Fronteras <isf_mx@yahoo.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.7.4\n"
+
+msgid "Congratulations"
+msgstr "Besta bli li"
+
+msgid "Oh No!"
+msgstr "Kap de li liy!"
+
+msgid "Sound & Music Disabled"
+msgstr "Na yent xha dizh ah"
+
+msgid "Paused!"
+msgstr "Let lut!"
+
+msgid "Press escape again to return to menu"
+msgstr "Gaas esc xha verey lo goo"
+
+msgid "Press space bar to return to game"
+msgstr "Gaas ko taa xha verey kid luu"
+
+msgid "Sound Effects Volume"
+msgstr "Li che o li gap xha dizh ah"
+
+msgid "Music Volume"
+msgstr "Xha dizh ah"
+
+msgid "Edit Word Lists"
+msgstr "Gui cho dizh xho lent niy"
+
+msgid "Fish"
+msgstr "Beel"
+
+msgid "Lives"
+msgstr "Naban"
+
+msgid "Level"
+msgstr "Pal dul"
+
+msgid "Options"
+msgstr "Thus kuey"
+
+msgid "Alphabet"
+msgstr "Ko tak kel lo yets"
+
+# "Cadete de espacio" es nivel 1 en zapea cometa
+msgid "Space Cadet"
+msgstr "Penta"
+
+# "Piloto" es nivel 2 en zapea cometas
+msgid "Pilot"
+msgstr "Lut nayes"
+
+# "As" es nivel 3 en zapea cometas
+msgid "Ace"
+msgstr "Nayes"
+
+# "Commandante" es nivel 4 en zapea cometas
+msgid "Commander"
+msgstr "Plo nayes"
+
+#niveles para juego de cascada:
+msgid "Easy"
+msgstr "Penta"
+
+msgid "Medium"
+msgstr "Nayes"
+
+msgid "Hard"
+msgstr "Plo nayes"
+
+#Tipos de juegos
+msgid "Comet Zap"
+msgstr "Blus beel"
+
+msgid "Fish Cascade"
+msgstr "Mdo beel"
+
+#Cosas generales
+msgid "Practice"
+msgstr "Mkid"
+
+msgid "Lessons"
+msgstr "Ko mted loo"
+
+msgid "Instructions"
+msgstr "Xha mud kid"
+
+msgid "Main Menu"
+msgstr "Gua xhant niy"
+
+msgid "Options"
+msgstr "Thus kuey"
+
+msgid "Quit"
+msgstr "Bru"
+
+msgid "Setup Keyboard"
+msgstr "Gui xha mub tak mkel dizh"
+
+msgid "Setup Language"
+msgstr "Xe dizh"
+
+#work Cosas que estan abajo de construccion.
+msgid "Work In Progress!"
+msgstr "De ken noo xhin!"
+
+msgid "this feature is not ready yet"
+msgstr "Tera li chey"
+
+msgid "Discuss the future of TuxTyping at"
+msgstr "Gui kuan died kub lo TuxTyping"
+
