@@ -81,7 +81,8 @@ tuxtype_SOURCES = 	\
 	setup.c		\
 	snow.c		\
 	theme.c		\
-	titlescreen.c
+	titlescreen.c	\
+	braille.c
 TuxType_SOURCES  = $(tuxtype_SOURCES)
 
 # The rc file has something to do with the icon in Windows, IIRC
@@ -103,4 +104,5 @@ EXTRA_DIST =		\
 	scripting.h	\
 	SDL_extras.h	\
 	snow.h		\
-        titlescreen.h 
+        titlescreen.h	\
+	braille.h

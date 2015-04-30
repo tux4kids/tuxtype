@@ -50,13 +50,16 @@ static SDL_Surface* images[NUM_IMAGES] = {NULL};
 static Mix_Chunk* sounds[NUM_SOUNDS] = {NULL};
 static Mix_Music* musics[NUM_MUSICS] = {NULL};
 
-static int wave, speed, score, pre_wave_score, num_attackers, distanceMoved;
+static int wave, speed, score, pre_wave_score, num_attackers, distanceMoved , num_cities_alive;
 static wchar_t ans[NUM_ANS];
 static int ans_num;
 
 static comet_type comets[MAX_COMETS];
 static city_type cities[NUM_CITIES];
 static laser_type laser;
+
+static int tts_announcer_switch = 1;
+static int braille_letter_pos = 0;
 
 /* Local function prototypes: */
 static void laser_add_comet(int diff_level);
@@ -71,6 +74,10 @@ static void laser_putpixel(SDL_Surface* surface, int x, int y, Uint32 pixel);
 static void laser_unload_data(void);
 static void calc_city_pos(void);
 static void recalc_comet_pos(void);
+static void stop_tts_announcer();
+static int tts_announcer(void *unused);
+
+
 
 /* --- MAIN GAME FUNCTION!!! --- */
 
@@ -80,9 +87,17 @@ int PlayLaserGame(int diff_level)
 {
 	int i, img, done, quit, frame, lowest, lowest_y, 
 	    tux_img, old_tux_img, tux_pressing, tux_anim, tux_anim_frame,
-	    tux_same_counter, level_start_wait, num_cities_alive,
+	    tux_same_counter, level_start_wait,
 	    num_comets_alive, paused, picked_comet, 
 	    gameover;
+	  
+
+	//TTS Word announcer variables
+	SDL_Thread *thread;
+
+	//Braille Variables
+	wchar_t pressed_letters[1000];
+	int braille_iter;
 
 	Uint16 key_unicode;
 
@@ -155,6 +170,16 @@ int PlayLaserGame(int diff_level)
 	ans_num = 0;
 
 	MusicPlay(musics[MUS_GAME + (rand() % NUM_MUSICS)], 0);
+	
+
+
+	 //Call announcer function in thread which annonces the word to type 
+	if(settings.tts)
+		thread = SDL_CreateThread(tts_announcer, NULL);	
+	
+	//Inetialising braille variables
+	braille_iter = 0;
+    pressed_letters[braille_iter] = L'\0';
 
 	do {
 
@@ -172,7 +197,9 @@ int PlayLaserGame(int diff_level)
 				/* Window close event - quit! */
 				exit(0);
 	      
-			} else if (event.type == SDL_KEYDOWN) {
+			}
+			else if (event.type == SDL_KEYDOWN)
+			{
 
 				key = event.key.keysym.sym;
 				if (key == SDLK_F10) 
@@ -186,6 +213,17 @@ int PlayLaserGame(int diff_level)
 
 				if (key == SDLK_ESCAPE)
 					paused = 1;
+				/* Score */
+				if(key == SDLK_F1)
+					tts_announcer_switch = 2;
+				
+				/* iglu alive */
+				if(key == SDLK_F2)
+					tts_announcer_switch = 3;
+				
+				/* Wave number */
+				if(key == SDLK_F3)
+					tts_announcer_switch = 4;
 
 				/* --- eat other keys until level wait has passed --- */ 
 				if (level_start_wait > 0) 
@@ -214,9 +252,54 @@ int PlayLaserGame(int diff_level)
 				  fprintf(stderr,
                                    "key_unicode = %d\n", key_unicode);
 				}
-				/* Now update with case-folded value: */
-				ans[ans_num++] = key_unicode;
-
+				
+				/* Store each keys till a key released */
+				if(settings.braille)
+				{
+				   pressed_letters[braille_iter] = event.key.keysym.sym;
+                   braille_iter++;
+                   pressed_letters[braille_iter] = L'\0';   
+				}
+				else
+				{
+					/* Now update with case-folded value: */
+					ans[ans_num++] = key_unicode;
+				}
+			}
+			else if (event.type == SDL_KEYUP)
+			{
+				/* ----- SDL_KEYUP is Only for Braille Mode -------------*/
+				if(settings.braille)
+				{
+					wcscpy(pressed_letters,arrange_in_order(pressed_letters));
+				    if (wcscmp(pressed_letters,L"") != 0)
+				    {
+					   for(i=0;i<100;i++)
+					   {
+						   if (wcscmp(pressed_letters,braille_key_value_map[i].key) == 0)
+						   {
+							   if (settings.use_english)
+							   {
+								   /* English have no such rules */
+							   	   ans[ans_num++] = toupper(braille_key_value_map[i].value_begin[0]);
+							   }
+							   else
+							   {
+							   		if (braille_letter_pos == 0)
+								   	   ans[ans_num++] = braille_key_value_map[i].value_begin[0];
+								    else if (braille_letter_pos == 1)
+									   ans[ans_num++] = braille_key_value_map[i].value_middle[0];
+								    else
+									   ans[ans_num++] = braille_key_value_map[i].value_end[0];
+							   }			   
+						   }
+					   }	   
+				   }
+				   
+				   braille_iter = 0;
+				   pressed_letters[braille_iter] = L'\0';
+			
+			  }
 			}
 		}
       
@@ -229,21 +312,58 @@ int PlayLaserGame(int diff_level)
 	
 			lowest_y = 0;
 			lowest = -1;
-	
-			for (i = 0; i < MAX_COMETS; i++)
-				if (comets[i].alive
-				 && comets[i].shootable 
-				 && comets[i].expl == 0
-				 && comets[i].ch == ans[ans_num -1 ] 
-				 && comets[i].y > lowest_y)
-				{
-					lowest = i;
-					lowest_y = comets[i].y;
-				}
-	
+			
+			/* Only Shoot the lowest letter if tts is enabled. */
+			if (settings.tts || settings.braille)
+			{
+				for (i = 0; i < MAX_COMETS; i++)
+					if (comets[i].alive
+					&& comets[i].shootable 
+					&& comets[i].expl == 0
+					&& comets[i].y > lowest_y)
+					{
+						lowest = i;
+						lowest_y = comets[i].y;
+					}
+			
+					//Only Shoot the lowest letter.	
+					if (comets[lowest].ch != ans[ans_num -1 ])
+						lowest = -1;
+			}
+			else
+			{
+				for (i = 0; i < MAX_COMETS; i++)
+					if (comets[i].alive
+					&& comets[i].shootable 
+					&& comets[i].expl == 0
+					&& comets[i].ch == ans[ans_num -1 ] 
+					&& comets[i].y > lowest_y)
+					{
+						lowest = i;
+						lowest_y = comets[i].y;
+					}	
+			}
+			
+			
+			/* Set the Braille letter position 
+			* For some specific language's which have same braille code for
+			* alphabets and signs at begining, middle and end position. */			
+			if (lowest == -1)
+				braille_letter_pos = 0;
+			else
+			{
+				if (comets[lowest].pos == wcslen(comets[lowest].word)-2)
+					braille_letter_pos = 2; //Next is end letter
+				else if (comets[lowest].pos == wcslen(comets[lowest].word)-1)
+					braille_letter_pos = 0; //Word finished 
+				else
+					braille_letter_pos = 1; //Next letter is at middle
+					
+				fprintf(stderr,"%S",comets[lowest].word);
+			}
+				
 	
 			/* If there was an comet with this answer, destroy it! */
-	
 			if (lowest != -1) {
 
 				/* Destroy comet: */
@@ -427,7 +547,7 @@ int PlayLaserGame(int diff_level)
 				}
 			} else {
 				if (num_comets_alive == 0) {
-
+					T4K_Tts_say(DEFAULT_VALUE,DEFAULT_VALUE,INTERRUPT,gettext("Score %d"),score);
 					/* Time for the next wave! */
 
 					/* FIXME: End of level stuff goes here */
@@ -478,7 +598,13 @@ int PlayLaserGame(int diff_level)
 		}
                 
                 if ((num_cities_alive==0) && (gameover == 0))
+                {
                     gameover = GAMEOVER_COUNTER_START;
+                    if(settings.tts)
+						stop_tts_announcer();
+					T4K_Tts_say(DEFAULT_VALUE,DEFAULT_VALUE,INTERRUPT,gettext("yep you miss it. hahh hahh haa. game over! you scored %d goodbye!"),score);
+					
+				}
       
 		/* Draw background: */
      
@@ -618,7 +744,16 @@ int PlayLaserGame(int diff_level)
 		/* If we're in "PAUSE" mode, pause! */
 
 		if (paused) {
+			if(settings.tts)
+				stop_tts_announcer();
+			T4K_Tts_say(DEFAULT_VALUE,DEFAULT_VALUE,INTERRUPT,gettext("Game Paused!"));
 			quit = Pause();
+			if(quit == 0){
+					T4K_Tts_say(DEFAULT_VALUE,DEFAULT_VALUE,INTERRUPT,gettext("Pause Released!"));
+					//Call announcer function in thread which annonces the word to type
+					if(settings.tts)
+						thread = SDL_CreateThread(tts_announcer, NULL);
+			}							
 			paused = 0;
 		}
 
@@ -913,6 +1048,8 @@ static void laser_add_comet(int diff_level)
 				comets[location].x = cities[target + i].x;
 				comets[location].y = 0;
 				comets[location].ch = word[i];
+				comets[location].word = word;
+				comets[location].pos = i;
 				comets[location].next = NULL;
 
 				/* Take care of link from previous letter's comet: */
@@ -1135,3 +1272,100 @@ static void laser_add_score(int inc)
   if (score < 0) score = 0;
 }
 
+
+/* Stop annoncing thread safely */
+static void stop_tts_announcer()
+{
+	tts_announcer_switch = 0;
+}
+
+
+/* This function will announce the bottum most word and 
+ * it's remaining letters */
+static int tts_announcer(void *unused)
+{
+	int lowest,lowest_y,i,iter;
+	wchar_t buffer[3000];
+	int pitch_and_rate;
+	tts_announcer_switch = 1;
+	while(1)
+	{
+		if(tts_announcer_switch == 0)
+			goto end;
+		else if(tts_announcer_switch == 2)
+		{
+			T4K_Tts_say(DEFAULT_VALUE,DEFAULT_VALUE,INTERRUPT,"Score %d!",score);
+			SDL_Delay(20);
+			T4K_Tts_wait();
+			tts_announcer_switch = 1;
+		}
+		else if(tts_announcer_switch == 3)
+		{
+			T4K_Tts_say(DEFAULT_VALUE,DEFAULT_VALUE,INTERRUPT,"%d cities alive!",num_cities_alive);
+			SDL_Delay(20);
+			T4K_Tts_wait();
+			tts_announcer_switch = 1;
+		}		
+		else if(tts_announcer_switch == 4)
+		{
+			T4K_Tts_say(DEFAULT_VALUE,DEFAULT_VALUE,INTERRUPT,"on wave %d!",wave);
+			SDL_Delay(20);
+			T4K_Tts_wait();
+			tts_announcer_switch = 1;
+		}
+
+			
+		
+		//Detecting the lowest letter and word on screen		
+		lowest_y = 0;
+		lowest = -1;	
+		for (i = 0; i < MAX_COMETS; i++)
+		{
+			if (comets[i].alive  &&
+			 comets[i].shootable  &&
+			  comets[i].expl == 0  &&
+			   comets[i].y > lowest_y)
+			{
+				lowest = i;
+				lowest_y = comets[i].y;
+			}
+		}
+		//Skipping if no letter found in screen
+		if (lowest == -1)
+			continue;
+		
+		buffer[0] = L'\0';
+		//Adding the word to buffer
+		wcscpy(buffer,comets[lowest].word);
+		iter = wcslen(comets[lowest].word);
+		
+		//Appending each letters from correct_position if word is not alphabet
+		if (1<wcslen(comets[lowest].word))
+		{
+			for(i=comets[lowest].pos;i<wcslen(comets[lowest].word);i++)
+			{
+				buffer[iter]=L'.';iter++;
+				buffer[iter]=L' ';iter++;				
+				buffer[iter]=comets[lowest].word[i];iter++;
+			}
+		}
+		buffer[iter]=L'.';iter++;
+		buffer[iter]=L' ';iter++;		
+		buffer[iter] = L'\0';
+
+		pitch_and_rate = ((lowest_y*100)/(screen->h - images[IMG_CITY_BLUE]->h));
+		if (pitch_and_rate < 30)
+			pitch_and_rate = 30;
+		if (pitch_and_rate > 60)
+			pitch_and_rate = 60;	
+		T4K_Tts_say(pitch_and_rate,pitch_and_rate,INTERRUPT,"%S",buffer);
+		
+		//Wait to finish saying the previus word
+		SDL_WaitThread(tts_thread,NULL);
+		SDL_Delay(100);
+		fprintf(stderr,"\nPos = %d",braille_letter_pos);
+			
+	}
+	end:
+	return 1;
+}

@@ -262,7 +262,6 @@ void TitleScreen(void)
   firstloop = 1;
   Tuxdest.y = screen->h - Tux->frame[0]->h;
 
-
   while (!done) 
   {
 
@@ -733,6 +732,9 @@ void TitleScreen(void)
       SDL_UpdateRect(screen, 0, 0, 0, 0);
 
       LOG("TitleScreen() - update_locs completed\n");
+      
+      /* --- Announce the selected menu item */
+      T4K_Tts_say(DEFAULT_VALUE,DEFAULT_VALUE,INTERRUPT,"%s",gettext(menu_text[key_menu*5 + menu_depth]));
     }
 
 
@@ -801,6 +803,9 @@ void TitleScreen(void)
       {
         REWIND(menu_gfx[key_menu][menu_depth]);
         PlaySound(snd_move);
+        
+        /* --- Announce the selected menu item */
+		T4K_Tts_say(DEFAULT_VALUE,DEFAULT_VALUE,INTERRUPT,"%s",gettext(menu_text[key_menu*5 + menu_depth]));
       }
 
       SDL_BlitSurface(CurrentBkgd(), &menu_button[key_menu], screen, &menu_button[key_menu]);
@@ -1573,10 +1578,19 @@ static int chooseWordlist(void)
       for (i = start; i< MIN(start + 8,lists); i++) 
       {
         titleRects[i % 8].x = screen->w/2 - (titles[i]->w/2);
-        if (i == loc)   /* Draw selected text in yellow:  */
+        if (i == loc)
+        {
+			/* Draw selected text in yellow:  */
           SDL_BlitSurface(select[loc], NULL, screen, &titleRects[i%8]);
-        else            /* Draw unselected text in white: */
-          SDL_BlitSurface(titles[i], NULL, screen, &titleRects[i%8]);
+          
+          /* --- Announce the selected word list */
+          T4K_Tts_say(DEFAULT_VALUE,DEFAULT_VALUE,INTERRUPT,"%s",wordlistName[loc]);
+        }  
+        else
+        {
+			/* Draw unselected text in white: */
+            SDL_BlitSurface(titles[i], NULL, screen, &titleRects[i%8]);
+		}
       }
 
       /* --- draw arrow buttons --- */

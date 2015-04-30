@@ -398,8 +398,10 @@ tuxtype_preview.spec
 data/Makefile
 data/fonts/Makefile
 data/im/Makefile
+data/braille/Makefile
 data/images/Makefile
 data/images/backgrounds/Makefile
+data/images/braille_hands/Makefile
 data/images/cities/Makefile
 data/images/comets/Makefile
 data/images/hands/Makefile

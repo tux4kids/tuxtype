@@ -352,12 +352,16 @@ static int load_settings_fp(FILE* fp)
       strncpy(settings.theme_locale_name, value, FNLEN - 1);
       setting_found = 1;
     }
+    else if (strncmp(setting, "tts_volume", FNLEN) == 0)
+    {
+      DEBUGCODE {fprintf(stderr, "LoadSettings: Setting tts volume to %s\n", value);}
+      settings.tts_volume = atoi(value);
+      setting_found = 1;
+    }
     else
       DEBUGCODE {fprintf(stderr, "load_settings_fp(): unrecognized string: %s\n", value);}
 
   }
-
-
   if (setting_found)
     return 1;
   else
@@ -421,6 +425,7 @@ void SaveSettings(void)
 	fprintf( settingsFile, "sfx_volume=%d\n", settings.sfx_volume );
 	fprintf( settingsFile, "menu_music=%d\n", settings.menu_music );
 	fprintf( settingsFile, "fullscreen=%d\n", settings.fullscreen);
+	fprintf( settingsFile, "tts_volume=%d\n", settings.tts_volume);
 
 
 // 	if (screen->flags & SDL_FULLSCREEN){
