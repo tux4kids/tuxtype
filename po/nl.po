@@ -1,21 +1,23 @@
-# Translation of tuxtype.po to Dutch.
+# Translation of tuxtype.pot to Dutch.
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # Mobin M <mobinmohan@gmail.com>, 2008
+# Frans Spiesschaert <Frans.Spiesschaert@yucom.be>, 2015.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Tuxtype\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
 "POT-Creation-Date: 2012-02-02 20:16-0600\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2015-05-13 21:20+0200\n"
+"Last-Translator: Frans Spiesschaert <Frans.Spiesschaert@yucom.be>\n"
+"Language-Team: Debian Dutch l10n Team <debian-l10n-dutch@lists.debian.org>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Gtranslator 2.91.6\n"
 
 #: src/loaders.c:98 src/main.c:161 src/playgame.c:654
 msgid "Fish"
@@ -23,11 +25,11 @@ msgstr "Vissen"
 
 #: src/pause.c:289
 msgid "Sound Effects Volume"
-msgstr "Geluidseffect-volume"
+msgstr "Volume geluidseffecten"
 
 #: src/pause.c:298
 msgid "Music Volume"
-msgstr "Muziek-volume"
+msgstr "Muziekvolume"
 
 #: src/pause.c:309
 msgid "Sound & Music Disabled"
@@ -35,21 +37,19 @@ msgstr "Geluid & Muziek Uitgeschakeld"
 
 #: src/pause.c:319
 msgid "Paused!"
-msgstr "Pauze!"
+msgstr "Gepauzeerd!"
 
 #: src/pause.c:328
-#, fuzzy
 msgid "Press escape again to return to menu"
-msgstr "terug naar het menu? druk op escape"
+msgstr "Druk nogmaals op escape om naar het menu terug te keren"
 
 #: src/pause.c:337
-#, fuzzy
 msgid "Press space bar to return to game"
-msgstr "terug naar het spel? druk op spatiebalk"
+msgstr "Druk op de spatiebalk om terug naar het spel te gaan"
 
 #: src/playgame.c:652
 msgid "Level"
-msgstr "Level"
+msgstr "Niveau"
 
 #: src/playgame.c:653
 msgid "Lives"
@@ -62,16 +62,16 @@ msgstr "Gemakkelijk"
 
 #: src/playgame.c:657 src/titlescreen.c:100
 msgid "Medium"
-msgstr "Moeilijker"
+msgstr "Middelmatig"
 
 #: src/playgame.c:658 src/titlescreen.c:101
 msgid "Hard"
-msgstr "Echt Moeilijk"
+msgstr "Moeilijk"
 
 # general stuff
 #: src/playgame.c:659
 msgid "Practice"
-msgstr "Vingeroefeningen"
+msgstr "Oefeningen"
 
 #: src/playgame.c:670
 msgid "Congratulations"
@@ -83,58 +83,58 @@ msgstr "Oh Nee!"
 
 #: src/practice.c:626
 msgid "sec"
-msgstr ""
+msgstr "sec"
 
 #: src/practice.c:1440
 msgid "Time"
-msgstr ""
+msgstr "Tijd"
 
 #: src/practice.c:1444
 msgid "Chars"
-msgstr ""
+msgstr "Lettertekens "
 
 #: src/practice.c:1448
 msgid "CPM"
-msgstr ""
+msgstr "APM"
 
 #: src/practice.c:1452
 msgid "WPM"
-msgstr ""
+msgstr "WPM"
 
 #: src/practice.c:1456
 msgid "Errors"
-msgstr ""
+msgstr "Fouten"
 
 #: src/practice.c:1460
 msgid "Accuracy"
-msgstr ""
+msgstr "Precisie"
 
 #: src/titlescreen.c:99
 msgid "Fish Cascade"
-msgstr "Vallende Vissen"
+msgstr "Viscascade"
 
 # "Space Cadet" is level 1 in comet zap
 #: src/titlescreen.c:99
 msgid "Space Cadet"
-msgstr "Leerling-vlieger"
+msgstr "Ruimtekadet"
 
 #: src/titlescreen.c:99
 msgid "Edit Word Lists"
-msgstr "Bewerk de woordenlijsten"
+msgstr "Woordenlijsten bewerken"
 
 # types of games
 #: src/titlescreen.c:100
 msgid "Comet Zap"
-msgstr "Inslaande Kometen"
+msgstr "Kometen vernietigen"
 
 # "Pilot" is level 2 in comet zap
 #: src/titlescreen.c:100
 msgid "Pilot"
-msgstr "Ruimtepiloot"
+msgstr "Piloot"
 
 #: src/titlescreen.c:100
 msgid "Phrase Typing"
-msgstr ""
+msgstr "Zinnen typen"
 
 #: src/titlescreen.c:101
 msgid "Lessons"
@@ -143,11 +143,11 @@ msgstr "Lessen"
 # "Ace" is level 3 in comet zap
 #: src/titlescreen.c:101
 msgid "Ace"
-msgstr "Luitenant-Meteoor"
+msgstr "Uitblinker"
 
 #: src/titlescreen.c:101
 msgid "Project Info"
-msgstr ""
+msgstr "Projectinfo"
 
 #: src/titlescreen.c:102
 msgid "Options"
@@ -160,7 +160,7 @@ msgstr "Instructies"
 # "Commander" is level 4 in comet zap
 #: src/titlescreen.c:102
 msgid "Commander"
-msgstr "Opperbevelhebber"
+msgstr "Bevelhebber"
 
 #: src/titlescreen.c:102
 msgid "Setup Language"
@@ -168,7 +168,7 @@ msgstr "Taal instellen"
 
 #: src/titlescreen.c:103
 msgid "Quit"
-msgstr "Stoppen"
+msgstr "Afsluiten"
 
 #: src/titlescreen.c:103
 msgid "Main Menu"
@@ -180,9 +180,8 @@ msgid "Work In Progress!"
 msgstr "Werk In Uitvoering!"
 
 #: src/titlescreen.c:1130
-#, fuzzy
 msgid "This feature is not ready yet"
-msgstr "dit onderdeel is nog niet klaar"
+msgstr "Dit onderdeel is nog niet klaar"
 
 #: src/titlescreen.c:1131
 msgid "Discuss the future of TuxTyping at"
