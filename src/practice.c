@@ -1766,9 +1766,9 @@ void set_hand(int cursor,int cur_phrase)
 wchar_t *get_next_word_letters(int cur_phrase,int cursor,int till_next_space)
 {
 	int iter,i,len;
-	wchar_t temp[1000];
+	wchar_t *temp;
 	
-	
+	temp = (wchar_t *)malloc(1000);
 	len = wcslen(phrases[cur_phrase]);
 	temp[0] = L'\0';
 	for(iter=0,i=cursor;i<=len;i++)
