@@ -5,6 +5,7 @@ SUBDIRS = backgrounds \
   cities \
   comets \
   hands \
+  braille_hands\
   icons \
   keyboard \
   menu \
