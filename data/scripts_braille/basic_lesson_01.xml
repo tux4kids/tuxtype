@@ -1,0 +1,11 @@
+<script title="Test Lesson" bgcolor="#000000">
+       <page title="Introduction to Example Lesson">
+       <text align="center"> </text>
+       <text align="center"> </text>
+       <text color="#ffff00" align="center">In this lesson we learn letters a, b, c, and d.</text>
+       <text color="#ffff00" align="center">Press 1 for a, 1 ,2 for b, 1,4 for c and 1,4,5 for d.</text>
+       <text color="#ffff00" align="center" y="400"> PRESS SPACE TO START THE LESSON!</text>
+      <waitforchar/>
+      <prac>a a a a b b b b ab ab abb abb bba bba bab bab c c c c bc bc cb cb ccb ccb cccb cccb d d d d dd dd cdd bdd abcd abcd abcd abcd</prac>
+     </page>    
+</script>

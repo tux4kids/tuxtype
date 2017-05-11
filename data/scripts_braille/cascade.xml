@@ -1,0 +1,17 @@
+<script title="Fish Cascade Instructions">
+  <page>
+    <bkgd src="main_bkg.png">
+    <img src="tux/stand-.png" x="100" y="330">
+    <text color="#FFFFFF" align="center" size="32">Help Tux Eat Fish!</text>
+    <text color="#FFFFFF" align="center">Tux is very hungry! Eating</text>
+    <text color="#FFFFFF" align="center">fish with  letters gives him</text>
+    <text color="#FFFFFF" align="center">a  tummy  ache.  Help  Tux</text>
+    <text color="#FFFFFF" align="center">eat   fish  by  pressing  the</text>
+    <text color="#FFFFFF" align="center">letters  on the  fish making</text>
+    <text color="#FFFFFF" align="center">them  go  away  so he  can</text>
+    <text color="#FFFFFF" align="center">eat them all!</text>
+    <text></text>
+    <text color="#ffffff" align="center" size="22">Press Space to Continue!</text>
+  </page>
+   <waitforinput/>
+  </page></lesson>

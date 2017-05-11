@@ -1,0 +1,11 @@
+<script title="Test Lesson" bgcolor="#000000">
+       <page title="Introduction to Example Lesson">
+       <text align="center"> </text>
+       <text align="center"> </text>
+       <text color="#ffff00" align="center">In this lesson we learn letters e and f.</text>
+       <text color="#ffff00" align="center">Press 1, 5 for e and 1,2,4 for f.</text>
+       <text color="#ffff00" align="center" y="400"> PRESS SPACE TO START THE LESSON!</text>
+      <waitforchar/>
+      <prac>e e e e f f f f ef ef eff eff ffe ffe fef fef efef efef bef def abf abcf bcdf adef bdef eff eff ffe ffe fef fef efef efef</prac>
+     </page>    
+</script>

@@ -1,0 +1,11 @@
+<script title="Test Lesson" bgcolor="#000000">
+       <page title="Introduction to Example Lesson">
+       <text align="center"> </text>
+       <text align="center"> </text>
+        <text color="#ffff00" align="center">In this lesson we practice</text>
+       <text color="#ffff00" align="center">words containing letters a to p</text>
+       <text color="#ffff00" align="center" y="400"> PRESS SPACE TO START THE LESSON!</text>
+      <waitforchar/>
+      <prac>chip chop kick back node map mop hope lack lake nail band has can  package mind find call cold</prac>
+     </page>    
+</script>

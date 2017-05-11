@@ -1,0 +1,11 @@
+<script title="Test Lesson" bgcolor="#000000">
+       <page title="Introduction to Example Lesson">
+       <text align="center"> </text>
+       <text align="center"> </text>
+       <text color="#ffff00" align="center">In this lesson we learn letters q, r and s.</text>
+       <text color="#ffff00" align="center">Press 1,2,3,4,5 for q, 1,2,3,5 for r and 2,3,4 for s</text>
+       <text color="#ffff00" align="center" y="400"> PRESS SPACE TO START THE LESSON!</text>
+      <waitforchar/>
+      <prac>q q q q r r r r s s s s qr qr rs rs qs qs pqrs pqrs qrs qrs qrs</prac>
+     </page>    
+</script>

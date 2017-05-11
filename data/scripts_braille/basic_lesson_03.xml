@@ -1,0 +1,11 @@
+<script title="Test Lesson" bgcolor="#000000">
+       <page title="Introduction to Example Lesson">
+       <text align="center"> </text>
+       <text align="center"> </text>
+       <text color="#ffff00" align="center">In this lesson we learn letters g and h.</text>
+       <text color="#ffff00" align="center">1,2,4,5 for g and 1,2,5 for h.</text>
+       <text color="#ffff00" align="center" y="400"> PRESS SPACE TO START THE LESSON!</text>
+      <waitforchar/>
+      <prac>g g g g h h h h gh gh gh gh hg hg ghg hhg ag ag bh bh cg cg hd hd egg gag fag gghh gghh hg hg hhg hhg abcd efgh abcd efgh</prac>
+     </page>    
+</script>

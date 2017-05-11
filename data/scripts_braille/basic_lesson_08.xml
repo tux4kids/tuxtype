@@ -1,0 +1,11 @@
+<script title="Test Lesson" bgcolor="#000000">
+       <page title="Introduction to Example Lesson">
+       <text align="center"> </text>
+       <text align="center"> </text>
+       <text color="#ffff00" align="center">In this lesson we learn letters t, u and v.</text>
+       <text color="#ffff00" align="center">2,3,4,5 for t, 1,3,6 for u and 1,2,3,6 for v.</text>
+       <text color="#ffff00" align="center" y="400"> PRESS SPACE TO START THE LESSON!</text>
+      <waitforchar/>
+      <prac>t t t t u u u u v v v v tu tu uv uv tuv tuv qrst qrst stuv stuv tuv tuv</prac>
+     </page>    
+</script>

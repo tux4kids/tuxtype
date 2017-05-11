@@ -411,6 +411,7 @@ data/images/menu/Makefile
 data/images/status/Makefile
 data/images/tux/Makefile
 data/scripts/Makefile
+data/scripts_braille/Makefile
 data/sounds/Makefile
 data/themes/Makefile
 data/themes/armenian/Makefile
