@@ -1,0 +1,11 @@
+<script title="Test Lesson" bgcolor="#000000">
+       <page title="Introduction to Example Lesson">
+       <text align="center"> </text>
+       <text align="center"> </text>
+       <text color="#ffff00" align="center">In this lesson we learn letters i and j.</text>
+       <text color="#ffff00" align="center">Press 2,4 for i and and 2,4,5 for j.</text>
+       <text color="#ffff00" align="center" y="400"> PRESS SPACE TO START THE LESSON!</text>
+      <waitforchar/>
+      <prac>i i i i j j j j ii jj iijj jjii dij dij adj adj cci cjj bbjj bad cad big gag badge badge fig giff jjf ffij abcd efgh ij ij ji ji</prac>
+     </page>    
+</script>

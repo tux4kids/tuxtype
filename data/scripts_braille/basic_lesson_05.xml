@@ -1,0 +1,11 @@
+<script title="Test Lesson" bgcolor="#000000">
+       <page title="Introduction to Example Lesson">
+       <text align="center"> </text>
+       <text align="center"> </text>
+       <text color="#ffff00" align="center">In this lesson we learn letters k, l and m.</text>
+       <text color="#ffff00" align="center">Press 1,3 for k, 1,2,3 for l and  1,3,4 for m </text>
+       <text color="#ffff00" align="center" y="400"> PRESS SPACE TO START THE LESSON!</text>
+      <waitforchar/>
+      <prac>k k k k l l l l m m m m kkll kkll kkmm kkmm llmm llmm klmk klmk klmk alkm abcd efgh ijkl jklm jklm</prac>
+     </page>    
+</script>

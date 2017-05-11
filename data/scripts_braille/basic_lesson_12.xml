@@ -1,0 +1,11 @@
+<script title="Test Lesson" bgcolor="#000000">
+       <page title="Introduction to Example Lesson">
+       <text align="center"> </text>
+       <text align="center"> </text>
+       <text color="#ffff00" align="center">In this lesson we practice </text>
+       <text color="#ffff00" align="center">words containing letters a to z</text>
+       <text color="#ffff00" align="center" y="400"> PRESS SPACE TO START THE LESSON!</text>
+      <waitforchar/>
+      <prac>zoo zebra yalk yellow next text tennis teach mango queen apple banana question answer wolf braille crawl</prac>
+     </page>    
+</script>
