@@ -2,8 +2,8 @@
    scripting.c:
 
    XML-based scripting for lessons and practice.
-   Copyright 2003, 2004, 2007, 2008, 2009, 2010.
-   Authors: Jesse Andrews, David Bruce, Matthew Trey.
+   Copyright 2003, 2004, 2007, 2008, 2009, 2010, 2017
+   Authors: Jesse Andrews, David Bruce, Matthew Trey, Nalin Sathyan.
    
    Project email: <tux4kids-tuxtype-dev@lists.alioth.debian.org>
    Project website: http://tux4kids.alioth.debian.org
@@ -153,7 +153,12 @@ int XMLLesson(void)
   /* First look in theme path, if desired: */
   if (!settings.use_english)
   {
-    sprintf(script_path, "%s/scripts", settings.theme_data_path);
+	  /* If braille is not enabled or scripts_braille folder does not exist
+	   * then select the default theme path */
+	  sprintf(script_path, "%s/scripts_braille", settings.theme_data_path);
+	  if(!settings.braille || !CheckFile(script_path))
+		sprintf(script_path, "%s/scripts", settings.theme_data_path);
+
     if (CheckFile(script_path))
     {
       DEBUGCODE {fprintf(stderr, "Using theme script dir: %s\n", script_path);}
@@ -164,7 +169,12 @@ int XMLLesson(void)
   /* Now look in default path if desired or needed: */
   if (!found)
   {
-    sprintf( script_path, "%s/scripts", settings.default_data_path);
+	  /* If braille is not enabled or scripts_braille folder does not exist
+	   * then select the default data path */
+	  sprintf( script_path, "%s/scripts_braille", settings.default_data_path);
+	  if(!settings.braille || !CheckFile(script_path))
+		sprintf( script_path, "%s/scripts", settings.default_data_path);
+
     if (CheckFile(script_path))
     {
       DEBUGCODE { fprintf(stderr, "Using theme script dir: %s\n", script_path); }
@@ -370,10 +380,22 @@ int XMLLesson(void)
             if (inRect(titleRects[i], event.button.x, event.button.y))
             {
               loc = loc - (loc % 8) + i;
-              if(settings.use_english)
-                sprintf(fn, "%s/scripts/%s", settings.default_data_path, script_filenames[loc]);
-              else
-                sprintf(fn, "%s/scripts/%s", settings.theme_data_path, script_filenames[loc]);
+
+              /* If braille is not enabled or scripts_braille folder does not exist
+               * then select the default path */
+
+			  if(settings.use_english)
+				sprintf(fn, "%s/scripts_braille/%s", settings.default_data_path, script_filenames[loc]);
+			  else
+				sprintf(fn, "%s/scripts_braille/%s", settings.theme_data_path, script_filenames[loc]);
+
+              if(!settings.braille || !CheckFile(fn))
+              {
+				if(settings.use_english)
+					sprintf(fn, "%s/scripts/%s", settings.default_data_path, script_filenames[loc]);
+				else
+					sprintf(fn, "%s/scripts/%s", settings.theme_data_path, script_filenames[loc]);
+			  }
               stop = 1;
               break; 
             }
@@ -390,11 +412,23 @@ int XMLLesson(void)
 
           if (event.key.keysym.sym == SDLK_RETURN)
           {
-            if(settings.use_english)
-              sprintf(fn, "%s/scripts/%s", settings.default_data_path, script_filenames[loc]);
-            else
-              sprintf(fn, "%s/scripts/%s", settings.theme_data_path, script_filenames[loc]);            stop = 1;
-            break;
+              /* If braille is not enabled or scripts_braille folder does not exist
+               * then select the default path */
+
+			  if(settings.use_english)
+				sprintf(fn, "%s/scripts_braille/%s", settings.default_data_path, script_filenames[loc]);
+			  else
+				sprintf(fn, "%s/scripts_braille/%s", settings.theme_data_path, script_filenames[loc]);
+
+              if(!settings.braille || !CheckFile(fn))
+              {
+				if(settings.use_english)
+					sprintf(fn, "%s/scripts/%s", settings.default_data_path, script_filenames[loc]);
+				else
+					sprintf(fn, "%s/scripts/%s", settings.theme_data_path, script_filenames[loc]);
+			  }
+			  stop = 1;
+			  break;
           }
 
           if ((event.key.keysym.sym == SDLK_LEFT)
@@ -1519,6 +1553,7 @@ static void run_script(void)
                       break;  // quit
                     }
                     case SDLK_p:
+                    case SDLK_SPACE:
                     {
                       curPage = curPage->next;
                       done = 1;
