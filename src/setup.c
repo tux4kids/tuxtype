@@ -241,7 +241,13 @@ void LoadSettings(void)
   snprintf( fn, FNLEN-1, "%s/TuxType/settings.txt", getenv("APPDATA"));
   LOG("WIN32 defined\n");
 #else
-  snprintf(fn, FNLEN - 1, (const char*)"%s/.tuxtype/settings.txt", getenv("HOME"));
+  const char *xdg_dir;
+
+  xdg_dir = getenv("XDG_CONFIG_HOME");
+  if (xdg_dir != NULL)
+    snprintf(fn, FNLEN - 1, (const char*)"%s/tuxtype/settings.txt", xdg_dir);
+  else
+    snprintf(fn, FNLEN - 1, (const char*)"%s/.config/tuxtype/settings.txt", getenv("HOME"));
   LOG("WIN32 not defined\n");
 #endif
 
@@ -553,12 +559,18 @@ int SetupPaths(const char* theme_dir)
 
 
   /* Determine the user data path (for user specific settings)  this would normally be     */
-  /* /home/user/.tuxtype for POSIX systems or Documents and Settings/user/Application Data */
-  /* for windows systems                                                                   */
+  /* $XDG_CONFIG_HOME/tuxtype for POSIX systems or Documents and Settings/user/Application */
+  /* Data for windows systems                                                              */
   #ifdef WIN32
     snprintf( fn, FNLEN-1, (const char*)"%s/TuxType", getenv("APPDATA") );
   #else
-    snprintf( fn, FNLEN-1, (const char*)"%s/.tuxtype", getenv("HOME") );
+    const char *xdg_dir;
+
+    xdg_dir = getenv("XDG_CONFIG_HOME");
+    if (xdg_dir != NULL)
+      snprintf(fn, FNLEN - 1, (const char*)"%s/tuxtype", xdg_dir);
+    else
+      snprintf(fn, FNLEN - 1, (const char*)"%s/.config/tuxtype", getenv("HOME"));
   #endif
 
   if (CheckFile(fn))
