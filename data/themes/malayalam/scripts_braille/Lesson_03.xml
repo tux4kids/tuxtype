@@ -1,0 +1,15 @@
+<script title="Test Lesson" bgcolor="#000000">
+       <page title="Introduction to Example Lesson">
+       <text align="center"> </text>
+       <text align="center"> </text>
+       <text color="#ffff00" align="center">പാഠം 3</text>
+       <text color="#ffff00" align="center">ഈ പാഠത്തില്‍ നമ്മള്‍ 1,2,4,5 ഗ, 2,4,5 ജ, 1,2,4,6 ഡ,</text>
+       <text color="#ffff00" align="center">1,4,5 ദ, 1,2 ബ എന്നീ അക്ഷരങ്ങള്‍ പരിശീലിക്കുന്നു.</text>
+       <text color="#ffff00" align="center" y="400"> PRESS SPACE TO START THE LESSON!</text>
+       <waitforchar/>
+      <prac>ഗ ഗ ഗ ഗ ജ ജ ജ ജ ഡ ഡ ഡ ഡ ദ ദ ദ ദ ബ ബ ബ ബ ഗഗഗഗ ജജജജ ഡഡഡഡ ദദദദ ബബബബ ഗജഡദബ ഗജഡദബ ഗജഡദബ</prac>
+     </page>    
+</script>
+
+
+

@@ -1,0 +1,11 @@
+<script title="Test Lesson" bgcolor="#000000">
+       <page title="Introduction to Example Lesson">
+       <text align="center"> </text>
+       <text align="center"> </text>
+       <text color="#ffff00" align="center">പ്രേക്റ്റീസ് 1.</text>
+       <text color="#ffff00" align="center" y="400"> PRESS SPACE TO START THE LESSON!</text>
+       <waitforchar/>
+<prac>അ ആ ഇ ഈ ഉ ഊ ഋ എ ഏ ഐ ഒ ഓ ഔ ം അ ആ ഇ ഈ ഉ ഊ ഋ എ ഏ ഐ ഒ ഓ ഔ ം എ ഏ ഉ ഊ അ ആ ഋ ം ഒ ഓ ഔ ം ഇ ഈ അ ആ ഇ ഈ ഉ ഊ ഋ എ ഏ ഐ ഒ ഓ ഔ</prac>
+</page>    
+</script>
+

@@ -1,0 +1,20 @@
+<script title="Test Lesson" bgcolor="#000000">
+       <page title="Introduction to Example Lesson">
+       <text align="center"> </text>
+       <text align="center"> </text>
+       <text color="#ffff00" align="center">പാഠം 9</text>
+       <text color="#ffff00" align="center">ഈ പാഠത്തില്‍  നമ്മള്‍ 4,5,6 ള, 1,2,4,5,6 റ </text> 
+       <text color="#ffff00" align="center">എന്നീ അക്ഷരങ്ങള്‍ പരിചയപ്പെടുന്നു.</text>
+       <text color="#ffff00" align="center" y="400"> PRESS SPACE TO START THE LESSON!</text>
+       <waitforchar/>
+      <prac>ള ള ള ള റ റ റ റ ളളളള ററററ വള വള കള കള പറ പറ മറ മറ പറവ പറവ റവ വള റവ വള</prac>
+     </page>    
+</script>
+
+ 
+
+
+
+
+
+
