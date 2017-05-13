@@ -1,0 +1,15 @@
+<script title="Test Lesson" bgcolor="#000000">
+       <page title="Introduction to Example Lesson">
+       <text align="center"> </text>
+       <text align="center"> </text>
+       <text color="#ffff00" align="center">പാഠം 4</text>
+       <text color="#ffff00" align="center">ഈ പാഠത്തില്‍ നമ്മള്‍ 3,4,5 ആ, 3,5 ഈ, 1,2,5,6 ഊ,</text> 
+       <text color="#ffff00" align="center">1,5 ഏ,െന്നീ അക്ഷരങ്ങള്‍ പരിചയപ്പെടുന്നു.</text>
+       <text color="#ffff00" align="center" y="400"> PRESS SPACE TO START THE LESSON!</text>
+       <waitforchar/>
+      <prac>ആ ആ ആ ആ ഈ ഈ ഈ ഈ ഊ ഊ ഊ ഊ ഏ ഏ ഏ ഏ ആഈ ആഈ ഊഏ ഊഏ ആഗ ഈഗ ഊഗ ഏഗ ഐഗ ഐജ</prac>
+     </page>    
+</script>
+
+
+

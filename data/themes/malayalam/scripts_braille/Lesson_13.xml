@@ -1,0 +1,14 @@
+<script title="Test Lesson" bgcolor="#000000">
+       <page title="Introduction to Example Lesson">
+       <text align="center"> </text>
+       <text align="center"> </text>
+       <text color="#ffff00" align="center">പാഠം 13</text> 
+       <text color="#ffff00" align="center">അക്ഷരങ്ങള്‍ കലര്‍ത്തി വാക്കുകളുണ്ടാക്കാം.</text>
+       <text color="#ffff00" align="center" y="400"> PRESS SPACE TO START THE LESSON!</text>
+       <waitforchar/>
+      <prac>കമല വല പശ ആഭ നര ആയ ഇല പലക ഝര കള മഴ പലവക ഊര ഉല ഉറ ൗ ഔസ ഐലസ കട മട ജട</prac>
+     </page>    
+</script>
+
+
+

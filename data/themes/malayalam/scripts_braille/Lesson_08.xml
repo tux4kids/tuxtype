@@ -1,0 +1,19 @@
+<script title="Test Lesson" bgcolor="#000000">
+       <page title="Introduction to Example Lesson">
+       <text align="center"> </text>
+       <text align="center"> </text>
+       <text color="#ffff00" align="center">പാഠം 8</text>
+       <text color="#ffff00" align="center">ഈ പാഠത്തില്‍ നമ്മള്‍ 1,2,3,4,6 ഷ, 2,3,4 സ, 3,4,5,6 ണ,</text> 
+       <text color="#ffff00" align="center">1,2,5 ഹ എന്നീ അക്ഷരങ്ങള്‍ പരിചയപ്പെടുന്നു.</text>
+       <text color="#ffff00" align="center" y="400"> PRESS SPACE TO START THE LESSON!</text>
+       <waitforchar/>
+      <prac>ഷ ഷ ഷ ഷ സ സ സ സ ണ ണ ണ ണ ഹ ഹ ഹ ഹ ഷഷഷഷ സസസസ ണണണണ ഹഹഹഹ ഷസണഹ ഷസഹണ</prac>
+     </page>    
+</script>
+
+
+  
+ 
+
+
+

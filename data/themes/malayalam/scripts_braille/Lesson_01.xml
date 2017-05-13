@@ -1,0 +1,15 @@
+<script title="Test Lesson" bgcolor="#000000">
+       <page title="Introduction to Example Lesson">
+       <text align="center"> </text>
+       <text align="center"> </text>
+       <text color="#ffff00" align="center">പാഠം 1</text>
+       <text color="#ffff00" align="center">ബ്രെയില്‍ മോഡില്‍ f, d, s, j, k, l എന്നീ  അക്ഷരങ്ങള്‍ </text>
+       <text color="#ffff00" align="center">കുത്ത് 1, 2, 3, 4, 5, 6 എന്നിവയെ പ്രതിനിധീകരിക്കുന്നു.</text>
+       <text color="#ffff00" align="center">ഈ പാഠത്തില്‍  നമ്മള്‍ 1,2 ക, 1,4, ച, 2,3,4,5,6 ട, 2,3,4,5 ത, </text>
+       <text color="#ffff00" align="center">1,2,3,4 പ എന്നീ അക്ഷരങ്ങളാണ് പ്രേക്റ്റീസ് ചെയ്യുന്നത്.</text>
+       <text color="#ffff00" align="center" y="400"> PRESS SPACE TO START THE LESSON!</text>
+       <waitforchar/>
+      <prac>ക ക ക ക ച ച ച ച ട ട ട ട ത ത ത ത പ പ പ പ കകചച ചചടട കകതത ചചപപ കചടതപ കചടതപ കചടതപ</prac>
+     </page>    
+</script>
+

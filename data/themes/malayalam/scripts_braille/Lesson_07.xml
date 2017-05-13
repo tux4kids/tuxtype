@@ -1,0 +1,17 @@
+<script title="Test Lesson" bgcolor="#000000">
+       <page title="Introduction to Example Lesson">
+       <text align="center"> </text>
+       <text align="center"> </text>
+       <text color="#ffff00" align="center">പാഠം 7</text>
+       <text color="#ffff00" align="center">ഈ പാഠത്തില്‍ നമ്മള്‍ 1,2,3,6 വ, 1,4,6 ശ,</text> 
+       <text color="#ffff00" align="center">2,5 ഞ, എന്നീ അക്ഷരങ്ങള്‍ പരിചയപ്പെടുന്നു.</text>
+       <text color="#ffff00" align="center" y="400"> PRESS SPACE TO START THE LESSON!</text>
+       <waitforchar/>
+      <prac>വ വ വ വ ശ ശ ശ ശ ഞ ഞ ഞ ഞ വശവശ ഞശഞശ പശ വല ആശ ഞ ഞ ഞ ഞ വശഞ വശഞ വശഞ</prac>
+     </page>    
+</script>
+
+
+
+
+
