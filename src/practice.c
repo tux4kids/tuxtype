@@ -758,9 +758,13 @@ int Phrases(wchar_t* pphrase )
 		   else{
 			  //Next letter is not Space
 			  //T4K_Tts_say(DEFAULT_VALUE,DEFAULT_VALUE,INTERRUPT,"%C",phrases[cur_phrase][cursor]);			  
-		   PlaySound(snd_ok);
-		   } 
-		  
+			   PlaySound(snd_ok);
+		   }
+
+		   // Announce remaining letters to be typed
+		   if(phrases[cur_phrase][cursor-1] != L' ')
+				T4K_Tts_say(DEFAULT_VALUE,DEFAULT_VALUE,INTERRUPT,
+					"%S", get_next_word_letters(cur_phrase,cursor,1));
 
           /* Handle wrapping if we are at the end of the current display. */
           /* NOTE now also checking for space at end of line so we wrap   */
