@@ -1,0 +1,19 @@
+<script title="Test Lesson" bgcolor="#000000">
+       <page title="Introduction to Example Lesson">
+       <text align="center"> </text>
+       <text align="center"> </text>
+       <text color="#ffff00" align="center">പാഠം 11</text>
+       <text color="#ffff00" align="center">ഈ പാഠത്തില്‍ നമുക്ക് അതിഖരങ്ങളായ 4,6, ഖ, 1,6 ഛ, 2,4,5,6 ഠ,</text> 
+       <text color="#ffff00" align="center">1,4,5,6 ഥ, 2,3,5, ഫ എന്നീ അക്ഷരങ്ങള്‍ പരിശീലിക്കാം.</text>
+       <text color="#ffff00" align="center" y="400"> PRESS SPACE TO START THE LESSON!</text>
+       <waitforchar/>
+      <prac>ഖ ഖ ഖ ഖ ഛ ഛ ഛ ഛ ഠ ഠ ഠ ഠ ഥ ഥ ഥ ഥ ഫ ഫ ഫ ഫ ഖഛഠഥഫ ഖഛഠഥഫ ഖഛഠഥഫ ഖഛഠഥഫ</prac>
+     </page>    
+</script>
+
+
+ 
+
+
+
+

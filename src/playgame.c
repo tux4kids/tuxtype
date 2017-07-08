@@ -326,6 +326,10 @@ int PlayCascade(int diflevel)
                 curlives = curlives + 10;
                 break;
 
+			  case SDLK_RALT:
+				braille_letter_pos = !braille_letter_pos;
+				break;
+
               case SDLK_F10:
                 /* NOTE this could be used to "cheat" by wiping out all the */
                 /* current words if the player is about to lose.            */
@@ -381,7 +385,6 @@ int PlayCascade(int diflevel)
 	      case SDLK_LSHIFT:
               case SDLK_RCTRL:
 	      case SDLK_LCTRL:
-	      case SDLK_RALT: 
               case SDLK_LALT:
 	      case SDLK_RMETA:
 	      case SDLK_LMETA:

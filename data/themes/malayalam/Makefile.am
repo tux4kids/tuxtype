@@ -1,7 +1,7 @@
 ## Makefile.am for tuxtype - data/themes/malayalam:
 ## Process with Automake to create Makefile.in
 
-SUBDIRS = images scripts words 
+SUBDIRS = images scripts words scripts_braille
 
 themes_malayalamdir = $(pkgdatadir)/themes/malayalam
 

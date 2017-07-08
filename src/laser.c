@@ -215,6 +215,9 @@ int PlayLaserGame(int diff_level)
 				if (key == SDLK_F11)
 					SDL_SaveBMP( screen, "laser.bmp");
 
+				if (key == SDLK_RALT)
+					braille_letter_pos = !braille_letter_pos;
+
 				if (key == SDLK_ESCAPE)
 					paused = 1;
 				/* Score */

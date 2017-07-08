@@ -489,6 +489,7 @@ data/themes/malayalam/images/Makefile
 data/themes/malayalam/images/status/Makefile
 data/themes/malayalam/images/keyboard/Makefile
 data/themes/malayalam/scripts/Makefile
+data/themes/malayalam/scripts_braille/Makefile
 data/themes/malayalam/words/Makefile
 data/themes/nederlands/Makefile
 data/themes/nederlands/words/Makefile

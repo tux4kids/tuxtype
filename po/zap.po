@@ -46,9 +46,6 @@ msgstr "Naban"
 msgid "Level"
 msgstr "Pal dul"
 
-msgid "Options"
-msgstr "Thus kuey"
-
 msgid "Alphabet"
 msgstr "Ko tak kel lo yets"
 
