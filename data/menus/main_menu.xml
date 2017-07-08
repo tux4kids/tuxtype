@@ -1,0 +1,29 @@
+<menu title="Main Menu" entries="6">
+    <menu title="Fish Cascade" sprite="cascade" entries="5" desc="Help Tux eat fish by pressing the letters on the fish">
+        <item title="Easy" sprite="tux_helmet_yellow" run="RUN_CASCADE_LEVEL1" desc="" />
+        <item title="Medium" sprite="tux_helmet_green" run="RUN_CASCADE_LEVEL2" desc="" />
+        <item title="Hard" sprite="tux_helmet_yellow" run="RUN_CASCADE_LEVEL3" desc="" />
+        <item title="Instructions" sprite="tux_helmet_yellow" run="RUN_INSTRUCT" desc="" />
+        <item title="Main Menu" sprite="main" run="RUN_MAIN_MENU" desc="Return to the main menu" />
+    </menu>
+    <menu title="Comet Zap" sprite="comet" entries="5" desc="Defend the cities from comets by typing letter on them using laser!">
+        <item title="Space Cadet" sprite="tux_helmet_yellow" run="RUN_LASER_LEVEL1" desc="Easy" />
+        <item title="Pilot" sprite="tux_helmet_green" run="RUN_LASER_LEVEL2" desc="Moderate" />
+        <item title="Ace" sprite="tux_helmet_blue" run="RUN_LASER_LEVEL3" desc="Hard" />
+        <item title="Commander" sprite="tux_helmet_red" run="RUN_LASER_LEVEL4" desc="Hardest" />
+        <item title="Main Menu" sprite="main" run="RUN_MAIN_MENU" desc="Return to the main menu" />
+    </menu>
+    <menu title="Training" sprite="lesson" entries="3" desc="Train alphabets and phrase typing">
+        <item title="Basic Lessons" sprite="lesson" run="RUN_LESSONS" desc="Train basic alphabets" />
+        <item title="Phrase Typing" sprite="practice" run="RUN_PHRASE_TYPING" desc="Train typing sentences" />
+        <item title="Main Menu" sprite="main" run="RUN_MAIN_MENU" desc="Return to the main menu" />
+    </menu>
+    <menu title="Options" sprite="tux_config" entries="4" desc="Additional options">
+        <item title="Setup Language" sprite="tux_config" run="RUN_SET_LANGUAGE" desc="Set your language" />
+        <item title="Edit Word Lists" sprite="list" run="RUN_EDIT_WORDLIST" desc="Add or remove words" />
+        <item title="Setup Braille Keys" sprite="keyboard" run="RUN_SET_BRAILLE_KEYS" desc="Choose your own keys for representing braille dots" />
+        <item title="Main Menu" sprite="main" run="RUN_MAIN_MENU" desc="Return to the main menu" />
+    </menu>
+    <item title="Project Info" sprite="alone" run="RUN_PROJECT_INFO" desc="See the project info" />
+    <item title="Quit" sprite="quit" run="RUN_QUIT" desc="Exit to your desktop" />
+</menu>

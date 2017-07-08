@@ -176,6 +176,7 @@ void ChooseListToEdit(void)
 	/*Load image for left and right buttons: */
   left = LoadImage("left.png", IMG_ALPHA);
   right = LoadImage("right.png", IMG_ALPHA);
+  LoadBothBkgds("title/menu_bkg.jpg");
 
   LOG( "ChooseFile() - drawing screen\n");
 

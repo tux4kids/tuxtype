@@ -31,13 +31,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "globals.h"
 #include "funcs.h"
 
+extern Mix_Music* sounds[];
+
 static Mix_Music* defaultMusic = NULL; // holds music for audioMusicLoad/unload
+
+
 
 // play sound once
 void PlaySound(Mix_Chunk* snd)
 {
   PlaySoundLoop(snd, 0);
 }
+
+void playsound(int snd)
+{
+#ifndef NOSOUND
+	T4K_PlaySound(sounds[snd]);
+#endif
+}
+
 
 // play sound with optional repeats, or -1 for infinite
 void PlaySoundLoop(Mix_Chunk* snd, int loops)

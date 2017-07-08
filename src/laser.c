@@ -46,8 +46,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Local (to laser.c) 'globals': */
 static sprite* shield = NULL;
-static SDL_Surface* images[NUM_IMAGES] = {NULL};
-static Mix_Chunk* sounds[NUM_SOUNDS] = {NULL};
+
+extern Mix_Music* sounds[];
+extern SDL_Surface* images[];
+
+//static SDL_Surface* images[NUM_IMAGES] = {NULL};
+//static Mix_Chunk* sounds[NUM_SOUNDS] = {NULL};
 static Mix_Music* musics[NUM_MUSICS] = {NULL};
 
 static int wave, speed, score, pre_wave_score, num_attackers, distanceMoved , num_cities_alive;
@@ -855,18 +859,7 @@ static void laser_load_data(void)
         /* used in the word list: */
 	RenderLetters(COMET_ZAP_FONT_SIZE);
 
-	/* Load images: */
-	for (i = 0; i < NUM_IMAGES; i++) 
-		images[i] = LoadImage(image_filenames[i], IMG_ALPHA);
 	shield = LoadSprite( "cities/shield", IMG_ALPHA );
-
-	if (settings.sys_sound) {
-		for (i = 0; i < NUM_SOUNDS; i++)
-			sounds[i] = LoadSound(sound_filenames[i]);
-
-		for (i = 0; i < NUM_MUSICS; i++)
-			musics[i] = LoadMusic(music_filenames[i]);
-	}
 
 //	PauseLoadMedia();
 }
@@ -877,16 +870,6 @@ static void laser_unload_data(void) {
 	int i;
 
 	FreeLetters();
-
-	for (i = 0; i < NUM_IMAGES; i++)
-		SDL_FreeSurface(images[i]);
-
-	if (settings.sys_sound) {
-		for (i = 0; i < NUM_SOUNDS; i++)
-			Mix_FreeChunk(sounds[i]);
-		for (i = 0; i < NUM_MUSICS; i++)
-			Mix_FreeMusic(musics[i]);
-	}
 
 	FreeSprite(shield);
         shield = NULL;

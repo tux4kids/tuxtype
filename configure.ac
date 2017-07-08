@@ -410,6 +410,9 @@ data/images/keyboard/Makefile
 data/images/menu/Makefile
 data/images/status/Makefile
 data/images/tux/Makefile
+data/images/title/Makefile
+data/images/sprites/Makefile
+data/menus/Makefile
 data/scripts/Makefile
 data/scripts_braille/Makefile
 data/sounds/Makefile

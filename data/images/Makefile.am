@@ -10,11 +10,15 @@ SUBDIRS = backgrounds \
   keyboard \
   menu \
   status \
-  tux
+  tux \
+  sprites \
+  title
+
 
 imagesdir = $(pkgdatadir)/images
 
 dist_images_DATA = README_IMAGES.TXT \
+  arrows.png \
   down.png \
   fishy-.png \
   fishy0.png \

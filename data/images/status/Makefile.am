@@ -9,4 +9,5 @@ dist_images_status_DATA = gameover.png \
   tux_helmet1.png \
   tux_helmet2.png \
   tux_helmet3.png \
-  wave.png
+  wave.png \
+  standby.png

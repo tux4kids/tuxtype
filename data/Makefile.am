@@ -9,7 +9,8 @@ SUBDIRS = fonts	\
   themes	\
   words		\
   braille	\
-  scripts_braille
+  scripts_braille \
+  menus
 
 ##tuxtypedatadir = $(pkgdatadir)
 

@@ -26,7 +26,15 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
+/* For TransWipe(): */
+enum
+{
+  WIPE_BLINDS_VERT,
+  WIPE_BLINDS_HORIZ,
+  WIPE_BLINDS_BOX,
+  RANDOM_WIPE,
+  NUM_WIPES
+};
 
 #include <math.h>
 

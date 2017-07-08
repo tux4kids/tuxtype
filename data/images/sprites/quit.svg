@@ -1,0 +1,1357 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg:svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="100"
+   height="100"
+   id="svg2"
+   sodipodi:version="0.32"
+   inkscape:version="0.46"
+   sodipodi:docname="quit.svg"
+   inkscape:output_extension="org.inkscape.output.svg.inkscape"
+   version="1.0"
+   style="display:inline">
+  <desc>7 frames</desc>
+  <svg:defs
+     id="defs4">
+    <svg:linearGradient
+       inkscape:collect="always"
+       id="linearGradient3352">
+      <svg:stop
+         style="stop-color:#ff7f2a;stop-opacity:1;"
+         offset="0"
+         id="stop3354" />
+      <svg:stop
+         style="stop-color:#ff7f2a;stop-opacity:0;"
+         offset="1"
+         id="stop3356" />
+    </svg:linearGradient>
+    <svg:linearGradient
+       inkscape:collect="always"
+       id="linearGradient3344">
+      <svg:stop
+         style="stop-color:#ff7f2a;stop-opacity:1;"
+         offset="0"
+         id="stop3346" />
+      <svg:stop
+         style="stop-color:#ff7f2a;stop-opacity:0;"
+         offset="1"
+         id="stop3348" />
+    </svg:linearGradient>
+    <svg:linearGradient
+       inkscape:collect="always"
+       id="linearGradient3336">
+      <svg:stop
+         style="stop-color:#ff7f2a;stop-opacity:1;"
+         offset="0"
+         id="stop3338" />
+      <svg:stop
+         style="stop-color:#ff7f2a;stop-opacity:0;"
+         offset="1"
+         id="stop3340" />
+    </svg:linearGradient>
+    <svg:linearGradient
+       id="linearGradient3327">
+      <svg:stop
+         style="stop-color:#803300;stop-opacity:1;"
+         offset="0"
+         id="stop3329" />
+      <svg:stop
+         style="stop-color:#a03300;stop-opacity:1;"
+         offset="1"
+         id="stop3331" />
+    </svg:linearGradient>
+    <svg:linearGradient
+       id="linearGradient3319">
+      <svg:stop
+         style="stop-color:#803300;stop-opacity:1;"
+         offset="0"
+         id="stop3321" />
+      <svg:stop
+         style="stop-color:#ad3000;stop-opacity:1;"
+         offset="1"
+         id="stop3323" />
+    </svg:linearGradient>
+    <svg:linearGradient
+       id="linearGradient3307">
+      <svg:stop
+         id="stop3309"
+         offset="0"
+         style="stop-color:#a56700;stop-opacity:1;" />
+      <svg:stop
+         id="stop3311"
+         offset="1"
+         style="stop-color:#ff8500;stop-opacity:1;" />
+    </svg:linearGradient>
+    <svg:linearGradient
+       id="linearGradient3333">
+      <svg:stop
+         style="stop-color:#000000;stop-opacity:1;"
+         offset="0"
+         id="stop3335" />
+      <svg:stop
+         style="stop-color:#0033ea;stop-opacity:0;"
+         offset="1"
+         id="stop3337" />
+    </svg:linearGradient>
+    <svg:linearGradient
+       id="linearGradient3323">
+      <svg:stop
+         style="stop-color:#fffbff;stop-opacity:1;"
+         offset="0"
+         id="stop3325" />
+      <svg:stop
+         style="stop-color:#f3f7f9;stop-opacity:0;"
+         offset="1"
+         id="stop3327" />
+    </svg:linearGradient>
+    <svg:linearGradient
+       id="linearGradient3313">
+      <svg:stop
+         style="stop-color:#fdffff;stop-opacity:0.64462811;"
+         offset="0"
+         id="stop3315" />
+      <svg:stop
+         style="stop-color:#ffffff;stop-opacity:0;"
+         offset="1"
+         id="stop3317" />
+    </svg:linearGradient>
+    <svg:linearGradient
+       id="linearGradient3303">
+      <svg:stop
+         style="stop-color:#ffffff;stop-opacity:0.51239669;"
+         offset="0"
+         id="stop3305" />
+      <svg:stop
+         style="stop-color:#ffffff;stop-opacity:0;"
+         offset="1"
+         id="stop3307" />
+    </svg:linearGradient>
+    <svg:linearGradient
+       id="linearGradient3291">
+      <svg:stop
+         style="stop-color:#000000;stop-opacity:1;"
+         offset="0"
+         id="stop3293" />
+      <svg:stop
+         style="stop-color:#000000;stop-opacity:0;"
+         offset="1"
+         id="stop3295" />
+    </svg:linearGradient>
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 526.18109 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="744.09448 : 526.18109 : 1"
+       inkscape:persp3d-origin="372.04724 : 350.78739 : 1"
+       id="perspective10" />
+    <svg:linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3303"
+       id="linearGradient3329"
+       x1="194.1282"
+       y1="357.67545"
+       x2="194.1282"
+       y2="320.93719"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(-0.8349641,-0.8349603)" />
+    <svg:linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3333"
+       id="linearGradient3339"
+       x1="202.06032"
+       y1="269.16965"
+       x2="205.40018"
+       y2="450.35599"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(-2.8253874e-6,2.6789494e-8)" />
+    <inkscape:perspective
+       id="perspective3569"
+       inkscape:persp3d-origin="372.04724 : 350.78739 : 1"
+       inkscape:vp_z="744.09448 : 526.18109 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 526.18109 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <svg:filter
+       inkscape:collect="always"
+       id="filter3949"
+       x="-0.24003901"
+       width="1.480078"
+       y="-0.23996101"
+       height="1.4799221">
+      <svg:feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="9.6296895"
+         id="feGaussianBlur3951" />
+    </svg:filter>
+    <svg:filter
+       inkscape:collect="always"
+       id="filter3953"
+       x="-0.23996103"
+       width="1.4799221"
+       y="-0.24003899"
+       height="1.480078">
+      <svg:feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="9.629686"
+         id="feGaussianBlur3955" />
+    </svg:filter>
+    <svg:clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath3388">
+      <svg:rect
+         style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:1;display:inline"
+         id="rect3390"
+         width="100"
+         height="100"
+         x="0"
+         y="952.36218"
+         ry="27.524401"
+         rx="27.524401" />
+    </svg:clipPath>
+    <svg:clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath2426">
+      <svg:rect
+         style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:1;display:inline"
+         id="rect2428"
+         width="100"
+         height="100"
+         x="0"
+         y="952.36218"
+         ry="27.524401"
+         rx="27.524401" />
+    </svg:clipPath>
+    <svg:clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath3224">
+      <svg:rect
+         style="fill:#0033cc;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:1;display:inline"
+         id="rect3226"
+         width="100"
+         height="100"
+         x="0"
+         y="952.36218"
+         ry="27.524401"
+         rx="27.524401" />
+    </svg:clipPath>
+    <svg:clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath3228">
+      <svg:rect
+         style="fill:#0033cc;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:1;display:inline"
+         id="rect3230"
+         width="100"
+         height="100"
+         x="0"
+         y="952.36218"
+         ry="27.524401"
+         rx="27.524401" />
+    </svg:clipPath>
+    <inkscape:perspective
+       id="perspective2521"
+       inkscape:persp3d-origin="372.04724 : 350.78739 : 1"
+       inkscape:vp_z="744.09448 : 526.18109 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 526.18109 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <svg:linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3327"
+       id="linearGradient3334"
+       x1="55.456604"
+       y1="49.310131"
+       x2="85.508667"
+       y2="83.742355"
+       gradientUnits="userSpaceOnUse" />
+    <svg:linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3336"
+       id="linearGradient3342"
+       x1="31.999996"
+       y1="13.000001"
+       x2="45.999996"
+       y2="45"
+       gradientUnits="userSpaceOnUse" />
+    <svg:linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3344"
+       id="linearGradient3350"
+       x1="53.999996"
+       y1="13.000001"
+       x2="68"
+       y2="45"
+       gradientUnits="userSpaceOnUse" />
+    <svg:linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3352"
+       id="linearGradient3358"
+       x1="33.693386"
+       y1="55"
+       x2="68"
+       y2="73"
+       gradientUnits="userSpaceOnUse" />
+    <svg:linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3327"
+       id="linearGradient3387"
+       gradientUnits="userSpaceOnUse"
+       x1="55.456604"
+       y1="49.310131"
+       x2="85.508667"
+       y2="83.742355" />
+    <svg:linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3336"
+       id="linearGradient3389"
+       gradientUnits="userSpaceOnUse"
+       x1="31.999996"
+       y1="13.000001"
+       x2="45.999996"
+       y2="45" />
+    <svg:linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3344"
+       id="linearGradient3391"
+       gradientUnits="userSpaceOnUse"
+       x1="53.999996"
+       y1="13.000001"
+       x2="68"
+       y2="45" />
+    <svg:linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3352"
+       id="linearGradient3393"
+       gradientUnits="userSpaceOnUse"
+       x1="33.693386"
+       y1="55"
+       x2="68"
+       y2="73" />
+    <svg:linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3327"
+       id="linearGradient3405"
+       gradientUnits="userSpaceOnUse"
+       x1="55.456604"
+       y1="49.310131"
+       x2="85.508667"
+       y2="83.742355" />
+    <svg:linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3336"
+       id="linearGradient3407"
+       gradientUnits="userSpaceOnUse"
+       x1="31.999996"
+       y1="13.000001"
+       x2="45.999996"
+       y2="45" />
+    <svg:linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3344"
+       id="linearGradient3409"
+       gradientUnits="userSpaceOnUse"
+       x1="53.999996"
+       y1="13.000001"
+       x2="68"
+       y2="45" />
+    <svg:linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3352"
+       id="linearGradient3411"
+       gradientUnits="userSpaceOnUse"
+       x1="33.693386"
+       y1="55"
+       x2="68"
+       y2="73" />
+    <svg:linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3327"
+       id="linearGradient3423"
+       gradientUnits="userSpaceOnUse"
+       x1="55.456604"
+       y1="49.310131"
+       x2="85.508667"
+       y2="83.742355" />
+    <svg:linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3336"
+       id="linearGradient3425"
+       gradientUnits="userSpaceOnUse"
+       x1="31.999996"
+       y1="13.000001"
+       x2="45.999996"
+       y2="45" />
+    <svg:linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3344"
+       id="linearGradient3427"
+       gradientUnits="userSpaceOnUse"
+       x1="53.999996"
+       y1="13.000001"
+       x2="68"
+       y2="45" />
+    <svg:linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3352"
+       id="linearGradient3429"
+       gradientUnits="userSpaceOnUse"
+       x1="33.693386"
+       y1="55"
+       x2="68"
+       y2="73" />
+    <svg:linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3352"
+       id="linearGradient3432"
+       gradientUnits="userSpaceOnUse"
+       x1="33.693386"
+       y1="55"
+       x2="68"
+       y2="73"
+       gradientTransform="translate(-3.8743019e-7,952.36218)" />
+    <svg:linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3344"
+       id="linearGradient3435"
+       gradientUnits="userSpaceOnUse"
+       x1="53.999996"
+       y1="13.000001"
+       x2="68"
+       y2="45"
+       gradientTransform="translate(-3.8743019e-7,952.36218)" />
+    <svg:linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3336"
+       id="linearGradient3438"
+       gradientUnits="userSpaceOnUse"
+       x1="31.999996"
+       y1="13.000001"
+       x2="45.999996"
+       y2="45"
+       gradientTransform="translate(-3.8743019e-7,952.36218)" />
+    <svg:filter
+       inkscape:collect="always"
+       id="filter3443">
+      <svg:feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="1.6050513"
+         id="feGaussianBlur3445" />
+    </svg:filter>
+    <svg:linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3327"
+       id="linearGradient3461"
+       gradientUnits="userSpaceOnUse"
+       x1="55.456604"
+       y1="49.310131"
+       x2="85.508667"
+       y2="83.742355" />
+    <svg:linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3336"
+       id="linearGradient3463"
+       gradientUnits="userSpaceOnUse"
+       x1="31.999996"
+       y1="13.000001"
+       x2="45.999996"
+       y2="45" />
+    <svg:linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3344"
+       id="linearGradient3465"
+       gradientUnits="userSpaceOnUse"
+       x1="53.999996"
+       y1="13.000001"
+       x2="68"
+       y2="45" />
+    <svg:linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3352"
+       id="linearGradient3467"
+       gradientUnits="userSpaceOnUse"
+       x1="33.693386"
+       y1="55"
+       x2="68"
+       y2="73" />
+    <svg:linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3327"
+       id="linearGradient3492"
+       gradientUnits="userSpaceOnUse"
+       x1="55.456604"
+       y1="49.310131"
+       x2="85.508667"
+       y2="83.742355" />
+    <svg:linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3336"
+       id="linearGradient3494"
+       gradientUnits="userSpaceOnUse"
+       x1="31.999996"
+       y1="13.000001"
+       x2="45.999996"
+       y2="45" />
+    <svg:linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3344"
+       id="linearGradient3496"
+       gradientUnits="userSpaceOnUse"
+       x1="53.999996"
+       y1="13.000001"
+       x2="68"
+       y2="45" />
+    <svg:linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3352"
+       id="linearGradient3498"
+       gradientUnits="userSpaceOnUse"
+       x1="33.693386"
+       y1="55"
+       x2="68"
+       y2="73" />
+    <svg:linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3327"
+       id="linearGradient3521"
+       gradientUnits="userSpaceOnUse"
+       x1="55.456604"
+       y1="49.310131"
+       x2="85.508667"
+       y2="83.742355" />
+    <svg:linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3336"
+       id="linearGradient3523"
+       gradientUnits="userSpaceOnUse"
+       x1="31.999996"
+       y1="13.000001"
+       x2="45.999996"
+       y2="45" />
+    <svg:linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3344"
+       id="linearGradient3525"
+       gradientUnits="userSpaceOnUse"
+       x1="53.999996"
+       y1="13.000001"
+       x2="68"
+       y2="45" />
+    <svg:linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3352"
+       id="linearGradient3527"
+       gradientUnits="userSpaceOnUse"
+       x1="33.693386"
+       y1="55"
+       x2="68"
+       y2="73" />
+    <svg:linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3327"
+       id="linearGradient3606"
+       gradientUnits="userSpaceOnUse"
+       x1="55.456604"
+       y1="49.310131"
+       x2="85.508667"
+       y2="83.742355" />
+    <svg:linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3336"
+       id="linearGradient3608"
+       gradientUnits="userSpaceOnUse"
+       x1="31.999996"
+       y1="13.000001"
+       x2="45.999996"
+       y2="45" />
+    <svg:linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3344"
+       id="linearGradient3610"
+       gradientUnits="userSpaceOnUse"
+       x1="53.999996"
+       y1="13.000001"
+       x2="68"
+       y2="45" />
+    <svg:linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3352"
+       id="linearGradient3612"
+       gradientUnits="userSpaceOnUse"
+       x1="33.693386"
+       y1="55"
+       x2="68"
+       y2="73" />
+    <svg:linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3327"
+       id="linearGradient3635"
+       gradientUnits="userSpaceOnUse"
+       x1="55.456604"
+       y1="49.310131"
+       x2="85.508667"
+       y2="83.742355" />
+    <svg:linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3336"
+       id="linearGradient3637"
+       gradientUnits="userSpaceOnUse"
+       x1="31.999996"
+       y1="13.000001"
+       x2="45.999996"
+       y2="45" />
+    <svg:linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3344"
+       id="linearGradient3639"
+       gradientUnits="userSpaceOnUse"
+       x1="53.999996"
+       y1="13.000001"
+       x2="68"
+       y2="45" />
+    <svg:linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3352"
+       id="linearGradient3641"
+       gradientUnits="userSpaceOnUse"
+       x1="33.693386"
+       y1="55"
+       x2="68"
+       y2="73" />
+    <svg:linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3327"
+       id="linearGradient3664"
+       gradientUnits="userSpaceOnUse"
+       x1="55.456604"
+       y1="49.310131"
+       x2="85.508667"
+       y2="83.742355" />
+    <svg:linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3336"
+       id="linearGradient3666"
+       gradientUnits="userSpaceOnUse"
+       x1="31.999996"
+       y1="13.000001"
+       x2="45.999996"
+       y2="45" />
+    <svg:linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3344"
+       id="linearGradient3668"
+       gradientUnits="userSpaceOnUse"
+       x1="53.999996"
+       y1="13.000001"
+       x2="68"
+       y2="45" />
+    <svg:linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3352"
+       id="linearGradient3670"
+       gradientUnits="userSpaceOnUse"
+       x1="33.693386"
+       y1="55"
+       x2="68"
+       y2="73" />
+    <svg:linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3327"
+       id="linearGradient3672"
+       gradientUnits="userSpaceOnUse"
+       x1="55.456604"
+       y1="49.310131"
+       x2="85.508667"
+       y2="83.742355" />
+    <svg:linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3336"
+       id="linearGradient3674"
+       gradientUnits="userSpaceOnUse"
+       x1="31.999996"
+       y1="13.000001"
+       x2="45.999996"
+       y2="45" />
+    <svg:linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3344"
+       id="linearGradient3676"
+       gradientUnits="userSpaceOnUse"
+       x1="53.999996"
+       y1="13.000001"
+       x2="68"
+       y2="45" />
+    <svg:linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3352"
+       id="linearGradient3678"
+       gradientUnits="userSpaceOnUse"
+       x1="33.693386"
+       y1="55"
+       x2="68"
+       y2="73" />
+    <svg:linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3327"
+       id="linearGradient3701"
+       gradientUnits="userSpaceOnUse"
+       x1="55.456604"
+       y1="49.310131"
+       x2="85.508667"
+       y2="83.742355" />
+    <svg:linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3336"
+       id="linearGradient3703"
+       gradientUnits="userSpaceOnUse"
+       x1="31.999996"
+       y1="13.000001"
+       x2="45.999996"
+       y2="45" />
+    <svg:linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3344"
+       id="linearGradient3705"
+       gradientUnits="userSpaceOnUse"
+       x1="53.999996"
+       y1="13.000001"
+       x2="68"
+       y2="45" />
+    <svg:linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3352"
+       id="linearGradient3707"
+       gradientUnits="userSpaceOnUse"
+       x1="33.693386"
+       y1="55"
+       x2="68"
+       y2="73" />
+  </svg:defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     gridtolerance="10000"
+     guidetolerance="10"
+     objecttolerance="10"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="4.2750173"
+     inkscape:cx="17.812501"
+     inkscape:cy="57.435914"
+     inkscape:document-units="px"
+     inkscape:current-layer="svg2"
+     showgrid="false"
+     showguides="true"
+     inkscape:guide-bbox="true"
+     inkscape:window-width="1280"
+     inkscape:window-height="726"
+     inkscape:window-x="0"
+     inkscape:window-y="24" />
+  <svg:metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </svg:metadata>
+  <svg:g
+     inkscape:label="default"
+     inkscape:groupmode="layer"
+     id="default"
+     transform="translate(0,-952.36218)"
+     style="display:inline">
+    <svg:g
+       id="g3232">
+      <svg:rect
+         rx="27.524401"
+         ry="27.524401"
+         y="952.36218"
+         x="0"
+         height="100"
+         width="100"
+         id="rect3861"
+         style="fill:#0033cc;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:1" />
+      <svg:path
+         clip-path="url(#clipPath3228)"
+         id="rect3855"
+         d="M 23.53125,948.08098 C 8.282732,948.08098 -4,960.33245 -4,975.58098 L -4,1020.5498 C -4,1030.7597 1.5042325,1039.6104 9.71875,1044.3622 C 7.362686,1040.3015 6,1035.6011 6,1030.5498 L 6,985.58098 C 6,970.33245 18.282732,958.08098 33.53125,958.08098 L 78.46875,958.08098 C 83.514556,958.08098 88.254777,959.4172 92.3125,961.76848 C 87.558171,953.56369 78.671461,948.08098 68.46875,948.08098 L 23.53125,948.08098 z"
+         style="opacity:0.9;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:1;filter:url(#filter3953)" />
+      <svg:path
+         clip-path="url(#clipPath3224)"
+         id="rect3575"
+         d="M 90.29375,960.04958 C 92.64503,964.10728 93.98125,968.81628 93.98125,973.86208 L 93.98125,1018.831 C 93.98125,1034.0795 81.69852,1046.3622 66.45,1046.3622 L 21.5125,1046.3622 C 16.47398,1046.3622 11.75378,1044.9884 7.7,1042.6434 C 12.45622,1050.8409 21.31532,1056.3622 31.5125,1056.3622 L 76.45,1056.3622 C 91.69852,1056.3622 103.98125,1044.0795 103.98125,1028.831 L 103.98125,983.86208 C 103.98125,973.65938 98.49854,964.80388 90.29375,960.04958 z"
+         style="opacity:0.9;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:1;filter:url(#filter3949)" />
+    </svg:g>
+    <svg:rect
+       style="fill:#000000;fill-opacity:0.8583815;fill-rule:nonzero;stroke:#000000;stroke-width:0.69999999;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;filter:url(#filter3443)"
+       id="rect3415"
+       width="53.341724"
+       height="73.662376"
+       x="23.35"
+       y="958.34979"
+       rx="0"
+       ry="0" />
+    <svg:g
+       id="g3360"
+       transform="matrix(0.8799025,0.3237932,0,1,2.7617213,944.91494)">
+      <svg:rect
+         ry="0"
+         rx="0"
+         y="5.9876237"
+         x="23.35"
+         height="73.662376"
+         width="53.341724"
+         id="rect2527"
+         style="opacity:1;fill:url(#linearGradient3387);fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.69999999;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <svg:rect
+         y="13.343788"
+         x="32.343784"
+         height="31.312426"
+         width="13.312425"
+         id="rect3313"
+         style="opacity:1;fill:url(#linearGradient3389);fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.68757468;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <svg:rect
+         y="13.343788"
+         x="54.343784"
+         height="31.312426"
+         width="13.312425"
+         id="rect3315"
+         style="opacity:1;fill:url(#linearGradient3391);fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.68757468;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <svg:rect
+         y="55.413826"
+         x="32.413826"
+         height="17.172346"
+         width="35.172344"
+         id="rect3317"
+         style="opacity:1;fill:url(#linearGradient3393);fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.82765323;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+    </svg:g>
+  </svg:g>
+  <svg:g
+     inkscape:groupmode="layer"
+     id="frame0"
+     inkscape:label="frame0"
+     style="display:inline">
+    <svg:g
+       transform="translate(0,-952.36218)"
+       style="display:inline"
+       id="g3681">
+      <svg:rect
+         rx="27.524401"
+         ry="27.524401"
+         y="952.36218"
+         x="0"
+         height="100"
+         width="100"
+         id="rect3683"
+         style="fill:#0033cc;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:1" />
+      <svg:path
+         clip-path="url(#clipPath3228)"
+         id="path3685"
+         d="M 23.53125,948.08098 C 8.282732,948.08098 -4,960.33245 -4,975.58098 L -4,1020.5498 C -4,1030.7597 1.5042325,1039.6104 9.71875,1044.3622 C 7.362686,1040.3015 6,1035.6011 6,1030.5498 L 6,985.58098 C 6,970.33245 18.282732,958.08098 33.53125,958.08098 L 78.46875,958.08098 C 83.514556,958.08098 88.254777,959.4172 92.3125,961.76848 C 87.558171,953.56369 78.671461,948.08098 68.46875,948.08098 L 23.53125,948.08098 z"
+         style="opacity:0.9;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:1;filter:url(#filter3953)" />
+      <svg:path
+         clip-path="url(#clipPath3224)"
+         id="path3687"
+         d="M 90.29375,960.04958 C 92.64503,964.10728 93.98125,968.81628 93.98125,973.86208 L 93.98125,1018.831 C 93.98125,1034.0795 81.69852,1046.3622 66.45,1046.3622 L 21.5125,1046.3622 C 16.47398,1046.3622 11.75378,1044.9884 7.7,1042.6434 C 12.45622,1050.8409 21.31532,1056.3622 31.5125,1056.3622 L 76.45,1056.3622 C 91.69852,1056.3622 103.98125,1044.0795 103.98125,1028.831 L 103.98125,983.86208 C 103.98125,973.65938 98.49854,964.80388 90.29375,960.04958 z"
+         style="opacity:0.9;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:1;filter:url(#filter3949)" />
+    </svg:g>
+    <svg:rect
+       style="fill:#000000;fill-opacity:0.8583815;fill-rule:nonzero;stroke:#000000;stroke-width:0.69999999;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;display:inline;filter:url(#filter3443)"
+       id="rect3689"
+       width="53.341724"
+       height="73.662376"
+       x="23.349998"
+       y="5.9876132"
+       rx="0"
+       ry="0" />
+    <svg:g
+       style="display:inline"
+       id="g3691"
+       transform="matrix(0.8799025,0.3237932,0,1,2.761722,-7.4472396)">
+      <svg:rect
+         ry="0"
+         rx="0"
+         y="5.9876237"
+         x="23.35"
+         height="73.662376"
+         width="53.341724"
+         id="rect3693"
+         style="opacity:1;fill:url(#linearGradient3701);fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.69999999;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <svg:rect
+         y="13.343788"
+         x="32.343784"
+         height="31.312426"
+         width="13.312425"
+         id="rect3695"
+         style="opacity:1;fill:url(#linearGradient3703);fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.68757468;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <svg:rect
+         y="13.343788"
+         x="54.343784"
+         height="31.312426"
+         width="13.312425"
+         id="rect3697"
+         style="opacity:1;fill:url(#linearGradient3705);fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.68757468;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <svg:rect
+         y="55.413826"
+         x="32.413826"
+         height="17.172346"
+         width="35.172344"
+         id="rect3699"
+         style="opacity:1;fill:url(#linearGradient3707);fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.82765323;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+    </svg:g>
+  </svg:g>
+  <svg:g
+     inkscape:groupmode="layer"
+     id="frame1"
+     inkscape:label="frame1"
+     style="display:inline">
+    <svg:g
+       transform="translate(0,-952.36218)"
+       style="display:inline"
+       id="g2414">
+      <svg:rect
+         rx="27.524401"
+         ry="27.524401"
+         y="952.36218"
+         x="0"
+         height="100"
+         width="100"
+         id="rect2416"
+         style="fill:#0033cc;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:1" />
+      <svg:path
+         clip-path="url(#clipPath3228)"
+         id="path2418"
+         d="M 23.53125,948.08098 C 8.282732,948.08098 -4,960.33245 -4,975.58098 L -4,1020.5498 C -4,1030.7597 1.5042325,1039.6104 9.71875,1044.3622 C 7.362686,1040.3015 6,1035.6011 6,1030.5498 L 6,985.58098 C 6,970.33245 18.282732,958.08098 33.53125,958.08098 L 78.46875,958.08098 C 83.514556,958.08098 88.254777,959.4172 92.3125,961.76848 C 87.558171,953.56369 78.671461,948.08098 68.46875,948.08098 L 23.53125,948.08098 z"
+         style="opacity:0.9;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:1;filter:url(#filter3953)" />
+      <svg:path
+         clip-path="url(#clipPath3224)"
+         id="path2420"
+         d="M 90.29375,960.04958 C 92.64503,964.10728 93.98125,968.81628 93.98125,973.86208 L 93.98125,1018.831 C 93.98125,1034.0795 81.69852,1046.3622 66.45,1046.3622 L 21.5125,1046.3622 C 16.47398,1046.3622 11.75378,1044.9884 7.7,1042.6434 C 12.45622,1050.8409 21.31532,1056.3622 31.5125,1056.3622 L 76.45,1056.3622 C 91.69852,1056.3622 103.98125,1044.0795 103.98125,1028.831 L 103.98125,983.86208 C 103.98125,973.65938 98.49854,964.80388 90.29375,960.04958 z"
+         style="opacity:0.9;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:1;filter:url(#filter3949)" />
+    </svg:g>
+    <svg:rect
+       style="fill:#000000;fill-opacity:0.8583815;fill-rule:nonzero;stroke:#000000;stroke-width:0.69999999;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;display:inline;filter:url(#filter3443)"
+       id="rect3447"
+       width="53.341724"
+       height="73.662376"
+       x="23.35"
+       y="5.9876237"
+       rx="0"
+       ry="0" />
+    <svg:g
+       style="display:inline"
+       id="g3395"
+       transform="matrix(0.9004455,0.2597073,0,1,2.2897529,-5.9732683)">
+      <svg:rect
+         ry="0"
+         rx="0"
+         y="5.9876237"
+         x="23.35"
+         height="73.662376"
+         width="53.341724"
+         id="rect3397"
+         style="opacity:1;fill:url(#linearGradient3405);fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.69999999;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <svg:rect
+         y="13.343788"
+         x="32.343784"
+         height="31.312426"
+         width="13.312425"
+         id="rect3399"
+         style="opacity:1;fill:url(#linearGradient3407);fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.68757468;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <svg:rect
+         y="13.343788"
+         x="54.343784"
+         height="31.312426"
+         width="13.312425"
+         id="rect3401"
+         style="opacity:1;fill:url(#linearGradient3409);fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.68757468;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <svg:rect
+         y="55.413826"
+         x="32.413826"
+         height="17.172346"
+         width="35.172344"
+         id="rect3403"
+         style="opacity:1;fill:url(#linearGradient3411);fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.82765323;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+    </svg:g>
+  </svg:g>
+  <svg:g
+     inkscape:groupmode="layer"
+     id="frame2"
+     inkscape:label="frame2"
+     style="display:inline">
+    <svg:g
+       transform="translate(0,-952.36218)"
+       style="display:inline"
+       id="g2432">
+      <svg:rect
+         rx="27.524401"
+         ry="27.524401"
+         y="952.36218"
+         x="0"
+         height="100"
+         width="100"
+         id="rect2434"
+         style="fill:#0033cc;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:1" />
+      <svg:path
+         clip-path="url(#clipPath3228)"
+         id="path2436"
+         d="M 23.53125,948.08098 C 8.282732,948.08098 -4,960.33245 -4,975.58098 L -4,1020.5498 C -4,1030.7597 1.5042325,1039.6104 9.71875,1044.3622 C 7.362686,1040.3015 6,1035.6011 6,1030.5498 L 6,985.58098 C 6,970.33245 18.282732,958.08098 33.53125,958.08098 L 78.46875,958.08098 C 83.514556,958.08098 88.254777,959.4172 92.3125,961.76848 C 87.558171,953.56369 78.671461,948.08098 68.46875,948.08098 L 23.53125,948.08098 z"
+         style="opacity:0.9;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:1;filter:url(#filter3953)" />
+      <svg:path
+         clip-path="url(#clipPath3224)"
+         id="path2438"
+         d="M 90.29375,960.04958 C 92.64503,964.10728 93.98125,968.81628 93.98125,973.86208 L 93.98125,1018.831 C 93.98125,1034.0795 81.69852,1046.3622 66.45,1046.3622 L 21.5125,1046.3622 C 16.47398,1046.3622 11.75378,1044.9884 7.7,1042.6434 C 12.45622,1050.8409 21.31532,1056.3622 31.5125,1056.3622 L 76.45,1056.3622 C 91.69852,1056.3622 103.98125,1044.0795 103.98125,1028.831 L 103.98125,983.86208 C 103.98125,973.65938 98.49854,964.80388 90.29375,960.04958 z"
+         style="opacity:0.9;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:1;filter:url(#filter3949)" />
+    </svg:g>
+    <svg:rect
+       style="fill:#000000;fill-opacity:0.8583815;fill-rule:nonzero;stroke:#000000;stroke-width:0.69999999;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;display:inline;filter:url(#filter3443)"
+       id="rect3469"
+       width="53.341724"
+       height="73.662376"
+       x="23.35"
+       y="5.9876237"
+       rx="0"
+       ry="0" />
+    <svg:g
+       style="display:inline"
+       id="g3451"
+       transform="matrix(0.9394016,0.2077659,0,1,1.3937626,-4.7786147)">
+      <svg:rect
+         ry="0"
+         rx="0"
+         y="5.9876237"
+         x="23.35"
+         height="73.662376"
+         width="53.341724"
+         id="rect3453"
+         style="opacity:1;fill:url(#linearGradient3461);fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.69999999;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <svg:rect
+         y="13.343788"
+         x="32.343784"
+         height="31.312426"
+         width="13.312425"
+         id="rect3455"
+         style="opacity:1;fill:url(#linearGradient3463);fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.68757468;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <svg:rect
+         y="13.343788"
+         x="54.343784"
+         height="31.312426"
+         width="13.312425"
+         id="rect3457"
+         style="opacity:1;fill:url(#linearGradient3465);fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.68757468;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <svg:rect
+         y="55.413826"
+         x="32.413826"
+         height="17.172346"
+         width="35.172344"
+         id="rect3459"
+         style="opacity:1;fill:url(#linearGradient3467);fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.82765323;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+    </svg:g>
+  </svg:g>
+  <svg:g
+     inkscape:groupmode="layer"
+     id="frame3"
+     inkscape:label="frame3"
+     style="display:inline">
+    <svg:g
+       transform="translate(0,-952.36218)"
+       style="display:inline"
+       id="g3472">
+      <svg:rect
+         rx="27.524401"
+         ry="27.524401"
+         y="952.36218"
+         x="0"
+         height="100"
+         width="100"
+         id="rect3474"
+         style="fill:#0033cc;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:1" />
+      <svg:path
+         clip-path="url(#clipPath3228)"
+         id="path3476"
+         d="M 23.53125,948.08098 C 8.282732,948.08098 -4,960.33245 -4,975.58098 L -4,1020.5498 C -4,1030.7597 1.5042325,1039.6104 9.71875,1044.3622 C 7.362686,1040.3015 6,1035.6011 6,1030.5498 L 6,985.58098 C 6,970.33245 18.282732,958.08098 33.53125,958.08098 L 78.46875,958.08098 C 83.514556,958.08098 88.254777,959.4172 92.3125,961.76848 C 87.558171,953.56369 78.671461,948.08098 68.46875,948.08098 L 23.53125,948.08098 z"
+         style="opacity:0.9;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:1;filter:url(#filter3953)" />
+      <svg:path
+         clip-path="url(#clipPath3224)"
+         id="path3478"
+         d="M 90.29375,960.04958 C 92.64503,964.10728 93.98125,968.81628 93.98125,973.86208 L 93.98125,1018.831 C 93.98125,1034.0795 81.69852,1046.3622 66.45,1046.3622 L 21.5125,1046.3622 C 16.47398,1046.3622 11.75378,1044.9884 7.7,1042.6434 C 12.45622,1050.8409 21.31532,1056.3622 31.5125,1056.3622 L 76.45,1056.3622 C 91.69852,1056.3622 103.98125,1044.0795 103.98125,1028.831 L 103.98125,983.86208 C 103.98125,973.65938 98.49854,964.80388 90.29375,960.04958 z"
+         style="opacity:0.9;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:1;filter:url(#filter3949)" />
+    </svg:g>
+    <svg:rect
+       style="fill:#000000;fill-opacity:0.8583815;fill-rule:nonzero;stroke:#000000;stroke-width:0.69999999;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;display:inline;filter:url(#filter3443)"
+       id="rect3480"
+       width="53.341724"
+       height="73.662376"
+       x="23.35"
+       y="5.9876223"
+       rx="0"
+       ry="0" />
+    <svg:g
+       style="display:inline"
+       id="g3482"
+       transform="matrix(0.9653724,0.1385065,0,1,0.7964358,-3.1855453)">
+      <svg:rect
+         ry="0"
+         rx="0"
+         y="5.9876237"
+         x="23.35"
+         height="73.662376"
+         width="53.341724"
+         id="rect3484"
+         style="opacity:1;fill:url(#linearGradient3492);fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.69999999;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <svg:rect
+         y="13.343788"
+         x="32.343784"
+         height="31.312426"
+         width="13.312425"
+         id="rect3486"
+         style="opacity:1;fill:url(#linearGradient3494);fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.68757468;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <svg:rect
+         y="13.343788"
+         x="54.343784"
+         height="31.312426"
+         width="13.312425"
+         id="rect3488"
+         style="opacity:1;fill:url(#linearGradient3496);fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.68757468;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <svg:rect
+         y="55.413826"
+         x="32.413826"
+         height="17.172346"
+         width="35.172344"
+         id="rect3490"
+         style="opacity:1;fill:url(#linearGradient3498);fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.82765323;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+    </svg:g>
+  </svg:g>
+  <svg:g
+     inkscape:groupmode="layer"
+     id="frame4"
+     inkscape:label="frame4"
+     style="display:inline">
+    <svg:g
+       transform="translate(0,-952.36218)"
+       style="display:inline"
+       id="g3501">
+      <svg:rect
+         rx="27.524401"
+         ry="27.524401"
+         y="952.36218"
+         x="0"
+         height="100"
+         width="100"
+         id="rect3503"
+         style="fill:#0033cc;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:1" />
+      <svg:path
+         clip-path="url(#clipPath3228)"
+         id="path3505"
+         d="M 23.53125,948.08098 C 8.282732,948.08098 -4,960.33245 -4,975.58098 L -4,1020.5498 C -4,1030.7597 1.5042325,1039.6104 9.71875,1044.3622 C 7.362686,1040.3015 6,1035.6011 6,1030.5498 L 6,985.58098 C 6,970.33245 18.282732,958.08098 33.53125,958.08098 L 78.46875,958.08098 C 83.514556,958.08098 88.254777,959.4172 92.3125,961.76848 C 87.558171,953.56369 78.671461,948.08098 68.46875,948.08098 L 23.53125,948.08098 z"
+         style="opacity:0.9;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:1;filter:url(#filter3953)" />
+      <svg:path
+         clip-path="url(#clipPath3224)"
+         id="path3507"
+         d="M 90.29375,960.04958 C 92.64503,964.10728 93.98125,968.81628 93.98125,973.86208 L 93.98125,1018.831 C 93.98125,1034.0795 81.69852,1046.3622 66.45,1046.3622 L 21.5125,1046.3622 C 16.47398,1046.3622 11.75378,1044.9884 7.7,1042.6434 C 12.45622,1050.8409 21.31532,1056.3622 31.5125,1056.3622 L 76.45,1056.3622 C 91.69852,1056.3622 103.98125,1044.0795 103.98125,1028.831 L 103.98125,983.86208 C 103.98125,973.65938 98.49854,964.80388 90.29375,960.04958 z"
+         style="opacity:0.9;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:1;filter:url(#filter3949)" />
+    </svg:g>
+    <svg:rect
+       style="fill:#000000;fill-opacity:0.8583815;fill-rule:nonzero;stroke:#000000;stroke-width:0.69999999;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;display:inline;filter:url(#filter3443)"
+       id="rect3509"
+       width="53.341724"
+       height="73.662376"
+       x="23.35"
+       y="5.9876204"
+       rx="0"
+       ry="0" />
+    <svg:g
+       style="display:inline"
+       id="g3511"
+       transform="matrix(0.9740293,0.1168683,0,1,0.5973268,-2.6879724)">
+      <svg:rect
+         ry="0"
+         rx="0"
+         y="5.9876237"
+         x="23.35"
+         height="73.662376"
+         width="53.341724"
+         id="rect3513"
+         style="opacity:1;fill:url(#linearGradient3672);fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.69999999;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <svg:rect
+         y="13.343788"
+         x="32.343784"
+         height="31.312426"
+         width="13.312425"
+         id="rect3515"
+         style="opacity:1;fill:url(#linearGradient3674);fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.68757468;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <svg:rect
+         y="13.343788"
+         x="54.343784"
+         height="31.312426"
+         width="13.312425"
+         id="rect3517"
+         style="opacity:1;fill:url(#linearGradient3676);fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.68757468;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <svg:rect
+         y="55.413826"
+         x="32.413826"
+         height="17.172346"
+         width="35.172344"
+         id="rect3519"
+         style="opacity:1;fill:url(#linearGradient3678);fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.82765323;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+    </svg:g>
+  </svg:g>
+  <svg:g
+     inkscape:groupmode="layer"
+     id="frame5"
+     inkscape:label="frame5"
+     style="display:inline">
+    <svg:g
+       transform="translate(0,-952.36218)"
+       style="display:inline"
+       id="g3586">
+      <svg:rect
+         rx="27.524401"
+         ry="27.524401"
+         y="952.36218"
+         x="0"
+         height="100"
+         width="100"
+         id="rect3588"
+         style="fill:#0033cc;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:1" />
+      <svg:path
+         clip-path="url(#clipPath3228)"
+         id="path3590"
+         d="M 23.53125,948.08098 C 8.282732,948.08098 -4,960.33245 -4,975.58098 L -4,1020.5498 C -4,1030.7597 1.5042325,1039.6104 9.71875,1044.3622 C 7.362686,1040.3015 6,1035.6011 6,1030.5498 L 6,985.58098 C 6,970.33245 18.282732,958.08098 33.53125,958.08098 L 78.46875,958.08098 C 83.514556,958.08098 88.254777,959.4172 92.3125,961.76848 C 87.558171,953.56369 78.671461,948.08098 68.46875,948.08098 L 23.53125,948.08098 z"
+         style="opacity:0.9;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:1;filter:url(#filter3953)" />
+      <svg:path
+         clip-path="url(#clipPath3224)"
+         id="path3592"
+         d="M 90.29375,960.04958 C 92.64503,964.10728 93.98125,968.81628 93.98125,973.86208 L 93.98125,1018.831 C 93.98125,1034.0795 81.69852,1046.3622 66.45,1046.3622 L 21.5125,1046.3622 C 16.47398,1046.3622 11.75378,1044.9884 7.7,1042.6434 C 12.45622,1050.8409 21.31532,1056.3622 31.5125,1056.3622 L 76.45,1056.3622 C 91.69852,1056.3622 103.98125,1044.0795 103.98125,1028.831 L 103.98125,983.86208 C 103.98125,973.65938 98.49854,964.80388 90.29375,960.04958 z"
+         style="opacity:0.9;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:1;filter:url(#filter3949)" />
+    </svg:g>
+    <svg:rect
+       style="fill:#000000;fill-opacity:0.8583815;fill-rule:nonzero;stroke:#000000;stroke-width:0.69999999;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;display:inline;filter:url(#filter3443)"
+       id="rect3594"
+       width="53.341724"
+       height="73.662376"
+       x="23.35"
+       y="5.9876142"
+       rx="0"
+       ry="0" />
+    <svg:g
+       style="display:inline"
+       id="g3596"
+       transform="matrix(0.9783577,5.6269918e-2,0,1,0.4977724,-1.2942158)">
+      <svg:rect
+         ry="0"
+         rx="0"
+         y="5.9876237"
+         x="23.35"
+         height="73.662376"
+         width="53.341724"
+         id="rect3598"
+         style="opacity:1;fill:url(#linearGradient3606);fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.69999999;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <svg:rect
+         y="13.343788"
+         x="32.343784"
+         height="31.312426"
+         width="13.312425"
+         id="rect3600"
+         style="opacity:1;fill:url(#linearGradient3608);fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.68757468;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <svg:rect
+         y="13.343788"
+         x="54.343784"
+         height="31.312426"
+         width="13.312425"
+         id="rect3602"
+         style="opacity:1;fill:url(#linearGradient3610);fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.68757468;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <svg:rect
+         y="55.413826"
+         x="32.413826"
+         height="17.172346"
+         width="35.172344"
+         id="rect3604"
+         style="opacity:1;fill:url(#linearGradient3612);fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.82765323;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+    </svg:g>
+  </svg:g>
+  <svg:g
+     inkscape:groupmode="layer"
+     id="frame6"
+     inkscape:label="frame6"
+     style="display:inline">
+    <svg:g
+       transform="translate(0,-952.36218)"
+       style="display:inline"
+       id="g3615">
+      <svg:rect
+         rx="27.524401"
+         ry="27.524401"
+         y="952.36218"
+         x="0"
+         height="100"
+         width="100"
+         id="rect3617"
+         style="fill:#0033cc;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:1" />
+      <svg:path
+         clip-path="url(#clipPath3228)"
+         id="path3619"
+         d="M 23.53125,948.08098 C 8.282732,948.08098 -4,960.33245 -4,975.58098 L -4,1020.5498 C -4,1030.7597 1.5042325,1039.6104 9.71875,1044.3622 C 7.362686,1040.3015 6,1035.6011 6,1030.5498 L 6,985.58098 C 6,970.33245 18.282732,958.08098 33.53125,958.08098 L 78.46875,958.08098 C 83.514556,958.08098 88.254777,959.4172 92.3125,961.76848 C 87.558171,953.56369 78.671461,948.08098 68.46875,948.08098 L 23.53125,948.08098 z"
+         style="opacity:0.9;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:1;filter:url(#filter3953)" />
+      <svg:path
+         clip-path="url(#clipPath3224)"
+         id="path3621"
+         d="M 90.29375,960.04958 C 92.64503,964.10728 93.98125,968.81628 93.98125,973.86208 L 93.98125,1018.831 C 93.98125,1034.0795 81.69852,1046.3622 66.45,1046.3622 L 21.5125,1046.3622 C 16.47398,1046.3622 11.75378,1044.9884 7.7,1042.6434 C 12.45622,1050.8409 21.31532,1056.3622 31.5125,1056.3622 L 76.45,1056.3622 C 91.69852,1056.3622 103.98125,1044.0795 103.98125,1028.831 L 103.98125,983.86208 C 103.98125,973.65938 98.49854,964.80388 90.29375,960.04958 z"
+         style="opacity:0.9;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:1;filter:url(#filter3949)" />
+    </svg:g>
+    <svg:rect
+       style="fill:#000000;fill-opacity:0.8583815;fill-rule:nonzero;stroke:#000000;stroke-width:0.69999999;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;display:inline;filter:url(#filter3443)"
+       id="rect3623"
+       width="53.341724"
+       height="73.662376"
+       x="23.35"
+       y="5.9876227"
+       rx="0"
+       ry="0" />
+    <svg:g
+       style="display:inline"
+       id="g3625">
+      <svg:rect
+         ry="0"
+         rx="0"
+         y="5.9876237"
+         x="23.35"
+         height="73.662376"
+         width="53.341724"
+         id="rect3627"
+         style="opacity:1;fill:url(#linearGradient3635);fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.69999999;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <svg:rect
+         y="13.343788"
+         x="32.343784"
+         height="31.312426"
+         width="13.312425"
+         id="rect3629"
+         style="opacity:1;fill:url(#linearGradient3637);fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.68757468;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <svg:rect
+         y="13.343788"
+         x="54.343784"
+         height="31.312426"
+         width="13.312425"
+         id="rect3631"
+         style="opacity:1;fill:url(#linearGradient3639);fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.68757468;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <svg:rect
+         y="55.413826"
+         x="32.413826"
+         height="17.172346"
+         width="35.172344"
+         id="rect3633"
+         style="opacity:1;fill:url(#linearGradient3641);fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.82765323;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+    </svg:g>
+  </svg:g>
+</svg:svg>
