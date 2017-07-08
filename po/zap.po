@@ -98,9 +98,6 @@ msgstr "Xha mud kid"
 msgid "Main Menu"
 msgstr "Gua xhant niy"
 
-msgid "Options"
-msgstr "Thus kuey"
-
 msgid "Quit"
 msgstr "Bru"
 
