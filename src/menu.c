@@ -247,7 +247,7 @@ static int chooseWordlist(void)
 {
   SDL_Surface* titles[MAX_WORD_LISTS] = {NULL};
   SDL_Surface* select[MAX_WORD_LISTS] = {NULL};
-  SDL_Surface* left = NULL, *right = NULL;
+  SDL_Surface* left = NULL, *right = NULL, *bkg = NULL;
   SDL_Rect leftRect, rightRect;
   SDL_Rect titleRects[8];
   int stop = 0;
@@ -454,13 +454,13 @@ static int chooseWordlist(void)
   /* Render SDL_Surfaces for list entries: */
   for (i = 0; i < lists; i++)
   {
-    titles[i] = BlackOutline( wordlistName[i], DEFAULT_MENU_FONT_SIZE, &white );
-    select[i] = BlackOutline( wordlistName[i], DEFAULT_MENU_FONT_SIZE, &yellow);
+    titles[i] = T4K_BlackOutline( wordlistName[i], DEFAULT_MENU_FONT_SIZE, &white );
+    select[i] = T4K_BlackOutline( wordlistName[i], DEFAULT_MENU_FONT_SIZE, &yellow);
   }
 
-  left = LoadImage("left.png", IMG_ALPHA);
-  right = LoadImage("right.png", IMG_ALPHA);
-  LoadBothBkgds("title/menu_bkg.jpg");
+  left = T4K_LoadImage("left.png", IMG_ALPHA);
+  right = T4K_LoadImage("right.png", IMG_ALPHA);
+  bkg = T4K_LoadBkgd("title/menu_bkg.jpg",screen->w,screen->h);
 
   /* Get out if needed surface not loaded successfully: */
   if (!current_bkg() || !left || !right)
@@ -607,7 +607,7 @@ static int chooseWordlist(void)
     {
       int start;
 
-      SDL_BlitSurface(CurrentBkgd(), NULL, screen, NULL );
+      SDL_BlitSurface(bkg, NULL, screen, NULL );
 
       start = loc - (loc % 8);
 
