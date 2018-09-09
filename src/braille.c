@@ -29,30 +29,31 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Arrange the given disordered keycombination 
  * to assigned combination (fdsjkl) */
-wchar_t* arrange_in_order(wchar_t *disorder)
+void arrange_in_order(wchar_t *disorder)
 {
 	int iter=0,i,j,len;
-	wchar_t *ordered = malloc(sizeof(char)*100);
 	wchar_t *order = malloc(sizeof(char)*100);
+	wchar_t *temp = malloc(sizeof(char)*100);
 	
-	len = wcslen(disorder);	
-	ordered[iter] = L'\0';
 	wcscpy(order,L"fdsjkl");	
+	wcscpy(temp,disorder);
+
+	len = wcslen(disorder);
+	disorder[iter] = L'\0';
 		
 	for(i=0;i<6;i++)
 	{
 		
 		for(j=0;j<len;j++)
 		{
-			if (order[i] == disorder[j])
+			if (order[i] == temp[j])
 			{				
-				ordered[iter] = order[i];
+				disorder[iter] = order[i];
 				iter++;
 			}
 		}
 	}
-	ordered[iter] = L'\0';
-	return ordered;
+	disorder[iter] = L'\0';
 }
 
 

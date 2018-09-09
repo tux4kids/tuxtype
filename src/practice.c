@@ -636,7 +636,7 @@ int Phrases(wchar_t* pphrase )
 				if (wcscmp(pressed_letters,L" ") != 0)
 				{
 					/* ------ Check pressed_letters which is not space --------*/
-					wcscpy(pressed_letters,arrange_in_order(pressed_letters));
+					arrange_in_order(pressed_letters);
 					if (wcscmp(pressed_letters,L"") != 0)
 					{
 						for(i=0;i<100;i++)
