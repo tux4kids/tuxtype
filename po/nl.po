@@ -1,23 +1,22 @@
-# Translation of tuxtype.pot to Dutch.
+# Translation of tuxtype.po to Dutch.
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# Mobin M <mobinmohan@gmail.com>, 2008
-# Frans Spiesschaert <Frans.Spiesschaert@yucom.be>, 2015.
 #
+# Mobin M <mobinmohan@gmail.com>, 2008.
+# Simon Oosthoek <s.oosthoek@xs4all.nl>, 2015.
 msgid ""
 msgstr ""
 "Project-Id-Version: Tuxtype\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
 "POT-Creation-Date: 2012-02-02 20:16-0600\n"
-"PO-Revision-Date: 2015-05-13 21:20+0200\n"
-"Last-Translator: Frans Spiesschaert <Frans.Spiesschaert@yucom.be>\n"
-"Language-Team: Debian Dutch l10n Team <debian-l10n-dutch@lists.debian.org>\n"
+"PO-Revision-Date: 2015-01-06 16:45+0100\n"
+"Last-Translator: Simon Oosthoek <s.oosthoek@xs4all.nl>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Gtranslator 2.91.6\n"
+"X-Generator: Lokalize 1.5\n"
 
 #: src/loaders.c:98 src/main.c:161 src/playgame.c:654
 msgid "Fish"
@@ -25,11 +24,11 @@ msgstr "Vissen"
 
 #: src/pause.c:289
 msgid "Sound Effects Volume"
-msgstr "Volume geluidseffecten"
+msgstr "Geluidseffect-volume"
 
 #: src/pause.c:298
 msgid "Music Volume"
-msgstr "Muziekvolume"
+msgstr "Muziek-volume"
 
 #: src/pause.c:309
 msgid "Sound & Music Disabled"
@@ -37,19 +36,19 @@ msgstr "Geluid & Muziek Uitgeschakeld"
 
 #: src/pause.c:319
 msgid "Paused!"
-msgstr "Gepauzeerd!"
+msgstr "Pauze!"
 
 #: src/pause.c:328
 msgid "Press escape again to return to menu"
-msgstr "Druk nogmaals op escape om naar het menu terug te keren"
+msgstr "terug naar het menu? druk op escape"
 
 #: src/pause.c:337
 msgid "Press space bar to return to game"
-msgstr "Druk op de spatiebalk om terug naar het spel te gaan"
+msgstr "terug naar het spel? druk op spatiebalk"
 
 #: src/playgame.c:652
 msgid "Level"
-msgstr "Niveau"
+msgstr "Level"
 
 #: src/playgame.c:653
 msgid "Lives"
@@ -62,20 +61,20 @@ msgstr "Gemakkelijk"
 
 #: src/playgame.c:657 src/titlescreen.c:100
 msgid "Medium"
-msgstr "Middelmatig"
+msgstr "Moeilijker"
 
 #: src/playgame.c:658 src/titlescreen.c:101
 msgid "Hard"
-msgstr "Moeilijk"
+msgstr "Echt Moeilijk"
 
 # general stuff
 #: src/playgame.c:659
 msgid "Practice"
-msgstr "Oefeningen"
+msgstr "Oefenen"
 
 #: src/playgame.c:670
 msgid "Congratulations"
-msgstr "Gefeliciteerd !"
+msgstr "Gefeliciteerd!"
 
 #: src/playgame.c:674
 msgid "Oh No!"
@@ -91,11 +90,11 @@ msgstr "Tijd"
 
 #: src/practice.c:1444
 msgid "Chars"
-msgstr "Lettertekens "
+msgstr "Tekens"
 
 #: src/practice.c:1448
 msgid "CPM"
-msgstr "APM"
+msgstr "TPM"
 
 #: src/practice.c:1452
 msgid "WPM"
@@ -111,21 +110,21 @@ msgstr "Precisie"
 
 #: src/titlescreen.c:99
 msgid "Fish Cascade"
-msgstr "Viscascade"
+msgstr "Vallende Vissen"
 
 # "Space Cadet" is level 1 in comet zap
 #: src/titlescreen.c:99
 msgid "Space Cadet"
-msgstr "Ruimtekadet"
+msgstr "Leerling-piloot"
 
 #: src/titlescreen.c:99
 msgid "Edit Word Lists"
-msgstr "Woordenlijsten bewerken"
+msgstr "Bewerk de woordenlijsten"
 
 # types of games
 #: src/titlescreen.c:100
 msgid "Comet Zap"
-msgstr "Kometen vernietigen"
+msgstr "Kometen zappen"
 
 # "Pilot" is level 2 in comet zap
 #: src/titlescreen.c:100
@@ -143,11 +142,11 @@ msgstr "Lessen"
 # "Ace" is level 3 in comet zap
 #: src/titlescreen.c:101
 msgid "Ace"
-msgstr "Uitblinker"
+msgstr "Gevorderd piloot"
 
 #: src/titlescreen.c:101
 msgid "Project Info"
-msgstr "Projectinfo"
+msgstr "Project info"
 
 #: src/titlescreen.c:102
 msgid "Options"
@@ -160,7 +159,7 @@ msgstr "Instructies"
 # "Commander" is level 4 in comet zap
 #: src/titlescreen.c:102
 msgid "Commander"
-msgstr "Bevelhebber"
+msgstr "Expert"
 
 #: src/titlescreen.c:102
 msgid "Setup Language"
@@ -168,7 +167,7 @@ msgstr "Taal instellen"
 
 #: src/titlescreen.c:103
 msgid "Quit"
-msgstr "Afsluiten"
+msgstr "Stoppen"
 
 #: src/titlescreen.c:103
 msgid "Main Menu"
@@ -188,9 +187,6 @@ msgid "Discuss the future of TuxTyping at"
 msgstr "Bespreek de toekomst van TuxTyping op"
 
 # general stuff
-#, fuzzy
-#~ msgid "Phrase Practice"
-#~ msgstr "Vingeroefeningen"
 
 #~ msgid "Alphabet"
 #~ msgstr "Alfabet"
