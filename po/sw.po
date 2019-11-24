@@ -19,15 +19,15 @@ msgstr ""
 
 #: src/loaders.c:98 src/main.c:161 src/playgame.c:654
 msgid "Fish"
-msgstr "Peces"
+msgstr "Samaki"
 
 #: src/pause.c:289
 msgid "Sound Effects Volume"
-msgstr "Sound Effects Volume"
+msgstr "Sauti ya athari ya sauti"
 
 #: src/pause.c:298
 msgid "Music Volume"
-msgstr "Music Volume"
+msgstr "Sauti ya muziki"
 
 #: src/pause.c:309
 msgid "Sound & Music Disabled"
@@ -35,23 +35,23 @@ msgstr "Sauti na ngoma imekatwa"
 
 #: src/pause.c:319
 msgid "Paused!"
-msgstr "Tuliza kwaq dakika moja"
+msgstr "Imesitishwa!"
 
 #: src/pause.c:328
 msgid "Press escape again to return to menu"
-msgstr "Finya escape ndio uridi"
+msgstr "Finya kibonye cha Esc kuridi orodha"
 
 #: src/pause.c:337
 msgid "Press space bar to return to game"
-msgstr "Press space bar to return to game"
+msgstr "Finya kibonye cha nafasi kuridi mchezo"
 
 #: src/playgame.c:652
 msgid "Level"
-msgstr "Nivel"
+msgstr "Kiwango"
 
 #: src/playgame.c:653
 msgid "Lives"
-msgstr "Vidas"
+msgstr "Mihai"
 
 # levels for Cascade game:
 #: src/playgame.c:656 src/titlescreen.c:99
@@ -60,16 +60,16 @@ msgstr "Rahisi"
 
 #: src/playgame.c:657 src/titlescreen.c:100
 msgid "Medium"
-msgstr "Ngumu"
+msgstr "Katikati"
 
 #: src/playgame.c:658 src/titlescreen.c:101
 msgid "Hard"
-msgstr "Ngumu zaidi"
+msgstr "Ngumu"
 
 # general stuff
 #: src/playgame.c:659
 msgid "Practice"
-msgstr "Jifunze"
+msgstr "Zoezi"
 
 #: src/playgame.c:670
 msgid "Congratulations"
@@ -81,31 +81,31 @@ msgstr "Ahhhh"
 
 #: src/practice.c:626
 msgid "sec"
-msgstr ""
+msgstr "nukta"
 
 #: src/practice.c:1440
 msgid "Time"
-msgstr ""
+msgstr "Muda"
 
 #: src/practice.c:1444
 msgid "Chars"
-msgstr ""
+msgstr "Vibambo"
 
 #: src/practice.c:1448
 msgid "CPM"
-msgstr ""
+msgstr "Vibambo kila dakika"
 
 #: src/practice.c:1452
 msgid "WPM"
-msgstr ""
+msgstr "Neno kila dakika"
 
 #: src/practice.c:1456
 msgid "Errors"
-msgstr ""
+msgstr "Makosa"
 
 #: src/practice.c:1460
 msgid "Accuracy"
-msgstr ""
+msgstr "Usahihi"
 
 #: src/titlescreen.c:99
 msgid "Fish Cascade"
@@ -118,7 +118,7 @@ msgstr "Kidato cha kwanza"
 
 #: src/titlescreen.c:99
 msgid "Edit Word Lists"
-msgstr "Edit Word Lists"
+msgstr "Hariri ordodha za neno"
 
 # types of games
 #: src/titlescreen.c:100
@@ -132,7 +132,7 @@ msgstr "Kidato cha pili"
 
 #: src/titlescreen.c:100
 msgid "Phrase Typing"
-msgstr ""
+msgstr "Piga chapa ya vifungu"
 
 #: src/titlescreen.c:101
 msgid "Lessons"
@@ -145,7 +145,7 @@ msgstr "Kidato cha tatu"
 
 #: src/titlescreen.c:101
 msgid "Project Info"
-msgstr ""
+msgstr "Habari ya mradi"
 
 #: src/titlescreen.c:102
 msgid "Options"
@@ -162,7 +162,7 @@ msgstr "Kidato cha nne"
 
 #: src/titlescreen.c:102
 msgid "Setup Language"
-msgstr "Chagua Lugha"
+msgstr "Chagua lugha"
 
 #: src/titlescreen.c:103
 msgid "Quit"
@@ -170,29 +170,29 @@ msgstr "Ondoka"
 
 #: src/titlescreen.c:103
 msgid "Main Menu"
-msgstr "Listi ya kwanza"
+msgstr "Orodha kuu"
 
 # work in progress stuff
 #: src/titlescreen.c:1129
 msgid "Work In Progress!"
-msgstr "Bado kumalizika"
+msgstr "Kazi inaendelea!"
 
 #: src/titlescreen.c:1130
 #, fuzzy
 msgid "This feature is not ready yet"
-msgstr "Bado ina jengwa"
+msgstr "Bado, kipengele hii inajengwa"
 
 #: src/titlescreen.c:1131
 msgid "Discuss the future of TuxTyping at"
-msgstr "Toa maoni yako kuhusu TuxTyping"
+msgstr "Toa maoni yako kuhusu TuxTyping kwa"
 
 # general stuff
 #, fuzzy
 #~ msgid "Phrase Practice"
-#~ msgstr "Jifunze"
+#~ msgstr "Mazoezi ma vifungu"
 
 #~ msgid "Alphabet"
-#~ msgstr "Alfabeto"
+#~ msgstr "Alfabeti"
 
 #~ msgid "Setup Keyboard"
-#~ msgstr "Configurar el teclado"
+#~ msgstr "Chagua mpangilio wa kibodi"
