@@ -1,8 +1,8 @@
 Siku za wiki
-Jumamosi
-Jumapili
-Jumatatu
-Jumanne
-Jumatano
-Alhamisi
-Ijumaa
+JUMAMOSI
+JUMAPILI
+JUMATATU
+JUMANNE
+JUMATANO
+ALHAMISI
+IJUMAA
