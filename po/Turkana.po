@@ -1,0 +1,198 @@
+# Swahili translations for Tux Typing package.
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Mobin M <mobinmohan@gmail.com>, 2008
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Tux Typing 1.5.16\n"
+"Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
+"POT-Creation-Date: 2012-02-02 20:16-0600\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: sw\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: src/loaders.c:98 src/main.c:161 src/playgame.c:654
+msgid "Fish"
+msgstr "Samaki"
+
+#: src/pause.c:289
+msgid "Sound Effects Volume"
+msgstr "Sauti ya athari ya sauti"
+
+#: src/pause.c:298
+msgid "Music Volume"
+msgstr "Sauti ya muziki"
+
+#: src/pause.c:309
+msgid "Sound & Music Disabled"
+msgstr "Sauti na ngoma imekatwa"
+
+#: src/pause.c:319
+msgid "Paused!"
+msgstr "Imesitishwa!"
+
+#: src/pause.c:328
+msgid "Press escape again to return to menu"
+msgstr "Finya kibonye cha Esc kuridi orodha"
+
+#: src/pause.c:337
+msgid "Press space bar to return to game"
+msgstr "Finya kibonye cha nafasi kuridi mchezo"
+
+#: src/playgame.c:652
+msgid "Level"
+msgstr "Kiwango"
+
+#: src/playgame.c:653
+msgid "Lives"
+msgstr "Mihai"
+
+# levels for Cascade game:
+#: src/playgame.c:656 src/titlescreen.c:99
+msgid "Easy"
+msgstr "Rahisi"
+
+#: src/playgame.c:657 src/titlescreen.c:100
+msgid "Medium"
+msgstr "Katikati"
+
+#: src/playgame.c:658 src/titlescreen.c:101
+msgid "Hard"
+msgstr "Ngumu"
+
+# general stuff
+#: src/playgame.c:659
+msgid "Practice"
+msgstr "Zoezi"
+
+#: src/playgame.c:670
+msgid "Congratulations"
+msgstr "Shukran"
+
+#: src/playgame.c:674
+msgid "Oh No!"
+msgstr "Ahhhh"
+
+#: src/practice.c:626
+msgid "sec"
+msgstr "nukta"
+
+#: src/practice.c:1440
+msgid "Time"
+msgstr "Muda"
+
+#: src/practice.c:1444
+msgid "Chars"
+msgstr "Vibambo"
+
+#: src/practice.c:1448
+msgid "CPM"
+msgstr "Vibambo kila dakika"
+
+#: src/practice.c:1452
+msgid "WPM"
+msgstr "Neno kila dakika"
+
+#: src/practice.c:1456
+msgid "Errors"
+msgstr "Makosa"
+
+#: src/practice.c:1460
+msgid "Accuracy"
+msgstr "Usahihi"
+
+#: src/titlescreen.c:99
+msgid "Fish Cascade"
+msgstr "Samaki zinaanguka"
+
+# "Space Cadet" is level 1 in comet zap
+#: src/titlescreen.c:99
+msgid "Space Cadet"
+msgstr "Kidato cha kwanza"
+
+#: src/titlescreen.c:99
+msgid "Edit Word Lists"
+msgstr "Hariri ordodha za neno"
+
+# types of games
+#: src/titlescreen.c:100
+msgid "Comet Zap"
+msgstr "Vita vya nyota"
+
+# "Pilot" is level 2 in comet zap
+#: src/titlescreen.c:100
+msgid "Pilot"
+msgstr "Kidato cha pili"
+
+#: src/titlescreen.c:100
+msgid "Phrase Typing"
+msgstr "Piga chapa ya vifungu"
+
+#: src/titlescreen.c:101
+msgid "Lessons"
+msgstr "Madarasa"
+
+# "Ace" is level 3 in comet zap
+#: src/titlescreen.c:101
+msgid "Ace"
+msgstr "Kidato cha tatu"
+
+#: src/titlescreen.c:101
+msgid "Project Info"
+msgstr "Habari ya mradi"
+
+#: src/titlescreen.c:102
+msgid "Options"
+msgstr "Maoni"
+
+#: src/titlescreen.c:102
+msgid "Instructions"
+msgstr "Nammna ya kutumia"
+
+# "Commander" is level 4 in comet zap
+#: src/titlescreen.c:102
+msgid "Commander"
+msgstr "Kidato cha nne"
+
+#: src/titlescreen.c:102
+msgid "Setup Language"
+msgstr "Chagua lugha"
+
+#: src/titlescreen.c:103
+msgid "Quit"
+msgstr "Ondoka"
+
+#: src/titlescreen.c:103
+msgid "Main Menu"
+msgstr "Orodha kuu"
+
+# work in progress stuff
+#: src/titlescreen.c:1129
+msgid "Work In Progress!"
+msgstr "Kazi inaendelea!"
+
+#: src/titlescreen.c:1130
+#, fuzzy
+msgid "This feature is not ready yet"
+msgstr "Bado, kipengele hii inajengwa"
+
+#: src/titlescreen.c:1131
+msgid "Discuss the future of TuxTyping at"
+msgstr "Toa maoni yako kuhusu TuxTyping kwa"
+
+# general stuff
+#, fuzzy
+#~ msgid "Phrase Practice"
+#~ msgstr "Mazoezi ma vifungu"
+
+#~ msgid "Alphabet"
+#~ msgstr "Alfabeti"
+
+#~ msgid "Setup Keyboard"
+#~ msgstr "Chagua mpangilio wa kibodi"
