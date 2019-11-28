@@ -19,7 +19,7 @@ msgstr ""
 
 #: src/loaders.c:98 src/main.c:161 src/playgame.c:654
 msgid "Fish"
-msgstr "Samaki"
+msgstr "Ekholia"
 
 #: src/pause.c:289
 msgid "Sound Effects Volume"
