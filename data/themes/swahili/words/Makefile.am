@@ -3,4 +3,7 @@
 
 themes_swahili_wordsdir = $(pkgdatadir)/themes/swahili/words
 
-dist_themes_swahili_words_DATA = words1.txt
+dist_themes_swahili_words_DATA = words1.txt \
+animals.txt \
+names.txt \
+weekdays.txt 
