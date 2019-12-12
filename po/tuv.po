@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # mizany  <piusekaikokoi@gmail.com>, 2019
-#
+# Apetole <jeniffer.apetole12@gmail.com>
 #, fuzzy
 msgid ""
 msgstr ""
@@ -24,14 +24,19 @@ msgstr "Ekholia"
 #: src/pause.c:289
 msgid "Sound Effects Volume"
 msgstr "Sauti ya athari ya sauti"
+       "etoil lo ang'akiro ana karunok"
 
 #: src/pause.c:298
 msgid "Music Volume"
 msgstr "Sauti ya muziki"
+        "etoil a kimaruko"
+        
 
 #: src/pause.c:309
 msgid "Sound & Music Disabled"
 msgstr "Sauti na ngoma imekatwa"
+        "etoil lo ebur etowae"
+      
 
 #: src/pause.c:319
 msgid "Paused!"
@@ -56,7 +61,7 @@ msgstr "alomaru"
 # levels for Cascade game:
 #: src/playgame.c:656 src/titlescreen.c:99
 msgid "Easy"
-msgstr "ekebe"
+msgstr "nyegogong"
 
 #: src/playgame.c:657 src/titlescreen.c:100
 msgid "Medium"
@@ -77,7 +82,7 @@ msgstr "ejok noi"
 
 #: src/playgame.c:674
 msgid "Oh No!"
-msgstr "mhhhhhh"
+msgstr "mere kong'ina"
 
 #: src/practice.c:626
 msgid "sec"
@@ -105,7 +110,7 @@ msgstr "ngican"
 
 #: src/practice.c:1460
 msgid "Accuracy"
-msgstr "ikiriikina"
+msgstr "ariena"
 
 #: src/titlescreen.c:99
 msgid "Fish Cascade"
@@ -166,7 +171,7 @@ msgstr "todotu ngalugae"
 
 #: src/titlescreen.c:103
 msgid "Quit"
-msgstr "koto"
+msgstr "akipasakin"
 
 #: src/titlescreen.c:103
 msgid "Main Menu"
@@ -192,7 +197,8 @@ msgstr "tolem ngakingolikinet kon ani {TuxTyping} Tuxakichamakin ania"
 #~ msgstr "akitatamikin angakiro"
 
 #~ msgid "Alphabet"
-#~ msgstr "Alfabeti"
+#~ msgstr "akitowop a ng'
+  akiro"
 
 #~ msgid "Setup Keyboard"
 #~ msgstr "toseu ngarekineta akiibod"
