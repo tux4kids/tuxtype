@@ -1,0 +1,198 @@
+# Swahili translations for Tux Typing package.
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# mizany  <piusekaikokoi@gmail.com>, 2019
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Tux Typing 1.5.16\n"
+"Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
+"POT-Creation-Date: 2012-02-02 20:16-0600\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: tuv\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: src/loaders.c:98 src/main.c:161 src/playgame.c:654
+msgid "Fish"
+msgstr "Ekholia"
+
+#: src/pause.c:289
+msgid "Sound Effects Volume"
+msgstr "Sauti ya athari ya sauti"
+
+#: src/pause.c:298
+msgid "Music Volume"
+msgstr "Sauti ya muziki"
+
+#: src/pause.c:309
+msgid "Sound & Music Disabled"
+msgstr "Sauti na ngoma imekatwa"
+
+#: src/pause.c:319
+msgid "Paused!"
+msgstr "Akitowo"
+
+#: src/pause.c:328
+msgid "Press escape again to return to menu"
+msgstr "kicamak eporiet {esc} nabo sodi tobong'akisiekinet na ekingaren"
+
+#: src/pause.c:337
+msgid "Press space bar to return to game"
+msgstr "kicamak elolomet tobongorea nabolia"
+
+#: src/playgame.c:652
+msgid "Level"
+msgstr "akitirianet"
+
+#: src/playgame.c:653
+msgid "Lives"
+msgstr "alomaru"
+
+# levels for Cascade game:
+#: src/playgame.c:656 src/titlescreen.c:99
+msgid "Easy"
+msgstr "ekebe"
+
+#: src/playgame.c:657 src/titlescreen.c:100
+msgid "Medium"
+msgstr "nakidingos"
+
+#: src/playgame.c:658 src/titlescreen.c:101
+msgid "Hard"
+msgstr "egogong"
+
+# general stuff
+#: src/playgame.c:659
+msgid "Practice"
+msgstr "akitatamikin"
+
+#: src/playgame.c:670
+msgid "Congratulations"
+msgstr "ejok noi"
+
+#: src/playgame.c:674
+msgid "Oh No!"
+msgstr "mhhhhhh"
+
+#: src/practice.c:626
+msgid "sec"
+msgstr "ngasekensia"
+
+#: src/practice.c:1440
+msgid "Time"
+msgstr "alongisat"
+
+#: src/practice.c:1444
+msgid "Chars"
+msgstr "Vibambo"
+
+#: src/practice.c:1448
+msgid "CPM"
+msgstr "akichamakin akibod eesipid"
+
+#: src/practice.c:1452
+msgid "WPM"
+msgstr "ngakiro adankat apei"
+
+#: src/practice.c:1456
+msgid "Errors"
+msgstr "ngican"
+
+#: src/practice.c:1460
+msgid "Accuracy"
+msgstr "ikiriikina"
+
+#: src/titlescreen.c:99
+msgid "Fish Cascade"
+msgstr "echakuna ngikolia"
+
+# "Space Cadet" is level 1 in comet zap
+#: src/titlescreen.c:99
+msgid "Space Cadet"
+msgstr "akisiekinet na ekingaren"
+
+#: src/titlescreen.c:99
+msgid "Edit Word Lists"
+msgstr "Hariri ordodha za neno"
+
+# types of games
+#: src/titlescreen.c:100
+msgid "Comet Zap"
+msgstr "ejie angikanyer"
+
+# "Pilot" is level 2 in comet zap
+#: src/titlescreen.c:100
+msgid "Pilot"
+msgstr "ekamian aikeny"
+
+#: src/titlescreen.c:100
+msgid "Phrase Typing"
+msgstr "akicamakin ngakiro nakaalak anakiibod"
+
+#: src/titlescreen.c:101
+msgid "Lessons"
+msgstr "ngakilasia"
+
+# "Ace" is level 3 in comet zap
+#: src/titlescreen.c:101
+msgid "Ace"
+msgstr "akisiekinet na ngauni"
+
+#: src/titlescreen.c:101
+msgid "Project Info"
+msgstr "alimoret eetic"
+
+#: src/titlescreen.c:102
+msgid "Options"
+msgstr "ngadi"
+
+#: src/titlescreen.c:102
+msgid "Instructions"
+msgstr "eger lo itia"
+
+# "Commander" is level 4 in comet zap
+#: src/titlescreen.c:102
+msgid "Commander"
+msgstr "akisiekinet na ngomuon"
+
+#: src/titlescreen.c:102
+msgid "Setup Language"
+msgstr "todotu ngalugae"
+
+#: src/titlescreen.c:103
+msgid "Quit"
+msgstr "koto"
+
+#: src/titlescreen.c:103
+msgid "Main Menu"
+msgstr "akisiekinet angakiro naapolon"
+
+# work in progress stuff
+#: src/titlescreen.c:1129
+msgid "Work In Progress!"
+msgstr "elosi etic ngaren!"
+
+#: src/titlescreen.c:1130
+#, fuzzy
+msgid "This feature is not ready yet"
+msgstr "eringa ibore en nyerumoro"
+
+#: src/titlescreen.c:1131
+msgid "Discuss the future of TuxTyping at"
+msgstr "tolem ngakingolikinet kon ani {TuxTyping} Tuxakichamakin ania"
+
+# general stuff
+#, fuzzy
+#~ msgid "Phrase Practice"
+#~ msgstr "akitatamikin angakiro"
+
+#~ msgid "Alphabet"
+#~ msgstr "Alfabeti"
+
+#~ msgid "Setup Keyboard"
+#~ msgstr "toseu ngarekineta akiibod"
