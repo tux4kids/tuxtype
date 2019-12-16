@@ -39,6 +39,7 @@ SUBDIRS = armenian \
   tamil \
   telugu \
   thai \
+  turkana \
   ukrainian \
   wolof
 
