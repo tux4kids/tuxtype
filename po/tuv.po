@@ -1,4 +1,4 @@
-# Swahili translations for Tux Typing package.
+# Turkana translations for Tux Typing package.
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # mizany  <piusekaikokoi@gmail.com>, 2019
@@ -23,66 +23,61 @@ msgstr "Ekholia"
 
 #: src/pause.c:289
 msgid "Sound Effects Volume"
-msgstr "Sauti ya athari ya sauti"
-       "etoil lo ang'akiro ana karunok"
+msgstr "Etoil lo ang'akiro ana karunok"
 
 #: src/pause.c:298
 msgid "Music Volume"
-msgstr "Sauti ya muziki"
-        "etoil a kimaruko"
+msgstr "Etoil a kimaruko"
         
-
 #: src/pause.c:309
 msgid "Sound & Music Disabled"
-msgstr "Sauti na ngoma imekatwa"
-        "etoil lo ebur etowae"
+msgstr "Etoil lo ebur etowae"
       
-
 #: src/pause.c:319
 msgid "Paused!"
 msgstr "Akitowo"
 
 #: src/pause.c:328
 msgid "Press escape again to return to menu"
-msgstr "kicamak eporiet {esc} nabo sodi tobong'akisiekinet na ekingaren"
+msgstr "Kicamak eporiet {esc} nabo sodi tobong'akisiekinet na ekingaren"
 
 #: src/pause.c:337
 msgid "Press space bar to return to game"
-msgstr "kicamak elolomet tobongorea nabolia"
+msgstr "Kicamak elolomet tobongorea nabolia"
 
 #: src/playgame.c:652
 msgid "Level"
-msgstr "akitirianet"
+msgstr "Akitirianet"
 
 #: src/playgame.c:653
 msgid "Lives"
-msgstr "alomaru"
+msgstr "Alomaru"
 
 # levels for Cascade game:
 #: src/playgame.c:656 src/titlescreen.c:99
 msgid "Easy"
-msgstr "nyegogong"
+msgstr "Nyegogong"
 
 #: src/playgame.c:657 src/titlescreen.c:100
 msgid "Medium"
-msgstr "nakidingos"
+msgstr "Nakidingos"
 
 #: src/playgame.c:658 src/titlescreen.c:101
 msgid "Hard"
-msgstr "egogong"
+msgstr "Egogong"
 
 # general stuff
 #: src/playgame.c:659
 msgid "Practice"
-msgstr "akitatamikin"
+msgstr "Akitatamikin"
 
 #: src/playgame.c:670
 msgid "Congratulations"
-msgstr "ejok noi"
+msgstr "Ejok noi"
 
 #: src/playgame.c:674
 msgid "Oh No!"
-msgstr "mere kong'ina"
+msgstr "Mere kong'ina"
 
 #: src/practice.c:626
 msgid "sec"
@@ -90,7 +85,7 @@ msgstr "ngasekensia"
 
 #: src/practice.c:1440
 msgid "Time"
-msgstr "alongisat"
+msgstr "Alongisat"
 
 #: src/practice.c:1444
 msgid "Chars"
@@ -98,28 +93,28 @@ msgstr "Vibambo"
 
 #: src/practice.c:1448
 msgid "CPM"
-msgstr "akichamakin akibod eesipid"
+msgstr "Akichamakin akibod eesipid"
 
 #: src/practice.c:1452
 msgid "WPM"
-msgstr "ngakiro adankat apei"
+msgstr "Ngakiro adankat apei"
 
 #: src/practice.c:1456
 msgid "Errors"
-msgstr "ngican"
+msgstr "Ngican"
 
 #: src/practice.c:1460
 msgid "Accuracy"
-msgstr "ariena"
+msgstr "Ariena"
 
 #: src/titlescreen.c:99
 msgid "Fish Cascade"
-msgstr "echakuna ngikolia"
+msgstr "Echakuna ngikolia"
 
 # "Space Cadet" is level 1 in comet zap
 #: src/titlescreen.c:99
 msgid "Space Cadet"
-msgstr "akisiekinet na ekingaren"
+msgstr "Akisiekinet na ekingaren"
 
 #: src/titlescreen.c:99
 msgid "Edit Word Lists"
@@ -128,77 +123,76 @@ msgstr "Hariri ordodha za neno"
 # types of games
 #: src/titlescreen.c:100
 msgid "Comet Zap"
-msgstr "ejie angikanyer"
+msgstr "Ejie angikanyer"
 
 # "Pilot" is level 2 in comet zap
 #: src/titlescreen.c:100
 msgid "Pilot"
-msgstr "ekamian aikeny"
+msgstr "Ekamian aikeny"
 
 #: src/titlescreen.c:100
 msgid "Phrase Typing"
-msgstr "akicamakin ngakiro nakaalak anakiibod"
+msgstr "Akicamakin ngakiro nakaalak anakiibod"
 
 #: src/titlescreen.c:101
 msgid "Lessons"
-msgstr "ngakilasia"
+msgstr "Ngakilasia"
 
 # "Ace" is level 3 in comet zap
 #: src/titlescreen.c:101
 msgid "Ace"
-msgstr "akisiekinet na ngauni"
+msgstr "Akisiekinet na ngauni"
 
 #: src/titlescreen.c:101
 msgid "Project Info"
-msgstr "alimoret eetic"
+msgstr "Alimoret eetic"
 
 #: src/titlescreen.c:102
 msgid "Options"
-msgstr "ngadi"
+msgstr "Ngadi"
 
 #: src/titlescreen.c:102
 msgid "Instructions"
-msgstr "eger lo itia"
+msgstr "Eger lo itia"
 
 # "Commander" is level 4 in comet zap
 #: src/titlescreen.c:102
 msgid "Commander"
-msgstr "akisiekinet na ngomuon"
+msgstr "Akisiekinet na ngomuon"
 
 #: src/titlescreen.c:102
 msgid "Setup Language"
-msgstr "todotu ngalugae"
+msgstr "Todotu ngalugae"
 
 #: src/titlescreen.c:103
 msgid "Quit"
-msgstr "akipasakin"
+msgstr "Akipasakin"
 
 #: src/titlescreen.c:103
 msgid "Main Menu"
-msgstr "akisiekinet angakiro naapolon"
+msgstr "Akisiekinet angakiro naapolon"
 
 # work in progress stuff
 #: src/titlescreen.c:1129
 msgid "Work In Progress!"
-msgstr "elosi etic ngaren!"
+msgstr "Elosi etic ngaren!"
 
 #: src/titlescreen.c:1130
 #, fuzzy
 msgid "This feature is not ready yet"
-msgstr "eringa ibore en nyerumoro"
+msgstr "Eringa ibore en nyerumoro"
 
 #: src/titlescreen.c:1131
 msgid "Discuss the future of TuxTyping at"
-msgstr "tolem ngakingolikinet kon ani {TuxTyping} Tuxakichamakin ania"
+msgstr "Tolem ngakingolikinet kon ani {TuxTyping} Tuxakichamakin ania"
 
 # general stuff
 #, fuzzy
-#~ msgid "Phrase Practice"
-#~ msgstr "akitatamikin angakiro"
+msgid "Phrase Practice"
+msgstr "Akitatamikin angakiro"
 
-#~ msgid "Alphabet"
-#~ msgstr "akitowop a ng'
-  akiro"
+msgid "Alphabet"
+msgstr "Akitowop a ng'akiro"
 
-#~ msgid "Setup Keyboard"
-#~ msgstr "toseu ngarekineta akiibod"
+msgid "Setup Keyboard"
+msgstr "Toseu ngarekineta akiibod"
