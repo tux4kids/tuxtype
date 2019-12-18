@@ -12,6 +12,7 @@ SUBDIRS = armenian \
   czech \
   dansk \
   deutsch \
+  eesti \
   espanol \
   euskara \
   french \
