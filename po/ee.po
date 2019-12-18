@@ -1,0 +1,203 @@
+# Deutsch translations for Tux Typing package.
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Benson Muite <benson_muite@emailplus.org>, 2019
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Tux Typing 1.5.16\n"
+"Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
+"POT-Creation-Date: 2012-02-02 20:16-0600\n"
+"PO-Revision-Date: 2019-12-18 21:30+0100\n"
+"Last-Translator: Benson Muite <benson_muite@emailplus.org>\n"
+"Language-Team: Estonian\n"
+"Language: ee\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 0.9.6\n"
+
+#: src/loaders.c:98 src/main.c:161 src/playgame.c:654
+msgid "Fish"
+msgstr "Kala"
+
+#: src/pause.c:289
+msgid "Sound Effects Volume"
+msgstr "Heliefektid Helitugevus"
+
+#: src/pause.c:298
+msgid "Music Volume"
+msgstr "Muusika Helitugevus"
+
+#: src/pause.c:309
+msgid "Sound & Music Disabled"
+msgstr "Muusika ja kõla sulgeemine"
+
+#: src/pause.c:319
+msgid "Paused!"
+msgstr "Paus!"
+
+#: src/pause.c:328
+msgid "Press escape again to return to menu"
+msgstr "Menüüsse naasmiseks vajutage uuesti 'Esc'"
+
+#: src/pause.c:337
+msgid "Press space bar to return to game"
+msgstr "Mängu naasmiseks vajutage tühikuklahvi"
+
+#: src/playgame.c:652
+msgid "Level"
+msgstr "Kitsikus"
+
+#: src/playgame.c:653
+msgid "Lives"
+msgstr "Elud"
+
+# levels for Cascade game:
+#: src/playgame.c:656 src/titlescreen.c:99
+msgid "Easy"
+msgstr "Kerge"
+
+#: src/playgame.c:657 src/titlescreen.c:100
+msgid "Medium"
+msgstr "Keskimine"
+
+#: src/playgame.c:658 src/titlescreen.c:101
+msgid "Hard"
+msgstr "Raske"
+
+# general stuff
+#: src/playgame.c:659
+msgid "Practice"
+msgstr "Tegevus"
+
+#: src/playgame.c:670
+msgid "Congratulations"
+msgstr "Õnnesoovid!"
+
+#: src/playgame.c:674
+msgid "Oh No!"
+msgstr "Ahh!"
+
+#: src/practice.c:626
+msgid "sec"
+msgstr "sekund"
+
+#: src/practice.c:1440
+msgid "Time"
+msgstr "Aeg"
+
+#: src/practice.c:1444
+msgid "Chars"
+msgstr "Klahv"
+
+#: src/practice.c:1448
+msgid "CPM"
+msgstr "Klahv minutil kohta"
+
+#: src/practice.c:1452
+msgid "WPM"
+msgstr "Sõna minutil kohta"
+
+#: src/practice.c:1456
+msgid "Errors"
+msgstr "Eksitus"
+
+#: src/practice.c:1460
+msgid "Accuracy"
+msgstr "Täpsus"
+
+#: src/titlescreen.c:99
+msgid "Fish Cascade"
+msgstr "Söön kala"
+
+# "Space Cadet" is level 1 in comet zap
+#: src/titlescreen.c:99
+msgid "Space Cadet"
+msgstr "Esimene kitsikus"
+
+#: src/titlescreen.c:99
+msgid "Edit Word Lists"
+msgstr "Tomietama sõna nimekiri"
+
+# types of games
+#: src/titlescreen.c:100
+msgid "Comet Zap"
+msgstr "Paiskuma Koomet"
+
+# "Pilot" is level 2 in comet zap
+#: src/titlescreen.c:100
+msgid "Pilot"
+msgstr "Teine kistikus"
+
+#: src/titlescreen.c:100
+msgid "Phrase Typing"
+msgstr "Väljand masinakiri"
+
+#: src/titlescreen.c:101
+msgid "Lessons"
+msgstr "Lektionen"
+
+# "Ace" is level 3 in comet zap
+#: src/titlescreen.c:101
+msgid "Ace"
+msgstr "Kolmas kistikus"
+
+#: src/titlescreen.c:101
+msgid "Project Info"
+msgstr "Projekt Info"
+
+#: src/titlescreen.c:102
+msgid "Options"
+msgstr "Valik"
+
+#: src/titlescreen.c:102
+msgid "Instructions"
+msgstr "Jühtnoorid"
+
+# "Commander" is level 4 in comet zap
+#: src/titlescreen.c:102
+msgid "Commander"
+msgstr "Neljas kitsikus"
+
+#: src/titlescreen.c:102
+msgid "Setup Language"
+msgstr "Valima keel"
+
+#: src/titlescreen.c:103
+msgid "Quit"
+msgstr "Lahkuma"
+
+#: src/titlescreen.c:103
+msgid "Main Menu"
+msgstr "Peamenüü"
+
+# work in progress stuff
+#: src/titlescreen.c:1129
+msgid "Work In Progress!"
+msgstr "Tule tööle!"
+
+#: src/titlescreen.c:1130
+msgid "This feature is not ready yet"
+msgstr "See funktsioon pole veel valmis"
+
+#: src/titlescreen.c:1131
+msgid "Discuss the future of TuxTyping at"
+msgstr "Arutage Tuxtyping tulevikku aadressil"
+
+# general stuff
+#, fuzzy
+#~ msgid "Phrase Practice"
+#~ msgstr "Väljandid"
+
+#~ msgid "Setup"
+#~ msgstr "Seisukord"
+
+#~ msgid "Alphabet"
+#~ msgstr "Tähestik"
+
+#~ msgid "Setup Keyboard"
+#~ msgstr "Klaviatuur seisukord"
+
+#~ msgid "Word Cascade"
+#~ msgstr "Sõna"
