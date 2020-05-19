@@ -48,8 +48,6 @@ install-data-hook:
 # Global sites for game state data (e.g. /var/games/tuxtype):
 	$(MKDIR_P) -m 2755 $(DESTDIR)$(pkglocalstatedir)
 	$(MKDIR_P) -m 2755 $(DESTDIR)$(pkglocalstatedir)/words
-#	chown root:games $(DESTDIR)$(pkglocalstatedir)
-	chown root:games $(DESTDIR)$(pkglocalstatedir)/words
 
 
 uninstall-hook:
