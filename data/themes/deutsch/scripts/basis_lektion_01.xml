@@ -1,0 +1,27 @@
+<script title="Test Lektion" bgcolor="#3f4f1f">
+       <page title="Einführung in Beispiel Lektion">
+       <text align="center">Die a Taste</text>
+       <text align="center">In dieser Lektion lernst du die a Taste.</text>
+       <text align="center" y="300"> BETÄTIGE DIE LEERTASTE ZUM STARTEN!</text>
+      <waitforinput/>
+       </page>
+       <page title="Die a Taste" bgcolor="#3f7f3f">
+       <img src="/keyboard/keyboard.png" x="45" y="220"/>
+       <text align="center">Wir üben die a Taste.</text>
+       <text align="center">Betätige die p Taste um die Übung zu starten</text>
+       <text color="#000000" x="100" y="280">A</text>
+       <text color="#000000" x="130" y="280">S</text>
+      <waitforchar/>
+      <prac>aaa aaa aaa aaa aaa aaa aaa aaas asas saaa aass aass aasa aass aaaa aaaa aaaa aas asa aas aaa aaas aaa aaa aaa aaa aaa aaa aaa</prac>
+      </page>
+      <!--HACK: there is some undesired behavior in scripting.c, this fixes it for now-->
+      <page>
+      </page>
+      <page>
+       <img src="keyboard/space.png" x="200" y="160"/>
+       <img src="keyboard/larrow.png" x="460" y="18"/>
+       <img src="keyboard/esc.png" x="515" y="50"/>
+       <text align="center">Gut gemacht!</text>
+       <text align="center">Zurück mit Leertaste</text>
+       <waitforinput/>
+     </page>    
