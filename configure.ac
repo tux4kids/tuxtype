@@ -445,6 +445,7 @@ data/themes/dansk/Makefile
 data/themes/dansk/sounds/Makefile
 data/themes/dansk/words/Makefile
 data/themes/deutsch/Makefile
+data/themes/deutsch/scripts/Makefile
 data/themes/deutsch/words/Makefile
 data/themes/espanol/Makefile
 data/themes/espanol/images/Makefile
