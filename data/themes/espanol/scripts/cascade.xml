@@ -1,0 +1,17 @@
+<script title="Instrucciones de la Cascada de Peces">
+  <page>
+    <bkgd src="main_bkg.png">
+    <img src="tux/stand-.png" x="100" y="330">
+    <text color="#FFFFFF" align="center" size="32">¡Ayuda a Tux a Comer Peces!</text>
+    <text color="#FFFFFF" align="center">¡Tux está muy hambriento! Pero los peces</text>
+    <text color="#FFFFFF" align="center">con letras le dan</text>
+    <text color="#FFFFFF" align="center">dolor de barriga. ¡Ayuda a Tux</text>
+    <text color="#FFFFFF" align="center">a comer peces pulsando</text>
+    <text color="#FFFFFF" align="center">las letras en los peces</text>
+    <text color="#FFFFFF" align="center">para que desaparezcan</text>
+    <text color="#FFFFFF" align="center">y los pueda comer todos!</text>
+    <text></text>
+    <text color="#ffffff" align="center" size="22">¡Pulsa ESPACIO para seguir!</text>
+  </page>
+   <waitforinput/>
+  </page></lesson>
