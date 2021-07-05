@@ -8,4 +8,16 @@ dist_themes_deutsch_words_DATA = kurz2-3-mit.txt \
   lang7-8-mit.txt \
   lang7-8.txt \
   mittel4-6-mit.txt \
-  mittel4-6.txt
+  mittel4-6.txt \
+  alphabet.txt \
+  essen.txt \
+  familie.txt \
+  farben.txt \
+  gruß.txt \
+  körper.txt \
+  nummer.txt \
+  obst.txt \
+  reise.txt \
+  tier.txt \
+  werkzeug.txt
+

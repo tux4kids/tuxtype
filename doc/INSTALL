@@ -255,3 +255,45 @@ operates.
 
 `configure' also accepts some other, not widely useful, options.
 
+
+Operating System Specific Installation
+======================================
+
+Fedora 31
+---------
+
+Install dependencies from repositories
+
+  sudo dnf install librsvg2-devel automake autoconf SDL_ttf-devel ImageMagick desktop-file-utils SDL-devel SDL_image-devel SDL_mixer-devel SDL_Pango-devel gettext-devel SDL_net-devel
+
+
+Get and install common files
+
+  wget https://github.com/tux4kids/t4kcommon/archive/upstream/0.1.1.tar.gz
+  tar -xvf 0.1.1.tar.gz 
+  cd t4kcommon-upstream-0.1.1/
+  mkdir build
+  cd build/
+  ../configure 
+  ../configure --prefix=/your/t4kcommon/preferred/location --without-rsvg
+  make
+  make install
+  export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:/your/t4kcommon/preferred/location/lib/pkgconfig
+
+Install Tuxtype
+
+    wget https://github.com/tux4kids/tuxtype/archive/upstream/1.8.3.tar.gz
+    tar -xvf 1.8.3.tar.gz
+    cd tuxtype-upstream-1.8.3/
+    aclocal
+    autoconf
+    automake --add-missing
+    autoreconf --install
+    mkdir build
+    cd build
+    ../configure --without-rsvg --prefix=/your/install/location
+    make
+    sudo make install
+    
+
+
