@@ -255,7 +255,7 @@ PKG_CHECK_MODULES([T4K_COMMON],
 	 AC_CHECK_LIB([t4k_common],
 		[InitT4KCommon],
 		[],
-		[AC_MSG_ERROR([libt4k_common is required: git://git.debian.org/tux4kids/t4kcommon.git])])])
+		[AC_MSG_ERROR([libt4k_common is required: https://github.com/tux4kids/t4kcommon.git])])])
 
 AC_DEFINE([HAVE_LIBT4K_COMMON],[1],[Define to 1 if you have the `t4k_common` library])
 CFLAGS="$CFLAGS $T4K_COMMON_CFLAGS"
