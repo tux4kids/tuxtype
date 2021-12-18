@@ -38,7 +38,7 @@ AM_CFLAGS=-Wall -g \
         -DCONF_PREFIX=\"$(CONF_PREFIX)\" \
         -DIM_PREFIX=\"$(IM_PREFIX)\" \
         -DDEBUG \
-	-DVERSION=\"@NAME_VERSION@\" -D$(SOUND)SOUND
+	-D$(SOUND)SOUND
 
 AM_CPPFLAGS = -DLOCALEDIR=\"$(localedir)\" \
 	-DLOCALSTATEDIR=\"$(pkglocalstatedir)\" \
