@@ -1,0 +1,29 @@
+<script title="Тренувальна вправа" bgcolor="#3f4f1f">
+       <page title="Ввідна до тренувальної вправи">
+       <text align="center">Клавіша "ф"</text>
+       <text align="center">В цій вправі ви дізнаєтесь, де знаходиться</text>
+       <text align="center">клавіша "ф".</text>
+       <text align="center" y="300">НАТИСНІТЬ КЛАВІШУ "ПРОБІЛ", ЩОБ ПОЧАТИ ВПРАВУ!</text>
+      <waitforinput/>
+       </page>
+       <page title="Клавіша 'а'" bgcolor="#3f7f3f">
+       <img src="/keyboard/keyboard-us.png" x="45" y="220"/>
+       <text align="center">В цій вправі ми будемо практикуватися із клавішею "ф".</text>
+       <text align="center">Натисніть клавішу "з", щоб почати</text>
+       <text color="#000000" x="100" y="280">Ф</text>
+      <waitforchar/>
+      <prac>ф ф ф фф ффф фф фффф ф ф ффф ф фффф ффф фффф ффф ф ф фф ффф ф ффффф ф фффф ффф фффф фф ф фф ф ффф ффф фффф ф ффф ффф фффф</prac>
+      </page>
+      <!--HACK: there is some undesired behavior in scripting.c, this fixes it for now-->
+      <page>
+      </page>
+      <page>
+       <img src="keyboard/space.png" x="200" y="160"/>
+       <img src="keyboard/larrow.png" x="460" y="18"/>
+       <img src="keyboard/esc.png" x="515" y="50"/>
+       <text align="center">Молодець!</text>
+       <text align="left"></text>
+       <text align="center">Щоб повернутися до головного меню</text>
+       <text align="center">натисніть клавішу "Пробіл"</text>
+       <waitforinput/>
+     </page>    

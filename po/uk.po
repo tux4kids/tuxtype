@@ -4,7 +4,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
 "POT-Creation-Date: 2012-02-02 20:16-0600\n"
 "PO-Revision-Date: 2011-01-03 20:24+0100\n"
-"Last-Translator: Seva Deribas <seva@deribas.info>\n"
+"Last-Translator: Illia Zhuravskyi <zhuravskyi.illia@gmail.com>\n"
 "Language-Team: Ukrainian <uk@li.org>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
@@ -18,15 +18,15 @@ msgstr "Риба"
 
 #: src/pause.c:289
 msgid "Sound Effects Volume"
-msgstr "Гучність Звукових Ефектів"
+msgstr "Гучність звукових ефектів"
 
 #: src/pause.c:298
 msgid "Music Volume"
-msgstr "Гучність Музики"
+msgstr "Гучність музики"
 
 #: src/pause.c:309
 msgid "Sound & Music Disabled"
-msgstr "Звук та Музика Вимкнена"
+msgstr "Звук та музика вимкнена"
 
 #: src/pause.c:319
 msgid "Paused!"
@@ -38,11 +38,11 @@ msgstr "Натисніть \"Esc\", щоб повернутися до меню"
 
 #: src/pause.c:337
 msgid "Press space bar to return to game"
-msgstr "Натисніть пробіл, щоб повернутися до гри"
+msgstr "Натисніть \"Пробіл\", щоб повернутися до гри"
 
 #: src/playgame.c:652
 msgid "Level"
-msgstr "Уровень"
+msgstr "Рівень"
 
 #: src/playgame.c:653
 msgid "Lives"
@@ -58,7 +58,7 @@ msgstr "Середньо"
 
 #: src/playgame.c:658 src/titlescreen.c:101
 msgid "Hard"
-msgstr "Тяжко"
+msgstr "Важко"
 
 #: src/playgame.c:659
 msgid "Practice"
@@ -66,11 +66,11 @@ msgstr "Практика"
 
 #: src/playgame.c:670
 msgid "Congratulations"
-msgstr "Поздрівляємо"
+msgstr "Вітаємо"
 
 #: src/playgame.c:674
 msgid "Oh No!"
-msgstr "О ні!"
+msgstr "Ой, ні!"
 
 #: src/practice.c:626
 msgid "sec"
@@ -78,7 +78,7 @@ msgstr "сек"
 
 #: src/practice.c:1440
 msgid "Time"
-msgstr "Врімя"
+msgstr "Час"
 
 #: src/practice.c:1444
 msgid "Chars"
@@ -86,11 +86,11 @@ msgstr "Літери"
 
 #: src/practice.c:1448
 msgid "CPM"
-msgstr "CPM"
+msgstr "Знаків за хвилину"
 
 #: src/practice.c:1452
 msgid "WPM"
-msgstr "WPM"
+msgstr "Слів за хвилину"
 
 #: src/practice.c:1456
 msgid "Errors"
@@ -102,19 +102,19 @@ msgstr "Точність"
 
 #: src/titlescreen.c:99
 msgid "Fish Cascade"
-msgstr " Каскад Риб"
+msgstr "Рибний каскад"
 
 #: src/titlescreen.c:99
 msgid "Space Cadet"
-msgstr "Космічний Кадет"
+msgstr "Курсант"
 
 #: src/titlescreen.c:99
 msgid "Edit Word Lists"
-msgstr "Редагувати Списки Слів"
+msgstr "Редагувати списки слів"
 
 #: src/titlescreen.c:100
 msgid "Comet Zap"
-msgstr "Кометний Зап"
+msgstr "Падіння комет"
 
 #: src/titlescreen.c:100
 msgid "Pilot"
@@ -122,7 +122,7 @@ msgstr "Пілот"
 
 #: src/titlescreen.c:100
 msgid "Phrase Typing"
-msgstr "Введення Фраз"
+msgstr "Введення фраз"
 
 #: src/titlescreen.c:101
 msgid "Lessons"
@@ -130,11 +130,11 @@ msgstr "Уроки"
 
 #: src/titlescreen.c:101
 msgid "Ace"
-msgstr "Майстер"
+msgstr "Ас"
 
 #: src/titlescreen.c:101
 msgid "Project Info"
-msgstr "Інформація Про Проект"
+msgstr "Інформація про проект"
 
 #: src/titlescreen.c:102
 msgid "Options"
@@ -142,15 +142,15 @@ msgstr "Опції"
 
 #: src/titlescreen.c:102
 msgid "Instructions"
-msgstr "Інструкція"
+msgstr "Інструкції"
 
 #: src/titlescreen.c:102
 msgid "Commander"
-msgstr "Командер"
+msgstr "Командир"
 
 #: src/titlescreen.c:102
 msgid "Setup Language"
-msgstr "Установка Мови"
+msgstr "Установка мови"
 
 #: src/titlescreen.c:103
 msgid "Quit"
@@ -158,11 +158,11 @@ msgstr "Вийти"
 
 #: src/titlescreen.c:103
 msgid "Main Menu"
-msgstr "Головне Меню"
+msgstr "Головне меню"
 
 #: src/titlescreen.c:1129
 msgid "Work In Progress!"
-msgstr "Працюю!"
+msgstr "Обробка в процесі!"
 
 #: src/titlescreen.c:1130
 msgid "This feature is not ready yet"

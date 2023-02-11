@@ -1,0 +1,59 @@
+<script title="Тренувальна вправа" bgcolor="#3f4f1f">
+    <page title="Ввідна до тренувальної вправи">
+        <text align="center">Клавіша "б"</text>
+        <text align="center">В цій вправі ви дізнаєтесь, де знаходиться</text>
+        <text align="center">клавіша "б".</text>
+        <text align="center" y="300">НАТИСНІТЬ КЛАВІШУ "ПРОБІЛ", ЩОБ ПОЧАТИ ВПРАВУ!</text>
+        <waitforinput/>
+    </page>
+    <page title="Клавіша 'б'" bgcolor="#3f7f3f">
+        <img src="/keyboard/keyboard-us.png" x="45" y="220"/>
+        <text align="center">В цій вправі ми будемо практикуватися із клавішею "б".</text>
+        <text align="center">Натисніть клавішу "з", щоб почати</text>
+        <text color="#000000" x="100" y="280">Ф</text>
+        <text color="#000000" x="130" y="280">І</text>
+        <text color="#000000" x="160" y="280">В</text>
+        <text color="#000000" x="190" y="280">А</text>
+        <text color="#000000" x="220" y="280">П</text>
+        <text color="#000000" x="250" y="280">Р</text>
+        <text color="#000000" x="285" y="280">О</text>
+        <text color="#000000" x="315" y="280">Л</text>
+        <text color="#000000" x="345" y="280">Д</text>
+        <text color="#000000" x="375" y="280">Ж</text>
+        <text color="#000000" x="415" y="280">Є</text>
+        <text color="#000000" x="90" y="250">Й</text>
+        <text color="#000000" x="118" y="250">Ц</text>
+        <text color="#000000" x="152" y="250">У</text>
+        <text color="#000000" x="183" y="250">К</text>
+        <text color="#000000" x="212" y="250">Е</text>
+        <text color="#000000" x="244" y="250">Н</text>
+        <text color="#000000" x="273" y="250">Г</text>
+        <text color="#000000" x="306" y="250">Ш</text>
+        <text color="#000000" x="334" y="250">Щ</text>
+        <text color="#000000" x="365" y="250">З</text>
+        <text color="#000000" x="395" y="250">Х</text>
+        <text color="#000000" x="425" y="250">Ї</text>
+        <text color="#000000" x="110" y="310">Я</text>
+        <text color="#000000" x="142" y="310">Ч</text>
+        <text color="#000000" x="170" y="310">С</text>
+        <text color="#000000" x="202" y="310">М</text>
+        <text color="#000000" x="232" y="310">И</text>
+        <text color="#000000" x="262" y="310">Т</text>
+        <text color="#000000" x="292" y="310">Ь</text>
+        <text color="#000000" x="330" y="310">Б</text>
+        <waitforchar/>
+        <prac>б б б ббб б б ббб пбапбаб бббкеб ббфбіб счббсчбб гнббшгшббб бхбзббщ бллбборрб івббабп ббєбє бжбдб енбебкбу укббцб бсчбмбиби брббпрбб</prac>
+    </page>
+    <!--HACK: there is some undesired behavior in scripting.c, this fixes it for now-->
+    <page>
+    </page>
+    <page>
+        <img src="keyboard/space.png" x="200" y="160"/>
+        <img src="keyboard/larrow.png" x="460" y="18"/>
+        <img src="keyboard/esc.png" x="515" y="50"/>
+        <text align="center">Молодець!</text>
+        <text align="left"></text>
+        <text align="center">Щоб повернутися до головного меню</text>
+        <text align="center">натисніть клавішу "Пробіл"</text>
+        <waitforinput/>
+    </page>
