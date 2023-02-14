@@ -1,0 +1,18 @@
+<script title="Інструкція до Рибного каскаду">
+  <page>
+    <bkgd src="main_bkg.png">
+    <img src="tux/stand-.png" x="100" y="330">
+    <text color="#FFFFFF" align="center" size="32">Допоможи Таксу зʼїсти рибу!</text>
+    <text color="#FFFFFF" align="center">Такс дуже голодний! Але</text>
+    <text color="#FFFFFF" align="center">поїдання риби з літерами</text>
+    <text color="#FFFFFF" align="center">призводить до болю в його животі.</text>
+    <text color="#FFFFFF" align="center">Допоможи Таксу зʼїсти рибу,</text>
+    <text color="#FFFFFF" align="center">натискаючи клавіші з відповідними</text>
+    <text color="#FFFFFF" align="center">буквами, що призведе до очищення риби,</text>
+    <text color="#FFFFFF" align="center">тож він зможе зʼїсти її всю</text>
+    <text color="#FFFFFF" align="center">і його живіт не буде боліти!</text>
+    <text></text>
+    <text color="#ffffff" align="center" size="22">Натисніть клавішу "Пробіл", щоб продовжити!</text>
+  </page>
+   <waitforinput/>
+  </page></lesson>
