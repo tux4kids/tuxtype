@@ -523,6 +523,9 @@ data/themes/telugu/words/Makefile
 data/themes/thai/Makefile
 data/themes/thai/words/Makefile
 data/themes/ukrainian/Makefile
+data/themes/ukrainian/images/Makefile
+data/themes/ukrainian/images/status/Makefile
+data/themes/ukrainian/scripts/Makefile
 data/themes/ukrainian/words/Makefile
 data/themes/wolof/Makefile
 data/themes/wolof/images/Makefile

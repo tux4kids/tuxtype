@@ -3,8 +3,7 @@
 
 themes_ukrainian_scriptsdir = $(pkgdatadir)/themes/ukrainian/scripts
 
-dist_themes_ukrainian_scripts_DATA =
-  cascade.xml \
+dist_themes_ukrainian_scripts_DATA = cascade.xml \
   laser.xml \
   projectInfo.xml \
   ypok_01.xml \

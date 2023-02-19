@@ -3,7 +3,6 @@
 
 themes_ukrainian_images_statusdir = $(pkgdatadir)/themes/ukrainian/images/status
 
-dist_themes_ukrainian_images_status_DATA =
-  gameover.png \
+dist_themes_ukrainian_images_status_DATA = gameover.png \
   score.png \
   wave.png

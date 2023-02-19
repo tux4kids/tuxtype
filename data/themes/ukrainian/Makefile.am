@@ -1,7 +1,7 @@
 ## Makefile.am for tuxtype - data/themes/ukrainian:
 ## Process with Automake to create Makefile.in
 
-SUBDIRS = words 
+SUBDIRS = images scripts words
 
 themes_ukrainiandir = $(pkgdatadir)/themes/ukrainian
 
