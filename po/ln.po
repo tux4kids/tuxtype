@@ -1,0 +1,197 @@
+# Lingala translations for Tux Typing package.
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Mobin M <mobinmohan@gmail.com>, 2008
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Tux Typing 1.5.16\n"
+"Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
+"POT-Creation-Date: 2012-02-02 20:16-0600\n"
+"PO-Revision-Date: 2009-02-04 14:55+0100\n"
+"Last-Translator: Loïc Martin <loic.martin3@gmail.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: ln\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: src/loaders.c:98 src/main.c:161 src/playgame.c:654
+msgid "Fish"
+msgstr "Mbísi"
+
+#: src/pause.c:289
+msgid "Sound Effects Volume"
+msgstr "Loláká la bikela na lokito"
+
+#: src/pause.c:298
+msgid "Music Volume"
+msgstr "Loláká la nzémbo"
+
+#: src/pause.c:309
+msgid "Sound & Music Disabled"
+msgstr "Nzémbo mpé lokito elamúísámí tɛ́"
+
+#: src/pause.c:319
+msgid "Paused!"
+msgstr "Bopémi!"
+
+#: src/pause.c:328
+msgid "Press escape again to return to menu"
+msgstr "Kobɛ́tɛ túsi-bobimi lisúsu mpɔ́ya kozónga na elubú"
+
+#: src/pause.c:337
+msgid "Press space bar to return to game"
+msgstr "Kobɛ́tɛ na túsi-bokákoli mpɔ́ya kozónga na lisano"
+
+#: src/playgame.c:652
+msgid "Level"
+msgstr "Emeko"
+
+#: src/playgame.c:653
+msgid "Lives"
+msgstr "Mamɔi"
+
+# levels for Cascade game:
+#: src/playgame.c:656 src/titlescreen.c:99
+msgid "Easy"
+msgstr "Mosála mwa pɛtɛ"
+
+#: src/playgame.c:657 src/titlescreen.c:100
+msgid "Medium"
+msgstr "Mosála mwa katikáti"
+
+#: src/playgame.c:658 src/titlescreen.c:101
+msgid "Hard"
+msgstr "Mosála mokási"
+
+# general stuff
+#: src/playgame.c:659
+msgid "Practice"
+msgstr "Bomíléngeli,"
+
+#: src/playgame.c:670
+msgid "Congratulations"
+msgstr "Longónya"
+
+#: src/playgame.c:674
+msgid "Oh No!"
+msgstr "Ai! áyayayayayaya!"
+
+#: src/practice.c:626
+msgid "sec"
+msgstr "Sɛgɔ́ndɛ"
+
+#: src/practice.c:1440
+msgid "Time"
+msgstr "Ntángo"
+
+#: src/practice.c:1444
+msgid "Chars"
+msgstr "Mikomá"
+
+#: src/practice.c:1448
+msgid "CPM"
+msgstr "Mikomá na monúti"
+
+#: src/practice.c:1452
+msgid "WPM"
+msgstr "Maloba na monúti"
+
+#: src/practice.c:1456
+msgid "Errors"
+msgstr "Zíko"
+
+#: src/practice.c:1460
+msgid "Accuracy"
+msgstr "Bɔ́zɔ"
+
+#: src/titlescreen.c:99
+msgid "Fish Cascade"
+msgstr "Bokwéi bwa mbísi"
+
+# "Space Cadet" is level 1 in comet zap
+#: src/titlescreen.c:99
+msgid "Space Cadet"
+msgstr "Mozimi wa likoló"
+
+#: src/titlescreen.c:99
+msgid "Edit Word Lists"
+msgstr "Kobimisela lístɛ lya maloba"
+
+# types of games
+#: src/titlescreen.c:100
+msgid "Comet Zap"
+msgstr "Bobomi bwa minzɔ́tɔ"
+
+# "Pilot" is level 2 in comet zap
+#: src/titlescreen.c:100
+msgid "Pilot"
+msgstr "Mokúmbi"
+
+#: src/titlescreen.c:100
+msgid "Phrase Typing"
+msgstr "Kobɛ́tɛ ya masakola"
+
+#: src/titlescreen.c:101
+msgid "Lessons"
+msgstr "Matéya"
+
+# "Ace" is level 3 in comet zap
+#: src/titlescreen.c:101
+msgid "Ace"
+msgstr "Nganga mayɛ́lɛ ya likoló"
+
+#: src/titlescreen.c:101
+msgid "Project Info"
+msgstr "Mpɔ̂ ya Tuxtype"
+
+#: src/titlescreen.c:102
+msgid "Options"
+msgstr "Mapɔni"
+
+#: src/titlescreen.c:102
+msgid "Instructions"
+msgstr "Mitíndo"
+
+# "Commander" is level 4 in comet zap
+#: src/titlescreen.c:102
+msgid "Commander"
+msgstr "Komandá"
+
+#: src/titlescreen.c:102
+msgid "Setup Language"
+msgstr "Lokótá"
+
+#: src/titlescreen.c:103
+msgid "Quit"
+msgstr "Kobima"
+
+#: src/titlescreen.c:103
+msgid "Main Menu"
+msgstr "Elubú ya ntína"
+
+# work in progress stuff
+#: src/titlescreen.c:1129
+msgid "Work In Progress!"
+msgstr "Botongi!"
+
+#: src/titlescreen.c:1130
+msgid "This feature is not ready yet"
+msgstr "Mosálá óyo ezalí ebɔngísámí tɛ́"
+
+#: src/titlescreen.c:1131
+msgid "Discuss the future of TuxTyping at"
+msgstr "Kokakola na lóbí la TuxTyping na"
+
+# general stuff
+#, fuzzy
+#~ msgid "Phrase Practice"
+#~ msgstr "Bomíléngeli bwa masakola"
+
+#~ msgid "Alphabet"
+#~ msgstr "Afabɛ́"
+
+#~ msgid "Setup Keyboard"
+#~ msgstr "Bobɔngisi ekomelo"
