@@ -50,13 +50,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 /* the colors we use throughout the game */
-static const SDL_Color black 		= {0x00, 0x00, 0x00, 0x00};
-static const SDL_Color gray 		= {0x80, 0x80, 0x80, 0x00};
-static const SDL_Color dark_blue	= {0x00, 0x00, 0x60, 0x00};
-static const SDL_Color red 		= {0xff, 0x00, 0x00, 0x00};
-static const SDL_Color white 		= {0xff, 0xff, 0xff, 0x00};
-static const SDL_Color yellow 		= {0xff, 0xff, 0x00, 0x00};
-
+#include <t4k_common.h>
 
 
 /* FIXME get rid of these 'evil' macros */
@@ -67,12 +61,14 @@ static const SDL_Color yellow 		= {0xff, 0xff, 0x00, 0x00};
 #define ERASE_MARGIN 5
 
 
-typedef struct {
+/*typedef struct {
   SDL_Surface* frame[MAX_SPRITE_FRAMES];
   SDL_Surface* default_img;
   int num_frames;
   int cur;
-} sprite;
+}*/
+
+//struct sprite sprite;
 
 
 /* "Public" function prototypes: */

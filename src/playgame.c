@@ -40,7 +40,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 static int tux_max_width = 0;                // the max width of the images of tux
 static int number_max_w = 0;                 // the max width of a number image
 static int tts_announcer_switch = 1;
-int braille_letter_pos=0;
+static int braille_letter_pos=0;
 
 //static SDL_Surface* background = NULL;
 static SDL_Surface* level[NUM_LEVELS] = {NULL};
@@ -159,7 +159,7 @@ int PlayCascade(int diflevel)
 	tts_announcer_thread = SDL_CreateThread(tts_announcer, &struct_with_data_address);
   
 
-  DEBUGCODE
+  DEBUGCODE_TT
   {
     fprintf(stderr, "->Entering PlayCascade(): level=%i\n", diflevel);
   }
@@ -254,7 +254,7 @@ int PlayCascade(int diflevel)
       if (settings.hidden && curlevel == 3)
         sprintf(filename, "hidden.jpg");
 
-      DEBUGCODE
+      DEBUGCODE_TT
       {
         fprintf(stderr, "->>Loading background: %s\n", filename);
       }
@@ -410,7 +410,7 @@ int PlayCascade(int diflevel)
 					/* See what Unicode value was typed: */
 					key_unicode = event.key.keysym.unicode;
 
-					DEBUGCODE
+					DEBUGCODE_TT
 					{fprintf(stderr, "\nkey_unicode = %d\twchar_t = %lc\t\n", key_unicode, key_unicode);}
 
 					/* For now, the cascade game is case-insensitive for input, */
@@ -422,7 +422,7 @@ int PlayCascade(int diflevel)
 					if ((key_unicode >= 256) && (key_unicode <= 382))  // Fix for other letters, such as the hungarian letter O with double acute
 						key_unicode -= 1;
 					LOG ("After checking for lower case:\n");
-					DEBUGCODE
+					DEBUGCODE_TT
 					{fprintf(stderr, "key_unicode = %d\twchar_t = %lc\\n\n", key_unicode, key_unicode);}
 
 					/* Now update with case-folded value: */
@@ -510,7 +510,7 @@ int PlayCascade(int diflevel)
       /* Pause (keep frame-rate event) */
       now_time = SDL_GetTicks();
 
-      DEBUGCODE
+      DEBUGCODE_TT
       {
         fprintf(stderr, "now_time = %d\tlast_time = %d, elapsed time = %d\n",
                 now_time, last_time, now_time - last_time);
@@ -766,7 +766,7 @@ static void LoadOthers(void)
 	char filename[FNLEN];
 
 	LOG( "=LoadOthers()\n" );
-	DEBUGCODE
+	DEBUGCODE_TT
 	{
 	  fprintf(stderr, "settings.theme_font_name is %s\n",
                   settings.theme_font_name);
@@ -1213,7 +1213,7 @@ static void SpawnFishies(int diflevel, int* fishies, int* frame)
            /
            (fish_object[*fishies].dy);
 
-  DEBUGCODE 
+  DEBUGCODE_TT 
   {
     /* NOTE need %S rather than %s because of wide characters */
     fprintf(stderr, "Spawn fishy with word '%S'\n", fish_object[*fishies].word);

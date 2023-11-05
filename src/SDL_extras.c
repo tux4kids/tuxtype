@@ -27,14 +27,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 /* For TransWipe(): */
-enum
+/*enum
 {
   WIPE_BLINDS_VERT,
   WIPE_BLINDS_HORIZ,
   WIPE_BLINDS_BOX,
   RANDOM_WIPE,
   NUM_WIPES
-};
+};*/
 
 #include <math.h>
 
@@ -818,11 +818,11 @@ static SDL_Rect dstupdate[MAX_UPDATES];
 static int numupdates = 0; // tracks how many blits to be done
 
 struct blit {
-    SDL_Surface* src;
-    SDL_Rect* srcrect;
-    SDL_Rect* dstrect;
+    SDL_Surface *src;
+    SDL_Rect *srcrect;
+    SDL_Rect *dstrect;
     unsigned char type;
-} blits[MAX_UPDATES];
+}  blits[MAX_UPDATES];
 
 
 
@@ -989,7 +989,7 @@ void UpdateScreen(int* frame)
   {
     if (blits[i].type == 'E') 
     {
-//       DEBUGCODE
+//       DEBUGCODE_TT
 //       {
 //         fprintf(stderr, "Erasing blits[%d]\n", i);
 //         fprintf(stderr, "srcrect->x = %d\t srcrect->y = %d\t srcrect->w = %d\t srcrect->h = %d\n",
@@ -1011,7 +1011,7 @@ void UpdateScreen(int* frame)
   {
     if (blits[i].type == 'D') 
     {
-//       DEBUGCODE
+//       DEBUGCODE_TT
 //       {
 //         fprintf(stderr, "drawing blits[%d]\n", i);
 //         fprintf(stderr, "srcrect->x = %d\t srcrect->y = %d\t srcrect->w = %d\t srcrect->h = %d\n",
@@ -1276,7 +1276,7 @@ SDL_Surface* BlackOutline(const char* t, int font_size, const SDL_Color* c)
     return NULL;
   }
 
-DEBUGCODE
+DEBUGCODE_TT
 {
   fprintf( stderr, "\nEntering BlackOutline(): \n");
   fprintf( stderr, "BlackOutline of \"%s\"\n", t );
@@ -1353,7 +1353,7 @@ DEBUGCODE
   out = SDL_DisplayFormatAlpha(bg);
   SDL_FreeSurface(bg);
 
-DEBUGCODE
+DEBUGCODE_TT
   { fprintf( stderr, "\nLeaving BlackOutline(): \n"); }
 
 
@@ -1384,7 +1384,7 @@ SDL_Surface* BlackOutline_w(const wchar_t* t, int font_size, const SDL_Color* c,
   wcsncpy(wchar_tmp, t, length);
   wchar_tmp[length] = '\0';
 
-  DEBUGCODE
+  DEBUGCODE_TT
   {
     fprintf(stderr, "In BlackOutline_w() - input wchar_t string is: %S\n", wchar_tmp);
   }
@@ -1392,7 +1392,7 @@ SDL_Surface* BlackOutline_w(const wchar_t* t, int font_size, const SDL_Color* c,
   i = ConvertToUTF8(wchar_tmp, tmp, 1024);
   //tmp[i] = 0;
 
-  DEBUGCODE
+  DEBUGCODE_TT
   {
     fprintf(stderr, "In BlackOutline_w() - converted UTF8 string is: %s\n", tmp);
   }
@@ -1470,7 +1470,7 @@ static int Set_SDL_Pango_Font_Size(int size)
   else
   {
     char buf[64];
-    DEBUGCODE { fprintf(stderr, "Setting font size to %d\n", size); }
+    DEBUGCODE_TT { fprintf(stderr, "Setting font size to %d\n", size); }
     if(context != NULL)
       SDLPango_FreeContext(context);
     context = NULL;
@@ -1583,13 +1583,13 @@ static TTF_Font* load_font(const char* font_name, int font_size)
   /* try to find font in default data dir: */
   sprintf(fn, "%s/fonts/%s", settings.default_data_path, font_name);
 
-  DEBUGCODE { fprintf(stderr, "load_font(): looking for %s using bundled data paths\n", fn); }
+  DEBUGCODE_TT { fprintf(stderr, "load_font(): looking for %s using bundled data paths\n", fn); }
 
   /* try to load the font, if successful, return font*/
   loaded_font = TTF_OpenFont(fn, font_size);
   if (loaded_font != NULL)
   {
-    DEBUGCODE { fprintf(stderr, "load_font(): found bundled font: %s\n", fn); }
+    DEBUGCODE_TT { fprintf(stderr, "load_font(): found bundled font: %s\n", fn); }
     return loaded_font;
   }
 
@@ -1622,13 +1622,13 @@ static TTF_Font* load_font(const char* font_name, int font_size)
 
 
 
-  DEBUGCODE { fprintf(stderr, "load_font(): looking for %s\n in OS' font path\n", fn); }
+  DEBUGCODE_TT { fprintf(stderr, "load_font(): looking for %s\n in OS' font path\n", fn); }
 
   /* try to load the font, if successful, return font*/
   loaded_font = TTF_OpenFont(fn, font_size);
   if (loaded_font != NULL)
   {
-    DEBUGCODE { fprintf(stderr, "load_font(): found font in OS' location: %s\n", fn); }
+    DEBUGCODE_TT { fprintf(stderr, "load_font(): found font in OS' location: %s\n", fn); }
     return loaded_font;
   }
   /* We could not find desired font. If we were looking for something other  */

@@ -116,7 +116,7 @@ wchar_t *get_next_word_letters(int cur_phrase,int cursor,int till_next_space);
 wchar_t *get_next_word(int cur_phrase,int cursor);
 
 //Braille Variable
-int braille_letter_pos;
+static int braille_letter_pos;
 
 /************************************************************************/
 /*                                                                      */ 
@@ -252,7 +252,7 @@ int Phrases(wchar_t* pphrase )
                                   medfontsize, phrase_draw_width);
 
         /* Draw the phrase to be typed up to the next wrapping point: */
-        DEBUGCODE
+        DEBUGCODE_TT
         {
           wchar_t buf[200];
           wcsncpy(buf, &phrases[cur_phrase][prev_wrap], wrap_pt + 1); 
@@ -278,7 +278,7 @@ int Phrases(wchar_t* pphrase )
                                   medfontsize, &white,
                                   cursor - prev_wrap);
 
-        DEBUGCODE
+        DEBUGCODE_TT
         {
           wchar_t buf[200];
           wcsncpy(buf, &phrases[cur_phrase][prev_wrap], cursor - prev_wrap); 
@@ -1044,7 +1044,7 @@ static int practice_load_media(void)
   int load_failed = 0;
   int labels_ok = 0;
 
-  DEBUGCODE { printf("Entering practice_load_media\n"); }
+  DEBUGCODE_TT { printf("Entering practice_load_media\n"); }
 
 
   /* load needed SDL_Surfaces: */
@@ -1108,7 +1108,7 @@ static int practice_load_media(void)
   GenerateKeyboard(keyboard);
 
   LOG("DONE - Loading practice media\n");
-  DEBUGCODE { printf("Leaving practice_load_media\n"); }
+  DEBUGCODE_TT { printf("Leaving practice_load_media\n"); }
   return 1;
 }
 
@@ -1158,7 +1158,7 @@ static void recalc_positions(void)
   calc_font_sizes();
   text_height = fontsize * 1.5;
 
-  DEBUGCODE
+  DEBUGCODE_TT
   {
     fprintf(stderr, "Entering recalc_positions(), screen is %d x %d\n", screen->w, screen->h); 
   }
@@ -1429,7 +1429,7 @@ static int load_phrases(const char* phrase_file)
     return 0;
   }
 
-  DEBUGCODE { printf("load_phrases(): phrases file is '%s'\n", fn ); }
+  DEBUGCODE_TT { printf("load_phrases(): phrases file is '%s'\n", fn ); }
 
   /* We know it will open OK because we already ran CheckFile() on it */ 
   fp = fopen(fn, "r");
@@ -1443,7 +1443,7 @@ static int load_phrases(const char* phrase_file)
     if (EOF != fscanf(fp, "%[^\n]\n", buf))
     {
       ConvertFromUTF8(phrases[num_phrases], buf, MAX_PHRASE_LENGTH);
-      DEBUGCODE {printf("phrase %d:\t%S\n", num_phrases, phrases[num_phrases]);}
+      DEBUGCODE_TT {printf("phrase %d:\t%S\n", num_phrases, phrases[num_phrases]);}
       num_phrases++;
     }
   }
@@ -1488,7 +1488,7 @@ static int find_next_wrap(const wchar_t* wstr, int font_size, int width)
   }
 
   DOUT(width);
-  DEBUGCODE{ fprintf(stderr, "wstr = %S\n", wstr);}
+  DEBUGCODE_TT{ fprintf(stderr, "wstr = %S\n", wstr);}
   
   phr_length = wcslen(wstr);
 
@@ -1522,7 +1522,7 @@ static int find_next_wrap(const wchar_t* wstr, int font_size, int width)
     /* Copy string into buf and null terminate after point to be checked: */
     wcsncpy(buf, wstr, MAX_PHRASE_LENGTH);
     buf[word_end + 1] = '\0';
-    DEBUGCODE{ fprintf(stderr, "buf = %S\n", buf);}
+    DEBUGCODE_TT{ fprintf(stderr, "buf = %S\n", buf);}
 
     /* Need to convert to UTF8 because couldn't get UNICODE version to work: */
     ConvertToUTF8(buf, UTF8buf, MAX_PHRASE_LENGTH);
@@ -1544,7 +1544,7 @@ static int find_next_wrap(const wchar_t* wstr, int font_size, int width)
     /* whether or not we are at the end of the string:                      */
     if (test_w > width)
     {
-      DEBUGCODE
+      DEBUGCODE_TT
       {
         fprintf(stderr, "width exceeded, returning end of previous word as wrap point\n");
         fprintf(stderr, "prev_word_end is %d\n", prev_word_end); 
@@ -1556,7 +1556,7 @@ static int find_next_wrap(const wchar_t* wstr, int font_size, int width)
     {
       if (i >= phr_length)
       {
-        DEBUGCODE
+        DEBUGCODE_TT
         {
           fprintf(stderr, "width not exceeded, returning because end of string reached\n");
           fprintf(stderr, "word_end is %d\n", word_end); 

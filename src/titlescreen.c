@@ -34,18 +34,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "menu.h"
 
+
 /* --- Data Structure for Dirty Blitting --- */
 SDL_Rect srcupdate[MAX_UPDATES];
 SDL_Rect dstupdate[MAX_UPDATES];
 int numupdates = 0; // tracks how many blits to be done
 
-// Type needed for trans_wipe():
 struct blit {
     SDL_Surface *src;
     SDL_Rect *srcrect;
     SDL_Rect *dstrect;
     unsigned char type;
-} blits[MAX_UPDATES];
+};
+static struct blit blits[MAX_UPDATES];
+
 
 // Lessons available for play
 char **lesson_list_titles = NULL;
@@ -67,7 +69,7 @@ const float beak_pos[4]  = {0.36, 0.21, 0.27, 0.14};
 /* How long we show startup logo while files load, etc.: */
 const int logo_msec = 2000;
 
-SDL_Event event;
+//SDL_Event event;
 
 /* screen dimensions to which titlescreen graphics are currently rendered */
 int curr_res_x = -1;
@@ -236,7 +238,7 @@ void TitleScreen(void)
     /* NOTE: do we need this ? */
     if (true)
         SDL_WM_GrabInput(SDL_GRAB_OFF); /* in case of a freeze, this traps the cursor */
-    else  // NOTE- the accompanying "if" is inside the DEBUGCODE macro
+    else  // NOTE- the accompanying "if" is inside the DEBUGCODE_TT macro
         SDL_WM_GrabInput(SDL_GRAB_ON);  /* User input goes to TuxMath, not window manager */
     SDL_ShowCursor(1);
 

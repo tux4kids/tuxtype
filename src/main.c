@@ -158,7 +158,7 @@ int main(int argc, char *argv[])
     }
   }
 
-  DEBUGCODE
+  DEBUGCODE_TT
   {
     fprintf(stderr, "\n%s, version %s BEGIN\n", PACKAGE, VERSION);
   }
@@ -174,7 +174,7 @@ int main(int argc, char *argv[])
     s3 = bind_textdomain_codeset(PACKAGE, "UTF-8");
     s4 = textdomain(PACKAGE);
 
-    DEBUGCODE
+    DEBUGCODE_TT
     {
       fprintf(stderr, "PACKAGE = %s\n", PACKAGE);
       fprintf(stderr, "TUXLOCALE = %s\n", TUXLOCALE);

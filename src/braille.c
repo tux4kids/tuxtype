@@ -78,7 +78,7 @@ int braille_language_loader(char* language)
 	
 	if(fp == NULL)
 	{
-		DEBUGCODE{fprintf(stderr,"Couldn't open map for reading"); }
+		DEBUGCODE_TT{fprintf(stderr,"Couldn't open map for reading"); }
 		return 0;
 	}
 			
