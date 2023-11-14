@@ -84,10 +84,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MAX(x,y) ((x) > (y) ? (x) : (y))
 
 //TTS Thread
-SDL_Thread *tts_thread;
+extern SDL_Thread *tts_thread;
 
 //TTS Word announcer Thread
-SDL_Thread *tts_announcer_thread;
+extern SDL_Thread *tts_announcer_thread;
 
 #define FNLEN	256
 
@@ -130,7 +130,9 @@ struct braille_dict
 	wchar_t value_begin[100];
 	wchar_t value_middle[100];
 	wchar_t value_end[100];
-}braille_key_value_map[100];
+};
+
+extern struct braille_dict braille_key_value_map[100];
 
 
 /* Default values for game_option_type struct */
@@ -180,8 +182,8 @@ extern int fs_res_y;
  *   DOUT( specialCode );  would add to stderr: "specialCode = 1\n" or
  *   whatever value specialCode had
  *   
- * - Use DEBUGCODE if you need to do something more complicated like
- *   DEBUGCODE { fprintf(stderr, "examining letter %d\n", x); }
+ * - Use DEBUGCODE_TT if you need to do something more complicated like
+ *   DEBUGCODE_TT { fprintf(stderr, "examining letter %d\n", x); }
  *   since DOUT(x) "x = 1\n" gives little information since x is used
  *   all over the place!
  */
