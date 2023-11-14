@@ -182,8 +182,8 @@ extern int fs_res_y;
  *   DOUT( specialCode );  would add to stderr: "specialCode = 1\n" or
  *   whatever value specialCode had
  *   
- * - Use DEBUGCODE_TT if you need to do something more complicated like
- *   DEBUGCODE_TT { fprintf(stderr, "examining letter %d\n", x); }
+ * - Use DEBUGCODE if you need to do something more complicated like
+ *   DEBUGCODE { fprintf(stderr, "examining letter %d\n", x); }
  *   since DOUT(x) "x = 1\n" gives little information since x is used
  *   all over the place!
  */
