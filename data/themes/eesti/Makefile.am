@@ -3,7 +3,7 @@
 
 SUBDIRS = words 
 
-themes_suomidir = $(pkgdatadir)/themes/eesti
+themes_eestidir = $(pkgdatadir)/themes/eesti
 
-dist_themes_suomi_DATA = keyboard.lst	\
+dist_themes_eesti_DATA = keyboard.lst \
   settings.txt
