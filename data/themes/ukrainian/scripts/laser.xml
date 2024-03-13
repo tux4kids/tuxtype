@@ -1,0 +1,18 @@
+<script title="Інструкція до Падіння комет">
+  <page>
+    <bkgd src="main_bkg.png">
+    <text align="center" size="28">Врятуй міста від падіння комет!</text>
+    <text align="center">Допоможи Таксу націлити його лазерний промінь,</text>
+    <text align="center">натискаючи букви, що написані на кометах.</text>
+    <text align="center">Натискай швидко, бо, якщо Такс не знищить</text>
+    <text align="center">комету до того, як та долетить до землі,</text>
+    <text align="center">щит міста буде знищено. А коли комета влучить</text>
+    <text align="center">в це місце знов, місто, що позбавлене щита, буде</text>
+    <text align="center">знищено зовсім! Гра закінчиться, коли ти втратиш</text>
+    <text align="center">всі міста.</text>
+    <text></text>
+    <text align="center" color="#ffffff" size="22">Натисніть клавішу "Пробіл", щоб продовжити!</text>
+  </page>
+  <waitforinput/>
+</page>
+</lesson>

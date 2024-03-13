@@ -1,0 +1,39 @@
+<script title="Тренувальна вправа" bgcolor="#3f4f1f">
+    <page title="Ввідна до тренувальної вправи">
+        <text align="center">Клавіша "є"</text>
+        <text align="center">В цій вправі ви дізнаєтесь, де знаходиться</text>
+        <text align="center">клавіша "є".</text>
+        <text align="center" y="300">НАТИСНІТЬ КЛАВІШУ "ПРОБІЛ", ЩОБ ПОЧАТИ ВПРАВУ!</text>
+        <waitforinput/>
+    </page>
+    <page title="Клавіша 'є'" bgcolor="#3f7f3f">
+        <img src="/keyboard/keyboard-us.png" x="45" y="220"/>
+        <text align="center">В цій вправі ми будемо практикуватися із клавішею "є".</text>
+        <text align="center">Натисніть клавішу "з", щоб почати</text>
+        <text color="#000000" x="100" y="280">Ф</text>
+        <text color="#000000" x="130" y="280">І</text>
+        <text color="#000000" x="160" y="280">В</text>
+        <text color="#000000" x="190" y="280">А</text>
+        <text color="#000000" x="220" y="280">П</text>
+        <text color="#000000" x="250" y="280">Р</text>
+        <text color="#000000" x="285" y="280">О</text>
+        <text color="#000000" x="315" y="280">Л</text>
+        <text color="#000000" x="345" y="280">Д</text>
+        <text color="#000000" x="375" y="280">Ж</text>
+        <text color="#000000" x="415" y="280">Є</text>
+        <waitforchar/>
+        <prac>є єє є єє є єєє є єє ває євєпє єрєррє єоєоє єлєл єлєєд єдєдє єжєдждлє єпаєвє єієє івфєіє єлєлє рєає євєвіє ффієєв апєає євє</prac>
+    </page>
+    <!--HACK: there is some undesired behavior in scripting.c, this fixes it for now-->
+    <page>
+    </page>
+    <page>
+        <img src="keyboard/space.png" x="200" y="160"/>
+        <img src="keyboard/larrow.png" x="460" y="18"/>
+        <img src="keyboard/esc.png" x="515" y="50"/>
+        <text align="center">Молодець!</text>
+        <text align="left"></text>
+        <text align="center">Щоб повернутися до головного меню</text>
+        <text align="center">натисніть клавішу "Пробіл"</text>
+        <waitforinput/>
+    </page>

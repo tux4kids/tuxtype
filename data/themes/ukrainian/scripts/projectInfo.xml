@@ -1,0 +1,47 @@
+<script title="Інформаційний цент проекту" bgcolor="#336699" fgcolor="#ffffff">
+  <page>
+    <img src="line2.png" x="5" y="0"></img>
+    <text size="6"></text>
+    <text size="18" align="center" color="#000000">Інформація про проект Tux Typing</text>
+    <text size="6" align="center"></text>
+    <text size="14" align="center">Будь ласка, відвідайте один із форумів Tux Typing за адресами: </text>
+    <text size="16" align="center">http://www.tux4kids.com</text>
+    <text size="16" align="center">mailto://tuxmath-devel@sourceforge.net чи irc://freenode/#tux4kids</text>
+    <text size="6" align="center"></text>
+    <text size="16" align="center">Tux Typing запропанований вам хорошими людьми з tux4kids. http://tux4kids.com</text>
+    <text size="6" align="center"></text>
+    <text size="16" align="center">Наше сховище вихідного коду знаходиться за адресою http://svn.debian.org/wsvn/tux4kids/tuxtype/</text>
+    <text size="6" align="center"></text>
+    <text size="16" align="center">Tux Typing був задуманий Семом Хартом (Sam Hart) і згодом був розроблений</text>
+    <text size="16" align="center">Джессі Д. Ендрюсом (Jesse D. Andrews). Поточний провідний програміст:</text>
+    <text size="16" align="center">Девід Брюс (David Bruce) mailto://davidstuartbruce@gmail.com</text>
+    <text size="16" align="center">Перегляньте файл "AUTHORS", щоб дізнатися про багатьох інших, хто зробив значний внесок у цей проєкт.</text>
+    <text size="4" align="center"></text>
+    <text size="32" align="center" color="#ff003f">Помилки та пропозиції</text>
+    <text size="16" align="center">Надсилайте інформацію про будь-які помилки чи пропозиції</text>
+    <text size="16" align="center">на mailto://tuxmath-devel@sourceforge.net.</text>
+    <text size="4" align="center"></text>
+    <text size="22" align="center" color="#ff7f3f">Tux Typing — це безкоштовне програмне забезпечення під ліцензією GPL.</text>
+    <text size="22" align="center" color="#ff7f3f">Щоб дізнатися деталі, перегляньте файл "COPYING"</text>
+    <text size="22" align="center" color="#000000">Натисніть клавішу "Пробіл", щоб продовжити!</text>
+  <waitforinput/>
+</page>
+  <page>
+    <text size="14" align="center"></text>
+    <text size="24" align="center">Інструкція зі створення сценаріїв</text>
+    <text size="14" align="center">Дивись детальну інструкцію зі створення сценаріїв тут:</text>
+    <text size="14" align="center">https://github.com/tux4kids/tuxtype/blob/master/doc/en/lesson_scripting_reference.html</text>
+    <text size="140" align="center"></text>
+    <text size="22" align="center" color="#000000">Натисніть клавішу "Пробіл", щоб продовжити!</text>
+<waitforinput/>
+  </page>
+  <page>
+    <text size="14" align="center"></text>
+    <text size="14" align="center">Інструкція з локалізації</text>
+    <text size="14" align="center">Дивись детальну інструкцію з локалізації тут:</text>
+    <text size="14" align="center">https://github.com/tux4kids/tuxtype/blob/master/doc/en/howtotheme.html</text>
+    <text size="140" align="center"></text>
+    <text size="22" align="center" color="#000000">Натисніть клавішу "Пробіл", щоб продовжити!</text>
+ <waitforinput/>
+ </page>
+</script>

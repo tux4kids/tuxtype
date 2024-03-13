@@ -85,27 +85,27 @@ msgstr ""
 
 #: src/practice.c:1440
 msgid "Time"
-msgstr ""
+msgstr "Temps"
 
 #: src/practice.c:1444
 msgid "Chars"
-msgstr ""
+msgstr "Caractères"
 
 #: src/practice.c:1448
 msgid "CPM"
-msgstr ""
+msgstr "Caractères p. min."
 
 #: src/practice.c:1452
 msgid "WPM"
-msgstr ""
+msgstr "Mots par min."
 
 #: src/practice.c:1456
 msgid "Errors"
-msgstr ""
+msgstr "Erreurs"
 
 #: src/practice.c:1460
 msgid "Accuracy"
-msgstr ""
+msgstr "Exactitude"
 
 #: src/titlescreen.c:99
 msgid "Fish Cascade"
