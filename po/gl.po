@@ -1,0 +1,198 @@
+# Galician translations for Tux Typing package.
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# anónimo , 2025
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Tux Typing 1.5.16\n"
+"Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
+"POT-Creation-Date: 2025-03-11 10:52-0600\n"
+"PO-Revision-Date: 2025-03-11 11:14+0100\n"
+"Last-Translator: \n"
+"Language-Team: Galician\n"
+"Language: gl_ES\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.5\n"
+
+#: src/loaders.c:98 src/main.c:161 src/playgame.c:654
+msgid "Fish"
+msgstr "Peixe"
+
+#: src/pause.c:289
+msgid "Sound Effects Volume"
+msgstr "Volume dos Efectos Sonoros"
+
+#: src/pause.c:298
+msgid "Music Volume"
+msgstr "Volume da Música"
+
+#: src/pause.c:309
+msgid "Sound & Music Disabled"
+msgstr "Son e Música Desactivados"
+
+#: src/pause.c:319
+msgid "Paused!"
+msgstr "Pausado!"
+
+#: src/pause.c:328
+msgid "Press escape again to return to menu"
+msgstr "Premer novamente Escape para voltar ao menú"
+
+#: src/pause.c:337
+msgid "Press space bar to return to game"
+msgstr "Preme a barra espaciadora para voltar ao xogo"
+
+#: src/playgame.c:652
+msgid "Level"
+msgstr "Nivel"
+
+#: src/playgame.c:653
+msgid "Lives"
+msgstr "Vidas"
+
+# niveles para juego de cascada:
+#: src/playgame.c:656 src/titlescreen.c:99
+msgid "Easy"
+msgstr "Doado"
+
+#: src/playgame.c:657 src/titlescreen.c:100
+msgid "Medium"
+msgstr "Medio"
+
+#: src/playgame.c:658 src/titlescreen.c:101
+msgid "Hard"
+msgstr "Difícil"
+
+# Cosas generales
+#: src/playgame.c:659
+msgid "Practice"
+msgstr "Practicar"
+
+#: src/playgame.c:670
+msgid "Congratulations"
+msgstr "Parabéns"
+
+#: src/playgame.c:674
+msgid "Oh No!"
+msgstr "¡Vaites, non!"
+
+#: src/practice.c:626
+msgid "sec"
+msgstr "seg"
+
+#: src/practice.c:1440
+msgid "Time"
+msgstr "Tempo"
+
+#: src/practice.c:1444
+msgid "Chars"
+msgstr "Gráficos"
+
+#: src/practice.c:1448
+msgid "CPM"
+msgstr "CPM"
+
+#: src/practice.c:1452
+msgid "WPM"
+msgstr "PPM"
+
+#: src/practice.c:1456
+msgid "Errors"
+msgstr "Erros"
+
+#: src/practice.c:1460
+msgid "Accuracy"
+msgstr "Precisión"
+
+#: src/titlescreen.c:99
+msgid "Fish Cascade"
+msgstr "Fervenza de Peixe"
+
+# "Cadete de espacio" es nivel 1 en zapea cometa
+#: src/titlescreen.c:99
+msgid "Space Cadet"
+msgstr "Cadete Espacial"
+
+#: src/titlescreen.c:99
+msgid "Edit Word Lists"
+msgstr "Editar listas de palabras"
+
+# Tipos de juegos
+#: src/titlescreen.c:100
+msgid "Comet Zap"
+msgstr "Descarga de Cometa"
+
+# "Piloto" es nivel 2 en zapea cometas
+#: src/titlescreen.c:100
+msgid "Pilot"
+msgstr "Piloto"
+
+#: src/titlescreen.c:100
+msgid "Phrase Typing"
+msgstr "Escritura de Frases"
+
+#: src/titlescreen.c:101
+msgid "Lessons"
+msgstr "Leccións"
+
+# "As" es nivel 3 en zapea cometas
+#: src/titlescreen.c:101
+msgid "Ace"
+msgstr "Mestre"
+
+#: src/titlescreen.c:101
+msgid "Project Info"
+msgstr "Información do proxecto"
+
+#: src/titlescreen.c:102
+msgid "Options"
+msgstr "Opcións"
+
+#: src/titlescreen.c:102
+msgid "Instructions"
+msgstr "Instrucións"
+
+# "Commandante" es nivel 4 en zapea cometas
+#: src/titlescreen.c:102
+msgid "Commander"
+msgstr "Comandante"
+
+#: src/titlescreen.c:102
+msgid "Setup Language"
+msgstr "Configurar lingua"
+
+#: src/titlescreen.c:103
+msgid "Quit"
+msgstr "Saír"
+
+#: src/titlescreen.c:103
+msgid "Main Menu"
+msgstr "Menú Principal"
+
+# work Cosas que estan abajo de construccion.
+#: src/titlescreen.c:1129
+msgid "Work In Progress!"
+msgstr "Traballo en proceso!"
+
+#: src/titlescreen.c:1130
+msgid "This feature is not ready yet"
+msgstr "Esta función non está lista aínda"
+
+#: src/titlescreen.c:1131
+msgid "Discuss the future of TuxTyping at"
+msgstr "Comenta o futuro de TuxTyping en"
+
+# Cosas generales
+#, fuzzy
+#~ msgid "Phrase Practice"
+#~ msgstr "Practicar"
+
+#~ msgid "Alphabet"
+#~ msgstr "Alfabeto"
+
+#~ msgid "Setup Keyboard"
+#~ msgstr "Teclado"

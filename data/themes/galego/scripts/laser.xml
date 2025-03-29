@@ -1,0 +1,18 @@
+<script title="Instruccións para Caída de Cometas">
+  <page>
+    <bkgd src="main_bkg.png">
+    <text align="center" size="28">¡Salva as Cidades dos Cometas que Caen!</text>
+    <text align="center"t>¡Axuda a Tux a apuntar o seu raio láser escribindo</text>
+    <text align="center">as letras dos cometas. ¡Escribe axiña,</text>
+    <text align="center">porque se Tux non pode destruir os cometas</text>
+    <text align="center"t>antes de que colidan, as cidades van quedar</text>
+    <text align="center"t> sen escudos. E se outro cometa as alcanza,<text>
+    <text align="center">as cidades desaparecerán!</text>
+    <text align="center">Se perdes todas as cidades</text>
+    <text align="center">remata o xogo.</text>
+    <text></text>
+    <text align="center" color="#ffffff" size="22">¡Preme ESPAZO para continuar!</text>
+  </page>
+  <waitforinput/>
+</page>
+</lesson>

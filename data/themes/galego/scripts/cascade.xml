@@ -1,0 +1,17 @@
+<script title="Instruccións da fervenza de Peixes">
+  <page>
+    <bkgd src="main_bkg.png">
+    <img src="tux/stand-.png" x="100" y="330">
+    <text color="#FFFFFF" align="center" size="32">Axuda a Tux a Comer Peixes!</text>
+    <text color="#FFFFFF" align="center">¡Tux está moi esfameado! Pero os peces</text>
+    <text color="#FFFFFF" align="center">con letras danlle</text>
+    <text color="#FFFFFF" align="center">dor de barriga. Axuda a Tux</text>
+    <text color="#FFFFFF" align="center">a comer peixes premendo</text>
+    <text color="#FFFFFF" align="center">as letras nos peixes</text>
+    <text color="#FFFFFF" align="center">para que desaparezcan</text>
+    <text color="#FFFFFF" align="center">e poida comelos todos!</text>
+    <text></text>
+    <text color="#ffffff" align="center" size="22">¡Preme ESPAZO para seguir!</text>
+  </page>
+   <waitforinput/>
+  </page></lesson>
