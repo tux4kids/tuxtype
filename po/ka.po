@@ -1,0 +1,178 @@
+# Georgian translation for tuxtype.
+# Copyright (C) 2026 tuxtype's authors.
+# This file is distributed under the same license as the tuxtype package.
+# Ekaterine Papava <papava.e@gtu.ge>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: tuxtype 1.8.3\n"
+"Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
+"POT-Creation-Date: 2012-02-02 20:16-0600\n"
+"PO-Revision-Date: 2026-02-26 11:25+0100\n"
+"Last-Translator: Ekaterine Papava <papava.e@gtu.ge>\n"
+"Language-Team: Georgian <(nothing)>\n"
+"Language: ka\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.8\n"
+
+#: src/loaders.c:98 src/main.c:161 src/playgame.c:654
+msgid "Fish"
+msgstr "თევზი"
+
+#: src/pause.c:289
+msgid "Sound Effects Volume"
+msgstr "ხმოვანი ეფექტების ხმის სიმაღლე"
+
+#: src/pause.c:298
+msgid "Music Volume"
+msgstr "მუსიკის ხმის დონე"
+
+#: src/pause.c:309
+msgid "Sound & Music Disabled"
+msgstr "ხმა და მუსიკა გამორთულია"
+
+#: src/pause.c:319
+msgid "Paused!"
+msgstr "დაპაუზებულია!"
+
+#: src/pause.c:328
+msgid "Press escape again to return to menu"
+msgstr "თამაშში დასაბრუნებლად კიდევ ერთხელ დააჭირეთ ღილაკს Escape"
+
+#: src/pause.c:337
+msgid "Press space bar to return to game"
+msgstr "თამაშში დასაბრუნებლად დააჭირეთ ღილაკს ჰარე"
+
+#: src/playgame.c:652
+msgid "Level"
+msgstr "დონე"
+
+#: src/playgame.c:653
+msgid "Lives"
+msgstr "სიცოცხლეები"
+
+#: src/playgame.c:656 src/titlescreen.c:99
+msgid "Easy"
+msgstr "ადვილი"
+
+#: src/playgame.c:657 src/titlescreen.c:100
+msgid "Medium"
+msgstr "საშუალო"
+
+#: src/playgame.c:658 src/titlescreen.c:101
+msgid "Hard"
+msgstr "რთული"
+
+#: src/playgame.c:659
+msgid "Practice"
+msgstr "ვარჯიში"
+
+#: src/playgame.c:670
+msgid "Congratulations"
+msgstr "გილოცავთ"
+
+#: src/playgame.c:674
+msgid "Oh No!"
+msgstr "ოჰ, არა!"
+
+#: src/practice.c:626
+msgid "sec"
+msgstr "წმ"
+
+#: src/practice.c:1440
+msgid "Time"
+msgstr "დრო"
+
+#: src/practice.c:1444
+msgid "Chars"
+msgstr "სიმბოლო"
+
+#: src/practice.c:1448
+msgid "CPM"
+msgstr "სიმბ/წთ"
+
+#: src/practice.c:1452
+msgid "WPM"
+msgstr "სიტყვ/წთ"
+
+#: src/practice.c:1456
+msgid "Errors"
+msgstr "შედომები"
+
+#: src/practice.c:1460
+msgid "Accuracy"
+msgstr "სიზუსტე"
+
+#: src/titlescreen.c:99
+msgid "Fish Cascade"
+msgstr "თევზის გასკადი"
+
+#: src/titlescreen.c:99
+msgid "Space Cadet"
+msgstr "კოსმოსური კადეტი"
+
+#: src/titlescreen.c:99
+msgid "Edit Word Lists"
+msgstr "სიტყვის სიების ჩასწორება"
+
+#: src/titlescreen.c:100
+msgid "Comet Zap"
+msgstr "კომეტა ზაპი"
+
+#: src/titlescreen.c:100
+msgid "Pilot"
+msgstr "პილოტი"
+
+#: src/titlescreen.c:100
+msgid "Phrase Typing"
+msgstr "ფრაზის აკრეფა"
+
+#: src/titlescreen.c:101
+msgid "Lessons"
+msgstr "გაკვეთილები"
+
+#: src/titlescreen.c:101
+msgid "Ace"
+msgstr "ტუზი"
+
+#: src/titlescreen.c:101
+msgid "Project Info"
+msgstr "პროექტის ინფორმაცია"
+
+#: src/titlescreen.c:102
+msgid "Options"
+msgstr "მორგება"
+
+#: src/titlescreen.c:102
+msgid "Instructions"
+msgstr "ინსტრუქციები"
+
+#: src/titlescreen.c:102
+msgid "Commander"
+msgstr "კომანდერი"
+
+#: src/titlescreen.c:102
+msgid "Setup Language"
+msgstr "ენის მორგება"
+
+#: src/titlescreen.c:103
+msgid "Quit"
+msgstr "გასვლა"
+
+#: src/titlescreen.c:103
+msgid "Main Menu"
+msgstr "მთავარი მენიუ"
+
+#: src/titlescreen.c:1129
+msgid "Work In Progress!"
+msgstr "მიმდინარეობს სამუშაოები!"
+
+#: src/titlescreen.c:1130
+msgid "This feature is not ready yet"
+msgstr "ეს ფუნქცია ჯერ მზად არაა"
+
+#: src/titlescreen.c:1131
+msgid "Discuss the future of TuxTyping at"
+msgstr "განიხილეთ TuxTyping-ის მომავალი გვერდზე"
