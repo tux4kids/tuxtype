@@ -31,9 +31,48 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "globals.h"
 #include "funcs.h"
 
-extern Mix_Music* sounds[];
+extern Mix_Chunk* sounds[];
 
 static Mix_Music* defaultMusic = NULL; // holds music for audioMusicLoad/unload
+
+/* Fixed-channel playback (see funcs.h): a small channel-number ->
+   MIX_Track* table, since SDL3_mixer's tracks aren't numbered. */
+#define NUM_FIXED_CHANNELS 16
+static MIX_Track* channel_tracks[NUM_FIXED_CHANNELS] = { NULL };
+
+static MIX_Track* GetChannelTrack(int channel)
+{
+  if (channel < 0 || channel >= NUM_FIXED_CHANNELS)
+    return NULL;
+  if (!channel_tracks[channel])
+    channel_tracks[channel] = MIX_CreateTrack(T4K_GetMixer());
+  return channel_tracks[channel];
+}
+
+void PlayChannel(int channel, Mix_Chunk* chunk, int loops)
+{
+  MIX_Track* track;
+  SDL_PropertiesID props;
+
+  if (!chunk || !settings.sys_sound)
+    return;
+
+  track = GetChannelTrack(channel);
+  if (!track)
+    return;
+
+  MIX_SetTrackAudio(track, chunk);
+  props = SDL_CreateProperties();
+  SDL_SetNumberProperty(props, MIX_PROP_PLAY_LOOPS_NUMBER, loops);
+  MIX_PlayTrack(track, props);
+  SDL_DestroyProperties(props);
+}
+
+bool ChannelPlaying(int channel)
+{
+  MIX_Track* track = GetChannelTrack(channel);
+  return track && MIX_TrackPlaying(track);
+}
 
 
 
@@ -59,16 +98,30 @@ void PlaySoundLoop(Mix_Chunk* snd, int loops)
   if (!settings.sys_sound)
     return;
 
-  Mix_PlayChannel(-1, snd, loops);
+  T4K_PlaySoundLoop(snd, loops);
 }
 
 // halt a channel or -1 for all
 void audioHaltChannel(int channel)
 {
-    Mix_HaltChannel(channel);
+    if (channel < 0)
+    {
+        int i;
+        for (i = 0; i < NUM_FIXED_CHANNELS; i++)
+            if (channel_tracks[i])
+                MIX_StopTrack(channel_tracks[i], 0);
+        T4K_AudioHaltChannel(channel);
+        return;
+    }
+
+    {
+        MIX_Track* track = GetChannelTrack(channel);
+        if (track)
+            MIX_StopTrack(track, 0);
+    }
 }
 
-/* MusicLoad attempts to load and play the music file 
+/* MusicLoad attempts to load and play the music file
  * Note: loops == -1 means forever
  */
 void MusicLoad(const char* musicFilename, int loops)
@@ -84,7 +137,7 @@ void MusicLoad(const char* musicFilename, int loops)
   {
     MusicUnload(); //Unload previous defaultMusic
     defaultMusic = tmp_music;
-    Mix_PlayMusic(defaultMusic, loops);
+    T4K_AudioMusicPlay(defaultMusic, loops);
   }
 }
 
@@ -98,23 +151,23 @@ void MusicUnload(void)
 
   if (defaultMusic)
   {
-    Mix_FreeMusic(defaultMusic);
+    MIX_DestroyAudio(defaultMusic);
     defaultMusic = NULL;
   }
 }
 
 
-/* audioMusicPlay attempts to play the passed music data. 
+/* audioMusicPlay attempts to play the passed music data.
  * if a music file was loaded using the audioMusicLoad
  * it will be stopped and unloaded
  * Note: loops == -1 means forever
  */
 void MusicPlay(Mix_Music* musicData, int loops)
-{ 
+{
   if (!settings.sys_sound) return;
   if (!musicData) return;
 
   /* Stop previous music before playing new one: */
-  MusicUnload();	
-  Mix_PlayMusic(musicData, loops);
+  MusicUnload();
+  T4K_AudioMusicPlay(musicData, loops);
 }

@@ -28,7 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 #include <stdlib.h>
-#include "SDL.h"
+#include <SDL3/SDL.h>
 
 /* while it looks like you can just
  * change the number of planes, flakes,
@@ -241,7 +241,7 @@ void SNOW_init( void ) {
 
 	int i;
 
-	snow_color = SDL_MapRGB( screen->format, 255, 255, 255 );
+	snow_color = SDL_MapRGB(SDL_GetPixelFormatDetails(screen->format), NULL, 255, 255, 255 );
 	for (i=0; i<NUM_FLAKES; i++) {
 		flake[i].x = (int)(8*638.0*rand()/(RAND_MAX+1.0));
 		flake[i].y = (int)(480.0*rand()/(RAND_MAX+1.0));

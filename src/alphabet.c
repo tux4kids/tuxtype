@@ -380,7 +380,7 @@ int unicode_in_key_list(wchar_t uni_char)
 // 
 // 	SDL_BlitSurface(abit, NULL, screen, &dst);
 // 
-// 	SDL_FreeSurface(abit);
+// 	SDL_DestroySurface(abit);
 // 
 // 	abit = BlackOutline("Alphabet Set To:", font, &white);
 // 	dst.x = 320 - (abit->w / 2);
@@ -390,19 +390,19 @@ int unicode_in_key_list(wchar_t uni_char)
 // 
 // 	SDL_BlitSurface(abit, NULL, screen, &dst);
 // 
-// 	SDL_UpdateRect(screen, 0, 0, 0 ,0);
+// 	T4K_UpdateRect(screen, NULL);
 // 
 // 	while (!stop) 
 // 		while (SDL_PollEvent(&event)) 
 // 			switch (event.type) {
-// 				case SDL_QUIT:
+// 				case SDL_EVENT_QUIT:
 // 					exit(0);
-// 				case SDL_KEYDOWN:
-// 				case SDL_MOUSEBUTTONDOWN:
+// 				case SDL_EVENT_KEY_DOWN:
+// 				case SDL_EVENT_MOUSE_BUTTON_DOWN:
 // 					stop = 1;
 // 			}
 // 
-// 	SDL_FreeSurface(abit);
+// 	SDL_DestroySurface(abit);
 // }
 
 
@@ -663,12 +663,12 @@ void FreeLetters(void)
   {
     if (char_glyphs[i].white_glyph)
     {
-      SDL_FreeSurface(char_glyphs[i].white_glyph);
+      SDL_DestroySurface(char_glyphs[i].white_glyph);
       char_glyphs[i].white_glyph = NULL;
     }
     if (char_glyphs[i].red_glyph)
     {
-      SDL_FreeSurface(char_glyphs[i].red_glyph);
+      SDL_DestroySurface(char_glyphs[i].red_glyph);
       char_glyphs[i].red_glyph = NULL;
     }
     char_glyphs[i].unicode_value = 0;

@@ -29,6 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 #include "globals.h"
+#include "braille.h"
 #include "funcs.h"
 #include "playgame.h"
 #include "snow.h"
@@ -156,7 +157,7 @@ int PlayCascade(int diflevel)
 
   //Call announcer function in thread which annonces the word to type 
   if(settings.tts)
-	tts_announcer_thread = SDL_CreateThread(tts_announcer, &struct_with_data_address);
+	tts_announcer_thread = SDL_CreateThread(tts_announcer, "tts_announcer", &struct_with_data_address);
   
 
   DEBUGCODE
@@ -165,7 +166,7 @@ int PlayCascade(int diflevel)
   }
 
 
-//  SDL_ShowCursor(0); //don't really need this and it causes a bug on windows
+//  SDL_HideCursor(); //don't really need this and it causes a bug on windows
 
 //	SNOW_init();
 
@@ -302,15 +303,15 @@ int PlayCascade(int diflevel)
       /* --- Poll input queue, get keyboard info --- */
       while (SDL_PollEvent(&event))
       {
-        if ( event.type == SDL_QUIT )
+        if ( event.type == SDL_EVENT_QUIT )
         {
           exit(0); /* FIXME does memory get cleaned up properly if we do this? */
         }
         else
         {
-          if (event.type == SDL_KEYDOWN)
+          if (event.type == SDL_EVENT_KEY_DOWN)
           {
-            switch (event.key.keysym.sym)
+            switch (event.key.key)
             {
               case SDLK_F11:
                 SDL_SaveBMP(screen, "screenshot.bmp");
@@ -375,7 +376,7 @@ int PlayCascade(int diflevel)
 				  T4K_Tts_say(DEFAULT_VALUE,DEFAULT_VALUE,INTERRUPT,gettext("Pause Released!"));
 				  //Call announcer function in thread which annonces the word to type
 				  if(settings.tts)
-						tts_announcer_thread = SDL_CreateThread(tts_announcer, &struct_with_data_address);
+						tts_announcer_thread = SDL_CreateThread(tts_announcer, "tts_announcer", &struct_with_data_address);
 				  DrawBackground();
 				}
                 break;
@@ -388,8 +389,8 @@ int PlayCascade(int diflevel)
               case SDLK_LALT:
 	      case SDLK_RMETA:
 	      case SDLK_LMETA:
-              case SDLK_LSUPER:
-              case SDLK_RSUPER:
+              case SDLK_LGUI:
+              case SDLK_RGUI:
 	      //T4K_Tts_say(DEFAULT_VALUE,DEFAULT_VALUE,INTERRUPT,"Please don't press modifier keys!");
 	      break;
 
@@ -401,14 +402,14 @@ int PlayCascade(int diflevel)
 				/* Store each keys till a key released */
 				if(settings.braille)
 				{
-				   pressed_letters[braille_iter] = event.key.keysym.sym;
+				   pressed_letters[braille_iter] = event.key.key;
                    braille_iter++;
                    pressed_letters[braille_iter] = L'\0';   
 				}
 				else
 				{
 					/* See what Unicode value was typed: */
-					key_unicode = event.key.keysym.unicode;
+					key_unicode = event.key.key;
 
 					DEBUGCODE
 					{fprintf(stderr, "\nkey_unicode = %d\twchar_t = %lc\t\n", key_unicode, key_unicode);}
@@ -430,9 +431,9 @@ int PlayCascade(int diflevel)
 				}
             }
           }
-          else if (event.type == SDL_KEYUP)
+          else if (event.type == SDL_EVENT_KEY_UP)
 			{
-				/* ----- SDL_KEYUP is Only for Braille Mode -------------*/
+				/* ----- SDL_EVENT_KEY_UP is Only for Braille Mode -------------*/
 				if(settings.braille)
 				{
 					arrange_in_order(pressed_letters);
@@ -533,8 +534,10 @@ int PlayCascade(int diflevel)
     }  /* End per-frame game loop - level completed */
 
 
+    /* NOTE: t4kcommon doesn't expose the music track for a timed fade
+       (see MUSIC_FADE_OUT_MS) - stop immediately instead. */
     if (settings.sys_sound)
-      Mix_FadeOutMusic(MUSIC_FADE_OUT_MS);
+      T4K_AudioMusicPause();
 
     DrawBackground();
 
@@ -549,7 +552,7 @@ int PlayCascade(int diflevel)
 			stop_tts_announcer();
   
         if (settings.sys_sound) 
-          Mix_PlayChannel(WIN_WAV, sound[WIN_WAV], 0);
+          PlayChannel(WIN_WAV, sound[WIN_WAV], 0);
 
         if (curlevel < 4)  /* Advance to next level */
         {
@@ -590,7 +593,7 @@ int PlayCascade(int diflevel)
 			stop_tts_announcer();        
 
         if (settings.sys_sound)
-          Mix_PlayChannel(LOSE_WAV, sound[LOSE_WAV], 0);
+          PlayChannel(LOSE_WAV, sound[LOSE_WAV], 0);
 
 		T4K_Tts_say(DEFAULT_VALUE,DEFAULT_VALUE,INTERRUPT,gettext("yep you miss it. hahh hahh haa. game over! goodbye!"));
 			
@@ -647,7 +650,7 @@ int PlayCascade(int diflevel)
      {
 		fishies = 0; //Otherwise thread will announce old words and cause segfault
 		if(settings.tts)
-			tts_announcer_thread = SDL_CreateThread(tts_announcer, &struct_with_data_address);
+			tts_announcer_thread = SDL_CreateThread(tts_announcer, "tts_announcer", &struct_with_data_address);
 	 }
 	
     }  /* End of post-level wrap-up  */
@@ -716,7 +719,7 @@ static int check_word( int f ) {
 ***************************************/
 void WaitFrame(void) {
 	static Uint32  next_tick = 0;
-	Uint32         this_tick = SDL_GetTicks();
+	Uint64         this_tick = SDL_GetTicks();
 
 	if (this_tick < next_tick)
 		SDL_Delay(next_tick - this_tick);
@@ -846,7 +849,7 @@ static void display_msg(const char* msg, int x, int y)
   {
     EraseObject(m, x, y);
     DrawObject(m, x, y);
-    SDL_FreeSurface(m);
+    SDL_DestroySurface(m);
   }
 }
 
@@ -1022,35 +1025,35 @@ static void FreeGame(void)
   FreeBothBkgds();
 
   if (curlev)
-    SDL_FreeSurface(curlev);
+    SDL_DestroySurface(curlev);
   if (fish)
-    SDL_FreeSurface(fish);
+    SDL_DestroySurface(fish);
   if (lives)
-    SDL_FreeSurface(lives);
+    SDL_DestroySurface(lives);
   curlev = fish = lives = NULL;
 
   for (i = 0; i < NUM_LEVELS; i++)
   {
     if (level[i])
-      SDL_FreeSurface(level[i]);
+      SDL_DestroySurface(level[i]);
     level[i] = NULL;
   }
   for (i = 0; i < NUM_NUMS; i++)
   {
     if (number[i])
-      SDL_FreeSurface(number[i]);
+      SDL_DestroySurface(number[i]);
     number[i] = NULL;
   }
   for (i = 0; i < CONGRATS_FRAMES; i++)
   {
     if (congrats[i])
-      SDL_FreeSurface(congrats[i]);
+      SDL_DestroySurface(congrats[i]);
     congrats[i] = NULL;
   }
   for (i = 0; i < OH_NO_FRAMES; i++)
   {
     if (ohno[i])
-      SDL_FreeSurface(ohno[i]);
+      SDL_DestroySurface(ohno[i]);
     ohno[i] = NULL;
   }
   if (settings.sys_sound)
@@ -1059,7 +1062,7 @@ static void FreeGame(void)
     for (i = 0; i < NUM_WAVES; ++i)
     {
       if (sound[i])
-        Mix_FreeChunk(sound[i]);
+        MIX_DestroyAudio(sound[i]);
       sound[i] = NULL;
     }
   }
@@ -1332,7 +1335,7 @@ static void AddSplat(int* splats, struct fishypoo* f, int* curlives, int* frame)
     *curlives = 0;
 
   if (settings.sys_sound) 
-    Mix_PlayChannel(SPLAT_WAV, sound[SPLAT_WAV], 0);
+    PlayChannel(SPLAT_WAV, sound[SPLAT_WAV], 0);
 
   LOG("Enterint AddSplat()\n");
 }
@@ -1559,13 +1562,13 @@ static void CheckCollision(int fishies, int *fish_left, int frame )
 				tux_object.dx = 0;
 				tux_object.endx = tux_object.x;
 
-				if (settings.sys_sound) Mix_PlayChannel(BITE_WAV, sound[BITE_WAV], 0);
+				if (settings.sys_sound) PlayChannel(BITE_WAV, sound[BITE_WAV], 0);
 
 			} else if (tux_object.state == TUX_STANDING) {
 				LOG( "***EXCUSE ME!** - in CheckCollision()\n" );
 
-				if (settings.sys_sound && !Mix_Playing(EXCUSEME_WAV))
-					Mix_PlayChannel(EXCUSEME_WAV, sound[EXCUSEME_WAV], 0);
+				if (settings.sys_sound && !ChannelPlaying(EXCUSEME_WAV))
+					PlayChannel(EXCUSEME_WAV, sound[EXCUSEME_WAV], 0);
 			}
 		}
 	}
@@ -1621,16 +1624,16 @@ static void MoveTux( int frame, int fishies )
 					tux_object.state = TUX_WALKING;
 
 					//stop running sound (if playing)                                               
-					if (settings.sys_sound && Mix_Playing(RUN_WAV))
-						Mix_HaltChannel(RUN_WAV);
+					if (settings.sys_sound && ChannelPlaying(RUN_WAV))
+						audioHaltChannel(RUN_WAV);
 				} else {
 					if (time_to_splat > frame) 
 						tux_object.dx = float_restrict( MIN_RUNNING_SPEED, abs(tux_object.endx - tux_object.x) / (time_to_splat-frame), MAX_RUNNING_SPEED );
 					else {
 						tux_object.dx = MAX_RUNNING_SPEED;
-						if (settings.sys_sound && !Mix_Playing(RUN_WAV))
+						if (settings.sys_sound && !ChannelPlaying(RUN_WAV))
 							if (abs(tux_object.endx - tux_object.x) > 50)
-								Mix_PlayChannel(RUN_WAV, sound[RUN_WAV], 0);
+								PlayChannel(RUN_WAV, sound[RUN_WAV], 0);
 					}
 
 					tux_object.state = TUX_RUNNING;

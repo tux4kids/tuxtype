@@ -31,48 +31,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef SDL_EXTRAS_H
 #define SDL_EXTRAS_H
 
-// Need this so the #ifdef HAVE_LIBSDL_PANGO will work:
 #include "../config.h"
 
-#include "SDL.h"
+#include <SDL3/SDL.h>
 
-
-#if SDL_BYTEORDER == SDL_BIG_ENDIAN
-#define rmask 0xff000000
-#define gmask 0x00ff0000
-#define bmask 0x0000ff00
-#define amask 0x000000ff
-#else
-#define rmask 0x000000ff
-#define gmask 0x0000ff00
-#define bmask 0x00ff0000
-#define amask 0xff000000
-#endif
-
-/* the colors we use throughout the game */
-static const SDL_Color black 		= {0x00, 0x00, 0x00, 0x00};
-static const SDL_Color gray 		= {0x80, 0x80, 0x80, 0x00};
-static const SDL_Color dark_blue	= {0x00, 0x00, 0x60, 0x00};
-static const SDL_Color red 		= {0xff, 0x00, 0x00, 0x00};
-static const SDL_Color white 		= {0xff, 0xff, 0xff, 0x00};
-static const SDL_Color yellow 		= {0xff, 0xff, 0x00, 0x00};
-
-
+/* Color constants (black/white/red/yellow/gray/dark_blue) and the
+   sprite type/MAX_SPRITE_FRAMES come from t4k_common.h rather than
+   being redeclared here. */
+#include <t4k_common.h>
 
 /* FIXME get rid of these 'evil' macros */
 #define NEXT_FRAME(SPRITE) if ((SPRITE)->num_frames) (SPRITE)->cur = (((SPRITE)->cur)+1) % (SPRITE)->num_frames;
 #define REWIND(SPRITE) (SPRITE)->cur = 0;
-#define MAX_SPRITE_FRAMES 30
 //extra bkgd border around "erased" images.
 #define ERASE_MARGIN 5
-
-
-typedef struct {
-  SDL_Surface* frame[MAX_SPRITE_FRAMES];
-  SDL_Surface* default_img;
-  int num_frames;
-  int cur;
-} sprite;
 
 
 /* "Public" function prototypes: */

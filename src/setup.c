@@ -44,44 +44,35 @@ static int load_settings_filename(const char* fn);
 ****************************/
 void GraphicsInit(void)
 {
-  const SDL_VideoInfo* video_info = SDL_GetVideoInfo();
-  Uint32 surface_mode = 0;
+  SDL_DisplayID display_id;
+  const SDL_DisplayMode* mode;
 
   DEBUGCODE
   { fprintf(stderr, "Entering GraphicsInit()\n"); };
 
-  //Set application's icon:
-  seticon();
-  //Set caption:
-  SDL_WM_SetCaption("Tux Typing", "TuxType");
-
-  if (video_info->hw_available)
-  {
-    surface_mode = SDL_HWSURFACE;
-    LOG("HW mode\n");
-  }
-  else
-  {
-    surface_mode = SDL_SWSURFACE;
-    LOG("SW mode\n");
-  }
+  display_id = SDL_GetPrimaryDisplay();
+  mode = display_id ? SDL_GetDesktopDisplayMode(display_id) : NULL;
 
   // Determine the current resolution: this will be used as the
   // fullscreen resolution, if the user wants fullscreen.
   DEBUGCODE
   {
-    fprintf(stderr, "Current resolution: w %d, h %d.\n", 
-            video_info->current_w, video_info->current_h);
+    if (mode)
+      fprintf(stderr, "Current resolution: w %d, h %d.\n",
+              mode->w, mode->h);
   }
 
   /* For fullscreen, we try to use current resolution from OS: */
-  
-  fs_res_x = video_info->current_w;
-  fs_res_y = video_info->current_h;
+
+  if (mode)
+  {
+    fs_res_x = mode->w;
+    fs_res_y = mode->h;
+  }
 
   if (settings.fullscreen == 1)
   {
-    screen = SDL_SetVideoMode(fs_res_x, fs_res_y, BPP, SDL_FULLSCREEN | surface_mode);
+    screen = T4K_SetScreenMode(fs_res_x, fs_res_y, 1);
     if (screen == NULL)
     {
       fprintf(stderr,
@@ -95,7 +86,7 @@ void GraphicsInit(void)
   /* Either fullscreen not requested, or couldn't get fullscreen in SDL: */
   if (settings.fullscreen == 0)
   {
-    screen = SDL_SetVideoMode(RES_X, RES_Y, BPP, surface_mode);
+    screen = T4K_SetScreenMode(RES_X, RES_Y, 0);
   }
 
   /* Failed to get a usable screen - must bail out! */
@@ -108,17 +99,19 @@ void GraphicsInit(void)
     exit(2);
   }
 
+  //Set application's icon:
+  seticon();
+  //Set caption:
+  SDL_SetWindowTitle(T4K_GetWindow(), "Tux Typing");
+
   InitBlitQueue();
 
 
 
-  DEBUGCODE 
+  DEBUGCODE
   {
-    video_info = SDL_GetVideoInfo();
-    fprintf(stderr, "-SDL VidMode successfully set to %ix%ix%i\n",
-            video_info->current_w,
-            video_info->current_h,
-            video_info->vfmt->BitsPerPixel);
+    fprintf(stderr, "-SDL VidMode successfully set to %ix%i\n",
+            screen->w, screen->h);
   }
 
 	LOG( "GraphicsInit():END\n" );
@@ -134,83 +127,32 @@ void LibInit(Uint32 lib_flags)
 {
   LOG( "LibInit():\n-About to init SDL Library\n" );
 
-  /* Initialize video: */
-  if (SDL_Init(SDL_INIT_VIDEO) < 0)
+  /* NOTE - SDL_Init() and friends now in InitT4KCommon() */
+  if (!InitT4KCommon(0))
   {
-    fprintf(stderr, "Couldn't initialize SDL: %s\n",
-    SDL_GetError());
+    fprintf(stderr, "InitT4KCommon() failed - exiting.\n");
     exit(2);
   }
-  /* Initialize audio if desired: */
-  if (settings.sys_sound)
-  {
-    if (SDL_InitSubSystem(SDL_INIT_AUDIO) < 0)
-    {
-      fprintf(stderr, "Couldn't initialize SDL Sound: %s\n",
-              SDL_GetError());
-      settings.sys_sound = 0;
-    }
-    else
-      LOG("SDL_InitSubSystem(SDL_INIT_AUDIO) succeeded\n");
-  }
-
-// atexit(SDL_Quit); // fire and forget... 
 
   LOG( "-SDL Library init'd successfully\n" );
 
   DEBUGCODE
   { fprintf(stderr, "settings.sys_sound = %d\n", settings.sys_sound); }
 
-  /* FIXME should read settings before we do this: */ 
+  /* FIXME should read settings before we do this: */
   if (settings.sys_sound) //can be turned off with "--nosound" runtime flag
   {
-    int initted = 1;
-
-    /* For SDL_mixer 1.2.10 and later, we must call Mix_Init() before any */
-    /* other SDL_mixer functions. We can see what types of audio files    */
-    /* are supported at this time (ogg and mod are required):             */
-
-#ifdef HAVE_MIX_INIT
-    int flags = MIX_INIT_OGG | MIX_INIT_MP3 | MIX_INIT_MOD | MIX_INIT_FLAC;
-    initted = Mix_Init(flags);
-
-    /* Just give warnings if MP3 or FLAC not supported: */
-    if((initted & MIX_INIT_MP3) != MIX_INIT_MP3)
-      LOG("NOTE - MP3 playback not supported\n");
-    if((initted & MIX_INIT_FLAC) != MIX_INIT_FLAC)
-      LOG("NOTE - MP3 playback not supported\n");
-
-    /* We must have Ogg and Mod support to have sound: */
-    if((initted & (MIX_INIT_OGG | MIX_INIT_MOD)) != (MIX_INIT_OGG | MIX_INIT_MOD))
+    LOG("About to call T4K_AudioOpen():\n");
+    if (!T4K_AudioOpen(44100, 2))
     {
-      fprintf(stderr, "Mix_Init: Failed to init required ogg and mod support!\n");
-      fprintf(stderr, "Mix_Init: %s\n", Mix_GetError());
+      fprintf(stderr, "Warning: T4K_AudioOpen() failed\n - Reasons: %s\n", SDL_GetError());
       settings.sys_sound = 0;
-      initted = 0;
     }
     else
-      LOG("Mix_Init() succeeded\n");
-#endif
-
-    DOUT(initted);
-
-    /* If Mix_Init() succeeded (or wasn't required), set audio parameters: */
-    if(initted)
-    {
-      LOG("About to call Mix_OpenAudio():\n");
-//    if (Mix_OpenAudio(22050, AUDIO_S16, 1, 2048) == -1)
-      if(Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, 1, 2048) ==
-		      -1)
-      {
-        fprintf(stderr, "Warning: Mix_OpenAudio() failed\n - Reasons: %s\n", SDL_GetError());
-        settings.sys_sound = 0;
-      }
-      else
-        LOG("Mix_OpenAudio() successful\n");
-    }
+      LOG("T4K_AudioOpen() successful\n");
   }
 
-  LOG( "-about to init SDL text library (SDL_ttf or SDL_Pango\n" );
+  LOG( "-about to init SDL text library (SDL_ttf)\n" );
 
   if (!Setup_SDL_Text())
   {
@@ -641,19 +583,19 @@ static void seticon(void)
   }
 
   /* Set up key for transparency: */
-  colorkey = SDL_MapRGB(icon->format, 255, 0, 255);
-  SDL_SetColorKey(icon, SDL_SRCCOLORKEY, colorkey);              
+  colorkey = SDL_MapRGB(SDL_GetPixelFormatDetails(icon->format), NULL, 255, 0, 255);
+  SDL_SetSurfaceColorKey(icon, true, colorkey);
 
-  SDL_WM_SetIcon(icon,NULL);
+  SDL_SetWindowIcon(T4K_GetWindow(), icon);
 
-  SDL_FreeSurface(icon);
+  SDL_DestroySurface(icon);
 }
 
 
 void Cleanup(void)
 {
-  SDL_FreeSurface(screen);
+  SDL_DestroySurface(screen);
   screen = NULL;
   Cleanup_SDL_Text();
-  SDL_Quit();
+  CleanupT4KCommon();
 }

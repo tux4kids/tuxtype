@@ -38,13 +38,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef INPUT_METHODS_H
 #define INPUT_METHODS_H
 
-#include "SDL.h"
+#include <SDL3/SDL.h>
 //#include "i18n.h"
 
 
 /* ***************************************************************************
 * TYPES
 */
+
+/* SDL3 removed SDL_keysym (key info is now inline on SDL_KeyboardEvent,
+   and per-key unicode is gone in favor of SDL_EVENT_TEXT_INPUT). Nothing
+   in this codebase currently calls im_read()/HandleKey() at runtime
+   (see playgame.c's unused static HandleKey()), so this is a compile-only
+   compatibility shim preserving the old field names/types rather than a
+   redesign of unreachable code. */
+typedef struct {
+  SDL_Keycode sym;
+  SDL_Keymod mod;
+  Uint16 unicode;
+} SDL_keysym;
 
 typedef struct IM_DATA {
   int lang;             /* Language used in sequence translation */

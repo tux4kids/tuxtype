@@ -37,7 +37,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 //#include "globals.h"
 
-#include "SDL.h"
+#include <SDL3/SDL.h>
 /* titlescreen & menu frame rate */
 #define MAX_FPS                    30
 /* number of "real" frames per one sprite frame */

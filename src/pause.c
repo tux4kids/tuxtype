@@ -68,15 +68,18 @@ int Pause(void)
 	/* --- stop all sounds, play pause noise --- */
 
 	if (settings.sys_sound) {
- 		Mix_Pause(-1);
-		Mix_PlayChannel(-1, pause_sfx, 0);
-		sfx_volume = Mix_Volume(-1, -1);  // get sfx volume w/o changing it
-		mus_volume = Mix_VolumeMusic(-1); // get mus volume w/o changing it
+		/* NOTE: old SDL_mixer could pause every sound-effect channel at
+		   once (Mix_Pause(-1)); t4kcommon's audio wrapper doesn't expose
+		   the underlying tracks, so any sound effect already in flight
+		   just keeps playing through the pause screen now. */
+		T4K_PlaySound(pause_sfx);
+		sfx_volume = T4K_AudioGetSoundVolume();  // get sfx volume w/o changing it
+		mus_volume = T4K_AudioGetMusicVolume();  // get mus volume w/o changing it
 	}
 
 	/* --- show the pause screen --- */
 
-	SDL_ShowCursor(1);
+	SDL_ShowCursor();
 
 	// Darken the screen...
 	DarkenScreen(1); 
@@ -87,9 +90,8 @@ int Pause(void)
 		draw_vols(sfx_volume, mus_volume);
 	}
 
-	SDL_Flip(screen);
+	T4K_UpdateRect(screen, NULL);
 
-	SDL_EnableKeyRepeat( 1, 20 );
 
 	/* --- wait for space, click, or exit --- */
 
@@ -98,47 +100,50 @@ int Pause(void)
 		old_mus_volume = mus_volume;
 		while (SDL_PollEvent(&event)) 
 			switch (event.type) {
-				case SDL_QUIT: 
+				case SDL_EVENT_QUIT: 
 					exit(0);
 					break;
-				case SDL_KEYUP:
+				case SDL_EVENT_KEY_UP:
 					if (settings.sys_sound && 
-					   ((event.key.keysym.sym == SDLK_RIGHT) ||
-					    (event.key.keysym.sym == SDLK_LEFT))) 
+					   ((event.key.key == SDLK_RIGHT) ||
+					    (event.key.key == SDLK_LEFT))) 
 					    	tocks = 0;
 					break;
-				case SDL_KEYDOWN:
-					if (event.key.keysym.sym == SDLK_SPACE) 
+				case SDL_EVENT_KEY_DOWN:
+					if (event.key.key == SDLK_SPACE) 
 						paused = 0;
-					if (event.key.keysym.sym == SDLK_ESCAPE) {
+					if (event.key.key == SDLK_ESCAPE) {
 						paused = 0;
 						quit = 1;
 					}
 					if (settings.sys_sound) { 
-						if (event.key.keysym.sym == SDLK_RIGHT) 
+						if (event.key.key == SDLK_RIGHT) 
 							sfx_volume += 4;
-						if (event.key.keysym.sym == SDLK_LEFT) 
+						if (event.key.key == SDLK_LEFT) 
 							sfx_volume -= 4;
-						if (event.key.keysym.sym == SDLK_UP) 
+						if (event.key.key == SDLK_UP) 
 							mus_volume += 4;
-						if (event.key.keysym.sym == SDLK_DOWN) 
+						if (event.key.key == SDLK_DOWN) 
 							mus_volume -= 4;
 					}
 					break;
-				case SDL_MOUSEBUTTONDOWN:
+				case SDL_EVENT_MOUSE_BUTTON_DOWN:
 					mousePressed = 1;
 					tocks = 0;
 					break;
-				case SDL_MOUSEBUTTONUP:
+				case SDL_EVENT_MOUSE_BUTTON_UP:
 					mousePressed = 0;
 					break;
 
 					break;
 			}
 		if (settings.sys_sound && mousePressed) {
+			float xf, yf;
 			int x, y;
 
-			SDL_GetMouseState(&x, &y);
+			SDL_GetMouseState(&xf, &yf);
+			x = (int)xf;
+			y = (int)yf;
 			/* check to see if they clicked on a button */
 
 			if (inRect(rectUp, x, y)) {
@@ -167,12 +172,12 @@ int Pause(void)
 
 		if (settings.sys_sound) {
 
-			if (sfx_volume > MIX_MAX_VOLUME)
-				sfx_volume = MIX_MAX_VOLUME;
+			if (sfx_volume > 128)
+				sfx_volume = 128;
 			if (sfx_volume < 0)
 				sfx_volume = 0;
-			if (mus_volume > MIX_MAX_VOLUME)
-				mus_volume = MIX_MAX_VOLUME;
+			if (mus_volume > 128)
+				mus_volume = 128;
 			if (mus_volume < 0)
 				mus_volume = 0;
 
@@ -180,19 +185,19 @@ int Pause(void)
 			    (sfx_volume != old_sfx_volume)) {
 
 				if (mus_volume != old_mus_volume)
-					Mix_VolumeMusic(mus_volume);
+					T4K_AudioSetMusicVolume(mus_volume);
 
 				if (sfx_volume != old_sfx_volume) {
-					Mix_Volume(-1,sfx_volume);
+					T4K_AudioSetSoundVolume(sfx_volume);
 					if (tocks%4==0)
-						Mix_PlayChannel(-1, pause_sfx, 0);
+						T4K_PlaySound(pause_sfx);
 					tocks++;
 			    }
 
 				draw_vols(sfx_volume, mus_volume);
 				settings.mus_volume=mus_volume;
 				settings.sfx_volume=sfx_volume;
-				SDL_Flip(screen);
+				T4K_UpdateRect(screen, NULL);
 			}
 		}
 
@@ -201,13 +206,11 @@ int Pause(void)
 
 	/* --- Return to previous state --- */
 
-	SDL_EnableKeyRepeat( 0, SDL_DEFAULT_REPEAT_INTERVAL );
 
-	SDL_ShowCursor(0);
+	SDL_HideCursor();
 
 	if (settings.sys_sound) {
-		Mix_PlayChannel(-1, pause_sfx, 0);
-		Mix_Resume(-1);
+		T4K_PlaySound(pause_sfx);
 	}
 
 	pause_unload_media();
@@ -241,13 +244,13 @@ static void pause_load_media(void) {
 static void pause_unload_media(void) {
 	if (settings.sys_sound)
         {
-	  Mix_FreeChunk(pause_sfx);
+	  MIX_DestroyAudio(pause_sfx);
 	  pause_sfx = NULL;
         }
-	SDL_FreeSurface(up);
-	SDL_FreeSurface(down);
-	SDL_FreeSurface(left);
-	SDL_FreeSurface(right);
+	SDL_DestroySurface(up);
+	SDL_DestroySurface(down);
+	SDL_DestroySurface(left);
+	SDL_DestroySurface(right);
         up = down = left = right = NULL;
 }
 
@@ -292,7 +295,7 @@ static void pause_draw(void)
       s.y = screen->h/2 - 80;
       s.x = screen->w/2 - t->w/2;
       SDL_BlitSurface(t, NULL, screen, &s);
-      SDL_FreeSurface(t);
+      SDL_DestroySurface(t);
     }
 
     t = BlackOutline(gettext("Music Volume"), pause_font_size1, &white);
@@ -301,7 +304,7 @@ static void pause_draw(void)
       s.y = screen->h/2 + 20;
       s.x = screen->w/2 - t->w/2;
       SDL_BlitSurface(t, NULL, screen, &s);
-      SDL_FreeSurface(t);
+      SDL_DestroySurface(t);
     }
   }
   else  /* No sound: */
@@ -312,7 +315,7 @@ static void pause_draw(void)
       s.y = screen->h/2 - 80;
       s.x = screen->w/2 - t->w/2;
       SDL_BlitSurface(t, NULL, screen, &s);
-      SDL_FreeSurface(t);
+      SDL_DestroySurface(t);
     }
   }
 
@@ -322,7 +325,7 @@ static void pause_draw(void)
 	s.y = screen->h/2 - 180; //60;
 	s.x = screen->w/2 - t->w/2;
 	SDL_BlitSurface(t, NULL, screen, &s);
-	SDL_FreeSurface(t);
+	SDL_DestroySurface(t);
   }
 
   t = BlackOutline(gettext("Press escape again to return to menu"), pause_font_size1, &white);
@@ -331,7 +334,7 @@ static void pause_draw(void)
     s.y = screen->h/2 + 160;
     s.x = screen->w/2 - t->w/2;
     SDL_BlitSurface(t, NULL, screen, &s);
-    SDL_FreeSurface(t);
+    SDL_DestroySurface(t);
   }
 
   t = BlackOutline(gettext("Press space bar to return to game"), pause_font_size1, &white);
@@ -340,7 +343,7 @@ static void pause_draw(void)
     s.y = screen->h/2 + 200;
     s.x = screen->w/2 - t->w/2;
     SDL_BlitSurface(t, NULL, screen, &s);
-    SDL_FreeSurface(t);
+    SDL_DestroySurface(t);
   }
 
   LOG("Leaving pause_draw()\n");
@@ -363,14 +366,14 @@ static void draw_vols(int sfx, int mus)
   for (i = 1; i<=32; i++)
   {
     if (sfx >= i * 4)
-      SDL_FillRect(screen, &s, SDL_MapRGB(screen->format, 0, 0, 127 + sfx));
+      SDL_FillSurfaceRect(screen, &s, SDL_MapRGB(SDL_GetPixelFormatDetails(screen->format), NULL, 0, 0, 127 + sfx));
     else
-      SDL_FillRect(screen, &s, SDL_MapRGB(screen->format, 0, 0, 0));
+      SDL_FillSurfaceRect(screen, &s, SDL_MapRGB(SDL_GetPixelFormatDetails(screen->format), NULL, 0, 0, 0));
 
     if (mus >= i * 4)
-      SDL_FillRect(screen, &m, SDL_MapRGB(screen->format, 0, 0, 127 + mus));
+      SDL_FillSurfaceRect(screen, &m, SDL_MapRGB(SDL_GetPixelFormatDetails(screen->format), NULL, 0, 0, 127 + mus));
     else
-      SDL_FillRect(screen, &m, SDL_MapRGB(screen->format, 0, 0, 0));
+      SDL_FillSurfaceRect(screen, &m, SDL_MapRGB(SDL_GetPixelFormatDetails(screen->format), NULL, 0, 0, 0));
 
     m.x = s.x += 7;
   }

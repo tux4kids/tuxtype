@@ -40,6 +40,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // C library includes:
 #include <string.h>
 #include <wchar.h>
+#include <wctype.h>
+#include <ctype.h>
 #include <math.h>
 #include <time.h>
 #include <stdio.h>
@@ -49,10 +51,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <locale.h>
 
 // SDL includes:
-#include "SDL.h"
-#include "SDL_image.h"
-#include "SDL_mixer.h"
-/* NOTE only SDL_extras.c/.h now knows about SDL_ttf or SDL_Pango. */
+#include <SDL3/SDL.h>
+#include <SDL3_image/SDL_image.h>
+#include <SDL3_mixer/SDL_mixer.h>
+/* NOTE only SDL_extras.c/.h now knows about SDL_ttf. */
+
+// Mix_Chunk/Mix_Music aliases and the T4K_* audio/presentation wrapper API:
+#include <t4k_common.h>
 
 // Translation stuff: 
 #include "gettext.h"
@@ -79,7 +84,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // FIXME if we really need these, make them into functions rather than
 // "evil" macros
 #define to_upper(c) (((c) >= 'a' && (c) <= 'z') ? (c) -32 : (c))
-#define COL2RGB( col ) SDL_MapRGB( screen->format, col->r, col->g, col->b )
+#define COL2RGB( col ) SDL_MapRGB( SDL_GetPixelFormatDetails(screen->format), NULL, col->r, col->g, col->b )
 #define MIN(x,y) ((x) < (y) ? (x) : (y))
 #define MAX(x,y) ((x) > (y) ? (x) : (y))
 
@@ -260,8 +265,6 @@ enum
 };
 
 
-#endif
-
 extern const int debug_titlescreen;
 
 
@@ -348,6 +351,8 @@ enum {
 extern int num_lessons;
 extern int* lesson_list_goldstars;
 extern char **lesson_list_titles;
+
+#endif /* GLOBALS_H */
 
 
 

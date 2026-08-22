@@ -28,6 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 #include "globals.h"
+#include "braille.h"
 #include "funcs.h"
 #include "SDL_extras.h"
 #include "mysetenv.h"
@@ -178,8 +179,6 @@ SDL_Surface* LoadSVGOfDimensions(char* filename, int width, int height)
   SDL_Surface* dest;
   float scale_x;
   float scale_y;
-  int bpp = 32;
-  Uint32 Rmask, Gmask, Bmask, Amask;
 
   DEBUGCODE{
     fprintf(stderr, "LoadSVGOfDimensions(): looking for %s\n", filename);
@@ -217,15 +216,10 @@ SDL_Surface* LoadSVGOfDimensions(char* filename, int width, int height)
 
   /* FIXME: We assume that our bpp = 32 */
 
-  /* rmask, gmask, bmask, amask defined in SDL_extras.h do not work !
-     are those (taken from TuxPaint) dependent on endianness ? */
-  Rmask = 0x00ff0000;
-  Gmask = 0x0000ff00;
-  Bmask = 0x000000ff;
-  Amask = 0xff000000;
-
-  dest = SDL_CreateRGBSurface(SDL_SWSURFACE | SDL_SRCALPHA,
-        width, height, bpp, Rmask, Gmask, Bmask, Amask);
+  /* Cairo writes ARGB32 (native-endian 0xAARRGGBB) directly into
+     dest->pixels below, so the surface format must match that exact
+     packing - not the generic SDL_PIXELFORMAT_RGBA32 used elsewhere. */
+  dest = SDL_CreateSurface(width, height, SDL_PIXELFORMAT_ARGB8888);
 
   SDL_LockSurface(dest);
   temp_surf = cairo_image_surface_create_for_data(dest->pixels,
@@ -346,27 +340,24 @@ SDL_Surface* LoadImage(const char* datafile, int mode)
   switch (mode & IMG_MODES)
   {
     case IMG_REGULAR:
-    { 
-      final_pic = SDL_DisplayFormat(tmp_pic);
-      SDL_FreeSurface(tmp_pic);
+    {
+      final_pic = tmp_pic;
       break;
     }
 
     case IMG_ALPHA:
     {
-      final_pic = SDL_DisplayFormatAlpha(tmp_pic);
-      SDL_FreeSurface(tmp_pic);
+      final_pic = tmp_pic;
       break;
     }
 
     case IMG_COLORKEY:
     {
       SDL_LockSurface(tmp_pic);
-      SDL_SetColorKey(tmp_pic,
-                      (SDL_SRCCOLORKEY | SDL_RLEACCEL),
-                      SDL_MapRGB(tmp_pic->format, 255, 255, 0));
-      final_pic = SDL_DisplayFormat(tmp_pic);
-      SDL_FreeSurface(tmp_pic);
+      SDL_SetSurfaceColorKey(tmp_pic, true,
+                      SDL_MapRGB(SDL_GetPixelFormatDetails(tmp_pic->format), NULL, 255, 255, 0));
+      SDL_SetSurfaceRLE(tmp_pic, true);
+      final_pic = tmp_pic;
       break;
     }
 
@@ -427,7 +418,7 @@ int LoadBothBkgds(const char* datafile)
   }
   
   if (ret == 2) //orig won't be used at all
-    SDL_FreeSurface(orig);
+    SDL_DestroySurface(orig);
     
   DEBUGCODE
   {
@@ -441,7 +432,7 @@ SDL_Surface* CurrentBkgd(void)
 {
   if (!screen)
     return NULL;
-  if (screen->flags & SDL_FULLSCREEN)
+  if (T4K_IsFullscreen())
     return fullscr_bkgd;
   else
     return win_bkgd;
@@ -450,11 +441,11 @@ SDL_Surface* CurrentBkgd(void)
 void FreeBothBkgds(void)
 {
   if (win_bkgd)
-    SDL_FreeSurface(win_bkgd);
+    SDL_DestroySurface(win_bkgd);
   win_bkgd = NULL;
 
   if (fullscr_bkgd)
-    SDL_FreeSurface(fullscr_bkgd);
+    SDL_DestroySurface(fullscr_bkgd);
   fullscr_bkgd = NULL;
 }
 
@@ -512,10 +503,10 @@ void FreeSprite(sprite* gfx )
   for (x = 0; x < gfx->num_frames; x++)
   {
     if (gfx->frame[x])
-      SDL_FreeSurface(gfx->frame[x]);
+      SDL_DestroySurface(gfx->frame[x]);
   }
   if (gfx->default_img)
-    SDL_FreeSurface(gfx->default_img);
+    SDL_DestroySurface(gfx->default_img);
   free(gfx);
 }
 
@@ -531,7 +522,7 @@ Mix_Chunk* LoadSound(const char* datafile )
   if (!settings.use_english)
   {
     sprintf(fn , "%s/sounds/%s", settings.theme_data_path, datafile);
-    tempChunk = Mix_LoadWAV(fn);
+    tempChunk = MIX_LoadAudio(T4K_GetMixer(), fn, true);
     if (tempChunk)
       return tempChunk;
   }
@@ -540,7 +531,7 @@ Mix_Chunk* LoadSound(const char* datafile )
   if (!tempChunk)
   {
     sprintf(fn , "%s/sounds/%s", settings.default_data_path, datafile);
-    tempChunk = Mix_LoadWAV(fn);
+    tempChunk = MIX_LoadAudio(T4K_GetMixer(), fn, true);
     if (tempChunk)
       return tempChunk;
   }
@@ -563,7 +554,7 @@ Mix_Music* LoadMusic(const char* datafile )
   if (!settings.use_english)
   {
     sprintf(fn , "%s/sounds/%s", settings.theme_data_path, datafile);
-    temp_music = Mix_LoadMUS(fn);
+    temp_music = MIX_LoadAudio(T4K_GetMixer(), fn, false);
     if (temp_music)
       return temp_music;
   }
@@ -572,7 +563,7 @@ Mix_Music* LoadMusic(const char* datafile )
   if (!temp_music)
   {
     sprintf(fn , "%s/sounds/%s", settings.default_data_path, datafile);
-    temp_music = Mix_LoadMUS(fn);
+    temp_music = MIX_LoadAudio(T4K_GetMixer(), fn, false);
     return temp_music;
   }
   // We never want to get here...

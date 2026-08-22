@@ -22,6 +22,7 @@ Sreyas Kurumanghat <k.sreyas@gmail.com>
 ***************************************************************************/
 
 #include "globals.h"
+#include "braille.h"
 #include "funcs.h"
 #include "SDL_extras.h"
 #include "convert_utf.h"
@@ -268,7 +269,7 @@ int Phrases(wchar_t* pphrase )
         if (tmpsurf)
         {
           SDL_BlitSurface(tmpsurf, NULL, screen, &phr_text_rect);
-          SDL_FreeSurface(tmpsurf);
+          SDL_DestroySurface(tmpsurf);
           tmpsurf = NULL;
         }
 
@@ -291,7 +292,7 @@ int Phrases(wchar_t* pphrase )
         if (tmpsurf)
         {
           SDL_BlitSurface(tmpsurf, NULL, screen, &user_text_rect);
-          SDL_FreeSurface(tmpsurf);
+          SDL_DestroySurface(tmpsurf);
           tmpsurf = NULL;
         }
 
@@ -300,7 +301,7 @@ int Phrases(wchar_t* pphrase )
         if (tmpsurf)
         {
           SDL_BlitSurface(tmpsurf, NULL, screen, &time_rect);
-          SDL_FreeSurface(tmpsurf);
+          SDL_DestroySurface(tmpsurf);
           tmpsurf = NULL;
         }
         
@@ -334,7 +335,7 @@ int Phrases(wchar_t* pphrase )
         SDL_BlitSurface(hands, NULL, screen, &hand_loc);
         SDL_BlitSurface(keyboard, NULL, screen, &keyboard_loc);
         /* Update entire screen */
-        SDL_UpdateRect(screen, 0, 0, 0, 0);
+        T4K_UpdateRect(screen, NULL);
  
         state = 3;
         break;
@@ -383,17 +384,17 @@ int Phrases(wchar_t* pphrase )
     while  (SDL_PollEvent(&event))
     {
 		
-      if (event.type == SDL_KEYDOWN)
+      if (event.type == SDL_EVENT_KEY_DOWN)
       {
-        key = GetIndex((wchar_t)event.key.keysym.unicode);
-        shift_pressed = event.key.keysym.mod&KMOD_SHIFT;
+        key = GetIndex((wchar_t)event.key.key);
+        shift_pressed = event.key.mod&SDL_KMOD_SHIFT;
         tmp = -1;
 
         /* TODO I must be missing something - why aren't we just looking at */
-        /* the event.key.keysym.unicode value instead of going through this */
+        /* the event.key.key value instead of going through this */
         /* giant switch statement?                                          */
 
-        switch(event.key.keysym.sym)
+        switch(event.key.key)
         {
           case  SDLK_ESCAPE:
             if (Pause() == 1)
@@ -425,7 +426,7 @@ int Phrases(wchar_t* pphrase )
             }
             break;
 
-          case  SDLK_BACKQUOTE:
+          case  SDLK_GRAVE:
             if(shift_pressed)
               tmp='~';
             else
@@ -565,7 +566,7 @@ int Phrases(wchar_t* pphrase )
               tmp=']';
             break;
 
-          case SDLK_QUOTE:
+          case SDLK_APOSTROPHE:
             if(shift_pressed)
               tmp='"';
             else
@@ -573,32 +574,32 @@ int Phrases(wchar_t* pphrase )
             break;
 
           case SDLK_SPACE:  tmp=' ';  break;
-          case SDLK_a:      tmp='a';  break;
-          case SDLK_b:      tmp='b';  break;
-          case SDLK_c:      tmp='c';  break;
-          case SDLK_d:      tmp='d';  break;
-          case SDLK_e:      tmp='e';  break;
-          case SDLK_f:      tmp='f';  break;
-          case SDLK_g:      tmp='g';  break;
-          case SDLK_h:      tmp='h';  break;
-          case SDLK_i:      tmp='i';  break;
-          case SDLK_j:      tmp='j';  break;
-          case SDLK_k:      tmp='k';  break;
-          case SDLK_l:      tmp='l';  break;
-          case SDLK_m:      tmp='m';  break;
-          case SDLK_n:      tmp='n';  break;
-          case SDLK_o:      tmp='o';  break;
-          case SDLK_p:      tmp='p';  break;
-          case SDLK_q:      tmp='q';  break;
-          case SDLK_r:      tmp='r';  break;
-          case SDLK_s:      tmp='s';  break;
-          case SDLK_t:      tmp='t';  break;
-          case SDLK_u:      tmp='u';  break;
-          case SDLK_v:      tmp='v';  break;
-          case SDLK_w:      tmp='w';  break;
-          case SDLK_x:      tmp='x';  break;
-          case SDLK_y:      tmp='y';  break;
-          case SDLK_z:      tmp='z';  break;
+          case SDLK_A:      tmp='a';  break;
+          case SDLK_B:      tmp='b';  break;
+          case SDLK_C:      tmp='c';  break;
+          case SDLK_D:      tmp='d';  break;
+          case SDLK_E:      tmp='e';  break;
+          case SDLK_F:      tmp='f';  break;
+          case SDLK_G:      tmp='g';  break;
+          case SDLK_H:      tmp='h';  break;
+          case SDLK_I:      tmp='i';  break;
+          case SDLK_J:      tmp='j';  break;
+          case SDLK_K:      tmp='k';  break;
+          case SDLK_L:      tmp='l';  break;
+          case SDLK_M:      tmp='m';  break;
+          case SDLK_N:      tmp='n';  break;
+          case SDLK_O:      tmp='o';  break;
+          case SDLK_P:      tmp='p';  break;
+          case SDLK_Q:      tmp='q';  break;
+          case SDLK_R:      tmp='r';  break;
+          case SDLK_S:      tmp='s';  break;
+          case SDLK_T:      tmp='t';  break;
+          case SDLK_U:      tmp='u';  break;
+          case SDLK_V:      tmp='v';  break;
+          case SDLK_W:      tmp='w';  break;
+          case SDLK_X:      tmp='x';  break;
+          case SDLK_Y:      tmp='y';  break;
+          case SDLK_Z:      tmp='z';  break;
           /* ignore other keys: */
           default: break;
         }
@@ -606,7 +607,7 @@ int Phrases(wchar_t* pphrase )
         /* Store each keys till a key released */
         if(settings.braille)
 		{
-		   pressed_letters[braille_iter] = event.key.keysym.sym;
+		   pressed_letters[braille_iter] = event.key.key;
            braille_iter++;
            pressed_letters[braille_iter] = L'\0';
            check_key = 0;
@@ -616,10 +617,10 @@ int Phrases(wchar_t* pphrase )
 			check_key = 1;
 		}
       } 
-      /* End of "if(event.type == SDL_KEYDOWN)" block  --*/
-      else if (event.type == SDL_KEYUP)
+      /* End of "if(event.type == SDL_EVENT_KEY_DOWN)" block  --*/
+      else if (event.type == SDL_EVENT_KEY_UP)
 		{
-			/* ----- SDL_KEYUP is Only for Braille Mode -------------*/
+			/* ----- SDL_EVENT_KEY_UP is Only for Braille Mode -------------*/
 			if(settings.braille)
 			{
 				/* ---- g will make next letter capital ----------*/ 
@@ -690,9 +691,9 @@ int Phrases(wchar_t* pphrase )
 				}
 			}
 		}
-		/* End of "if(event.type == SDL_KEYUP)" block  --*/
+		/* End of "if(event.type == SDL_EVENT_KEY_UP)" block  --*/
 		
-		if((check_key && event.type == SDL_KEYDOWN)  || (check_key && event.type == SDL_KEYUP && settings.braille))
+		if((check_key && event.type == SDL_EVENT_KEY_DOWN)  || (check_key && event.type == SDL_EVENT_KEY_UP && settings.braille))
 		{
         /* If state has changed as direct result of keypress (e.g. F10), leave */
         /* poll event loop so we don't treat it as a simple 'wrong' key: */
@@ -730,7 +731,7 @@ int Phrases(wchar_t* pphrase )
 
         /****************************************************/
         /*  ---------- If user typed correct character, handle it: --------------- */
-        if (phrases[cur_phrase][cursor] == event.key.keysym.unicode || (settings.braille && phrases[cur_phrase][cursor] == tmp))
+        if (phrases[cur_phrase][cursor] == event.key.key || (settings.braille && phrases[cur_phrase][cursor] == tmp))
         {
           cursor++;
           correct_chars++;
@@ -797,7 +798,7 @@ int Phrases(wchar_t* pphrase )
           {
             SDL_BlitSurface(CurrentBkgd(), &user_text_rect, screen, &user_text_rect);
             SDL_BlitSurface(tmpsurf, NULL, screen, &user_text_rect);
-            SDL_FreeSurface(tmpsurf);
+            SDL_DestroySurface(tmpsurf);
             tmpsurf = NULL;
           }
 
@@ -807,7 +808,7 @@ int Phrases(wchar_t* pphrase )
           {
             SDL_BlitSurface(CurrentBkgd(), &time_rect, screen, &time_rect);
             SDL_BlitSurface(tmpsurf, NULL, screen, &time_rect);
-            SDL_FreeSurface(tmpsurf);
+            SDL_DestroySurface(tmpsurf);
             tmpsurf = NULL;
           }
 
@@ -816,7 +817,7 @@ int Phrases(wchar_t* pphrase )
           {
             SDL_BlitSurface(CurrentBkgd(), &chars_typed_rect, screen, &chars_typed_rect);
             SDL_BlitSurface(tmpsurf, NULL, screen, &chars_typed_rect);
-            SDL_FreeSurface(tmpsurf);
+            SDL_DestroySurface(tmpsurf);
             tmpsurf = NULL;
           }
 
@@ -825,7 +826,7 @@ int Phrases(wchar_t* pphrase )
           {
             SDL_BlitSurface(CurrentBkgd(), &cpm_rect, screen, &cpm_rect);
             SDL_BlitSurface(tmpsurf, NULL, screen, &cpm_rect);
-            SDL_FreeSurface(tmpsurf);
+            SDL_DestroySurface(tmpsurf);
             tmpsurf = NULL;
           }
 
@@ -834,7 +835,7 @@ int Phrases(wchar_t* pphrase )
           {
             SDL_BlitSurface(CurrentBkgd(), &wpm_rect, screen, &wpm_rect);
             SDL_BlitSurface(tmpsurf, NULL, screen, &wpm_rect);
-            SDL_FreeSurface(tmpsurf);
+            SDL_DestroySurface(tmpsurf);
             tmpsurf = NULL;
           }
 
@@ -843,7 +844,7 @@ int Phrases(wchar_t* pphrase )
           {
             SDL_BlitSurface(CurrentBkgd(), &errors_rect, screen, &errors_rect);
             SDL_BlitSurface(tmpsurf, NULL, screen, &errors_rect);
-            SDL_FreeSurface(tmpsurf);
+            SDL_DestroySurface(tmpsurf);
             tmpsurf = NULL;
           }
 
@@ -852,11 +853,11 @@ int Phrases(wchar_t* pphrase )
           {
             SDL_BlitSurface(CurrentBkgd(), &accuracy_rect, screen, &accuracy_rect);
             SDL_BlitSurface(tmpsurf, NULL, screen, &accuracy_rect);
-            SDL_FreeSurface(tmpsurf);
+            SDL_DestroySurface(tmpsurf);
             tmpsurf = NULL;
           }
 
-          SDL_Flip(screen);
+          T4K_UpdateRect(screen, NULL);
 
           /* If player has completed phrase, celebrate! */
           if (cursor == wcslen(phrases[cur_phrase]))
@@ -877,8 +878,8 @@ int Phrases(wchar_t* pphrase )
               {
                 while (SDL_PollEvent(&event))
                 {
-                  if ((event.type == SDL_KEYDOWN)
-                    ||(event.type == SDL_MOUSEBUTTONDOWN))
+                  if ((event.type == SDL_EVENT_KEY_DOWN)
+                    ||(event.type == SDL_EVENT_MOUSE_BUTTON_DOWN))
                     done = 1;
                 }
 
@@ -886,7 +887,7 @@ int Phrases(wchar_t* pphrase )
                 SDL_BlitSurface(CurrentBkgd(), &tux_loc, screen, &tux_loc);
                 if (tux_win && tux_win->frame[tux_win->cur])
                   SDL_BlitSurface(tux_win->frame[tux_win->cur], NULL, screen, &tux_loc);
-                SDL_UpdateRect(screen, tux_loc.x, tux_loc.y, tux_loc.w, tux_loc.h);
+                T4K_UpdateRect(screen, &tux_loc);
                 NEXT_FRAME(tux_win);
                 SDL_Delay(200);
               }
@@ -910,7 +911,7 @@ int Phrases(wchar_t* pphrase )
         /* -------- handle incorrect key press: -------------*/
         else  if (check_key)
         {
-          // int key = GetIndex((wchar_t)event.key.keysym.unicode);
+          // int key = GetIndex((wchar_t)event.key.key);
           if ( key != -1 ) 
           {
             keypress1= GetWrongKeypress(key);
@@ -918,19 +919,19 @@ int Phrases(wchar_t* pphrase )
             if (keypress1) // avoid segfault if NULL
             {
               SDL_BlitSurface(keypress1, NULL, screen, &keyboard_loc);
-              SDL_FreeSurface(keypress1);
+              SDL_DestroySurface(keypress1);
             }
           }
           state = 2;
 
           /* Don't count shift keys as wrong: */
-          if (event.key.keysym.sym != SDLK_RSHIFT
-           && event.key.keysym.sym != SDLK_LSHIFT)
+          if (event.key.key != SDLK_RSHIFT
+           && event.key.key != SDLK_LSHIFT)
           {
             /* Also, don't count spacebar as wrong on first char */
             /* after wrap because we automatically skip it above */
             if((cursor != prev_wrap) 
-             ||(event.key.keysym.sym != SDLK_SPACE))
+             ||(event.key.key != SDLK_SPACE))
             {
               wrong_chars++;
               PlaySound(wrong);
@@ -1008,8 +1009,8 @@ int Phrases(wchar_t* pphrase )
       NEXT_FRAME(tux_stand);
     }
 
-    SDL_UpdateRect(screen, 0, 0, 0, 0);
-//    SDL_Flip(screen);
+    T4K_UpdateRect(screen, NULL);
+//    T4K_UpdateRect(screen, NULL);
     SDL_Delay(30); /* FIXME should keep frame rate constant */
 
   }while (!quit);  /* ------- End of main event loop ------------- */
@@ -1310,48 +1311,48 @@ static void practice_unload_media(void)
   FreeLetters(); 
 
   if (time_label_srfc)
-    SDL_FreeSurface(time_label_srfc);
+    SDL_DestroySurface(time_label_srfc);
   time_label_srfc = NULL;
 
   if (chars_label_srfc)
-    SDL_FreeSurface(chars_label_srfc);
+    SDL_DestroySurface(chars_label_srfc);
   chars_label_srfc = NULL;
 
   if (cpm_label_srfc)
-    SDL_FreeSurface(cpm_label_srfc);
+    SDL_DestroySurface(cpm_label_srfc);
   cpm_label_srfc = NULL;
 
   if (wpm_label_srfc)
-    SDL_FreeSurface(wpm_label_srfc);
+    SDL_DestroySurface(wpm_label_srfc);
   wpm_label_srfc = NULL;
 
   if (errors_label_srfc)
-    SDL_FreeSurface(errors_label_srfc);
+    SDL_DestroySurface(errors_label_srfc);
   errors_label_srfc = NULL;
 
   if (accuracy_label_srfc)
-    SDL_FreeSurface(accuracy_label_srfc);
+    SDL_DestroySurface(accuracy_label_srfc);
   accuracy_label_srfc = NULL;
 
   if (hands)
-    SDL_FreeSurface(hands);
+    SDL_DestroySurface(hands);
   hands = NULL;
 
   for(i = 0; i < 3; i++)
   {
     if (hand_shift[i])
-      SDL_FreeSurface(hand_shift[i]);
+      SDL_DestroySurface(hand_shift[i]);
     hand_shift[i] = NULL;
   }
 
   if (keyboard)
-    SDL_FreeSurface(keyboard);
+    SDL_DestroySurface(keyboard);
   keyboard = NULL;
 
   for (i = 0; i < 10; i++) 
   {
     if (hand[i])
-      SDL_FreeSurface(hand[i]);
+      SDL_DestroySurface(hand[i]);
     hand[i] = NULL;
   }
 
@@ -1368,11 +1369,11 @@ static void practice_unload_media(void)
   }
 
   if (cheer)
-    Mix_FreeChunk(cheer);
+    MIX_DestroyAudio(cheer);
   cheer = NULL;
 
   if (wrong)
-    Mix_FreeChunk(wrong);
+    MIX_DestroyAudio(wrong);
   wrong = NULL;
 }
 
@@ -1535,7 +1536,7 @@ static int find_next_wrap(const wchar_t* wstr, int font_size, int width)
     }
 
     test_w = s->w;
-    SDL_FreeSurface(s);
+    SDL_DestroySurface(s);
     s = NULL;
 
     DOUT(test_w);
@@ -1595,7 +1596,7 @@ static void display_next_letter(const wchar_t *str, Uint16 index)
   {
     SDL_BlitSurface(CurrentBkgd(), &nextletter_rect, screen, &nextletter_rect);
     SDL_BlitSurface(s, NULL, screen, &nextletter_rect);
-    SDL_FreeSurface(s);
+    SDL_DestroySurface(s);
     s = NULL;
   }
 }
@@ -1628,27 +1629,27 @@ SDL_Surface* GetKeypress2(int index)
 static int create_labels(void)
 {
   if (time_label_srfc)
-    SDL_FreeSurface(time_label_srfc); 
+    SDL_DestroySurface(time_label_srfc); 
   time_label_srfc = BlackOutline(_("Time"), fontsize, &yellow);
 
   if (chars_label_srfc)
-    SDL_FreeSurface(chars_label_srfc); 
+    SDL_DestroySurface(chars_label_srfc); 
   chars_label_srfc = BlackOutline(_("Chars"), fontsize, &yellow);
 
   if (cpm_label_srfc)
-    SDL_FreeSurface(cpm_label_srfc);
+    SDL_DestroySurface(cpm_label_srfc);
   cpm_label_srfc = BlackOutline(_("CPM"), fontsize, &yellow);
 
   if (wpm_label_srfc)
-    SDL_FreeSurface(wpm_label_srfc); 
+    SDL_DestroySurface(wpm_label_srfc); 
   wpm_label_srfc = BlackOutline(_("WPM"), fontsize, &yellow);
 
   if (errors_label_srfc)
-    SDL_FreeSurface(errors_label_srfc); 
+    SDL_DestroySurface(errors_label_srfc); 
   errors_label_srfc = BlackOutline(_("Errors"), fontsize, &yellow);
 
   if (accuracy_label_srfc)
-    SDL_FreeSurface(accuracy_label_srfc); 
+    SDL_DestroySurface(accuracy_label_srfc); 
   accuracy_label_srfc = BlackOutline(_("Accuracy"), fontsize, &yellow);
 
   if (time_label_srfc
@@ -1690,14 +1691,14 @@ void set_hand(int cursor,int cur_phrase)
 			if (keypress1)
 			{
 				SDL_BlitSurface(keypress1, NULL, screen, &keyboard_loc);
-				SDL_FreeSurface(keypress1);
+				SDL_DestroySurface(keypress1);
 				keypress1 = NULL;
 			}
 
 			if (keypress2)
 			{
 				SDL_BlitSurface(keypress2, NULL, screen, &keyboard_loc);
-				SDL_FreeSurface(keypress2);
+				SDL_DestroySurface(keypress2);
 				keypress2 = NULL;
 			}
 	    }
@@ -1783,31 +1784,31 @@ wchar_t *get_next_word_letters(int cur_phrase,int cursor,int till_next_space)
 		
 		if (phrases[cur_phrase][i] == L',')
 		{
-			wcscat(temp,gettext(L"comma"));
+			wcscat(temp,L"comma");
 		}
 		else if (phrases[cur_phrase][i] == L'.')
 		{
-			wcscat(temp,gettext(L"full stop"));
+			wcscat(temp,L"full stop");
 		}
 		else if (phrases[cur_phrase][i] == L'\'')
 		{
-			wcscat(temp,gettext(L"apostophe"));
+			wcscat(temp,L"apostophe");
 		}
 		else if (phrases[cur_phrase][i] == L';')
 		{
-			wcscat(temp,gettext(L"semicolon"));
+			wcscat(temp,L"semicolon");
 		}		
 		else if (phrases[cur_phrase][i] == L':')
 		{
-			wcscat(temp,gettext(L"colon"));
+			wcscat(temp,L"colon");
 		}
 		else if (phrases[cur_phrase][i] == L'?')
 		{
-			wcscat(temp,gettext(L"Qustion mark"));
+			wcscat(temp,L"Qustion mark");
 		}
 		else if (phrases[cur_phrase][i] == L'-')
 		{
-			wcscat(temp,gettext(L"Hyphen"));
+			wcscat(temp,L"Hyphen");
 		}		
 		else
 		{

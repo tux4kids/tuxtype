@@ -197,8 +197,8 @@ int main(int argc, char *argv[])
 
   if (settings.sys_sound)
   {
-    Mix_VolumeMusic(settings.mus_volume);
-    Mix_Volume(-1, settings.sfx_volume);
+    T4K_AudioSetMusicVolume(settings.mus_volume);
+    T4K_AudioSetSoundVolume(settings.sfx_volume);
   }
   
   

@@ -65,6 +65,14 @@ void MusicLoad(const char* musicFilename, int repeatQty);
 void MusicUnload(void);
 void MusicPlay(Mix_Music* musicData, int repeatQty);
 
+/* Old SDL_mixer let game code play/query/halt a sound effect on a
+   specific numbered channel (so it could later check whether that
+   exact sound was still playing). SDL3_mixer's MIX_Track has no
+   channel numbers, so these keep a small channel-number -> MIX_Track*
+   table internally. */
+void PlayChannel(int channel, Mix_Chunk* chunk, int loops);
+bool ChannelPlaying(int channel);
+
 
 /* In laser.c:        */
 int PlayLaserGame(int diff_level);

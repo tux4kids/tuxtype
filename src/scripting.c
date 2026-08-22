@@ -303,13 +303,13 @@ int XMLLesson(void)
   
     for (i = 0; i < num_scripts; i++)
     {
-      SDL_FreeSurface(titles[i]);
-      SDL_FreeSurface(select[i]);
+      SDL_DestroySurface(titles[i]);
+      SDL_DestroySurface(select[i]);
       titles[i] = select[i] = NULL;
     }
 
-    SDL_FreeSurface(left);
-    SDL_FreeSurface(right);
+    SDL_DestroySurface(left);
+    SDL_DestroySurface(right);
     left = right = NULL;
 
     return 0;
@@ -343,11 +343,11 @@ int XMLLesson(void)
     {
       switch (event.type)
       {
-        case SDL_QUIT:
+        case SDL_EVENT_QUIT:
           return 0; /* Return control to the main program so we can exit cleanly */
           break;
 
-        case SDL_MOUSEMOTION:
+        case SDL_EVENT_MOUSE_MOTION:
           for (i = 0; (i < 8) && (loc - (loc % 8) + i < num_scripts); i++)
             if (inRect(titleRects[i], event.motion.x, event.motion.y ))
             {
@@ -356,7 +356,7 @@ int XMLLesson(void)
             }
           break;
 
-        case SDL_MOUSEBUTTONDOWN:
+        case SDL_EVENT_MOUSE_BUTTON_DOWN:
           if (inRect( leftRect, event.button.x, event.button.y ))
           {
             if (loc - (loc % 8) - 8 >= 0)
@@ -403,14 +403,14 @@ int XMLLesson(void)
 
           break;
 
-        case SDL_KEYDOWN:
-          if (event.key.keysym.sym == SDLK_ESCAPE)
+        case SDL_EVENT_KEY_DOWN:
+          if (event.key.key == SDLK_ESCAPE)
           {
             stop = 2;
             break;
           }
 
-          if (event.key.keysym.sym == SDLK_RETURN)
+          if (event.key.key == SDLK_RETURN)
           {
               /* If braille is not enabled or scripts_braille folder does not exist
                * then select the default path */
@@ -431,31 +431,31 @@ int XMLLesson(void)
 			  break;
           }
 
-          if ((event.key.keysym.sym == SDLK_LEFT)
-           || (event.key.keysym.sym == SDLK_PAGEUP))
+          if ((event.key.key == SDLK_LEFT)
+           || (event.key.key == SDLK_PAGEUP))
           {
             if (loc - (loc % 8) - 8 >= 0)
               loc = loc - (loc % 8) - 8;
           }
 
-          if ((event.key.keysym.sym == SDLK_RIGHT)
-           || (event.key.keysym.sym == SDLK_PAGEDOWN))
+          if ((event.key.key == SDLK_RIGHT)
+           || (event.key.key == SDLK_PAGEDOWN))
           {
             if (loc - (loc % 8) + 8 < num_scripts)
               loc = (loc - (loc % 8) + 8);
           }
 
-          if ((event.key.keysym.sym == SDLK_UP)
+          if ((event.key.key == SDLK_UP)
 	     ||
-	      (event.key.keysym.sym == SDLK_k))
+	      (event.key.key == SDLK_K))
           {
             if (loc > 0)
               loc--;
           }
 
-          if ((event.key.keysym.sym == SDLK_DOWN)
+          if ((event.key.key == SDLK_DOWN)
 	     ||
-	      (event.key.keysym.sym == SDLK_j))
+	      (event.key.key == SDLK_J))
           {
             if (loc + 1 < num_scripts)
               loc++;           
@@ -493,7 +493,7 @@ int XMLLesson(void)
       if (start + 8 < num_scripts)
         SDL_BlitSurface(right, NULL, screen, &rightRect);
 
-      SDL_UpdateRect(screen, 0, 0, 0 ,0);
+      T4K_UpdateRect(screen, NULL);
     }
 
     SDL_Delay(40);
@@ -504,14 +504,14 @@ int XMLLesson(void)
   for (i = 0; i < num_scripts; i++)
   {
     if (titles[i])
-      SDL_FreeSurface(titles[i]);
+      SDL_DestroySurface(titles[i]);
     if (select[i])
-      SDL_FreeSurface(select[i]);
+      SDL_DestroySurface(select[i]);
     titles[i] = select[i] = NULL;
   }
 
-  SDL_FreeSurface(left);
-  SDL_FreeSurface(right);
+  SDL_DestroySurface(left);
+  SDL_DestroySurface(right);
   left = right = NULL; /* Maybe overkill - about to be destroyed anyway */
 
   FreeBothBkgds();
@@ -519,7 +519,7 @@ int XMLLesson(void)
 
   if (stop == 2)
   {
-    SDL_ShowCursor(1);
+    SDL_ShowCursor();
     return 0;
   }
 
@@ -527,14 +527,14 @@ int XMLLesson(void)
   if (load_script(fn) != 0)
   {
     fprintf(stderr, "load_script() failed to load '%s'\n",fn);
-    SDL_ShowCursor(1);
+    SDL_ShowCursor();
     return 0; // bail if any errors occur
   }
 
   DEBUGCODE { fprintf(stderr, "Attempting to run script: %s\n", fn); }
 
   run_script();
-  SDL_ShowCursor(1);
+  SDL_ShowCursor();
 
   LOG("Leave XMLLesson()\n");
 
@@ -1188,9 +1188,9 @@ static void run_script(void)
 
     /* --- setup background color --- */
     if (curPage->bgcolor)
-      SDL_FillRect( screen, NULL, COL2RGB(curPage->bgcolor));
+      SDL_FillSurfaceRect( screen, NULL, COL2RGB(curPage->bgcolor));
     else if (curScript->bgcolor)
-      SDL_FillRect(screen, NULL, COL2RGB(curScript->bgcolor));
+      SDL_FillSurfaceRect(screen, NULL, COL2RGB(curScript->bgcolor));
 
     /* --- setup background image --- */
     if (curPage->background)
@@ -1203,14 +1203,14 @@ static void run_script(void)
       {
         SDL_Surface* fsimg = zoom(img, fs_res_x, fs_res_y);
         SDL_BlitSurface(fsimg, NULL, screen, NULL);
-        SDL_FreeSurface(fsimg);
+        SDL_DestroySurface(fsimg);
       }
       else
       { 
         SDL_BlitSurface(img, NULL, screen, NULL);
       } 
 
-      SDL_FreeSurface(img);
+      SDL_DestroySurface(img);
 
     }
     else if (curScript->background)
@@ -1222,14 +1222,14 @@ static void run_script(void)
       { 
         SDL_Surface* fsimg = zoom(img, fs_res_x, fs_res_y);
         SDL_BlitSurface(fsimg, NULL, screen, NULL);
-        SDL_FreeSurface(fsimg);
+        SDL_DestroySurface(fsimg);
       }
       else
       { 
         SDL_BlitSurface(img, NULL, screen, NULL);
       } 
 
-      SDL_FreeSurface(img);
+      SDL_DestroySurface(img);
     }
 
     /* --- go through all the items in the page --- */
@@ -1294,7 +1294,7 @@ static void run_script(void)
               numClicks++;
             }
 
-            SDL_FreeSurface(img);
+            SDL_DestroySurface(img);
           }
           break;
         }
@@ -1309,13 +1309,13 @@ static void run_script(void)
             {
               SDL_Surface* fsimg = zoom(img, fs_res_x, fs_res_y);
               SDL_BlitSurface(fsimg, NULL, screen, NULL);
-              SDL_FreeSurface(fsimg);
+              SDL_DestroySurface(fsimg);
             }
             else
             {
               SDL_BlitSurface(img, NULL, screen, NULL);
             }
-            SDL_FreeSurface(img);
+            SDL_DestroySurface(img);
           }
           break;
         }
@@ -1370,7 +1370,7 @@ static void run_script(void)
               { 
                 if (img->w + 20 < screen->w)
                   ok = 1;
-                SDL_FreeSurface(img);
+                SDL_DestroySurface(img);
                 img = NULL;
               }
             }
@@ -1413,7 +1413,7 @@ static void run_script(void)
 
               /* --- and blit! --- */
               SDL_BlitSurface(img, NULL, screen, &loc);
-              SDL_FreeSurface(img);
+              SDL_DestroySurface(img);
             }
                     
           } while (shown + 1 < strlen(curItem->data));
@@ -1446,7 +1446,7 @@ static void run_script(void)
           int done = 0;
 
           // Make sure everything is on screen 
-          SDL_Flip(screen);
+          T4K_UpdateRect(screen, NULL);
           
           /* Announce the lesson instruction */
 		  T4K_Tts_say(DEFAULT_VALUE,DEFAULT_VALUE,INTERRUPT,"%s",tts_buffer);
@@ -1460,7 +1460,7 @@ static void run_script(void)
             {
               switch (event.type)
               {
-                case SDL_MOUSEBUTTONDOWN:
+                case SDL_EVENT_MOUSE_BUTTON_DOWN:
                 {
                   int j;
 
@@ -1474,16 +1474,16 @@ static void run_script(void)
                   break;
                 }
 
-                case SDL_QUIT:
+                case SDL_EVENT_QUIT:
                 {
                   curPage = NULL;
                   done = 1;
                   break;
                 }
 
-                case SDL_KEYDOWN: 
+                case SDL_EVENT_KEY_DOWN: 
                 {
-                  switch (event.key.keysym.sym)
+                  switch (event.key.key)
                   {
                     case SDLK_ESCAPE: 
                       curPage = NULL;
@@ -1524,7 +1524,7 @@ static void run_script(void)
           
           
           // Make sure everything is on screen 
-          SDL_Flip(screen);
+          T4K_UpdateRect(screen, NULL);
           
           
 
@@ -1535,16 +1535,16 @@ static void run_script(void)
             {
               switch (event.type)
               {
-                case SDL_QUIT:
+                case SDL_EVENT_QUIT:
                 {
                   curPage = NULL;
                   done = 1;
                   break;
                 }
 
-                case SDL_KEYDOWN: 
+                case SDL_EVENT_KEY_DOWN: 
                 {
-                  switch (event.key.keysym.sym)
+                  switch (event.key.key)
                   {
                     case SDLK_ESCAPE: 
                     {
@@ -1552,7 +1552,7 @@ static void run_script(void)
                       done = 1;
                       break;  // quit
                     }
-                    case SDLK_p:
+                    case SDLK_P:
                     case SDLK_SPACE:
                     {
                       curPage = curPage->next;
@@ -1607,7 +1607,7 @@ static void run_script(void)
     }
     
     
-    SDL_Flip(screen);
+    T4K_UpdateRect(screen, NULL);
     SDL_Delay(30);
         
         
@@ -1625,7 +1625,7 @@ static void run_script(void)
           // let audio.c handle calls to SDL_mixer
           //Mix_HaltChannel(i);
 
-          Mix_FreeChunk(sounds[i]);
+          MIX_DestroyAudio(sounds[i]);
         }
 
         for (i = 0; i < numClicks; i++)
@@ -1633,7 +1633,7 @@ static void run_script(void)
           // let audio.c handle calls to SDL_mixer
           //Mix_HaltChannel(i + numWavs);
 
-          Mix_FreeChunk(clickWavs[i]);
+          MIX_DestroyAudio(clickWavs[i]);
         }
       }
     }
