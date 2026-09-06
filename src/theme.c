@@ -26,6 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 
+#include <ctype.h>
 #include "globals.h"
 #include "funcs.h"
 #include "SDL_extras.h"
@@ -158,11 +159,11 @@ void ChooseTheme(void)
     while (SDL_PollEvent(&event)) 
       switch (event.type)
       {
-        case SDL_QUIT:
+        case SDL_EVENT_QUIT:
         exit(0);
         break;
 
-        case SDL_MOUSEMOTION:
+        case SDL_EVENT_MOUSE_MOTION:
           for (i = 0; (i < 8) && (loc - (loc%8) + i < themes); i++)
             if (inRect( titleRects[i], event.motion.x, event.motion.y ))
             {
@@ -172,7 +173,7 @@ void ChooseTheme(void)
 
           break;
 
-        case SDL_MOUSEBUTTONDOWN: 
+        case SDL_EVENT_MOUSE_BUTTON_DOWN: 
           if (inRect( leftRect, event.button.x, event.button.y )) 
             if (loc-(loc%8)-8 >= 0)
             {
@@ -201,14 +202,15 @@ void ChooseTheme(void)
                 /* --- english --- */
                 SetupPaths(NULL);
               }
+              T4K_PrerenderAll();
 
               stop = 1;
               break;
             }
           break;
 
-        case SDL_KEYDOWN:
-          if (event.key.keysym.sym == SDLK_ESCAPE)
+        case SDL_EVENT_KEY_DOWN:
+          if (event.key.key == SDLK_ESCAPE)
           {
             settings.use_english = old_use_english;
             strncpy(settings.theme_data_path, old_theme_path, FNLEN - 1);
@@ -216,7 +218,7 @@ void ChooseTheme(void)
             break; 
           }
 
-          if (event.key.keysym.sym == SDLK_RETURN)
+          if (event.key.key == SDLK_RETURN)
           { 
             if (loc)
             {
@@ -228,36 +230,38 @@ void ChooseTheme(void)
               /* --- English --- */
               SetupPaths(NULL);
             }
+            T4K_PrerenderAll();
 
             stop = 1;
             break;
           }
 
-          if ((event.key.keysym.sym == SDLK_LEFT)
-           || (event.key.keysym.sym == SDLK_PAGEUP))
+
+          if ((event.key.key == SDLK_LEFT)
+           || (event.key.key == SDLK_PAGEUP))
           {
             if (loc-(loc%8)-8 >= 0) 
               loc=loc-(loc%8)-8;
           }
 
-          if ((event.key.keysym.sym == SDLK_RIGHT)
-           || (event.key.keysym.sym == SDLK_PAGEDOWN))
+          if ((event.key.key == SDLK_RIGHT)
+           || (event.key.key == SDLK_PAGEDOWN))
           {
             if (loc-(loc%8)+8 < themes)
               loc=(loc-(loc%8)+8);
           }
 
-          if ((event.key.keysym.sym == SDLK_UP)
+          if ((event.key.key == SDLK_UP)
 	     ||
-	      (event.key.keysym.sym == SDLK_k))
+	      (event.key.key == SDLK_k))
           {
             if (loc > 0)
               loc--;
           }
 
-          if ((event.key.keysym.sym == SDLK_DOWN)
+          if ((event.key.key == SDLK_DOWN)
 	     ||
-	      (event.key.keysym.sym == SDLK_j))
+	      (event.key.key == SDLK_j))
           {
             if (loc+1<themes)
               loc++;
@@ -318,7 +322,7 @@ void ChooseTheme(void)
       if (start+8<themes) 
         SDL_BlitSurface( right, NULL, screen, &rightRect );
 
-      SDL_UpdateRect(screen, 0, 0, 0 ,0);
+      T4K_PresentScreen();
     }
     SDL_Delay(40);
     old_loc = loc;

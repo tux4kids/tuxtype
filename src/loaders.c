@@ -35,6 +35,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 static SDL_Surface* win_bkgd = NULL;
 static SDL_Surface* fullscr_bkgd = NULL;
 
+int braille_language_loader(const char* file_name);
+
 /* Local function prototypes: */
 static int max(int n1, int n2);
 //static SDL_Surface* flip(SDL_Surface *in, int x, int y);
@@ -83,10 +85,32 @@ void LoadLang(void)
   char *s1, *s2, *s3, *s4;
   char buf [30];
   char tts_language[10];
+
+  if (settings.theme_locale_name[0] != '\0')
+  {
+    my_setenv("LANGUAGE", settings.theme_locale_name);
+    my_setenv("LC_ALL", settings.theme_locale_name);
+    my_setenv("LANG", settings.theme_locale_name);
+  }
+  else
+  {
+    my_setenv("LANGUAGE", "en");
+    my_setenv("LC_ALL", "en_US.UTF-8");
+    my_setenv("LANG", "en_US.UTF-8");
+  }
+
   s1 = setlocale(LC_ALL, settings.theme_locale_name);
-  s2 = bindtextdomain(PACKAGE, TUXLOCALE);
+
+  char localepath[FNLEN];
+  snprintf(localepath, FNLEN - 1, "%s/locale", settings.default_data_path);
+  if (CheckFile(localepath))
+    s2 = bindtextdomain(PACKAGE, localepath);
+  else
+    s2 = bindtextdomain(PACKAGE, TUXLOCALE);
   s3 = bind_textdomain_codeset(PACKAGE, "UTF-8");
   s4 = textdomain(PACKAGE);
+
+
 
   DEBUGCODE
   {
@@ -100,11 +124,11 @@ void LoadLang(void)
 //    fprintf(stderr, "After gettext() call\n");
   }
 
-  /* Also set LANG and LANGUAGE as fallbacks because setlocale() unreliable */
-  /* on some Windows versions, AFAICT                                       */
-  snprintf(buf, 30, "%s", settings.theme_locale_name);
-  buf[5] = '\0';  //en_US" rather than "en_US.utf8"
+  snprintf(buf, sizeof(buf), "%s", settings.theme_locale_name);
+  if (strlen(buf) > 5)
+    buf[5] = '\0';  //en_US" rather than "en_US.utf8"
   DEBUGCODE { fprintf(stderr, "buf is: %s\n", buf); }
+
   
     
   /* Loading braille Map */
@@ -224,7 +248,7 @@ SDL_Surface* LoadSVGOfDimensions(char* filename, int width, int height)
   Bmask = 0x000000ff;
   Amask = 0xff000000;
 
-  dest = SDL_CreateRGBSurface(SDL_SWSURFACE | SDL_SRCALPHA,
+  dest = SDL_CreateRGBSurface(0,
         width, height, bpp, Rmask, Gmask, Bmask, Amask);
 
   SDL_LockSurface(dest);
@@ -364,7 +388,7 @@ SDL_Surface* LoadImage(const char* datafile, int mode)
       SDL_LockSurface(tmp_pic);
       SDL_SetColorKey(tmp_pic,
                       (SDL_SRCCOLORKEY | SDL_RLEACCEL),
-                      SDL_MapRGB(tmp_pic->format, 255, 255, 0));
+                      SDL_MapSurfaceRGB(tmp_pic, 255, 255, 0));
       final_pic = SDL_DisplayFormat(tmp_pic);
       SDL_FreeSurface(tmp_pic);
       break;
@@ -441,7 +465,7 @@ SDL_Surface* CurrentBkgd(void)
 {
   if (!screen)
     return NULL;
-  if (screen->flags & SDL_FULLSCREEN)
+  if (window && (SDL_GetWindowFlags(window) & SDL_WINDOW_FULLSCREEN))
     return fullscr_bkgd;
   else
     return win_bkgd;

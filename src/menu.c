@@ -27,6 +27,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.  */
 
 #include "menu.h"
 #include "titlescreen.h"
+#include "funcs.h"
+#include "editor.h"
 
 #include <stdbool.h>
 #include <stdio.h>
@@ -166,8 +168,10 @@ int handle_activity(int act, int param)
 			ChooseTheme();
 			LoadLang();
 			LoadKeyboard();
+			T4K_PrerenderAll();
 			//load_media();
             break;
+
 
 
         case RUN_EDIT_WORDLIST:
@@ -460,7 +464,7 @@ static int chooseWordlist(void)
 
   left = T4K_LoadImage("left.png", IMG_ALPHA);
   right = T4K_LoadImage("right.png", IMG_ALPHA);
-  bkg = T4K_LoadBkgd("title/menu_bkg.jpg",screen->w,screen->h);
+  bkg = T4K_LoadBkgd("title/menu_bkg.jpg", T4K_GetScreen()->w, T4K_GetScreen()->h);
 
   /* Get out if needed surface not loaded successfully: */
   if (!current_bkg() || !left || !right)
@@ -484,13 +488,13 @@ static int chooseWordlist(void)
 
   leftRect.w = left->w;
   leftRect.h = left->h;
-  leftRect.x = screen->w/2 - 80 - (leftRect.w/2);
-  leftRect.y = screen->h - 50;
+  leftRect.x = T4K_GetScreen()->w/2 - 80 - (leftRect.w/2);
+  leftRect.y = T4K_GetScreen()->h - 50;
 
   rightRect.w = right->w;
   rightRect.h = right->h;
-  rightRect.x = screen->w/2 + 80 - (rightRect.w/2);
-  rightRect.y = screen->h - 50;
+  rightRect.x = T4K_GetScreen()->w/2 + 80 - (rightRect.w/2);
+  rightRect.y = T4K_GetScreen()->h - 50;
 
   /* set initial rect sizes */
   titleRects[0].y = 30;
@@ -509,11 +513,11 @@ static int chooseWordlist(void)
     {
       switch (event.type)
       {
-        case SDL_QUIT:
+        case SDL_EVENT_QUIT:
           exit(0); /* FIXME may need to cleanup memory and exit more cleanly */
           break;
 
-        case SDL_MOUSEMOTION:
+        case SDL_EVENT_MOUSE_MOTION:
           for (i=0; (i<8) && (loc-(loc%8)+i<lists); i++)
             if (inRect( titleRects[i], event.motion.x, event.motion.y ))
             {
@@ -522,7 +526,7 @@ static int chooseWordlist(void)
             }
           break;
 
-        case SDL_MOUSEBUTTONDOWN:
+        case SDL_EVENT_MOUSE_BUTTON_DOWN:
           if (inRect( leftRect, event.button.x, event.button.y ))
           {
             if (loc - (loc % 8) - 8 >= 0)
@@ -555,14 +559,14 @@ static int chooseWordlist(void)
 
           break;
 
-        case SDL_KEYDOWN:
-          if (event.key.keysym.sym == SDLK_ESCAPE)
+        case SDL_EVENT_KEY_DOWN:
+          if (event.key.key == SDLK_ESCAPE)
           {
             stop = 2;
             break;
           }
 
-          if (event.key.keysym.sym == SDLK_RETURN)
+          if (event.key.key == SDLK_RETURN)
           {
             ClearWordList(); /* clear old selection */
             GenerateWordList(wordlistFile[loc]); 
@@ -570,31 +574,31 @@ static int chooseWordlist(void)
             break;
           }
 
-          if ((event.key.keysym.sym == SDLK_LEFT)
-           || (event.key.keysym.sym == SDLK_PAGEUP))
+          if ((event.key.key == SDLK_LEFT)
+           || (event.key.key == SDLK_PAGEUP))
           {
             if (loc - (loc % 8) - 8 >= 0)
               loc = loc - (loc % 8) - 8;
           }
 
-          if ((event.key.keysym.sym == SDLK_RIGHT)
-           || (event.key.keysym.sym == SDLK_PAGEDOWN))
+          if ((event.key.key == SDLK_RIGHT)
+           || (event.key.key == SDLK_PAGEDOWN))
           {
             if (loc - (loc % 8) + 8 < lists)
               loc = (loc - (loc % 8) + 8);
           }
 
-          if ((event.key.keysym.sym == SDLK_UP)
+          if ((event.key.key == SDLK_UP)
 	     ||
-	      (event.key.keysym.sym == SDLK_k))
+	      (event.key.key == SDLK_k))
           {
             if (loc > 0)
               loc--;
           }
 
-          if ((event.key.keysym.sym == SDLK_DOWN)
+          if ((event.key.key == SDLK_DOWN)
 	     ||
-	      (event.key.keysym.sym == SDLK_j))
+	      (event.key.key == SDLK_j))
           {
             if (loc+1<lists)
               loc++;
@@ -607,17 +611,17 @@ static int chooseWordlist(void)
     {
       int start;
 
-      SDL_BlitSurface(bkg, NULL, screen, NULL );
+      SDL_BlitSurface(bkg, NULL, T4K_GetScreen(), NULL );
 
       start = loc - (loc % 8);
 
       for (i = start; i< MIN(start + 8,lists); i++) 
       {
-        titleRects[i % 8].x = screen->w/2 - (titles[i]->w/2);
+        titleRects[i % 8].x = T4K_GetScreen()->w/2 - (titles[i]->w/2);
         if (i == loc)
         {
 			/* Draw selected text in yellow:  */
-          SDL_BlitSurface(select[loc], NULL, screen, &titleRects[i%8]);
+          SDL_BlitSurface(select[loc], NULL, T4K_GetScreen(), &titleRects[i%8]);
           
           /* --- Announce the selected word list */
           T4K_Tts_say(DEFAULT_VALUE,DEFAULT_VALUE,INTERRUPT,"%s",wordlistName[loc]);
@@ -625,18 +629,18 @@ static int chooseWordlist(void)
         else
         {
 			/* Draw unselected text in white: */
-            SDL_BlitSurface(titles[i], NULL, screen, &titleRects[i%8]);
+            SDL_BlitSurface(titles[i], NULL, T4K_GetScreen(), &titleRects[i%8]);
 		}
       }
 
       /* --- draw arrow buttons --- */
       if (start > 0)
-        SDL_BlitSurface(left, NULL, screen, &leftRect);
+        SDL_BlitSurface(left, NULL, T4K_GetScreen(), &leftRect);
 
       if (start + 8 < lists)
-        SDL_BlitSurface(right, NULL, screen, &rightRect);
+        SDL_BlitSurface(right, NULL, T4K_GetScreen(), &rightRect);
 
-      SDL_UpdateRect(screen, 0, 0, 0 ,0);
+      T4K_PresentScreen();
     }
 
     SDL_Delay(40);

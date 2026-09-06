@@ -28,7 +28,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 #include <stdlib.h>
-#include "SDL.h"
+#include <SDL3/SDL.h>
+#include <t4k_common.h>
 
 /* while it looks like you can just
  * change the number of planes, flakes,
@@ -141,11 +142,11 @@ void SNOW_draw(void) {
 	Uint16 *to;
 
 	/* we only draw if we are on and haven't toggled (see SNOW_Erase for more info */
-	if (SNOW_on!=1)
+	if (SNOW_on!=1 || !T4K_GetScreen() || !T4K_GetScreen()->pixels)
 		return;
 
 	for (i=0; i<NUM_FLAKES; i++) {
-		to = screen->pixels;
+		to = T4K_GetScreen()->pixels;
 		to += (SNOW_rects[NUM_FLAKES+i].y<<9) + (SNOW_rects[NUM_FLAKES+i].y<<7) + SNOW_rects[NUM_FLAKES+i].x;
 		*to = snow_color;
 		to += 1;
@@ -170,7 +171,7 @@ void SNOW_erase(void) {
 	int i;
 	Uint16 *from, *to;
 
-	if (!SNOW_on)
+	if (!SNOW_on || !T4K_GetScreen() || !T4K_GetScreen()->pixels || !bkg || !bkg->pixels)
 		return;
 
 	/* SNOW_on isn't a boolean variable, it is really
@@ -192,7 +193,7 @@ void SNOW_erase(void) {
 	}
 
 	for (i=0; i<NUM_FLAKES; i++) {
-		to = screen->pixels;
+		to = T4K_GetScreen()->pixels;
 		from = bkg->pixels;
 		to += (SNOW_rects[i].y<<9) + (SNOW_rects[i].y<<7) + SNOW_rects[i].x;
 		from += (SNOW_rects[i].y<<9) + (SNOW_rects[i].y<<7) + SNOW_rects[i].x;
@@ -241,7 +242,8 @@ void SNOW_init( void ) {
 
 	int i;
 
-	snow_color = SDL_MapRGB( screen->format, 255, 255, 255 );
+	if (T4K_GetScreen())
+		snow_color = SDL_MapSurfaceRGB( T4K_GetScreen(), 255, 255, 255 );
 	for (i=0; i<NUM_FLAKES; i++) {
 		flake[i].x = (int)(8*638.0*rand()/(RAND_MAX+1.0));
 		flake[i].y = (int)(480.0*rand()/(RAND_MAX+1.0));

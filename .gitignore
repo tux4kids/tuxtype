@@ -49,3 +49,15 @@ buildw32/
 
 # Ignore backup files:
 *~
+
+# Generated binaries and dependencies
+src/tuxtype
+src/.deps/
+compile
+po/Makefile.in.in
+po/POTFILES
+nsis/tuxtype.nsi
+fixed-linux
+*.xwd
+*.ppm
+

@@ -18,19 +18,19 @@ the Free Software Foundation; either version 3 of the License, or
 
 Tux Typing is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+Mechanical or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-
 #include "convert_utf.h"
 #include "globals.h"
 
 #include <iconv.h>
+#include <string.h>
+#include <wchar.h>
 
 #define UTF_BUF_LENGTH 1024
 
@@ -38,13 +38,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 int ConvertFromUTF8(wchar_t* wide_word, const char* UTF8_word, int max_length)
 {
+  if (!wide_word || !UTF8_word || max_length <= 0)
+    return 0;
+
   wchar_t temp_wchar[UTF_BUF_LENGTH];
+  memset(temp_wchar, 0, sizeof(temp_wchar));
   wchar_t* wchar_start = temp_wchar;
 
   iconv_t conv_descr;
   size_t bytes_converted;
-  size_t in_length = (size_t)UTF_BUF_LENGTH;
-  size_t out_length = (size_t)UTF_BUF_LENGTH;
+  size_t in_length = strlen(UTF8_word);
+  size_t out_length = (UTF_BUF_LENGTH - 1) * sizeof(wchar_t);
 
   if(max_length > UTF_BUF_LENGTH)
   {
@@ -53,50 +57,45 @@ int ConvertFromUTF8(wchar_t* wide_word, const char* UTF8_word, int max_length)
     return 0;
   }
 
-  DEBUGCODE {fprintf(stderr, "ConvertFromUTF8(): UTF8_word = %s\n", UTF8_word);}
-
-  /* NOTE although we *should* be just able to pass "wchar_t" as the out_type, */
-  /* iconv_open() segfaults on Windows if this is done - grrr....             */
 #ifdef WIN32
   conv_descr = iconv_open("UTF-16LE", "UTF-8");
 #else
   conv_descr = iconv_open("wchar_t", "UTF-8");
 #endif
 
+  if (conv_descr == (iconv_t)-1)
+  {
+    wide_word[0] = L'\0';
+    return 0;
+  }
+
+  char *in_buf = (char*) UTF8_word;
   bytes_converted = iconv(conv_descr,
-                          (char**) &UTF8_word, &in_length,
+                          &in_buf, &in_length,
                           (char**) &wchar_start, &out_length);
   iconv_close(conv_descr);
-  wcsncpy(wide_word, temp_wchar, max_length);
-
-  DEBUGCODE {fprintf(stderr, "ConvertToUTF8(): wide_word = %S\n", wide_word);}
+  wcsncpy(wide_word, temp_wchar, max_length - 1);
+  wide_word[max_length - 1] = L'\0';
 
   return wcslen(wide_word);
 }
 
 
-/* Now this uses GNU iconv and works correctly!   */
-/* This probably could be simplified - not certain */
-/* we have to copy into and out of the buffers     */
-
 /******************To be used for savekeyboard*************/
 /***Converts wchar_t string to char string*****************/
 int ConvertToUTF8(const wchar_t* wide_word, char* UTF8_word, int max_length)
 {
+  if (!wide_word || !UTF8_word || max_length <= 0)
+    return 0;
+
   char temp_UTF8[UTF_BUF_LENGTH];
-  /* NOTE we need this because iconv_open() needs a char**.  We can't   */
-  /* just pass "&temp_UTF8" because "temp_UTF8" is really a shorthand   */
-  /* for "&temp_UTF8[0]", not its own memory location, so it doesn't    */
-  /* have its own address. We ought to be able to do this directly into */
-  /* into the argument UTF8_word string, but so far have had errors.    */
+  memset(temp_UTF8, 0, sizeof(temp_UTF8));
   char* UTF8_Start = temp_UTF8;
 
   iconv_t conv_descr;
   size_t bytes_converted;
-  size_t in_length = (size_t)UTF_BUF_LENGTH;
-  size_t out_length = (size_t)UTF_BUF_LENGTH;
-
-  DEBUGCODE {fprintf(stderr, "ConvertToUTF8(): wide_word = %S\n", wide_word);}
+  size_t in_length = wcslen(wide_word) * sizeof(wchar_t);
+  size_t out_length = UTF_BUF_LENGTH - 1;
 
   if(max_length > UTF_BUF_LENGTH)
   {
@@ -105,21 +104,25 @@ int ConvertToUTF8(const wchar_t* wide_word, char* UTF8_word, int max_length)
     return 0;
   }
 
-  /* NOTE although we *should* be just able to pass "wchar_t" as the in_type, */
-  /* iconv_open() segfaults on Windows if this is done - grrr....             */
 #ifdef WIN32
   conv_descr = iconv_open("UTF-8", "UTF-16LE");
 #else
   conv_descr = iconv_open("UTF-8", "wchar_t");
 #endif
 
-  bytes_converted = iconv(conv_descr,
-                          (char**) &wide_word, &in_length,
-                          (char**) &UTF8_Start, &out_length);
-  iconv_close(conv_descr);
-  strncpy(UTF8_word, temp_UTF8, max_length);
+  if (conv_descr == (iconv_t)-1)
+  {
+    UTF8_word[0] = '\0';
+    return 0;
+  }
 
-  DEBUGCODE {fprintf(stderr, "ConvertToUTF8(): UTF8_word = %s\n", UTF8_word);}
+  char *in_buf = (char*) wide_word;
+  bytes_converted = iconv(conv_descr,
+                          &in_buf, &in_length,
+                          &UTF8_Start, &out_length);
+  iconv_close(conv_descr);
+  strncpy(UTF8_word, temp_UTF8, max_length - 1);
+  UTF8_word[max_length - 1] = '\0';
 
   return strlen(UTF8_word);
 }

@@ -87,7 +87,7 @@ int Pause(void)
 		draw_vols(sfx_volume, mus_volume);
 	}
 
-	SDL_Flip(screen);
+	T4K_PresentScreen();
 
 	SDL_EnableKeyRepeat( 1, 20 );
 
@@ -98,38 +98,38 @@ int Pause(void)
 		old_mus_volume = mus_volume;
 		while (SDL_PollEvent(&event)) 
 			switch (event.type) {
-				case SDL_QUIT: 
+				case SDL_EVENT_QUIT: 
 					exit(0);
 					break;
-				case SDL_KEYUP:
+				case SDL_EVENT_KEY_UP:
 					if (settings.sys_sound && 
-					   ((event.key.keysym.sym == SDLK_RIGHT) ||
-					    (event.key.keysym.sym == SDLK_LEFT))) 
+					   ((event.key.key == SDLK_RIGHT) ||
+					    (event.key.key == SDLK_LEFT))) 
 					    	tocks = 0;
 					break;
-				case SDL_KEYDOWN:
-					if (event.key.keysym.sym == SDLK_SPACE) 
+				case SDL_EVENT_KEY_DOWN:
+					if (event.key.key == SDLK_SPACE) 
 						paused = 0;
-					if (event.key.keysym.sym == SDLK_ESCAPE) {
+					if (event.key.key == SDLK_ESCAPE) {
 						paused = 0;
 						quit = 1;
 					}
 					if (settings.sys_sound) { 
-						if (event.key.keysym.sym == SDLK_RIGHT) 
+						if (event.key.key == SDLK_RIGHT) 
 							sfx_volume += 4;
-						if (event.key.keysym.sym == SDLK_LEFT) 
+						if (event.key.key == SDLK_LEFT) 
 							sfx_volume -= 4;
-						if (event.key.keysym.sym == SDLK_UP) 
+						if (event.key.key == SDLK_UP) 
 							mus_volume += 4;
-						if (event.key.keysym.sym == SDLK_DOWN) 
+						if (event.key.key == SDLK_DOWN) 
 							mus_volume -= 4;
 					}
 					break;
-				case SDL_MOUSEBUTTONDOWN:
+				case SDL_EVENT_MOUSE_BUTTON_DOWN:
 					mousePressed = 1;
 					tocks = 0;
 					break;
-				case SDL_MOUSEBUTTONUP:
+				case SDL_EVENT_MOUSE_BUTTON_UP:
 					mousePressed = 0;
 					break;
 
@@ -192,7 +192,7 @@ int Pause(void)
 				draw_vols(sfx_volume, mus_volume);
 				settings.mus_volume=mus_volume;
 				settings.sfx_volume=sfx_volume;
-				SDL_Flip(screen);
+				T4K_PresentScreen();
 			}
 		}
 
@@ -363,14 +363,14 @@ static void draw_vols(int sfx, int mus)
   for (i = 1; i<=32; i++)
   {
     if (sfx >= i * 4)
-      SDL_FillRect(screen, &s, SDL_MapRGB(screen->format, 0, 0, 127 + sfx));
+      SDL_FillRect(screen, &s, SDL_MapSurfaceRGB(screen, 0, 0, 127 + sfx));
     else
-      SDL_FillRect(screen, &s, SDL_MapRGB(screen->format, 0, 0, 0));
+      SDL_FillRect(screen, &s, SDL_MapSurfaceRGB(screen, 0, 0, 0));
 
     if (mus >= i * 4)
-      SDL_FillRect(screen, &m, SDL_MapRGB(screen->format, 0, 0, 127 + mus));
+      SDL_FillRect(screen, &m, SDL_MapSurfaceRGB(screen, 0, 0, 127 + mus));
     else
-      SDL_FillRect(screen, &m, SDL_MapRGB(screen->format, 0, 0, 0));
+      SDL_FillRect(screen, &m, SDL_MapSurfaceRGB(screen, 0, 0, 0));
 
     m.x = s.x += 7;
   }

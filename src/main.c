@@ -205,6 +205,7 @@ int main(int argc, char *argv[])
   /* Initialising TTS */
    T4K_Tts_init();
    T4K_Tts_set_volume(settings.tts_volume);
+   T4K_OnAccessibilityToggle(ToggleTTS, ToggleBraille);
    
    T4K_AddDataPrefix(DATA_PREFIX);
   

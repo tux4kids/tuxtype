@@ -28,12 +28,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 
+#include <ctype.h>
 #include "globals.h"
 #include "funcs.h"
 #include "playgame.h"
 #include "snow.h"
 #include "SDL_extras.h"
 #include "input_methods.h"
+
+void arrange_in_order(wchar_t* str);
 
 
 /* Should these be constants? */
@@ -156,7 +159,7 @@ int PlayCascade(int diflevel)
 
   //Call announcer function in thread which annonces the word to type 
   if(settings.tts)
-	tts_announcer_thread = SDL_CreateThread(tts_announcer, &struct_with_data_address);
+	tts_announcer_thread = SDL_CreateThread(tts_announcer, "tts", &struct_with_data_address);
   
 
   DEBUGCODE
@@ -302,15 +305,15 @@ int PlayCascade(int diflevel)
       /* --- Poll input queue, get keyboard info --- */
       while (SDL_PollEvent(&event))
       {
-        if ( event.type == SDL_QUIT )
+        if ( event.type == SDL_EVENT_QUIT )
         {
           exit(0); /* FIXME does memory get cleaned up properly if we do this? */
         }
         else
         {
-          if (event.type == SDL_KEYDOWN)
+          if (event.type == SDL_EVENT_KEY_DOWN)
           {
-            switch (event.key.keysym.sym)
+            switch (event.key.key)
             {
               case SDLK_F11:
                 SDL_SaveBMP(screen, "screenshot.bmp");
@@ -375,7 +378,7 @@ int PlayCascade(int diflevel)
 				  T4K_Tts_say(DEFAULT_VALUE,DEFAULT_VALUE,INTERRUPT,gettext("Pause Released!"));
 				  //Call announcer function in thread which annonces the word to type
 				  if(settings.tts)
-						tts_announcer_thread = SDL_CreateThread(tts_announcer, &struct_with_data_address);
+						tts_announcer_thread = SDL_CreateThread(tts_announcer, "tts", &struct_with_data_address);
 				  DrawBackground();
 				}
                 break;
@@ -401,14 +404,14 @@ int PlayCascade(int diflevel)
 				/* Store each keys till a key released */
 				if(settings.braille)
 				{
-				   pressed_letters[braille_iter] = event.key.keysym.sym;
+				   pressed_letters[braille_iter] = event.key.key;
                    braille_iter++;
                    pressed_letters[braille_iter] = L'\0';   
 				}
 				else
 				{
 					/* See what Unicode value was typed: */
-					key_unicode = event.key.keysym.unicode;
+					key_unicode = event.key.key;
 
 					DEBUGCODE
 					{fprintf(stderr, "\nkey_unicode = %d\twchar_t = %lc\t\n", key_unicode, key_unicode);}
@@ -430,9 +433,9 @@ int PlayCascade(int diflevel)
 				}
             }
           }
-          else if (event.type == SDL_KEYUP)
+          else if (event.type == SDL_EVENT_KEY_UP)
 			{
-				/* ----- SDL_KEYUP is Only for Braille Mode -------------*/
+				/* ----- SDL_EVENT_KEY_UP is Only for Braille Mode -------------*/
 				if(settings.braille)
 				{
 					arrange_in_order(pressed_letters);
@@ -647,7 +650,7 @@ int PlayCascade(int diflevel)
      {
 		fishies = 0; //Otherwise thread will announce old words and cause segfault
 		if(settings.tts)
-			tts_announcer_thread = SDL_CreateThread(tts_announcer, &struct_with_data_address);
+			tts_announcer_thread = SDL_CreateThread(tts_announcer, "tts", &struct_with_data_address);
 	 }
 	
     }  /* End of post-level wrap-up  */

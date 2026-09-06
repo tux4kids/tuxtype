@@ -28,10 +28,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 
+#include <ctype.h>
 #include "globals.h"
 #include "funcs.h"
 #include "SDL_extras.h"
 #include "laser.h"
+
+void arrange_in_order(wchar_t* str);
 
 
 #define FPS (1000 / 15)   /* 15 fps max */
@@ -121,8 +124,8 @@ int PlayLaserGame(int diff_level)
 
 	/* Clear window: */
   
-	SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 0, 0, 0));
-	SDL_Flip(screen);
+	SDL_FillRect(screen, NULL, SDL_MapSurfaceRGB(screen, 0, 0, 0));
+	T4K_PresentScreen();
 
 	/* --- MAIN GAME LOOP: --- */
 
@@ -179,7 +182,7 @@ int PlayLaserGame(int diff_level)
 
 	 //Call announcer function in thread which annonces the word to type 
 	if(settings.tts)
-		thread = SDL_CreateThread(tts_announcer, NULL);	
+		thread = SDL_CreateThread(tts_announcer, "tts", NULL);	
 	
 	//Inetialising braille variables
 	braille_iter = 0;
@@ -197,15 +200,15 @@ int PlayLaserGame(int diff_level)
      
 		while (SDL_PollEvent(&event) > 0) {
 
-			if (event.type == SDL_QUIT) {
+			if (event.type == SDL_EVENT_QUIT) {
 				/* Window close event - quit! */
 				exit(0);
 	      
 			}
-			else if (event.type == SDL_KEYDOWN)
+			else if (event.type == SDL_EVENT_KEY_DOWN)
 			{
 
-				key = event.key.keysym.sym;
+				key = event.key.key;
 				if (key == SDLK_F10) 
                                 {
 				  SwitchScreenMode();
@@ -236,7 +239,7 @@ int PlayLaserGame(int diff_level)
 				if (level_start_wait > 0) 
 					key = SDLK_UNKNOWN;
 				
-				key_unicode = event.key.keysym.unicode;
+				key_unicode = event.key.key;
 				//key_unicode = event.key.keysym.unicode & 0xff;
 
 				DEBUGCODE
@@ -263,7 +266,7 @@ int PlayLaserGame(int diff_level)
 				/* Store each keys till a key released */
 				if(settings.braille)
 				{
-				   pressed_letters[braille_iter] = event.key.keysym.sym;
+				   pressed_letters[braille_iter] = event.key.key;
                    braille_iter++;
                    pressed_letters[braille_iter] = L'\0';   
 				}
@@ -273,9 +276,9 @@ int PlayLaserGame(int diff_level)
 					ans[ans_num++] = key_unicode;
 				}
 			}
-			else if (event.type == SDL_KEYUP)
+			else if (event.type == SDL_EVENT_KEY_UP)
 			{
-				/* ----- SDL_KEYUP is Only for Braille Mode -------------*/
+				/* ----- SDL_EVENT_KEY_UP is Only for Braille Mode -------------*/
 				if(settings.braille)
 				{
 					arrange_in_order(pressed_letters);
@@ -745,7 +748,7 @@ int PlayLaserGame(int diff_level)
       
 		/* Swap buffers: */
       
-		SDL_Flip(screen);
+		T4K_PresentScreen();
 
 
 		/* If we're in "PAUSE" mode, pause! */
@@ -759,7 +762,7 @@ int PlayLaserGame(int diff_level)
 					T4K_Tts_say(DEFAULT_VALUE,DEFAULT_VALUE,INTERRUPT,gettext("Pause Released!"));
 					//Call announcer function in thread which annonces the word to type
 					if(settings.tts)
-						thread = SDL_CreateThread(tts_announcer, NULL);
+						thread = SDL_CreateThread(tts_announcer, "tts", NULL);
 			}							
 			paused = 0;
 		}
@@ -1126,7 +1129,7 @@ static void laser_draw_line(int x1, int y1, int x2, int y2, int red, int grn, in
   Uint32 pixel;
   SDL_Rect dest;
  
-  pixel = SDL_MapRGB(screen->format, red, grn, blu);
+  pixel = SDL_MapSurfaceRGB(screen, red, grn, blu);
 
   dx = x2 - x1;
   dy = y2 - y1;
@@ -1180,7 +1183,7 @@ static void laser_putpixel(SDL_Surface * surface, int x, int y, Uint32 pixel)
   
   /* Determine bytes-per-pixel for the surface in question: */
   
-  bpp = surface->format->BytesPerPixel;
+  bpp = SDL_BYTESPERPIXEL(surface->format);
   
   
   /* Set a pointer to the exact location in memory of the pixel

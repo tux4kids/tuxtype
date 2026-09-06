@@ -26,13 +26,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 
+#ifndef GLOBALS_H
+#define GLOBALS_H
+
 //TTS Parameters
 #define DEFAULT_VALUE 30
 #define INTERRUPT 0
 #define APPEND 1
-
-#ifndef GLOBALS_H
-#define GLOBALS_H
 
 // Autoheader-derived defs in here:
 #include "config.h"
@@ -48,10 +48,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <dirent.h>
 #include <locale.h>
 
-// SDL includes:
-#include "SDL.h"
-#include "SDL_image.h"
-#include "SDL_mixer.h"
+// SDL & t4kcommon includes:
+#include <SDL3/SDL.h>
+#include <SDL3_image/SDL_image.h>
+#include <SDL3_mixer/SDL_mixer.h>
+#include <t4k_common.h>
 /* NOTE only SDL_extras.c/.h now knows about SDL_ttf or SDL_Pango. */
 
 // Translation stuff: 
@@ -79,7 +80,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // FIXME if we really need these, make them into functions rather than
 // "evil" macros
 #define to_upper(c) (((c) >= 'a' && (c) <= 'z') ? (c) -32 : (c))
-#define COL2RGB( col ) SDL_MapRGB( screen->format, col->r, col->g, col->b )
+#define COL2RGB( col ) SDL_MapSurfaceRGB( T4K_GetScreen(), (col)->r, (col)->g, (col)->b )
 #define MIN(x,y) ((x) < (y) ? (x) : (y))
 #define MAX(x,y) ((x) > (y) ? (x) : (y))
 
@@ -88,6 +89,10 @@ extern SDL_Thread *tts_thread;
 
 //TTS Word announcer Thread
 extern SDL_Thread *tts_announcer_thread;
+
+extern void ToggleTTS(void);
+extern void ToggleBraille(void);
+
 
 #define FNLEN	256
 
@@ -163,6 +168,8 @@ extern struct braille_dict braille_key_value_map[100];
 /* Goal is to have all global settings here */
 /* FIXME get rid of as much global data as possible, esp. pointers */
 extern game_option_type settings;
+extern SDL_Window* window;
+extern SDL_Renderer* renderer;
 extern SDL_Surface* screen;
 extern SDL_Event  event;
 
@@ -259,9 +266,6 @@ enum
   NUM_WAVES
 };
 
-
-#endif
-
 extern const int debug_titlescreen;
 
 
@@ -348,6 +352,8 @@ enum {
 extern int num_lessons;
 extern int* lesson_list_goldstars;
 extern char **lesson_list_titles;
+
+#endif /* GLOBALS_H */
 
 
 

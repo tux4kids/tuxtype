@@ -31,8 +31,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "globals.h"
 #include "funcs.h"
 #include "SDL_extras.h"
-#include "SDL_image.h"
+#include <SDL3_image/SDL_image.h>
 #include "convert_utf.h"
+#include <ctype.h>
 #include "editor.h"
 
 
@@ -237,7 +238,7 @@ void ChooseListToEdit(void)
     titleRects[i].x = screen->w / 10;
   }
 
-  SDL_UpdateRect(screen, 0, 0, 0, 0);
+  T4K_PresentScreen();
   
   /* Event loop for this screen: */
   while (!stop)
@@ -248,11 +249,11 @@ void ChooseListToEdit(void)
     {
       switch (event.type)
       {
-        case SDL_QUIT:
+        case SDL_EVENT_QUIT:
           exit(0);
           break;
 
-        case SDL_MOUSEBUTTONDOWN: 
+        case SDL_EVENT_MOUSE_BUTTON_DOWN: 
           if (inRect(leftRect, event.button.x, event.button.y)) 
             if (loc - (loc % 8) - 8 >= 0) 
             {
@@ -288,23 +289,23 @@ void ChooseListToEdit(void)
           }
           break;
 
-        case SDL_KEYDOWN:
-          if (event.key.keysym.sym == SDLK_BACKSPACE)
+        case SDL_EVENT_KEY_DOWN:
+          if (event.key.key == SDLK_BACKSPACE)
           {
             //Remove wordlist
             ChooseRemoveList(list_titles[loc], file_names[loc]);
             change = 1;
           }
 
-          if (event.key.keysym.sym == SDLK_ESCAPE)
+          if (event.key.key == SDLK_ESCAPE)
           {
             stop = 1; 
             break; 
           }
 
           // User going to actual word editing:
-          if ((event.key.keysym.sym == SDLK_RETURN)
-           || (event.key.keysym.sym == SDLK_SPACE))
+          if ((event.key.key == SDLK_RETURN)
+           || (event.key.key == SDLK_SPACE))
           {
             EditWordList(file_names[loc]);
             loc = 0;
@@ -312,27 +313,27 @@ void ChooseListToEdit(void)
             break;
           }
           // Go to top of previous page:
-          if ((event.key.keysym.sym == SDLK_LEFT)
-           || (event.key.keysym.sym == SDLK_PAGEUP))
+          if ((event.key.key == SDLK_LEFT)
+           || (event.key.key == SDLK_PAGEUP))
           {
             if (loc - (loc % 8) - 8 >= 0)
               loc = loc - (loc % 8) - 8;
           }
           // Go to top of next page:
-          if ((event.key.keysym.sym == SDLK_RIGHT)
-           || (event.key.keysym.sym == SDLK_PAGEDOWN))
+          if ((event.key.key == SDLK_RIGHT)
+           || (event.key.key == SDLK_PAGEDOWN))
           {
             if (loc - (loc % 8) + 8 < num_lists)
               loc = (loc - (loc % 8) + 8);
           }
 
-          if (event.key.keysym.sym == SDLK_UP)
+          if (event.key.key == SDLK_UP)
           {
             if (loc > 0)
               loc--;
           }
 
-          if (event.key.keysym.sym == SDLK_DOWN)
+          if (event.key.key == SDLK_DOWN)
           {
             if (loc + 1 < num_lists)
               loc++;
@@ -434,8 +435,6 @@ void ChooseListToEdit(void)
           SDL_BlitSurface(yellow_titles_surf[loc], NULL, screen, &titleRects[i % 8]);
         else
           SDL_BlitSurface(white_titles_surf[i], NULL, screen, &titleRects[i % 8]);
-        SDL_UpdateRect(screen, titleRects[i%8].x, titleRects[i%8].y,
-                               titleRects[i%8].w, titleRects[i%8].h);
       }
 
       /* --- draw right and left arrow buttons --- */
@@ -444,7 +443,7 @@ void ChooseListToEdit(void)
       if (start + 8 < num_lists) 
         SDL_BlitSurface(right, NULL, screen, &rightRect);
 
-      SDL_UpdateRect(screen, 0, 0, 0, 0); 
+      T4K_PresentScreen(); 
       redraw = 0;
     }
     SDL_Delay(40);
@@ -637,13 +636,13 @@ void EditWordList(char* words_file)
     {
       switch (event.type)
       {
-        case SDL_QUIT:
+        case SDL_EVENT_QUIT:
         {
           exit(0);
           break;
         }
 
-        case SDL_MOUSEBUTTONDOWN:
+        case SDL_EVENT_MOUSE_BUTTON_DOWN:
         { 
           if (inRect(leftRect, event.button.x, event.button.y)) 
             if (loc - (loc % 8) - 8 >= 0) 
@@ -671,11 +670,11 @@ void EditWordList(char* words_file)
           break;
         }
 
-        case SDL_KEYDOWN:
+        case SDL_EVENT_KEY_DOWN:
         {
           i = 1;
 
-          if (event.key.keysym.sym == SDLK_BACKSPACE)
+          if (event.key.key == SDLK_BACKSPACE)
           {
             len = ConvertFromUTF8(temp, words_in_list[loc+1], MAX_WORD_SIZE); 
             if (len > 1 && number_of_words > 1)
@@ -751,14 +750,14 @@ void EditWordList(char* words_file)
             break;
           }  // end of handling of SDLK_BACKSPACE
 
-          if (event.key.keysym.sym == SDLK_ESCAPE) 
+          if (event.key.key == SDLK_ESCAPE) 
           {
             stop = 1;
             break; 
           }
 
-          if ((event.key.keysym.sym == SDLK_LEFT)
-           || (event.key.keysym.sym == SDLK_PAGEUP))
+          if ((event.key.key == SDLK_LEFT)
+           || (event.key.key == SDLK_PAGEUP))
           {
             if (loc - (loc % 8) - 8 >= 0)
               loc = loc - (loc % 8) - 8;
@@ -767,8 +766,8 @@ void EditWordList(char* words_file)
             break;
           }
 
-          if ((event.key.keysym.sym == SDLK_RIGHT)
-           || (event.key.keysym.sym == SDLK_PAGEDOWN))
+          if ((event.key.key == SDLK_RIGHT)
+           || (event.key.key == SDLK_PAGEDOWN))
           {
             if (loc - (loc % 8) + 8 < number_of_words-1)
               loc = (loc - (loc % 8) + 8);
@@ -777,7 +776,7 @@ void EditWordList(char* words_file)
             break;
           }
 
-          if (event.key.keysym.sym == SDLK_UP)
+          if (event.key.key == SDLK_UP)
           {
             if (loc > 0)
               loc--;
@@ -786,7 +785,7 @@ void EditWordList(char* words_file)
             break;
           }
 
-          if (event.key.keysym.sym == SDLK_DOWN)
+          if (event.key.key == SDLK_DOWN)
           {
             if (loc + 1 < number_of_words - 1)
               loc++;
@@ -796,7 +795,7 @@ void EditWordList(char* words_file)
           }
 
           //FIXME this switch should include above cases, too
-          switch (event.key.keysym.sym)
+          switch (event.key.key)
           {
             case SDLK_RETURN:
               DEBUGCODE
@@ -844,7 +843,7 @@ void EditWordList(char* words_file)
             if (len < MAX_WORD_SIZE - 1)
             {
               // Add the character to the end of the existing string
-              temp[len] = toupper(event.key.keysym.unicode);
+              temp[len] = toupper(event.key.key);
               temp[len + 1] = 0;
               ConvertToUTF8(temp, words_in_list[loc + 1], MAX_WORD_SIZE);
 
@@ -857,7 +856,7 @@ void EditWordList(char* words_file)
             i = 0;
             break;
           }
-        }  // end of CASE SDL_KEYDOWN:
+        }  // end of CASE SDL_EVENT_KEY_DOWN:
       }  // end of 'switch (event.type)'
 
       /* Redraw screen: */
@@ -889,7 +888,7 @@ void EditWordList(char* words_file)
         if (start + 8 < number_of_words-1) 
           SDL_BlitSurface(right, NULL, screen, &rightRect);
 
-        SDL_UpdateRect(screen, 0, 0, 0 ,0);
+        T4K_PresentScreen();
       }
       SDL_Delay(40);  // I assume throttling so we don't eat all CPU
       old_loc = loc;
@@ -1035,7 +1034,7 @@ int CreateNewWordList(void)
   Text.w = Text.h =  0; 
   Text.x = screen->w /2;
 
-  SDL_UpdateRect(screen, 0, 0, 0, 0);
+  T4K_PresentScreen();
 
   /*Main Loop*/
   while (!stop)
@@ -1044,11 +1043,11 @@ int CreateNewWordList(void)
     {
       switch (event.type)
       {
-        case SDL_QUIT:
+        case SDL_EVENT_QUIT:
           stop = 1;
           break;
 
-        case SDL_MOUSEBUTTONDOWN: 
+        case SDL_EVENT_MOUSE_BUTTON_DOWN: 
         {
           if (inRect(OK_rect, event.button.x, event.button.y)) 
           {
@@ -1072,11 +1071,11 @@ int CreateNewWordList(void)
           break;
         }
 
-        case SDL_KEYDOWN:
+        case SDL_EVENT_KEY_DOWN:
         {
           i = 1; //A Key has been pressed
 
-          switch (event.key.keysym.sym)
+          switch (event.key.key)
           {
             case SDLK_BACKSPACE:
               len = ConvertFromUTF8(temp, wordlist, MAX_WORD_SIZE);
@@ -1126,7 +1125,7 @@ int CreateNewWordList(void)
             if (len < MAX_WORD_SIZE)
             {
               // adds a character to the end of existing string
-              temp[len] = toupper(event.key.keysym.unicode);
+              temp[len] = toupper(event.key.key);
               temp[len + 1] = 0;
             }
             len = ConvertToUTF8(temp, wordlist, MAX_WORD_SIZE);
@@ -1139,7 +1138,7 @@ int CreateNewWordList(void)
             i = 0;
             break;
           } // end of if(i)
-        }//end of Case SDL_KEYDOWN
+        }//end of Case SDL_EVENT_KEY_DOWN
       }//end of 'switch (event.type)'
 
       /* FIXME apparently redrawing every frame, even if not needed: */
@@ -1177,7 +1176,7 @@ int CreateNewWordList(void)
 
         SDL_BlitSurface(NewWordlist, NULL, screen, &Text);
 
-        SDL_UpdateRect(screen, 0, 0, 0, 0);
+        T4K_PresentScreen();
       }
     }  // End of 'while (SDL_PollEvent(&event))' loop
   } // End of 'while(!stop)' loop
@@ -1276,7 +1275,7 @@ int ChooseRemoveList(char *name, char *filename)
   wordname_rect.y = screen->h/3 + 30;
   SDL_BlitSurface(wordname, NULL, screen, &wordname_rect);
 
-  SDL_UpdateRect(screen, 0, 0, 0, 0);
+  T4K_PresentScreen();
 
   while (!stop) 
   {
@@ -1285,7 +1284,7 @@ int ChooseRemoveList(char *name, char *filename)
       /* FIXME should handle other events - Escape, SDL_WindowClose, etc. */
       switch (event.type)
       {
-        case SDL_MOUSEBUTTONDOWN: 
+        case SDL_EVENT_MOUSE_BUTTON_DOWN: 
           if (inRect(OK_rect, event.button.x, event.button.y)) 
           {
             RemoveList(filename);
