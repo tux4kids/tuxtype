@@ -92,7 +92,7 @@ int alphasort(const void *d1, const void *d2)
 /**
  * Scan a directory for all its entries
  */
-int scandir(const char *dirname, struct dirent ***namelist, int (*sdfilter)(struct dirent *), int (*dcomp)(const void *, const void *))
+int scandir(const char *dirname, struct dirent ***namelist, int (*sdfilter)(const struct dirent *), int (*dcomp)(const void *, const void *))
 {
   struct dirent *d, *p, **names;
   struct stat stb;
@@ -193,7 +193,7 @@ int alphasort(const void *d1, const void *d2)
 /**
 * Scan a directory for all its entries
 */
-int scandir(const char *dirname, struct dirent ***namelist, int (*sdfilter)(struct dirent *), int (*dcomp)(const void *, const void *))
+int scandir(const char *dirname, struct dirent ***namelist, int (*sdfilter)(const struct dirent *), int (*dcomp)(const void *, const void *))
 {
   int len;
   char *findIn, *d;
@@ -283,7 +283,7 @@ int scandir(const char *dirname, struct dirent ***namelist, int (*sdfilter)(stru
   free (findIn);
 
   if (dcomp)
-    qsort (dir, nDir, sizeof(*dir),dcomp);
+    qsort (dir, nDir, sizeof(*dir), (int (*)(const void*, const void*))dcomp);
 
   *namelist = dir;
   return nDir;

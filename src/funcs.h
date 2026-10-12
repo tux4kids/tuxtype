@@ -85,6 +85,10 @@ sprite* LoadSprite(const char* name, int MODE);
 
 /* In options.c: */
 void Opts_Initialize(void);
+/* In SDL_extras.c: */
+void set_speech_rate(int level);
+const char* get_speech_rate_label(int level);
+int get_speech_rate_raw(int level);
 
 /* In pause.c: */
 int  Pause(void);

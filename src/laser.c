@@ -28,10 +28,34 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 
+#include <ctype.h>
 #include "globals.h"
 #include "funcs.h"
 #include "SDL_extras.h"
 #include "laser.h"
+
+void arrange_in_order(wchar_t* str);
+
+/* tts_letter_token: appends the TTS-friendly token for one letter to dest.
+ * - For 'a'/'A': uses eSpeak phoneme notation [[eI]] so the letter name "ay"
+ *   is pronounced correctly instead of the article "a" (schwa).
+ * - For all other letters: appends the character followed by a space.
+ *   (Period separator removed — eSpeak reads '.' as "dot" in letter lists.)
+ * dest must have sufficient space remaining. */
+static void tts_letter_token(wchar_t *dest, wchar_t ch)
+{
+	if (ch == L'a' || ch == L'A')
+	{
+		wcscat(dest, L"[[eI]] ");
+	}
+	else
+	{
+		int n = wcslen(dest);
+		dest[n++] = ch;
+		dest[n++] = L' ';
+		dest[n]   = L'\0';
+	}
+}
 
 
 #define FPS (1000 / 15)   /* 15 fps max */
@@ -97,7 +121,7 @@ int PlayLaserGame(int diff_level)
 	  
 
 	//TTS Word announcer variables
-	SDL_Thread *thread;
+	// Using global tts_announcer_thread
 
 	//Braille Variables
 	wchar_t pressed_letters[1000];
@@ -121,8 +145,8 @@ int PlayLaserGame(int diff_level)
 
 	/* Clear window: */
   
-	SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 0, 0, 0));
-	SDL_Flip(screen);
+	SDL_FillRect(screen, NULL, SDL_MapSurfaceRGB(screen, 0, 0, 0));
+	T4K_PresentScreen();
 
 	/* --- MAIN GAME LOOP: --- */
 
@@ -178,8 +202,10 @@ int PlayLaserGame(int diff_level)
 
 
 	 //Call announcer function in thread which annonces the word to type 
-	if(settings.tts)
-		thread = SDL_CreateThread(tts_announcer, NULL);	
+	if(settings.tts) {
+		tts_announcer_switch = 1;
+		tts_announcer_thread = SDL_CreateThread(tts_announcer, "tts", NULL);
+	}
 	
 	//Inetialising braille variables
 	braille_iter = 0;
@@ -197,15 +223,15 @@ int PlayLaserGame(int diff_level)
      
 		while (SDL_PollEvent(&event) > 0) {
 
-			if (event.type == SDL_QUIT) {
+			if (event.type == SDL_EVENT_QUIT) {
 				/* Window close event - quit! */
 				exit(0);
 	      
 			}
-			else if (event.type == SDL_KEYDOWN)
+			else if (event.type == SDL_EVENT_KEY_DOWN)
 			{
 
-				key = event.key.keysym.sym;
+				key = event.key.key;
 				if (key == SDLK_F10) 
                                 {
 				  SwitchScreenMode();
@@ -236,7 +262,7 @@ int PlayLaserGame(int diff_level)
 				if (level_start_wait > 0) 
 					key = SDLK_UNKNOWN;
 				
-				key_unicode = event.key.keysym.unicode;
+				key_unicode = event.key.key;
 				//key_unicode = event.key.keysym.unicode & 0xff;
 
 				DEBUGCODE
@@ -263,7 +289,7 @@ int PlayLaserGame(int diff_level)
 				/* Store each keys till a key released */
 				if(settings.braille)
 				{
-				   pressed_letters[braille_iter] = event.key.keysym.sym;
+				   pressed_letters[braille_iter] = event.key.key;
                    braille_iter++;
                    pressed_letters[braille_iter] = L'\0';   
 				}
@@ -273,9 +299,9 @@ int PlayLaserGame(int diff_level)
 					ans[ans_num++] = key_unicode;
 				}
 			}
-			else if (event.type == SDL_KEYUP)
+			else if (event.type == SDL_EVENT_KEY_UP)
 			{
-				/* ----- SDL_KEYUP is Only for Braille Mode -------------*/
+				/* ----- SDL_EVENT_KEY_UP is Only for Braille Mode -------------*/
 				if(settings.braille)
 				{
 					arrange_in_order(pressed_letters);
@@ -745,7 +771,7 @@ int PlayLaserGame(int diff_level)
       
 		/* Swap buffers: */
       
-		SDL_Flip(screen);
+		T4K_PresentScreen();
 
 
 		/* If we're in "PAUSE" mode, pause! */
@@ -758,8 +784,10 @@ int PlayLaserGame(int diff_level)
 			if(quit == 0){
 					T4K_Tts_say(DEFAULT_VALUE,DEFAULT_VALUE,INTERRUPT,gettext("Pause Released!"));
 					//Call announcer function in thread which annonces the word to type
-					if(settings.tts)
-						thread = SDL_CreateThread(tts_announcer, NULL);
+					if(settings.tts) {
+						tts_announcer_switch = 1;
+						tts_announcer_thread = SDL_CreateThread(tts_announcer, "tts", NULL);
+					}
 			}							
 			paused = 0;
 		}
@@ -1126,7 +1154,7 @@ static void laser_draw_line(int x1, int y1, int x2, int y2, int red, int grn, in
   Uint32 pixel;
   SDL_Rect dest;
  
-  pixel = SDL_MapRGB(screen->format, red, grn, blu);
+  pixel = SDL_MapSurfaceRGB(screen, red, grn, blu);
 
   dx = x2 - x1;
   dy = y2 - y1;
@@ -1180,7 +1208,7 @@ static void laser_putpixel(SDL_Surface * surface, int x, int y, Uint32 pixel)
   
   /* Determine bytes-per-pixel for the surface in question: */
   
-  bpp = surface->format->BytesPerPixel;
+  bpp = SDL_BYTESPERPIXEL(surface->format);
   
   
   /* Set a pointer to the exact location in memory of the pixel
@@ -1262,7 +1290,11 @@ static void laser_add_score(int inc)
 /* Stop annoncing thread safely */
 static void stop_tts_announcer()
 {
-	tts_announcer_switch = 0;
+	if (tts_announcer_thread) {
+		tts_announcer_switch = 0;
+		SDL_WaitThread(tts_announcer_thread, NULL);
+		tts_announcer_thread = NULL;
+	}
 }
 
 
@@ -1272,8 +1304,10 @@ static int tts_announcer(void *unused)
 {
 	int lowest,lowest_y,i,iter;
 	wchar_t buffer[3000];
+#if 1 // FIX: Track last spoken word to prevent TTS stutter
+	static wchar_t last_spoken[3000] = {0};
+#endif
 	int pitch_and_rate;
-	tts_announcer_switch = 1;
 	while(1)
 	{
 		if(tts_announcer_switch == 0)
@@ -1330,13 +1364,11 @@ static int tts_announcer(void *unused)
 		{
 			for(i=comets[lowest].pos;i<wcslen(comets[lowest].word);i++)
 			{
-				buffer[iter]=L'.';iter++;
-				buffer[iter]=L' ';iter++;				
-				buffer[iter]=comets[lowest].word[i];iter++;
+				buffer[iter] = L'\0';
+				tts_letter_token(buffer, comets[lowest].word[i]);
+				iter = wcslen(buffer);
 			}
 		}
-		buffer[iter]=L'.';iter++;
-		buffer[iter]=L' ';iter++;		
 		buffer[iter] = L'\0';
 
 		pitch_and_rate = ((lowest_y*100)/(screen->h - images[IMG_CITY_BLUE]->h));
@@ -1344,10 +1376,17 @@ static int tts_announcer(void *unused)
 			pitch_and_rate = 30;
 		if (pitch_and_rate > 60)
 			pitch_and_rate = 60;	
+#if 1 // FIX: Prevent stutter by only speaking when text changes
+		if (wcscmp(buffer, last_spoken) != 0)
+		{
+			T4K_Tts_say(pitch_and_rate,pitch_and_rate,INTERRUPT,"%S",buffer);
+			wcscpy(last_spoken, buffer);
+		}
+#else
 		T4K_Tts_say(pitch_and_rate,pitch_and_rate,INTERRUPT,"%S",buffer);
+#endif
 		
 		//Wait to finish saying the previus word
-		SDL_WaitThread(tts_thread,NULL);
 		SDL_Delay(100);
 		fprintf(stderr,"\nPos = %d",braille_letter_pos);
 			

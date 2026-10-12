@@ -187,17 +187,7 @@ msgstr "Arutage Tuxtyping tulevikku aadressil"
 
 # general stuff
 #, fuzzy
-#~ msgid "Phrase Practice"
-#~ msgstr "Väljandid"
 
-#~ msgid "Setup"
-#~ msgstr "Seisukord"
 
-#~ msgid "Alphabet"
-#~ msgstr "Tähestik"
 
-#~ msgid "Setup Keyboard"
-#~ msgstr "Klaviatuur seisukord"
 
-#~ msgid "Word Cascade"
-#~ msgstr "Sõna"

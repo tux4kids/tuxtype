@@ -34,31 +34,35 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 #ifdef WIN32
-/* Horrible, dangerous macros. */
-/*
-  The SDL stderr redirection trick doesn't seem to work for perror().
-  This does pretty much the same thing.
-*/
-#define perror(str) ({ \
-  if ( (str) && *(str) ) \
-    fprintf(stderr,"%s : ",(str)); \
-  fprintf(stderr, \
-          "%s [%d]\n", \
-          (errno<_sys_nerr)?_sys_errlist[errno]:"unknown",errno ); \
-})
+#define WIN32_LEAN_AND_MEAN
 
 /*
   MinGW implementation of isspace() crashes on some Win98 boxes
   if c is 'out-of-range'.
+  Only override on classic MinGW (not modern UCRT/MSVC or Debian/Linux).
+  On modern MinGW (UCRT), ctype.h's isspace is safe, so skip entirely.
 */
+#if defined(__MINGW32__) && !defined(__MINGW64_VERSION_MAJOR)
+#undef isspace
 #define isspace(c) (((c) == 0x20) || ((c) >= 0x09 && (c) <= 0x0D))
+#endif
 
 /*
   WIN32 and MINGW don't have strcasestr().
 */
 #define NOMINMAX
+#include <direct.h>
 #include "shlwapi.h"
 #define strcasestr StrStrI
+
+/* Undef Windows API macros that conflict with TuxType function names */
+#ifdef PlaySound
+#undef PlaySound
+#endif
+#ifdef LoadImage
+#undef LoadImage
+#endif
+
 #endif /* WIN32 */
 
 

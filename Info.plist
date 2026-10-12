@@ -3,26 +3,26 @@
 <plist version="1.0">
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
-	<string>English</string>
+	<string>en</string>
 	<key>CFBundleExecutable</key>
-	<string>tuxmath</string>
+	<string>tuxtype</string>
 	<key>CFBundleIconFile</key>
 	<string>tuxtype.icns</string>
 	<key>CFBundleIdentifier</key>
-	<string>application/x-vnd.tuxtype.oxyd</string>
+	<string>org.tux4kids.tuxtype</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
 	<string>TuxType</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
-	<key>CFBundleSignature</key>
-	<string>????</string>
+	<key>CFBundleShortVersionString</key>
+	<string>1.8.3</string>
 	<key>CFBundleVersion</key>
-	<string>0.80</string>
-	<key>NSMainNibFile</key>
-	<string>SDLMain</string>
-	<key>NSPrincipalClass</key>
-	<string>NSApplication</string>
+	<string>1.8.3</string>
+	<key>LSMinimumSystemVersion</key>
+	<string>11.0</string>
+	<key>NSHighResolutionCapable</key>
+	<true/>
 </dict>
 </plist>

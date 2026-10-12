@@ -1,34 +1,155 @@
-# Translation of tuxtype.po to Dutch.
+# Translation of tuxtype.pot to Dutch.
 # This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Mobin M <mobinmohan@gmail.com>, 2008
+# Frans Spiesschaert <Frans.Spiesschaert@yucom.be>, 2015.
 #
-# Mobin M <mobinmohan@gmail.com>, 2008.
-# Simon Oosthoek <s.oosthoek@xs4all.nl>, 2015.
 msgid ""
 msgstr ""
 "Project-Id-Version: Tuxtype\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2012-02-02 20:16-0600\n"
-"PO-Revision-Date: 2015-01-06 16:45+0100\n"
-"Last-Translator: Simon Oosthoek <s.oosthoek@xs4all.nl>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"POT-Creation-Date: 2026-07-23 16:17+0530\n"
+"PO-Revision-Date: 2015-05-13 21:20+0200\n"
+"Last-Translator: Frans Spiesschaert <Frans.Spiesschaert@yucom.be>\n"
+"Language-Team: Debian Dutch l10n Team <debian-l10n-dutch@lists.debian.org>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 1.5\n"
+"X-Generator: Gtranslator 2.91.6\n"
 
-#: src/loaders.c:98 src/main.c:161 src/playgame.c:654
+#: src/laser.c:557
+#, c-format
+msgid "Score %d"
+msgstr ""
+
+#: src/laser.c:611
+#, c-format
+msgid "yep you miss it. hahh hahh haa. game over! you scored %d goodbye!"
+msgstr ""
+
+#: src/laser.c:754
+#, fuzzy
+msgid "Game Paused!"
+msgstr "Gepauzeerd!"
+
+#: src/laser.c:757 src/playgame.c:375
+#, fuzzy
+msgid "Pause Released!"
+msgstr "Gepauzeerd!"
+
+#: src/loaders.c:113 src/main.c:189 src/playgame.c:777
 msgid "Fish"
 msgstr "Vissen"
 
+#: src/loaders.c:138
+msgid "Braille mode is not available for this language. Braille disabled!"
+msgstr ""
+
+#: src/loaders.c:150
+msgid "Tts is not available for this language. Tts disabled!"
+msgstr ""
+
+#: src/menu.c:45
+msgid "Training"
+msgstr ""
+
+#: src/menu.c:46
+#, fuzzy
+msgid "Basic Lessons"
+msgstr "Lessen"
+
+#: src/menu.c:47
+msgid "Phrase Typing"
+msgstr "Zinnen typen"
+
+#: src/menu.c:48
+msgid "Help Tux eat fish by pressing the letters on the fish"
+msgstr ""
+
+#: src/menu.c:49
+msgid "Defend the cities from comets by typing letter on them using laser!"
+msgstr ""
+
+# "Space Cadet" is level 1 in comet zap
+#: src/menu.c:50
+msgid "Space Cadet"
+msgstr "Ruimtekadet"
+
+# "Pilot" is level 2 in comet zap
+#: src/menu.c:51
+msgid "Pilot"
+msgstr "Piloot"
+
+# "Ace" is level 3 in comet zap
+#: src/menu.c:52
+msgid "Ace"
+msgstr "Uitblinker"
+
+# "Commander" is level 4 in comet zap
+#: src/menu.c:53
+msgid "Commander"
+msgstr "Bevelhebber"
+
+#: src/menu.c:54
+msgid "Moderate"
+msgstr ""
+
+#: src/menu.c:55
+#, fuzzy
+msgid "Hardest"
+msgstr "Moeilijk"
+
+#: src/menu.c:56
+msgid "Train alphabets and phrase typing"
+msgstr ""
+
+#: src/menu.c:57
+msgid "Train basic alphabets"
+msgstr ""
+
+#: src/menu.c:58
+msgid "Train typing sentences"
+msgstr ""
+
+#: src/menu.c:59
+msgid "Additional options"
+msgstr ""
+
+#: src/menu.c:60
+#, fuzzy
+msgid "Set your language"
+msgstr "Taal instellen"
+
+#: src/menu.c:61
+msgid "Add or remove words"
+msgstr ""
+
+#: src/menu.c:62
+msgid "Choose your own keys for representing braille dots"
+msgstr ""
+
+#: src/menu.c:63
+#, fuzzy
+msgid "See the project info"
+msgstr "Projectinfo"
+
+#: src/menu.c:64
+msgid "Exit to your desktop"
+msgstr ""
+
+#: src/menu.c:65
+msgid "Return to the main menu"
+msgstr ""
+
 #: src/pause.c:289
 msgid "Sound Effects Volume"
-msgstr "Geluidseffect-volume"
+msgstr "Volume geluidseffecten"
 
 #: src/pause.c:298
 msgid "Music Volume"
-msgstr "Muziek-volume"
+msgstr "Muziekvolume"
 
 #: src/pause.c:309
 msgid "Sound & Music Disabled"
@@ -36,160 +157,160 @@ msgstr "Geluid & Muziek Uitgeschakeld"
 
 #: src/pause.c:319
 msgid "Paused!"
-msgstr "Pauze!"
+msgstr "Gepauzeerd!"
 
 #: src/pause.c:328
 msgid "Press escape again to return to menu"
-msgstr "terug naar het menu? druk op escape"
+msgstr "Druk nogmaals op escape om naar het menu terug te keren"
 
 #: src/pause.c:337
 msgid "Press space bar to return to game"
-msgstr "terug naar het spel? druk op spatiebalk"
+msgstr "Druk op de spatiebalk om terug naar het spel te gaan"
 
-#: src/playgame.c:652
+#: src/playgame.c:363
+#, fuzzy
+msgid "Game Paused."
+msgstr "Gepauzeerd!"
+
+#: src/playgame.c:560
+#, c-format
+msgid "Congratulation! Welcome to level %d!"
+msgstr ""
+
+#: src/playgame.c:570
+msgid "Congratulations! Thank you! please wait till it return to main menu."
+msgstr ""
+
+#: src/playgame.c:592
+msgid "yep you miss it. hahh hahh haa. game over! goodbye!"
+msgstr ""
+
+#: src/playgame.c:775
 msgid "Level"
-msgstr "Level"
+msgstr "Niveau"
 
-#: src/playgame.c:653
+#: src/playgame.c:776
 msgid "Lives"
 msgstr "Levens"
 
 # levels for Cascade game:
-#: src/playgame.c:656 src/titlescreen.c:99
+#: src/playgame.c:779
 msgid "Easy"
 msgstr "Gemakkelijk"
 
-#: src/playgame.c:657 src/titlescreen.c:100
+#: src/playgame.c:780
 msgid "Medium"
-msgstr "Moeilijker"
+msgstr "Middelmatig"
 
-#: src/playgame.c:658 src/titlescreen.c:101
+#: src/playgame.c:781
 msgid "Hard"
-msgstr "Echt Moeilijk"
+msgstr "Moeilijk"
 
 # general stuff
-#: src/playgame.c:659
+#: src/playgame.c:782
 msgid "Practice"
-msgstr "Oefenen"
+msgstr "Oefeningen"
 
-#: src/playgame.c:670
+#: src/playgame.c:793
 msgid "Congratulations"
-msgstr "Gefeliciteerd!"
+msgstr "Gefeliciteerd !"
 
-#: src/playgame.c:674
+#: src/playgame.c:797
 msgid "Oh No!"
 msgstr "Oh Nee!"
 
-#: src/practice.c:626
+#: src/practice.c:717
 msgid "sec"
 msgstr "sec"
 
-#: src/practice.c:1440
+#: src/practice.c:866
+#, c-format
+msgid ""
+"Wow. you completed sentence with %s characters in \t\t\t      %s time, your "
+"speed is %s word per minut and \t\t\t      percentage of accuracy is %s"
+msgstr ""
+
+#: src/practice.c:1632
 msgid "Time"
 msgstr "Tijd"
 
-#: src/practice.c:1444
+#: src/practice.c:1636
 msgid "Chars"
-msgstr "Tekens"
+msgstr "Lettertekens "
 
-#: src/practice.c:1448
+#: src/practice.c:1640
 msgid "CPM"
-msgstr "TPM"
+msgstr "APM"
 
-#: src/practice.c:1452
+#: src/practice.c:1644
 msgid "WPM"
 msgstr "WPM"
 
-#: src/practice.c:1456
+#: src/practice.c:1648
 msgid "Errors"
 msgstr "Fouten"
 
-#: src/practice.c:1460
+#: src/practice.c:1652
 msgid "Accuracy"
 msgstr "Precisie"
 
-#: src/titlescreen.c:99
-msgid "Fish Cascade"
-msgstr "Vallende Vissen"
+#: src/practice.c:1786
+msgid "comma"
+msgstr ""
 
-# "Space Cadet" is level 1 in comet zap
-#: src/titlescreen.c:99
-msgid "Space Cadet"
-msgstr "Leerling-piloot"
+#: src/practice.c:1790
+msgid "full stop"
+msgstr ""
 
-#: src/titlescreen.c:99
-msgid "Edit Word Lists"
-msgstr "Bewerk de woordenlijsten"
+#: src/practice.c:1794
+msgid "apostophe"
+msgstr ""
+
+#: src/practice.c:1798
+msgid "semicolon"
+msgstr ""
+
+#: src/practice.c:1802
+msgid "colon"
+msgstr ""
+
+#: src/practice.c:1806
+msgid "Qustion mark"
+msgstr ""
+
+#: src/practice.c:1810
+msgid "Hyphen"
+msgstr ""
+
+#: src/titlescreen.c:623
+msgid ""
+"Work In Progress!\n"
+"This feature is not ready yet\n"
+"Discuss the future of TuxMath at\n"
+"tuxmath-devel@lists.sourceforge.net"
+msgstr ""
+
+#: src/titlescreen.c:1358
+msgid "WAVE"
+msgstr ""
+
+#: src/titlescreen.c:1360
+msgid "SCORE"
+msgstr ""
+
+
 
 # types of games
-#: src/titlescreen.c:100
-msgid "Comet Zap"
-msgstr "Kometen zappen"
 
-# "Pilot" is level 2 in comet zap
-#: src/titlescreen.c:100
-msgid "Pilot"
-msgstr "Piloot"
 
-#: src/titlescreen.c:100
-msgid "Phrase Typing"
-msgstr "Zinnen typen"
 
-#: src/titlescreen.c:101
-msgid "Lessons"
-msgstr "Lessen"
 
-# "Ace" is level 3 in comet zap
-#: src/titlescreen.c:101
-msgid "Ace"
-msgstr "Gevorderd piloot"
-
-#: src/titlescreen.c:101
-msgid "Project Info"
-msgstr "Project info"
-
-#: src/titlescreen.c:102
-msgid "Options"
-msgstr "Opties"
-
-#: src/titlescreen.c:102
-msgid "Instructions"
-msgstr "Instructies"
-
-# "Commander" is level 4 in comet zap
-#: src/titlescreen.c:102
-msgid "Commander"
-msgstr "Expert"
-
-#: src/titlescreen.c:102
-msgid "Setup Language"
-msgstr "Taal instellen"
-
-#: src/titlescreen.c:103
-msgid "Quit"
-msgstr "Stoppen"
-
-#: src/titlescreen.c:103
-msgid "Main Menu"
-msgstr "Hoofdmenu"
 
 # work in progress stuff
-#: src/titlescreen.c:1129
-msgid "Work In Progress!"
-msgstr "Werk In Uitvoering!"
 
-#: src/titlescreen.c:1130
-msgid "This feature is not ready yet"
-msgstr "Dit onderdeel is nog niet klaar"
 
-#: src/titlescreen.c:1131
-msgid "Discuss the future of TuxTyping at"
-msgstr "Bespreek de toekomst van TuxTyping op"
 
 # general stuff
+#, fuzzy
 
-#~ msgid "Alphabet"
-#~ msgstr "Alfabet"
 
-#~ msgid "Setup Keyboard"
-#~ msgstr "Toetsenbord-instellingen"

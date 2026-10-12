@@ -46,7 +46,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #if defined(__BEOS__) || (defined(__sun) && defined(__SVR4)) || defined(WIN32)
 extern int alphasort(const void *d1, const void *d2);
-extern int scandir(const char *dirname, struct dirent ***namelist, int (*sdfilter)(struct dirent *), int (*dcomp)(const void *, const void *));
+extern int scandir(const char *dirname, struct dirent ***namelist, int (*sdfilter)(const struct dirent *), int (*dcomp)(const void *, const void *));
 #endif
 
 #endif /* HATARI_SCANDIR_H */

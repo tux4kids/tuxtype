@@ -21,10 +21,15 @@ Sreyas Kurumanghat <k.sreyas@gmail.com>
 *                                                                         *
 ***************************************************************************/
 
+#include <wctype.h>
+#include <ctype.h>
 #include "globals.h"
 #include "funcs.h"
 #include "SDL_extras.h"
 #include "convert_utf.h"
+
+int braille_language_loader(const char* file_name);
+void arrange_in_order(wchar_t* str);
 
 #define MAX_PHRASES 256
 #define MAX_PHRASE_LENGTH 256
@@ -305,17 +310,22 @@ int Phrases(wchar_t* pphrase )
         }
         
         //Announce the word with re-draw
+        /* Fix: Don't pass raw phrase wchar_t (contains literal spaces that TTS reads
+         * aloud as the word "space"). Instead announce word + letter-by-letter spelling,
+         * matching how cascade/comet mode announces words. */
         if (pphrase == NULL){
 			//For phrase typing
 			if (cursor == 0){
+				/* First word of a new phrase: say word name then spell it out */
 				T4K_Tts_say(DEFAULT_VALUE,DEFAULT_VALUE,INTERRUPT,
-				"%S %S %S",phrases[cur_phrase],get_next_word(cur_phrase,cursor),
+				"%S. %S",get_next_word(cur_phrase,cursor),
 				get_next_word_letters(cur_phrase,cursor,1));
 			}
 			else
 			{
+				/* Mid-phrase: say next word name then spell remaining letters */
 				T4K_Tts_say(DEFAULT_VALUE,DEFAULT_VALUE,INTERRUPT,
-				"%S %S",get_next_word(cur_phrase,cursor),
+				"%S. %S",get_next_word(cur_phrase,cursor),
 				get_next_word_letters(cur_phrase,cursor,1));
 			}	 
 		}
@@ -334,7 +344,7 @@ int Phrases(wchar_t* pphrase )
         SDL_BlitSurface(hands, NULL, screen, &hand_loc);
         SDL_BlitSurface(keyboard, NULL, screen, &keyboard_loc);
         /* Update entire screen */
-        SDL_UpdateRect(screen, 0, 0, 0, 0);
+        T4K_PresentScreen();
  
         state = 3;
         break;
@@ -383,17 +393,17 @@ int Phrases(wchar_t* pphrase )
     while  (SDL_PollEvent(&event))
     {
 		
-      if (event.type == SDL_KEYDOWN)
+      if (event.type == SDL_EVENT_KEY_DOWN)
       {
-        key = GetIndex((wchar_t)event.key.keysym.unicode);
-        shift_pressed = event.key.keysym.mod&KMOD_SHIFT;
+        key = GetIndex((wchar_t)event.key.key);
+        shift_pressed = event.key.mod & SDL_KMOD_SHIFT;
         tmp = -1;
 
         /* TODO I must be missing something - why aren't we just looking at */
         /* the event.key.keysym.unicode value instead of going through this */
         /* giant switch statement?                                          */
 
-        switch(event.key.keysym.sym)
+        switch(event.key.key)
         {
           case  SDLK_ESCAPE:
             if (Pause() == 1)
@@ -407,6 +417,14 @@ int Phrases(wchar_t* pphrase )
             recalc_positions();
             create_labels();
             state = 1;
+            break;
+
+          case  SDLK_F5:
+            ToggleTTS();
+            break;
+
+          case  SDLK_F9:
+            ToggleBraille();
             break;
 
           case  SDLK_DOWN: //practice next phase in list
@@ -606,8 +624,8 @@ int Phrases(wchar_t* pphrase )
         /* Store each keys till a key released */
         if(settings.braille)
 		{
-		   pressed_letters[braille_iter] = event.key.keysym.sym;
-           braille_iter++;
+		   pressed_letters[braille_iter] = (wchar_t)(event.key.key & 0xFFFF);
+           if (braille_iter < 999) braille_iter++;
            pressed_letters[braille_iter] = L'\0';
            check_key = 0;
 		}
@@ -616,10 +634,10 @@ int Phrases(wchar_t* pphrase )
 			check_key = 1;
 		}
       } 
-      /* End of "if(event.type == SDL_KEYDOWN)" block  --*/
-      else if (event.type == SDL_KEYUP)
+      /* End of "if(event.type == SDL_EVENT_KEY_DOWN)" block  --*/
+      else if (event.type == SDL_EVENT_KEY_UP)
 		{
-			/* ----- SDL_KEYUP is Only for Braille Mode -------------*/
+			/* ----- SDL_EVENT_KEY_UP is Only for Braille Mode -------------*/
 			if(settings.braille)
 			{
 				/* ---- g will make next letter capital ----------*/ 
@@ -690,9 +708,9 @@ int Phrases(wchar_t* pphrase )
 				}
 			}
 		}
-		/* End of "if(event.type == SDL_KEYUP)" block  --*/
+		/* End of "if(event.type == SDL_EVENT_KEY_UP)" block  --*/
 		
-		if((check_key && event.type == SDL_KEYDOWN)  || (check_key && event.type == SDL_KEYUP && settings.braille))
+		if((check_key && event.type == SDL_EVENT_KEY_DOWN)  || (check_key && event.type == SDL_EVENT_KEY_UP && settings.braille))
 		{
         /* If state has changed as direct result of keypress (e.g. F10), leave */
         /* poll event loop so we don't treat it as a simple 'wrong' key: */
@@ -730,7 +748,7 @@ int Phrases(wchar_t* pphrase )
 
         /****************************************************/
         /*  ---------- If user typed correct character, handle it: --------------- */
-        if (phrases[cur_phrase][cursor] == event.key.keysym.unicode || (settings.braille && phrases[cur_phrase][cursor] == tmp))
+        if (phrases[cur_phrase][cursor] == tmp)
         {
           cursor++;
           correct_chars++;
@@ -856,7 +874,7 @@ int Phrases(wchar_t* pphrase )
             tmpsurf = NULL;
           }
 
-          SDL_Flip(screen);
+          T4K_PresentScreen();
 
           /* If player has completed phrase, celebrate! */
           if (cursor == wcslen(phrases[cur_phrase]))
@@ -877,8 +895,8 @@ int Phrases(wchar_t* pphrase )
               {
                 while (SDL_PollEvent(&event))
                 {
-                  if ((event.type == SDL_KEYDOWN)
-                    ||(event.type == SDL_MOUSEBUTTONDOWN))
+                  if ((event.type == SDL_EVENT_KEY_DOWN)
+                    ||(event.type == SDL_EVENT_MOUSE_BUTTON_DOWN))
                     done = 1;
                 }
 
@@ -886,7 +904,7 @@ int Phrases(wchar_t* pphrase )
                 SDL_BlitSurface(CurrentBkgd(), &tux_loc, screen, &tux_loc);
                 if (tux_win && tux_win->frame[tux_win->cur])
                   SDL_BlitSurface(tux_win->frame[tux_win->cur], NULL, screen, &tux_loc);
-                SDL_UpdateRect(screen, tux_loc.x, tux_loc.y, tux_loc.w, tux_loc.h);
+                T4K_PresentScreen();
                 NEXT_FRAME(tux_win);
                 SDL_Delay(200);
               }
@@ -924,13 +942,13 @@ int Phrases(wchar_t* pphrase )
           state = 2;
 
           /* Don't count shift keys as wrong: */
-          if (event.key.keysym.sym != SDLK_RSHIFT
-           && event.key.keysym.sym != SDLK_LSHIFT)
+          if (event.key.key != SDLK_RSHIFT
+           && event.key.key != SDLK_LSHIFT)
           {
             /* Also, don't count spacebar as wrong on first char */
             /* after wrap because we automatically skip it above */
             if((cursor != prev_wrap) 
-             ||(event.key.keysym.sym != SDLK_SPACE))
+             ||(event.key.key != SDLK_SPACE))
             {
               wrong_chars++;
               PlaySound(wrong);
@@ -985,7 +1003,7 @@ int Phrases(wchar_t* pphrase )
 									tts_temp[len] = L'\0';
 									T4K_Tts_say(DEFAULT_VALUE,DEFAULT_VALUE,INTERRUPT,"Type %S with dot %S",get_next_word_letters(cur_phrase,cursor,0),tts_temp);
 									tts_temp[0] = L'\0';
-						
+									break;
 								}
 							}
 					  }
@@ -1008,7 +1026,7 @@ int Phrases(wchar_t* pphrase )
       NEXT_FRAME(tux_stand);
     }
 
-    SDL_UpdateRect(screen, 0, 0, 0, 0);
+    T4K_PresentScreen();
 //    SDL_Flip(screen);
     SDL_Delay(30); /* FIXME should keep frame rate constant */
 
@@ -1755,6 +1773,7 @@ void set_hand(int cursor,int cur_phrase)
 							braille_letter_pos = 1;
 						else
 							braille_letter_pos = 0;					
+						break;
 					}
 				}
 			}
@@ -1783,54 +1802,67 @@ wchar_t *get_next_word_letters(int cur_phrase,int cursor,int till_next_space)
 		
 		if (phrases[cur_phrase][i] == L',')
 		{
-			wcscat(temp,gettext(L"comma"));
+			wcscat(temp,L"comma");
 		}
 		else if (phrases[cur_phrase][i] == L'.')
 		{
-			wcscat(temp,gettext(L"full stop"));
+			wcscat(temp,L"full stop");
 		}
 		else if (phrases[cur_phrase][i] == L'\'')
 		{
-			wcscat(temp,gettext(L"apostophe"));
+			wcscat(temp,L"apostrophe");
 		}
 		else if (phrases[cur_phrase][i] == L';')
 		{
-			wcscat(temp,gettext(L"semicolon"));
+			wcscat(temp,L"semicolon");
 		}		
 		else if (phrases[cur_phrase][i] == L':')
 		{
-			wcscat(temp,gettext(L"colon"));
+			wcscat(temp,L"colon");
 		}
 		else if (phrases[cur_phrase][i] == L'?')
 		{
-			wcscat(temp,gettext(L"Qustion mark"));
+			wcscat(temp,L"Question mark");
 		}
 		else if (phrases[cur_phrase][i] == L'-')
 		{
-			wcscat(temp,gettext(L"Hyphen"));
+			wcscat(temp,L"Hyphen");
 		}		
 		else
 		{
+			/* Use space-only separator (period caused eSpeak to say "dot").
+			 * For 'a'/'A': use phoneme [[eI]] so eSpeak says the letter name
+			 * "ay" instead of the article "a" (schwa). Requires espeakPHONEMES
+			 * flag in t4k_tts.c (which is now set). */
 			iter = wcslen(temp);
-			temp[iter++] = L' ';
 			if(iswupper(phrases[cur_phrase][i]))
 			{
 				temp[iter] = L'\0';	
-				wcscat(temp,L"Capitol ");
-				iter+=8;
+				wcscat(temp,L"Capital ");
+				iter = wcslen(temp);
 			}
-			temp[iter++] = phrases[cur_phrase][i];
-			temp[iter++] = L' ';
-			temp[iter] = L'\0';	
+			if (towlower(phrases[cur_phrase][i]) == L'a')
+			{
+				wcscat(temp, L"[[eI]] ");
+				iter = wcslen(temp);
+			}
+			else
+			{
+				temp[iter++] = phrases[cur_phrase][i];
+				temp[iter++] = L' ';
+				temp[iter] = L'\0';
+			}
 		}
 		
 		if (till_next_space == 0)
 			break;
 	}
-	//Add space if any
+	/* Fix: Replace the literal word "Space" with spoken cue "space." so
+	 * TTS announces the coming space naturally instead of the word "Space"
+	 * being shouted mid-sentence. */
 	if (phrases[cur_phrase][i] == L' ')
 	{
-			wcscat(temp,L" Space");
+			wcscat(temp,L"space.");
 	}
 	
 	return temp;				

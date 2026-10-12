@@ -1,201 +1,111 @@
-# translation of tuxtype.po to Telugu
-# This file is distributed under the same license as the PACKAGE package.
-#
-# Krishna Babu K <kkrothap@redhat.com>, 2008.
+# Translation file for TuxType
 msgid ""
 msgstr ""
 "Project-Id-Version: tuxtype\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2012-02-02 20:16-0600\n"
-"PO-Revision-Date: 2008-08-28 17:58+0530\n"
-"Last-Translator: Krishna Babu K <kkrothap@redhat.com>\n"
-"Language-Team: Telugu <en@li.org>\n"
-"Language: te\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.4\n"
-"Plural-Forms: nplurals=2; plural=(n!=1);\n"
-"\n"
 
-#: src/loaders.c:98 src/main.c:161 src/playgame.c:654
-msgid "Fish"
-msgstr "చాప"
-
-#: src/pause.c:289
-msgid "Sound Effects Volume"
-msgstr "ధ్వని ప్రభావాల శబ్ధం"
-
-#: src/pause.c:298
-msgid "Music Volume"
-msgstr "సంగీతపు శబ్ధం"
-
-#: src/pause.c:309
-msgid "Sound & Music Disabled"
-msgstr "ధ్వని & సంగీతం అచేతనంచేయబడింది"
-
-#: src/pause.c:319
-msgid "Paused!"
-msgstr "నిలువరించు!"
-
-#: src/pause.c:328
-msgid "Press escape again to return to menu"
-msgstr "ప్రధాన మెనూకు తిరిగివ్రాయుటకు ఎస్కేప్‌ను వత్తండి"
-
-#: src/pause.c:337
-msgid "Press space bar to return to game"
-msgstr "ఆటకు తిరిగివచ్చుటకు స్పేస్‌బార్‌ను వత్తండి"
-
-#: src/playgame.c:652
-msgid "Level"
-msgstr "స్థాయి"
-
-#: src/playgame.c:653
-msgid "Lives"
-msgstr "అవకాశాలు"
-
-#: src/playgame.c:656 src/titlescreen.c:99
-msgid "Easy"
-msgstr "తేలికైన"
-
-#: src/playgame.c:657 src/titlescreen.c:100
-msgid "Medium"
-msgstr "మధ్యతరగతి"
-
-#: src/playgame.c:658 src/titlescreen.c:101
-msgid "Hard"
-msgstr "కష్టమైన"
-
-#: src/playgame.c:659
-msgid "Practice"
-msgstr "సాధన"
-
-#: src/playgame.c:670
-msgid "Congratulations"
-msgstr "అభినందనలు"
-
-#: src/playgame.c:674
-msgid "Oh No!"
-msgstr "ఒహ్ కాదు!"
-
-#: src/practice.c:626
-msgid "sec"
-msgstr ""
-
-#: src/practice.c:1440
-msgid "Time"
-msgstr ""
-
-#: src/practice.c:1444
-msgid "Chars"
-msgstr ""
-
-#: src/practice.c:1448
-msgid "CPM"
-msgstr ""
-
-#: src/practice.c:1452
-msgid "WPM"
-msgstr ""
-
-#: src/practice.c:1456
-msgid "Errors"
-msgstr ""
-
-#: src/practice.c:1460
-msgid "Accuracy"
-msgstr ""
-
-#: src/titlescreen.c:99
-msgid "Fish Cascade"
-msgstr "చాప నీటిగుంట"
-
-#: src/titlescreen.c:99
-msgid "Space Cadet"
-msgstr "వింహగ పక్షులు"
-
-#: src/titlescreen.c:99
-msgid "Edit Word Lists"
-msgstr "పదముల జాబితాను సరిచేయి"
-
-#: src/titlescreen.c:100
-msgid "Comet Zap"
-msgstr "కామెట్ జాప్"
-
-#: src/titlescreen.c:100
-msgid "Pilot"
-msgstr "చోదకుడు(పైలెట్)"
-
-#: src/titlescreen.c:100
-msgid "Phrase Typing"
-msgstr ""
-
-#: src/titlescreen.c:101
-msgid "Lessons"
-msgstr "పాఠములు"
-
-#: src/titlescreen.c:101
-msgid "Ace"
-msgstr "ఏస్"
-
-#: src/titlescreen.c:101
-msgid "Project Info"
-msgstr "ప్రాజక్ట్‍ సమాచారం"
-
-#: src/titlescreen.c:102
-msgid "Options"
-msgstr "ఐచ్చికాలు"
-
-#: src/titlescreen.c:102
-msgid "Instructions"
-msgstr "సూచనలు"
-
-#: src/titlescreen.c:102
-msgid "Commander"
-msgstr "ఆదేశకుడు"
-
-#: src/titlescreen.c:102
 msgid "Setup Language"
-msgstr "భాషను అమర్చు"
+msgstr "భాషను అమర్చండి"
 
-#: src/titlescreen.c:103
+msgid "Edit Word Lists"
+msgstr "పదాల జాబితాను సవరించండి"
+
+msgid "Setup Braille Keys"
+msgstr "బ్రెయిలీ కీలను అమర్చండి"
+
+msgid "Main Menu"
+msgstr "ముఖ్య మెనూ"
+
+msgid "Fish Cascade"
+msgstr "ఫిష్ కాస్కేడ్"
+
+msgid "Comet Zap"
+msgstr "కామెట్ జ్యాప్"
+
+msgid "Training"
+msgstr "శిక్షణ"
+
+msgid "Options"
+msgstr "ఎంపికలు"
+
+msgid "Project Info"
+msgstr "ప్రాజెక్ట్ సమాచారం"
+
 msgid "Quit"
 msgstr "నిష్క్రమించు"
 
-#: src/titlescreen.c:103
-msgid "Main Menu"
-msgstr "ప్రధాన మెనూ"
+msgid "Easy"
+msgstr "సులభం"
 
-#: src/titlescreen.c:1129
-msgid "Work In Progress!"
-msgstr "పని జరుగుతోంది!"
+msgid "Medium"
+msgstr "మధ్యస్థం"
 
-#: src/titlescreen.c:1130
-msgid "This feature is not ready yet"
-msgstr "ఈ సౌలభ్యం యింకా సిద్ధము కాలేదు"
+msgid "Hard"
+msgstr "కఠినం"
 
-#: src/titlescreen.c:1131
-msgid "Discuss the future of TuxTyping at"
-msgstr "TuxTyping యొక్క భవిష్యత్తు యిక్కడ చర్చించండి"
+msgid "Space Cadet"
+msgstr "స్పేస్ క్యాడెట్"
 
-#, fuzzy
-#~ msgid "Phrase Practice"
-#~ msgstr "సాధన"
+msgid "Pilot"
+msgstr "పైలట్"
 
-#~ msgid "Great!"
-#~ msgstr "చాలా గొప్ప!"
+msgid "Ace"
+msgstr "ఏస్"
 
-#~ msgid "Next letter "
-#~ msgstr "తరువాత అక్షరము "
+msgid "Commander"
+msgstr "కమాండర్"
 
-#~ msgid "Short Words"
-#~ msgstr "పొట్టి పదాలు"
+msgid "Basic Lessons"
+msgstr "ప్రాథమిక పాఠాలు"
 
-#~ msgid "Medium Words"
-#~ msgstr "కొద్దిగాపెద్ద పదాలు"
+msgid "Phrase Typing"
+msgstr "వాక్యాల టైపింగ్"
 
-#~ msgid "Long Words"
-#~ msgstr "పెద్ద పదాలు"
+msgid "Instructions"
+msgstr "సూచనలు"
 
-#~ msgid "Alphabet"
-#~ msgstr "అక్షరమాల"
+msgid "Moderate"
+msgstr "సాధారణం"
+
+msgid "Hardest"
+msgstr "అత్యంత కఠినమైనది"
+
+msgid "Help Tux eat fish by pressing the letters on the fish"
+msgstr "చేపలపై ఉన్న అక్షరాలను నొక్కి టుక్స్ చేపలు తినడానికి సహాయం చేయండి"
+
+msgid "Defend the cities from comets by typing letter on them using laser!"
+msgstr "లేజర్ ఉపయోగించి అక్షరాలను టైప్ చేయడం ద్వారా నగరాలను కాపాడండి!"
+
+msgid "Train alphabets and phrase typing"
+msgstr "అక్షరాలు మరియు వాక్యాల టైపింగ్ సాధన చేయండి"
+
+msgid "Train basic alphabets"
+msgstr "ప్రాథమిక అక్షరాలను సాధన చేయండి"
+
+msgid "Train typing sentences"
+msgstr "వాక్యాల టైపింగ్ సాధన చేయండి"
+
+msgid "Additional options"
+msgstr "అదనపు ఎంపికలు"
+
+msgid "Set your language"
+msgstr "మీ భాషను ఎంచుకోండి"
+
+msgid "Add or remove words"
+msgstr "పదాలను జోడించండి లేదా తొలగించండి"
+
+msgid "Choose your own keys for representing braille dots"
+msgstr "బ్రెయిలీ చుక్కల కోసం మీ స్వంత కీలను ఎంచుకోండి"
+
+msgid "See the project info"
+msgstr "ప్రాజెక్ట్ సమాచారాన్ని చూడండి"
+
+msgid "Exit to your desktop"
+msgstr "డెస్క్‌టాప్‌కు నిష్క్రమించు"
+
+msgid "Return to the main menu"
+msgstr "ముఖ్యమైన మెనూకు తిరిగి వెళ్లండి"
+

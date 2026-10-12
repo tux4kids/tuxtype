@@ -2,6 +2,26 @@ Tux Typing Original Author:
 ----------
 Sam Hart <hart@geekcomix.com>
 
+SDL3 Edition — Organization & Team:
+------------------------------------
+Organization: Zendalona <https://zendalona.com/>
+Founder:      Nalin Sathyan <Nalin.x.Linux@gmail.com>
+
+Mentors:
+  Nalin Sathyan <Nalin.x.Linux@gmail.com>
+  Mukundhan Annamalai
+  Deepak Aggarwal <deepak.aggarwal9@gmail.com>
+
+Testers:
+  Bholu Kumar D
+  Haritha D
+  Dharshin R
+
+SDL3 Migration Developers:
+  Midhun M <mmidhun781@gmail.com>     - SDL2->SDL3 migration, F5 TTS toggle, F9 Braille toggle,
+                                        Windows MSIX build, macOS app bundle, Ubuntu build system
+  Bholu Kumar D <bholukumar3352@gmail.com> - SDL3 migration co-developer, F5 TTS toggle, F9 Braille toggle
+
 Current Maintainer and Lead Coder:
 -------
 David Bruce <davidstuartbruce@gmail.com>
@@ -20,6 +40,9 @@ Prince K. Antony <prince.kantony@gmail.com>
 Mobin Mohan <mobinmohan@gmail.com>
 Matthew Trey <tux4kids@treyhome.com>
 Sarah Frisk <ssfrisk@gmail.com>
+Midhun M <mmidhun781@gmail.com>  - (SDL3 migration: complete SDL2->SDL3 conversion, Windows/macOS/Ubuntu builds)
+Bholu Kumar D <bholukumar3352@gmail.com>  - (SDL3 migration: co-developer)
+
 
 Packaging & Ports:
 ------------------
@@ -27,6 +50,7 @@ Holger Levsen <holger@debian.org> - (Debian packager)
 David Bruce <davidstuartbruce@gmail.com> - (Windows crossbuild using Linux host, OpenSUSE Build Service rpm packages, MacPorts build)
 Alex Shorthouse <ashorthouse@rsd13.org>  - (more recent Mac OSX port)
 Luc Shrivers <Begasus@skynet.be> - (BeOS/Haiku port)
+Midhun M <mmidhun781@gmail.com> - (SDL3 port: Windows MSIX package, macOS app bundle, Ubuntu build system)
 
 (previous packagers:)
 David Marshman <marshy@silvan.demon.co.uk> - (BeOS port/packages)

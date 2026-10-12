@@ -38,7 +38,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef INPUT_METHODS_H
 #define INPUT_METHODS_H
 
-#include "SDL.h"
+#include "SDL_extras.h"
 //#include "i18n.h"
 
 

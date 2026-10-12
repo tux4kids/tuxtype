@@ -145,10 +145,14 @@ int LoadKeyboard(void)
 
     do
     {
-      int fscanf_result = fscanf( f, "%[^\n]\n", str);
+      str[0] = '\0';
+      int fscanf_result = fscanf( f, "%254[^\n]\n", str);
       
       if (fscanf_result == EOF)
         break;
+      if (fscanf_result != 1 || str[0] == '\0')
+        continue;
+
       /* Convert to wcs from UTF-8, if needed; */
       ConvertFromUTF8(wide_str, str, 255);
 
@@ -395,10 +399,10 @@ int unicode_in_key_list(wchar_t uni_char)
 // 	while (!stop) 
 // 		while (SDL_PollEvent(&event)) 
 // 			switch (event.type) {
-// 				case SDL_QUIT:
+// 				case SDL_EVENT_QUIT:
 // 					exit(0);
-// 				case SDL_KEYDOWN:
-// 				case SDL_MOUSEBUTTONDOWN:
+// 				case SDL_EVENT_KEY_DOWN:
+// 				case SDL_EVENT_MOUSE_BUTTON_DOWN:
 // 					stop = 1;
 // 			}
 // 

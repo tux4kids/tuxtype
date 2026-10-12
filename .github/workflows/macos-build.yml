@@ -1,0 +1,143 @@
+name: macOS Build
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+    - name: Install Dependencies
+      run: |
+        brew update
+        brew install cmake pkg-config dylibbundler gettext libpng libxml2 librsvg espeak-ng \
+          sdl3 sdl3_image sdl3_ttf sdl3_mixer
+
+    - name: Checkout tuxtype
+      uses: actions/checkout@v4
+      with:
+        path: tuxtype
+
+    - name: Checkout t4kcommon
+      uses: actions/checkout@v4
+      with:
+        repository: Midhun-M-git/t4kcommon
+        path: t4kcommon
+
+    - name: Build and Install t4kcommon
+      run: |
+        STAGE_DIR="$(pwd)/stage"
+        mkdir -p "${STAGE_DIR}"
+        HOMEBREW_PREFIX="$(brew --prefix)"
+        GETTEXT_PREFIX="$(brew --prefix gettext)"
+        cd t4kcommon
+        mkdir build && cd build
+        cmake .. \
+          -DCMAKE_INSTALL_PREFIX="${STAGE_DIR}" \
+          -DCMAKE_PREFIX_PATH="${HOMEBREW_PREFIX};${GETTEXT_PREFIX}" \
+          -DCMAKE_C_FLAGS="-I${HOMEBREW_PREFIX}/include -I${GETTEXT_PREFIX}/include" \
+          -DCMAKE_SHARED_LINKER_FLAGS="-L${HOMEBREW_PREFIX}/lib -L${GETTEXT_PREFIX}/lib -lintl -liconv -lpng" \
+          -DCMAKE_EXE_LINKER_FLAGS="-L${HOMEBREW_PREFIX}/lib -L${GETTEXT_PREFIX}/lib -lintl -liconv -lpng"
+        make -j$(sysctl -n hw.ncpu)
+        make install
+
+    - name: Build tuxtype
+      run: |
+        STAGE_DIR="$(pwd)/stage"
+        HOMEBREW_PREFIX="$(brew --prefix)"
+        GETTEXT_PREFIX="$(brew --prefix gettext)"
+        cd tuxtype
+        mkdir build && cd build
+        cmake .. \
+          -DCMAKE_INSTALL_PREFIX="${STAGE_DIR}" \
+          -DCMAKE_PREFIX_PATH="${HOMEBREW_PREFIX};${GETTEXT_PREFIX};${STAGE_DIR}" \
+          -DCMAKE_C_FLAGS="-I${HOMEBREW_PREFIX}/include -I${GETTEXT_PREFIX}/include -I${STAGE_DIR}/include -DHAVE_SETENV=1" \
+          -DCMAKE_EXE_LINKER_FLAGS="-L${HOMEBREW_PREFIX}/lib -L${GETTEXT_PREFIX}/lib -L${STAGE_DIR}/lib -lintl -liconv -lpng"
+        make -j$(sysctl -n hw.ncpu)
+        make translations || true
+
+    - name: Assemble TuxType.app Bundle
+      run: |
+        STAGE_DIR="$(pwd)/stage"
+        HOMEBREW_PREFIX="$(brew --prefix)"
+        GETTEXT_PREFIX="$(brew --prefix gettext)"
+
+        mkdir -p TuxType.app/Contents/MacOS
+        mkdir -p TuxType.app/Contents/Resources/data
+        mkdir -p TuxType.app/Contents/Frameworks
+
+        cp tuxtype/build/src/tuxtype TuxType.app/Contents/MacOS/
+        cp tuxtype/Info.plist TuxType.app/Contents/
+        cp tuxtype/entitlements.plist TuxType.app/Contents/
+        cp -R tuxtype/data/* TuxType.app/Contents/Resources/data/
+        cp tuxtype/data/images/icons/tuxtype.icns TuxType.app/Contents/Resources/
+        if [ -d "${HOMEBREW_PREFIX}/share/espeak-ng-data" ]; then
+          cp -RL "${HOMEBREW_PREFIX}/share/espeak-ng-data" TuxType.app/Contents/Resources/
+        fi
+
+        dylibbundler -b \
+          -x TuxType.app/Contents/MacOS/tuxtype \
+          -d TuxType.app/Contents/Frameworks/ \
+          -p @executable_path/../Frameworks/ \
+          -s "${HOMEBREW_PREFIX}/lib" \
+          -s "${GETTEXT_PREFIX}/lib" \
+          -s "${STAGE_DIR}/lib" \
+          -s t4kcommon/build/src \
+          -of
+
+        python3 -c '
+        import os, subprocess, glob
+        def dedupe_rpaths(path):
+            proc = subprocess.run(["otool", "-l", path], capture_output=True, text=True)
+            rpaths = []
+            lines = proc.stdout.splitlines()
+            for i, line in enumerate(lines):
+                if "cmd LC_RPATH" in line:
+                    for j in range(i+1, min(i+4, len(lines))):
+                        if "path " in lines[j]:
+                            p = lines[j].split("path ")[1].split(" (offset")[0].strip()
+                            rpaths.append(p)
+                            break
+            seen = set()
+            duplicates = []
+            for r in rpaths:
+                if r in seen:
+                    duplicates.append(r)
+                else:
+                    seen.add(r)
+            for r in duplicates:
+                subprocess.run(["install_name_tool", "-delete_rpath", r, path], check=True)
+            if duplicates:
+                subprocess.run(["codesign", "-f", "-s", "-", path], check=True)
+        files = [f for f in glob.glob("TuxType.app/Contents/Frameworks/*.dylib")] + ["TuxType.app/Contents/MacOS/tuxtype"]
+        for f in files:
+            if os.path.isfile(f) and not os.path.islink(f):
+                dedupe_rpaths(f)
+        '
+
+        codesign --deep --force --verify --verbose --sign - TuxType.app
+
+    - name: Create DMG and PKG Packages
+      run: |
+        # Create DMG (for direct download)
+        rm -rf dmg_root TuxType-macOS.dmg
+        mkdir -p dmg_root
+        cp -R TuxType.app dmg_root/
+        ln -s /Applications dmg_root/Applications
+        hdiutil create -volname "TuxType" -srcfolder dmg_root -ov -format UDZO TuxType-macOS.dmg
+        rm -rf dmg_root
+
+        # Create PKG (for App Store)
+        pkgbuild --component TuxType.app --install-location /Applications TuxType-AppStore.pkg
+
+    - name: Upload macOS Packages
+      uses: actions/upload-artifact@v4
+      with:
+        name: TuxType-macOS
+        path: |
+          TuxType-macOS.dmg
+          TuxType-AppStore.pkg

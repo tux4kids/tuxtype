@@ -1,0 +1,97 @@
+name: Ubuntu Linux Build
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Install Dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y build-essential cmake pkg-config \
+          libxml2-dev librsvg2-dev libpng-dev libespeak-ng-dev \
+          libjpeg-dev libwebp-dev libtiff-dev libfreetype6-dev libharfbuzz-dev \
+          libvorbis-dev libflac-dev libmpg123-dev libopusfile-dev \
+          libwayland-dev libx11-dev libxext-dev libxcursor-dev libxtst-dev \
+          libxi-dev libxinerama-dev libxrandr-dev libxss-dev libxxf86vm-dev \
+          libasound2-dev libpulse-dev libdbus-1-dev libudev-dev libgl1-mesa-dev \
+          libgles2-mesa-dev libegl1-mesa-dev libxkbcommon-dev gettext \
+          libspeechd-dev speech-dispatcher
+
+    - name: Build SDL3 from source
+      run: |
+        git clone --depth 1 https://github.com/libsdl-org/SDL.git
+        cd SDL && mkdir build && cd build && cmake .. -DCMAKE_INSTALL_PREFIX=/usr/local && make -j$(nproc) && sudo make install
+
+    - name: Build SDL3_image from source
+      run: |
+        git clone --depth 1 https://github.com/libsdl-org/SDL_image.git
+        cd SDL_image && mkdir build && cd build && cmake .. -DCMAKE_INSTALL_PREFIX=/usr/local && make -j$(nproc) && sudo make install
+
+    - name: Build SDL3_ttf from source
+      run: |
+        git clone --depth 1 https://github.com/libsdl-org/SDL_ttf.git
+        cd SDL_ttf && mkdir build && cd build && cmake .. -DCMAKE_INSTALL_PREFIX=/usr/local && make -j$(nproc) && sudo make install
+
+    - name: Build SDL3_mixer from source
+      run: |
+        git clone --depth 1 https://github.com/libsdl-org/SDL_mixer.git
+        cd SDL_mixer && mkdir build && cd build && cmake .. -DCMAKE_INSTALL_PREFIX=/usr/local && make -j$(nproc) && sudo make install
+        sudo ldconfig
+
+    - name: Checkout tuxtype
+      uses: actions/checkout@v4
+      with:
+        path: tuxtype
+
+    - name: Checkout t4kcommon
+      uses: actions/checkout@v4
+      with:
+        repository: Midhun-M-git/t4kcommon
+        path: t4kcommon
+
+    - name: Build and Install t4kcommon
+      run: |
+        cd t4kcommon
+        mkdir build && cd build
+        cmake .. -DCMAKE_INSTALL_PREFIX=/usr/local
+        make -j$(nproc)
+        sudo make install
+        sudo ldconfig
+
+    - name: Build tuxtype (espeak-ng backend)
+      run: |
+        cd tuxtype
+        mkdir build-espeak && cd build-espeak
+        cmake .. -DCMAKE_INSTALL_PREFIX=/usr/local \
+          -DWITH_ESPEAK=ON \
+          -DWITH_ESPEAK_NG=ON
+        make -j$(nproc)
+        sudo make install
+
+    - name: Build tuxtype (libspeechd backend)
+      run: |
+        cd tuxtype
+        mkdir build-speechd && cd build-speechd
+        cmake .. -DCMAKE_INSTALL_PREFIX=/usr/local \
+          -DWITH_ESPEAK=OFF \
+          -DHAVE_LIBSPEECHD=ON
+        make -j$(nproc)
+
+    - name: Upload espeak build artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: TuxType-Ubuntu-espeak
+        path: tuxtype/build-espeak/src/tuxtype
+
+    - name: Upload speechd build artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: TuxType-Ubuntu-speechd
+        path: tuxtype/build-speechd/src/tuxtype

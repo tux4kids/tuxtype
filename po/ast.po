@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tuxtype 1.8.0\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2012-02-02 20:16-0600\n"
+"POT-Creation-Date: 2026-07-23 16:17+0530\n"
 "PO-Revision-Date: 2011-03-20 09:43+0200\n"
 "Last-Translator: Xandru Armesto <xandru@softastur.org>\n"
 "Language-Team: Softastur alministradores@softastur.org\n"
@@ -18,9 +18,125 @@ msgstr ""
 "X-Generator: Virtaal 0.5.2\n"
 "X-Poedit-Language: Asturian\n"
 
-#: src/loaders.c:98 src/main.c:161 src/playgame.c:654
+#: src/laser.c:557
+#, c-format
+msgid "Score %d"
+msgstr ""
+
+#: src/laser.c:611
+#, c-format
+msgid "yep you miss it. hahh hahh haa. game over! you scored %d goodbye!"
+msgstr ""
+
+#: src/laser.c:754
+#, fuzzy
+msgid "Game Paused!"
+msgstr "¡Pausa!"
+
+#: src/laser.c:757 src/playgame.c:375
+#, fuzzy
+msgid "Pause Released!"
+msgstr "¡Pausa!"
+
+#: src/loaders.c:113 src/main.c:189 src/playgame.c:777
 msgid "Fish"
 msgstr "Pexes"
+
+#: src/loaders.c:138
+msgid "Braille mode is not available for this language. Braille disabled!"
+msgstr ""
+
+#: src/loaders.c:150
+msgid "Tts is not available for this language. Tts disabled!"
+msgstr ""
+
+#: src/menu.c:45
+msgid "Training"
+msgstr ""
+
+#: src/menu.c:46
+#, fuzzy
+msgid "Basic Lessons"
+msgstr "Lleiciones"
+
+#: src/menu.c:47
+msgid "Phrase Typing"
+msgstr "Mecanografía de Frase"
+
+#: src/menu.c:48
+msgid "Help Tux eat fish by pressing the letters on the fish"
+msgstr ""
+
+#: src/menu.c:49
+msgid "Defend the cities from comets by typing letter on them using laser!"
+msgstr ""
+
+#: src/menu.c:50
+msgid "Space Cadet"
+msgstr "Cadete Espacial"
+
+#: src/menu.c:51
+msgid "Pilot"
+msgstr "Pilotu"
+
+#: src/menu.c:52
+msgid "Ace"
+msgstr "As"
+
+#: src/menu.c:53
+msgid "Commander"
+msgstr "Comandante"
+
+#: src/menu.c:54
+msgid "Moderate"
+msgstr ""
+
+#: src/menu.c:55
+#, fuzzy
+msgid "Hardest"
+msgstr "Difícil"
+
+#: src/menu.c:56
+msgid "Train alphabets and phrase typing"
+msgstr ""
+
+#: src/menu.c:57
+msgid "Train basic alphabets"
+msgstr ""
+
+#: src/menu.c:58
+msgid "Train typing sentences"
+msgstr ""
+
+#: src/menu.c:59
+msgid "Additional options"
+msgstr ""
+
+#: src/menu.c:60
+#, fuzzy
+msgid "Set your language"
+msgstr "Llingua"
+
+#: src/menu.c:61
+msgid "Add or remove words"
+msgstr ""
+
+#: src/menu.c:62
+msgid "Choose your own keys for representing braille dots"
+msgstr ""
+
+#: src/menu.c:63
+#, fuzzy
+msgid "See the project info"
+msgstr "Información del Proyeutu"
+
+#: src/menu.c:64
+msgid "Exit to your desktop"
+msgstr ""
+
+#: src/menu.c:65
+msgid "Return to the main menu"
+msgstr ""
 
 #: src/pause.c:289
 msgid "Sound Effects Volume"
@@ -46,134 +162,141 @@ msgstr "Calca \"escape\" otra vuelta pa tornar al menú"
 msgid "Press space bar to return to game"
 msgstr "Calca \"espaciu\" pa tornar al xuegu"
 
-#: src/playgame.c:652
+#: src/playgame.c:363
+#, fuzzy
+msgid "Game Paused."
+msgstr "¡Pausa!"
+
+#: src/playgame.c:560
+#, c-format
+msgid "Congratulation! Welcome to level %d!"
+msgstr ""
+
+#: src/playgame.c:570
+msgid "Congratulations! Thank you! please wait till it return to main menu."
+msgstr ""
+
+#: src/playgame.c:592
+msgid "yep you miss it. hahh hahh haa. game over! goodbye!"
+msgstr ""
+
+#: src/playgame.c:775
 msgid "Level"
 msgstr "Nivel"
 
-#: src/playgame.c:653
+#: src/playgame.c:776
 msgid "Lives"
 msgstr "Vides"
 
-#: src/playgame.c:656 src/titlescreen.c:99
+#: src/playgame.c:779
 msgid "Easy"
 msgstr "Fácil"
 
-#: src/playgame.c:657 src/titlescreen.c:100
+#: src/playgame.c:780
 msgid "Medium"
 msgstr "Mediu"
 
-#: src/playgame.c:658 src/titlescreen.c:101
+#: src/playgame.c:781
 msgid "Hard"
 msgstr "Difícil"
 
-#: src/playgame.c:659
+#: src/playgame.c:782
 msgid "Practice"
 msgstr "Practicar"
 
-#: src/playgame.c:670
+#: src/playgame.c:793
 msgid "Congratulations"
 msgstr "Norabona"
 
-#: src/playgame.c:674
+#: src/playgame.c:797
 msgid "Oh No!"
 msgstr "¡Oh, Non!"
 
-#: src/practice.c:626
+#: src/practice.c:717
 msgid "sec"
 msgstr "seg."
 
-#: src/practice.c:1440
+#: src/practice.c:866
+#, c-format
+msgid ""
+"Wow. you completed sentence with %s characters in \t\t\t      %s time, your "
+"speed is %s word per minut and \t\t\t      percentage of accuracy is %s"
+msgstr ""
+
+#: src/practice.c:1632
 msgid "Time"
 msgstr "Tiempu"
 
-#: src/practice.c:1444
+#: src/practice.c:1636
 msgid "Chars"
 msgstr "Gráficos"
 
-#: src/practice.c:1448
+#: src/practice.c:1640
 msgid "CPM"
 msgstr "CPM"
 
-#: src/practice.c:1452
+#: src/practice.c:1644
 msgid "WPM"
 msgstr "WPM"
 
-#: src/practice.c:1456
+#: src/practice.c:1648
 msgid "Errors"
 msgstr "Errores"
 
-#: src/practice.c:1460
+#: src/practice.c:1652
 msgid "Accuracy"
 msgstr "Precisión"
 
-#: src/titlescreen.c:99
-msgid "Fish Cascade"
-msgstr "Cascada de Pexes"
+#: src/practice.c:1786
+msgid "comma"
+msgstr ""
 
-#: src/titlescreen.c:99
-msgid "Space Cadet"
-msgstr "Cadete Espacial"
+#: src/practice.c:1790
+msgid "full stop"
+msgstr ""
 
-#: src/titlescreen.c:99
-msgid "Edit Word Lists"
-msgstr "Editar les Llistes de Pallabres"
+#: src/practice.c:1794
+msgid "apostophe"
+msgstr ""
 
-#: src/titlescreen.c:100
-msgid "Comet Zap"
-msgstr "Cometes"
+#: src/practice.c:1798
+msgid "semicolon"
+msgstr ""
 
-#: src/titlescreen.c:100
-msgid "Pilot"
-msgstr "Pilotu"
+#: src/practice.c:1802
+msgid "colon"
+msgstr ""
 
-#: src/titlescreen.c:100
-msgid "Phrase Typing"
-msgstr "Mecanografía de Frase"
+#: src/practice.c:1806
+msgid "Qustion mark"
+msgstr ""
 
-#: src/titlescreen.c:101
-msgid "Lessons"
-msgstr "Lleiciones"
+#: src/practice.c:1810
+msgid "Hyphen"
+msgstr ""
 
-#: src/titlescreen.c:101
-msgid "Ace"
-msgstr "As"
+#: src/titlescreen.c:623
+msgid ""
+"Work In Progress!\n"
+"This feature is not ready yet\n"
+"Discuss the future of TuxMath at\n"
+"tuxmath-devel@lists.sourceforge.net"
+msgstr ""
 
-#: src/titlescreen.c:101
-msgid "Project Info"
-msgstr "Información del Proyeutu"
+#: src/titlescreen.c:1358
+msgid "WAVE"
+msgstr ""
 
-#: src/titlescreen.c:102
-msgid "Options"
-msgstr "Opciones"
+#: src/titlescreen.c:1360
+msgid "SCORE"
+msgstr ""
 
-#: src/titlescreen.c:102
-msgid "Instructions"
-msgstr "Instrucciones"
 
-#: src/titlescreen.c:102
-msgid "Commander"
-msgstr "Comandante"
 
-#: src/titlescreen.c:102
-msgid "Setup Language"
-msgstr "Llingua"
 
-#: src/titlescreen.c:103
-msgid "Quit"
-msgstr "Colar"
 
-#: src/titlescreen.c:103
-msgid "Main Menu"
-msgstr "Menú Principal"
 
-#: src/titlescreen.c:1129
-msgid "Work In Progress!"
-msgstr "¡Trabayando nello!"
 
-#: src/titlescreen.c:1130
-msgid "This feature is not ready yet"
-msgstr "Esta función nun ta preparada entá"
 
-#: src/titlescreen.c:1131
-msgid "Discuss the future of TuxTyping at"
-msgstr "Alderica al rodiu del futuru de TuxTyping en"
+
+

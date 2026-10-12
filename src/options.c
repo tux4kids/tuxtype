@@ -48,6 +48,7 @@ void Opts_Initialize(void)
   settings.tts = DEFAULT_TTS;
   text_to_speech_status = DEFAULT_TTS;
   settings.tts_volume = DEFAULT_TTS_VOLUME;
+  settings.tts_rate = DEFAULT_TTS_RATE;
   settings.sfx_volume = DEFAULT_SFX_VOLUME;
   settings.mus_volume = DEFAULT_MUS_VOLUME;
   settings.menu_music = DEFAULT_MENU_MUSIC;

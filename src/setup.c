@@ -31,6 +31,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "SDL_extras.h"
 
 
+SDL_Window* window = NULL;
+SDL_Renderer* renderer = NULL;
+
 int fs_res_x = 0;
 int fs_res_y = 0;
 
@@ -44,81 +47,99 @@ static int load_settings_filename(const char* fn);
 ****************************/
 void GraphicsInit(void)
 {
-  const SDL_VideoInfo* video_info = SDL_GetVideoInfo();
-  Uint32 surface_mode = 0;
+  const SDL_DisplayMode *mode = NULL;
+  Uint32 window_flags = 0;
+  int w = RES_X;
+  int h = RES_Y;
 
   DEBUGCODE
   { fprintf(stderr, "Entering GraphicsInit()\n"); };
 
-  //Set application's icon:
-  seticon();
-  //Set caption:
-  SDL_WM_SetCaption("Tux Typing", "TuxType");
-
-  if (video_info->hw_available)
+  // Determine the current resolution: this will be used as the
+  // fullscreen resolution, if the user wants fullscreen.
+  mode = SDL_GetDesktopDisplayMode(SDL_GetPrimaryDisplay());
+  if (mode)
   {
-    surface_mode = SDL_HWSURFACE;
-    LOG("HW mode\n");
+    fs_res_x = mode->w;
+    fs_res_y = mode->h;
   }
   else
   {
-    surface_mode = SDL_SWSURFACE;
-    LOG("SW mode\n");
+    fs_res_x = RES_X;
+    fs_res_y = RES_Y;
   }
 
-  // Determine the current resolution: this will be used as the
-  // fullscreen resolution, if the user wants fullscreen.
   DEBUGCODE
   {
     fprintf(stderr, "Current resolution: w %d, h %d.\n", 
-            video_info->current_w, video_info->current_h);
+            fs_res_x, fs_res_y);
   }
-
-  /* For fullscreen, we try to use current resolution from OS: */
-  
-  fs_res_x = video_info->current_w;
-  fs_res_y = video_info->current_h;
 
   if (settings.fullscreen == 1)
   {
-    screen = SDL_SetVideoMode(fs_res_x, fs_res_y, BPP, SDL_FULLSCREEN | surface_mode);
-    if (screen == NULL)
-    {
-      fprintf(stderr,
+    window_flags |= SDL_WINDOW_FULLSCREEN;
+    w = fs_res_x;
+    h = fs_res_y;
+  }
+
+  window = SDL_CreateWindow("Tux Typing", w, h, window_flags);
+  if (!window && (window_flags & SDL_WINDOW_FULLSCREEN))
+  {
+    fprintf(stderr,
             "\nWarning: I could not open the display in fullscreen mode.\n"
             "The Simple DirectMedia error that occured was:\n"
             "%s\n\n", SDL_GetError());
-      settings.fullscreen = 0;
-    }
+    settings.fullscreen = 0;
+    window_flags &= ~SDL_WINDOW_FULLSCREEN;
+    w = RES_X;
+    h = RES_Y;
+    window = SDL_CreateWindow("Tux Typing", w, h, window_flags);
   }
 
-  /* Either fullscreen not requested, or couldn't get fullscreen in SDL: */
-  if (settings.fullscreen == 0)
-  {
-    screen = SDL_SetVideoMode(RES_X, RES_Y, BPP, surface_mode);
-  }
-
-  /* Failed to get a usable screen - must bail out! */
-  if (screen == NULL)
+  if (!window)
   {
     fprintf(stderr,
-          "\nError: I could not open the display.\n"
+          "\nError: I could not open the display window.\n"
           "The Simple DirectMedia error that occured was:\n"
           "%s\n\n", SDL_GetError());
     exit(2);
   }
 
+  renderer = SDL_CreateRenderer(window, NULL);
+  if (!renderer)
+  {
+    fprintf(stderr,
+          "\nError: I could not create the renderer.\n"
+          "The Simple DirectMedia error that occured was:\n"
+          "%s\n\n", SDL_GetError());
+    exit(2);
+  }
+
+  T4K_SetWindowAndRenderer(window, renderer);
+
+  screen = SDL_CreateSurface(w, h, SDL_PIXELFORMAT_ARGB8888);
+  if (!screen)
+  {
+    fprintf(stderr,
+          "\nError: I could not create the software screen surface.\n"
+          "The Simple DirectMedia error that occured was:\n"
+          "%s\n\n", SDL_GetError());
+    exit(2);
+  }
+
+  T4K_SetScreen(screen);
+  T4K_SetResolutions(RES_X, RES_Y, fs_res_x, fs_res_y);
+
+  //Set application's icon:
+  seticon();
+
   InitBlitQueue();
-
-
+  T4K_InitBlitQueue();
 
   DEBUGCODE 
   {
-    video_info = SDL_GetVideoInfo();
-    fprintf(stderr, "-SDL VidMode successfully set to %ix%ix%i\n",
-            video_info->current_w,
-            video_info->current_h,
-            video_info->vfmt->BitsPerPixel);
+    fprintf(stderr, "-SDL VidMode successfully set to %ix%i\n",
+            w, h);
   }
 
 	LOG( "GraphicsInit():END\n" );
@@ -151,7 +172,10 @@ void LibInit(Uint32 lib_flags)
       settings.sys_sound = 0;
     }
     else
+    {
       LOG("SDL_InitSubSystem(SDL_INIT_AUDIO) succeeded\n");
+      MIX_Init();
+    }
   }
 
 // atexit(SDL_Quit); // fire and forget... 
@@ -164,50 +188,10 @@ void LibInit(Uint32 lib_flags)
   /* FIXME should read settings before we do this: */ 
   if (settings.sys_sound) //can be turned off with "--nosound" runtime flag
   {
-    int initted = 1;
-
-    /* For SDL_mixer 1.2.10 and later, we must call Mix_Init() before any */
-    /* other SDL_mixer functions. We can see what types of audio files    */
-    /* are supported at this time (ogg and mod are required):             */
-
-#ifdef HAVE_MIX_INIT
-    int flags = MIX_INIT_OGG | MIX_INIT_MP3 | MIX_INIT_MOD | MIX_INIT_FLAC;
-    initted = Mix_Init(flags);
-
-    /* Just give warnings if MP3 or FLAC not supported: */
-    if((initted & MIX_INIT_MP3) != MIX_INIT_MP3)
-      LOG("NOTE - MP3 playback not supported\n");
-    if((initted & MIX_INIT_FLAC) != MIX_INIT_FLAC)
-      LOG("NOTE - MP3 playback not supported\n");
-
-    /* We must have Ogg and Mod support to have sound: */
-    if((initted & (MIX_INIT_OGG | MIX_INIT_MOD)) != (MIX_INIT_OGG | MIX_INIT_MOD))
-    {
-      fprintf(stderr, "Mix_Init: Failed to init required ogg and mod support!\n");
-      fprintf(stderr, "Mix_Init: %s\n", Mix_GetError());
-      settings.sys_sound = 0;
-      initted = 0;
-    }
-    else
-      LOG("Mix_Init() succeeded\n");
-#endif
-
-    DOUT(initted);
-
-    /* If Mix_Init() succeeded (or wasn't required), set audio parameters: */
-    if(initted)
-    {
-      LOG("About to call Mix_OpenAudio():\n");
-//    if (Mix_OpenAudio(22050, AUDIO_S16, 1, 2048) == -1)
-      if(Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, 1, 2048) ==
-		      -1)
-      {
-        fprintf(stderr, "Warning: Mix_OpenAudio() failed\n - Reasons: %s\n", SDL_GetError());
-        settings.sys_sound = 0;
-      }
-      else
-        LOG("Mix_OpenAudio() successful\n");
-    }
+    /* SDL3_mixer's fire-and-forget API (used via t4kcommon's T4K_Audio*
+       functions) manages its own default mixer internally — no explicit
+       init needed here. */
+    LOG("Audio enabled\n");
   }
 
   LOG( "-about to init SDL text library (SDL_ttf or SDL_Pango\n" );
@@ -364,6 +348,34 @@ static int load_settings_fp(FILE* fp)
       settings.tts_volume = atoi(value);
       setting_found = 1;
     }
+    else if (strncmp(setting, "tts", FNLEN) == 0)
+    {
+      DEBUGCODE {fprintf(stderr, "LoadSettings: Setting tts to %s\n", value);}
+      settings.tts = atoi(value);
+      text_to_speech_status = settings.tts;
+      setting_found = 1;
+    }
+    else if (strncmp(setting, "tts_rate", FNLEN) == 0)
+    {
+      DEBUGCODE {fprintf(stderr, "LoadSettings: Setting tts_rate to %s\n", value);}
+      settings.tts_rate = atoi(value);
+      /* Migrate legacy 0-100 values if present */
+      if (settings.tts_rate > 4) {
+        if (settings.tts_rate <= 30)      settings.tts_rate = 0;
+        else if (settings.tts_rate <= 45) settings.tts_rate = 1;
+        else if (settings.tts_rate <= 60) settings.tts_rate = 2;
+        else if (settings.tts_rate <= 80) settings.tts_rate = 3;
+        else                              settings.tts_rate = 4;
+      }
+      if (settings.tts_rate < 0) settings.tts_rate = 0;
+      setting_found = 1;
+    }
+    else if (strncmp(setting, "braille", FNLEN) == 0)
+    {
+      DEBUGCODE {fprintf(stderr, "LoadSettings: Setting braille to %s\n", value);}
+      settings.braille = atoi(value);
+      setting_found = 1;
+    }
     else
       DEBUGCODE {fprintf(stderr, "load_settings_fp(): unrecognized string: %s\n", value);}
 
@@ -432,6 +444,9 @@ void SaveSettings(void)
 	fprintf( settingsFile, "menu_music=%d\n", settings.menu_music );
 	fprintf( settingsFile, "fullscreen=%d\n", settings.fullscreen);
 	fprintf( settingsFile, "tts_volume=%d\n", settings.tts_volume);
+	fprintf( settingsFile, "tts=%d\n", settings.tts);
+	fprintf( settingsFile, "tts_rate=%d\n", settings.tts_rate);
+	fprintf( settingsFile, "braille=%d\n", settings.braille);
 
 
 // 	if (screen->flags & SDL_FULLSCREEN){
@@ -530,8 +545,6 @@ int SetupPaths(const char* theme_dir)
 
   /* Now check for VAR_PREFIX (for modifiable data shared by all users, */ 
   /* such as custom word lists, high scores, etc:                       */
-  /* This will generally be /var/lib/tuxtype (distro-provided pkg)      */
-  /* or /usr/local/etc/tuxtype (locally-built and installed pkg)        */
   if (CheckFile(VAR_PREFIX))
   {
     strncpy(settings.var_data_path, VAR_PREFIX, FNLEN - 1);
@@ -539,13 +552,21 @@ int SetupPaths(const char* theme_dir)
   }
   else
   {
-    fprintf(stderr, "Error - VAR_PREFIX = '%s' not found!\n", VAR_PREFIX);
-    return 0;
+  #ifndef WIN32
+    mkdir(VAR_PREFIX, 0777);
+  #endif
+    if (CheckFile(VAR_PREFIX))
+    {
+      strncpy(settings.var_data_path, VAR_PREFIX, FNLEN - 1);
+    }
+    else
+    {
+      fprintf(stderr, "Warning - VAR_PREFIX = '%s' not found, falling back to '%s'\n", VAR_PREFIX, DATA_PREFIX);
+      strncpy(settings.var_data_path, DATA_PREFIX, FNLEN - 1);
+    }
   }
 
   /* Now check for CONF_PREFIX (for program wide settings that apply to all users). */ 
-  /* This would typically be /etc/tuxtype if tuxtype is installed by a distro pkg,  */
-  /* or /usr/local/etc/tuxtype if the package is built locally                      */
   if (CheckFile(CONF_PREFIX))
   {
     strncpy(settings.global_settings_path, CONF_PREFIX, FNLEN - 1);
@@ -553,8 +574,18 @@ int SetupPaths(const char* theme_dir)
   }
   else
   {
-    fprintf(stderr, "Error - CONF_PREFIX = '%s' not found!\n", CONF_PREFIX);
-    return 0;
+  #ifndef WIN32
+    mkdir(CONF_PREFIX, 0755);
+  #endif
+    if (CheckFile(CONF_PREFIX))
+    {
+      strncpy(settings.global_settings_path, CONF_PREFIX, FNLEN - 1);
+    }
+    else
+    {
+      fprintf(stderr, "Warning - CONF_PREFIX = '%s' not found, falling back to '%s'\n", CONF_PREFIX, DATA_PREFIX);
+      strncpy(settings.global_settings_path, DATA_PREFIX, FNLEN - 1);
+    }
   }
 
 
@@ -618,8 +649,12 @@ DEBUGCODE
     fprintf(stderr, "global_settings_path: '%s'\n\n", settings.global_settings_path);
   }
 
+  T4K_SetFontName(settings.theme_font_name);
+  LoadLang();
+
   return 1;	
 }
+
 
 
 /* Set the application's icon: */
@@ -627,7 +662,6 @@ DEBUGCODE
 static void seticon(void)
 {
   SDL_Surface* icon;
-  int colorkey;
 
   /* Load icon into a surface: */
   icon = IMG_Load(DATA_PREFIX "/images/icons/icon.png");
@@ -640,20 +674,30 @@ static void seticon(void)
     return;
   }
 
-  /* Set up key for transparency: */
-  colorkey = SDL_MapRGB(icon->format, 255, 0, 255);
-  SDL_SetColorKey(icon, SDL_SRCCOLORKEY, colorkey);              
+  if (window)
+    SDL_SetWindowIcon(window, icon);
 
-  SDL_WM_SetIcon(icon,NULL);
-
-  SDL_FreeSurface(icon);
+  SDL_DestroySurface(icon);
 }
 
 
 void Cleanup(void)
 {
-  SDL_FreeSurface(screen);
-  screen = NULL;
+  if (screen)
+  {
+    SDL_DestroySurface(screen);
+    screen = NULL;
+  }
+  if (renderer)
+  {
+    SDL_DestroyRenderer(renderer);
+    renderer = NULL;
+  }
+  if (window)
+  {
+    SDL_DestroyWindow(window);
+    window = NULL;
+  }
   Cleanup_SDL_Text();
   SDL_Quit();
 }

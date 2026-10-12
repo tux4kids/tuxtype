@@ -187,11 +187,5 @@ msgstr "Kokakola na lóbí la TuxTyping na"
 
 # general stuff
 #, fuzzy
-#~ msgid "Phrase Practice"
-#~ msgstr "Bomíléngeli bwa masakola"
 
-#~ msgid "Alphabet"
-#~ msgstr "Afabɛ́"
 
-#~ msgid "Setup Keyboard"
-#~ msgstr "Bobɔngisi ekomelo"

@@ -157,13 +157,7 @@ msgid "Discuss the future of TuxTyping at"
 msgstr "ടക്സ് ടൈപ്പിന്റെ  ഭാവി ചര്‍ച്ചചെയ്യാനായി ഇവിടെ പോകുക"
 
 #, fuzzy
-#~ msgid "Easy!"
-#~ msgstr "എളുപ്പം"
 
 #, fuzzy
-#~ msgid "Medium!"
-#~ msgstr "ഇടത്തരം"
 
 #, fuzzy
-#~ msgid "Hard!"
-#~ msgstr "ബുദ്ധിമുട്ടുള്ളത്"

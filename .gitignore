@@ -40,6 +40,7 @@ install-sh
 
 # Ignore any untracked files under build/ or buildw32/
 build/
+build-*/
 buildw32/
 
 # But don't ignore crossbuild scripts:
@@ -49,3 +50,15 @@ buildw32/
 
 # Ignore backup files:
 *~
+
+# Generated binaries and dependencies
+src/tuxtype
+src/.deps/
+compile
+po/Makefile.in.in
+po/POTFILES
+nsis/tuxtype.nsi
+fixed-linux
+*.xwd
+*.ppm
+

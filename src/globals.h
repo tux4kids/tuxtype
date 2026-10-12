@@ -26,17 +26,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 
+#ifndef GLOBALS_H
+#define GLOBALS_H
+
 //TTS Parameters
 #define DEFAULT_VALUE 30
 #define INTERRUPT 0
 #define APPEND 1
 
-#ifndef GLOBALS_H
-#define GLOBALS_H
-
 // Autoheader-derived defs in here:
 #include "config.h"
-
 // C library includes:
 #include <string.h>
 #include <wchar.h>
@@ -47,11 +46,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <sys/stat.h>
 #include <dirent.h>
 #include <locale.h>
+#include <ctype.h>
 
-// SDL includes:
-#include "SDL.h"
-#include "SDL_image.h"
-#include "SDL_mixer.h"
+#include "compiler.h"
+
+// SDL & t4kcommon includes:
+#include <SDL3/SDL.h>
+#include <SDL3_image/SDL_image.h>
+#include <SDL3_mixer/SDL_mixer.h>
+#include <t4k_common.h>
 /* NOTE only SDL_extras.c/.h now knows about SDL_ttf or SDL_Pango. */
 
 // Translation stuff: 
@@ -79,7 +82,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // FIXME if we really need these, make them into functions rather than
 // "evil" macros
 #define to_upper(c) (((c) >= 'a' && (c) <= 'z') ? (c) -32 : (c))
-#define COL2RGB( col ) SDL_MapRGB( screen->format, col->r, col->g, col->b )
+#define COL2RGB( col ) SDL_MapSurfaceRGB( T4K_GetScreen(), (col)->r, (col)->g, (col)->b )
 #define MIN(x,y) ((x) < (y) ? (x) : (y))
 #define MAX(x,y) ((x) > (y) ? (x) : (y))
 
@@ -88,6 +91,10 @@ extern SDL_Thread *tts_thread;
 
 //TTS Word announcer Thread
 extern SDL_Thread *tts_announcer_thread;
+
+extern void ToggleTTS(void);
+extern void ToggleBraille(void);
+
 
 #define FNLEN	256
 
@@ -109,6 +116,7 @@ typedef struct game_option_type{
   int braille;
   int tts;
   int tts_volume;
+  int tts_rate;   /* speech rate level: 0=0.5, 1=0.75, 2=1.0, 3=1.25, 4=1.5 */
   int sfx_volume;
   int mus_volume;
   int menu_music;
@@ -147,6 +155,8 @@ extern struct braille_dict braille_key_value_map[100];
 #define DEFAULT_BRAILLE 0
 #define DEFAULT_TTS 0
 #define DEFAULT_TTS_VOLUME 100
+#define DEFAULT_TTS_RATE 2   /* 2 = 1.0x (normal speed) */
+#define NUM_TTS_RATES 5
 #define DEFAULT_SYS_SOUND 1
 #define DEFAULT_SFX_VOLUME 100
 #define DEFAULT_MUS_VOLUME 100
@@ -163,6 +173,8 @@ extern struct braille_dict braille_key_value_map[100];
 /* Goal is to have all global settings here */
 /* FIXME get rid of as much global data as possible, esp. pointers */
 extern game_option_type settings;
+extern SDL_Window* window;
+extern SDL_Renderer* renderer;
 extern SDL_Surface* screen;
 extern SDL_Event  event;
 
@@ -189,6 +201,9 @@ extern int fs_res_y;
  */
 
 #define LOG( str ) if (settings.debug_on) fprintf( stderr, str );
+#ifdef DEBUGCODE
+#undef DEBUGCODE
+#endif
 #define DEBUGCODE if (settings.debug_on) 
 #define DOUT(x) if (settings.debug_on) fprintf(stderr, "%s = %d\n", #x, x);
 
@@ -258,9 +273,6 @@ enum
   PAUSE_WAV,
   NUM_WAVES
 };
-
-
-#endif
 
 extern const int debug_titlescreen;
 
@@ -348,6 +360,8 @@ enum {
 extern int num_lessons;
 extern int* lesson_list_goldstars;
 extern char **lesson_list_titles;
+
+#endif /* GLOBALS_H */
 
 
 

@@ -1,200 +1,111 @@
-# translation of tuxtype.po to Kannada
-# This file is distributed under the same license as the PACKAGE package.
-#
-# Shankar Prasad <svenkate@redhat.com>, 2008.
+# Translation file for TuxType
 msgid ""
 msgstr ""
 "Project-Id-Version: tuxtype\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
-"POT-Creation-Date: 2012-02-02 20:16-0600\n"
-"PO-Revision-Date: 2008-08-27 13:58+0530\n"
-"Last-Translator: Shankar Prasad <svenkate@redhat.com>\n"
-"Language-Team: Kannada <en@li.org>\n"
-"Language: kn\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.4\n"
-"Plural-Forms:  nplurals=2; plural=(n != 1);\n"
 
-#: src/loaders.c:98 src/main.c:161 src/playgame.c:654
-msgid "Fish"
-msgstr "ಮೀನು"
-
-#: src/pause.c:289
-msgid "Sound Effects Volume"
-msgstr "ಶಬ್ಧ ಪರಿಣಾಮಗಳ ವಾಲ್ಯೂಮ್"
-
-#: src/pause.c:298
-msgid "Music Volume"
-msgstr "ಸಂಗೀತದ ವಾಲ್ಯೂಮ್"
-
-#: src/pause.c:309
-msgid "Sound & Music Disabled"
-msgstr "ಶಬ್ಧ ಹಾಗು ಸಂಗೀತವನ್ನು ನಿಷ್ಕ್ರಿಯಗೊಳಿಸಲಾಗಿದೆ"
-
-#: src/pause.c:319
-msgid "Paused!"
-msgstr "ತಾತ್ಕಾಲಿಕ ಸ್ಥಗಿತ!"
-
-#: src/pause.c:328
-msgid "Press escape again to return to menu"
-msgstr "ಮೆನುವಿಗೆ ಹಿಂತಿರುಗಲು ಎಸ್ಕೇಪನ್ನು ಒತ್ತಿ"
-
-#: src/pause.c:337
-msgid "Press space bar to return to game"
-msgstr "ಆಟಕ್ಕೆ ಹಿಂತಿರುಗಲು ಸ್ಪೇಸ್‌ ಬಾರನ್ನು ಒತ್ತಿ"
-
-#: src/playgame.c:652
-msgid "Level"
-msgstr "ಮಟ್ಟ"
-
-#: src/playgame.c:653
-msgid "Lives"
-msgstr "ಜೀವಗಳು"
-
-#: src/playgame.c:656 src/titlescreen.c:99
-msgid "Easy"
-msgstr "ಸುಲಭ"
-
-#: src/playgame.c:657 src/titlescreen.c:100
-msgid "Medium"
-msgstr "ಮಧ್ಯಮ"
-
-#: src/playgame.c:658 src/titlescreen.c:101
-msgid "Hard"
-msgstr "ಕಷ್ಟಕರ"
-
-#: src/playgame.c:659
-msgid "Practice"
-msgstr "ತರಬೇತಿ"
-
-#: src/playgame.c:670
-msgid "Congratulations"
-msgstr "ಶುಭಾಶಯಗಳು"
-
-#: src/playgame.c:674
-msgid "Oh No!"
-msgstr "ಒಹ್ ಇಲ್ಲ!"
-
-#: src/practice.c:626
-msgid "sec"
-msgstr ""
-
-#: src/practice.c:1440
-msgid "Time"
-msgstr ""
-
-#: src/practice.c:1444
-msgid "Chars"
-msgstr ""
-
-#: src/practice.c:1448
-msgid "CPM"
-msgstr ""
-
-#: src/practice.c:1452
-msgid "WPM"
-msgstr ""
-
-#: src/practice.c:1456
-msgid "Errors"
-msgstr ""
-
-#: src/practice.c:1460
-msgid "Accuracy"
-msgstr ""
-
-#: src/titlescreen.c:99
-msgid "Fish Cascade"
-msgstr "ಮೀನಿನ ಕ್ಯಾಸ್ಕೇಡ್"
-
-#: src/titlescreen.c:99
-msgid "Space Cadet"
-msgstr "ಸ್ಪೇಸ್ ಕ್ಯಾಡೆಟ್"
-
-#: src/titlescreen.c:99
-msgid "Edit Word Lists"
-msgstr "ಪದಗಳ ಪಟ್ಟಿಯನ್ನು ಸಂಪಾದಿಸು"
-
-#: src/titlescreen.c:100
-msgid "Comet Zap"
-msgstr "ಧೂಮಕೇತು ಧಾಳಿ"
-
-#: src/titlescreen.c:100
-msgid "Pilot"
-msgstr "ಪೈಲೆಟ್"
-
-#: src/titlescreen.c:100
-msgid "Phrase Typing"
-msgstr ""
-
-#: src/titlescreen.c:101
-msgid "Lessons"
-msgstr "ಪಾಠಗಳು"
-
-#: src/titlescreen.c:101
-msgid "Ace"
-msgstr "ಏಸ್"
-
-#: src/titlescreen.c:101
-msgid "Project Info"
-msgstr "ಪರಿಯೋಜನೆಯ ಮಾಹಿತಿ"
-
-#: src/titlescreen.c:102
-msgid "Options"
-msgstr "ಆಯ್ಕೆಗಳು"
-
-#: src/titlescreen.c:102
-msgid "Instructions"
-msgstr "ಸೂಚನೆಗಳು"
-
-#: src/titlescreen.c:102
-msgid "Commander"
-msgstr "ಕಮಾಂಡರ್"
-
-#: src/titlescreen.c:102
 msgid "Setup Language"
-msgstr "ಸೆಟ್‌ಅಪ್ ಭಾಷೆ"
+msgstr "ಭಾಷೆಯನ್ನು ಹೊಂದಿಸಿ"
 
-#: src/titlescreen.c:103
-msgid "Quit"
-msgstr "ಹೊರನಡೆ"
+msgid "Edit Word Lists"
+msgstr "ಪದಗಳ ಪಟ್ಟಿಯನ್ನು ಸಂಪಾದಿಸಿ"
 
-#: src/titlescreen.c:103
+msgid "Setup Braille Keys"
+msgstr "ಬ್ರೈಲ್ ಕೀಲಿಗಳನ್ನು ಹೊಂದಿಸಿ"
+
 msgid "Main Menu"
 msgstr "ಮುಖ್ಯ ಮೆನು"
 
-#: src/titlescreen.c:1129
-msgid "Work In Progress!"
-msgstr "ಕೆಲಸವು ಪ್ರಗತಿಯಲ್ಲಿದೆ!"
+msgid "Fish Cascade"
+msgstr "ಫಿಶ್ ಕ್ಯಾಸ್ಕೇಡ್"
 
-#: src/titlescreen.c:1130
-msgid "This feature is not ready yet"
-msgstr "ಈ ಸವಲತ್ತು ಇನ್ನೂ ತಯಾರಾಗಿಲ್ಲ"
+msgid "Comet Zap"
+msgstr "ಕಾಮೆಟ್ ಝ್ಯಾಪ್"
 
-#: src/titlescreen.c:1131
-msgid "Discuss the future of TuxTyping at"
-msgstr "TuxTyping ನ ಮುಂದಿನ ಭವಿಷ್ಯವನ್ನು ಇಲ್ಲಿ ಚರ್ಚಿಸಿ"
+msgid "Training"
+msgstr "ತರಬೇತಿ"
 
-#, fuzzy
-#~ msgid "Phrase Practice"
-#~ msgstr "ತರಬೇತಿ"
+msgid "Options"
+msgstr "ಆಯ್ಕೆಗಳು"
 
-#~ msgid "Great!"
-#~ msgstr "ಅದ್ಭುತ!"
+msgid "Project Info"
+msgstr "ಯೋಜನೆಯ ಮಾಹಿತಿ"
 
-#~ msgid "Next letter "
-#~ msgstr "ಮುಂದಿನ ಅಕ್ಷರ "
+msgid "Quit"
+msgstr "ನಿರ್ಗಮಿಸಿ"
 
-#~ msgid "Short Words"
-#~ msgstr "ಚಿಕ್ಕ ಪದಗಳು"
+msgid "Easy"
+msgstr "ಸುಲಭ"
 
-#~ msgid "Medium Words"
-#~ msgstr "ಮಧ್ಯಮ ಪದಗಳು"
+msgid "Medium"
+msgstr "ಮಧ್ಯಮ"
 
-#~ msgid "Long Words"
-#~ msgstr "ಉದ್ದನೆಯ ಪದಗಳು"
+msgid "Hard"
+msgstr "ಕಠಿಣ"
 
-#~ msgid "Alphabet"
-#~ msgstr "ಅಕ್ಷರಮಾಲೆ"
+msgid "Space Cadet"
+msgstr "ಸ್ಪೇಸ್ ಕ್ಯಾಡೆಟ್"
+
+msgid "Pilot"
+msgstr "ಪೈಲಟ್"
+
+msgid "Ace"
+msgstr "ಏಸ್"
+
+msgid "Commander"
+msgstr "ಕಮಾಂಡರ್"
+
+msgid "Basic Lessons"
+msgstr "ಮೂಲ ಪಾಠಗಳು"
+
+msgid "Phrase Typing"
+msgstr "ವಾಕ್ಯ ಟೈಪಿಂಗ್"
+
+msgid "Instructions"
+msgstr "ಸೂಚನೆಗಳು"
+
+msgid "Moderate"
+msgstr "ಮಧ್ಯಮ"
+
+msgid "Hardest"
+msgstr "ಅತ್ಯಂತ ಕಠಿಣ"
+
+msgid "Help Tux eat fish by pressing the letters on the fish"
+msgstr "ಮೀನಿನ ಮೇಲಿನ ಅಕ್ಷರಗಳನ್ನು ಒತ್ತುವ ಮೂಲಕ ಟಕ್ಸ್ ಮೀನು ತಿನ್ನಲು ಸಹಾಯ ಮಾಡಿ"
+
+msgid "Defend the cities from comets by typing letter on them using laser!"
+msgstr "ಲೇಸರ್ ಬಳಸಿ ಅಕ್ಷರಗಳನ್ನು ಟೈಪ್ ಮಾಡುವ ಮೂಲಕ ನಗರಗಳನ್ನು ರಕ್ಷಿಸಿ!"
+
+msgid "Train alphabets and phrase typing"
+msgstr "ಅಕ್ಷರಮಾಲೆ ಮತ್ತು ವಾಕ್ಯ ಟೈಪಿಂಗ್ ಅಭ್ಯಾಸ ಮಾಡಿ"
+
+msgid "Train basic alphabets"
+msgstr "ಮೂಲ ಅಕ್ಷರಮಾಲೆಯನ್ನು ಅಭ್ಯಾಸ ಮಾಡಿ"
+
+msgid "Train typing sentences"
+msgstr "ವಾಕ್ಯಗಳನ್ನು ಟೈಪ್ ಮಾಡಲು ಅಭ್ಯಾಸ ಮಾಡಿ"
+
+msgid "Additional options"
+msgstr "ಹೆಚ್ಚುವರಿ ಆಯ್ಕೆಗಳು"
+
+msgid "Set your language"
+msgstr "ನಿಮ್ಮ ಭಾಷೆಯನ್ನು ಆಯ್ಕೆಮಾಡಿ"
+
+msgid "Add or remove words"
+msgstr "ಪದಗಳನ್ನು ಸೇರಿಸಿ ಅಥವಾ ತೆಗೆದುಹಾಕಿ"
+
+msgid "Choose your own keys for representing braille dots"
+msgstr "ಬ್ರೈಲ್ ಚುಕ್ಕೆಗಳಿಗಾಗಿ ನಿಮ್ಮ ಸ್ವಂತ ಕೀಲಿಗಳನ್ನು ಆಯ್ಕೆಮಾಡಿ"
+
+msgid "See the project info"
+msgstr "ಯೋಜನೆಯ ಮಾಹಿತಿಯನ್ನು ನೋಡಿ"
+
+msgid "Exit to your desktop"
+msgstr "ಡೆಸ್ಕ್‌ಟಾಪ್‌ಗೆ ನಿರ್ಗಮಿಸಿ"
+
+msgid "Return to the main menu"
+msgstr "ಮುಖ್ಯ ಮೆನುಗೆ ಹಿಂತಿರುಗಿ"
+

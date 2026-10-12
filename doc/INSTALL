@@ -3,10 +3,9 @@ Tux Typing 1.8.3
 
 NOTE - this document is reasonably correct but not completely current.
 It will updated as the maintainer's time allows. For GNU/Linux users, you
-need the "*dev" files for the SDL libs listed below, and should have the
-dev file for SDL_Pango if you want to display non-Western text.  TuxType
-will build successfully, but without SDL_Pango support, if this header/lib
-is not found.
+need the "*dev" files for the SDL3 libs listed below.  TuxType requires
+SDL3, SDL3_image, SDL3_mixer, and SDL3_ttf to build.  SDL3_net is
+optional.
 
 Most GNU/Linux users can install Tux Typing with their distribution's 
 package manager (such as apt or yum).  To build from source, you can grab
@@ -25,27 +24,26 @@ Quick Installation
  Tuxtype should compile out of the box if you have a sane tool chain
  and the following SDL libraries:
 
- SDL-1.2.5            http://www.libsdl.org
- SDL_image-1.2.3      http://www.libsdl.org/projects/SDL_image
- SDL_mixer-1.2.5      http://www.libsdl.org/projects/SDL_mixer
+ SDL3                 https://github.com/libsdl-org/SDL
+ SDL3_image           https://github.com/libsdl-org/SDL_image
+ SDL3_mixer           https://github.com/libsdl-org/SDL_mixer
 
- (more recent versions are OK and probably have fewer bugs)
+ SDL3_ttf             https://github.com/libsdl-org/SDL_ttf
 
- And either:
- SDL_ttf-2.0.5        http://www.libsdl.org/projects/SDL_ttf
- or
- SDL_Pango            http://sdlpango.sourceforge.net
+ (Optional):
+ SDL3_net             https://github.com/libsdl-org/SDL_net
 
- SDL_Pango will be used if found as it provides complex rendering needed
- for many non-Western languages. If SDL_Pango is not available, it is necessary to disable use of this library at configure time with "--without-sdlpango".
+ SDL3_ttf provides font rendering (replaces the old SDL_ttf / SDL_Pango
+ choice from SDL 1.2). Complex text rendering for non-Western languages
+ is handled by SDL3_ttf with HarfBuzz/FreeType support.
 
  Tuxtype links to librsvg if available, as we will soon use SVG graphics, but
  for now it is fine to disable this with "--without-rsvg" at configure time.
 
 Notes:
- These libraries in turn have other dependencies (jpeg, tiff, smpeg, ogg,
- freetype, etc.) that your package manager will take care of, unless you
- are building everything by hand.
+ These libraries in turn have other dependencies (jpeg, png, ogg,
+ freetype, harfbuzz, etc.) that your package manager will take care of,
+ unless you are building everything by hand.
 
 
 For most people using Linux:
@@ -70,9 +68,9 @@ This will re-generate the configure script from configure.ac, and all the Makefi
 the corresponding Makefile.am's.  You should not need to do this if you are building from
 a tuxtype*.tar.gz (but will need to do this if building from a Subversion checkout).
 
-Note - if you have SDL_Pango available, you can use the package without bundled fonts (e.g. 
-tuxtype-1.8.1.tar.gz).  The tarball with the bundled fonts, e.g. tuxtype_w_fonts-1.8.1.tar.gz.
-will work fine whether or not SDL_Pango is available.  The unused fonts will simply take up about 2.5 MB on your hard drive.
+Note - the tarball with the bundled fonts, e.g. tuxtype_w_fonts-1.8.1.tar.gz,
+will include fonts for rendering. The unused fonts will simply take up about
+2.5 MB on your hard drive.
 
 We want this to work for everybody, everywhere, if it doesn't
 work for you please contact: tux4kids-tuxtype-dev@lists.alioth.debian.org
@@ -264,7 +262,7 @@ Fedora 31
 
 Install dependencies from repositories
 
-  sudo dnf install librsvg2-devel automake autoconf SDL_ttf-devel ImageMagick desktop-file-utils SDL-devel SDL_image-devel SDL_mixer-devel SDL_Pango-devel gettext-devel SDL_net-devel
+  sudo dnf install librsvg2-devel automake autoconf SDL3_ttf-devel ImageMagick desktop-file-utils SDL3-devel SDL3_image-devel SDL3_mixer-devel gettext-devel SDL3_net-devel
 
 
 Get and install common files

@@ -54,18 +54,18 @@ void playsound(int snd)
 // play sound with optional repeats, or -1 for infinite
 void PlaySoundLoop(Mix_Chunk* snd, int loops)
 {
-  if(!snd)
+  if (!snd)
     return;
   if (!settings.sys_sound)
     return;
 
-  Mix_PlayChannel(-1, snd, loops);
+  T4K_PlaySoundLoop(snd, loops);
 }
 
 // halt a channel or -1 for all
 void audioHaltChannel(int channel)
 {
-    Mix_HaltChannel(channel);
+    T4K_AudioHaltChannel(channel);
 }
 
 /* MusicLoad attempts to load and play the music file 
@@ -73,19 +73,10 @@ void audioHaltChannel(int channel)
  */
 void MusicLoad(const char* musicFilename, int loops)
 {
-  Mix_Music* tmp_music = NULL;
-
   if (!settings.sys_sound) return;
   if (!musicFilename) return;
 
-  tmp_music = LoadMusic(musicFilename);
-
-  if (tmp_music)
-  {
-    MusicUnload(); //Unload previous defaultMusic
-    defaultMusic = tmp_music;
-    Mix_PlayMusic(defaultMusic, loops);
-  }
+  T4K_AudioMusicLoad((char*)musicFilename, loops);
 }
 
 
@@ -96,11 +87,7 @@ void MusicUnload(void)
 {
   if (!settings.sys_sound) return;
 
-  if (defaultMusic)
-  {
-    Mix_FreeMusic(defaultMusic);
-    defaultMusic = NULL;
-  }
+  T4K_AudioMusicUnload();
 }
 
 
@@ -114,7 +101,5 @@ void MusicPlay(Mix_Music* musicData, int loops)
   if (!settings.sys_sound) return;
   if (!musicData) return;
 
-  /* Stop previous music before playing new one: */
-  MusicUnload();	
-  Mix_PlayMusic(musicData, loops);
+  T4K_AudioMusicPlay(musicData, loops);
 }

@@ -28,6 +28,28 @@
 </page>
   <page>
     <text size="14" align="center"></text>
+    <text size="24" align="center" color="#ffdf00">SDL3 Edition & Accessibility Info</text>
+    <text size="14" align="center">Developed under Zendalona (https://zendalona.com/)</text>
+    <text size="8" align="center"></text>
+    <text size="16" align="center">Midhun M (mmidhun781@gmail.com)</text>
+    <text size="14" align="center">SDL3 migration, TTS Toggle (F5), Braille Toggle (F9), Cross-platform Builds</text>
+    <text size="8" align="center"></text>
+    <text size="16" align="center">Bholu Kumar D (bholukumar3352@gmail.com)</text>
+    <text size="14" align="center">SDL3 migration co-developer, TTS Toggle (F5), Braille Toggle (F9)</text>
+    <text size="8" align="center"></text>
+    <text size="16" align="center">Mentored by:</text>
+    <text size="14" align="center">Nalin Sathyan (Nalin.x.Linux@gmail.com) - Founder, Zendalona</text>
+    <text size="14" align="center">Mukundhan Annamalai</text>
+    <text size="14" align="center">Deepak Aggarwal (deepak.aggarwal9@gmail.com)</text>
+    <text size="8" align="center"></text>
+    <text size="16" align="center">Testers:</text>
+    <text size="14" align="center">Bholu Kumar D, Haritha D, Dharshin R</text>
+    <text size="8" align="center"></text>
+    <text size="22" align="center" color="#000000">Hit SPACE to CONTINUE!!!</text>
+  <waitforinput/>
+  </page>
+  <page>
+    <text size="14" align="center"></text>
     <text size="24" align="center">Scripting How-to</text>
     <text size="14" align="center">Some one please insert one here and send it to:</text>
     <text size="14" align="center">carndt@macksrecycling.com</text>
