@@ -56,6 +56,9 @@ int main(int argc, char *argv[])
     return 0;
   }  
   LoadSettings();    // Second, read saved any saved settings
+  // If no language was saved, take it from the locale (LANG, LC_ALL...):
+  if (!settings.lang[0])
+    SetupLangFromEnv();
 
   // Third, check command line args as these should override saved settings
   if (argc > 1) /* FIXME this could go into something like HandleCommandArgs() */

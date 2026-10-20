@@ -30,6 +30,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "funcs.h"
 #include "SDL_extras.h"
 
+#include <dirent.h>
+
 
 int fs_res_x = 0;
 int fs_res_y = 0;
@@ -260,6 +262,103 @@ void LoadSettings(void)
 
 
 
+/* Theme chosen automatically from the locale environment (not by the user): */
+static char auto_theme[FNLEN] = "";
+
+/* Fill 'lang' (e.g. "ru") and 'full' (e.g. "ru_RU") from the first set of */
+/* LC_ALL, LC_MESSAGES, LANG (a "C", "POSIX" or empty value is skipped).    */
+static int get_env_locale(char* lang, char* full, size_t len)
+{
+  const char* names[] = {"LC_ALL", "LC_MESSAGES", "LANG"};
+  size_t i, n;
+
+  for (i = 0; i < sizeof(names) / sizeof(names[0]); i++)
+  {
+    const char* v = getenv(names[i]);
+
+    if (!v || !*v)
+      continue;
+    if (strcmp(v, "C") == 0 || strcmp(v, "POSIX") == 0)
+      return 0;
+
+    n = strcspn(v, ".@");   /* "ru_RU.UTF-8" -> "ru_RU" */
+    if (n >= len)
+      return 0;
+    memcpy(full, v, n);
+    full[n] = '\0';
+    n = strcspn(full, "_");
+    memcpy(lang, full, n);
+    lang[n] = '\0';
+    return 1;
+  }
+  return 0;
+}
+
+
+/* If there is no saved language, select the theme matching the locale     */
+/* (LANG etc.): look through themes/NAME/settings.txt for a matching       */
+/* theme_locale_name. Returns 1 if a theme was set up.                     */
+int SetupLangFromEnv(void)
+{
+  char lang[FNLEN], full[FNLEN], dirname[FNLEN], best[FNLEN] = "", name[FNLEN];
+  struct dirent* de;
+  DIR* d;
+  int best_exact = 0;
+
+  if (!get_env_locale(lang, full, sizeof(lang)) || strcmp(lang, "en") == 0)
+    return 0;
+
+  snprintf(dirname, FNLEN - 1, "%s/themes", settings.default_data_path);
+  d = opendir(dirname);
+  if (!d)
+    return 0;
+
+  while ((de = readdir(d)) != NULL)
+  {
+    char fn[FNLEN * 2], line[FNLEN * 2], tlang[FNLEN], tfull[FNLEN];
+    FILE* fp;
+
+    if (de->d_name[0] == '.' || strlen(de->d_name) >= FNLEN)
+      continue;
+    snprintf(fn, sizeof(fn), "%s/%s/settings.txt", dirname, de->d_name);
+    fp = fopen(fn, "r");
+    if (!fp)
+      continue;
+    while (fgets(line, sizeof(line), fp))
+    {
+      if (strncmp(line, "theme_locale_name=", 18) != 0)
+        continue;
+      line[strcspn(line, "\r\n")] = '\0';
+      snprintf(name, FNLEN, "%s", line + 18);
+      snprintf(tfull, FNLEN, "%.*s", (int)strcspn(name, ".@"), name);
+      snprintf(tlang, FNLEN, "%.*s", (int)strcspn(tfull, "_"), tfull);
+      if (strcmp(tfull, full) == 0)
+      {
+        snprintf(best, FNLEN, "%s", de->d_name);
+        best_exact = 1;
+      }
+      else if (strcmp(tlang, lang) == 0 && !best_exact && !best[0])
+        snprintf(best, FNLEN, "%s", de->d_name);
+      break;
+    }
+    fclose(fp);
+    if (best_exact)
+      break;
+  }
+  closedir(d);
+
+  if (!best[0])
+    return 0;
+
+  DEBUGCODE {fprintf(stderr, "SetupLangFromEnv: locale %s -> theme %s\n", full, best);}
+  SetupPaths(best);
+  if (settings.use_english)
+    return 0;
+  snprintf(auto_theme, FNLEN, "%s", best);
+  return 1;
+}
+
+
 /* Load the settings if given the complete pathname to the settings file.  Returns 1 if
    able to call load_settings_fp() successfully on named file.
  */
@@ -422,7 +521,13 @@ void SaveSettings(void)
 //NOTE for now, don't save theme because things get screwed up if the language
 // doesn't match the LANG environmental variable - DSB
 // MDTTEMP: uncommented the following 2 lines
-	if (strncmp(settings.theme_name, "", FNLEN) != 0)
+	/* A theme chosen automatically from LANG is not saved (the system language can change), */
+	/* but the user's choice of another theme (or English) is:                              */
+	if (auto_theme[0] && strncmp(settings.theme_name, auto_theme, FNLEN) == 0)
+		;
+	else if (auto_theme[0] && strncmp(settings.theme_name, "", FNLEN) == 0)
+		fprintf( settingsFile, "lang=english\n" );
+	else if (strncmp(settings.theme_name, "", FNLEN) != 0)
 		fprintf( settingsFile, "lang=%s\n", settings.theme_name );
 	if (settings.o_lives > 9)
 		fprintf( settingsFile, "o_lives=%d\n", settings.o_lives );

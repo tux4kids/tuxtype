@@ -111,6 +111,7 @@ void LibInit(Uint32 lib_flags);
 void LoadSettings(void);
 void SaveSettings(void);
 int SetupPaths(const char* theme_dir);
+int SetupLangFromEnv(void);
 void Cleanup(void);
 
 /* In theme.c: */
