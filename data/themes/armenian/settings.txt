@@ -1,1 +1,1 @@
-theme_locale_name=ar_IN
+theme_locale_name=hy_AM.UTF-8
