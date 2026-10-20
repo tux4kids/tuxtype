@@ -421,6 +421,13 @@ int PlayCascade(int diflevel)
 					key_unicode -= 32; //same for non-US Western European chars
 					if ((key_unicode >= 256) && (key_unicode <= 382))  // Fix for other letters, such as the hungarian letter O with double acute
 						key_unicode -= 1;
+					/* Cyrillic: a-ya -> A-YA, io..dzhe (incl. yo, ukrainian ye, i, yi) -> capital */
+					if (key_unicode >= 0x430 && key_unicode <= 0x44F)
+						key_unicode -= 32;
+					else if (key_unicode >= 0x450 && key_unicode <= 0x45F)
+						key_unicode -= 80;
+					else if (((key_unicode >= 0x490 && key_unicode <= 0x4BF) || (key_unicode >= 0x4D0 && key_unicode <= 0x4FF)) && (key_unicode & 1)) // ghe with upturn and others
+						key_unicode -= 1;
 					LOG ("After checking for lower case:\n");
 					DEBUGCODE
 					{fprintf(stderr, "key_unicode = %d\twchar_t = %lc\\n\n", key_unicode, key_unicode);}
