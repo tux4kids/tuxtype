@@ -88,6 +88,15 @@ tuxtype_SOURCES = 	\
 
 TuxType_SOURCES  = $(tuxtype_SOURCES)
 
+if !BUILD_MINGW32
+check_PROGRAMS = test-editor
+TESTS = test-editor
+test_editor_SOURCES = test_editor.c
+test_editor_CPPFLAGS = $(AM_CPPFLAGS) -DTEST_DATA_DIR=\"$(abs_top_srcdir)/data\"
+test_editor_LDADD = $(tuxtype_OBJECTS:main.$(OBJEXT)=) $(LDADD)
+test_editor_DEPENDENCIES = $(tuxtype_OBJECTS:main.$(OBJEXT)=)
+endif
+
 # The rc file has something to do with the icon in Windows, IIRC
 #TuxType_SOURCES  = $(tuxtype_SOURCES) tuxtyperc.rc
 

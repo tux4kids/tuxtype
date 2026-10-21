@@ -34,6 +34,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "SDL_image.h"
 #include "convert_utf.h"
 #include "editor.h"
+#include <wctype.h>
 
 
 void ChooseListToEdit(void)
@@ -844,7 +845,7 @@ void EditWordList(char* words_file)
             if (len < MAX_WORD_SIZE - 1)
             {
               // Add the character to the end of the existing string
-              temp[len] = toupper(event.key.keysym.unicode);
+              temp[len] = towupper(event.key.keysym.unicode);
               temp[len + 1] = 0;
               ConvertToUTF8(temp, words_in_list[loc + 1], MAX_WORD_SIZE);
 
@@ -1126,7 +1127,7 @@ int CreateNewWordList(void)
             if (len < MAX_WORD_SIZE)
             {
               // adds a character to the end of existing string
-              temp[len] = toupper(event.key.keysym.unicode);
+              temp[len] = towupper(event.key.keysym.unicode);
               temp[len + 1] = 0;
             }
             len = ConvertToUTF8(temp, wordlist, MAX_WORD_SIZE);
