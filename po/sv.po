@@ -1,28 +1,29 @@
-# Svenska strängar för TuxType 2
+# Svensk översättning av Tux Typing
 # Copyright © 2003, 2008 Free Software Foundation, Inc.
 # Mobin M <mobinmohan@gmail.com>, 2008
-# Göran Uddeborg <goeran@uddeborg.se>, 2003. 2008
+# Göran Uddeborg <goeran@uddeborg.se>, 2003, 2008
+# Jonatan Nyberg, 2026.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: tuxtype2\n"
+"Project-Id-Version: tuxtype 1.8.3\n"
 "Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
 "POT-Creation-Date: 2012-02-02 20:16-0600\n"
-"PO-Revision-Date: 2008-12-02 19:51+0100\n"
-"Last-Translator: Göran Uddeborg <goeran@uddeborg.se>\n"
+"PO-Revision-Date: 2026-11-21 10:48+0200\n"
+"Last-Translator: Jonatan Nyberg <84130654+NickWick13@users.noreply.github.com>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/loaders.c:98 src/main.c:161 src/playgame.c:654
+#: src/loaders.c:99 src/main.c:185 src/playgame.c:781
 msgid "Fish"
-msgstr "Fisk"
+msgstr "Fiskar"
 
 #: src/pause.c:289
 msgid "Sound Effects Volume"
-msgstr "Ljudeffektvolym"
+msgstr "Volym för ljudeffekter"
 
 #: src/pause.c:298
 msgid "Music Volume"
@@ -30,144 +31,144 @@ msgstr "Musikvolym"
 
 #: src/pause.c:309
 msgid "Sound & Music Disabled"
-msgstr "Ljud och musik avaktiverade"
+msgstr "Ljud och musik är avstängda"
 
 #: src/pause.c:319
 msgid "Paused!"
-msgstr "Pausat!"
+msgstr "Paus!"
 
 #: src/pause.c:328
 msgid "Press escape again to return to menu"
-msgstr "Tryck escape igen för att komma tillbaka till menyn"
+msgstr "Tryck på Esc igen för att gå tillbaka till menyn."
 
 #: src/pause.c:337
 msgid "Press space bar to return to game"
-msgstr "Tryck mellanslag för att fortsätta spela"
+msgstr "Tryck på mellanslag för att fortsätta spela."
 
-#: src/playgame.c:652
+#: src/playgame.c:779
 msgid "Level"
 msgstr "Nivå"
 
-#: src/playgame.c:653
+#: src/playgame.c:780
 msgid "Lives"
 msgstr "Liv"
 
 # levels for Cascade game:
-#: src/playgame.c:656 src/titlescreen.c:99
+#: src/playgame.c:783 data/menus/menu_strings:5 data/menus/menu_strings:26
 msgid "Easy"
 msgstr "Lätt"
 
-#: src/playgame.c:657 src/titlescreen.c:100
+#: src/playgame.c:784 data/menus/menu_strings:11
 msgid "Medium"
-msgstr "Mellan"
+msgstr "Medelsvår"
 
-#: src/playgame.c:658 src/titlescreen.c:101
+#: src/playgame.c:785 data/menus/menu_strings:8 data/menus/menu_strings:28
 msgid "Hard"
-msgstr "Svårt"
+msgstr "Svår"
 
 # general stuff
-#: src/playgame.c:659
+#: src/playgame.c:786
 msgid "Practice"
 msgstr "Övning"
 
-#: src/playgame.c:670
+#: src/playgame.c:797
 msgid "Congratulations"
-msgstr "Gratulerar"
+msgstr "Grattis!"
 
-#: src/playgame.c:674
+#: src/playgame.c:801
 msgid "Oh No!"
 msgstr "Åh nej!"
 
-#: src/practice.c:626
+#: src/practice.c:717
 msgid "sec"
-msgstr ""
+msgstr "s"
 
-#: src/practice.c:1440
+#: src/practice.c:1632
 msgid "Time"
-msgstr ""
+msgstr "Tid"
 
-#: src/practice.c:1444
+#: src/practice.c:1636
 msgid "Chars"
-msgstr ""
+msgstr "Tecken"
 
-#: src/practice.c:1448
+#: src/practice.c:1640
 msgid "CPM"
-msgstr ""
+msgstr "Tecken/min"
 
-#: src/practice.c:1452
+#: src/practice.c:1644
 msgid "WPM"
-msgstr ""
+msgstr "Ord/min"
 
-#: src/practice.c:1456
+#: src/practice.c:1648
 msgid "Errors"
-msgstr ""
+msgstr "Fel"
 
-#: src/practice.c:1460
+#: src/practice.c:1652
 msgid "Accuracy"
-msgstr ""
+msgstr "Andel rätt"
 
-#: src/titlescreen.c:99
+#: data/menus/menu_strings:7
 msgid "Fish Cascade"
 msgstr "Fiskregn"
 
 # "Space Cadet" is level 1 in comet zap
-#: src/titlescreen.c:99
+#: data/menus/menu_strings:19
 msgid "Space Cadet"
 msgstr "Rymdkadett"
 
-#: src/titlescreen.c:99
+#: data/menus/menu_strings:6
 msgid "Edit Word Lists"
-msgstr "Redigera ordlista"
+msgstr "Redigera ordlistor"
 
 # types of games
-#: src/titlescreen.c:100
+#: data/menus/menu_strings:3
 msgid "Comet Zap"
 msgstr "Pricka kometer"
 
 # "Pilot" is level 2 in comet zap
-#: src/titlescreen.c:100
+#: data/menus/menu_strings:14
 msgid "Pilot"
 msgstr "Pilot"
 
-#: src/titlescreen.c:100
+#: data/menus/menu_strings:13
 msgid "Phrase Typing"
-msgstr ""
+msgstr "Skriv meningar"
 
 #: src/titlescreen.c:101
 msgid "Lessons"
 msgstr "Lektioner"
 
 # "Ace" is level 3 in comet zap
-#: src/titlescreen.c:101
+#: data/menus/menu_strings:1
 msgid "Ace"
 msgstr "Flygaress"
 
-#: src/titlescreen.c:101
+#: data/menus/menu_strings:15
 msgid "Project Info"
-msgstr "Projektinformation"
+msgstr "Om projektet"
 
-#: src/titlescreen.c:102
+#: data/menus/menu_strings:12
 msgid "Options"
 msgstr "Inställningar"
 
-#: src/titlescreen.c:102
+#: data/menus/menu_strings:9
 msgid "Instructions"
 msgstr "Instruktioner"
 
 # "Commander" is level 4 in comet zap
-#: src/titlescreen.c:102
+#: data/menus/menu_strings:4
 msgid "Commander"
 msgstr "Kommendör"
 
-#: src/titlescreen.c:102
+#: data/menus/menu_strings:18
 msgid "Setup Language"
-msgstr "Ställ in språk"
+msgstr "Välj språk"
 
-#: src/titlescreen.c:103
+#: data/menus/menu_strings:16
 msgid "Quit"
 msgstr "Avsluta"
 
-#: src/titlescreen.c:103
+#: data/menus/menu_strings:10
 msgid "Main Menu"
 msgstr "Huvudmeny"
 
@@ -178,11 +179,301 @@ msgstr "Arbete pågår!"
 
 #: src/titlescreen.c:1130
 msgid "This feature is not ready yet"
-msgstr "Denna funktion är inte färdig än"
+msgstr "Den här funktionen är inte klar än."
 
 #: src/titlescreen.c:1131
 msgid "Discuss the future of TuxTyping at"
-msgstr "Diskutera TyxeTypes framtid på"
+msgstr "Diskutera framtiden för Tux Typing på"
+
+#: src/editor.c:159
+msgid "Word List Editor"
+msgstr "Ordlistredigerare"
+
+#: src/editor.c:160
+msgid "To add a new word list, click the 'NEW' button"
+msgstr "Klicka på NY för att skapa en ordlista."
+
+#: src/editor.c:161
+msgid ""
+"To remove a word list, select the wordlist with the arrow buttons, then "
+"click the 'REMOVE' button or the 'DELETE' key"
+msgstr ""
+"Välj en ordlista med piltangenterna och klicka på TA BORT eller tryck på "
+"Backsteg."
+
+#: src/editor.c:162
+msgid ""
+"To edit a word list, select the wordlist with the arrow buttons, then press "
+"the 'RETURN' key"
+msgstr ""
+"Välj en ordlista med piltangenterna och tryck på Enter för att redigera den."
+
+#: src/editor.c:163
+msgid ""
+"To exit Word List Editor, press the 'ESC' key, or click on the 'DONE' button"
+msgstr "Tryck på Esc eller klicka på KLAR för att avsluta."
+
+#: src/editor.c:165
+msgid "WWWWWWWWW"
+msgstr "WWWWWWWWW"
+
+#: src/editor.c:167
+msgid "NEW"
+msgstr "NY"
+
+#: src/editor.c:168
+msgid "DONE"
+msgstr "KLAR"
+
+#: src/editor.c:169
+msgid "REMOVE"
+msgstr "TA BORT"
+
+#: src/editor.c:579
+msgid "Word List Editor:"
+msgstr "Ordlistredigerare:"
+
+#: src/editor.c:582
+msgid "To add a word, press 'RETURN' and start typing"
+msgstr "Tryck på Enter och skriv ett nytt ord."
+
+#: src/editor.c:583
+msgid ""
+"To edit a word, select the word using the arrow buttons and continue typing"
+msgstr ""
+"Välj ett ord med piltangenterna och fortsätt skriva för att ändra det."
+
+#: src/editor.c:584
+msgid ""
+"To delete a character, select the word you want to edit and press the "
+"'DELETE' key"
+msgstr "Välj ett ord och tryck på Backsteg för att ta bort det sista tecknet."
+
+#: src/editor.c:585
+msgid "To exit and save the word list, press 'ESC'"
+msgstr "Tryck på Esc för att spara ordlistan och avsluta."
+
+#: src/editor.c:1005 src/editor.c:1247
+msgid "OK"
+msgstr "OK"
+
+#: src/editor.c:1006
+msgid "CANCEL"
+msgstr "AVBRYT"
+
+#: src/editor.c:1009
+msgid "Create a New Wordlist"
+msgstr "Skapa en ny ordlista"
+
+#: src/editor.c:1010
+msgid "Type the name of your new wordlist and press 'ok' or 'RETURN' to save"
+msgstr ""
+"Skriv ett namn på ordlistan. Klicka på OK eller tryck på Enter för att "
+"spara."
+
+#: src/editor.c:1248
+msgid "NEVERMIND"
+msgstr "AVBRYT"
+
+#: src/editor.c:1253
+msgid "Do you want to delete this wordlist:"
+msgstr "Vill du ta bort den här ordlistan?"
+
+#: src/input_methods.c:86
+msgid "English"
+msgstr "Engelska"
+
+#: src/input_methods.c:89
+msgid "Hiragana"
+msgstr "Hiragana"
+
+#: src/input_methods.c:92
+msgid "Katakana"
+msgstr "Katakana"
+
+#: src/input_methods.c:95
+msgid "Hangul"
+msgstr "Hangul"
+
+#: src/input_methods.c:98
+msgid "Thai"
+msgstr "Thailändska"
+
+#: src/input_methods.c:101
+msgid "ZH_TW"
+msgstr "Traditionell kinesiska"
+
+#: src/laser.c:557
+#, c-format
+msgid "Score %d"
+msgstr "Du har %d poäng."
+
+#: src/laser.c:612
+#, c-format
+msgid "yep you miss it. hahh hahh haa. game over! you scored %d goodbye!"
+msgstr "Åh nej, du missade! Spelet är slut. Du fick %d poäng. Hej då!"
+
+#: src/laser.c:756
+msgid "Game Paused!"
+msgstr "Spelet är pausat!"
+
+#: src/laser.c:759 src/playgame.c:375
+msgid "Pause Released!"
+msgstr "Spelet fortsätter!"
+
+#: src/loaders.c:124
+msgid "Braille mode is not available for this language. Braille disabled!"
+msgstr ""
+"Spelet saknar stöd för punktskrift på det här språket. Punktskriftsläget har"
+" stängts av."
+
+#: src/loaders.c:136
+msgid "Tts is not available for this language. Tts disabled!"
+msgstr ""
+"Talsyntesen har stängts av eftersom den inte är tillgänglig för det här "
+"språket."
+
+#: src/playgame.c:363
+msgid "Game Paused."
+msgstr "Spelet är pausat."
+
+#: src/playgame.c:562
+#, c-format
+msgid "Congratulation! Welcome to level %d!"
+msgstr "Grattis! Välkommen till nivå %d!"
+
+#: src/playgame.c:572
+msgid "Congratulations! Thank you! please wait till it return to main menu."
+msgstr "Grattis och tack för att du spelade! Huvudmenyn visas strax."
+
+#: src/playgame.c:595
+msgid "yep you miss it. hahh hahh haa. game over! goodbye!"
+msgstr "Åh nej, du missade! Spelet är slut. Hej då!"
+
+#: src/practice.c:866
+#, c-format
+msgid ""
+"Wow. you completed sentence with %s characters in \t\t\t      %s time, your "
+"speed is %s word per minut and \t\t\t      percentage of accuracy is %s"
+msgstr ""
+"Bra jobbat! Du skrev %s tecken på %s. Din hastighet var %s ord per minut och"
+" du hade %s rätt."
+
+#: src/practice.c:1786
+msgid "comma"
+msgstr "kommatecken"
+
+#: src/practice.c:1790
+msgid "full stop"
+msgstr "punkt"
+
+#: src/practice.c:1794
+msgid "apostophe"
+msgstr "apostrof"
+
+#: src/practice.c:1798
+msgid "semicolon"
+msgstr "semikolon"
+
+#: src/practice.c:1802
+msgid "colon"
+msgstr "kolon"
+
+#: src/practice.c:1806
+msgid "Qustion mark"
+msgstr "frågetecken"
+
+#: src/practice.c:1810
+msgid "Hyphen"
+msgstr "bindestreck"
+
+#: src/titlescreen.c:531
+msgid ""
+"Work In Progress!\n"
+"This feature is not ready yet\n"
+"Discuss the future of TuxMath at\n"
+"tuxmath-devel@lists.sourceforge.net"
+msgstr ""
+"Arbete pågår!\n"
+"Den här funktionen är inte klar än.\n"
+"Diskutera framtiden för TuxMath på\n"
+"tuxmath-devel@lists.sourceforge.net"
+
+#: src/titlescreen.c:1266
+msgid "WAVE"
+msgstr "VÅG"
+
+#: src/titlescreen.c:1268
+msgid "SCORE"
+msgstr "POÄNG"
+
+#: data/menus/menu_strings:2
+msgid "Basic Lessons"
+msgstr "Grundövningar"
+
+#: data/menus/menu_strings:17
+msgid "Setup Braille Keys"
+msgstr "Välj tangenter för punktskrift"
+
+#: data/menus/menu_strings:20
+msgid "Training"
+msgstr "Träning"
+
+#: data/menus/menu_strings:22
+msgid "Additional options"
+msgstr "Fler inställningar"
+
+#: data/menus/menu_strings:23
+msgid "Add or remove words"
+msgstr "Lägg till eller ta bort ord"
+
+#: data/menus/menu_strings:24
+msgid "Choose your own keys for representing braille dots"
+msgstr "Välj vilka tangenter som ska motsvara punkterna i punktskriften."
+
+#: data/menus/menu_strings:25
+msgid "Defend the cities from comets by typing letter on them using laser!"
+msgstr "Rädda städerna! Skriv bokstäverna på kometerna för att avfyra lasern."
+
+#: data/menus/menu_strings:27
+msgid "Exit to your desktop"
+msgstr "Avsluta spelet och gå tillbaka till skrivbordet."
+
+#: data/menus/menu_strings:29
+msgid "Hardest"
+msgstr "Svårast"
+
+#: data/menus/menu_strings:30
+msgid "Help Tux eat fish by pressing the letters on the fish"
+msgstr "Skriv bokstäverna på fiskarna så att Tux kan äta dem."
+
+#: data/menus/menu_strings:31
+msgid "Moderate"
+msgstr "Medelsvår"
+
+#: data/menus/menu_strings:32
+msgid "Return to the main menu"
+msgstr "Gå tillbaka till huvudmenyn"
+
+#: data/menus/menu_strings:33
+msgid "See the project info"
+msgstr "Läs om projektet"
+
+#: data/menus/menu_strings:34
+msgid "Set your language"
+msgstr "Välj vilket språk du vill använda"
+
+#: data/menus/menu_strings:35
+msgid "Train alphabets and phrase typing"
+msgstr "Öva på att skriva bokstäver och meningar"
+
+#: data/menus/menu_strings:36
+msgid "Train basic alphabets"
+msgstr "Öva på att skriva bokstäver"
+
+#: data/menus/menu_strings:37
+msgid "Train typing sentences"
+msgstr "Öva på att skriva meningar"
 
 # general stuff
 #, fuzzy
